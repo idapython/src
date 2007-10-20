@@ -1,0 +1,72 @@
+Status of the IDC wrapper
+-------------------------
+
+6 function unimplemented out of 434 (98% coverage):
+
+rotate_left
+XRefType
+SetMemberType
+GetType
+GuessType
+SetType
+
+
+Status of IDA API wrappers
+--------------------------
+
+COMPLETE:   all possible functions wrapped, no SWIG ifdefs
+INCOMPLETE: some wrapping or SWIG ifdefs still left
+EXCLUDED:   will not be wrapped
+
+allins.hpp    - COMPLETE
+area.hpp      - INCOMPLETE (SWIGdefs left)
+auto.hpp      - COMPLETE
+bytes.hpp     - INCOMPLETE (no SWIGs, some unwrapped)
+compress.hpp  - EXCLUDED
+dbg.hpp       - INCOMPLETE (SWIGs and lot of fixing to do)
+demangle.hpp  - EXCLUDED
+diskio.hpp    - INCOMPLETE (no SWIGs, some unwrapped)
+entry.hpp     - COMPLETE
+enum.hpp      - INCOMPLETE (no SWIGs, one FIXME)
+err.h         - EXCLUDED
+exehdr.h      - EXCLUDED
+expr.hpp      - INCOMPLETE (wrapped, needs testing)
+fixup.hpp     - COMPLETE
+fpro.h        - EXCLUDED
+frame.hpp     - COMPLETE
+funcs.hpp     - INCOMPLETE (some SWIGs, few FIXMEs)
+gdl.hpp       - EXCLUDED
+graph.hpp     - EXCLUDED
+help.h        - EXCLUDED
+ida.hpp       - INCOMPLETE (SWIGs)
+idd.hpp       - INCOMPLETE (SWIGs)
+idp.hpp       - INCOMPLETE (SWIGs)
+ieee.h        - EXCLUDED
+intel.hpp     - EXCLUDED
+ints.hpp      - INCOMPLETE (SWIGs)
+kernwin.hpp   - INCOMPLETE (SWIGs and lot of fixing to do)
+lex.hpp       - EXCLUDED
+lines.hpp     - INCOMPLETE (few FIXMEs)
+llong.hpp     - EXCLUDED
+loader.hpp    - INCOMPLETE (few FIXMEs)
+md5.h         - EXCLUDED
+moves.hpp     - COMPLETE (some needed SWIGs)
+nalt.hpp      - INCOMPLETE (SWIGs and lot of fixing to do)
+name.hpp      - INCOMPLETE (few FIXMEs)
+netnode.hpp   - INCOMPLETE (not wrapped at all)
+offset.hpp    - COMPLETE
+prodir.h      - EXCLUDED
+pro.h         - COMPLETE (some needed SWIGs)
+queue.hpp     - INCOMPLETE (one FIXME)
+regex.h       - EXCLUDED
+search.hpp    - INCOMPLETE (one FIXME)
+segment.hpp   - INCOMPLETE (no SWIGs, few FIXMEs)
+sistack.hpp   - EXCLUDED
+srarea.hpp    - INCOMPLETE (not wrapped at all)
+strlist.hpp   - COMPLETE
+struct.hpp    - COMPLETE
+typeinf.hpp   - INCOMPLETE (no SWIGs, lot of fixing to do)
+ua.hpp        - INCOMPLETE (SWIGs and lot of fixing to do)
+va.hpp        - EXCLUDED
+vm.hpp        - EXCLUDED
+xref.hpp      - COMPLETE

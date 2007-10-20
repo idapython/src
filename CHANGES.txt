@@ -1,0 +1,72 @@
+Changes from version 0.9.0 to 0.9.53
+------------------------------------
+
+- Upgraded IDA Pro base version to 5.1
+- Experimental Mac OS X support
+- Improved IDC  coverage
+- Cleanups and fixes 
+
+
+Changes from version 0.8.0 to 0.9.0
+-----------------------------------
+
+- Upgraded base version to IDA Pro 5.0
+- Works with IDA Pro 5.1
+- Python 2.4 and 2.5 supported
+- Close to complete IDC compatbility layer (in sync with 4.9)
+- Significatnly improved  IDA SDK API covergage (see STATUS.txt for details)
+- IDA SDK patch size reduced to less than half
+- Simplified installation (plugins.cfg modification not needed)
+- Evaluation window content is saved over IDA restarts (in the database)
+- Windows version is built with Microsoft Visual C++ Express Edition
+- Build makefile replaced with a Python script
+- Cleanups and small fixes
+
+
+Changes from version 0.7.0 to 0.8.0
+-----------------------------------
+
+- Added support for IDA Pro 4.9
+- Dropped support for IDA Pro 4.7
+- NOTE: Windows version is linked against Python 2.4.
+- New wrappers: search.hpp, dbg.hpp, loader.hpp, diskio.hpp, nalt.hpp
+- idc.py synced up to IDA 4.8
+- Added 38 IDC functions
+- Fixed asklong(), askseg() and askaddr()
+- Automatically generated cross reference documentation (epydoc)
+- User-specific init file support (see README,txt)
+- Deprecated some functions that have direct Python equivalents (see idc.py)
+- Fixed exception in ScriptBox when invoked empty.
+- Lots of cleanups and small fixes
+
+
+Changes from version 0.6.0 to 0.7.0
+-----------------------------------
+- Batch execution support (use the option -OIDAPython:yourscript.py)
+- Added ScriptBox - lists previously run scripts (Hotkey:Alt-7)
+- Added support for IDA Pro 4.8 (both Linux and Windows)
+- Dropped support for IDA Pro 4.6 and 4.6SP1 versions
+- Wrapped the list chooser (see examples/choose.py)
+- A dozen or so IDC functions added
+- Lots of char * API calls wrapped
+- Added Python error handling in the plugin C layer
+- Bunch of misc small cleanups and fixes
+- For more details see CHANGES-SWIG.txt and CHANGES-Plugin.txt
+
+- API CHANGE: {Next|Prev}Function() return BADADDR instead of -1
+
+
+Changes from version 0.5.0 to 0.6.0
+-----------------------------------
+- Added support for IDA Pro 4.7 (both Linux and Windows)
+- Dropped support for IDA Pro 4.6SP1 beta on Linux
+- Lots of IDC wrapper additions and fixes:
+  - Added 30+ new wrappers to idc.py
+  - Most Find*, Ask* and Seg* are now wrapped
+  - Fixed broken NextAddr(), PrevAddr(), MakeFunction() and MakeName()
+- Fixes to the makefile
+- Cleanups for the idaapi wrapper 
+- Bunch of misc small cleanups and fixes
+- For more details see CHANGES-SWIG.txt and CHANGES-Plugin.txt
+
+
