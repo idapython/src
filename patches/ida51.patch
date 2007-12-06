@@ -19,7 +19,7 @@ diff -ur idasdk-versions/5.1/include/area.hpp swigsdk-versions/5.1/include/area.
  // Last request information -- for internal use
 diff -ur idasdk-versions/5.1/include/bytes.hpp swigsdk-versions/5.1/include/bytes.hpp
 --- idasdk-versions/5.1/include/bytes.hpp	2007-01-22 04:07:12.000000000 +0200
-+++ swigsdk-versions/5.1/include/bytes.hpp	2007-09-30 06:56:51.000000000 +0300
++++ swigsdk-versions/5.1/include/bytes.hpp	2007-12-01 12:25:09.000000000 +0200
 @@ -1644,9 +1644,9 @@
                   const uchar *mask,    // comparision mask
                   size_t len,           // length of string to search
@@ -200,7 +200,7 @@ diff -ur idasdk-versions/5.1/include/idd.hpp swigsdk-versions/5.1/include/idd.hp
  #endif // _IDD_HPP
 diff -ur idasdk-versions/5.1/include/idp.hpp swigsdk-versions/5.1/include/idp.hpp
 --- idasdk-versions/5.1/include/idp.hpp	2007-02-09 12:54:06.000000000 +0200
-+++ swigsdk-versions/5.1/include/idp.hpp	2007-09-30 06:56:51.000000000 +0300
++++ swigsdk-versions/5.1/include/idp.hpp	2007-12-06 14:52:16.000000000 +0200
 @@ -31,6 +31,7 @@
  
  #define IDP_INTERFACE_VERSION 76
@@ -225,26 +225,42 @@ diff -ur idasdk-versions/5.1/include/idp.hpp swigsdk-versions/5.1/include/idp.hp
  //-----------------------------------------------------------------------
  // Structures related to checkarg_dispatch()
  
-@@ -1384,6 +1387,7 @@
-   int high_fixup_bits;
- 
+@@ -189,6 +192,7 @@
+                            // arguments: NULL, char * const **outptr
+                            // This callback must be implemented
  };
 +#endif // SWIG
  
  #ifdef __BORLANDC__
- #if sizeof(processor_t) % 4
-@@ -1394,8 +1398,10 @@
- // The following two structures contain information about the current
- // processor and assembler.
+ #pragma option pop
+@@ -553,6 +557,7 @@
+                                         // processor is changed.
+                                         // (NULL terminated)
  
 +#ifndef SWIG
- idaman processor_t ida_export_data ph;   // Current processor
- idaman asm_t ida_export_data ash;        // Current assembler
+ //
+ // Callback function. IDP module can take appropriate
+ // actions when some events occurs in the kernel.
+@@ -1111,6 +1116,7 @@
+                                 // defined by the loaders
+   };
+   int   (idaapi* notify)(idp_notify msgid, ...); // Various notifications for the idp
 +#endif // SWIG
  
- idaman int ida_export str2regf(const char *p);    // -1 - error. Returns word reg number
- idaman int ida_export str2reg(const char *p);     // -1 - error. Returns any reg number
-@@ -1500,10 +1506,12 @@
+ // Get the stack variable scaling factor
+ // Useful for processors who refer to the stack with implicit scaling factor.
+@@ -1363,8 +1369,10 @@
+    int icode_return;
+ 
+ 
++#ifndef SWIG
+ // Set IDP-specific option (see below)
+   set_options_t *set_idp_options;
++#endif // SWIG
+ 
+ //      Is the instruction created only for alignment purposes?
+ //      returns: number of bytes in the instruction
+@@ -1500,10 +1508,12 @@
  idaman char *ida_export get_idp_name(char *buf, size_t bufsize);
  
  
@@ -257,7 +273,7 @@ diff -ur idasdk-versions/5.1/include/idp.hpp swigsdk-versions/5.1/include/idp.hp
  
  
  // Set target assembler
-@@ -1512,11 +1520,13 @@
+@@ -1512,11 +1522,13 @@
  idaman void ida_export set_target_assembler(int asmnum);
  
  
@@ -459,6 +475,7 @@ diff -ur idasdk-versions/5.1/include/lines.hpp swigsdk-versions/5.1/include/line
  
  idaman bool ida_export save_line_in_array(const char *line);      // a standard line saver()
  idaman void ida_export init_lines_array(char *lnar[],int maxsize);// initialization function for it
+Only in swigsdk-versions/5.1/include/: md5.h.new
 diff -ur idasdk-versions/5.1/include/moves.hpp swigsdk-versions/5.1/include/moves.hpp
 --- idasdk-versions/5.1/include/moves.hpp	2006-03-17 17:41:22.000000000 +0200
 +++ swigsdk-versions/5.1/include/moves.hpp	2007-09-30 06:56:51.000000000 +0300
@@ -500,7 +517,7 @@ diff -ur idasdk-versions/5.1/include/moves.hpp swigsdk-versions/5.1/include/move
    location_t(void) {}
 diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.hpp
 --- idasdk-versions/5.1/include/nalt.hpp	2007-01-29 22:06:46.000000000 +0200
-+++ swigsdk-versions/5.1/include/nalt.hpp	2007-09-30 06:56:51.000000000 +0300
++++ swigsdk-versions/5.1/include/nalt.hpp	2007-12-04 21:37:14.000000000 +0200
 @@ -29,6 +29,7 @@
  //      in them. Look at netnode.hpp for the definition of netnodes.
  //
@@ -509,7 +526,23 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  #include <netnode.hpp>
  
  //--------------------------------------------------------------------------
-@@ -324,6 +325,7 @@
+@@ -231,6 +232,7 @@
+ // position of cursor in the window with cross-references to the address
+ // Used by the user-interface.
+ NALT_EA(get_xrefpos, set_xrefpos, del_xrefpos, NALT_XREFPOS)
++#endif // SWIG
+ 
+ // Additional flags for the location.
+ // All 32-bits of the main flags (see bytes.hpp) are used up.
+@@ -285,6 +287,7 @@
+ #define AFL_USERTI      0x02000000L     // the type information is definitive
+                                         // (comes from the user or type library)
+ 
++#ifndef SWIG
+ // The following macro is used to define 3 functions to work with a bit:
+ //      int  test(ea_t ea);    - test if the bit is set
+ //      void set(ea_t ea);     - set bit
+@@ -324,6 +327,7 @@
  IMPL__IS_AFLAG_FUNCS(AFL_FIXEDSPD, fixed_spd)
  IMPL__IS_AFLAG_FUNCS(AFL_ALIGNFLOW,align_flow)
  IMPL__IS_AFLAG_FUNCS(AFL_USERTI,   userti)
@@ -517,7 +550,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  
  inline void set_visible_item(ea_t ea, bool visible)
  {
-@@ -341,11 +343,14 @@
+@@ -341,11 +345,14 @@
  
  // source line numbers (they are sometimes present in object files)
  // Thes functions may be used if necessary.
@@ -532,7 +565,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  // absolute segment base address
  // These functions may be used if necessary.
  NALT_EA(get_absbase,set_absbase, del_absbase, NALT_ABSBASE)
-@@ -366,6 +371,7 @@
+@@ -366,6 +373,7 @@
  // type of string
  // Don't use, see: get_typeinfo()
  NALT_ULONG(get_str_type,set_str_type,del_str_type,NALT_STRTYPE)
@@ -540,7 +573,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  
  inline char idaapi get_str_type_code(uval_t strtype) { return char(strtype); }
  
-@@ -402,16 +408,19 @@
+@@ -402,16 +410,19 @@
  }
  
  
@@ -560,7 +593,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  //----------------------------------------------------------------------
  NSUP_STRING(nalt_cmt,NSUP_CMT)          // regular comment       (low level, don't use)
  NSUP_STRING(nalt_rptcmt,NSUP_REPCMT)    // repeatable comment    (low level, don't use)
-@@ -559,6 +568,7 @@
+@@ -559,6 +570,7 @@
  
  // Address which holds the switch info. Used at the jump targets.
  NALT_EA(get_switch_parent,set_switch_parent,del_switch_parent, NALT_SWITCH)
@@ -568,7 +601,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  
  
  //--------------------------------------------------------------------------
-@@ -671,6 +681,7 @@
+@@ -671,6 +683,7 @@
  idaman void ida_export write_struc_path(netnode node, int idx, const tid_t *path, int plen, adiff_t delta);
  idaman int  ida_export read_struc_path(netnode node, int idx, tid_t *path, adiff_t *delta);  // returns plen
  
@@ -576,7 +609,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  #define DEFINE_PATH_FUNCS(name, code)                                \
  inline int  N_PASTE(get_,name)(ea_t ea, tid_t *path, adiff_t *delta) \
   { return read_struc_path(netnode(ea), code, path, delta); }         \
-@@ -738,6 +749,7 @@
+@@ -738,6 +751,7 @@
  #define RIDX_ALT_CRC32          uval_t(-5) // input file crc32
  #define RIDX_ALT_IMAGEBASE      uval_t(-6) // image base
  #define RIDX_ALT_IDSNODE        uval_t(-7) // ids modnode id (for import_module)
@@ -584,7 +617,7 @@ diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.
  
  //--------------------------------------------------------------------------
  // Get full path of the input file
-@@ -784,11 +796,13 @@
+@@ -784,11 +798,13 @@
      return get_input_file_path(buf, bufsize);
  }
  

@@ -11,19 +11,18 @@ REQUIREMENTS
  - IDA and IDA SDK [5.1]
    http://www.datarescue.com/idabase/
 
- - Python [2.4.4, 2.5]
+ - Python [2.4.4, 2.5.1]
    http://www.python.org/
 
  - Simplified Wrapper Interface Generator (SWIG) [1.3.31]
-   SWIG is not needed for regular building, only if you want to tweak the wrappers.
    http://www.swig.org/
 
  - Unix utilities (GNU patch on Windows):
    http://www.research.att.com/sw/tools/uwin/ or
-   http://unxutils.sourceforge.net/  or  
-   http://www.cygwin.com/   
+   http://unxutils.sourceforge.net/  or
+   http://www.cygwin.com/
 
- - GCC on Linux and Mac OS X [4.0]
+ - GCC on Linux and Mac OS X [4.1.3]
    Comes with your distribution
 
  - Microsoft Visual C on Windows [Microsoft Visual C++ 2005 Express Edition]
@@ -32,32 +31,33 @@ REQUIREMENTS
 
 BUILDING
 
-Make sure all the needed tools (compiler, make, swig, etc) are on the
-PATH.
+Make sure all the needed tools (compiler, swig) are on the PATH.
 
 1, Unpack the IDAPython source and IDA Pro SDK into the following
    directory structure:
 
-   swigsdk-versions/5.1/  - version 5.0 of the IDA Pro SDK
+   swigsdk-versions/5.1/  - version 5.1 of the IDA Pro SDK
    idapython/             - IDAPython source code
 
 2, Patch the SDK using GNU Patch with one of patches from patches/ directory.
    You will have to use the -P option depending on which directory you
    patch from.
 
-2, Build the plugin
+3, On Mac OS X copy libida.dylib from the IDA install directory to
+   swigsdk-versions/5.1/libgcc32.mac/
+
+4, Build the plugin
 
    python build.py
 
    It is possible to build the plugin for different Python versions by
    running build.py with the corresponding Python binary.
 
-3, Install the components as described in README.txt
+5, Install the components as described in README.txt
 
-See build.py for build details and tweak opportunities. 
+See build.py for build details and possible tweaks.
 
 
 -------------------------------------------------------------------------------
 Copyright (c) 2004-2007 Gergely Erdelyi <dyce@d-dome.net>. All rights reserved. 
 -------------------------------------------------------------------------------
-

@@ -24,7 +24,7 @@ IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VER
 # IDAPython version
 VERSION_MAJOR  = 0
 VERSION_MINOR  = 9
-VERSION_PATCH  = 54
+VERSION_PATCH  = 55
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -34,7 +34,7 @@ PYTHON_MINOR_VERSION = int(platform.python_version()[2])
 PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 
 # Swig command-line parameters
-SWIG_OPTIONS = '-modern -python -c++ -shadow -D__GNUC__'
+SWIG_OPTIONS = '-modern -python -c++ -w451 -shadow -D__GNUC__'
 
 # Common macros for all compilations
 COMMON_MACROS = [
@@ -360,7 +360,7 @@ if __name__ == "__main__":
     # Detect the platform
     system = platform.system()
 
-    if system == "Windows":
+    if system == "Windows" or system == "Microsoft":
         platform_string = "win32"
         plugin_name = "python.plw"
     

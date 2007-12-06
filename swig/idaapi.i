@@ -1,4 +1,4 @@
-%module(docstring="IDA Pro Plugin SDK API wrapper") idaapi
+%module(docstring="IDA Pro Plugin SDK API wrapper",directors="1") idaapi
 // Suppress 'previous definition of XX' warnings
 #pragma SWIG nowarn=302
 // Enable automatic docstring generation

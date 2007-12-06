@@ -1,4 +1,4 @@
-// This makes put_many_bytes and patch_many_bytes work nicely
+// Make put_many_bytes and patch_many_bytes work
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
 
 // Make get_any_cmt() work
@@ -58,15 +58,15 @@
 
 // TODO: These could be fixed if someone needs them.
 %ignore get_many_bytes;
-%ignore put_many_bytes;
-%ignore patch_many_bytes;
 %ignore set_dbgmem_source;
 %ignore invalidate_dbgmem_config;
 %ignore invalidate_dbgmem_contents;
-%ignore is_debugger_on;
 
 %include "bytes.hpp"
+
+%clear(void *buf, ssize_t size);
 
 %clear(const void *buf, size_t size);
 %clear(void *buf, ssize_t size);
 %clear(typeinfo_t *);
+ 

@@ -3715,16 +3715,22 @@ def MakeFrame(ea, lvsize, frregs, argsize):
 	@param frregs: size of saved registers
 	@param argsize: size of function arguments
 
-	@return: ID of function frame or None 
+	@return: ID of function frame or -1
 	         If the function did not have a frame, the frame
 	         will be created. Otherwise the frame will be modified
 	"""
 	func = idaapi.get_func(ea)
 
 	if not func:
-		return None
+		return -1
 
-	return idaapi.add_frame(func, lvsize, frregs, argsize)
+	id = idaapi.add_frame(func, lvsize, frregs, argsize)
+
+	if not id:
+		if not idaapi.set_frame_size(func, lvsize, frregs, argsize):
+			return -1
+
+	return func.frame
 
 
 def GetSpd(ea):
@@ -4604,7 +4610,13 @@ def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
     elif idaapi.isOff0(flag):
     	ti = idaapi.typeinfo_t()
     	ri = idaapi.refinfo_t()
+	ri.target = BADADDR
     	ri.base = typeid
+	ri.tdelta = 0
+    	if (flag & FF_WORD):
+            ri.flags = REF_OFF16
+    	else:
+    	    ri.flags = REF_OFF32
     	ti.ri = ri
     elif idaapi.isEnum0(flag):
     	ti = idaapi.typeinfo_t()
@@ -4877,10 +4889,13 @@ def FirstFuncFchunk(funcea):
 	@return: the function entry point or BADADDR
 
 	@note: This function returns the first (main) chunk of the specified function
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	func = idaapi.get_func(funcea)
+	fci = idaapi.func_tail_iterator_t(func, funcea)
+	if fci.main():
+		return fci.chunk().startEA
+	else:
+		return BADADDR
 
 
 def NextFuncFchunk(funcea, tailea):
@@ -4893,10 +4908,27 @@ def NextFuncFchunk(funcea, tailea):
 	@return: the starting address of the next function chunk or BADADDR
 
 	@note: This function returns the next chunk of the specified function
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	func = idaapi.get_func(funcea)
+	fci = idaapi.func_tail_iterator_t(func, funcea)
+	if not fci.main():
+		return BADADDR
+
+	# Iterate and try to find the current chunk
+	found = False
+	while True:
+		if fci.chunk().startEA <= tailea and \
+		   fci.chunk().endEA > tailea:
+			found = True
+			break
+		if not fci.next():
+			break
+
+	# Return the next chunk, if there is one
+	if found and fci.next():
+		return fci.chunk().startEA
+	else:
+		return BADADDR
 
 
 # ----------------------------------------------------------------------------
@@ -5664,10 +5696,8 @@ def SetType(ea, type):
 	            assciated with 'ea' will be deleted
 
 	@return: 1-ok, 0-failed.
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	return idaapi.apply_cdecl(ea, type)
 
 
 def ParseTypes(input, flags):
