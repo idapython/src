@@ -171,4 +171,51 @@ til_t * load_til_header_wrap(const char *tildir, const char *name)
 }
 %}
 
+%inline %{
+/* Parse types from a string or file. See ParseTypes() in idc.py */
+int idc_parse_types(const char *input, int flags)
+{
+    int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
 
+    if ( (flags & 1) != 0 )
+    {   
+        hti |= HTI_FIL;
+    }
+
+    return parse_types2(input, (flags & 2) == 0 ? msg : NULL, hti);
+}
+
+char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
+{
+    type_t type[MAXSTR];
+    p_list fnames[MAXSTR];
+ 
+    if (get_ti(ea, type, sizeof(type), fnames, sizeof(fnames)))
+    {
+        int code = print_type_to_one_line(buf, bufsize, idati, type,
+                                          NULL, NULL, fnames);
+        if ( code == T_NORMAL )
+        {
+            return buf;
+        }
+     }                                                              \
+     return NULL;
+}
+
+char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
+{
+    type_t type[MAXSTR];
+    p_list fnames[MAXSTR];
+ 
+    if (guess_type(ea, type, sizeof(type), fnames, sizeof(fnames)))
+    {
+        int code = print_type_to_one_line(buf, bufsize, idati, type,
+                                          NULL, NULL, fnames);
+        if ( code == T_NORMAL )
+        {
+            return buf;
+        }
+     }                                                              \
+     return NULL;
+}
+%}

@@ -3,16 +3,14 @@
 %cstring_bounded_output(char *dstname, MAXSTR);
 %cstring_bounded_output(char *buf, MAXSTR);
 
+// This is for get_name_value's output value
+%apply unsigned long *OUTPUT { uval_t *value };
+
 // FIXME: These should be fixed
-%ignore get_name_value;
 %ignore append_struct_fields;
 %ignore get_struct_operand;
-%ignore debug_name_how_t;
 %ignore set_debug_names;
-%ignore set_debug_name;
 %ignore get_debug_name;
-%ignore del_debug_names;
-%ignore get_debug_name_ea;
 %ignore nameVa;
 
 // Unexported & kernel-only

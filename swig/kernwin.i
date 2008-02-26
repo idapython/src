@@ -9,6 +9,13 @@
 %apply unsigned long *INOUT { sel_t  *sel };
 %rename (_askseg) askseg;
 
+%inline %{
+void refresh_lists(void) 
+{ 
+  callui(ui_list); 
+}
+%}
+
 %pythoncode %{
 def asklong(defval, format):
 	res, val = _idaapi._asklong(defval, format)

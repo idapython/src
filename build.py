@@ -193,7 +193,7 @@ class GCCBuilder(BuilderBase):
         self.include_delimiter = "-I"
         self.macro_delimiter = "-D"
         self.libpath_delimiter = "-L"
-        self.compiler_parameters = ""
+        self.compiler_parameters = "-fpermissive"
         self.linker_parameters = "-shared"
         self.basemacros = [ ]
         self.compiler = "g++"
@@ -404,5 +404,5 @@ if __name__ == "__main__":
     cleanlist = []
     cleanlist.extend(BUILD_TEMPFILES)
     cleanlist.append(plugin_name)
-    clean(cleanlist)
+#    clean(cleanlist)
 

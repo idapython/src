@@ -2605,10 +2605,8 @@ def Refresh():
 def RefreshLists():
 	"""
 	Refresh all list views (names, functions, etc)
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	idaapi.refresh_lists()
 
 
 #----------------------------------------------------------------------------
@@ -5665,11 +5663,9 @@ def GetType(ea):
 
 	@param ea: the address of the object
 
-	@return: type string, 0 - failed
-
-	FIXME: unimplemented
+	@return: type string or None if failed
 	"""
-	raise NotImplementedError
+	return idaapi.idc_get_type(ea)
 
 
 def GuessType(ea):
@@ -5678,12 +5674,10 @@ def GuessType(ea):
 
 	@param ea: the address of the object, can be the structure member id too
 
-	@return: type string, 0 - failed
-
-	FIXME: unimplemented
+	@return: type string or None if failed
 	"""
-	raise NotImplementedError
-	
+	return idaapi.idc_guess_type(ea)
+
 
 def SetType(ea, type):
 	"""
@@ -5708,10 +5702,8 @@ def ParseTypes(input, flags):
 	@param flags: combination of PT_... constants or 0
 
 	@return: number of errors
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	return idaapi.idc_parse_types(input, flags)
 
 
 PT_FILE =   0x0001  # input if a file name (otherwise contains type declarations)
@@ -5921,9 +5913,15 @@ def SetBptCnd(ea, cnd):
 	@param cnd: breakpoint condition
 	
 	@return: success
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	bpt = idaapi.bpt_t()
+	
+	if not idaapi.get_bpt(ea, bpt):
+		return False
+
+	bpt.condition = cnd
+
+	return idaapi.update_bpt(bpt)
 
 
 def AddBptEx(ea, size, bpttype):
