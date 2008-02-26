@@ -4300,7 +4300,7 @@ def GetFirstMember(id):
 	if not s:
 		return -1
 
-	return idaapi.get_struc_first_offset(s, offset)
+	return idaapi.get_struc_first_offset(s)
 
 
 def GetLastMember(id):
@@ -4321,7 +4321,7 @@ def GetLastMember(id):
 	if not s:
 		return -1
 
-	return idaapi.get_struc_last_offset(s, offset)
+	return idaapi.get_struc_last_offset(s)
 
 
 def GetMemberOffset(id, member_name):
