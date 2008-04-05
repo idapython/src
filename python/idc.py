@@ -4041,7 +4041,7 @@ def GetMarkedPos(slot):
 	@param slot: slot number: 1..1024 if the specifed value is <= 0
 	             range, IDA will ask the user to select slot.
 
-	@return: -1 - the slot doesn't contain a marked address
+	@return: BADADDR - the slot doesn't contain a marked address
 	         otherwise returns the marked address
 	"""
 	curloc = idaapi.curloc()
