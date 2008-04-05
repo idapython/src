@@ -266,8 +266,6 @@ def atoa(ea):
 	(the same as in line prefixes)
 	
 	@param ea: address to format
-
-	FIXME: unimplemented
 	"""
 	segname = SegName(ea)
 
