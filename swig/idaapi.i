@@ -70,6 +70,7 @@ typedef          long long longlong;
 %array_class(ea_t, eaArray);
 %pointer_class(int, int_pointer);
 %pointer_class(ea_t, ea_pointer);
+%pointer_class(sval_t, sval_pointer);
 
 %include "ida.i"
 %include "idd.hpp"
