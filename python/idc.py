@@ -351,7 +351,23 @@ def Wait():
 
 
 def Compile(filename):
-	raise DeprecatedIDCError, "Compile() is for IDC and unsupported."
+	"""
+	Compile an IDC file.
+
+	The file being compiled should not contain functions that are
+	currently executing - otherwise the behaviour of the replaced
+	functions is undefined.
+
+	@param filename: name of file to compile
+
+	@return: 0 - ok, otherwise it returns an error message
+	"""
+	res = idaapi.Compile(filename)
+
+	if res:
+		return res
+	else:
+		return 0
 
 
 def Exit(code):
