@@ -94,6 +94,7 @@ print_banner()
 #-----------------------------------------------------------
 # Import all the required modules
 #-----------------------------------------------------------
+from idaapi import Choose, get_user_idadir, cvar
 from idc import *
 from idautils import *
 

@@ -11,7 +11,7 @@
 """
 idautils.py - High level utility functions for IDA
 """
-from idaapi import *
+import idaapi
 
 def refs(ea, funcfirst, funcnext):
 	"""
@@ -21,13 +21,13 @@ def refs(ea, funcfirst, funcnext):
 
 	ref = funcfirst(ea)
 
-	if ref != BADADDR:
+	if ref != idaapi.BADADDR:
 		reflist.append(ref)
 
 		while 1:
 			ref = funcnext(ea, ref)
 
-			if ref == BADADDR:
+			if ref == idaapi.BADADDR:
 				break
 			else:
 				reflist.append(ref)
@@ -51,9 +51,9 @@ def CodeRefsTo(ea, flow):
 			print ref
 	"""
 	if flow == 1:
-		return refs(ea, get_first_cref_to, get_next_cref_to)	
+		return refs(ea, idaapi.get_first_cref_to, idaapi.get_next_cref_to)	
 	else:
-		return refs(ea, get_first_fcref_to, get_next_fcref_to)	
+		return refs(ea, idaapi.get_first_fcref_to, idaapi.get_next_fcref_to)	
 
 
 def CodeRefsFrom(ea, flow):
@@ -72,9 +72,9 @@ def CodeRefsFrom(ea, flow):
 			print ref
 	"""
 	if flow == 1:
-		return refs(ea, get_first_cref_from, get_next_cref_from)	
+		return refs(ea, idaapi.get_first_cref_from, idaapi.get_next_cref_from)	
 	else:
-		return refs(ea, get_first_fcref_from, get_next_fcref_from)	
+		return refs(ea, idaapi.get_first_fcref_from, idaapi.get_next_fcref_from)	
 
 
 def DataRefsTo(ea):
@@ -90,7 +90,7 @@ def DataRefsTo(ea):
 		for ref in DataRefsTo(ScreenEA(), 1):
 			print ref
 	"""
-	return refs(ea, get_first_dref_to, get_next_dref_to)	
+	return refs(ea, idaapi.get_first_dref_to, idaapi.get_next_dref_to)	
 
 
 def DataRefsFrom(ea):
@@ -106,7 +106,7 @@ def DataRefsFrom(ea):
 		for ref in DataRefsFrom(ScreenEA(), 1):
 			print ref
 	"""
-	return refs(ea, get_first_dref_from, get_next_dref_from)	
+	return refs(ea, idaapi.get_first_dref_from, idaapi.get_next_dref_from)	
 
 
 def Heads(start, end):
@@ -124,9 +124,9 @@ def Heads(start, end):
 	ea = start
 
 	while 1:
-		ea = next_head(ea, end)
+		ea = idaapi.next_head(ea, end)
 
-		if ea == BADADDR:
+		if ea == idaapi.BADADDR:
 			break
 		else:
 			headlist.append(ea)
@@ -151,7 +151,7 @@ def Functions(start, end):
 
 	funclist = []
 
-	func = get_func(start)
+	func = idaapi.get_func(start)
 
 	if func:
 		funclist.append(func.startEA)
@@ -159,7 +159,7 @@ def Functions(start, end):
 	ea = start
 
 	while 1:
-		func = get_next_func(ea)
+		func = idaapi.get_next_func(ea)
 
 		if not func: break
 
@@ -180,8 +180,8 @@ def Segments():
 	"""
 	seglist = []
 
-	for n in range(get_segm_qty()):
-		seg = getnseg(n)
+	for n in range(idaapi.get_segm_qty()):
+		seg = idaapi.getnseg(n)
 
 		if not seg:
 			break
@@ -198,11 +198,11 @@ def GetDataList(ea, count, itemsize=1):
 	getdata = None
 
 	if itemsize == 1:
-		getdata = get_byte
+		getdata = idaapi.get_byte
 	if itemsize == 2:
-		getdata = get_word
+		getdata = idaapi.get_word
 	if itemsize == 4:
-		getdata = get_dword
+		getdata = idaapi.get_dword
 
 	if getdata == None:
 		raise ValueError, "Invalid data size! Must be 1, 2 or 4"
@@ -223,11 +223,11 @@ def PutDataList(ea, list, itemsize=1):
 	putdata = None
 
 	if itemsize == 1:
-		putdata = patch_byte
+		putdata = idaapi.patch_byte
 	if itemsize == 2:
-		putdata = patch_word
+		putdata = idaapi.patch_word
 	if itemsize == 4:
-		putdata = patch_dword
+		putdata = idaapi.patch_dword
 
 	if putdata == None:
 		raise ValueError, "Invalid data size! Must be 1, 2 or 4"
@@ -257,8 +257,8 @@ def GetInputFileMD5():
 
 	@return: MD5 string or None on error
 	"""
-	ua=ucharArray(16)
-	if retrieve_input_file_md5(ua.cast()):
+	ua=idaapi.ucharArray(16)
+	if idaapi.retrieve_input_file_md5(ua.cast()):
 		md5str=""
 		for i in range(16):
 			md5str += "%02x" % ua[i]
