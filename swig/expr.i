@@ -8,9 +8,6 @@
 %ignore VarFloat;
 %ignore VarFree;
 %ignore calcexpr_long;
-%ignore CompileEx;
-%ignore Compile;
-%ignore CompileLine;
 %ignore Run;
 %ignore ExecuteLine;
 %ignore ExecuteFile;
@@ -27,6 +24,8 @@
 %ignore find_builtin_idc_func;
 %ignore idc_lx;
 
+
+%cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
 %include "expr.hpp"
 
 
