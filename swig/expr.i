@@ -24,8 +24,34 @@
 %ignore find_builtin_idc_func;
 %ignore idc_lx;
 
-
 %cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
-%include "expr.hpp"
 
+/* Compile* functions return false when error so the return  */
+/* value must be negated for the error string to be returned */
+%rename (CompileEx) CompileEx_wrap;
+%inline %{
+bool CompileEx_wrap(const char *file, bool del_macros,
+                    char *errbuf, size_t errbufsize)
+{
+	return !CompileEx(file, del_macros, errbuf, errbufsize);
+}
+%}
+
+%rename (Compile) Compile_wrap;
+%inline %{
+bool Compile_wrap(const char *file, char *errbuf, size_t errbufsize)
+{
+	return !Compile(file, errbuf, errbufsize);
+}
+%}
+
+%rename (CompileLine) CompileLine_wrap;
+%inline %{
+bool CompileLine_wrap(const char *line, char *errbuf, size_t errbufsize)
+{
+	return !CompileLine(line, errbuf, errbufsize);
+}
+%}
+
+%include "expr.hpp"
 
