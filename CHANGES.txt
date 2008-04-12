@@ -1,11 +1,39 @@
-Changes from version 0.9.0 to 0.9.53
+Changes from version 0.9.0 to 0.9.56
 ------------------------------------
 
 - Upgraded IDA Pro base version to 5.1
 - Experimental Mac OS X support
-- Improved IDC  coverage
-- Cleanups and fixes 
 
+Details:
+
+idc.py: Implemented Compile()
+idautils.py: Do not import all symbols from idaapi to keep the namespace clean
+init.py: Import the required symbols from idaapi
+expr.i: Fixed Compile* function to return proper error messages
+python.cpp: Added RunPythonStatement() function to IDC
+expr.i: Added CompileEx() Compile() and CompileLine()
+idaapi.i: Added sval_pointer() type
+idc.py: Fixed documentation for GetMarkedPos(), returns BADADDR on error
+idc.py: Removed UNIMPLEMENTED marker from atoa()
+Removed extra parameter from Get{First|Next}Member(). Thanks Rodrigo Bogossian Wang for the report.
+
+BUILDING.txt: Updated the building instructions for Mac
+build.py: Suppressed warning messages about const char pointers
+idp.i: Removed static keyword from IDB_Callback
+idp.i: Ignore all function pointer in structures
+idc.py: Implmented {First|Next}FuncFChunk()
+build.py: Version bumped to 0.9.55
+idp.i: Fixed IDP_Callback() prototype
+idc.py: SetType?() implemented. Thanks to plusvic.
+idc.py: Structure offset member can also be 16-bit. Thanks plusvic
+bytes.i: Added is_debugger_on()
+bytes.i: Added {put|get}many_bytes()
+idc.py: AddStrucMember?() now adds offset members properly
+BUILDING.txt: Updated and cleaned up the build documentation.
+build.py: Workaround for Python's platform string bug on Vista
+idc.py: Fixed MakeFrame? behaviour and return to match IDC version
+idp.i: Implemented IDB Event Hooks (most of them)
+idaapi.i: Enabled class directors for the module
 
 Changes from version 0.8.0 to 0.9.0
 -----------------------------------
