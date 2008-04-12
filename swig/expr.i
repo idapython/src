@@ -45,6 +45,10 @@ bool Compile_wrap(const char *file, char *errbuf, size_t errbufsize)
 }
 %}
 
+//%feature("compactdefaultargs") CompileLine;
+
+%ignore CompileLine(const char *line, char *errbuf, size_t errbufsize, uval_t (idaapi*_getname)(const char *name)=NULL);
+
 %rename (CompileLine) CompileLine_wrap;
 %inline %{
 bool CompileLine_wrap(const char *line, char *errbuf, size_t errbufsize)
