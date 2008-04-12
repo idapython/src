@@ -23,6 +23,7 @@
 #include <idp.hpp>
 #include <bytes.hpp>
 #include <diskio.hpp>
+#include <expr.hpp>
 #include <loader.hpp>
 #include <kernwin.hpp>
 #include <netnode.hpp>
@@ -75,6 +76,15 @@ int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 	return 0;
 }
 #endif
+
+/* Simple Python statement runner function for IDC */
+static const char idc_runpythonstatement_args[] = { VT_STR, 0 };
+static error_t idaapi idc_runpythonstatement(value_t *argv, value_t *res)
+{
+	res->num = PyRun_SimpleString(argv[0].str);
+	return eOk;
+}
+
 
 /* QuickFix for the FILE* incompatibility problem */
 int ExecFile(char *FileName)
@@ -354,6 +364,9 @@ bool IDAPython_Init(void)
 						(menu_item_callback_t *)IDAPython_Menu_Callback, 
 						(void *)IDAPYTHON_SCRIPTBOX); 
 	}
+
+	/* Register a RunPythonStatement() function for IDC */
+	set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
 	
 	initialized = 1;
 
