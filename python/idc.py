@@ -4493,7 +4493,7 @@ def GetMemberStrId(id, member_offset):
 	if not m:
 		return -1
 
-	cs = get_member_struc(m)
+	cs = idaapi.get_member_struc(m)
 	if cs:
 		return cs.id
 	else:
