@@ -61,6 +61,7 @@ BINDIST_MANIFEST = [
     ("idaapi.py", "python"),
     "docs/notes.txt",
     "examples/chooser.py",
+    "examples/debughook.py",
     "examples/ex1.idc",
     "examples/ex1_idaapi.py",
     "examples/ex1_idautils.py" ]
