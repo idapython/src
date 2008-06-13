@@ -172,6 +172,28 @@ def Functions(start, end):
 	return funclist
 	
 
+def Chunks(start):
+	"""
+	Get a list of function chunks
+
+	@param start: address of the function
+       
+	@return: list of funcion chunks (tuples of the form (start_ea, end_ea))
+	         belonging to the function
+	"""
+	function_chunks = []
+
+	func_iter = idaapi.func_tail_iterator_t( idaapi.get_func( start ) )
+	status = func_iter.main()
+
+	while status:
+		chunk = func_iter.chunk()
+		function_chunks.append((chunk.startEA, chunk.endEA))
+		status = func_iter.next()
+
+	return function_chunks
+
+
 def Segments():
 	"""
 	Get list of segments (sections) in the binary image
