@@ -1,9 +1,8 @@
-Status of the IDC wrapper
--------------------------
+Status of the IDC layer
+-----------------------
 
-1 function unimplemented out of 434 (99% coverage):
-
-rotate_left()
+The IDC emulation layer is complete and at par with IDA 5.1, 
+although it would benefit from more testing.
 
 
 Status of IDA API wrappers
