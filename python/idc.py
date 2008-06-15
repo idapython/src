@@ -1957,21 +1957,28 @@ def GetOperandValue(ea, n):
         otherwise                      => -1
     """
     inslen = idaapi.ua_code(ea)
-
     if inslen == 0:
         return -1
 
     insn = idaapi.get_current_instruction()
-
     if not insn:
         return -1
 
     op = idaapi.get_instruction_operand(insn, n)
-
     if not op:
         return -1
 
-    return op.value
+    if op.type in [ idaapi.o_mem, idaapi.o_far, idaapi.o_near, idaapi.o_displ ]:
+        value = op.addr
+    elif op.type == idaapi.o_reg:
+        value = op.reg
+    elif op.type == idaapi.o_imm:
+        value = op.value
+    elif op.type == idaapi.o_phrase:
+        value = op.phrase
+    else:
+        value = -1
+    return value
 
 
 def LineA(ea, num):
