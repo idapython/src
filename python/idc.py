@@ -295,28 +295,28 @@ def rotate_left(value, count, nbits, offset):
     @return: the value with the specified field rotated
              all other bits are not modified
     """
-        assert offset >= 0, "offset must be >= 0"
-        assert nbits > 0, "nbits must be > 0"
+    assert offset >= 0, "offset must be >= 0"
+    assert nbits > 0, "nbits must be > 0"
 
-        mask = 2**(offset+nbits) - 2**offset
-        tmp = value & mask
+    mask = 2**(offset+nbits) - 2**offset
+    tmp = value & mask
 
-        if count > 0:
-            for x in xrange(count):
-                if (tmp >> (offset+nbits-1)) & 1:
-                    tmp = (tmp << 1) | (1 << offset)
-                else:
-                    tmp = (tmp << 1)
-        else:
-            for x in xrange(-count):
-                if (tmp >> offset) & 1:
-                    tmp = (tmp >> 1) | (1 << (offset+nbits-1))
-                else:
-                    tmp = (tmp >> 1)
+    if count > 0:
+        for x in xrange(count):
+            if (tmp >> (offset+nbits-1)) & 1:
+                tmp = (tmp << 1) | (1 << offset)
+            else:
+                tmp = (tmp << 1)
+    else:
+        for x in xrange(-count):
+            if (tmp >> offset) & 1:
+                tmp = (tmp >> 1) | (1 << (offset+nbits-1))
+            else:
+                tmp = (tmp >> 1)
 
-        value = (value-(value&mask)) | (tmp & mask)
+    value = (value-(value&mask)) | (tmp & mask)
 
-        return value
+    return value
 
 
 def AddHotkey(hotkey, idcfunc):
@@ -791,10 +791,10 @@ def MakeLocal(start, end, location, name):
         else:
             # No member at the offset, create a new one
             if idaapi.add_struc_member(frame,
-                           name,
-                           offset,
-                           idaapi.byteflag(),
-                           None, 1) == 0:
+                                       name,
+                                       offset,
+                                       idaapi.byteflag(),
+                                       None, 1) == 0:
                 return 1
             else:
                 return 0
@@ -1498,9 +1498,9 @@ def GetFloat(ea):
     @return: float
     """
     str = chr(idaapi.get_byte(ea)) + \
-        chr(idaapi.get_byte(ea+1)) + \
-        chr(idaapi.get_byte(ea+2)) + \
-        chr(idaapi.get_byte(ea+3)) 
+          chr(idaapi.get_byte(ea+1)) + \
+          chr(idaapi.get_byte(ea+2)) + \
+          chr(idaapi.get_byte(ea+3)) 
 
     return struct.unpack("f", str)[0]
 
@@ -1514,13 +1514,13 @@ def GetDouble(ea):
     @return: double
     """
     str = chr(idaapi.get_byte(ea)) + \
-        chr(idaapi.get_byte(ea+1)) + \
-        chr(idaapi.get_byte(ea+2)) + \
-        chr(idaapi.get_byte(ea+3)) + \
-        chr(idaapi.get_byte(ea+4)) + \
-        chr(idaapi.get_byte(ea+5)) + \
-        chr(idaapi.get_byte(ea+6)) + \
-        chr(idaapi.get_byte(ea+7))
+          chr(idaapi.get_byte(ea+1)) + \
+          chr(idaapi.get_byte(ea+2)) + \
+          chr(idaapi.get_byte(ea+3)) + \
+          chr(idaapi.get_byte(ea+4)) + \
+          chr(idaapi.get_byte(ea+5)) + \
+          chr(idaapi.get_byte(ea+6)) + \
+          chr(idaapi.get_byte(ea+7))
 
     return struct.unpack("d", str)[0]
 
@@ -4639,9 +4639,9 @@ def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
     elif idaapi.isOff0(flag):
         ti = idaapi.typeinfo_t()
         ri = idaapi.refinfo_t()
-    ri.target = BADADDR
+        ri.target = BADADDR
         ri.base = typeid
-    ri.tdelta = 0
+        ri.tdelta = 0
         if (flag & FF_WORD):
             ri.flags = REF_OFF16
         else:
@@ -4687,9 +4687,9 @@ def AddStrucMember(id, name, offset, flag, typeid, nbytes):
 
     @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
     """
-        struc = idaapi.get_struc(id)
-        assert struct, "get_struc() failed"
-        ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
+    struc = idaapi.get_struc(id)
+    assert struct, "get_struc() failed"
+    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
     return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
 
 
@@ -4757,9 +4757,9 @@ def SetMemberType(id, member_offset, flag, typeid, nitems):
 
     @return: !=0 - ok.
     """
-        struc = idaapi.get_struc(id)
-        assert struct, "get_struc() failed"
-        ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
+    struc = idaapi.get_struc(id)
+    assert struct, "get_struc() failed"
+    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
     return idaapi.set_member_type(struc, member_offset, flag, ti, nitems)
 
 
