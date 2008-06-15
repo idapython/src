@@ -56,8 +56,3 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
 5, Install the components as described in README.txt
 
 See build.py for build details and possible tweaks.
-
-
--------------------------------------------------------------------------------
-Copyright (c) 2004-2007 Gergely Erdelyi <dyce@d-dome.net>. All rights reserved. 
--------------------------------------------------------------------------------

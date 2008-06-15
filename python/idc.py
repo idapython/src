@@ -3,10 +3,10 @@
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
 # Original IDC.IDC:
-# Copyright (c) 1990-2007 Ilfak Guilfanov
+# Copyright (c) 1990-2008 Ilfak Guilfanov
 #
 # Python conversion:
-# Copyright (c) 2004-2007 Gergely Erdelyi <dyce@d-dome.net> 
+# Copyright (c) 2004-2008 Gergely Erdelyi <dyce@d-dome.net> 
 #
 # All rights reserved.
 #
@@ -299,7 +299,7 @@ def rotate_left(value, count, nbits, offset):
 	"""
 	raise NotImplementedError
 
-
+z
 def AddHotkey(hotkey, idcfunc):
 	"""
 	Add hotkey for IDC function
