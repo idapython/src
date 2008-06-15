@@ -294,10 +294,29 @@ def rotate_left(value, count, nbits, offset):
 
 	@return: the value with the specified field rotated
 	         all other bits are not modified
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+        assert offset >= 0, "offset must be >= 0"
+        assert nbits > 0, "nbits must be > 0"
+
+        mask = 2**(offset+nbits) - 2**offset
+        tmp = value & mask
+
+        if count > 0:
+            for x in xrange(count):
+                if (tmp >> (offset+nbits-1)) & 1:
+                    tmp = (tmp << 1) | (1 << offset)
+                else:
+                    tmp = (tmp << 1)
+        else:
+            for x in xrange(-count):
+                if (tmp >> offset) & 1:
+                    tmp = (tmp >> 1) | (1 << (offset+nbits-1))
+                else:
+                    tmp = (tmp >> 1)
+
+        value = (value-(value&mask)) | (tmp & mask)
+
+        return value
 
 
 def AddHotkey(hotkey, idcfunc):
