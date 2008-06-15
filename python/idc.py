@@ -3060,12 +3060,12 @@ def GetSegmentAttr(segea, attr):
 
     @param segea: any address within segment
     @param attr: one of SEGATTR_... constants
-
-    FIXME: add support for segment registers
     """
     seg = idaapi.getseg(segea)
-    
-    if seg:
+    assert seg, "could not find segment at 0x%x" % segea
+    if attr in [ SEGATTR_ES, SEGATTR_CS, SEGATTR_SS, SEGATTR_DS, SEGATTR_FS, SEGATTR_GS ]:
+        return idaapi.get_defsr(seg, _SEGATTRMAP[attr])
+    else:
         return _IDC_GetAttr(seg, _SEGATTRMAP, attr)
 
 
@@ -3079,14 +3079,14 @@ def SetSegmentAttr(segea, attr, value):
     @note: Please note that not all segment attributes are modifiable.
            Also some of them should be modified using special functions
            like SegAddrng, etc.
-
-    FIXME: add support for segment registers
     """
     seg = idaapi.getseg(segea)
-    
-    if seg:
+    assert seg, "could not find segment at 0x%x" % segea
+    if attr in [ SEGATTR_ES, SEGATTR_CS, SEGATTR_SS, SEGATTR_DS, SEGATTR_FS, SEGATTR_GS ]:
+        idaapi.set_defsr(seg, _SEGATTRMAP[attr], value)
+    else:
         _IDC_SetAttr(seg, _SEGATTRMAP, attr, value)
-        return seg.update()
+    return seg.update()
 
 
 SEGATTR_START   =  0      # starting address
@@ -3120,12 +3120,12 @@ _SEGATTRMAP = {
     SEGATTR_BITNESS : 'bitness',
     SEGATTR_FLAGS   : 'flags',
     SEGATTR_SEL     : 'sel',
-    SEGATTR_ES      : '',
-    SEGATTR_CS      : '',
-    SEGATTR_SS      : '',
-    SEGATTR_DS      : '',
-    SEGATTR_FS      : '',
-    SEGATTR_GS      : '',
+    SEGATTR_ES      : 0,
+    SEGATTR_CS      : 1,
+    SEGATTR_SS      : 2,
+    SEGATTR_DS      : 3,
+    SEGATTR_FS      : 4,
+    SEGATTR_GS      : 5,
     SEGATTR_TYPE    : 'type',
     SEGATTR_COLOR   : 'color',
 }
