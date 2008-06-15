@@ -109,6 +109,69 @@ def DataRefsFrom(ea):
 	return refs(ea, idaapi.get_first_dref_from, idaapi.get_next_dref_from)	
 
 
+def XrefTypeName(typecode):
+	"""
+	Convert cross-reference type codes to readable names
+
+	@param typecode: cross-reference type code
+	"""
+	ref_types = { 
+		0  : 'Data_Unknown',
+		1  : 'Data_Offset', 
+		2  : 'Data_Write',
+		3  : 'Data_Read',
+		4  : 'Data_Text',
+		5  : 'Data_Informational',
+		16 : 'Code_Far_Call',
+		17 : 'Code_Near_Call',
+		18 : 'Code_Far_Jump',
+		19 : 'Code_Near_Jump',
+		20 : 'Code_User',
+		21 : 'Ordinary_Flow'
+		}
+	assert typecode in ref_types, "unknown reference type %d" % typecode
+	return ref_types[typecode]
+
+
+def XrefsFrom(ea, flags=0):
+	""" 
+	Return all references from address 'ea'
+    
+	@param ea: Reference address
+	@param flags: any of idaapi.XREF_* flags
+
+	Example:
+	       for xref in XrefsFrom(here(), 0):
+	           print xref.type, XrefTypeName(xref.type), \
+                         'from', hex(xref.frm), 'to', hex(xref.to)
+
+	"""
+	xref = idaapi.xrefblk_t()
+	if xref.first_from(ea, flags):
+		yield xref
+		while xref.next_from():
+			yield xref
+
+
+def XrefsTo(ea, flags=0):
+	"""
+	Return all references to address 'ea'
+    
+	@param ea: Reference address
+	@param flags: any of idaapi.XREF_* flags
+
+	Example:
+	       for xref in XrefsTo(here(), 0):
+	           print xref.type, XrefTypeName(xref.type), \
+                         'from', hex(xref.frm), 'to', hex(xref.to)
+	"""
+	xref = idaapi.xrefblk_t()
+	if xref.first_to(ea, flags):
+		yield xref
+		while xref.next_to():
+			yield xref
+
+
 def Heads(start, end):
 	"""
 	Get a list of heads (instructions or data)
