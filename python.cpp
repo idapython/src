@@ -377,13 +377,10 @@ bool IDAPython_Init(void)
 void IDAPython_Term(void)
 {
 	/* Remove the menu items before termination */
-#if 0
-	// FIXME: This segfaults the Linux version. The non-existent items might cause this?
 	del_menu_item("File/Load file/Python file...");
 	del_menu_item("File/Python file...");
 	del_menu_item("File/Python command...");
 	del_menu_item("View/Open subviews/Python Scripts");
-#endif
 	
 	/* Shut the interpreter down */
 	Py_Finalize();
