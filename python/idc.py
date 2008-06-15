@@ -6148,7 +6148,7 @@ def WriteExe(filepath):
 def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value,-1)
 def AddStruc(index,name):   return AddStrucEx(index,name,0)
 def AddUnion(index,name):   return AddStrucEx(index,name,1)
-#def OpStroff(ea,n,strid):         OpStroffEx(ea,n,strid,0)
+def OpStroff(ea,n,strid):   return OpStroffEx(ea,n,strid,0)
 def OpEnum(ea,n,enumid):    return OpEnumEx(ea,n,enumid,0)
 def DelConst(id,v,mask):    return DelConstEx(id,v,0,mask)
 def GetConst(id,v,mask):    return GetConstEx(id,v,0,mask)
