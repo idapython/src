@@ -19,65 +19,65 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 
 
 def addscriptpath(script):
-	"""
-	Add the path part of the scriptfile to the system path to
-	allow modules to be loaded from the same place.
+    """
+    Add the path part of the scriptfile to the system path to
+    allow modules to be loaded from the same place.
 
-	Each path is added only once.
-	"""
-	pathfound = 0
+    Each path is added only once.
+    """
+    pathfound = 0
 
-	scriptpath = os.path.dirname(script)
+    scriptpath = os.path.dirname(script)
 
-	for pathitem in sys.path:
-		if pathitem == scriptpath:
-			pathfound = 1
-			break
-	
-	if pathfound == 0:
-		sys.path.append(scriptpath)
+    for pathitem in sys.path:
+        if pathitem == scriptpath:
+            pathfound = 1
+            break
+    
+    if pathfound == 0:
+        sys.path.append(scriptpath)
 
-	# Add the script to ScriptBox if it's not there yet
-	if not script in ScriptBox_instance.list:
-		ScriptBox_instance.list.insert(0, script)
+    # Add the script to ScriptBox if it's not there yet
+    if not script in ScriptBox_instance.list:
+        ScriptBox_instance.list.insert(0, script)
 
 
 def runscript(script):
-	"""
-	Run the specified script after adding its directory path to
-	system path.
+    """
+    Run the specified script after adding its directory path to
+    system path.
 
-	This function is used by the low-level plugin code.
-	"""
-	addscriptpath(script)
-	argv = sys.argv
-	sys.argv = [ script ]
-	execfile(script, globals())
-	sys.argv = argv
+    This function is used by the low-level plugin code.
+    """
+    addscriptpath(script)
+    argv = sys.argv
+    sys.argv = [ script ]
+    execfile(script, globals())
+    sys.argv = argv
 
 def print_banner():
-	version1 = "IDAPython version %d.%d.%d %s (serial %d) initialized" % IDAPYTHON_VERSION
-	version2 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
-	linelen  = max(len(version1), len(version2))
+    version1 = "IDAPython version %d.%d.%d %s (serial %d) initialized" % IDAPYTHON_VERSION
+    version2 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
+    linelen  = max(len(version1), len(version2))
 
-	print '-' * linelen
-	print version1
-	print version2
-	print '-' * linelen
+    print '-' * linelen
+    print version1
+    print version2
+    print '-' * linelen
 
 
 #-----------------------------------------------------------
 # Take over the standard text outputs
 #-----------------------------------------------------------
 class MyStdOut:
-	"""
-	Dummy file-like class that receives stout and stderr
-	"""
-	def write(self, text):
-		_idaapi.msg(text.replace("%", "%%"))
+    """
+    Dummy file-like class that receives stout and stderr
+    """
+    def write(self, text):
+        _idaapi.msg(text.replace("%", "%%"))
 
-	def flush(self):
-		pass
+    def flush(self):
+        pass
 
 
 # Redirect stderr and stdout to the IDA message window
@@ -103,24 +103,24 @@ from idautils import *
 # Build up the ScriptBox tool
 #-----------------------------------------------------------
 class ScriptBox(Choose):
-	def __init__(self, list=[]):
-		Choose.__init__(self, list, "ScriptBox", 1)
-		self.width = 50
+    def __init__(self, list=[]):
+        Choose.__init__(self, list, "ScriptBox", 1)
+        self.width = 50
 
-	def run(self):
-		if len(self.list) == 0:
-			Warning("ScriptBox history is empty.\nRun some script with Alt-9 and try again.")
-			return None
+    def run(self):
+        if len(self.list) == 0:
+            Warning("ScriptBox history is empty.\nRun some script with Alt-9 and try again.")
+            return None
 
-		n = self.choose()
-	
-		if n > 0:
-			return self.list[n-1]
-		else:
-			return None
+        n = self.choose()
+    
+        if n > 0:
+            return self.list[n-1]
+        else:
+            return None
 
-	def addscript(self, scriptpath):
-			self.list.append(scriptpath)
+    def addscript(self, scriptpath):
+            self.list.append(scriptpath)
 
 ScriptBox_instance = ScriptBox([])
 
@@ -128,9 +128,9 @@ ScriptBox_instance = ScriptBox([])
 userrc = get_user_idadir() + os.sep + "idapythonrc.py"
 
 if os.path.exists(userrc):
-	runscript(userrc)
-	# Remove the user script from the history
-	del ScriptBox_instance.list[0]
+    runscript(userrc)
+    # Remove the user script from the history
+    del ScriptBox_instance.list[0]
 
 
 # All done, ready to rock.

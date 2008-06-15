@@ -28,45 +28,45 @@ This file is subject to change without any notice.
 Future versions of IDA may use other definitions.
 """
 try:
-	import idaapi
+    import idaapi
 except:
-	print "Could not import idaapi. Running in 'pydoc mode'."
+    print "Could not import idaapi. Running in 'pydoc mode'."
 
 import os, struct, re
 
 class DeprecatedIDCError(Exception):
-	"""
-	Exception for deprecated function calls
-	"""
-	def __init__(self, val):
-		self.var = val
+    """
+    Exception for deprecated function calls
+    """
+    def __init__(self, val):
+        self.var = val
 
-	def __str__(self):
-		return self.val
+    def __str__(self):
+        return self.val
 
 
 def _IDC_GetAttr(object, map, attroffs):
-	"""
-	Internal function to generically get object attributes
-	Do not use unless you know what you are doing
-	"""
-	if attroffs in map and hasattr(object, map[attroffs]):
-		return getattr(object, map[attroffs])
-	else:
-		str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-		raise KeyError, str
+    """
+    Internal function to generically get object attributes
+    Do not use unless you know what you are doing
+    """
+    if attroffs in map and hasattr(object, map[attroffs]):
+        return getattr(object, map[attroffs])
+    else:
+        str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
+        raise KeyError, str
 
 
 def _IDC_SetAttr(object, map, attroffs, value):
-	"""
-	Internal function to generically set object attributes
-	Do not use unless you know what you are doing
-	"""
-	if attroffs in map and hasattr(object, map[attroffs]):
-		return setattr(object, map[attroffs], value)
-	else:
-		str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-		raise KeyError, str
+    """
+    Internal function to generically set object attributes
+    Do not use unless you know what you are doing
+    """
+    if attroffs in map and hasattr(object, map[attroffs]):
+        return setattr(object, map[attroffs], value)
+    else:
+        str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
+        raise KeyError, str
 
  
 BADADDR         = idaapi.BADADDR # Not allowed address value
@@ -238,63 +238,63 @@ NEF_FLAT   = idaapi.NEF_FLAT   # Autocreate FLAT group (PE)
 #                       M I S C E L L A N E O U S
 # ----------------------------------------------------------------------------
 def MK_FP(seg, off):
-	"""
-	Return value of expression: ((seg<<4) + off)
-	"""
-	return (seg << 4) + off
+    """
+    Return value of expression: ((seg<<4) + off)
+    """
+    return (seg << 4) + off
 
 def form(format, *args):
-	raise DeprecatedIDCError, "form() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError, "form() is deprecated. Use python string operations instead."
 
 def substr(str,x1,x2):
-	raise DeprecatedIDCError, "substr() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError, "substr() is deprecated. Use python string operations instead."
 
 def strstr(str, substr):
-	raise DeprecatedIDCError, "strstr() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError, "strstr() is deprecated. Use python string operations instead."
 
 def strlen(str):
-	raise DeprecatedIDCError, "strlen() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError, "strlen() is deprecated. Use python string operations instead."
 
 def xtol(str):
-	raise DeprecatedIDCError, "xtol() is deprecated. Use python long() instead."
+    raise DeprecatedIDCError, "xtol() is deprecated. Use python long() instead."
 
 
 def atoa(ea):
-	"""
-	Convert address value to a string
-	Return address in the form 'seg000:1234'
-	(the same as in line prefixes)
-	
-	@param ea: address to format
-	"""
-	segname = SegName(ea)
+    """
+    Convert address value to a string
+    Return address in the form 'seg000:1234'
+    (the same as in line prefixes)
+    
+    @param ea: address to format
+    """
+    segname = SegName(ea)
 
-	if segname == "":
-		segname = "0"
+    if segname == "":
+        segname = "0"
 
-	return "%s:%X" % (segname, ea)
+    return "%s:%X" % (segname, ea)
 
 
 def ltoa(n, radix):
-	raise DeprecatedIDCError, "ltoa() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError, "ltoa() is deprecated. Use python string operations instead."
 
 def atol(str):
-	raise DeprecatedIDCError, "atol() is deprecated. Use python long() instead."
+    raise DeprecatedIDCError, "atol() is deprecated. Use python long() instead."
 
 
 def rotate_left(value, count, nbits, offset):
-	"""
-	Rotate a value to the left (or right)
+    """
+    Rotate a value to the left (or right)
 
-	@param x: value to rotate
-	@param count: number of times to rotate. negative counter means
-	              rotate to the right
-	@param nbits: number of bits to rotate
-	@param offset: offset of the first bit to rotate
+    @param x: value to rotate
+    @param count: number of times to rotate. negative counter means
+                  rotate to the right
+    @param nbits: number of bits to rotate
+    @param offset: offset of the first bit to rotate
 
-	@return: the value with the specified field rotated
-	         all other bits are not modified
-	"""
+    @return: the value with the specified field rotated
+             all other bits are not modified
+    """
         assert offset >= 0, "offset must be >= 0"
         assert nbits > 0, "nbits must be > 0"
 
@@ -320,17 +320,17 @@ def rotate_left(value, count, nbits, offset):
 
 
 def AddHotkey(hotkey, idcfunc):
-	"""
-	Add hotkey for IDC function
-	
-	@param hotkey: hotkey name ('a', "Alt-A", etc)
-	@param idcfunc: IDC function name 
+    """
+    Add hotkey for IDC function
+    
+    @param hotkey: hotkey name ('a', "Alt-A", etc)
+    @param idcfunc: IDC function name 
 
-	@note: GUI version doesn't support hotkeys
+    @note: GUI version doesn't support hotkeys
 
-	@return: None
-	"""
-	return idaapi.add_idc_hotkey(hotkey, idcfunc)	
+    @return: None
+    """
+    return idaapi.add_idc_hotkey(hotkey, idcfunc)    
 
 
 # AddHotkey return codes
@@ -341,103 +341,103 @@ IDCHK_MAX       = -3   # too many IDC hotkeys
 
 
 def DelHotkey(hotkey):
-	"""
-	Delete IDC function hotkey
+    """
+    Delete IDC function hotkey
 
-	@param hotkey: hotkey code to delete
-	"""
-	return idaapi.del_idc_hotkey(hotkey)
+    @param hotkey: hotkey code to delete
+    """
+    return idaapi.del_idc_hotkey(hotkey)
 
 
 def Jump(ea):
-	"""
-	Move cursor to the specifed linear address
+    """
+    Move cursor to the specifed linear address
 
-	@param ea: linear address
-	"""
-	return idaapi.jumpto(ea)
+    @param ea: linear address
+    """
+    return idaapi.jumpto(ea)
 
 
 def Wait():
-	"""
-	Process all entries in the autoanalysis queue
-	Wait for the end of autoanalysis
+    """
+    Process all entries in the autoanalysis queue
+    Wait for the end of autoanalysis
 
-	@note:	This function will suspend execution of the calling script
-	        till the autoanalysis queue is empty.
-	"""
-	return idaapi.autoWait()
+    @note:    This function will suspend execution of the calling script
+            till the autoanalysis queue is empty.
+    """
+    return idaapi.autoWait()
 
 
 def Compile(filename):
-	"""
-	Compile an IDC file.
+    """
+    Compile an IDC file.
 
-	The file being compiled should not contain functions that are
-	currently executing - otherwise the behaviour of the replaced
-	functions is undefined.
+    The file being compiled should not contain functions that are
+    currently executing - otherwise the behaviour of the replaced
+    functions is undefined.
 
-	@param filename: name of file to compile
+    @param filename: name of file to compile
 
-	@return: 0 - ok, otherwise it returns an error message
-	"""
-	res = idaapi.Compile(filename)
+    @return: 0 - ok, otherwise it returns an error message
+    """
+    res = idaapi.Compile(filename)
 
-	if res:
-		return res
-	else:
-		return 0
+    if res:
+        return res
+    else:
+        return 0
 
 
 def Exit(code):
-	"""
-	Stop execution of IDC program, close the database and exit to OS
-	
-	@param code: code to exit with.
+    """
+    Stop execution of IDC program, close the database and exit to OS
+    
+    @param code: code to exit with.
 
-	@return: -
-	"""
-	idaapi.qexit(code)
+    @return: -
+    """
+    idaapi.qexit(code)
 
 
 def Exec(command):
-	"""
-	Execute an OS command.
+    """
+    Execute an OS command.
 
-	@param command: command line to execute
-	
-	@return: error code from OS
+    @param command: command line to execute
+    
+    @return: error code from OS
 
-	@note:
-	IDA will wait for the started program to finish.
-	In order to start the command in parallel, use OS methods.
-	For example, you may start another program in parallel using 
-	"start" command.
-	"""
-	return os.system(command)
+    @note:
+    IDA will wait for the started program to finish.
+    In order to start the command in parallel, use OS methods.
+    For example, you may start another program in parallel using 
+    "start" command.
+    """
+    return os.system(command)
 
 
 def RunPlugin(name, arg):
-	"""
-	Load and run a plugin
+    """
+    Load and run a plugin
 
-	@param name: The plugin name is a short plugin name without an extension
-	@param arg: integer argument
+    @param name: The plugin name is a short plugin name without an extension
+    @param arg: integer argument
 
-	@return: 0 if could not load the plugin, 1 if ok
-	"""
-	return idaapi.load_and_run_plugin(name, arg)
+    @return: 0 if could not load the plugin, 1 if ok
+    """
+    return idaapi.load_and_run_plugin(name, arg)
 
 
 def ApplySig(name):
-	"""
-	Load (plan to apply) a FLIRT signature file
+    """
+    Load (plan to apply) a FLIRT signature file
 
-	@param name:  signature name without path and extension
+    @param name:  signature name without path and extension
 
-	@return: 0 if could not load the signature file, !=0 otherwise
-	"""
-	return idaapi.plan_to_apply_idasgn(name)
+    @return: 0 if could not load the signature file, !=0 otherwise
+    """
+    return idaapi.plan_to_apply_idasgn(name)
 
 
 #----------------------------------------------------------------------------
@@ -446,67 +446,67 @@ def ApplySig(name):
 
 
 def DeleteAll():
-	"""
-	Delete all segments, instructions, comments, i.e. everything
-	except values of bytes.
-	"""
-	ea = idaapi.cvar.inf.minEA
+    """
+    Delete all segments, instructions, comments, i.e. everything
+    except values of bytes.
+    """
+    ea = idaapi.cvar.inf.minEA
 
-	# Brute-force nuke all info from all the heads
-	while ea != BADADDR and ea <= idaapi.cvar.inf.maxEA:
-		idaapi.del_local_name(ea)
-		idaapi.del_global_name(ea)
-		func = idaapi.get_func(ea)
-		if func: 
-			idaapi.del_func_cmt(func, False)
-			idaapi.del_func_cmt(func, True)
-			idaapi.del_func(ea)
-		idaapi.del_hidden_area(ea)	
-		seg = idaapi.getseg(ea)
-		if seg:
-			idaapi.del_segment_cmt(seg, False)
-			idaapi.del_segment_cmt(seg, True)
-			idaapi.del_segm(ea, idaapi.SEGDEL_KEEP | idaapi.SEGDEL_SILENT)
+    # Brute-force nuke all info from all the heads
+    while ea != BADADDR and ea <= idaapi.cvar.inf.maxEA:
+        idaapi.del_local_name(ea)
+        idaapi.del_global_name(ea)
+        func = idaapi.get_func(ea)
+        if func: 
+            idaapi.del_func_cmt(func, False)
+            idaapi.del_func_cmt(func, True)
+            idaapi.del_func(ea)
+        idaapi.del_hidden_area(ea)    
+        seg = idaapi.getseg(ea)
+        if seg:
+            idaapi.del_segment_cmt(seg, False)
+            idaapi.del_segment_cmt(seg, True)
+            idaapi.del_segm(ea, idaapi.SEGDEL_KEEP | idaapi.SEGDEL_SILENT)
 
-		ea = idaapi.next_head(ea, idaapi.cvar.inf.maxEA)
+        ea = idaapi.next_head(ea, idaapi.cvar.inf.maxEA)
 
 
 def MakeCode(ea):
-	"""
-	Create an instruction at the specified address
+    """
+    Create an instruction at the specified address
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 0 - can not create an instruction (no such opcode, the instruction
-	would overlap with existing items, etc) otherwise returns length of the
-	instruction in bytes
-	"""
-	return idaapi.ua_code(ea)
+    @return: 0 - can not create an instruction (no such opcode, the instruction
+    would overlap with existing items, etc) otherwise returns length of the
+    instruction in bytes
+    """
+    return idaapi.ua_code(ea)
 
 
 def AnalyzeArea(sEA, eEA):
-	"""
-	Perform full analysis of the area
+    """
+    Perform full analysis of the area
 
-	@param sEA: starting linear address
-	@param eEA: ending linear address (excluded)
+    @param sEA: starting linear address
+    @param eEA: ending linear address (excluded)
 
-	@return: 1-ok, 0-Ctrl-Break was pressed.
-	"""
-	return idaapi.analyze_area(sEA, eEA)
+    @return: 1-ok, 0-Ctrl-Break was pressed.
+    """
+    return idaapi.analyze_area(sEA, eEA)
 
 
 def MakeNameEx(ea, name, flags):
-	"""
-	Rename an address
+    """
+    Rename an address
 
-	@param ea: linear address
-	@param name: new name of address. If name == "", then delete old name
-	@param flags: combination of SN_... constants
+    @param ea: linear address
+    @param name: new name of address. If name == "", then delete old name
+    @param flags: combination of SN_... constants
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.set_name(ea, name, flags)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.set_name(ea, name, flags)
 
 SN_CHECK      = idaapi.SN_CHECK    # Fail if the name contains invalid 
                                    # characters
@@ -534,298 +534,298 @@ SN_LOCAL      = idaapi.SN_LOCAL    # create local name. a function should exist.
                                    # of names they can't have dummy prefixes
 
 def MakeComm(ea, comment):
-	"""
-	Set an indented regular comment of an item
+    """
+    Set an indented regular comment of an item
 
-	@param ea: linear address
-	@param comment: comment string
+    @param ea: linear address
+    @param comment: comment string
 
-	@return: None
-	"""
-	return idaapi.set_cmt(ea, comment, 0)
+    @return: None
+    """
+    return idaapi.set_cmt(ea, comment, 0)
 
 
 def MakeRptCmt(ea, comment):
-	"""
-	Set an indented repeatable comment of an item
+    """
+    Set an indented repeatable comment of an item
 
-	@param ea: linear address
-	@param comment: comment string
+    @param ea: linear address
+    @param comment: comment string
 
-	@return: None
-	"""
-	return idaapi.set_cmt(ea, comment, 1)
+    @return: None
+    """
+    return idaapi.set_cmt(ea, comment, 1)
 
 
 def MakeArray(ea, nitems):
-	"""
-	Create an array.
+    """
+    Create an array.
 
-	@param ea: linear address
-	@param nitems: size of array in items
+    @param ea: linear address
+    @param nitems: size of array in items
 
-	@note: This function will create an array of the items with the same type as
-	the type of the item at 'ea'. If the byte at 'ea' is undefined, then
-	this function will create an array of bytes.
-	"""
-	flags = idaapi.getFlags(ea)
+    @note: This function will create an array of the items with the same type as
+    the type of the item at 'ea'. If the byte at 'ea' is undefined, then
+    this function will create an array of bytes.
+    """
+    flags = idaapi.getFlags(ea)
 
-	if idaapi.isUnknown(flags):
-		flags = idaapi.FF_BYTE
+    if idaapi.isUnknown(flags):
+        flags = idaapi.FF_BYTE
 
-	if idaapi.isStruct(flags):
-		ti = idaapi.typeinfo_t()
-		assert idaapi.get_typeinfo(ea, 0, flags, ti), "get_typeinfo() failed"
-		itemsize = idaapi.get_data_elsize(ea, flags, ti)
-		tid = ti.tid
-	else:
-		itemsize = idaapi.get_item_size(ea)
-		tid = BADADDR
+    if idaapi.isStruct(flags):
+        ti = idaapi.typeinfo_t()
+        assert idaapi.get_typeinfo(ea, 0, flags, ti), "get_typeinfo() failed"
+        itemsize = idaapi.get_data_elsize(ea, flags, ti)
+        tid = ti.tid
+    else:
+        itemsize = idaapi.get_item_size(ea)
+        tid = BADADDR
 
-	return idaapi.do_data_ex(ea, flags, itemsize*nitems, tid)
+    return idaapi.do_data_ex(ea, flags, itemsize*nitems, tid)
 
 
 def MakeStr(ea, endea):
-	"""
-	Create a string.
+    """
+    Create a string.
 
-	This function creates a string (the string type is determined by the
-	value of GetLongPrm(INF_STRTYPE))
-	
-	@param ea: linear address
-	@param endea: ending address of the string (excluded)
-		if endea == BADADDR, then length of string will be calculated
-		by the kernel
-	
-	@return: 1-ok, 0-failure
+    This function creates a string (the string type is determined by the
+    value of GetLongPrm(INF_STRTYPE))
+    
+    @param ea: linear address
+    @param endea: ending address of the string (excluded)
+        if endea == BADADDR, then length of string will be calculated
+        by the kernel
+    
+    @return: 1-ok, 0-failure
 
-	@note: The type of an existing string is returned by GetStringType()
-	"""
-	return idaapi.make_ascii_string(ea, endea - ea, GetLongPrm(INF_STRTYPE))	
+    @note: The type of an existing string is returned by GetStringType()
+    """
+    return idaapi.make_ascii_string(ea, endea - ea, GetLongPrm(INF_STRTYPE))    
 
 
 def MakeByte(ea):
-	"""
-	Convert the current item to a byte
+    """
+    Convert the current item to a byte
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doByte(ea, 1)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doByte(ea, 1)
 
 
 def MakeWord(ea):
-	"""
-	Convert the current item to a word (2 bytes)
+    """
+    Convert the current item to a word (2 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doWord(ea, 2)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doWord(ea, 2)
 
 
 def MakeDword(ea):
-	"""
-	Convert the current item to a double word (4 bytes)
+    """
+    Convert the current item to a double word (4 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doDwrd(ea, 4)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doDwrd(ea, 4)
 
 
 def MakeQword(ea):
-	"""
-	Convert the current item to a quadro word (8 bytes)
+    """
+    Convert the current item to a quadro word (8 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doQwrd(ea, 8)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doQwrd(ea, 8)
 
 
 def MakeOword(ea):
-	"""
-	Convert the current item to a octa word (16 bytes)
+    """
+    Convert the current item to a octa word (16 bytes)
 
-	@param ea: linear address
-	
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doOwrd(ea, 16)
+    @param ea: linear address
+    
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doOwrd(ea, 16)
 
 
 def MakeFloat(ea):
-	"""
-	Convert the current item to a floating point (4 bytes)
+    """
+    Convert the current item to a floating point (4 bytes)
 
-	@param ea: linear address
-	
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doFloat(ea, 4)
+    @param ea: linear address
+    
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doFloat(ea, 4)
 
 
 def MakeDouble(ea):
-	"""
-	Convert the current item to a double floating point (8 bytes)
+    """
+    Convert the current item to a double floating point (8 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doDouble(ea, 8)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doDouble(ea, 8)
 
 
 def MakePackReal(ea):
-	"""
-	Convert the current item to a packed real (10 or 12 bytes)
+    """
+    Convert the current item to a packed real (10 or 12 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doPackReal(ea, idaapi.cvar.ph.tbyte_size)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doPackReal(ea, idaapi.cvar.ph.tbyte_size)
 
 
 def MakeTbyte(ea):
-	"""
-	Convert the current item to a tbyte (10 or 12 bytes)
+    """
+    Convert the current item to a tbyte (10 or 12 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doTbyt(ea, idaapi.cvar.ph.tbyte_size)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doTbyt(ea, idaapi.cvar.ph.tbyte_size)
 
 
 def MakeStructEx(ea, size, strname):
-	"""
-	Convert the current item to a structure instance
+    """
+    Convert the current item to a structure instance
 
-	@param ea: linear address
-	@param size: structure size in bytes. -1 means that the size
-		will be calculated automatically
-	@param strname: name of a structure type
+    @param ea: linear address
+    @param size: structure size in bytes. -1 means that the size
+        will be calculated automatically
+    @param strname: name of a structure type
 
-	@return: 1-ok, 0-failure
-	"""
-	strid = idaapi.get_struc_id(strname)
+    @return: 1-ok, 0-failure
+    """
+    strid = idaapi.get_struc_id(strname)
 
-	# FIXME: This should be changed to BADNODE
-	if strid == 0xFFFFFFFF:
-		return False
+    # FIXME: This should be changed to BADNODE
+    if strid == 0xFFFFFFFF:
+        return False
 
-	if size == -1:
-		size = idaapi.get_struc_size(strid)
+    if size == -1:
+        size = idaapi.get_struc_size(strid)
 
-	return idaapi.doStruct(ea, size, strid)	
+    return idaapi.doStruct(ea, size, strid)    
 
 
 def MakeAlign(ea, count, align):
-	"""
-	Convert the current item to an alignment directive
+    """
+    Convert the current item to an alignment directive
 
-	@param ea: linear address
-	@param count: number of bytes to convert
-	@param align: 0 or 1..32
-	          if it is 0, the correct alignment will be calculated
-	          by the kernel
+    @param ea: linear address
+    @param count: number of bytes to convert
+    @param align: 0 or 1..32
+              if it is 0, the correct alignment will be calculated
+              by the kernel
 
-	@return: 1-ok, 0-failure
-	"""
-	return idaapi.doAlign(ea, count, align)
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doAlign(ea, count, align)
 
 
 def MakeLocal(start, end, location, name):
-	"""
-	Create a local variable
+    """
+    Create a local variable
 
-	@param start: start of address range for the local variable
-	@param end: end of address range for the local variable
-	@param location: the variable location in the "[bp+xx]" form where xx is
-	                 a number. The location can also be specified as a 
-	                 register name.
-	@param name: name of the local variable
+    @param start: start of address range for the local variable
+    @param end: end of address range for the local variable
+    @param location: the variable location in the "[bp+xx]" form where xx is
+                     a number. The location can also be specified as a 
+                     register name.
+    @param name: name of the local variable
 
-	@return: 1-ok, 0-failure
+    @return: 1-ok, 0-failure
 
-	@note: For the stack variables the end address is ignored.
-	       If there is no function at 'start' then this function.
-	       will fail.
-	"""
-	func = idaapi.get_func(start)
+    @note: For the stack variables the end address is ignored.
+           If there is no function at 'start' then this function.
+           will fail.
+    """
+    func = idaapi.get_func(start)
 
-	if not func:
-		return 0
+    if not func:
+        return 0
 
-	# Find out if location is in the [bp+xx] form
-	r = re.compile("\[([a-z]+)([-+][0-9a-fx]+)", re.IGNORECASE)
-	m = r.match(location)
+    # Find out if location is in the [bp+xx] form
+    r = re.compile("\[([a-z]+)([-+][0-9a-fx]+)", re.IGNORECASE)
+    m = r.match(location)
 
-	if m:
-		# Location in the form of [bp+xx]
-		register = idaapi.str2reg(m.group(1))
-		offset = int(m.group(2), 0)
-		frame = idaapi.get_frame(func)
+    if m:
+        # Location in the form of [bp+xx]
+        register = idaapi.str2reg(m.group(1))
+        offset = int(m.group(2), 0)
+        frame = idaapi.get_frame(func)
 
-		print register, frame
+        print register, frame
 
-		if register == -1 or not frame:
-			return 0
+        if register == -1 or not frame:
+            return 0
 
-		offset += func.frsize
+        offset += func.frsize
 
-		member = idaapi.get_member(frame, offset)
+        member = idaapi.get_member(frame, offset)
 
-		if member:
-			# Member already exists, rename it
-			if idaapi.set_member_name(frame, offset, name):
-				return 1
-			else:
-				return 0
-		else:
-			# No member at the offset, create a new one
-			if idaapi.add_struc_member(frame,
-						   name,
-						   offset,
-						   idaapi.byteflag(),
-						   None, 1) == 0:
-				return 1
-			else:
-				return 0
-	else:
-		# Location as simple register name
-		return idaapi.add_regvar(func, start, end, location, name, None)
+        if member:
+            # Member already exists, rename it
+            if idaapi.set_member_name(frame, offset, name):
+                return 1
+            else:
+                return 0
+        else:
+            # No member at the offset, create a new one
+            if idaapi.add_struc_member(frame,
+                           name,
+                           offset,
+                           idaapi.byteflag(),
+                           None, 1) == 0:
+                return 1
+            else:
+                return 0
+    else:
+        # Location as simple register name
+        return idaapi.add_regvar(func, start, end, location, name, None)
 
 
 def MakeUnkn(ea, flags):
-	"""
-	Convert the current item to an explored item
+    """
+    Convert the current item to an explored item
 
-	@param ea: linear address
-	@param flags: combination of DOUNK_* constants
+    @param ea: linear address
+    @param flags: combination of DOUNK_* constants
 
-	@return: None
-	"""
-	return idaapi.do_unknown(ea, flags)
+    @return: None
+    """
+    return idaapi.do_unknown(ea, flags)
 
 
 def MakeUnknown(ea, size, flags):
-	"""
-	Convert the current item to an explored item
+    """
+    Convert the current item to an explored item
 
-	@param ea: linear address
-	@param size: size of the range to undefine (for MakeUnknown)
-	@param flags: combination of DOUNK_* constants
+    @param ea: linear address
+    @param size: size of the range to undefine (for MakeUnknown)
+    @param flags: combination of DOUNK_* constants
 
-	@return: None
-	"""
-	return idaapi.do_unknown_range(ea, size, flags)
+    @return: None
+    """
+    return idaapi.do_unknown_range(ea, size, flags)
 
 
 DOUNK_SIMPLE   = idaapi.DOUNK_SIMPLE   # simply undefine the specified item
@@ -838,146 +838,146 @@ DOUNK_DELNAMES = idaapi.DOUNK_DELNAMES # delete any names at the specified addre
 
 
 def OpBinary(ea, n):
-	"""
-	Convert an operand of the item (instruction or data) to a binary number
+    """
+    Convert an operand of the item (instruction or data) to a binary number
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
 
-	@return: 1-ok, 0-failure
+    @return: 1-ok, 0-failure
 
-	@note: the data items use only the type of the first operand
-	"""
-	return idaapi.op_bin(ea, n)
+    @note: the data items use only the type of the first operand
+    """
+    return idaapi.op_bin(ea, n)
 
 
 def OpOctal(ea, n):
-	"""
-	Convert an operand of the item (instruction or data) to an octal number
+    """
+    Convert an operand of the item (instruction or data) to an octal number
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_oct(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_oct(ea, n)
 
 
 def OpDecimal(ea, n):
-	"""
-	Convert an operand of the item (instruction or data) to a decimal number
+    """
+    Convert an operand of the item (instruction or data) to a decimal number
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_dec(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_dec(ea, n)
 
 
 def OpHex(ea, n):
-	"""
-	Convert an operand of the item (instruction or data) to a hexadecimal number
+    """
+    Convert an operand of the item (instruction or data) to a hexadecimal number
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_hex(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_hex(ea, n)
 
 
 def OpChr(ea, n):
-	"""
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_chr(ea, n)
+    """
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_chr(ea, n)
 
 
 def OpOff(ea, n, base):
-	"""
-	Convert operand to an offset
-	(for the explanations of 'ea' and 'n' please see OpBinary())
-	
-	Example:
-	========
+    """
+    Convert operand to an offset
+    (for the explanations of 'ea' and 'n' please see OpBinary())
+    
+    Example:
+    ========
 
-		seg000:2000 dw      1234h
-	
-		and there is a segment at paragraph 0x1000 and there is a data item
-		within the segment at 0x1234:
-		
-		seg000:1234 MyString        db 'Hello, world!',0
-		
-		Then you need to specify a linear address of the segment base to
-		create a proper offset:
-		
-		OpOffset(["seg000",0x2000],0,0x10000);
-		
-		and you will have:
-		
-		seg000:2000 dw      offset MyString
-	
-	Motorola 680x0 processor have a concept of "outer offsets".
-	If you want to create an outer offset, you need to combine number
-	of the operand with the following bit:
+        seg000:2000 dw      1234h
+    
+        and there is a segment at paragraph 0x1000 and there is a data item
+        within the segment at 0x1234:
+        
+        seg000:1234 MyString        db 'Hello, world!',0
+        
+        Then you need to specify a linear address of the segment base to
+        create a proper offset:
+        
+        OpOffset(["seg000",0x2000],0,0x10000);
+        
+        and you will have:
+        
+        seg000:2000 dw      offset MyString
+    
+    Motorola 680x0 processor have a concept of "outer offsets".
+    If you want to create an outer offset, you need to combine number
+    of the operand with the following bit:
 
-	Please note that the outer offsets are meaningful only for
-	Motorola 680x0.
+    Please note that the outer offsets are meaningful only for
+    Motorola 680x0.
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	@param base: base of the offset as a linear address
-		If base == BADADDR then the current operand becomes non-offset
-	"""
-	return idaapi.set_offset(ea, n, base)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    @param base: base of the offset as a linear address
+        If base == BADADDR then the current operand becomes non-offset
+    """
+    return idaapi.set_offset(ea, n, base)
 
 
 OPND_OUTER = idaapi.OPND_OUTER # outer offset base
 
 
 def OpOffEx(ea, n, reftype, target, base, tdelta):
-	"""
-	Convert operand to a complex offset expression
-	This is a more powerful version of OpOff() function.
-	It allows to explicitly specify the reference type (off8,off16, etc)
-	and the expression target with a possible target delta.
-	The complex expressions are represented by IDA in the following form:
+    """
+    Convert operand to a complex offset expression
+    This is a more powerful version of OpOff() function.
+    It allows to explicitly specify the reference type (off8,off16, etc)
+    and the expression target with a possible target delta.
+    The complex expressions are represented by IDA in the following form:
 
-	target + tdelta - base
+    target + tdelta - base
 
-	If the target is not present, then it will be calculated using
+    If the target is not present, then it will be calculated using
 
-	target = operand_value - tdelta + base
+    target = operand_value - tdelta + base
 
-	The target must be present for LOW.. and HIGH.. reference types
+    The target must be present for LOW.. and HIGH.. reference types
 
-	@param ea: linear address of the instruction/data
-	@param n: number of operand to convert (the same as in OpOff)
-	@param reftype: one of REF_... constants
-	@param target: an explicitly specified expression target. if you don't
-	          want to specify it, use -1. Please note that LOW... and
-	          HIGH... reference type requre the target.
-	@param base: the offset base (a linear address)
-	@param tdelta: a displacement from the target which will be displayed
-	          in the expression.
+    @param ea: linear address of the instruction/data
+    @param n: number of operand to convert (the same as in OpOff)
+    @param reftype: one of REF_... constants
+    @param target: an explicitly specified expression target. if you don't
+              want to specify it, use -1. Please note that LOW... and
+              HIGH... reference type requre the target.
+    @param base: the offset base (a linear address)
+    @param tdelta: a displacement from the target which will be displayed
+              in the expression.
 
-	@return: success (boolean)
-	"""
-	return idaapi.op_offset(ea, n, reftype, target, base, tdelta)
+    @return: success (boolean)
+    """
+    return idaapi.op_offset(ea, n, reftype, target, base, tdelta)
 
 
 REF_OFF8    = idaapi.REF_OFF8    # 8bit full offset
@@ -1000,339 +1000,339 @@ REFINFO_NOBASE  = 0x80 # offset base is a number
 
 
 def OpSeg(ea, n):
-	"""
-	Convert operand to a segment expression
+    """
+    Convert operand to a segment expression
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_seg(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_seg(ea, n)
 
 
 def OpNumber(ea, n):
-	"""
-	Convert operand to a number (with default number base, radix)
+    """
+    Convert operand to a number (with default number base, radix)
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_num(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_num(ea, n)
 
 
 def OpAlt(ea, n, str):
-	"""
-	Specify operand represenation manually.
+    """
+    Specify operand represenation manually.
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	@param str: a string represenation of the operand
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    @param str: a string represenation of the operand
 
-	@note: IDA will not check the specified operand, it will simply display
-	it instead of the orginal representation of the operand.
-	"""
-	return idaapi.set_forced_operand(ea, n, str)
+    @note: IDA will not check the specified operand, it will simply display
+    it instead of the orginal representation of the operand.
+    """
+    return idaapi.set_forced_operand(ea, n, str)
 
 
 def OpSign(ea, n):
-	"""
-	Change sign of the operand
+    """
+    Change sign of the operand
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.toggle_signness(ea, n)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.toggle_signness(ea, n)
 
 
 def OpNot(ea, n):
-	"""
-	Toggle the bitwise not operator for the operand
+    """
+    Toggle the bitwise not operator for the operand
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	idaapi.toggle_bnot(ea, n)
-	return True
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    idaapi.toggle_bnot(ea, n)
+    return True
 
 
 def OpEnumEx(ea, n, enumid, serial):
-	"""
-	Convert operand to a symbolic constant
+    """
+    Convert operand to a symbolic constant
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	@param enumid: id of enumeration type
-	@param serial: serial number of the constant in the enumeration
-	         The serial numbers are used if there are more than
-	         one symbolic constant with the same value in the
-	         enumeration. In this case the first defined constant
-	         get the serial number 0, then second 1, etc.
-	         There could be 256 symbolic constants with the same
-	         value in the enumeration.
-	"""
-	return idaapi.op_enum(ea, n, enumid, serial)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    @param enumid: id of enumeration type
+    @param serial: serial number of the constant in the enumeration
+             The serial numbers are used if there are more than
+             one symbolic constant with the same value in the
+             enumeration. In this case the first defined constant
+             get the serial number 0, then second 1, etc.
+             There could be 256 symbolic constants with the same
+             value in the enumeration.
+    """
+    return idaapi.op_enum(ea, n, enumid, serial)
 
 
 def OpStroffEx(ea, n, strid, delta):
-	"""
-	Convert operand to an offset in a structure
-	
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	@param strid: id of a structure type
-	@param delta: struct offset delta. usually 0. denotes the difference
-	  	          between the structure base and the pointer into the structure.
+    """
+    Convert operand to an offset in a structure
+    
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    @param strid: id of a structure type
+    @param delta: struct offset delta. usually 0. denotes the difference
+                    between the structure base and the pointer into the structure.
 
-	"""
-	path = idaapi.tidArray(1)
-	path[0] = strid
-	return idaapi.op_stroff(ea, n, path.cast(), 1, delta)
+    """
+    path = idaapi.tidArray(1)
+    path[0] = strid
+    return idaapi.op_stroff(ea, n, path.cast(), 1, delta)
 
 
 def OpStkvar(ea, n):
-	"""
-	Convert operand to a stack variable
-	
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	"""
-	return idaapi.op_stkvar(ea, n)
+    """
+    Convert operand to a stack variable
+    
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_stkvar(ea, n)
 
 
 def OpHigh(ea, n, target):
-	"""
-	Convert operand to a high offset
-	High offset is the upper 16bits of an offset.
-	This type is used by TMS320C6 processors (and probably by other
-	RISC processors too)
+    """
+    Convert operand to a high offset
+    High offset is the upper 16bits of an offset.
+    This type is used by TMS320C6 processors (and probably by other
+    RISC processors too)
 
-	@param ea: linear address
-	@param n: number of operand
-		- 0 - the first operand
-		- 1 - the second, third and all other operands
-		- -1 - all operands
-	@param target: the full value (all 32bits) of the offset
-	"""
-	return idaapi.op_offset(ea, n, idaapi.REF_HIGH16, target)
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    @param target: the full value (all 32bits) of the offset
+    """
+    return idaapi.op_offset(ea, n, idaapi.REF_HIGH16, target)
 
 
 def MakeVar(ea):
-	"""
-	Mark the location as "variable"
+    """
+    Mark the location as "variable"
 
-	@param ea: address to mark
+    @param ea: address to mark
 
-	@return: None
+    @return: None
 
-	@note: All that IDA does is to mark the location as "variable". 
-	Nothing else, no additional analysis is performed.
-	This function may disappear in the future.
-	"""
-	idaapi.doVar(ea, 1)
+    @note: All that IDA does is to mark the location as "variable". 
+    Nothing else, no additional analysis is performed.
+    This function may disappear in the future.
+    """
+    idaapi.doVar(ea, 1)
 
 
 def ExtLinA(ea, n, line):
-	"""
-	Specify an additional line to display before the generated ones.
+    """
+    Specify an additional line to display before the generated ones.
 
-	@param ea: linear address
-	@param n: number of anterior additioal line (0..MAX_ITEM_LINES)
-	@param line: the line to display
+    @param ea: linear address
+    @param n: number of anterior additioal line (0..MAX_ITEM_LINES)
+    @param line: the line to display
 
-	@return: None
+    @return: None
 
-	@note: IDA displays additional lines from number 0 up to the first unexisting
-	additional line. So, if you specify additional line #150 and there is no
-	additional line #149, your line will not be displayed.  MAX_ITEM_LINES is
-	defined in IDA.CFG
-	"""
-	idaapi.ExtraUpdate(ea, line, idaapi.E_PREV + n)
+    @note: IDA displays additional lines from number 0 up to the first unexisting
+    additional line. So, if you specify additional line #150 and there is no
+    additional line #149, your line will not be displayed.  MAX_ITEM_LINES is
+    defined in IDA.CFG
+    """
+    idaapi.ExtraUpdate(ea, line, idaapi.E_PREV + n)
 
 
 def ExtLinB(ea, n, line):
-	"""
-	Specify an additional line to display after the generated ones.
+    """
+    Specify an additional line to display after the generated ones.
 
-	@param ea: linear address
-	@param n: number of posterior additioal line (0..MAX_ITEM_LINES)
-	@param line: the line to display
+    @param ea: linear address
+    @param n: number of posterior additioal line (0..MAX_ITEM_LINES)
+    @param line: the line to display
 
-	@return: None
-	
-	@note: IDA displays additional lines from number 0 up to the first
-	unexisting additional line. So, if you specify additional line #150 
-	and there is no additional line #149, your line will not be displayed. 
-	MAX_ITEM_LINES is defined in IDA.CFG
-	"""
-	idaapi.ExtraUpdate(ea, line, idaapi.E_NEXT + n)
+    @return: None
+    
+    @note: IDA displays additional lines from number 0 up to the first
+    unexisting additional line. So, if you specify additional line #150 
+    and there is no additional line #149, your line will not be displayed. 
+    MAX_ITEM_LINES is defined in IDA.CFG
+    """
+    idaapi.ExtraUpdate(ea, line, idaapi.E_NEXT + n)
 
 
 def DelExtLnA(ea, n):
-	"""
-	Delete an additional anterior line
+    """
+    Delete an additional anterior line
 
-	@param ea: linear address
-	@param n: number of anterior additioal line (0..500)
+    @param ea: linear address
+    @param n: number of anterior additioal line (0..500)
 
-	@return: None
-	"""
-	idaapi.ExtraDel(ea, idaapi.E_PREV + n)
+    @return: None
+    """
+    idaapi.ExtraDel(ea, idaapi.E_PREV + n)
 
 
 def DelExtLnB(ea, n):
-	"""
-	Delete an additional posterior line
+    """
+    Delete an additional posterior line
 
-	@param ea: linear address
-	@param n: number of posterior additioal line (0..500)
+    @param ea: linear address
+    @param n: number of posterior additioal line (0..500)
 
-	@return: None
-	"""
-	idaapi.ExtraDel(ea, idaapi.E_NEXT + n)
+    @return: None
+    """
+    idaapi.ExtraDel(ea, idaapi.E_NEXT + n)
 
 
 def SetManualInsn(ea, insn):
-	"""
-	Specify instruction represenation manually.
+    """
+    Specify instruction represenation manually.
 
-	@param ea: linear address
-	@param insn: a string represenation of the operand
+    @param ea: linear address
+    @param insn: a string represenation of the operand
 
-	@note: IDA will not check the specified instruction, it will simply 
-	display it instead of the orginal representation.
-	"""
-	return idaapi.set_manual_insn(ea, insn)
+    @note: IDA will not check the specified instruction, it will simply 
+    display it instead of the orginal representation.
+    """
+    return idaapi.set_manual_insn(ea, insn)
 
 
 def GetManualInsn(ea):
-	"""
-	Get manual representation of instruction
+    """
+    Get manual representation of instruction
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@note: This function returns value set by SetManualInsn earlier.
-	"""
-	return idaapi.get_manual_insn(ea)
+    @note: This function returns value set by SetManualInsn earlier.
+    """
+    return idaapi.get_manual_insn(ea)
 
 
 def PatchByte(ea, value):
-	"""
-	Change value of a program byte
+    """
+    Change value of a program byte
 
-	@param ea: linear address
-	@param value: new value of the byte
+    @param ea: linear address
+    @param value: new value of the byte
 
-	@return: None
-	"""
-	return idaapi.patch_byte(ea, value)
+    @return: None
+    """
+    return idaapi.patch_byte(ea, value)
 
 
 def PatchWord(ea, value):
-	"""
-	Change value of a program word (2 bytes)
+    """
+    Change value of a program word (2 bytes)
 
-	@param ea: linear address
-	@param value: new value of the word
-	"""
-	return idaapi.patch_word(ea, value)
+    @param ea: linear address
+    @param value: new value of the word
+    """
+    return idaapi.patch_word(ea, value)
 
 
 def PatchDword(ea, value):
-	"""
-	Change value of a double word
+    """
+    Change value of a double word
 
-	@param ea: linear address
-	@param value: new value of the double word
-	"""
-	return idaapi.patch_long(ea, value)
+    @param ea: linear address
+    @param value: new value of the double word
+    """
+    return idaapi.patch_long(ea, value)
 
 
 def SetFlags(ea, flags):
-	"""
-	Set new value of flags
-	This function should not used be used directly if possible.
-	It changes properties of a program byte and if misused, may lead to
-	very-very strange results.
+    """
+    Set new value of flags
+    This function should not used be used directly if possible.
+    It changes properties of a program byte and if misused, may lead to
+    very-very strange results.
 
-	@param ea: adress
-	@param flags: new flags value
-	"""
-	return idaapi.setFlags(ea, flags)
+    @param ea: adress
+    @param flags: new flags value
+    """
+    return idaapi.setFlags(ea, flags)
 
 _REGMAP = {
-	'es' : idaapi.R_es,
-	'cs' : idaapi.R_cs,
-	'ss' : idaapi.R_ss,
-	'ds' : idaapi.R_ds,
-	'fs' : idaapi.R_fs,
-	'gs' : idaapi.R_gs
+    'es' : idaapi.R_es,
+    'cs' : idaapi.R_cs,
+    'ss' : idaapi.R_ss,
+    'ds' : idaapi.R_ds,
+    'fs' : idaapi.R_fs,
+    'gs' : idaapi.R_gs
 }
 
 def SetReg(ea, reg, value):
-	"""
-	Set value of a segment register.
+    """
+    Set value of a segment register.
 
-	@param ea: linear address
-	@param reg: name of a register, like "cs", "ds", "es", etc.
-	@param value: new value of the segment register.
+    @param ea: linear address
+    @param reg: name of a register, like "cs", "ds", "es", etc.
+    @param value: new value of the segment register.
 
-	@note: IDA keeps tracks of all the points where segment register change their
-	       values. This function allows you to specify the correct value of a segment
-	       register if IDA is not able to find the corrent value.
+    @note: IDA keeps tracks of all the points where segment register change their
+           values. This function allows you to specify the correct value of a segment
+           register if IDA is not able to find the corrent value.
 
-	"""
-	if _REGMAP.has_key(reg):
-		return idaapi.splitSRarea1(ea, _REGMAP[reg], value, 2)
-	else:
-		return False
+    """
+    if _REGMAP.has_key(reg):
+        return idaapi.splitSRarea1(ea, _REGMAP[reg], value, 2)
+    else:
+        return False
 
 
 def AutoMark2(start, end, queuetype):
-	"""
-	Plan to perform an action in the future.
-	This function will put your request to a special autoanalysis queue.
-	Later IDA will retrieve the request from the queue and process
-	it. There are several autoanalysis queue types. IDA will process all
-	queries from the first queue and then switch to the second queue, etc.
-	"""
-	return idaapi.auto_mark_range(start, end, queuetype)
+    """
+    Plan to perform an action in the future.
+    This function will put your request to a special autoanalysis queue.
+    Later IDA will retrieve the request from the queue and process
+    it. There are several autoanalysis queue types. IDA will process all
+    queries from the first queue and then switch to the second queue, etc.
+    """
+    return idaapi.auto_mark_range(start, end, queuetype)
 
 
 def AutoUnmark(start, end, queuetype):
-	"""
-	Remove range of addresses from a queue.
-	"""
-	return autoUnmark(start, end, queuetype)
-	
+    """
+    Remove range of addresses from a queue.
+    """
+    return autoUnmark(start, end, queuetype)
+    
 
 def AutoMark(ea,qtype):
-	"""
-	Plan to analyze an address
-	"""
-	return AutoMark2(ea,ea+1,qtype)
+    """
+    Plan to analyze an address
+    """
+    return AutoMark2(ea,ea+1,qtype)
 
 AU_UNK   = idaapi.AU_UNK   # make unknown
 AU_CODE  = idaapi.AU_CODE  # convert to instruction
@@ -1347,27 +1347,27 @@ AU_FINAL = idaapi.AU_FINAL # coagulate unexplored items
 #----------------------------------------------------------------------------
 
 def GenerateFile(type, path, ea1, ea2, flags):
-	"""
-	Generate an output file
+    """
+    Generate an output file
 
-	@param type:  type of output file. One of OFILE_... symbols. See below.
-	@param path:  the output file path (will be overwritten!)
-	@param ea1:   start address. For some file types this argument is ignored
-	@param ea2:   end address. For some file types this argument is ignored
-	@param flags: bit combination of GENFLG_...
+    @param type:  type of output file. One of OFILE_... symbols. See below.
+    @param path:  the output file path (will be overwritten!)
+    @param ea1:   start address. For some file types this argument is ignored
+    @param ea2:   end address. For some file types this argument is ignored
+    @param flags: bit combination of GENFLG_...
 
-	@returns: number of the generated lines.
-				-1 if an error occured
-				OFILE_EXE: 0-can't generate exe file, 1-ok
-	"""
-	f = idaapi.fopenWT(path)
+    @returns: number of the generated lines.
+                -1 if an error occured
+                OFILE_EXE: 0-can't generate exe file, 1-ok
+    """
+    f = idaapi.fopenWT(path)
 
-	if f:
-		retval = idaapi.gen_file(type, f, ea1, ea2, flags)
-		idaapi.eclose(f)
-		return retval
-	else:
-		return -1
+    if f:
+        retval = idaapi.gen_file(type, f, ea1, ea2, flags)
+        idaapi.eclose(f)
+        return retval
+    else:
+        return -1
 
 
 # output file types:
@@ -1392,652 +1392,652 @@ GENFLG_ASMINC  = idaapi.GENFLG_ASMINC  # asm&lst: gen information only about typ
 #                 C O M M O N   I N F O R M A T I O N
 #----------------------------------------------------------------------------
 def GetIdaDirectory ():
-	"""
-	Get IDA directory
+    """
+    Get IDA directory
 
-	This function returns the directory where IDA.EXE resides
-	"""
-	return idaapi.idadir()
+    This function returns the directory where IDA.EXE resides
+    """
+    return idaapi.idadir()
 
 
 def GetInputFile():
-	"""
-	Get input file name
+    """
+    Get input file name
 
-	This function returns name of the file being disassembled
-	"""
-	return idaapi.get_root_filename()
+    This function returns name of the file being disassembled
+    """
+    return idaapi.get_root_filename()
 
 
 def GetInputFilePath():
-	"""
-	Get input file path
+    """
+    Get input file path
 
-	This function returns the full path of the file being disassembled
-	"""
-	return idaapi.get_input_file_path()
+    This function returns the full path of the file being disassembled
+    """
+    return idaapi.get_input_file_path()
 
 
 def GetIdbPath():
-	"""
-	Get IDB full path
+    """
+    Get IDB full path
 
-	This function returns full path of the current IDB database
-	"""
-	return idaapi.cvar.database_idb
+    This function returns full path of the current IDB database
+    """
+    return idaapi.cvar.database_idb
 
 
 def GetFlags(ea):
-	"""
-	Get internal flags
+    """
+    Get internal flags
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 32-bit value of internal flags. See start of IDC.IDC file
-		for explanations.
-	"""
-	return idaapi.getFlags(ea)
+    @return: 32-bit value of internal flags. See start of IDC.IDC file
+        for explanations.
+    """
+    return idaapi.getFlags(ea)
 
 
 def Byte(ea):
-	"""
-	Get value of program byte
+    """
+    Get value of program byte
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: value of byte. If byte has no value then returns 0xFF
-		If the current byte size is different from 8 bits, then the returned value
-		might have more 1's.
-		To check if a byte has a value, use functions hasValue(GetFlags(ea))
-	"""
-	return idaapi.get_byte(ea)
+    @return: value of byte. If byte has no value then returns 0xFF
+        If the current byte size is different from 8 bits, then the returned value
+        might have more 1's.
+        To check if a byte has a value, use functions hasValue(GetFlags(ea))
+    """
+    return idaapi.get_byte(ea)
 
 
 def GetOriginalByte(ea):
-	"""
-	Get original value of program byte
+    """
+    Get original value of program byte
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: the original value of byte before any patch applied to it
-	"""
-	return idaapi.get_original_byte(ea)
+    @return: the original value of byte before any patch applied to it
+    """
+    return idaapi.get_original_byte(ea)
 
 
 def Word(ea):
-	"""
-	Get value of program word (2 bytes)
+    """
+    Get value of program word (2 bytes)
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: the value of the word. If word has no value then returns 0xFFFF
-		If the current byte size is different from 8 bits, then the returned value
-		might have more 1's.
-	"""
-	return idaapi.get_word(ea)
+    @return: the value of the word. If word has no value then returns 0xFFFF
+        If the current byte size is different from 8 bits, then the returned value
+        might have more 1's.
+    """
+    return idaapi.get_word(ea)
 
 
 def Dword(ea):
-	"""
-	Get value of program double word (4 bytes)
+    """
+    Get value of program double word (4 bytes)
 
-	@param ea: linear address
-	
-	@return: the value of the double word. If double word has no value
-		then returns 0xFFFFFFFF.
-	"""
-	return idaapi.get_long(ea)
+    @param ea: linear address
+    
+    @return: the value of the double word. If double word has no value
+        then returns 0xFFFFFFFF.
+    """
+    return idaapi.get_long(ea)
 
 
 def GetFloat(ea):
-	"""
-	Get value of a floating point number (4 bytes)
-	
-	@param ea: linear address
+    """
+    Get value of a floating point number (4 bytes)
+    
+    @param ea: linear address
 
-	@return: float
-	"""
-	str = chr(idaapi.get_byte(ea)) + \
-		chr(idaapi.get_byte(ea+1)) + \
-		chr(idaapi.get_byte(ea+2)) + \
-		chr(idaapi.get_byte(ea+3)) 
+    @return: float
+    """
+    str = chr(idaapi.get_byte(ea)) + \
+        chr(idaapi.get_byte(ea+1)) + \
+        chr(idaapi.get_byte(ea+2)) + \
+        chr(idaapi.get_byte(ea+3)) 
 
-	return struct.unpack("f", str)[0]
+    return struct.unpack("f", str)[0]
 
 
 def GetDouble(ea):
-	"""
-	Get value of a floating point number (8 bytes)
-	
-	@param ea: linear address
+    """
+    Get value of a floating point number (8 bytes)
+    
+    @param ea: linear address
 
-	@return: double
-	"""
-	str = chr(idaapi.get_byte(ea)) + \
-		chr(idaapi.get_byte(ea+1)) + \
-		chr(idaapi.get_byte(ea+2)) + \
-		chr(idaapi.get_byte(ea+3)) + \
-		chr(idaapi.get_byte(ea+4)) + \
-		chr(idaapi.get_byte(ea+5)) + \
-		chr(idaapi.get_byte(ea+6)) + \
-		chr(idaapi.get_byte(ea+7))
+    @return: double
+    """
+    str = chr(idaapi.get_byte(ea)) + \
+        chr(idaapi.get_byte(ea+1)) + \
+        chr(idaapi.get_byte(ea+2)) + \
+        chr(idaapi.get_byte(ea+3)) + \
+        chr(idaapi.get_byte(ea+4)) + \
+        chr(idaapi.get_byte(ea+5)) + \
+        chr(idaapi.get_byte(ea+6)) + \
+        chr(idaapi.get_byte(ea+7))
 
-	return struct.unpack("d", str)[0]
+    return struct.unpack("d", str)[0]
 
 
 def LocByName(name):
-	"""
-	Get linear address of a name
+    """
+    Get linear address of a name
 
-	@param name: name of program byte
-	
-	@return: address of the name
-			badaddr - no such name
-	"""
-	return idaapi.get_name_ea(BADADDR, name)
+    @param name: name of program byte
+    
+    @return: address of the name
+            badaddr - no such name
+    """
+    return idaapi.get_name_ea(BADADDR, name)
 
 
 def LocByNameEx(fromaddr, name):
-	"""
-	Get linear address of a name
+    """
+    Get linear address of a name
 
-	@param fromaddr: the referring address. Allows to retrieve local label
-	           addresses in functions. If a local name is not found,
-	           then address of a global name is returned.
+    @param fromaddr: the referring address. Allows to retrieve local label
+               addresses in functions. If a local name is not found,
+               then address of a global name is returned.
 
-	@param name: name of program byte
-	
-	@return: address of the name (BADADDR - no such name)
-	"""
-	return idaapi.get_name_ea(fromaddr, name)
+    @param name: name of program byte
+    
+    @return: address of the name (BADADDR - no such name)
+    """
+    return idaapi.get_name_ea(fromaddr, name)
 
 
 def SegByBase(base):
-	"""
-	Get segment by segment base
-	
-	@param base: segment base paragraph or selector
+    """
+    Get segment by segment base
+    
+    @param base: segment base paragraph or selector
 
-	@return: linear address of the start of the segment or BADADDR 
+    @return: linear address of the start of the segment or BADADDR 
              if no such segment
-	"""
-	sel = idaapi.find_selector(base)
-	seg = idaapi.get_segm_by_sel(sel)
+    """
+    sel = idaapi.find_selector(base)
+    seg = idaapi.get_segm_by_sel(sel)
 
-	if seg:
-		return seg.startEA
-	else:
-		return BADADDR
+    if seg:
+        return seg.startEA
+    else:
+        return BADADDR
 
 
 def ScreenEA():
-	"""
-	Get linear address of cursor
-	"""
-	return idaapi.get_screen_ea()
+    """
+    Get linear address of cursor
+    """
+    return idaapi.get_screen_ea()
 
 
 def GetCurrentLine():
-	"""
-	Get the disassembly line at the cursor
+    """
+    Get the disassembly line at the cursor
 
-	@return: string
-	"""
-	return idaapi.tag_remove(idaapi.get_curline())
+    @return: string
+    """
+    return idaapi.tag_remove(idaapi.get_curline())
 
 
 def SelStart():
-	"""
-	Get start address of the selected area
-	returns BADADDR - the user has not selected an area
-	"""
-	selection, startaddr, endaddr = idaapi.read_selection()
+    """
+    Get start address of the selected area
+    returns BADADDR - the user has not selected an area
+    """
+    selection, startaddr, endaddr = idaapi.read_selection()
 
-	if selection == 1:
-		return startaddr
-	else:
-		return BADADDR
+    if selection == 1:
+        return startaddr
+    else:
+        return BADADDR
 
 
 def SelEnd():
-	"""
-	Get end address of the selected area
+    """
+    Get end address of the selected area
 
-	@return: BADADDR - the user has not selected an area
-	"""
-	selection, startaddr, endaddr = idaapi.read_selection()
+    @return: BADADDR - the user has not selected an area
+    """
+    selection, startaddr, endaddr = idaapi.read_selection()
 
-	if selection == 1:
-		return endaddr
-	else:
-		return BADADDR
+    if selection == 1:
+        return endaddr
+    else:
+        return BADADDR
 
 
 def GetReg(ea, reg):
-	"""
-	Get value of segment register at the specified address
+    """
+    Get value of segment register at the specified address
 
-	@param ea: linear address
-	@param reg: name of segment register
+    @param ea: linear address
+    @param reg: name of segment register
 
-	@return: the value of the segment register or 0xFFFF on error
+    @return: the value of the segment register or 0xFFFF on error
 
-	@note: The segment registers in 32bit program usually contain selectors,
+    @note: The segment registers in 32bit program usually contain selectors,
            so to get paragraph pointed by the segment register you need to 
-	       call AskSelector() function.
-	"""
-	if _REGMAP.has_key(reg):
-		return idaapi.getSR(ea, _REGMAP[reg]) & 0xFFFF
-	else:
-		return False
+           call AskSelector() function.
+    """
+    if _REGMAP.has_key(reg):
+        return idaapi.getSR(ea, _REGMAP[reg]) & 0xFFFF
+    else:
+        return False
 
 
 def NextAddr(ea):
-	"""
-	Get next address in the program
+    """
+    Get next address in the program
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: BADADDR - the specified address in the last used address
-	"""
-	return idaapi.nextaddr(ea)
+    @return: BADADDR - the specified address in the last used address
+    """
+    return idaapi.nextaddr(ea)
 
 
 def PrevAddr(ea):
-	"""
-	Get previous address in the program
+    """
+    Get previous address in the program
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: BADADDR - the specified address in the first address
-	"""
-	return idaapi.prevaddr(ea)
+    @return: BADADDR - the specified address in the first address
+    """
+    return idaapi.prevaddr(ea)
 
 
 def NextHead(ea, maxea):
-	"""
-	Get next defined item (instruction or data) in the program
+    """
+    Get next defined item (instruction or data) in the program
 
-	@param ea: linear address to start search from
-	@param maxea: the search will stop at the address
-		maxea is not included in the search range
-	
-	@return: BADADDR - no (more) defined items
-	"""
-	return idaapi.next_head(ea, maxea)
+    @param ea: linear address to start search from
+    @param maxea: the search will stop at the address
+        maxea is not included in the search range
+    
+    @return: BADADDR - no (more) defined items
+    """
+    return idaapi.next_head(ea, maxea)
 
 
 def PrevHead(ea, minea):
-	"""
-	Get previous defined item (instruction or data) in the program
+    """
+    Get previous defined item (instruction or data) in the program
 
-	@param ea: linear address to start search from
-	@param minea: the search will stop at the address
-	        minea is included in the search range
-	
-	@return: BADADDR - no (more) defined items
-	"""
-	return idaapi.prev_head(ea, minea)
+    @param ea: linear address to start search from
+    @param minea: the search will stop at the address
+            minea is included in the search range
+    
+    @return: BADADDR - no (more) defined items
+    """
+    return idaapi.prev_head(ea, minea)
 
 
 def NextNotTail(ea):
-	"""
-	Get next not-tail address in the program
-	This function searches for the next displayable address in the program.
-	The tail bytes of instructions and data are not displayable.
+    """
+    Get next not-tail address in the program
+    This function searches for the next displayable address in the program.
+    The tail bytes of instructions and data are not displayable.
 
-	@param ea: linear address
-	
-	@return: BADADDR - no (more) not-tail addresses
-	"""
-	return idaapi.next_not_tail(ea)
+    @param ea: linear address
+    
+    @return: BADADDR - no (more) not-tail addresses
+    """
+    return idaapi.next_not_tail(ea)
 
 
 def PrevNotTail(ea):
-	"""
-	Get previous not-tail address in the program
-	This function searches for the previous displayable address in the program.
-	The tail bytes of instructions and data are not displayable.
+    """
+    Get previous not-tail address in the program
+    This function searches for the previous displayable address in the program.
+    The tail bytes of instructions and data are not displayable.
 
-	@param ea: linear address
-	
-	@return: BADADDR - no (more) not-tail addresses
-	"""
-	return idaapi.prev_not_tail(ea)
+    @param ea: linear address
+    
+    @return: BADADDR - no (more) not-tail addresses
+    """
+    return idaapi.prev_not_tail(ea)
 
 
 def ItemEnd(ea):
-	"""
-	Get address of the end of the item (instruction or data)
-	
-	@param ea: linear address
+    """
+    Get address of the end of the item (instruction or data)
+    
+    @param ea: linear address
 
-	@return: address past end of the item at 'ea'
-	"""
-	return idaapi.get_item_end(ea)
+    @return: address past end of the item at 'ea'
+    """
+    return idaapi.get_item_end(ea)
 
 
 def ItemSize(ea):
-	"""
-	Get size of instruction or data item in bytes
+    """
+    Get size of instruction or data item in bytes
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: 1..n
-	"""
-	return idaapi.get_item_end(ea) - ea
+    @return: 1..n
+    """
+    return idaapi.get_item_end(ea) - ea
 
 
 def NameEx(fromaddr, ea):
-	"""
-	Get visible name of program byte
+    """
+    Get visible name of program byte
 
-	This function returns name of byte as it is displayed on the screen.
-	If a name contains illegal characters, IDA replaces them by the
-	substitution character during displaying. See IDA.CFG for the
-	definition of the substitution character.
+    This function returns name of byte as it is displayed on the screen.
+    If a name contains illegal characters, IDA replaces them by the
+    substitution character during displaying. See IDA.CFG for the
+    definition of the substitution character.
 
-	@param fromaddr: the referring address. May be BADADDR.
-	           Allows to retrieve local label addresses in functions.
-	           If a local name is not found, then a global name is 
-	           returned.
-	@param ea: linear address
+    @param fromaddr: the referring address. May be BADADDR.
+               Allows to retrieve local label addresses in functions.
+               If a local name is not found, then a global name is 
+               returned.
+    @param ea: linear address
 
-	@return: "" - byte has no name
-	"""
-	name = idaapi.get_name(fromaddr, ea)
+    @return: "" - byte has no name
+    """
+    name = idaapi.get_name(fromaddr, ea)
 
-	if not name:
-		return ""
-	else:
-		return name
+    if not name:
+        return ""
+    else:
+        return name
 
 
 def GetTrueNameEx(fromaddr, ea):
-	"""
-	Get true name of program byte
+    """
+    Get true name of program byte
 
-	This function returns name of byte as is without any replacements.
+    This function returns name of byte as is without any replacements.
 
-	@param fromaddr: the referring address. May be BADADDR.
-	       Allows to retrieve local label addresses in functions.
-	       If a local name is not found, then a global name is returned.
-	@param ea: linear address
+    @param fromaddr: the referring address. May be BADADDR.
+           Allows to retrieve local label addresses in functions.
+           If a local name is not found, then a global name is returned.
+    @param ea: linear address
 
-	@return: "" - byte has no name
-	"""
-	name = idaapi.get_true_name(fromaddr, ea)
+    @return: "" - byte has no name
+    """
+    name = idaapi.get_true_name(fromaddr, ea)
 
-	if not name:
-		return ""
-	else:
-		return name
+    if not name:
+        return ""
+    else:
+        return name
 
 
 def Demangle(name, disable_mask):
-	"""
-	Demangle a name
+    """
+    Demangle a name
 
-	@param name: name to demangle
-	@param disable_mask: a mask that tells how to demangle the name
-			it is a good idea to get this mask using
-			GetLongPrm(INF_SHORT_DN) or GetLongPrm(INF_LONG_DN)
+    @param name: name to demangle
+    @param disable_mask: a mask that tells how to demangle the name
+            it is a good idea to get this mask using
+            GetLongPrm(INF_SHORT_DN) or GetLongPrm(INF_LONG_DN)
 
-	@return: a demangled name
-		If the input name cannot be demangled, returns None
-	"""
-	return idaapi.demangle_name(name, disable_mask)
+    @return: a demangled name
+        If the input name cannot be demangled, returns None
+    """
+    return idaapi.demangle_name(name, disable_mask)
 
 
 def GetDisasm(ea):
-	"""
-	Get disassembly line
+    """
+    Get disassembly line
 
-	@param ea: linear address of instruction
+    @param ea: linear address of instruction
 
-	@return: "" - no instruction at the specified location
+    @return: "" - no instruction at the specified location
 
-	@note: this function may not return exactly the same mnemonics 
-	       as you see on the screen.
-	"""
-	text = idaapi.generate_disasm_line(ea)
-	if text:
-		return idaapi.tag_remove(text)
-	else:
-		return ""
+    @note: this function may not return exactly the same mnemonics 
+           as you see on the screen.
+    """
+    text = idaapi.generate_disasm_line(ea)
+    if text:
+        return idaapi.tag_remove(text)
+    else:
+        return ""
 
 
 def GetMnem(ea):
-	"""
-	Get instruction mnemonics
+    """
+    Get instruction mnemonics
 
-	@param ea: linear address of instruction
-	
-	@return: "" - no instruction at the specified location
+    @param ea: linear address of instruction
+    
+    @return: "" - no instruction at the specified location
 
-	@note: this function may not return exactly the same mnemonics
-	as you see on the screen.
-	"""
-	res = idaapi.ua_mnem(ea)
+    @note: this function may not return exactly the same mnemonics
+    as you see on the screen.
+    """
+    res = idaapi.ua_mnem(ea)
 
-	if not res:
-		return ""
-	else:
-		return res
+    if not res:
+        return ""
+    else:
+        return res
 
 
 def GetOpnd(ea, n):
-	"""
-	Get operand of an instruction
+    """
+    Get operand of an instruction
 
-	@param ea: linear address of instruction
-	@param n: number of operand:
-		0 - the first operand
-		1 - the second operand
+    @param ea: linear address of instruction
+    @param n: number of operand:
+        0 - the first operand
+        1 - the second operand
 
-	@return: the current text representation of operand
-	"""
-	res = idaapi.ua_outop(ea, n)
+    @return: the current text representation of operand
+    """
+    res = idaapi.ua_outop(ea, n)
 
-	if not res:
-		return ""
-	else:
-		return idaapi.tag_remove(res)
+    if not res:
+        return ""
+    else:
+        return idaapi.tag_remove(res)
 
 
 def GetOpType(ea, n):
-	"""
-	Get type of instruction operand
+    """
+    Get type of instruction operand
 
-	@param ea: linear address of instruction
-	@param n: number of operand:
-		0 - the first operand
-		1 - the second operand
+    @param ea: linear address of instruction
+    @param n: number of operand:
+        0 - the first operand
+        1 - the second operand
 
-	@return:
-		- -1      bad operand number passed
-		- 0       None
-		- 1       General Register
-		- 2       Memory Reference
-		- 3       Base + Index
-		- 4       Base + Index + Displacement
-		- 5       Immediate
-		- 6       Immediate Far Address (with a Segment Selector)
-		- 7       Immediate Near Address
-		
-		B{PC:}
-		
-		- 8       386 Trace register
-		- 9       386 Debug register
-		- 10      386 Control register
-		- 11      FPP register
-		- 12      MMX register
-		
-		B{8051:}
+    @return:
+        - -1      bad operand number passed
+        - 0       None
+        - 1       General Register
+        - 2       Memory Reference
+        - 3       Base + Index
+        - 4       Base + Index + Displacement
+        - 5       Immediate
+        - 6       Immediate Far Address (with a Segment Selector)
+        - 7       Immediate Near Address
+        
+        B{PC:}
+        
+        - 8       386 Trace register
+        - 9       386 Debug register
+        - 10      386 Control register
+        - 11      FPP register
+        - 12      MMX register
+        
+        B{8051:}
 
-		- 8       bit
-		- 9       /bit
-		- 10      bit
-		
-		B{80196:}
+        - 8       bit
+        - 9       /bit
+        - 10      bit
+        
+        B{80196:}
 
-		- 8       [intmem]
-		- 9       [intmem]+
-		- 10      offset[intmem]
-		- 11      bit
-		
-		B{ARM:}
-		
-		- 8       shifted register
-		- 9       MLA operands
-		- 10      register list (for LDM/STM)
-		- 11      coprocessor register list (for CDP)
-		- 12      coprocessor register (for LDC/STC)
-		
-		B{PPC:}
-		
-		- 8       SPR
-		- 9       2 FPRs
-		- 10      SH & MB & ME
-		- 11      CR field
-		- 12      CR bit
-		
-		B{TMS320C5:}
-		
-		- 8       bit
-		- 9       bit not
-		- 10      condition
-		
-		B{TMS320C6:}
-		
-		- 8       register pair (A1:A0..B15:B14)
-		
-		B{Z8:}
-		
-		- 8       @intmem
-		- 9       @Rx
-		
-		B{Z80:}
-		
-		- 8       condition
-	"""
-	inslen = idaapi.ua_code(ea)
+        - 8       [intmem]
+        - 9       [intmem]+
+        - 10      offset[intmem]
+        - 11      bit
+        
+        B{ARM:}
+        
+        - 8       shifted register
+        - 9       MLA operands
+        - 10      register list (for LDM/STM)
+        - 11      coprocessor register list (for CDP)
+        - 12      coprocessor register (for LDC/STC)
+        
+        B{PPC:}
+        
+        - 8       SPR
+        - 9       2 FPRs
+        - 10      SH & MB & ME
+        - 11      CR field
+        - 12      CR bit
+        
+        B{TMS320C5:}
+        
+        - 8       bit
+        - 9       bit not
+        - 10      condition
+        
+        B{TMS320C6:}
+        
+        - 8       register pair (A1:A0..B15:B14)
+        
+        B{Z8:}
+        
+        - 8       @intmem
+        - 9       @Rx
+        
+        B{Z80:}
+        
+        - 8       condition
+    """
+    inslen = idaapi.ua_code(ea)
 
-	if inslen == 0:
-		return -1
+    if inslen == 0:
+        return -1
 
-	insn = idaapi.get_current_instruction()
+    insn = idaapi.get_current_instruction()
 
-	if not insn:
-		return -1
+    if not insn:
+        return -1
 
-	op = idaapi.get_instruction_operand(insn, n)
+    op = idaapi.get_instruction_operand(insn, n)
 
-	if not op:
-		return -1
+    if not op:
+        return -1
 
-	return op.type
+    return op.type
 
 
 def GetOperandValue(ea, n):
-	"""
-	Get number used in the operand
+    """
+    Get number used in the operand
 
-	This function returns an immediate number used in the operand
+    This function returns an immediate number used in the operand
 
-	@param ea: linear address of instruction
-	@param n: the operand number
+    @param ea: linear address of instruction
+    @param n: the operand number
 
-	@return: value
-		operand is an immediate value  => immediate value
-		operand has a displacement     => displacement
-		operand is a direct memory ref => memory address
-		operand is a register          => register number
-		operand is a register phrase   => phrase number
-		otherwise                      => -1
-	"""
-	inslen = idaapi.ua_code(ea)
+    @return: value
+        operand is an immediate value  => immediate value
+        operand has a displacement     => displacement
+        operand is a direct memory ref => memory address
+        operand is a register          => register number
+        operand is a register phrase   => phrase number
+        otherwise                      => -1
+    """
+    inslen = idaapi.ua_code(ea)
 
-	if inslen == 0:
-		return -1
+    if inslen == 0:
+        return -1
 
-	insn = idaapi.get_current_instruction()
+    insn = idaapi.get_current_instruction()
 
-	if not insn:
-		return -1
+    if not insn:
+        return -1
 
-	op = idaapi.get_instruction_operand(insn, n)
+    op = idaapi.get_instruction_operand(insn, n)
 
-	if not op:
-		return -1
+    if not op:
+        return -1
 
-	return op.value
+    return op.value
 
 
 def LineA(ea, num):
-	"""
-	Get anterior line
+    """
+    Get anterior line
 
-	@param ea: linear address
-	@param num: number of anterior line (0..MAX_ITEM_LINES)
-	      MAX_ITEM_LINES is defined in IDA.CFG
-	
-	@return: anterior line string
-	"""
-	return idaapi.ExtraGet(ea, E_PREV + num)
+    @param ea: linear address
+    @param num: number of anterior line (0..MAX_ITEM_LINES)
+          MAX_ITEM_LINES is defined in IDA.CFG
+    
+    @return: anterior line string
+    """
+    return idaapi.ExtraGet(ea, E_PREV + num)
 
 
 def LineB(ea, num):
-	"""
-	Get posterior line
+    """
+    Get posterior line
 
-	@param ea: linear address
-	@param num: number of posterior line (0..MAX_ITEM_LINES)
+    @param ea: linear address
+    @param num: number of posterior line (0..MAX_ITEM_LINES)
 
-	@return: posterior line string
-	"""
-	return idaapi.ExtraGet(ea, E_NEXT + num)
+    @return: posterior line string
+    """
+    return idaapi.ExtraGet(ea, E_NEXT + num)
 
 
 def GetCommentEx(ea, repeatable):
-	"""
-	Get regular indented comment
-	
-	@param ea: linear address
+    """
+    Get regular indented comment
+    
+    @param ea: linear address
 
-	@return: string or None if it fails
-	"""
-	return idaapi.get_cmt(ea, repeatable)
+    @return: string or None if it fails
+    """
+    return idaapi.get_cmt(ea, repeatable)
 
 
 def AltOp(ea, n):
-	"""
-	Get manually entered operand string
+    """
+    Get manually entered operand string
 
-	@param ea: linear address
-	@param n: number of operand:
-	     0 - the first operand
-	     1 - the second operand
+    @param ea: linear address
+    @param n: number of operand:
+         0 - the first operand
+         1 - the second operand
 
-	@return: string or None if it fails
-	"""
-	return idaapi.get_forced_operand(ea, n)
+    @return: string or None if it fails
+    """
+    return idaapi.get_forced_operand(ea, n)
 
 
 def GetStringType(ea):
-	"""
-	Get string type
+    """
+    Get string type
 
-	@param ea: linear address
+    @param ea: linear address
 
-	Returns one of ASCSTR_... constants
-	"""
-	ti = idaapi.typeinfo_t()
+    Returns one of ASCSTR_... constants
+    """
+    ti = idaapi.typeinfo_t()
 
-	if idaapi.get_typeinfo(ea, 0, GetFlags(ea), ti):
-		return ti.strtype
-	else:
-		return None
+    if idaapi.get_typeinfo(ea, 0, GetFlags(ea), ti):
+        return ti.strtype
+    else:
+        return None
 
 ASCSTR_C       = idaapi.ASCSTR_TERMCHR # C-style ASCII string
 ASCSTR_PASCAL  = idaapi.ASCSTR_PASCAL  # Pascal-style ASCII string (length byte)
@@ -2071,30 +2071,30 @@ SEARCH_NOBRK    = idaapi.SEARCH_NOBRK    # don't test ctrl-break
 SEARCH_NOSHOW   = idaapi.SEARCH_NOSHOW   # don't display the search progress
 
 def FindText(ea, flag, y, x, str):
-	"""
-	@param ea: start address
-	@param flag: combination of SEARCH_* flags
-	@param y: number of text line at ea to start from (0..MAX_ITEM_LINES)
-	@param x: coordinate in this line
-	@param str: search string
+    """
+    @param ea: start address
+    @param flag: combination of SEARCH_* flags
+    @param y: number of text line at ea to start from (0..MAX_ITEM_LINES)
+    @param x: coordinate in this line
+    @param str: search string
 
-	@return: ea of result or BADADDR if not found
-	"""
-	return idaapi.find_text(ea, y, x, str, flag)
+    @return: ea of result or BADADDR if not found
+    """
+    return idaapi.find_text(ea, y, x, str, flag)
 
 
 def FindBinary(ea, flag, str, radix=16):
-	"""
-	@param ea: start address
-	@param flag: combination of SEARCH_* flags
-	@param str: a string as a user enters it for Search Text in Core
-	@param radix: radix of the numbers (default=16)
+    """
+    @param ea: start address
+    @param flag: combination of SEARCH_* flags
+    @param str: a string as a user enters it for Search Text in Core
+    @param radix: radix of the numbers (default=16)
 
-	@return: ea of result or BADADDR if not found
+    @return: ea of result or BADADDR if not found
 
-	@note: Example: "41 42" - find 2 bytes 41h,42h (radix is 16)
-	"""
-	return idaapi.find_binary(ea, BADADDR, str, radix, flag)
+    @note: Example: "41 42" - find 2 bytes 41h,42h (radix is 16)
+    """
+    return idaapi.find_binary(ea, BADADDR, str, radix, flag)
 
 
 #----------------------------------------------------------------------------
@@ -2105,31 +2105,31 @@ def FindBinary(ea, flag, str, radix=16):
 # Please note that not all parameters can be set directly.
 
 def GetLongPrm (offset):
-	"""
-	"""
-	return _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)
+    """
+    """
+    return _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)
 
 
 def GetShortPrm(offset):
-	return GetLongPrm(offset)
+    return GetLongPrm(offset)
 
 
 def GetCharPrm (offset):
-	return GetLongPrm(offset)
+    return GetLongPrm(offset)
 
 
 def SetLongPrm (offset, value):
-	"""
-	"""
-	return _IDC_SetAttr(idaapi.cvar.inf, _INFMAP, offset, value)
+    """
+    """
+    return _IDC_SetAttr(idaapi.cvar.inf, _INFMAP, offset, value)
 
 
 def SetShortPrm(offset, value):
-	SetLongPrm(offset, value)
+    SetLongPrm(offset, value)
 
 
 def SetCharPrm (offset, value):
-	SetLongPrm(offset, value)
+    SetLongPrm(offset, value)
 
 
 INF_VERSION     = 3       # short;   Version of database
@@ -2445,22 +2445,22 @@ INF_COMPILER    : 'cc'            # uchar;   compiler
 
 
 def SetProcessorType (processor, level):
-	"""
-	Change current processor
+    """
+    Change current processor
 
-	@param processor: name of processor in short form.
-	                  run 'ida ?' to get list of allowed processor types
-	@param level: the power of request:
-	              SETPROC_COMPAT - search for the processor type in the current module
-	              SETPROC_ALL    - search for the processor type in all modules
-	                               only if there were not calls with SETPROC_USER
-	              SETPROC_USER   - search for the processor type in all modules
-	                               and prohibit level SETPROC_USER
-	              SETPROC_FATAL  - can be combined with previous bits.
-	                               means that if the processor type can't be
-	                               set, IDA should display an error message and exit.
-	"""
-	return idaapi.set_processor_type(processor, level)
+    @param processor: name of processor in short form.
+                      run 'ida ?' to get list of allowed processor types
+    @param level: the power of request:
+                  SETPROC_COMPAT - search for the processor type in the current module
+                  SETPROC_ALL    - search for the processor type in all modules
+                                   only if there were not calls with SETPROC_USER
+                  SETPROC_USER   - search for the processor type in all modules
+                                   and prohibit level SETPROC_USER
+                  SETPROC_FATAL  - can be combined with previous bits.
+                                   means that if the processor type can't be
+                                   set, IDA should display an error message and exit.
+    """
+    return idaapi.set_processor_type(processor, level)
 
 SETPROC_COMPAT = idaapi.SETPROC_COMPAT 
 SETPROC_ALL    = idaapi.SETPROC_ALL    
@@ -2471,156 +2471,156 @@ def SetPrcsr(processor): return SetProcessorType(processor, SETPROC_COMPAT)
 
 
 def Batch(batch):
-	"""
-	Enable/disable batch mode of operation
+    """
+    Enable/disable batch mode of operation
 
-	@param batch: Batch mode
-	        0 - ida will display dialog boxes and wait for the user input
-	        1 - ida will not display dialog boxes, warnings, etc.
+    @param batch: Batch mode
+            0 - ida will display dialog boxes and wait for the user input
+            1 - ida will not display dialog boxes, warnings, etc.
 
-	@return: old balue of batch flag
-	"""
-	batch_prev = idaapi.cvar.batch
-	idaapi.cvar.batch = batch
-	return batch_prev
+    @return: old balue of batch flag
+    """
+    batch_prev = idaapi.cvar.batch
+    idaapi.cvar.batch = batch
+    return batch_prev
 
 
 #----------------------------------------------------------------------------
 #          I N T E R A C T I O N   W I T H   T H E   U S E R
 #----------------------------------------------------------------------------
 def AskStr(defval, prompt):
-	"""
-	Ask the user to enter a string
+    """
+    Ask the user to enter a string
 
-	@param defval: the default string value. This value will appear
-	         in the dialog box.
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default string value. This value will appear
+             in the dialog box.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the entered string or 0.
-	"""
-	return idaapi.askstr(idaapi.HIST_IDENT, defval, prompt)
+    @return: the entered string or 0.
+    """
+    return idaapi.askstr(idaapi.HIST_IDENT, defval, prompt)
 
 
 def AskFile(forsave, mask, prompt):
-	"""
-	Ask the user to choose a file
+    """
+    Ask the user to choose a file
 
-	@param forsave: 0: "Open" dialog box, 1: "Save" dialog box
-	@param mask: the input file mask as "*.*" or the default file name.
-	@param prompt: the prompt to display in the dialog box
+    @param forsave: 0: "Open" dialog box, 1: "Save" dialog box
+    @param mask: the input file mask as "*.*" or the default file name.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the selected file or 0.
-	"""
-	return idaapi.askfile_c(forsave, mask, prompt)
+    @return: the selected file or 0.
+    """
+    return idaapi.askfile_c(forsave, mask, prompt)
 
 
 def AskAddr(defval, prompt):
-	"""
-	Ask the user to enter an address
+    """
+    Ask the user to enter an address
 
-	@param defval: the default address value. This value
-	         will appear in the dialog box.
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default address value. This value
+             will appear in the dialog box.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the entered address or BADADDR.
-	"""
-	return idaapi.askaddr(defval, prompt)
+    @return: the entered address or BADADDR.
+    """
+    return idaapi.askaddr(defval, prompt)
 
 
 def AskLong(defval, prompt):
-	"""
-	Ask the user to enter a number
+    """
+    Ask the user to enter a number
 
-	@param defval: the default value. This value
-	         will appear in the dialog box.
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default value. This value
+             will appear in the dialog box.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the entered number or -1.
-	"""
-	return idaapi.asklong(defval, prompt)
+    @return: the entered number or -1.
+    """
+    return idaapi.asklong(defval, prompt)
 
 
 def AskSeg(defval, prompt):
-	"""
-	Ask the user to enter a segment value
+    """
+    Ask the user to enter a segment value
 
-	@param defval: the default value. This value
-	         will appear in the dialog box.
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default value. This value
+             will appear in the dialog box.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the entered segment selector or BADSEL.
-	"""
-	return idaapi.askseg(defval, prompt)
+    @return: the entered segment selector or BADSEL.
+    """
+    return idaapi.askseg(defval, prompt)
 
 
 def AskIdent(defval, prompt):
-	"""
-	Ask the user to enter an identifier
+    """
+    Ask the user to enter an identifier
 
-	@param defval: the default identifier. This value will appear in 
-	         the dialog box.
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default identifier. This value will appear in 
+             the dialog box.
+    @param prompt: the prompt to display in the dialog box
 
-	@return: the entered identifier or 0.
-	"""
-	return idaapi.askident(defval, prompt)
+    @return: the entered identifier or 0.
+    """
+    return idaapi.askident(defval, prompt)
 
 
 def AskYN(defval, prompt):
-	"""
-	Ask the user a question and let him answer Yes/No/Cancel
+    """
+    Ask the user a question and let him answer Yes/No/Cancel
 
-	@param defval: the default answer. This answer will be selected if the user
-	        presses Enter. -1:cancel,0-no,1-ok
-	@param prompt: the prompt to display in the dialog box
+    @param defval: the default answer. This answer will be selected if the user
+            presses Enter. -1:cancel,0-no,1-ok
+    @param prompt: the prompt to display in the dialog box
 
-	@return: -1:cancel,0-no,1-ok
-	"""
-	return idaapi.askyn_c(defval, prompt)
+    @return: -1:cancel,0-no,1-ok
+    """
+    return idaapi.askyn_c(defval, prompt)
 
 
 def Message(msg):
-	"""
-	Display a message in the message window
+    """
+    Display a message in the message window
 
-	@param msg: message to print (formatting is done in Python)
+    @param msg: message to print (formatting is done in Python)
 
-	This function can be used to debug IDC scripts
-	"""
-	idaapi.msg(msg)
+    This function can be used to debug IDC scripts
+    """
+    idaapi.msg(msg)
 
 
 def Warning(msg):
-	"""
-	Display a message in a message box
+    """
+    Display a message in a message box
 
-	@param msg: message to print (formatting is done in Python)
+    @param msg: message to print (formatting is done in Python)
 
-	This function can be used to debug IDC scripts
-	The user will be able to hide messages if they appear twice in a row on
-	the screen
-	"""
-	idaapi.warning(msg)
+    This function can be used to debug IDC scripts
+    The user will be able to hide messages if they appear twice in a row on
+    the screen
+    """
+    idaapi.warning(msg)
 
 
 def Fatal(format):
-	"""
-	Display a fatal message in a message box and quit IDA
-	
-	@param format: message to print
-	"""
-	idaapi.error(format)
+    """
+    Display a fatal message in a message box and quit IDA
+    
+    @param format: message to print
+    """
+    idaapi.error(format)
 
 
 def SetStatus(status):
-	"""
-	Change IDA indicator.
+    """
+    Change IDA indicator.
 
-	@param status: new status
+    @param status: new status
 
-	@return: the previous status.
-	"""
-	return idaapi.setStat(status)
+    @return: the previous status.
+    """
+    return idaapi.setStat(status)
 
 
 IDA_STATUS_READY    = 0 # READY     IDA is idle
@@ -2629,299 +2629,299 @@ IDA_STATUS_WAITING  = 2 # WAITING   Waiting for the user input
 IDA_STATUS_WORK     = 3 # BUSY      IDA is busy
 
 def Refresh():
-	"""
-	Refresh all disassembly views
-	"""
-	idaapi.refresh_idaview_anyway()
+    """
+    Refresh all disassembly views
+    """
+    idaapi.refresh_idaview_anyway()
 
 
 def RefreshLists():
-	"""
-	Refresh all list views (names, functions, etc)
-	"""
-	idaapi.refresh_lists()
+    """
+    Refresh all list views (names, functions, etc)
+    """
+    idaapi.refresh_lists()
 
 
 #----------------------------------------------------------------------------
 #                        S E G M E N T A T I O N
 #----------------------------------------------------------------------------
 def AskSelector(sel):
-	"""
-	Get a selector value
+    """
+    Get a selector value
 
-	@param sel: the selector number
+    @param sel: the selector number
 
-	@return:        selector value if found
-			otherwise the input value (sel)
-	
-	@note:           selector values are always in paragraphs
-	"""
-	sel = idaapi.getn_selector(sel)
+    @return:        selector value if found
+            otherwise the input value (sel)
+    
+    @note:           selector values are always in paragraphs
+    """
+    sel = idaapi.getn_selector(sel)
 
-	if not sel:
-		return sel
-	else:
-		return sel.base
+    if not sel:
+        return sel
+    else:
+        return sel.base
 
 
 def FindSelector(val):
-	"""
-	Find a selector which has the specifed value
+    """
+    Find a selector which has the specifed value
 
-	@param val: value to search for
-	
-	@return:        the selector number if found,
-			otherwise the input value (val & 0xFFFF)
+    @param val: value to search for
+    
+    @return:        the selector number if found,
+            otherwise the input value (val & 0xFFFF)
 
-	@note:           selector values are always in paragraphs
-	"""
-	sel = idaapi.find_selector(val)
+    @note:           selector values are always in paragraphs
+    """
+    sel = idaapi.find_selector(val)
 
-	if not sel:
-		return val & 0xffff
-	else:
-		return sel.n
-	
+    if not sel:
+        return val & 0xffff
+    else:
+        return sel.n
+    
 
 def SetSelector(sel, value):
-	"""
-	Set a selector value
+    """
+    Set a selector value
 
-	@param sel: the selector number
-	@param value: value of selector
+    @param sel: the selector number
+    @param value: value of selector
 
-	@return: None
-	
-	@note: ida supports up to 4096 selectors.
-			if 'sel' == 'val' then the selector is destroyed because
-			it has no significance
-	"""
-	return idaapi.set_selector(sel, value)
+    @return: None
+    
+    @note: ida supports up to 4096 selectors.
+            if 'sel' == 'val' then the selector is destroyed because
+            it has no significance
+    """
+    return idaapi.set_selector(sel, value)
 
 
 def DelSelector(sel):
-	"""
-	Delete a selector
+    """
+    Delete a selector
 
-	@param sel: the selector number to delete
+    @param sel: the selector number to delete
 
-	@return: None
+    @return: None
 
-	@note: if the selector is found, it will be deleted
-	"""
-	return idaapi.del_selector(sel)
+    @note: if the selector is found, it will be deleted
+    """
+    return idaapi.del_selector(sel)
 
 
 def FirstSeg():
-	"""
-	Get first segment
+    """
+    Get first segment
 
-	@return: address of the start of the first segment
-		BADADDR - no segments are defined
-	"""
-	segn = idaapi.get_segm_qty()
+    @return: address of the start of the first segment
+        BADADDR - no segments are defined
+    """
+    segn = idaapi.get_segm_qty()
 
-	if segn == 0:
-		return BADADDR
-	else:
-		seg = idaapi.getnseg(0)
+    if segn == 0:
+        return BADADDR
+    else:
+        seg = idaapi.getnseg(0)
 
-		if not seg:
-			return BADADDR
-		else:
-			return seg.startEA
+        if not seg:
+            return BADADDR
+        else:
+            return seg.startEA
 
 
 def NextSeg(ea):
-	"""
-	Get next segment
+    """
+    Get next segment
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: start of the next segment
-		BADADDR - no next segment
+    @return: start of the next segment
+        BADADDR - no next segment
 
-	TODO: Any better way of doing this?
-	"""
+    TODO: Any better way of doing this?
+    """
 
-	for n in range(idaapi.get_segm_qty()):
-		currseg = idaapi.getnseg(n)
+    for n in range(idaapi.get_segm_qty()):
+        currseg = idaapi.getnseg(n)
 
-		if ea >= currseg.startEA and ea < currseg.endEA:
-			nextseg = idaapi.getnseg(n+1)
+        if ea >= currseg.startEA and ea < currseg.endEA:
+            nextseg = idaapi.getnseg(n+1)
 
-			if not nextseg:
-				return BADADDR
-			else:
-				return nextseg.startEA
+            if not nextseg:
+                return BADADDR
+            else:
+                return nextseg.startEA
 
-	return BADADDR
+    return BADADDR
 
 
 def SegStart(ea):
-	"""
-	Get start address of a segment
+    """
+    Get start address of a segment
 
-	@param ea: any address in the segment
+    @param ea: any address in the segment
 
-	@return: start of segment
-		BADADDR - the specified address doesn't belong to any segment
-	"""
-	seg = idaapi.getseg(ea)
+    @return: start of segment
+        BADADDR - the specified address doesn't belong to any segment
+    """
+    seg = idaapi.getseg(ea)
 
-	if not seg:
-		return BADADDR
-	else:
-		return seg.startEA
+    if not seg:
+        return BADADDR
+    else:
+        return seg.startEA
 
 
 def SegEnd(ea):
-	"""
-	Get end address of a segment
+    """
+    Get end address of a segment
 
-	@param ea: any address in the segment
+    @param ea: any address in the segment
 
-	@return: end of segment (an address past end of the segment)
-		BADADDR - the specified address doesn't belong to any segment
-	"""
-	seg = idaapi.getseg(ea)
+    @return: end of segment (an address past end of the segment)
+        BADADDR - the specified address doesn't belong to any segment
+    """
+    seg = idaapi.getseg(ea)
 
-	if not seg:
-		return BADADDR
-	else:
-		return seg.endEA
+    if not seg:
+        return BADADDR
+    else:
+        return seg.endEA
 
 
 def SegName(ea):
-	"""
-	Get name of a segment
+    """
+    Get name of a segment
 
-	@param ea: any address in the segment
+    @param ea: any address in the segment
 
-	@return: "" - no segment at the specified address
-	"""
-	seg = idaapi.getseg(ea)
+    @return: "" - no segment at the specified address
+    """
+    seg = idaapi.getseg(ea)
 
-	if not seg:
-		return ""
-	else:
-		name = idaapi.get_true_segm_name(seg)
+    if not seg:
+        return ""
+    else:
+        name = idaapi.get_true_segm_name(seg)
 
-		if not name:
-			return ""
-		else:
-			return name
+        if not name:
+            return ""
+        else:
+            return name
 
 
 def SegCreate(startea, endea, base, use32, align, comb):
-	"""
-	Create a new segment
+    """
+    Create a new segment
 
-	@param startea: linear address of the start of the segment
-	@param endea: linear address of the end of the segment
-	           this address will not belong to the segment
-	           'endea' should be higher than 'startea'
-	@param base: base paragraph or selector of the segment.
-	           a paragraph is 16byte memory chunk.
-	           If a selector value is specified, the selector should be
-	           already defined.
-	@param use32: 0: 16bit segment, 1: 32bit segment, 2: 64bit segment
-	@param align: segment alignment. see below for alignment values
-	@param comb: segment combination. see below for combination values.
-	
-	@return: 0-failed, 1-ok
-	"""
-	success = idaapi.add_segm(base, startea, endea, "Segment", "CODE")
+    @param startea: linear address of the start of the segment
+    @param endea: linear address of the end of the segment
+               this address will not belong to the segment
+               'endea' should be higher than 'startea'
+    @param base: base paragraph or selector of the segment.
+               a paragraph is 16byte memory chunk.
+               If a selector value is specified, the selector should be
+               already defined.
+    @param use32: 0: 16bit segment, 1: 32bit segment, 2: 64bit segment
+    @param align: segment alignment. see below for alignment values
+    @param comb: segment combination. see below for combination values.
+    
+    @return: 0-failed, 1-ok
+    """
+    success = idaapi.add_segm(base, startea, endea, "Segment", "CODE")
 
-	if success != 1:
-		return 0
+    if success != 1:
+        return 0
 
-	seg = idaapi.getseg(startea)
+    seg = idaapi.getseg(startea)
 
-	if not seg:
-		return 0
+    if not seg:
+        return 0
 
-	seg.bitness = use32	
-	seg.align = align
-	seg.comb = comb
+    seg.bitness = use32    
+    seg.align = align
+    seg.comb = comb
 
-	return 1
+    return 1
 
 
 def SegDelete(ea, flags):
-	"""
-	Delete a segment
+    """
+    Delete a segment
 
-	@param ea: any address in the segment
-	@param flags: combination of SEGDEL_* flags
+    @param ea: any address in the segment
+    @param flags: combination of SEGDEL_* flags
 
-	@return: boolean success
-	"""
-	return idaapi.del_segm(ea, disable)
+    @return: boolean success
+    """
+    return idaapi.del_segm(ea, disable)
 
 SEGDEL_PERM   = idaapi.SEGDEL_PERM   # permanently, i.e. disable addresses
 SEGDEL_KEEP   = idaapi.SEGDEL_KEEP   # keep information (code & data, etc)
 SEGDEL_SILENT = idaapi.SEGDEL_SILENT # be silent
 
 def SegBounds(ea, startea, endea, disable):
-	"""
-	Change segment boundaries
+    """
+    Change segment boundaries
 
-	@param ea: any address in the segment
-	@param startea: new start address of the segment
-	@param endea: new end address of the segment
-	@param disable: discard bytes that go out of the segment
+    @param ea: any address in the segment
+    @param startea: new start address of the segment
+    @param endea: new end address of the segment
+    @param disable: discard bytes that go out of the segment
 
-	@return: boolean success
-	"""
-	return idaapi.set_segm_start(ea, startea, disable) & \
-	       idaapi.set_segm_end(ea, endea, disable)
+    @return: boolean success
+    """
+    return idaapi.set_segm_start(ea, startea, disable) & \
+           idaapi.set_segm_end(ea, endea, disable)
 
 
 def SegRename(ea, name):
-	"""
-	Change name of the segment
+    """
+    Change name of the segment
 
-	@param ea: any address in the segment
-	@param name: new name of the segment
+    @param ea: any address in the segment
+    @param name: new name of the segment
 
-	@return: success (boolean)
-	"""
-	seg = idaapi.getseg(ea)
+    @return: success (boolean)
+    """
+    seg = idaapi.getseg(ea)
 
-	if not seg:
-		return False
+    if not seg:
+        return False
 
-	return idaapi.set_segm_name(seg, name)	
+    return idaapi.set_segm_name(seg, name)    
 
 
 def SegClass(ea, segclass):
-	"""
-	Change class of the segment
+    """
+    Change class of the segment
 
-	@param ea: any address in the segment
-	@param segclass: new class of the segment
+    @param ea: any address in the segment
+    @param segclass: new class of the segment
 
-	@return: success (boolean)
-	"""
-	seg = idaapi.getseg(ea)
+    @return: success (boolean)
+    """
+    seg = idaapi.getseg(ea)
 
-	if not seg:
-		return False
+    if not seg:
+        return False
 
-	return idaapi.set_segm_class(seg, segclass)	
+    return idaapi.set_segm_class(seg, segclass)    
 
 
 def SegAlign(ea, alignment):
-	"""
-	Change alignment of the segment
-	
-	@param ea: any address in the segment
-	@param alignment: new alignment of the segment (one of the sa... constants)
+    """
+    Change alignment of the segment
+    
+    @param ea: any address in the segment
+    @param alignment: new alignment of the segment (one of the sa... constants)
 
-	@return: success (boolean)
-	"""
-	return SetSegmentAttr(ea, SEGATTR_ALIGN, alignment)
+    @return: success (boolean)
+    """
+    return SetSegmentAttr(ea, SEGATTR_ALIGN, alignment)
 
 
 saAbs        = idaapi.saAbs        # Absolute segment.
@@ -2943,15 +2943,15 @@ saRelQword   = idaapi.saRelQword   # 8 bytes
 
 
 def SegComb(segea, comb):
-	"""
-	Change combination of the segment
+    """
+    Change combination of the segment
 
-	@param segea: any address in the segment
-	@param comb: new combination of the segment (one of the sc... constants)
+    @param segea: any address in the segment
+    @param comb: new combination of the segment (one of the sc... constants)
 
-	@return: success (boolean)
-	"""
-	return SetSegmentAttr(ea, SEGATTR_COMB, comb)
+    @return: success (boolean)
+    """
+    return SetSegmentAttr(ea, SEGATTR_COMB, comb)
 
 
 scPriv   = idaapi.scPriv   # Private. Do not combine with any other program
@@ -2966,74 +2966,74 @@ scPub3   = idaapi.scPub3   # As defined by Microsoft, same as C=2 (public).
 
 
 def SegAddrng(ea, bitness):
-	"""
-	Change segment addressing
+    """
+    Change segment addressing
 
-	@param ea: any address in the segment
-	@param bitness: 0: 16bit, 1: 32bit, 2: 64bit
-	
-	@return: success (boolean)
-	"""
-	seg = idaapi.getseg(segea)
+    @param ea: any address in the segment
+    @param bitness: 0: 16bit, 1: 32bit, 2: 64bit
+    
+    @return: success (boolean)
+    """
+    seg = idaapi.getseg(segea)
 
-	if not seg:
-		return False
+    if not seg:
+        return False
 
-	seg.bitness = use32
+    seg.bitness = use32
 
-	return True
+    return True
 
 
 def SegByName(segname):
-	"""
-	Get segment by name
+    """
+    Get segment by name
 
-	@param segname: name of segment
+    @param segname: name of segment
 
-	@return: segment selector or BADADDR
-	"""
-	seg = idaapi.get_segm_by_name(segname)
+    @return: segment selector or BADADDR
+    """
+    seg = idaapi.get_segm_by_name(segname)
 
-	if not seg:
-		return BADADDR
+    if not seg:
+        return BADADDR
 
-	return seg.startEA
+    return seg.startEA
 
 
 def SegDefReg(ea, reg, value):
-	"""
-	Set default segment register value for a segment
+    """
+    Set default segment register value for a segment
 
-	@param ea: any address in the segment
-	           if no segment is present at the specified address
-	           then all segments will be affected
-	@param reg: name of segment register
-	@param value: default value of the segment register. -1-undefined.
-	"""
-	seg = idaapi.getseg(ea)
+    @param ea: any address in the segment
+               if no segment is present at the specified address
+               then all segments will be affected
+    @param reg: name of segment register
+    @param value: default value of the segment register. -1-undefined.
+    """
+    seg = idaapi.getseg(ea)
 
-	if seg and _REGMAP.has_key(reg):
-		return idaapi.SetDefaultRegisterValue(seg, _REGMAP[reg], value)
-	else:
-		return False
+    if seg and _REGMAP.has_key(reg):
+        return idaapi.SetDefaultRegisterValue(seg, _REGMAP[reg], value)
+    else:
+        return False
 
 
 def SetSegmentType(segea, type):
-	"""
-	Set segment type
+    """
+    Set segment type
 
-	@param segea: any address within segment
-	@param type: new segment type:
+    @param segea: any address within segment
+    @param type: new segment type:
 
-	@return: !=0 - ok
-	"""
-	seg = idaapi.getseg(segea)
+    @return: !=0 - ok
+    """
+    seg = idaapi.getseg(segea)
 
-	if not seg:
-		return False
+    if not seg:
+        return False
 
-	seg.type = type
-	return seg.update()
+    seg.type = type
+    return seg.update()
 
 
 SEG_NORM   = idaapi.SEG_NORM        
@@ -3055,38 +3055,38 @@ SEG_IMEM   = idaapi.SEG_IMEM   # internal processor memory & sfr (8051)
 
 
 def GetSegmentAttr(segea, attr):
-	"""
-	Get segment attribute
+    """
+    Get segment attribute
 
-	@param segea: any address within segment
-	@param attr: one of SEGATTR_... constants
+    @param segea: any address within segment
+    @param attr: one of SEGATTR_... constants
 
-	FIXME: add support for segment registers
-	"""
-	seg = idaapi.getseg(segea)
-	
-	if seg:
-		return _IDC_GetAttr(seg, _SEGATTRMAP, attr)
+    FIXME: add support for segment registers
+    """
+    seg = idaapi.getseg(segea)
+    
+    if seg:
+        return _IDC_GetAttr(seg, _SEGATTRMAP, attr)
 
 
 def SetSegmentAttr(segea, attr, value):
-	"""
-	Set segment attribute
-		
-	@param segea: any address within segment
-	@param attr: one of SEGATTR_... constants
+    """
+    Set segment attribute
+        
+    @param segea: any address within segment
+    @param attr: one of SEGATTR_... constants
 
-	@note: Please note that not all segment attributes are modifiable.
-	       Also some of them should be modified using special functions
-	       like SegAddrng, etc.
+    @note: Please note that not all segment attributes are modifiable.
+           Also some of them should be modified using special functions
+           like SegAddrng, etc.
 
-	FIXME: add support for segment registers
-	"""
-	seg = idaapi.getseg(segea)
-	
-	if seg:
-		_IDC_SetAttr(seg, _SEGATTRMAP, attr, value)
-		return seg.update()
+    FIXME: add support for segment registers
+    """
+    seg = idaapi.getseg(segea)
+    
+    if seg:
+        _IDC_SetAttr(seg, _SEGATTRMAP, attr, value)
+        return seg.update()
 
 
 SEGATTR_START   =  0      # starting address
@@ -3111,23 +3111,23 @@ SEGATTR_TYPE    = 94      # segment type
 SEGATTR_COLOR   = 95      # segment color
 
 _SEGATTRMAP = {
-	SEGATTR_START   : 'startEA',
-	SEGATTR_END     : 'endEA',
-	SEGATTR_ORGBASE : 'orgbase',
-	SEGATTR_ALIGN   : 'align',
-	SEGATTR_COMB    : 'comb',
-	SEGATTR_PERM    : 'perm',
-	SEGATTR_BITNESS : 'bitness',
-	SEGATTR_FLAGS   : 'flags',
-	SEGATTR_SEL     : 'sel',
-	SEGATTR_ES      : '',
-	SEGATTR_CS      : '',
-	SEGATTR_SS      : '',
-	SEGATTR_DS      : '',
-	SEGATTR_FS      : '',
-	SEGATTR_GS      : '',
-	SEGATTR_TYPE    : 'type',
-	SEGATTR_COLOR   : 'color',
+    SEGATTR_START   : 'startEA',
+    SEGATTR_END     : 'endEA',
+    SEGATTR_ORGBASE : 'orgbase',
+    SEGATTR_ALIGN   : 'align',
+    SEGATTR_COMB    : 'comb',
+    SEGATTR_PERM    : 'perm',
+    SEGATTR_BITNESS : 'bitness',
+    SEGATTR_FLAGS   : 'flags',
+    SEGATTR_SEL     : 'sel',
+    SEGATTR_ES      : '',
+    SEGATTR_CS      : '',
+    SEGATTR_SS      : '',
+    SEGATTR_DS      : '',
+    SEGATTR_FS      : '',
+    SEGATTR_GS      : '',
+    SEGATTR_TYPE    : 'type',
+    SEGATTR_COLOR   : 'color',
 }
 
 
@@ -3147,79 +3147,79 @@ XREF_USER = 32            # All user-specified xref types
 
 # Mark exec flow 'from' 'to'
 def AddCodeXref(From, To, flowtype):
-	"""
-	"""
-	return idaapi.add_cref(From, To, flowtype)
+    """
+    """
+    return idaapi.add_cref(From, To, flowtype)
 
 
 def DelCodeXref(From, To, undef):
-	"""
-	Unmark exec flow 'from' 'to'
+    """
+    Unmark exec flow 'from' 'to'
 
-	@param undef: make 'To' undefined if no more references to it
+    @param undef: make 'To' undefined if no more references to it
 
-	@returns: 1 - planned to be made undefined
-	"""
-	return idaapi.del_cref(From, To, undef)
+    @returns: 1 - planned to be made undefined
+    """
+    return idaapi.del_cref(From, To, undef)
 
 
 # The following functions include the ordinary flows:
 # (the ordinary flow references are returned first)
 def Rfirst(From):            
-	"""
-	Get first code xref from 'From'
-	"""
-	return idaapi.get_first_cref_from(From)
+    """
+    Get first code xref from 'From'
+    """
+    return idaapi.get_first_cref_from(From)
 
 
 def Rnext(From, current):
-	"""
-	Get next code xref from
-	"""
-	return idaapi.get_next_cref_from(From, current)
+    """
+    Get next code xref from
+    """
+    return idaapi.get_next_cref_from(From, current)
 
 
 def RfirstB(To):
-	"""
-	Get first code xref to 'To'
-	"""
-	return idaapi.get_first_cref_to(To)
+    """
+    Get first code xref to 'To'
+    """
+    return idaapi.get_first_cref_to(To)
 
 
 def RnextB(To, current):
-	"""
-	Get next code xref to 'To'
-	"""
-	return idaapi.get_next_cref_to(To, current)
+    """
+    Get next code xref to 'To'
+    """
+    return idaapi.get_next_cref_to(To, current)
 
 
 # The following functions don't take into account the ordinary flows:
 def Rfirst0(From):
-	"""
-	Get first xref from 'From'
-	"""
-	return idaapi.get_first_fcref_from(From)
+    """
+    Get first xref from 'From'
+    """
+    return idaapi.get_first_fcref_from(From)
 
 
 def Rnext0(From, current):
-	"""
-	Get next xref from
-	"""
-	return idaapi.get_next_fcref_from(From, current)
+    """
+    Get next xref from
+    """
+    return idaapi.get_next_fcref_from(From, current)
 
 
 def RfirstB0(To):
-	"""
-	Get first xref to 'To'
-	"""
-	return idaapi.get_first_fcref_to(To)
+    """
+    Get first xref to 'To'
+    """
+    return idaapi.get_first_fcref_to(To)
 
 
 def RnextB0(To, current):
-	"""
-	Get next xref to 'To'
-	"""
-	return idaapi.get_next_fcref_to(To, current)
+    """
+    Get next xref to 'To'
+    """
+    return idaapi.get_next_fcref_to(To, current)
 
 
 # Data reference types (combine with XREF_USER!):
@@ -3231,255 +3231,255 @@ dr_I    = idaapi.dr_I  # Informational
 
 
 def add_dref(From, To, drefType):
-	"""
-	Create Data Ref
-	"""
-	return idaapi.add_dref(From, To, drefType)
+    """
+    Create Data Ref
+    """
+    return idaapi.add_dref(From, To, drefType)
 
 
 def del_dref(From, To):
-	"""
-	Unmark Data Ref
-	"""
-	return idaapi.del_dref(From, To)
+    """
+    Unmark Data Ref
+    """
+    return idaapi.del_dref(From, To)
 
 
 def Dfirst(From):
-	"""
-	Get first data xref from 'From'
-	"""
-	return idaapi.get_first_dref_from(From)
+    """
+    Get first data xref from 'From'
+    """
+    return idaapi.get_first_dref_from(From)
 
 
 def Dnext(From, current):
-	"""
-	Get next data xref from 'From'
-	"""
-	return idaapi.get_next_dref_from(From, current)
+    """
+    Get next data xref from 'From'
+    """
+    return idaapi.get_next_dref_from(From, current)
 
 
 def DfirstB(To):
-	"""
-	Get first data xref to 'To'
-	"""
-	return idaapi.get_first_dref_to(To)
+    """
+    Get first data xref to 'To'
+    """
+    return idaapi.get_first_dref_to(To)
 
 
 def DnextB(To, current):
-	"""
-	Get next data xref to 'To'
-	"""
-	return idaapi.get_next_dref_to(To, current)
+    """
+    Get next data xref to 'To'
+    """
+    return idaapi.get_next_dref_to(To, current)
 
 
 def XrefType():
-	"""
-	Return type of the last xref obtained by 
-	[RD]first/next[B0] functions. 
-	
-	@return: constants fl_* or dr_*
-	"""
-	raise DeprecatedIDCError, "use XrefsFrom() XrefsTo() from idautils instead."
+    """
+    Return type of the last xref obtained by 
+    [RD]first/next[B0] functions. 
+    
+    @return: constants fl_* or dr_*
+    """
+    raise DeprecatedIDCError, "use XrefsFrom() XrefsTo() from idautils instead."
 
 
 #----------------------------------------------------------------------------
 #                            F I L E   I / O
 #----------------------------------------------------------------------------
 def fopen(file, mode):
-	raise DeprecatedIDCError, "fopen() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fopen() deprecated. Use Python file objects instead."
 
 def fclose(handle):
-	raise DeprecatedIDCError, "fclose() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fclose() deprecated. Use Python file objects instead."
 
 def filelength(handle):
-	raise DeprecatedIDCError, "filelength() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "filelength() deprecated. Use Python file objects instead."
 
 def fseek(handle, offset, origin):
-	raise DeprecatedIDCError, "fseek() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fseek() deprecated. Use Python file objects instead."
 
 def ftell(handle):
-	raise DeprecatedIDCError, "ftell() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "ftell() deprecated. Use Python file objects instead."
 
 
 def LoadFile(filepath, pos, ea, size):
-	"""
-	Load file into IDA database
+    """
+    Load file into IDA database
 
-	@param filepath: path to input file
-	@param pos: position in the file
-	@param ea: linear address to load
-	@param size: number of bytes to load
+    @param filepath: path to input file
+    @param pos: position in the file
+    @param ea: linear address to load
+    @param size: number of bytes to load
 
-	@return: 0 - error, 1 - ok
-	"""
-	li = idaapi.open_linput(filepath, False)
+    @return: 0 - error, 1 - ok
+    """
+    li = idaapi.open_linput(filepath, False)
 
-	if li:
-		retval = idaapi.file2base(li, pos, ea, ea+size, False)
-		idaapi.close_linput(li)
-		return retval
-	else:
-		return 0
+    if li:
+        retval = idaapi.file2base(li, pos, ea, ea+size, False)
+        idaapi.close_linput(li)
+        return retval
+    else:
+        return 0
 
 
 def SaveFile(filepath, pos, ea, size):
-	"""
-	Save from IDA database to file
+    """
+    Save from IDA database to file
 
-	@param filepath: path to output file
-	@param pos: position in the file
-	@param ea: linear address to save from
-	@param size: number of bytes to save
+    @param filepath: path to output file
+    @param pos: position in the file
+    @param ea: linear address to save from
+    @param size: number of bytes to save
 
-	@return: 0 - error, 1 - ok
-	"""
-	of = idaapi.fopenWB(filepath)
+    @return: 0 - error, 1 - ok
+    """
+    of = idaapi.fopenWB(filepath)
 
-	if of:
-		retval = idaapi.base2file(of, pos, ea, ea+size)
-		idaapi.eclose(of)
-		return retval
-	else:
-		return 0
+    if of:
+        retval = idaapi.base2file(of, pos, ea, ea+size)
+        idaapi.eclose(of)
+        return retval
+    else:
+        return 0
 
 
 def fgetc(handle):
-	raise DeprecatedIDCError, "fgetc() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fgetc() deprecated. Use Python file objects instead."
 
 def fputc(byte, handle):
-	raise DeprecatedIDCError, "fputc() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fputc() deprecated. Use Python file objects instead."
 
 def fprintf(handle, format, *args):
-	raise DeprecatedIDCError, "fprintf() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "fprintf() deprecated. Use Python file objects instead."
 
 def readshort(handle, mostfirst):
-	raise DeprecatedIDCError, "readshort() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "readshort() deprecated. Use Python file objects instead."
 
 def readlong(handle, mostfirst):
-	raise DeprecatedIDCError, "readlong() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "readlong() deprecated. Use Python file objects instead."
 
 def writeshort(handle, word, mostfirst):
-	raise DeprecatedIDCError, "writeshort() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "writeshort() deprecated. Use Python file objects instead."
 
 def writelong(handle, dword, mostfirst):
-	raise DeprecatedIDCError, "writelong() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "writelong() deprecated. Use Python file objects instead."
 
 def readstr(handle):
-	raise DeprecatedIDCError, "readstr() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "readstr() deprecated. Use Python file objects instead."
 
 def writestr(handle, str):
-	raise DeprecatedIDCError, "writestr() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError, "writestr() deprecated. Use Python file objects instead."
 
 # ----------------------------------------------------------------------------
 #                           F U N C T I O N S
 # ----------------------------------------------------------------------------
 
 def MakeFunction(start, end):
-	"""
-	Create a function
-	
-	@param start: function bounds
-	@param end: function bounds
+    """
+    Create a function
+    
+    @param start: function bounds
+    @param end: function bounds
 
-	If the function end address is BADADDR, then
-	IDA will try to determine the function bounds
-	automatically. IDA will define all necessary
-	instructions to determine the function bounds.
+    If the function end address is BADADDR, then
+    IDA will try to determine the function bounds
+    automatically. IDA will define all necessary
+    instructions to determine the function bounds.
 
-	@return: !=0 - ok
+    @return: !=0 - ok
 
-	@note: an instruction should be present at the start address
-	"""
-	return idaapi.add_func(start, end)
+    @note: an instruction should be present at the start address
+    """
+    return idaapi.add_func(start, end)
 
 
 def DelFunction(ea):
-	"""
-	Delete a function
+    """
+    Delete a function
 
-	@param ea: any address belonging to the function
-	
-	@return: !=0 - ok
-	"""
-	return idaapi.del_func(ea)
+    @param ea: any address belonging to the function
+    
+    @return: !=0 - ok
+    """
+    return idaapi.del_func(ea)
 
 
 def SetFunctionEnd(ea, end):
-	"""
-	Change function end address
-	
-	@param ea: any address belonging to the function
-	@param end: new function end address
+    """
+    Change function end address
+    
+    @param ea: any address belonging to the function
+    @param end: new function end address
 
-	@return: !=0 - ok
-	"""
-	return idaapi.func_setend(ea, end)
+    @return: !=0 - ok
+    """
+    return idaapi.func_setend(ea, end)
 
 
 def NextFunction(ea):
-	"""
-	Find next function
-	
-	@param ea: any address belonging to the function
+    """
+    Find next function
+    
+    @param ea: any address belonging to the function
 
-	@return:        -1 - no more functions
-			otherwise returns the next function start address
-	"""
-	func = idaapi.get_next_func(ea)
+    @return:        -1 - no more functions
+            otherwise returns the next function start address
+    """
+    func = idaapi.get_next_func(ea)
 
-	if not func:
-		return BADADDR
-	else:
-		return func.startEA
+    if not func:
+        return BADADDR
+    else:
+        return func.startEA
 
 
 def PrevFunction(ea):
-	"""
-	Find previous function
-	
-	@param ea: any address belonging to the function
+    """
+    Find previous function
+    
+    @param ea: any address belonging to the function
 
-	@return: -1 - no more functions
-			otherwise returns the previous function start address
-	"""
-	func = idaapi.get_prev_func(ea)
+    @return: -1 - no more functions
+            otherwise returns the previous function start address
+    """
+    func = idaapi.get_prev_func(ea)
 
-	if not func:
-		return BADADDR
-	else:
-		return func.startEA
+    if not func:
+        return BADADDR
+    else:
+        return func.startEA
 
 
 def GetFunctionAttr(ea, attr):
-	"""
-	Get a function attribute
+    """
+    Get a function attribute
 
-	@param ea: any address belonging to the function
-	@param attr: one of FUNCATTR_... constants
+    @param ea: any address belonging to the function
+    @param attr: one of FUNCATTR_... constants
 
-	@return: -1 - error otherwise returns the attribute value
-	"""
-	func = idaapi.get_func(ea)
+    @return: -1 - error otherwise returns the attribute value
+    """
+    func = idaapi.get_func(ea)
 
-	if func:
-		return _IDC_GetAttr(func, _FUNCATTRMAP, attr)
+    if func:
+        return _IDC_GetAttr(func, _FUNCATTRMAP, attr)
 
 
 def SetFunctionAttr(ea, attr, value):
-	"""
-	Set a function attribute
+    """
+    Set a function attribute
 
-	@param ea: any address belonging to the function
-	@param attr: one of FUNCATTR_... constants
-	@param value: new value of the attribute
+    @param ea: any address belonging to the function
+    @param attr: one of FUNCATTR_... constants
+    @param value: new value of the attribute
 
-	@return: 1-ok, 0-failed
-	"""
-	func = idaapi.get_func(ea)
+    @return: 1-ok, 0-failed
+    """
+    func = idaapi.get_func(ea)
 
-	if func:
-		_IDC_SetAttr(func, _FUNCATTRMAP, attr, value)
-		return idaapi.update_func(func)
+    if func:
+        _IDC_SetAttr(func, _FUNCATTRMAP, attr, value)
+        return idaapi.update_func(func)
 
 
 FUNCATTR_START   =  0     # function start address
@@ -3493,32 +3493,32 @@ FUNCATTR_FPD     = 24     # frame pointer delta
 FUNCATTR_COLOR   = 28     # function color code
 
 _FUNCATTRMAP = {
-	FUNCATTR_START   : 'startEA',
-	FUNCATTR_END     : 'endEA',
-	FUNCATTR_FLAGS   : 'flags',
-	FUNCATTR_FRAME   : 'frame',
-	FUNCATTR_FRSIZE  : 'frsize',
-	FUNCATTR_FRREGS  : 'frregs',
-	FUNCATTR_ARGSIZE : 'argsize',
-	FUNCATTR_FPD     : 'fpd',
-	FUNCATTR_COLOR   : 'color'
+    FUNCATTR_START   : 'startEA',
+    FUNCATTR_END     : 'endEA',
+    FUNCATTR_FLAGS   : 'flags',
+    FUNCATTR_FRAME   : 'frame',
+    FUNCATTR_FRSIZE  : 'frsize',
+    FUNCATTR_FRREGS  : 'frregs',
+    FUNCATTR_ARGSIZE : 'argsize',
+    FUNCATTR_FPD     : 'fpd',
+    FUNCATTR_COLOR   : 'color'
 }
 
 
 def GetFunctionFlags(ea):
-	"""
-	Retrieve function flags
+    """
+    Retrieve function flags
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: -1 - function doesn't exist otherwise returns the flags
-	"""
-	func = idaapi.get_func(ea)
+    @return: -1 - function doesn't exist otherwise returns the flags
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return -1
-	else:
-		return func.flags
+    if not func:
+        return -1
+    else:
+        return func.flags
 
 
 FUNC_NORET    = idaapi.FUNC_NORET    # function doesn't return
@@ -3534,282 +3534,282 @@ FUNC_BOTTOMBP = idaapi.FUNC_BOTTOMBP # BP points to the bottom of the stack fram
 
 
 def SetFunctionFlags(ea, flags):
-	"""
-	Change function flags
+    """
+    Change function flags
 
-	@param ea: any address belonging to the function
-	@param flags: see GetFunctionFlags() for explanations
+    @param ea: any address belonging to the function
+    @param flags: see GetFunctionFlags() for explanations
 
-	@return: !=0 - ok
-	"""
-	func = idaapi.get_func(ea)
+    @return: !=0 - ok
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return 0
-	else:
-		func.flags = flags
-		idaapi.update_func(func)
-		return 1
+    if not func:
+        return 0
+    else:
+        func.flags = flags
+        idaapi.update_func(func)
+        return 1
 
 
 def GetFunctionName(ea):
-	"""
-	Retrieve function name
+    """
+    Retrieve function name
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: null string - function doesn't exist
-			otherwise returns function name
-	"""
-	name = idaapi.get_func_name(ea)
+    @return: null string - function doesn't exist
+            otherwise returns function name
+    """
+    name = idaapi.get_func_name(ea)
 
-	if not name:
-		return ""
-	else:
-		return name
+    if not name:
+        return ""
+    else:
+        return name
 
 
 def GetFunctionCmt(ea, repeatable):
-	"""
-	Retrieve function comment
+    """
+    Retrieve function comment
 
-	@param ea: any address belonging to the function
-	@param repeatable: 1: get repeatable comment
-			0: get regular comment
-	
-	@return: function comment string
-	"""
-	func = idaapi.get_func(ea)
+    @param ea: any address belonging to the function
+    @param repeatable: 1: get repeatable comment
+            0: get regular comment
+    
+    @return: function comment string
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return ""
-	else:
-		comment = idaapi.get_func_cmt(func, repeatable)
+    if not func:
+        return ""
+    else:
+        comment = idaapi.get_func_cmt(func, repeatable)
 
-		if not comment:
-			return ""
-		else:
-			return comment
+        if not comment:
+            return ""
+        else:
+            return comment
 
 
 def SetFunctionCmt(ea, cmt, repeatable):
-	"""
-	Set function comment
+    """
+    Set function comment
 
-	@param ea: any address belonging to the function
-	@param cmt: a function comment line
-	@param repeatable: 1: get repeatable comment
-			0: get regular comment
-	"""
-	func = idaapi.get_func(ea)
+    @param ea: any address belonging to the function
+    @param cmt: a function comment line
+    @param repeatable: 1: get repeatable comment
+            0: get regular comment
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return None
-	else:
-		return idaapi.set_func_cmt(func, cmt, repeatable)
+    if not func:
+        return None
+    else:
+        return idaapi.set_func_cmt(func, cmt, repeatable)
 
 
 def ChooseFunction(title):
-	"""
-	Ask the user to select a function
+    """
+    Ask the user to select a function
 
-	Arguments:
+    Arguments:
 
-	@param title: title of the dialog box
-	
-	@return: -1 - user refused to select a function
-	         otherwise returns the selected function start address
-	"""
-	return idaapi.choose_func(title)
+    @param title: title of the dialog box
+    
+    @return: -1 - user refused to select a function
+             otherwise returns the selected function start address
+    """
+    return idaapi.choose_func(title)
 
 
 def GetFuncOffset(ea):
-	"""
-	Convert address to 'funcname+offset' string
+    """
+    Convert address to 'funcname+offset' string
 
-	@param ea - address to convert
+    @param ea - address to convert
 
-	@return: if the address belongs to a function then return a string
-	         formed as 'name+offset' where 'name' is a function name
-	         'offset' is offset within the function else return null string
-	"""
-	return idaapi.a2funcoff(ea)
+    @return: if the address belongs to a function then return a string
+             formed as 'name+offset' where 'name' is a function name
+             'offset' is offset within the function else return null string
+    """
+    return idaapi.a2funcoff(ea)
 
 
 def FindFuncEnd(ea):
-	"""
-	Determine a new function boundaries
+    """
+    Determine a new function boundaries
 
-	@param ea: starting address of a new function
+    @param ea: starting address of a new function
 
-	@return: if a function already exists, then return its end address.
-			If a function end cannot be determined, the return BADADDR
-			otherwise return the end address of the new function
-	"""
-	func = idaapi.func_t()
+    @return: if a function already exists, then return its end address.
+            If a function end cannot be determined, the return BADADDR
+            otherwise return the end address of the new function
+    """
+    func = idaapi.func_t()
 
-	res = idaapi.find_func_bounds(ea, func, idaapi.FIND_FUNC_DEFINE) 
+    res = idaapi.find_func_bounds(ea, func, idaapi.FIND_FUNC_DEFINE) 
 
-	if res == idaapi.FIND_FUNC_UNDEF:
-		return BADADDR
-	else:
-		return func.endEA
+    if res == idaapi.FIND_FUNC_UNDEF:
+        return BADADDR
+    else:
+        return func.endEA
 
 
 def GetFrame(ea):
-	"""
-	Get ID of function frame structure
+    """
+    Get ID of function frame structure
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: ID of function frame or None In order to access stack variables 
-	         you need to use structure member manipulaion functions with the
-	         obtained ID.
-	"""
-	frame = idaapi.get_frame(ea)
+    @return: ID of function frame or None In order to access stack variables 
+             you need to use structure member manipulaion functions with the
+             obtained ID.
+    """
+    frame = idaapi.get_frame(ea)
 
-	if frame:
-		return frame.id
-	else:
-		return None
+    if frame:
+        return frame.id
+    else:
+        return None
 
 
 def GetFrameLvarSize(ea):
-	"""
-	Get size of local variables in function frame
+    """
+    Get size of local variables in function frame
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: Size of local variables in bytes.
-	         If the function doesn't have a frame, return 0
-	         If the function does't exist, return None
-	"""
-	return GetFunctionAttr(ea, FUNCATTR_FRSIZE)
+    @return: Size of local variables in bytes.
+             If the function doesn't have a frame, return 0
+             If the function does't exist, return None
+    """
+    return GetFunctionAttr(ea, FUNCATTR_FRSIZE)
 
 
 def GetFrameRegsSize(ea):
-	"""
-	Get size of saved registers in function frame
+    """
+    Get size of saved registers in function frame
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: Size of saved registers in bytes.
-	         If the function doesn't have a frame, return 0
-	         This value is used as offset for BP (if FUNC_FRAME is set)
-	         If the function does't exist, return None
-	"""
-	return GetFunctionAttr(ea, FUNCATTR_FRREGS)
+    @return: Size of saved registers in bytes.
+             If the function doesn't have a frame, return 0
+             This value is used as offset for BP (if FUNC_FRAME is set)
+             If the function does't exist, return None
+    """
+    return GetFunctionAttr(ea, FUNCATTR_FRREGS)
 
 
 def GetFrameArgsSize(ea):
-	"""
-	Get size of arguments in function frame which are purged upon return
+    """
+    Get size of arguments in function frame which are purged upon return
 
-	@param ea: any address belonging to the function
+    @param ea: any address belonging to the function
 
-	@return: Size of function arguments in bytes.
-	         If the function doesn't have a frame, return 0
-	         If the function does't exist, return -1
-	"""
-	return GetFunctionAttr(ea, FUNCATTR_ARGSIZE)
+    @return: Size of function arguments in bytes.
+             If the function doesn't have a frame, return 0
+             If the function does't exist, return -1
+    """
+    return GetFunctionAttr(ea, FUNCATTR_ARGSIZE)
 
 
 def GetFrameSize(ea):
-	"""
-	Get full size of function frame
+    """
+    Get full size of function frame
 
-	@param ea: any address belonging to the function
-	@returns: Size of function frame in bytes.
-				This function takes into account size of local
-				variables + size of saved registers + size of
-				return address + size of function arguments
-				If the function doesn't have a frame, return size of
-				function return address in the stack.
-				If the function does't exist, return 0
-	"""
-	func = idaapi.get_func(ea)
+    @param ea: any address belonging to the function
+    @returns: Size of function frame in bytes.
+                This function takes into account size of local
+                variables + size of saved registers + size of
+                return address + size of function arguments
+                If the function doesn't have a frame, return size of
+                function return address in the stack.
+                If the function does't exist, return 0
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return 0
-	else:
-		return idaapi.get_frame_size(func)
+    if not func:
+        return 0
+    else:
+        return idaapi.get_frame_size(func)
 
 
 def MakeFrame(ea, lvsize, frregs, argsize):
-	"""
-	Make function frame
+    """
+    Make function frame
 
-	@param ea: any address belonging to the function
-	@param lvsize: size of function local variables
-	@param frregs: size of saved registers
-	@param argsize: size of function arguments
+    @param ea: any address belonging to the function
+    @param lvsize: size of function local variables
+    @param frregs: size of saved registers
+    @param argsize: size of function arguments
 
-	@return: ID of function frame or -1
-	         If the function did not have a frame, the frame
-	         will be created. Otherwise the frame will be modified
-	"""
-	func = idaapi.get_func(ea)
+    @return: ID of function frame or -1
+             If the function did not have a frame, the frame
+             will be created. Otherwise the frame will be modified
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return -1
+    if not func:
+        return -1
 
-	id = idaapi.add_frame(func, lvsize, frregs, argsize)
+    id = idaapi.add_frame(func, lvsize, frregs, argsize)
 
-	if not id:
-		if not idaapi.set_frame_size(func, lvsize, frregs, argsize):
-			return -1
+    if not id:
+        if not idaapi.set_frame_size(func, lvsize, frregs, argsize):
+            return -1
 
-	return func.frame
+    return func.frame
 
 
 def GetSpd(ea):
-	"""
-	Get current delta for the stack pointer
+    """
+    Get current delta for the stack pointer
 
-	@param ea: end address of the instruction
-	           i.e.the last address of the instruction+1
+    @param ea: end address of the instruction
+               i.e.the last address of the instruction+1
 
-	@return: The difference between the original SP upon
-	         entering the function and SP for the specified address
-	"""
-	func = idaapi.get_func(ea)
+    @return: The difference between the original SP upon
+             entering the function and SP for the specified address
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return None
+    if not func:
+        return None
 
-	return idaapi.get_spd(func, ea)
+    return idaapi.get_spd(func, ea)
 
 
 def GetSpDiff(ea):
-	"""
-	Get modification of SP made by the instruction
-	
-	@param ea: end address of the instruction 
-	           i.e.the last address of the instruction+1
+    """
+    Get modification of SP made by the instruction
+    
+    @param ea: end address of the instruction 
+               i.e.the last address of the instruction+1
 
-	@return: Get modification of SP made at the specified location
-	         If the specified location doesn't contain a SP change point, return 0
-	         Otherwise return delta of SP modification
-	"""
-	func = idaapi.get_func(ea)
+    @return: Get modification of SP made at the specified location
+             If the specified location doesn't contain a SP change point, return 0
+             Otherwise return delta of SP modification
+    """
+    func = idaapi.get_func(ea)
 
-	if not func:
-		return None
+    if not func:
+        return None
 
-	return idaapi.get_sp_delta(func, ea)
+    return idaapi.get_sp_delta(func, ea)
 
 
 def SetSpDiff(ea, delta):
-	"""
-	Setup modification of SP made by the instruction
+    """
+    Setup modification of SP made by the instruction
 
-	@param ea: end address of the instruction
-	           i.e.the last address of the instruction+1
-	@param delta: the difference made by the current instruction.
+    @param ea: end address of the instruction
+               i.e.the last address of the instruction+1
+    @param delta: the difference made by the current instruction.
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.add_user_stkpnt(ea, delta)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.add_user_stkpnt(ea, delta)
 
 
 # ----------------------------------------------------------------------------
@@ -3817,114 +3817,114 @@ def SetSpDiff(ea, delta):
 # ----------------------------------------------------------------------------
 
 def GetEntryPointQty():
-	"""
-	Retrieve number of entry points
+    """
+    Retrieve number of entry points
 
-	@returns: number of entry points
-	"""
-	return idaapi.get_entry_qty()
+    @returns: number of entry points
+    """
+    return idaapi.get_entry_qty()
 
 
 def AddEntryPoint(ordinal, ea, name, makecode):
-	"""
-	Add entry point
+    """
+    Add entry point
 
-	@param ordinal: entry point number
-			if entry point doesn't have an ordinal
-			number, 'ordinal' should be equal to 'ea'
-	@param ea: address of the entry point
-	@param name: name of the entry point. If null string,
-			the entry point won't be renamed.
-	@param makecode: if 1 then this entry point is a start
-			of a function. Otherwise it denotes data bytes.
+    @param ordinal: entry point number
+            if entry point doesn't have an ordinal
+            number, 'ordinal' should be equal to 'ea'
+    @param ea: address of the entry point
+    @param name: name of the entry point. If null string,
+            the entry point won't be renamed.
+    @param makecode: if 1 then this entry point is a start
+            of a function. Otherwise it denotes data bytes.
 
-	@return: 0 - entry point with the specifed ordinal already exists
-			1 - ok
-	"""
-	return idaapi.add_entry(ordinal, ea, name, makecode)
+    @return: 0 - entry point with the specifed ordinal already exists
+            1 - ok
+    """
+    return idaapi.add_entry(ordinal, ea, name, makecode)
 
 
 def GetEntryOrdinal(index):
-	"""
-	Retrieve entry point ordinal number
+    """
+    Retrieve entry point ordinal number
 
-	@param index: 0..GetEntryPointQty()-1
+    @param index: 0..GetEntryPointQty()-1
 
-	@return: 0 if entry point doesn't exist
-			otherwise entry point ordinal
-	"""
-	return idaapi.get_entry_ordinal(index)
+    @return: 0 if entry point doesn't exist
+            otherwise entry point ordinal
+    """
+    return idaapi.get_entry_ordinal(index)
 
 
 def GetEntryPoint(ordinal):
-	"""
-	Retrieve entry point address
+    """
+    Retrieve entry point address
 
-	@param ordinal: entry point number
-		it is returned by GetEntryPointOrdinal()
+    @param ordinal: entry point number
+        it is returned by GetEntryPointOrdinal()
 
-	@return: -1 if entry point doesn't exist
-			otherwise entry point address.
-			If entry point address is equal to its ordinal
-			number, then the entry point has no ordinal.
-	"""
-	return idaapi.get_entry(ordinal)
+    @return: -1 if entry point doesn't exist
+            otherwise entry point address.
+            If entry point address is equal to its ordinal
+            number, then the entry point has no ordinal.
+    """
+    return idaapi.get_entry(ordinal)
 
 
 def RenameEntryPoint(ordinal, name):
-	"""
-	Rename entry point
+    """
+    Rename entry point
 
-	@param ordinal: entry point number
-	@param name: new name
-	
-	@return: !=0 - ok
-	"""
-	return idaapi.rename_entry(ordinal, name)
+    @param ordinal: entry point number
+    @param name: new name
+    
+    @return: !=0 - ok
+    """
+    return idaapi.rename_entry(ordinal, name)
 
 
 # ----------------------------------------------------------------------------
 #                              F I X U P S
 # ----------------------------------------------------------------------------
 def GetNextFixupEA(ea):
-	"""
-	Find next address with fixup information
+    """
+    Find next address with fixup information
 
-	@param ea: current address
+    @param ea: current address
 
-	@return: -1 - no more fixups otherwise returns the next 
-				address with fixup information
-	"""
-	return idaapi.get_next_fixup_ea(ea)
+    @return: -1 - no more fixups otherwise returns the next 
+                address with fixup information
+    """
+    return idaapi.get_next_fixup_ea(ea)
 
 
 def GetPrevFixupEA(ea):
-	"""
-	Find previous address with fixup information
+    """
+    Find previous address with fixup information
 
-	@param ea: current address
+    @param ea: current address
 
-	@return: -1 - no more fixups otherwise returns the 
-				previous address with fixup information
-	"""
-	return idaapi.get_prev_fixup_ea(ea)
+    @return: -1 - no more fixups otherwise returns the 
+                previous address with fixup information
+    """
+    return idaapi.get_prev_fixup_ea(ea)
 
 
 def GetFixupTgtType(ea):
-	"""
-	Get fixup target type
+    """
+    Get fixup target type
 
-	@param ea: address to get information about
+    @param ea: address to get information about
 
-	@return: -1 - no fixup at the specified address
-				otherwise returns fixup target type:
-	"""
-	fd = idaapi.get_fixup(ea)
+    @return: -1 - no fixup at the specified address
+                otherwise returns fixup target type:
+    """
+    fd = idaapi.get_fixup(ea)
 
-	if not fd:
-		return -1
+    if not fd:
+        return -1
 
-	return fd.type
+    return fd.type
 
 
 FIXUP_MASK      = 0xF
@@ -3957,87 +3957,87 @@ FIXUP_CREATED   = 0x80    # fixup was not present in the input file
 
 
 def GetFixupTgtSel(ea):
-	"""
-	Get fixup target selector
+    """
+    Get fixup target selector
 
-	@param ea: address to get information about
+    @param ea: address to get information about
 
-	@return: -1 - no fixup at the specified address
-					otherwise returns fixup target selector
-	"""
-	fd = idaapi.get_fixup(ea)
+    @return: -1 - no fixup at the specified address
+                    otherwise returns fixup target selector
+    """
+    fd = idaapi.get_fixup(ea)
 
-	if not fd:
-		return -1
+    if not fd:
+        return -1
 
-	return fd.sel
+    return fd.sel
 
 
 def GetFixupTgtOff(ea):
-	"""
-	Get fixup target offset
+    """
+    Get fixup target offset
 
-	@param ea: address to get information about
+    @param ea: address to get information about
 
-	@return: -1 - no fixup at the specified address
-				otherwise returns fixup target offset
-	"""
-	fd = idaapi.get_fixup(ea)
+    @return: -1 - no fixup at the specified address
+                otherwise returns fixup target offset
+    """
+    fd = idaapi.get_fixup(ea)
 
-	if not fd:
-		return -1
+    if not fd:
+        return -1
 
-	return fd.off
+    return fd.off
 
 
 def GetFixupTgtDispl(ea):
-	"""
-	Get fixup target displacement
+    """
+    Get fixup target displacement
 
-	@param ea: address to get information about
+    @param ea: address to get information about
 
-	@return: -1 - no fixup at the specified address
-				otherwise returns fixup target displacement
-	"""
-	fd = idaapi.get_fixup(ea)
+    @return: -1 - no fixup at the specified address
+                otherwise returns fixup target displacement
+    """
+    fd = idaapi.get_fixup(ea)
 
-	if not fd:
-		return -1
+    if not fd:
+        return -1
 
-	return fd.displacement
+    return fd.displacement
 
 
 def SetFixup(ea, type, targetsel, targetoff, displ):
-	"""
-	Set fixup information
+    """
+    Set fixup information
 
-	@param ea: address to set fixup information about
-	@param type: fixup type. see GetFixupTgtType()
-				for possible fixup types.
-	@param targetsel: target selector
-	@param targetoff: target offset
-	@param displ: displacement
+    @param ea: address to set fixup information about
+    @param type: fixup type. see GetFixupTgtType()
+                for possible fixup types.
+    @param targetsel: target selector
+    @param targetoff: target offset
+    @param displ: displacement
 
-	@return:        none
-	"""
-	fd = idaapi.fixup_data_t()
-	fd.type = type
-	fd.sel  = targetsel
-	fd.off  = targetoff
-	fd.displacement = displ
+    @return:        none
+    """
+    fd = idaapi.fixup_data_t()
+    fd.type = type
+    fd.sel  = targetsel
+    fd.off  = targetoff
+    fd.displacement = displ
 
-	idaapi.set_fixup(ea, fd) 
+    idaapi.set_fixup(ea, fd) 
 
 
 def DelFixup(ea):
-	"""
-	Delete fixup information
+    """
+    Delete fixup information
 
-	@param ea: address to delete fixup information about
-	
-	@return: None
-	"""
-	idaapi.del_fixup(ea)
+    @param ea: address to delete fixup information about
+    
+    @return: None
+    """
+    idaapi.del_fixup(ea)
 
 
 #----------------------------------------------------------------------------
@@ -4045,55 +4045,55 @@ def DelFixup(ea):
 #----------------------------------------------------------------------------
 
 def MarkPosition(ea, lnnum, x, y, slot, comment):
-	"""
-	Mark position
+    """
+    Mark position
 
-	@param ea: address to mark
-	@param lnnum: number of generated line for the 'ea'
-	@param x: x coordinate of cursor
-	@param y: y coordinate of cursor
-	@param slot: slot number: 1..1024
-	             if the specifed value is not within the
-	             range, IDA will ask the user to select slot.
-	@param comment: description of the mark. Should be not empty.
+    @param ea: address to mark
+    @param lnnum: number of generated line for the 'ea'
+    @param x: x coordinate of cursor
+    @param y: y coordinate of cursor
+    @param slot: slot number: 1..1024
+                 if the specifed value is not within the
+                 range, IDA will ask the user to select slot.
+    @param comment: description of the mark. Should be not empty.
 
-	@return: None
-	"""
-	curloc = idaapi.curloc()
-	curloc.ea = ea
-	curloc.lnnum = lnnum
-	curloc.x = x
-	curloc.y = y
-	curloc.mark(slot, comment, comment)
+    @return: None
+    """
+    curloc = idaapi.curloc()
+    curloc.ea = ea
+    curloc.lnnum = lnnum
+    curloc.x = x
+    curloc.y = y
+    curloc.mark(slot, comment, comment)
 
 
 def GetMarkedPos(slot):
-	"""
-	Get marked position
+    """
+    Get marked position
 
-	@param slot: slot number: 1..1024 if the specifed value is <= 0
-	             range, IDA will ask the user to select slot.
+    @param slot: slot number: 1..1024 if the specifed value is <= 0
+                 range, IDA will ask the user to select slot.
 
-	@return: BADADDR - the slot doesn't contain a marked address
-	         otherwise returns the marked address
-	"""
-	curloc = idaapi.curloc()
-	intp = idaapi.int_pointer()
-	intp.assign(slot)
-	return curloc.markedpos(intp)
+    @return: BADADDR - the slot doesn't contain a marked address
+             otherwise returns the marked address
+    """
+    curloc = idaapi.curloc()
+    intp = idaapi.int_pointer()
+    intp.assign(slot)
+    return curloc.markedpos(intp)
 
 
 def GetMarkComment(slot):
-	"""
-	Get marked position comment
+    """
+    Get marked position comment
 
-	@param slot: slot number: 1..1024
+    @param slot: slot number: 1..1024
 
-	@return: None if the slot doesn't contain a marked address
-	         otherwise returns the marked address comment
-	"""
-	curloc = idaapi.curloc()
-	return curloc.markdesc(slot)
+    @return: None if the slot doesn't contain a marked address
+             otherwise returns the marked address comment
+    """
+    curloc = idaapi.curloc()
+    return curloc.markdesc(slot)
 
 
 # ----------------------------------------------------------------------------
@@ -4101,19 +4101,19 @@ def GetMarkComment(slot):
 # ----------------------------------------------------------------------------
 
 def GetStrucQty():
-	"""
-	Get number of defined structure types
+    """
+    Get number of defined structure types
 
-	@return: number of structure types
-	"""
-	return idaapi.get_struc_qty()
+    @return: number of structure types
+    """
+    return idaapi.get_struc_qty()
 
 
 def GetFirstStrucIdx():
-	"""
-	Get index of first structure type
+    """
+    Get index of first structure type
 
-	@return:      -1 if no structure type is defined
+    @return:      -1 if no structure type is defined
                     index of first structure type.
                     Each structure type has an index and ID.
                     INDEX determines position of structure definition
@@ -4126,503 +4126,503 @@ def GetFirstStrucIdx():
                     gets a unique ID at the creation time and this ID
                     can't be changed. Even when the structure type gets
                     deleted, its ID won't be resued in the future.
-	"""
-	return idaapi.get_first_struc_idx()
+    """
+    return idaapi.get_first_struc_idx()
 
 
 def GetLastStrucIdx():
-	"""
-	Get index of last structure type
+    """
+    Get index of last structure type
 
-	@return:        -1 if no structure type is defined
+    @return:        -1 if no structure type is defined
                     index of last structure type.
                     See GetFirstStrucIdx() for the explanation of
                     structure indices and IDs.
-	"""
-	return idaapi.get_last_struc_idx()
+    """
+    return idaapi.get_last_struc_idx()
 
 
 def GetNextStrucIdx(index):
-	"""
-	Get index of next structure type
+    """
+    Get index of next structure type
 
-	@param index: current structure index
+    @param index: current structure index
 
-	@return:    -1 if no (more) structure type is defined
-				index of the next structure type.
-				See GetFirstStrucIdx() for the explanation of
-				structure indices and IDs.
-	"""
-	return idaapi.get_next_struc_idx(index)
+    @return:    -1 if no (more) structure type is defined
+                index of the next structure type.
+                See GetFirstStrucIdx() for the explanation of
+                structure indices and IDs.
+    """
+    return idaapi.get_next_struc_idx(index)
 
 
 def GetPrevStrucIdx(index):
-	"""
-	Get index of previous structure type
+    """
+    Get index of previous structure type
 
-	@param index: current structure index
+    @param index: current structure index
 
-	@return:    -1 if no (more) structure type is defined
-				index of the presiouvs structure type.
-				See GetFirstStrucIdx() for the explanation of
-				structure indices and IDs.
-	"""
-	return idaapi.get_prev_struc_idx(index)
+    @return:    -1 if no (more) structure type is defined
+                index of the presiouvs structure type.
+                See GetFirstStrucIdx() for the explanation of
+                structure indices and IDs.
+    """
+    return idaapi.get_prev_struc_idx(index)
 
 
 def GetStrucIdx(id):
-	"""
-	Get structure index by structure ID
+    """
+    Get structure index by structure ID
 
-	@param id: structure ID
+    @param id: structure ID
 
-	@return:    -1 if bad structure ID is passed
-				otherwise returns structure index.
-				See GetFirstStrucIdx() for the explanation of
-				structure indices and IDs.
-	"""
-	return idaapi.get_struc_idx(id)
+    @return:    -1 if bad structure ID is passed
+                otherwise returns structure index.
+                See GetFirstStrucIdx() for the explanation of
+                structure indices and IDs.
+    """
+    return idaapi.get_struc_idx(id)
 
 
 def GetStrucId(index):
-	"""
-	Get structure ID by structure index
+    """
+    Get structure ID by structure index
 
-	@param index: structure index
+    @param index: structure index
 
-	@return: -1 if bad structure index is passed otherwise returns structure ID.
+    @return: -1 if bad structure index is passed otherwise returns structure ID.
 
-	@note: See GetFirstStrucIdx() for the explanation of structure indices and IDs.
-	"""
-	return idaapi.get_struc_by_idx(index)
+    @note: See GetFirstStrucIdx() for the explanation of structure indices and IDs.
+    """
+    return idaapi.get_struc_by_idx(index)
 
 
 def GetStrucIdByName(name):
-	"""
-	Get structure ID by structure name
+    """
+    Get structure ID by structure name
 
-	@param name: structure type name
+    @param name: structure type name
 
-	@return:    -1 if bad structure type name is passed
-				otherwise returns structure ID.
-	"""
-	return idaapi.get_struc_id(name)
+    @return:    -1 if bad structure type name is passed
+                otherwise returns structure ID.
+    """
+    return idaapi.get_struc_id(name)
 
 
 def GetStrucName(id):
-	"""
-	Get structure type name
+    """
+    Get structure type name
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return:	-1 if bad structure type ID is passed
-				otherwise returns structure type name.
-	"""
-	return idaapi.get_struc_name(id)
+    @return:    -1 if bad structure type ID is passed
+                otherwise returns structure type name.
+    """
+    return idaapi.get_struc_name(id)
 
 
 def GetStrucComment(id, repeatable):
-	"""
-	Get structure type comment
+    """
+    Get structure type comment
 
-	@param id: structure type ID
-	@param repeatable: 1: get repeatable comment
-				0: get regular comment
+    @param id: structure type ID
+    @param repeatable: 1: get repeatable comment
+                0: get regular comment
 
-	@return: None if bad structure type ID is passed
-				otherwise returns comment.
-	"""
-	return idaapi.get_struc_cmt(id, repeatable)
+    @return: None if bad structure type ID is passed
+                otherwise returns comment.
+    """
+    return idaapi.get_struc_cmt(id, repeatable)
 
 
 def GetStrucSize(id):
-	"""
-	Get size of a structure
+    """
+    Get size of a structure
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return:	-1 if bad structure type ID is passed
-				otherwise returns size of structure in bytes.
-	"""
-	return idaapi.get_struc_size(id)
+    @return:    -1 if bad structure type ID is passed
+                otherwise returns size of structure in bytes.
+    """
+    return idaapi.get_struc_size(id)
 
 
 def GetMemberQty(id):
-	"""
-	Get number of members of a structure
+    """
+    Get number of members of a structure
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return: -1 if bad structure type ID is passed otherwise 
-	         returns number of members.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @return: -1 if bad structure type ID is passed otherwise 
+             returns number of members.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	return s.memqty
+    return s.memqty
 
 
 def GetStrucPrevOff(id, offset):
-	"""
-	Get previous offset in a structure
+    """
+    Get previous offset in a structure
 
-	@param id: structure type ID
-	@param offset: current offset
+    @param id: structure type ID
+    @param offset: current offset
 
-	@return: -1 if bad structure type ID is passed
-	         or no (more) offsets in the structure
-	         otherwise returns previous offset in a structure.
-	
-	@note: IDA allows 'holes' between members of a
-	       structure. It treats these 'holes'
-	       as unnamed arrays of bytes.
-	       This function returns a member offset or a hole offset.
-	       It will return size of the structure if input
-	       'offset' is bigger than the structure size.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @return: -1 if bad structure type ID is passed
+             or no (more) offsets in the structure
+             otherwise returns previous offset in a structure.
+    
+    @note: IDA allows 'holes' between members of a
+           structure. It treats these 'holes'
+           as unnamed arrays of bytes.
+           This function returns a member offset or a hole offset.
+           It will return size of the structure if input
+           'offset' is bigger than the structure size.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	return idaapi.get_struc_prev_offset(s, offset)
+    return idaapi.get_struc_prev_offset(s, offset)
 
 
 def GetStrucNextOff(id, offset):
-	"""
-	Get next offset in a structure
+    """
+    Get next offset in a structure
 
-	@param id:     structure type ID
-	@param offset: current offset
+    @param id:     structure type ID
+    @param offset: current offset
 
-	@return: -1 if bad structure type ID is passed
-	         or no (more) offsets in the structure
-	         otherwise returns next offset in a structure.
+    @return: -1 if bad structure type ID is passed
+             or no (more) offsets in the structure
+             otherwise returns next offset in a structure.
 
-	@note: IDA allows 'holes' between members of a
-	       structure. It treats these 'holes'
-	       as unnamed arrays of bytes.
-	       This function returns a member offset or a hole offset.
-	       It will return size of the structure if input
-	       'offset' belongs to the last member of the structure.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @note: IDA allows 'holes' between members of a
+           structure. It treats these 'holes'
+           as unnamed arrays of bytes.
+           This function returns a member offset or a hole offset.
+           It will return size of the structure if input
+           'offset' belongs to the last member of the structure.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	return idaapi.get_struc_next_offset(s, offset)
+    return idaapi.get_struc_next_offset(s, offset)
 
 
 def GetFirstMember(id):
-	"""
-	Get offset of the first member of a structure
+    """
+    Get offset of the first member of a structure
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return: -1 if bad structure type ID is passed
-	         or structure has no members
-	         otherwise returns offset of the first member.
+    @return: -1 if bad structure type ID is passed
+             or structure has no members
+             otherwise returns offset of the first member.
 
-	@note: IDA allows 'holes' between members of a
-	      structure. It treats these 'holes'
-	      as unnamed arrays of bytes.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @note: IDA allows 'holes' between members of a
+          structure. It treats these 'holes'
+          as unnamed arrays of bytes.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	return idaapi.get_struc_first_offset(s)
+    return idaapi.get_struc_first_offset(s)
 
 
 def GetLastMember(id):
-	"""
-	Get offset of the last member of a structure
+    """
+    Get offset of the last member of a structure
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return: -1 if bad structure type ID is passed
-	         or structure has no members
-	         otherwise returns offset of the last member.
+    @return: -1 if bad structure type ID is passed
+             or structure has no members
+             otherwise returns offset of the last member.
 
-	@note: IDA allows 'holes' between members of a
-	      structure. It treats these 'holes'
-	      as unnamed arrays of bytes.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @note: IDA allows 'holes' between members of a
+          structure. It treats these 'holes'
+          as unnamed arrays of bytes.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	return idaapi.get_struc_last_offset(s)
+    return idaapi.get_struc_last_offset(s)
 
 
 def GetMemberOffset(id, member_name):
-	"""
-	Get offset of a member of a structure by the member name
+    """
+    Get offset of a member of a structure by the member name
 
-	@param id: structure type ID
-	@param member_name: name of structure member
+    @param id: structure type ID
+    @param member_name: name of structure member
 
-	@return: -1 if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns offset of the specified member.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @return: -1 if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns offset of the specified member.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	m = idaapi.get_member_by_name(s, member_name)
-	if not m:
-		return -1
+    m = idaapi.get_member_by_name(s, member_name)
+    if not m:
+        return -1
 
-	return m.get_soff()
+    return m.get_soff()
 
 
 def GetMemberName(id, member_offset):
-	"""
-	Get name of a member of a structure
+    """
+    Get name of a member of a structure
 
-	@param id: structure type ID
-	@param member_offset: member offset. The offset can be
-	                      any offset in the member. For example,
-	                      is a member is 4 bytes long and starts
-	                      at offset 2, then 2,3,4,5 denote
-	                      the same structure member.
+    @param id: structure type ID
+    @param member_offset: member offset. The offset can be
+                          any offset in the member. For example,
+                          is a member is 4 bytes long and starts
+                          at offset 2, then 2,3,4,5 denote
+                          the same structure member.
 
-	@return: None if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns name of the specified member.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return None
+    @return: None if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns name of the specified member.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return None
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return None
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return None
 
-	return idaapi.get_member_name(m.id)
+    return idaapi.get_member_name(m.id)
 
 
 def GetMemberComment(id, member_offset, repeatable):
-	"""
-	Get comment of a member
+    """
+    Get comment of a member
 
-	@param id: structure type ID
-	@param member_offset: member offset. The offset can be
-	                      any offset in the member. For example,
-	                      is a member is 4 bytes long and starts
-	                      at offset 2, then 2,3,4,5 denote
-	                      the same structure member.
-	@param repeatable: 1: get repeatable comment
-	                   0: get regular comment
+    @param id: structure type ID
+    @param member_offset: member offset. The offset can be
+                          any offset in the member. For example,
+                          is a member is 4 bytes long and starts
+                          at offset 2, then 2,3,4,5 denote
+                          the same structure member.
+    @param repeatable: 1: get repeatable comment
+                       0: get regular comment
 
-	@return: None if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns comment of the specified member.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return None
+    @return: None if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns comment of the specified member.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return None
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return None
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return None
 
-	return idaapi.get_member_cmt(m.id, repeatable)
+    return idaapi.get_member_cmt(m.id, repeatable)
 
 
 def GetMemberSize(id, member_offset):
-	"""
-	Get size of a member
+    """
+    Get size of a member
 
-	@param id: structure type ID
-	@param member_offset: member offset. The offset can be
-	                      any offset in the member. For example,
-	                      is a member is 4 bytes long and starts
-	                      at offset 2, then 2,3,4,5 denote
-	                      the same structure member.
+    @param id: structure type ID
+    @param member_offset: member offset. The offset can be
+                          any offset in the member. For example,
+                          is a member is 4 bytes long and starts
+                          at offset 2, then 2,3,4,5 denote
+                          the same structure member.
 
-	@return: -1 if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns size of the specified
-	         member in bytes.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return None
+    @return: -1 if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns size of the specified
+             member in bytes.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return None
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return None
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return None
 
-	return idaapi.get_member_size(m)
+    return idaapi.get_member_size(m)
 
 
 def GetMemberFlag(id, member_offset):
-	"""
-	Get type of a member
+    """
+    Get type of a member
 
-	@param id: structure type ID
-	@param member_offset: member offset. The offset can be
-	                      any offset in the member. For example,
-	                      is a member is 4 bytes long and starts
-	                      at offset 2, then 2,3,4,5 denote
-	                      the same structure member.
+    @param id: structure type ID
+    @param member_offset: member offset. The offset can be
+                          any offset in the member. For example,
+                          is a member is 4 bytes long and starts
+                          at offset 2, then 2,3,4,5 denote
+                          the same structure member.
 
-	@return: -1 if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns type of the member, see bit
-	         definitions above. If the member type is a structure
-	         then function GetMemberStrid() should be used to
-	         get the structure type id.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @return: -1 if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns type of the member, see bit
+             definitions above. If the member type is a structure
+             then function GetMemberStrid() should be used to
+             get the structure type id.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return -1
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return -1
 
-	return m.flag
+    return m.flag
 
 
 def GetMemberStrId(id, member_offset):
-	"""
-	Get structure id of a member
+    """
+    Get structure id of a member
 
-	@param id: structure type ID
-	@param member_offset: member offset. The offset can be
-	                      any offset in the member. For example,
-	                      is a member is 4 bytes long and starts
-	                      at offset 2, then 2,3,4,5 denote
-	                      the same structure member.
-	@return: -1 if bad structure type ID is passed
-	         or no such member in the structure
-	         otherwise returns structure id of the member.
-	         If the current member is not a structure, returns -1.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return -1
+    @param id: structure type ID
+    @param member_offset: member offset. The offset can be
+                          any offset in the member. For example,
+                          is a member is 4 bytes long and starts
+                          at offset 2, then 2,3,4,5 denote
+                          the same structure member.
+    @return: -1 if bad structure type ID is passed
+             or no such member in the structure
+             otherwise returns structure id of the member.
+             If the current member is not a structure, returns -1.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return -1
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return -1
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return -1
 
-	cs = idaapi.get_member_struc(m)
-	if cs:
-		return cs.id
-	else:
-		return -1
+    cs = idaapi.get_member_struc(m)
+    if cs:
+        return cs.id
+    else:
+        return -1
 
 
 def IsUnion(id):
-	"""
-	Is a structure a union?
+    """
+    Is a structure a union?
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return: 1: yes, this is a union id
-	         0: no
+    @return: 1: yes, this is a union id
+             0: no
 
-	@note: Unions are a special kind of structures
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @note: Unions are a special kind of structures
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	return s.is_union()
+    return s.is_union()
 
 
 def AddStrucEx(index, name, is_union):
-	"""
-	Define a new structure type
+    """
+    Define a new structure type
 
-	@param index: index of new structure type
-	              If another structure has the specified index,
-	              then index of that structure and all other
-	              structures will be incremented, freeing the specifed
-	              index. If index is == -1, then the biggest index
-	              number will be used.
-	              See GetFirstStrucIdx() for the explanation of
-	              structure indices and IDs.
-	@param name: name of the new structure type.
-	@param is_union: 0: structure
-	                 1: union
+    @param index: index of new structure type
+                  If another structure has the specified index,
+                  then index of that structure and all other
+                  structures will be incremented, freeing the specifed
+                  index. If index is == -1, then the biggest index
+                  number will be used.
+                  See GetFirstStrucIdx() for the explanation of
+                  structure indices and IDs.
+    @param name: name of the new structure type.
+    @param is_union: 0: structure
+                     1: union
 
-	@return: -1 if can't define structure type because of
-	         bad structure name: the name is ill-formed or is
-	         already used in the program.
-	         otherwise returns ID of the new structure type
-	"""
-	if index == -1:
-		index = BADADDR
+    @return: -1 if can't define structure type because of
+             bad structure name: the name is ill-formed or is
+             already used in the program.
+             otherwise returns ID of the new structure type
+    """
+    if index == -1:
+        index = BADADDR
 
-	return idaapi.add_struc(index, name, is_union)
+    return idaapi.add_struc(index, name, is_union)
 
 
 def DelStruc(id):
-	"""
-	Delete a structure type
+    """
+    Delete a structure type
 
-	@param id: structure type ID
+    @param id: structure type ID
 
-	@return: 0 if bad structure type ID is passed
-		     1 otherwise the structure type is deleted. All data
-	           and other structure types referencing to the
-	           deleted structure type will be displayed as array
-	           of bytes.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @return: 0 if bad structure type ID is passed
+             1 otherwise the structure type is deleted. All data
+               and other structure types referencing to the
+               deleted structure type will be displayed as array
+               of bytes.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	return idaapi.del_struc(s)
+    return idaapi.del_struc(s)
 
 
 def SetStrucIdx(id, index):
-	"""
-	Change structure index
+    """
+    Change structure index
 
-	@param id: structure type ID
-	@param index: new index of the structure
+    @param id: structure type ID
+    @param index: new index of the structure
 
-	@return: != 0 - ok
+    @return: != 0 - ok
 
-	@note: See GetFirstStrucIdx() for the explanation of
-	       structure indices and IDs.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @note: See GetFirstStrucIdx() for the explanation of
+           structure indices and IDs.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	return idaapi.set_struc_idx(s, index)
+    return idaapi.set_struc_idx(s, index)
 
 
 def SetStrucName(id, name):
-	"""
-	Change structure name
+    """
+    Change structure name
 
-	@param id: structure type ID
-	@param name: new name of the structure
-	
-	@return: != 0 - ok
-	"""
-	return idaapi.set_struc_name(id, name)
+    @param id: structure type ID
+    @param name: new name of the structure
+    
+    @return: != 0 - ok
+    """
+    return idaapi.set_struc_name(id, name)
 
 
 def SetStrucComment(id, comment, repeatable):
-	"""
-	Change structure comment
+    """
+    Change structure comment
 
-	@param id: structure type ID
-	@param comment: new comment of the structure
-	@param repeatable: 1: change repeatable comment
-	                   0: change regular comment
-	@return: != 0 - ok
-	"""
-	return idaapi.set_struc_cmt(id, comment, repeatable)
+    @param id: structure type ID
+    @param comment: new comment of the structure
+    @param repeatable: 1: change repeatable comment
+                       0: change regular comment
+    @return: != 0 - ok
+    """
+    return idaapi.set_struc_cmt(id, comment, repeatable)
 
 
 def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
@@ -4631,66 +4631,66 @@ def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
     simple_types = [ FF_BYTE, FF_WORD, FF_DWRD, FF_QWRD, FF_OWRD, FF_TBYT, FF_FLOAT, FF_DOUBLE, FF_PACKREAL ]
     
     if idaapi.isASCII(flag):
-    	ti = idaapi.typeinfo_t()
-    	ti.strtype = typeid
+        ti = idaapi.typeinfo_t()
+        ti.strtype = typeid
     elif idaapi.isStruct(flag):
-    	ti = idaapi.typeinfo_t()
-    	ti.tid = typeid
+        ti = idaapi.typeinfo_t()
+        ti.tid = typeid
     elif idaapi.isOff0(flag):
-    	ti = idaapi.typeinfo_t()
-    	ri = idaapi.refinfo_t()
-	ri.target = BADADDR
-    	ri.base = typeid
-	ri.tdelta = 0
-    	if (flag & FF_WORD):
+        ti = idaapi.typeinfo_t()
+        ri = idaapi.refinfo_t()
+    ri.target = BADADDR
+        ri.base = typeid
+    ri.tdelta = 0
+        if (flag & FF_WORD):
             ri.flags = REF_OFF16
-    	else:
-    	    ri.flags = REF_OFF32
-    	ti.ri = ri
+        else:
+            ri.flags = REF_OFF32
+        ti.ri = ri
     elif idaapi.isEnum0(flag):
-    	ti = idaapi.typeinfo_t()
-    	ec = idaapi.enum_const_t()
-    	ec.tid = typeid
-    	ti.ec = ec
+        ti = idaapi.typeinfo_t()
+        ec = idaapi.enum_const_t()
+        ec.tid = typeid
+        ti.ec = ec
     elif idaapi.isStroff0(flag):
-    	ti = idaapi.typeinfo_t()
-    	ti.path.len = 2
-    	target_struct = idaapi.get_struc(typeid)
-    	assert target_struct, "Target structure is invalid"
-    	target_member = idaapi.get_member(target_struct, 0)
-    	assert target_member, "Target member is not found"
-    	ti.path.ids = [ typeid, target_member.id ]
+        ti = idaapi.typeinfo_t()
+        ti.path.len = 2
+        target_struct = idaapi.get_struc(typeid)
+        assert target_struct, "Target structure is invalid"
+        target_member = idaapi.get_member(target_struct, 0)
+        assert target_member, "Target member is not found"
+        ti.path.ids = [ typeid, target_member.id ]
     elif ((flag & 0xFFFFFF) & idaapi.DT_TYPE) in simple_types:
-    	ti = None
+        ti = None
     else:
-    	assert False, "Unknown type flag 0x%08x" % flag
+        assert False, "Unknown type flag 0x%08x" % flag
     return ti
 
 
 def AddStrucMember(id, name, offset, flag, typeid, nbytes):
-	"""
-	Add structure member
+    """
+    Add structure member
 
-	@param id: structure type ID
-	@param name: name of the new member
-	@param offset: offset of the new member
-	               -1 means to add at the end of the structure
-	@param flag: type of the new member. Should be one of 
-	             FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-	@param typeid: structure id if 'flag' == FF_STRU
-	               Denotes type of the member if the member itself is a structure.
-	               if isOff0(flag) then typeid specifies the offset base.
-	               if isASCII(flag) then typeid specifies the string type (ASCSTR_...).
-	               if isStroff(flag) then typeid specifies the structure id
-	               Otherwise should be -1.
-	@param nbytes: number of bytes in the new member
+    @param id: structure type ID
+    @param name: name of the new member
+    @param offset: offset of the new member
+                   -1 means to add at the end of the structure
+    @param flag: type of the new member. Should be one of 
+                 FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
+    @param typeid: structure id if 'flag' == FF_STRU
+                   Denotes type of the member if the member itself is a structure.
+                   if isOff0(flag) then typeid specifies the offset base.
+                   if isASCII(flag) then typeid specifies the string type (ASCSTR_...).
+                   if isStroff(flag) then typeid specifies the structure id
+                   Otherwise should be -1.
+    @param nbytes: number of bytes in the new member
 
-	@return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
-	"""
+    @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
+    """
         struc = idaapi.get_struc(id)
         assert struct, "get_struc() failed"
         ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
-	return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
+    return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
 
 
 STRUC_ERROR_MEMBER_NAME    = -1 # already has member with this name (bad name)
@@ -4703,753 +4703,753 @@ STRUC_ERROR_MEMBER_VARLAST = -7 # variable sized member should be the last membe
 
 
 def DelStrucMember(id, member_offset):
-	"""
-	Delete structure member
+    """
+    Delete structure member
 
-	@param id: structure type ID
-	@param member_offset: offset of the member
+    @param id: structure type ID
+    @param member_offset: offset of the member
 
-	@return: != 0 - ok.
+    @return: != 0 - ok.
 
-	@note: IDA allows 'holes' between members of a
-	       structure. It treats these 'holes'
-	       as unnamed arrays of bytes.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @note: IDA allows 'holes' between members of a
+           structure. It treats these 'holes'
+           as unnamed arrays of bytes.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	return idaapi.del_struc_member(s, member_offset)
+    return idaapi.del_struc_member(s, member_offset)
 
 
 def SetMemberName(id, member_offset, name):
-	"""
-	Change structure member name
+    """
+    Change structure member name
 
-	@param id: structure type ID
-	@param member_offset: offset of the member
-	@param name: new name of the member
+    @param id: structure type ID
+    @param member_offset: offset of the member
+    @param name: new name of the member
 
-	@return: != 0 - ok.
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @return: != 0 - ok.
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	return idaapi.set_member_name(s, member_offset, name)
+    return idaapi.set_member_name(s, member_offset, name)
 
 
 def SetMemberType(id, member_offset, flag, typeid, nitems):
-	"""
-	Change structure member type
+    """
+    Change structure member type
 
-	@param id: structure type ID
-	@param member_offset: offset of the member
-	@param flag: new type of the member. Should be one of
-	             FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-	@param typeid: structure id if 'flag' == FF_STRU
-	               Denotes type of the member is the member
-	               itself is a structure. Otherwise should be -1.
-	               if isOff0(flag) then typeid specifies the offset base.
-	               if isASCII(flag) then typeid specifies the string type
-	               (ASCSTR_...).
-	@param nitems: number of items in the member
+    @param id: structure type ID
+    @param member_offset: offset of the member
+    @param flag: new type of the member. Should be one of
+                 FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
+    @param typeid: structure id if 'flag' == FF_STRU
+                   Denotes type of the member is the member
+                   itself is a structure. Otherwise should be -1.
+                   if isOff0(flag) then typeid specifies the offset base.
+                   if isASCII(flag) then typeid specifies the string type
+                   (ASCSTR_...).
+    @param nitems: number of items in the member
 
-	@return: !=0 - ok.
-	"""
+    @return: !=0 - ok.
+    """
         struc = idaapi.get_struc(id)
         assert struct, "get_struc() failed"
         ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
-	return idaapi.set_member_type(struc, member_offset, flag, ti, nitems)
+    return idaapi.set_member_type(struc, member_offset, flag, ti, nitems)
 
 
 def SetMemberComment(id, member_offset, comment, repeatable):
-	"""
-	Change structure member comment
+    """
+    Change structure member comment
 
-	@param id: structure type ID
-	@param member_offset: offset of the member
-	@param comment: new comment of the structure member
-	@param repeatable: 1: change repeatable comment
-	                   0: change regular comment
-	
-	@return: != 0 - ok
-	"""
-	s = idaapi.get_struc(id)
-	if not s:
-		return 0
+    @param id: structure type ID
+    @param member_offset: offset of the member
+    @param comment: new comment of the structure member
+    @param repeatable: 1: change repeatable comment
+                       0: change regular comment
+    
+    @return: != 0 - ok
+    """
+    s = idaapi.get_struc(id)
+    if not s:
+        return 0
 
-	m = idaapi.get_member(s, member_offset)
-	if not m:
-		return 0
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return 0
 
-	return idaapi.set_member_cmt(m, comment, repeatable)
+    return idaapi.set_member_cmt(m, comment, repeatable)
 
 
 def GetFchunkAttr(ea, attr):
-	"""
-	Get a function chunk attribute
+    """
+    Get a function chunk attribute
 
-	@param ea: any address in the chunk
+    @param ea: any address in the chunk
                          @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR
 
-	@return: desired attribute or -1
-	"""
-	if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR ]:
-		return GetFunctionAttr(ea, attr)
-	else:
-		return -1
+    @return: desired attribute or -1
+    """
+    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR ]:
+        return GetFunctionAttr(ea, attr)
+    else:
+        return -1
 
 
 def SetFchunkAttr(ea, attr, value):
-	"""
-	Set a function chunk attribute
+    """
+    Set a function chunk attribute
 
-	@param ea: any address in the chunk
-	@param attr: only FUNCATTR_COLOR
-	@param value: desired bg color (RGB)
+    @param ea: any address in the chunk
+    @param attr: only FUNCATTR_COLOR
+    @param value: desired bg color (RGB)
 
-	@return: 0 if failed, 1 if success
-	"""
-	if attr in [ FUNCATTR_COLOR ]:
-		return SetFunctionAttr(ea, attr, value)
-	else:
-		return 0
+    @return: 0 if failed, 1 if success
+    """
+    if attr in [ FUNCATTR_COLOR ]:
+        return SetFunctionAttr(ea, attr, value)
+    else:
+        return 0
 
 
 def NextFchunk(ea):
-	"""
-	Get next function chunk
+    """
+    Get next function chunk
 
-	@param ea: any address
+    @param ea: any address
 
-	@return:  the starting address of the next function chunk or BADADDR
+    @return:  the starting address of the next function chunk or BADADDR
 
-	@note: This function enumerates all chunks of all functions in the database
-	"""
-	func = idaapi.get_next_fchunk(ea)
+    @note: This function enumerates all chunks of all functions in the database
+    """
+    func = idaapi.get_next_fchunk(ea)
 
-	if func:
-		return func.startEA
-	else:
-		return BADADDR
+    if func:
+        return func.startEA
+    else:
+        return BADADDR
 
 
 def PrevFchunk(ea):
-	"""
-	Get previous function chunk
+    """
+    Get previous function chunk
 
-	@param ea: any address
+    @param ea: any address
 
-	@return: the starting address of the function chunk or BADADDR
+    @return: the starting address of the function chunk or BADADDR
 
-	@note: This function enumerates all chunks of all functions in the database
-	"""
-	func = idaapi.get_prev_fchunk(ea)
+    @note: This function enumerates all chunks of all functions in the database
+    """
+    func = idaapi.get_prev_fchunk(ea)
 
-	if func:
-		return func.startEA
-	else:
-		return BADADDR
+    if func:
+        return func.startEA
+    else:
+        return BADADDR
 
 
 def AppendFchunk(funcea, ea1, ea2):
-	"""
-	Append a function chunk to the function
+    """
+    Append a function chunk to the function
 
-	@param funcea: any address in the function
-	@param ea1: start of function tail
-	@param ea2: end of function tail
-	@return: 0 if failed, 1 if success
+    @param funcea: any address in the function
+    @param ea1: start of function tail
+    @param ea2: end of function tail
+    @return: 0 if failed, 1 if success
 
-	@note: If a chunk exists at the specified addresses, it must have exactly
-	       the specified boundaries
-	"""
-	func = idaapi.get_func(funcea)
+    @note: If a chunk exists at the specified addresses, it must have exactly
+           the specified boundaries
+    """
+    func = idaapi.get_func(funcea)
 
-	if not func:
-		return 0
-	else:
-		return idaapi.append_func_tail(func, ea1, ea2)
+    if not func:
+        return 0
+    else:
+        return idaapi.append_func_tail(func, ea1, ea2)
 
 
 def RemoveFchunk(funcea, tailea):
-	"""
-	Remove a function chunk from the function
+    """
+    Remove a function chunk from the function
 
-	@param funcea: any address in the function
-	@param ea1: any address in the function chunk to remove
-	
-	@return: 0 if failed, 1 if success
-	"""
-	func = idaapi.get_func(funcea)
+    @param funcea: any address in the function
+    @param ea1: any address in the function chunk to remove
+    
+    @return: 0 if failed, 1 if success
+    """
+    func = idaapi.get_func(funcea)
 
-	if not func:
-		return 0
-	else:
-		return idaapi.remove_func_tail(func, tailea)
-	
+    if not func:
+        return 0
+    else:
+        return idaapi.remove_func_tail(func, tailea)
+    
 
 def SetFchunkOwner(tailea, funcea):
-	"""
-	Change the function chunk owner
+    """
+    Change the function chunk owner
 
-	@param tailea: any address in the function chunk
-	@param funcea: the starting address of the new owner
-	
-	@return: 0 if failed, 1 if success
+    @param tailea: any address in the function chunk
+    @param funcea: the starting address of the new owner
+    
+    @return: 0 if failed, 1 if success
 
-	@note: The new owner must already have the chunk appended before the call
-	"""
-	tail = idaapi.get_func(tailea)
+    @note: The new owner must already have the chunk appended before the call
+    """
+    tail = idaapi.get_func(tailea)
 
-	if not tail:
-		return 0
-	else:
-		return idaapi.set_tail_owner(tail, funcea)
+    if not tail:
+        return 0
+    else:
+        return idaapi.set_tail_owner(tail, funcea)
 
 
 def FirstFuncFchunk(funcea):
-	"""
-	Get the first function chunk of the specified function
+    """
+    Get the first function chunk of the specified function
 
-	@param funcea: any address in the function
+    @param funcea: any address in the function
 
-	@return: the function entry point or BADADDR
+    @return: the function entry point or BADADDR
 
-	@note: This function returns the first (main) chunk of the specified function
-	"""
-	func = idaapi.get_func(funcea)
-	fci = idaapi.func_tail_iterator_t(func, funcea)
-	if fci.main():
-		return fci.chunk().startEA
-	else:
-		return BADADDR
+    @note: This function returns the first (main) chunk of the specified function
+    """
+    func = idaapi.get_func(funcea)
+    fci = idaapi.func_tail_iterator_t(func, funcea)
+    if fci.main():
+        return fci.chunk().startEA
+    else:
+        return BADADDR
 
 
 def NextFuncFchunk(funcea, tailea):
-	"""
-	Get the next function chunk of the specified function
+    """
+    Get the next function chunk of the specified function
 
-	@param funcea: any address in the function
-	@param tailea: any address in the current chunk
+    @param funcea: any address in the function
+    @param tailea: any address in the current chunk
 
-	@return: the starting address of the next function chunk or BADADDR
+    @return: the starting address of the next function chunk or BADADDR
 
-	@note: This function returns the next chunk of the specified function
-	"""
-	func = idaapi.get_func(funcea)
-	fci = idaapi.func_tail_iterator_t(func, funcea)
-	if not fci.main():
-		return BADADDR
+    @note: This function returns the next chunk of the specified function
+    """
+    func = idaapi.get_func(funcea)
+    fci = idaapi.func_tail_iterator_t(func, funcea)
+    if not fci.main():
+        return BADADDR
 
-	# Iterate and try to find the current chunk
-	found = False
-	while True:
-		if fci.chunk().startEA <= tailea and \
-		   fci.chunk().endEA > tailea:
-			found = True
-			break
-		if not fci.next():
-			break
+    # Iterate and try to find the current chunk
+    found = False
+    while True:
+        if fci.chunk().startEA <= tailea and \
+           fci.chunk().endEA > tailea:
+            found = True
+            break
+        if not fci.next():
+            break
 
-	# Return the next chunk, if there is one
-	if found and fci.next():
-		return fci.chunk().startEA
-	else:
-		return BADADDR
+    # Return the next chunk, if there is one
+    if found and fci.next():
+        return fci.chunk().startEA
+    else:
+        return BADADDR
 
 
 # ----------------------------------------------------------------------------
 #                          E N U M S
 # ----------------------------------------------------------------------------
 def GetEnumQty():
-	"""
-	Get number of enum types
+    """
+    Get number of enum types
 
-	@return: number of enumerations
-	"""
-	return idaapi.get_enum_qty()
+    @return: number of enumerations
+    """
+    return idaapi.get_enum_qty()
 
 
 def GetnEnum(idx):
-	"""
-	Get ID of the specified enum by its serial number
+    """
+    Get ID of the specified enum by its serial number
 
-	@param idx: number of enum (0..GetEnumQty()-1)
-	
-	@return: ID of enum or -1 if error
-	"""
-	return idaapi.getn_enum(idx)
+    @param idx: number of enum (0..GetEnumQty()-1)
+    
+    @return: ID of enum or -1 if error
+    """
+    return idaapi.getn_enum(idx)
 
 
 def GetEnumIdx(enum_id):
-	"""
-	Get serial number of enum by its ID
+    """
+    Get serial number of enum by its ID
 
-	@param enum_id: ID of enum
-	
-	@return: (0..GetEnumQty()-1) or -1 if error
-	"""
-	return idaapi.get_enum_idx(enum_id)
+    @param enum_id: ID of enum
+    
+    @return: (0..GetEnumQty()-1) or -1 if error
+    """
+    return idaapi.get_enum_idx(enum_id)
 
 
 def GetEnum(name):
-	"""
-	Get enum ID by the name of enum
+    """
+    Get enum ID by the name of enum
 
-	Arguments:
-	name - name of enum
-	
-	returns:        ID of enum or -1 if no such enum exists
-	"""
-	return idaapi.get_enum(name)
+    Arguments:
+    name - name of enum
+    
+    returns:        ID of enum or -1 if no such enum exists
+    """
+    return idaapi.get_enum(name)
 
 
 def GetEnumName(enum_id):
-	"""
-	Get name of enum
+    """
+    Get name of enum
 
-	@param enum_id: ID of enum
+    @param enum_id: ID of enum
 
-	@return: name of enum or empty string
-	"""
-	return idaapi.get_enum_name(enum_id)
+    @return: name of enum or empty string
+    """
+    return idaapi.get_enum_name(enum_id)
 
 
 def GetEnumCmt(enum_id, repeatable):
-	"""
-	Get comment of enum
+    """
+    Get comment of enum
 
-	@param enum_id: ID of enum
-	@param repeatable: 0:get regular comment
-	             1:get repeatable comment
+    @param enum_id: ID of enum
+    @param repeatable: 0:get regular comment
+                 1:get repeatable comment
 
-	@return: comment of enum
-	"""
-	return idaapi.get_enum_cmt(enum_id, repeatable)
+    @return: comment of enum
+    """
+    return idaapi.get_enum_cmt(enum_id, repeatable)
 
 
 def GetEnumSize(enum_id):
-	"""
-	Get size of enum
+    """
+    Get size of enum
 
-	@param enum_id: ID of enum
+    @param enum_id: ID of enum
 
-	@return:  number of constants in the enum
-	          Returns 0 if enum_id is bad.
-	"""
-	return idaapi.get_enum_size(enum_id)
+    @return:  number of constants in the enum
+              Returns 0 if enum_id is bad.
+    """
+    return idaapi.get_enum_size(enum_id)
 
 
 def GetEnumFlag(enum_id):
-	"""
-	Get flag of enum
+    """
+    Get flag of enum
 
-	@param enum_id: ID of enum
+    @param enum_id: ID of enum
 
-	@return: flags of enum. These flags determine representation
-		of numeric constants (binary,octal,decimal,hex)
-		in the enum definition. See start of this file for
-		more information about flags.
-		Returns 0 if enum_id is bad.
-	"""
-	return idaapi.get_enum_flag(enum_id)
+    @return: flags of enum. These flags determine representation
+        of numeric constants (binary,octal,decimal,hex)
+        in the enum definition. See start of this file for
+        more information about flags.
+        Returns 0 if enum_id is bad.
+    """
+    return idaapi.get_enum_flag(enum_id)
 
 
 def GetConstByName(name):
-	"""
-	Get member of enum - a symbolic constant ID
+    """
+    Get member of enum - a symbolic constant ID
 
-	@param name: name of symbolic constant
+    @param name: name of symbolic constant
 
-	@return: ID of constant or -1
-	"""
-	return idaapi.get_const_by_name(name)
+    @return: ID of constant or -1
+    """
+    return idaapi.get_const_by_name(name)
 
 
 def GetConstValue(const_id):
-	"""
-	Get value of symbolic constant
+    """
+    Get value of symbolic constant
 
-	@param const_id: id of symbolic constant
+    @param const_id: id of symbolic constant
 
-	@return: value of constant or 0
-	"""
-	return idaapi.get_const_value(const_id)
+    @return: value of constant or 0
+    """
+    return idaapi.get_const_value(const_id)
 
 
 def GetConstBmask(const_id):
-	"""
-	Get bit mask of symbolic constant
+    """
+    Get bit mask of symbolic constant
 
-	@param const_id: id of symbolic constant
+    @param const_id: id of symbolic constant
 
-	@return: bitmask of constant or 0
-	         ordinary enums have bitmask = -1
-	"""
-	return idaapi.get_const_bitmask(const_id)
+    @return: bitmask of constant or 0
+             ordinary enums have bitmask = -1
+    """
+    return idaapi.get_const_bitmask(const_id)
 
 
 def GetConstEnum(const_id):
-	"""
-	Get id of enum by id of constant
+    """
+    Get id of enum by id of constant
 
-	@param const_id: id of symbolic constant
+    @param const_id: id of symbolic constant
 
-	@return: id of enum the constant belongs to.
+    @return: id of enum the constant belongs to.
              -1 if const_id is bad.
-	"""
-	return idaapi.get_const_enum(const_id)
+    """
+    return idaapi.get_const_enum(const_id)
 
 
 def GetConstEx(enum_id, value, serial, bmask):
-	"""
-	Get id of constant
+    """
+    Get id of constant
 
-	@param enum_id: id of enum
-	@param value: value of constant
-	@param serial: serial number of the constant in the
-	          enumeration. See OpEnumEx() for details.
-	@param bmask: bitmask of the constant
-	          ordinary enums accept only -1 as a bitmask
-	
-	@return: id of constant or -1 if error
-	"""
-	return idaapi.get_const(enum_id, value, serial, bmask)
+    @param enum_id: id of enum
+    @param value: value of constant
+    @param serial: serial number of the constant in the
+              enumeration. See OpEnumEx() for details.
+    @param bmask: bitmask of the constant
+              ordinary enums accept only -1 as a bitmask
+    
+    @return: id of constant or -1 if error
+    """
+    return idaapi.get_const(enum_id, value, serial, bmask)
 
 
 def GetFirstBmask(enum_id):
-	"""
-	Get first bitmask in the enum (bitfield)
+    """
+    Get first bitmask in the enum (bitfield)
 
-	@param enum_id: id of enum (bitfield)
+    @param enum_id: id of enum (bitfield)
 
-	@return: the smallest bitmask of constant or -1
-	         no bitmasks are defined yet
-	         All bitmasks are sorted by their values
-	         as unsigned longs.
-	"""
-	return idaapi.get_first_bmask(enum_id)
+    @return: the smallest bitmask of constant or -1
+             no bitmasks are defined yet
+             All bitmasks are sorted by their values
+             as unsigned longs.
+    """
+    return idaapi.get_first_bmask(enum_id)
 
 
 def GetLastBmask(enum_id):
-	"""
-	Get last bitmask in the enum (bitfield)
+    """
+    Get last bitmask in the enum (bitfield)
 
-	@param enum_id: id of enum
+    @param enum_id: id of enum
 
-	@return: the biggest bitmask or -1 no bitmasks are defined yet
-	         All bitmasks are sorted by their values as unsigned longs.
-	"""
-	return idaapi.get_last_bmask(enum_id)
+    @return: the biggest bitmask or -1 no bitmasks are defined yet
+             All bitmasks are sorted by their values as unsigned longs.
+    """
+    return idaapi.get_last_bmask(enum_id)
 
 
 def GetNextBmask(enum_id, value):
-	"""
-	Get next bitmask in the enum (bitfield)
+    """
+    Get next bitmask in the enum (bitfield)
 
-	@param enum_id: id of enum
-	@param value: value of the current bitmask
+    @param enum_id: id of enum
+    @param value: value of the current bitmask
 
-	@return:  value of a bitmask with value higher than the specified
-	          value. -1 if no such bitmasks exist.
-	          All bitmasks are sorted by their values
-	          as unsigned longs.
-	"""
-	return idaapi.get_next_bmask(enum_id, value)
+    @return:  value of a bitmask with value higher than the specified
+              value. -1 if no such bitmasks exist.
+              All bitmasks are sorted by their values
+              as unsigned longs.
+    """
+    return idaapi.get_next_bmask(enum_id, value)
 
 
 def GetPrevBmask(enum_id, value):
-	"""
-	Get prev bitmask in the enum (bitfield)
+    """
+    Get prev bitmask in the enum (bitfield)
 
-	@param enum_id: id of enum
-	@param value: value of the current bitmask
+    @param enum_id: id of enum
+    @param value: value of the current bitmask
 
-	@return: value of a bitmask with value lower than the specified
-	         value. -1 no such bitmasks exist.
-	         All bitmasks are sorted by their values as unsigned longs.
-	"""
-	return idaapi.get_prev_bmask(enum_id, value)
+    @return: value of a bitmask with value lower than the specified
+             value. -1 no such bitmasks exist.
+             All bitmasks are sorted by their values as unsigned longs.
+    """
+    return idaapi.get_prev_bmask(enum_id, value)
 
 
 def GetBmaskName(enum_id, bmask):
-	"""
-	Get bitmask name (only for bitfields)
+    """
+    Get bitmask name (only for bitfields)
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant
 
-	@return: name of bitmask or None
-	"""
-	return idaapi.get_bmask_name(enum_id, bmask)
-	
+    @return: name of bitmask or None
+    """
+    return idaapi.get_bmask_name(enum_id, bmask)
+    
 
 def GetBmaskCmt(enum_id, bmask, repeatable):
-	"""
-	Get bitmask comment (only for bitfields)
+    """
+    Get bitmask comment (only for bitfields)
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant
-	@param repeatable: type of comment, 0-regular, 1-repeatable
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant
+    @param repeatable: type of comment, 0-regular, 1-repeatable
 
-	@return: comment attached to bitmask or None
-	"""
-	return idaapi.get_bmask_cmt(enum_id, bmask, repeatable)
+    @return: comment attached to bitmask or None
+    """
+    return idaapi.get_bmask_cmt(enum_id, bmask, repeatable)
 
 
 def SetBmaskName(enum_id, bmask, name):
-	"""
-	Set bitmask name (only for bitfields)
+    """
+    Set bitmask name (only for bitfields)
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant
-	@param name: name of bitmask
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant
+    @param name: name of bitmask
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.set_bmask_name(enum_id, bmask, name)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_bmask_name(enum_id, bmask, name)
 
 
 def SetBmaskCmt(enum_id, bmask, cmt, repeatable):
-	"""
-	Set bitmask comment (only for bitfields)
+    """
+    Set bitmask comment (only for bitfields)
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant
-	@param cmt: comment
-	repeatable - type of comment, 0-regular, 1-repeatable
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant
+    @param cmt: comment
+    repeatable - type of comment, 0-regular, 1-repeatable
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.set_bmask_cmt(enum_id, bmask, cmt, repeatable)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_bmask_cmt(enum_id, bmask, cmt, repeatable)
 
 
 def GetFirstConst(enum_id, bmask):
-	"""
-	Get first constant in the enum
+    """
+    Get first constant in the enum
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
 
-	@return: value of constant or -1 no constants are defined
-	         All constants are sorted by their values as unsigned longs.
-	"""
-	return idaapi.get_first_const(enum_id, bmask)
+    @return: value of constant or -1 no constants are defined
+             All constants are sorted by their values as unsigned longs.
+    """
+    return idaapi.get_first_const(enum_id, bmask)
 
 
 def GetLastConst(enum_id, bmask):
-	"""
-	Get last constant in the enum
-	
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
+    """
+    Get last constant in the enum
+    
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant (ordinary enums accept only -1 as a bitmask)
 
-	@return: value of constant or -1 no constants are defined
-	         All constants are sorted by their values
-	         as unsigned longs.
-	"""
-	return idaapi.get_last_const(enum_id, bmask)
+    @return: value of constant or -1 no constants are defined
+             All constants are sorted by their values
+             as unsigned longs.
+    """
+    return idaapi.get_last_const(enum_id, bmask)
 
 
 def GetNextConst(enum_id, value, bmask):
-	"""
-	Get next constant in the enum
+    """
+    Get next constant in the enum
 
-	@param enum_id: id of enum
-	@param bmask: bitmask of the constant ordinary enums accept only -1 as a bitmask
-	@param value: value of the current constant
+    @param enum_id: id of enum
+    @param bmask: bitmask of the constant ordinary enums accept only -1 as a bitmask
+    @param value: value of the current constant
 
-	@return: value of a constant with value higher than the specified
-	         value. -1 no such constants exist.
-	         All constants are sorted by their values as unsigned longs.
-	"""
-	return idaapi.get_next_const(enum_id, value, bmask)
+    @return: value of a constant with value higher than the specified
+             value. -1 no such constants exist.
+             All constants are sorted by their values as unsigned longs.
+    """
+    return idaapi.get_next_const(enum_id, value, bmask)
 
 
 def GetPrevConst(enum_id, value, bmask):
-	"""
-	Get prev constant in the enum
+    """
+    Get prev constant in the enum
 
-	@param enum_id: id of enum
-	@param bmask  : bitmask of the constant
-	          ordinary enums accept only -1 as a bitmask
-	@param value: value of the current constant
-	
-	@return: value of a constant with value lower than the specified
-		value. -1 no such constants exist.
-		All constants are sorted by their values as unsigned longs.
-	"""
-	return idaapi.get_prev_const(enum_id, value, bmask)
+    @param enum_id: id of enum
+    @param bmask  : bitmask of the constant
+              ordinary enums accept only -1 as a bitmask
+    @param value: value of the current constant
+    
+    @return: value of a constant with value lower than the specified
+        value. -1 no such constants exist.
+        All constants are sorted by their values as unsigned longs.
+    """
+    return idaapi.get_prev_const(enum_id, value, bmask)
 
 
 def GetConstName(const_id):
-	"""
-	Get name of a constant
+    """
+    Get name of a constant
 
-	@param const_id: id of const
+    @param const_id: id of const
 
-	Returns: name of constant
-	"""
-	name = idaapi.get_const_name(const_id)
+    Returns: name of constant
+    """
+    name = idaapi.get_const_name(const_id)
 
-	if not name:
-		return ""
-	else:
-		return name
+    if not name:
+        return ""
+    else:
+        return name
 
 
 def GetConstCmt(const_id, repeatable):
-	"""
-	Get comment of a constant
+    """
+    Get comment of a constant
 
-	@param const_id: id of const
-	@param repeatable: 0:get regular comment, 1:get repeatable comment
+    @param const_id: id of const
+    @param repeatable: 0:get regular comment, 1:get repeatable comment
 
-	@return: comment string
-	"""
-	cmt = idaapi.get_const_cmt(const_id, repeatable)
+    @return: comment string
+    """
+    cmt = idaapi.get_const_cmt(const_id, repeatable)
 
-	if not cmt:
-		return ""
-	else:
-		return cmt
+    if not cmt:
+        return ""
+    else:
+        return cmt
 
 
 def AddEnum(idx, name, flag):
-	"""
-	Add a new enum type
+    """
+    Add a new enum type
 
-	@param idx: serial number of the new enum.
-			If another enum with the same serial number
-			exists, then all enums with serial
-			numbers >= the specified idx get their
-			serial numbers incremented (in other words,
-			the new enum is put in the middle of the list of enums).
+    @param idx: serial number of the new enum.
+            If another enum with the same serial number
+            exists, then all enums with serial
+            numbers >= the specified idx get their
+            serial numbers incremented (in other words,
+            the new enum is put in the middle of the list of enums).
 
-			If idx >= GetEnumQty() or idx == -1
-			then the new enum is created at the end of
-			the list of enums.
-	@param name: name of the enum.
-	@param flag: flags for representation of numeric constants
-			in the definition of enum.
+            If idx >= GetEnumQty() or idx == -1
+            then the new enum is created at the end of
+            the list of enums.
+    @param name: name of the enum.
+    @param flag: flags for representation of numeric constants
+            in the definition of enum.
 
-	@return: id of new enum or -1.
-	"""
-	return idaapi.add_enum(idx, name, flag)
+    @return: id of new enum or -1.
+    """
+    return idaapi.add_enum(idx, name, flag)
 
 
 def DelEnum(enum_id):
-	"""
-	Delete enum type
+    """
+    Delete enum type
 
-	@param enum_id: id of enum
+    @param enum_id: id of enum
 
-	@return: None
-	"""
-	idaapi.del_enum(enum_id)
+    @return: None
+    """
+    idaapi.del_enum(enum_id)
 
 
 def SetEnumIdx(enum_id, idx):
-	"""
-	Give another serial number to a enum
+    """
+    Give another serial number to a enum
 
-	@param enum_id: id of enum
-	@param idx: new serial number.
-		If another enum with the same serial number
-		exists, then all enums with serial
-		numbers >= the specified idx get their
-		serial numbers incremented (in other words,
-		the new enum is put in the middle of the list of enums).
+    @param enum_id: id of enum
+    @param idx: new serial number.
+        If another enum with the same serial number
+        exists, then all enums with serial
+        numbers >= the specified idx get their
+        serial numbers incremented (in other words,
+        the new enum is put in the middle of the list of enums).
 
-		If idx >= GetEnumQty() then the enum is
-		moved to the end of the list of enums.
+        If idx >= GetEnumQty() then the enum is
+        moved to the end of the list of enums.
 
-	@return: comment string
-	"""
-	return idaapi.set_enum_idx(enum_id, idx)
-	
+    @return: comment string
+    """
+    return idaapi.set_enum_idx(enum_id, idx)
+    
 
 def SetEnumName(enum_id, name):
-	"""
-	Rename enum
+    """
+    Rename enum
 
-	@param enum_id: id of enum
-	@param name: new name of enum
+    @param enum_id: id of enum
+    @param name: new name of enum
 
-	@return: 1-ok,0-failed
-	"""
-	return idaapi.set_enum_name(enum_id, name)
+    @return: 1-ok,0-failed
+    """
+    return idaapi.set_enum_name(enum_id, name)
 
 
 def SetEnumCmt(enum_id, cmt, repeatable):
-	"""
-	Set comment of enum
+    """
+    Set comment of enum
 
-	@param enum_id: id of enum
-	@param cmt: new comment for the enum
-	@param repeatable: is the comment repeatable?
-		- 0:set regular comment
-		- 1:set repeatable comment
+    @param enum_id: id of enum
+    @param cmt: new comment for the enum
+    @param repeatable: is the comment repeatable?
+        - 0:set regular comment
+        - 1:set repeatable comment
 
-	@return: 1-ok,0-failed
-	"""
-	return idaapi.set_enum_cmt(enum_id, cmt, repeatable)
+    @return: 1-ok,0-failed
+    """
+    return idaapi.set_enum_cmt(enum_id, cmt, repeatable)
 
 
 def SetEnumFlag(enum_id, flag):
-	"""
-	Set flag of enum
+    """
+    Set flag of enum
 
-	@param enum_id: id of enum
-	@param flag: flags for representation of numeric constants
-		in the definition of enum.
+    @param enum_id: id of enum
+    @param flag: flags for representation of numeric constants
+        in the definition of enum.
 
-	@return: 1-ok,0-failed
-	"""
-	return idaapi.set_enum_flag(enum_id, flag)
+    @return: 1-ok,0-failed
+    """
+    return idaapi.set_enum_flag(enum_id, flag)
 
 
 def SetEnumBf(enum_id, flag):
-	"""
-	Set bitfield property of enum
+    """
+    Set bitfield property of enum
 
-	@param enum_id: id of enum
-	@param flag: flags
-		- 1: convert to bitfield
-		- 0: convert to ordinary enum
+    @param enum_id: id of enum
+    @param flag: flags
+        - 1: convert to bitfield
+        - 0: convert to ordinary enum
 
-	@return: 1-ok,0-failed
-	"""
-	return idaapi.set_enum_bf(enum_id, flag)
+    @return: 1-ok,0-failed
+    """
+    return idaapi.set_enum_bf(enum_id, flag)
 
 
 def IsBitfield(enum_id):
-	"""
-	Is enum a bitfield?
+    """
+    Is enum a bitfield?
 
-	@param enum_id: id of enum
+    @param enum_id: id of enum
 
-	@return: 1-yes, 0-no, ordinary enum
-	"""
-	return idaapi.is_bf(enum_id)
+    @return: 1-yes, 0-no, ordinary enum
+    """
+    return idaapi.is_bf(enum_id)
 
 
 def AddConstEx(enum_id, name, value, bmask):
-	"""
-	Add a member of enum - a symbolic constant
+    """
+    Add a member of enum - a symbolic constant
 
-	@param enum_id: id of enum
-	@param name: name of symbolic constant. Must be unique in the program.
-	@param value: value of symbolic constant.
-	@param bmask: bitmask of the constant
-		ordinary enums accept only -1 as a bitmask
-		all bits set in value should be set in bmask too
+    @param enum_id: id of enum
+    @param name: name of symbolic constant. Must be unique in the program.
+    @param value: value of symbolic constant.
+    @param bmask: bitmask of the constant
+        ordinary enums accept only -1 as a bitmask
+        all bits set in value should be set in bmask too
 
-	@return: 0-ok, otherwise error code (one of CONST_ERROR_*)
-	"""
-	return idaapi.add_const(enum_id, name, value, bmask)
+    @return: 0-ok, otherwise error code (one of CONST_ERROR_*)
+    """
+    return idaapi.add_const(enum_id, name, value, bmask)
 
 
 CONST_ERROR_NAME  = idaapi.CONST_ERROR_NAME  # already have member with this name (bad name)
@@ -5460,281 +5460,281 @@ CONST_ERROR_ILLV  = idaapi.CONST_ERROR_ILLV  # bad bmask and value combination (
 
 
 def DelConstEx(enum_id, value, serial, bmask):
-	"""
-	Delete a member of enum - a symbolic constant
+    """
+    Delete a member of enum - a symbolic constant
 
-	@param enum_id: id of enum
-	@param value: value of symbolic constant.
-	@param serial: serial number of the constant in the
-		enumeration. See OpEnumEx() for for details.
-	@param bmask: bitmask of the constant ordinary enums accept 
-		only -1 as a bitmask
+    @param enum_id: id of enum
+    @param value: value of symbolic constant.
+    @param serial: serial number of the constant in the
+        enumeration. See OpEnumEx() for for details.
+    @param bmask: bitmask of the constant ordinary enums accept 
+        only -1 as a bitmask
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.del_const(enum_id, value, serial, bmask)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.del_const(enum_id, value, serial, bmask)
 
 
 def SetConstName(const_id, name):
-	"""
-	Rename a member of enum - a symbolic constant
+    """
+    Rename a member of enum - a symbolic constant
 
-	@param const_id: id of const
-	@param name: new name of constant
+    @param const_id: id of const
+    @param name: new name of constant
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.set_const_name(const_id, name)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_const_name(const_id, name)
 
 
 def SetConstCmt(const_id, cmt, repeatable):
-	"""
-	Set a comment of a symbolic constant
+    """
+    Set a comment of a symbolic constant
 
-	@param const_id: id of const
-	@param cmt: new comment for the constant
-	@param repeatable: is the comment repeatable? 
-		0: set regular comment
-		1: set repeatable comment
+    @param const_id: id of const
+    @param cmt: new comment for the constant
+    @param repeatable: is the comment repeatable? 
+        0: set regular comment
+        1: set repeatable comment
 
-	@return: 1-ok, 0-failed
-	"""
-	return idaapi.set_const_cmt(const_id, cmt, repeatable)
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_const_cmt(const_id, cmt, repeatable)
 
 #----------------------------------------------------------------------------
 #                         A R R A Y S  I N  I D C
 #----------------------------------------------------------------------------
 
 def CreateArray(name):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetArrayId(name):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def RenameArray(id, newname):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def DeleteArray(id):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def SetArrayLong(id, idx, value):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def SetArrayString(id, idx, str):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetArrayElement(tag, id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def DelArrayElement(tag, id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetFirstIndex(tag, id):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetLastIndex(tag, id):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetNextIndex(tag, id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetPrevIndex(tag, id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def SetHashLong(id, idx, value):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def SetHashString(id, idx, value):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetHashLong(id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetHashString(id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def DelHashElement(id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetFirstHashKey(id):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetNextHashKey(id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetLastHashKey(id):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 def GetPrevHashKey(id, idx):
-	raise DeprecatedIDCError, "Use python pickles instead."
+    raise DeprecatedIDCError, "Use python pickles instead."
 
 
 #----------------------------------------------------------------------------
 #                 S O U R C E   F I L E / L I N E   N U M B E R S
 #----------------------------------------------------------------------------
 def AddSourceFile(ea1, ea2, filename):
-	"""
-	Mark a range of address as belonging to a source file
-	An address range may belong only to one source file.
-	A source file may be represented by several address ranges.
+    """
+    Mark a range of address as belonging to a source file
+    An address range may belong only to one source file.
+    A source file may be represented by several address ranges.
 
-	@param ea1: linear address of start of the address range
-	@param ea2: linear address of end of the address range
-	@param filename: name of source file.
+    @param ea1: linear address of start of the address range
+    @param ea2: linear address of end of the address range
+    @param filename: name of source file.
 
-	@return: 1-ok, 0-failed.
+    @return: 1-ok, 0-failed.
 
-	@note: IDA can keep information about source files used to create the program.
-	       Each source file is represented by a range of addresses.
-	       A source file may contains several address ranges.
-	"""
-	return idaapi.add_sourcefile(ea1, ea2, filename)
+    @note: IDA can keep information about source files used to create the program.
+           Each source file is represented by a range of addresses.
+           A source file may contains several address ranges.
+    """
+    return idaapi.add_sourcefile(ea1, ea2, filename)
 
 
 def GetSourceFile(ea):
-	"""
-	Get name of source file occupying the given address
+    """
+    Get name of source file occupying the given address
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: NULL - source file information is not found
-	         otherwise returns pointer to file name
-	"""
-	return idaapi.get_sourcefile(ea)
+    @return: NULL - source file information is not found
+             otherwise returns pointer to file name
+    """
+    return idaapi.get_sourcefile(ea)
 
 
 def DelSourceFile(ea):
-	"""
-	Delete information about the source file
+    """
+    Delete information about the source file
 
-	@param ea: linear address belonging to the source file
+    @param ea: linear address belonging to the source file
 
-	@return: NULL - source file information is not found
-	         otherwise returns pointer to file name
-	"""
-	return idaapi.del_sourcefile(ea)
+    @return: NULL - source file information is not found
+             otherwise returns pointer to file name
+    """
+    return idaapi.del_sourcefile(ea)
 
 
 def SetLineNumber(ea, lnnum):
-	"""
-	Set source line number
+    """
+    Set source line number
 
-	@param ea: linear address
-	@param lnnum: number of line in the source file
+    @param ea: linear address
+    @param lnnum: number of line in the source file
 
-	@return: None
-	"""
-	idaapi.set_source_linnum(ea, lnnum)
-	
+    @return: None
+    """
+    idaapi.set_source_linnum(ea, lnnum)
+    
 
 def GetLineNumber(ea):
-	"""
-	Get source line number
+    """
+    Get source line number
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: number of line in the source file or -1
-	"""
-	return idaapi.get_source_linnum(ea)
-	
+    @return: number of line in the source file or -1
+    """
+    return idaapi.get_source_linnum(ea)
+    
 
 def DelLineNumber(ea):
-	"""
-	Delete information about source line number
+    """
+    Delete information about source line number
 
-	@param ea: linear address
+    @param ea: linear address
 
-	@return: None
-	"""
-	idaapi.del_source_linnum(ea)
-	
+    @return: None
+    """
+    idaapi.del_source_linnum(ea)
+    
 
 #----------------------------------------------------------------------------
 #                T Y P E  L I B R A R I E S
 #----------------------------------------------------------------------------
 
 def LoadTil(name, tildir=None):
-	"""
-	Load a type library
+    """
+    Load a type library
 
-	@param name: name of type library.
-	@param tildir: drectory to load the TIL from (defaults to "til/pc")
-	
-	@return: 1-ok, 0-failed.
-	"""
-	if not tildir:
-		tildir = "til" + os.sep + "pc"
-	
-	til = idaapi.load_til(tildir, name)
-	
-	if til:
-		return 1
-	else:
-		return 0
+    @param name: name of type library.
+    @param tildir: drectory to load the TIL from (defaults to "til/pc")
+    
+    @return: 1-ok, 0-failed.
+    """
+    if not tildir:
+        tildir = "til" + os.sep + "pc"
+    
+    til = idaapi.load_til(tildir, name)
+    
+    if til:
+        return 1
+    else:
+        return 0
 
 
 def Til2Idb(idx, type_name):
-	"""
-	Copy information from type library to database
-	Copy structure, union, or enum definition from the type library
-	to the IDA database.
+    """
+    Copy information from type library to database
+    Copy structure, union, or enum definition from the type library
+    to the IDA database.
 
-	@param idx: the position of the new type in the list of
-	            types (structures or enums) -1 means at the end of the list
-	@param type_name: name of type to copy
+    @param idx: the position of the new type in the list of
+                types (structures or enums) -1 means at the end of the list
+    @param type_name: name of type to copy
 
-	@return: BADNODE-failed, otherwise the type id (structure id or enum id)
-	"""
-	return idaapi.til2idb(idx, type_name)
-	
+    @return: BADNODE-failed, otherwise the type id (structure id or enum id)
+    """
+    return idaapi.til2idb(idx, type_name)
+    
 
 def GetType(ea):
-	"""
-	Get type of function/variable
+    """
+    Get type of function/variable
 
-	@param ea: the address of the object
+    @param ea: the address of the object
 
-	@return: type string or None if failed
-	"""
-	return idaapi.idc_get_type(ea)
+    @return: type string or None if failed
+    """
+    return idaapi.idc_get_type(ea)
 
 
 def GuessType(ea):
-	"""
-	Guess type of function/variable
+    """
+    Guess type of function/variable
 
-	@param ea: the address of the object, can be the structure member id too
+    @param ea: the address of the object, can be the structure member id too
 
-	@return: type string or None if failed
-	"""
-	return idaapi.idc_guess_type(ea)
+    @return: type string or None if failed
+    """
+    return idaapi.idc_guess_type(ea)
 
 
 def SetType(ea, type):
-	"""
-	Set type of function/variable
+    """
+    Set type of function/variable
 
-	@param ea: the address of the object
-	@param type: the type string in C declaration form. 
-	             Must contain the closing ';'
-	            if specified as an empty string, then the
-	            assciated with 'ea' will be deleted
+    @param ea: the address of the object
+    @param type: the type string in C declaration form. 
+                 Must contain the closing ';'
+                if specified as an empty string, then the
+                assciated with 'ea' will be deleted
 
-	@return: 1-ok, 0-failed.
-	"""
-	return idaapi.apply_cdecl(ea, type)
+    @return: 1-ok, 0-failed.
+    """
+    return idaapi.apply_cdecl(ea, type)
 
 
 def ParseTypes(input, flags):
-	"""
-	Parse type declarations
-	
-	@param input: file name or C declarations (depending on the flags)
-	@param flags: combination of PT_... constants or 0
+    """
+    Parse type declarations
+    
+    @param input: file name or C declarations (depending on the flags)
+    @param flags: combination of PT_... constants or 0
 
-	@return: number of errors
-	"""
-	return idaapi.idc_parse_types(input, flags)
+    @return: number of errors
+    """
+    return idaapi.idc_parse_types(input, flags)
 
 
 PT_FILE =   0x0001  # input if a file name (otherwise contains type declarations)
@@ -5750,49 +5750,49 @@ PT_PAK16 =  0x0050  # #pragma pack(16)
 #                           H I D D E N  A R E A S
 # ----------------------------------------------------------------------------
 def HideArea(start, end, description, header, footer, color):
-	"""
-	Hide an area
+    """
+    Hide an area
 
-	Hidden areas - address ranges which can be replaced by their descriptions
+    Hidden areas - address ranges which can be replaced by their descriptions
 
-	@param start:       area start
-	@param end:         area end
-	@param description: description to display if the area is collapsed
-	@param header:      header lines to display if the area is expanded
-	@param footer:      footer lines to display if the area is expanded
-	@param color:       RGB color code (-1 means default color)
+    @param start:       area start
+    @param end:         area end
+    @param description: description to display if the area is collapsed
+    @param header:      header lines to display if the area is expanded
+    @param footer:      footer lines to display if the area is expanded
+    @param color:       RGB color code (-1 means default color)
 
-	@returns:    !=0 - ok
-	"""
-	return idaapi.add_hidden_area(start, end, description, header, footer, color)
+    @returns:    !=0 - ok
+    """
+    return idaapi.add_hidden_area(start, end, description, header, footer, color)
 
 
 def SetHiddenArea(ea, visible):
-	"""
-	Set hidden area state
+    """
+    Set hidden area state
 
-	@param ea:      any address belonging to the hidden area
-	@param visible: new state of the area
+    @param ea:      any address belonging to the hidden area
+    @param visible: new state of the area
 
-	@return: != 0 - ok
-	"""
-	ha = idaapi.get_hidden_area(ea)
+    @return: != 0 - ok
+    """
+    ha = idaapi.get_hidden_area(ea)
 
-	if not ha:
-		return 0
-	else:
-		ha.visible = visible
-		return idaapi.update_hidden_area(ha)
+    if not ha:
+        return 0
+    else:
+        ha.visible = visible
+        return idaapi.update_hidden_area(ha)
 
 
 def DelHiddenArea(ea):
-	"""
-	Delete a hidden area
+    """
+    Delete a hidden area
 
-	@param ea: any address belonging to the hidden area
-	@returns:  != 0 - ok
-	"""
-	return idaapi.del_hidden_area(ea)
+    @param ea: any address belonging to the hidden area
+    @returns:  != 0 - ok
+    """
+    return idaapi.del_hidden_area(ea)
 
 
 #--------------------------------------------------------------------------
@@ -5800,93 +5800,93 @@ def DelHiddenArea(ea):
 #--------------------------------------------------------------------------
 
 def GetRegValue(name):
-	"""
-	Get register value
+    """
+    Get register value
 
-	@param name: the register name
+    @param name: the register name
 
-	@note: The debugger should be running. otherwise the function fails
-	       the register name should be valid.
-	       It is not necessary to use this function to get register values
-	       because a register name in the script will do too.
+    @note: The debugger should be running. otherwise the function fails
+           the register name should be valid.
+           It is not necessary to use this function to get register values
+           because a register name in the script will do too.
 
-	@return: register value (integer or floating point)
-	"""
-	rv = idaapi.regval_t()
-	res = idaapi.get_reg_val(name, rv)
-	assert res, "get_reg_val() failed, bogus name perhaps?"
-	return rv.ival
+    @return: register value (integer or floating point)
+    """
+    rv = idaapi.regval_t()
+    res = idaapi.get_reg_val(name, rv)
+    assert res, "get_reg_val() failed, bogus name perhaps?"
+    return rv.ival
 
 
 def SetRegValue(value, name):
-	"""
-	Set register value
+    """
+    Set register value
 
-	@param name: the register name
-	@param value: new register value
+    @param name: the register name
+    @param value: new register value
 
-	@note: The debugger should be running
-	       It is not necessary to use this function to set register values.
-		   A register name in the left side of an assignment will do too.
-	"""
-	rv = idaapi.regval_t()
-	rv.ival = value
-	return idaapi.set_reg_val(name, value)
+    @note: The debugger should be running
+           It is not necessary to use this function to set register values.
+           A register name in the left side of an assignment will do too.
+    """
+    rv = idaapi.regval_t()
+    rv.ival = value
+    return idaapi.set_reg_val(name, value)
 
 
 def  GetBptQty():
-	"""
-	Get number of breakpoints.
+    """
+    Get number of breakpoints.
 
-	@return: number of breakpoints
-	"""
-	return idaapi.get_bpt_qty()
+    @return: number of breakpoints
+    """
+    return idaapi.get_bpt_qty()
 
 
 def GetBptEA(n):
-	"""
-	Get breakpoint address
+    """
+    Get breakpoint address
 
-	@param n: number of breakpoint, is in range 0..GetBptQty()-1
+    @param n: number of breakpoint, is in range 0..GetBptQty()-1
 
-	@return: addresss of the breakpoint or BADADDR
-	"""
-	bpt = idaapi.bpt_t()
+    @return: addresss of the breakpoint or BADADDR
+    """
+    bpt = idaapi.bpt_t()
 
-	if idaapi.getn_bpt(n, bpt):
-		return bpt.ea
-	else:
-		return BADADDR
+    if idaapi.getn_bpt(n, bpt):
+        return bpt.ea
+    else:
+        return BADADDR
 
 
 def GetBptAttr(ea, bptattr):
-	"""
-	Get the characteristics of a breakpoint
+    """
+    Get the characteristics of a breakpoint
 
-	@param address: any address in the breakpoint range
-	@param bptattr: the desired attribute code, one of BPTATTR_... constants
+    @param address: any address in the breakpoint range
+    @param bptattr: the desired attribute code, one of BPTATTR_... constants
 
-	@return: the desired attribute value or -1
-	"""
-	bpt = idaapi.bpt_t()
+    @return: the desired attribute value or -1
+    """
+    bpt = idaapi.bpt_t()
 
-	if not idaapi.get_bpt(ea, bpt):
-		return -1
-	else:
-		if bptattr == BPTATTR_EA:
-			return bpt.ea
-		if bptattr == BPTATTR_SIZE:
-			return bpt.size
-		if bptattr == BPTATTR_TYPE:
-			return bpt.type
-		if bptattr == BPTATTR_COUNT:
-			return bpt.pass_count
-		if bptattr == BPTATTR_FLAGS:
-			return bpt.flags
-		if bptattr == BPTATTR_COND:
-			return bpt.condition
-		return -1
-	
+    if not idaapi.get_bpt(ea, bpt):
+        return -1
+    else:
+        if bptattr == BPTATTR_EA:
+            return bpt.ea
+        if bptattr == BPTATTR_SIZE:
+            return bpt.size
+        if bptattr == BPTATTR_TYPE:
+            return bpt.type
+        if bptattr == BPTATTR_COUNT:
+            return bpt.pass_count
+        if bptattr == BPTATTR_FLAGS:
+            return bpt.flags
+        if bptattr == BPTATTR_COND:
+            return bpt.condition
+        return -1
+    
 
 BPTATTR_EA    =  0   # starting address of the breakpoint
 BPTATTR_SIZE  =  4   # size of the breakpoint (undefined if software breakpoint)
@@ -5906,95 +5906,95 @@ BPT_TRACE      = 0x02  # does the debugger add trace information when this break
 
 
 def SetBptAttr(address, bptattr, value):
-	"""
+    """
         modifiable characteristics of a breakpoint
 
-	@param address: any address in the breakpoint range
-	@param bptattr: the attribute code, one of BPTATTR_* constants
-	                BPTATTR_CND is not allowed, see SetBptCnd()
-	@param value: the attibute value
+    @param address: any address in the breakpoint range
+    @param bptattr: the attribute code, one of BPTATTR_* constants
+                    BPTATTR_CND is not allowed, see SetBptCnd()
+    @param value: the attibute value
 
-	@return: success
-	"""
-	bpt = idaapi.bpt_t()
+    @return: success
+    """
+    bpt = idaapi.bpt_t()
 
-	if not idaapi.get_bpt(address, bpt):
-		return False
-	else:
-		if bptattr not in [ BPTATTR_SIZE, BPTATTR_TYPE, BPTATTR_FLAGS, BPTATTR_COUNT ]:
-			return False
-		if bptattr == BPTATTR_SIZE:
-			bpt.size = value
-		if bptattr == BPTATTR_TYPE:
-			bpt.type = value
-		if bptattr == BPTATTR_COUNT:
-			bpt.pass_count = value
-		if bptattr == BPTATTR_FLAGS:
-			bpt.flags = value
+    if not idaapi.get_bpt(address, bpt):
+        return False
+    else:
+        if bptattr not in [ BPTATTR_SIZE, BPTATTR_TYPE, BPTATTR_FLAGS, BPTATTR_COUNT ]:
+            return False
+        if bptattr == BPTATTR_SIZE:
+            bpt.size = value
+        if bptattr == BPTATTR_TYPE:
+            bpt.type = value
+        if bptattr == BPTATTR_COUNT:
+            bpt.pass_count = value
+        if bptattr == BPTATTR_FLAGS:
+            bpt.flags = value
 
-		idaapi.update_bpt(bpt)
-		return True
+        idaapi.update_bpt(bpt)
+        return True
 
 
 def SetBptCnd(ea, cnd):
-	"""
-	Set breakpoint condition
-	
-	@param address: any address in the breakpoint range
-	@param cnd: breakpoint condition
-	
-	@return: success
-	"""
-	bpt = idaapi.bpt_t()
-	
-	if not idaapi.get_bpt(ea, bpt):
-		return False
+    """
+    Set breakpoint condition
+    
+    @param address: any address in the breakpoint range
+    @param cnd: breakpoint condition
+    
+    @return: success
+    """
+    bpt = idaapi.bpt_t()
+    
+    if not idaapi.get_bpt(ea, bpt):
+        return False
 
-	bpt.condition = cnd
+    bpt.condition = cnd
 
-	return idaapi.update_bpt(bpt)
+    return idaapi.update_bpt(bpt)
 
 
 def AddBptEx(ea, size, bpttype):
-	"""
-	Add a new breakpoint
-	
-	@param ea: any address in the process memory space:
-	@param size: size of the breakpoint (irrelevant for software breakpoints):
-	@param type: type of the breakpoint (one of BPT_... constants)
+    """
+    Add a new breakpoint
+    
+    @param ea: any address in the process memory space:
+    @param size: size of the breakpoint (irrelevant for software breakpoints):
+    @param type: type of the breakpoint (one of BPT_... constants)
 
-	@return: success
+    @return: success
 
-	@note: Only one breakpoint can exist at a given address.
-	"""
-	return idaapi.add_bpt(ea, size, bpttype)
+    @note: Only one breakpoint can exist at a given address.
+    """
+    return idaapi.add_bpt(ea, size, bpttype)
 
 
 def AddBpt(ea): return AddBptEx(ea, 0, BPT_SOFT)
 
 
 def DelBpt(ea):
-	"""
-	Delete breakpoint
-	
-	@param ea: any address in the process memory space:
+    """
+    Delete breakpoint
+    
+    @param ea: any address in the process memory space:
 
-	@return: success
-	"""
-	return idaapi.del_bpt(ea)
+    @return: success
+    """
+    return idaapi.del_bpt(ea)
 
 
 def EnableBpt(ea, enable):
-	"""
-	Enable/disable breakpoint
+    """
+    Enable/disable breakpoint
 
-	@param ea: any address in the process memory space:
+    @param ea: any address in the process memory space:
 
-	@return: success
+    @return: success
 
-	@note: Disabled breakpoints are not written to the process memory
-	"""
-	return idaapi.enable_bpt(ea, enable)
+    @note: Disabled breakpoints are not written to the process memory
+    """
+    return idaapi.enable_bpt(ea, enable)
 
 
 #--------------------------------------------------------------------------
@@ -6002,33 +6002,33 @@ def EnableBpt(ea, enable):
 #--------------------------------------------------------------------------
 
 def GetColor(ea, what):
-	"""
-	Get item color
+    """
+    Get item color
 
-	@param ea: address of the item
-	@param what: type of the item (one of  CIC_* constants)
+    @param ea: address of the item
+    @param what: type of the item (one of  CIC_* constants)
 
-	@return: color code in RGB (hex 0xBBGGRR)
-	"""
-	if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
-		raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
-	
-	if what == CIC_ITEM:
-		return idaapi.get_item_color(ea)
-		
-	if what == CIC_FUNC:
-		func = idaapi.get_func(ea)
-		if func:
-			return func.color
-		else:
-			return DEFCOLOR
+    @return: color code in RGB (hex 0xBBGGRR)
+    """
+    if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
+        raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
+    
+    if what == CIC_ITEM:
+        return idaapi.get_item_color(ea)
+        
+    if what == CIC_FUNC:
+        func = idaapi.get_func(ea)
+        if func:
+            return func.color
+        else:
+            return DEFCOLOR
 
-	if what == CIC_SEGM:
-		seg = idaapi.getseg(ea)
-		if seg:
-			return seg.color
-		else:
-			return DEFCOLOR
+    if what == CIC_SEGM:
+        seg = idaapi.getseg(ea)
+        if seg:
+            return seg.color
+        else:
+            return DEFCOLOR
 
 # color item codes:
 CIC_ITEM = 1         # one instruction or data
@@ -6039,36 +6039,36 @@ DEFCOLOR = 0xFFFFFFFF  # Default color
 
 
 def SetColor(ea, what, color):
-	"""
-	Set item color
+    """
+    Set item color
 
-	@param ea: address of the item
-	@param what: type of the item (one of CIC_* constants)
-	@param color: new color code in RGB (hex 0xBBGGRR)
+    @param ea: address of the item
+    @param what: type of the item (one of CIC_* constants)
+    @param color: new color code in RGB (hex 0xBBGGRR)
 
-	@return: success (True or False)
-	"""
-	if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
-		raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
-	
-	if what == CIC_ITEM:
-		return idaapi.set_item_color(ea, color)
-		
-	if what == CIC_FUNC:
-		func = idaapi.get_func(ea)
-		if func:
-			func.color = color
-			return True
-		else:
-			return False
+    @return: success (True or False)
+    """
+    if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
+        raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
+    
+    if what == CIC_ITEM:
+        return idaapi.set_item_color(ea, color)
+        
+    if what == CIC_FUNC:
+        func = idaapi.get_func(ea)
+        if func:
+            func.color = color
+            return True
+        else:
+            return False
 
-	if what == CIC_SEGM:
-		seg = idaapi.getseg(ea)
-		if seg:
-			seg.color = color
-			return True
-		else:
-			return False
+    if what == CIC_SEGM:
+        seg = idaapi.getseg(ea)
+        if seg:
+            seg.color = color
+            return True
+        else:
+            return False
 
 
 
@@ -6077,37 +6077,37 @@ def SetColor(ea, what, color):
 #--------------------------------------------------------------------------
 
 def SetXML(path, name, value):
-	"""
-	Set or update one or more XML values.
+    """
+    Set or update one or more XML values.
 
-	@param path: XPath expression of elements where to create value(s)
-	@param name: name of the element/attribute
-	             (use @XXX for an attribute) to create.
-	             If 'name' is empty, the elements or
-	             attributes returned by XPath are directly
-	             updated to contain the new 'value'.
-	@param value: value of the element/attribute
+    @param path: XPath expression of elements where to create value(s)
+    @param name: name of the element/attribute
+                 (use @XXX for an attribute) to create.
+                 If 'name' is empty, the elements or
+                 attributes returned by XPath are directly
+                 updated to contain the new 'value'.
+    @param value: value of the element/attribute
 
-	@return: success (True or False)
-	"""
-	return idaapi.set_xml(path, name, value)
+    @return: success (True or False)
+    """
+    return idaapi.set_xml(path, name, value)
 
 
 def GetXML(path):
-	"""
-	Get one XML value.
+    """
+    Get one XML value.
 
-	@param path: XPath expression to an element
-	             or attribute whose value is requested
+    @param path: XPath expression to an element
+                 or attribute whose value is requested
 
-	@return: the value, None if failed
-	"""
-	v = idaapi.value_t()
-	if idaapi.get_xml(path):
-		return v.str
-	else:
-		return None
-	
+    @return: the value, None if failed
+    """
+    v = idaapi.value_t()
+    if idaapi.get_xml(path):
+        return v.str
+    else:
+        return None
+    
 
 #--------------------------------------------------------------------------
 # Compatibility macros:
@@ -6137,13 +6137,13 @@ def set_start_cs(x):         return SetLongPrm(INF_START_CS,x)
 def set_start_ip(x):         return SetLongPrm(INF_START_IP,x)
 
 def WriteMap(filepath):
-	return GenerateFile(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEGS|GENFLG_MAPNAME)
+    return GenerateFile(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEGS|GENFLG_MAPNAME)
 
 def WriteTxt(filepath, ea1, ea2):
-	return GenerateFile(OFILE_ASM, filepath, ea1, ea2, 0)
+    return GenerateFile(OFILE_ASM, filepath, ea1, ea2, 0)
 
 def WriteExe(filepath):
-	return GenerateFile(OFILE_EXE, filepath, 0, BADADDR, 0)
+    return GenerateFile(OFILE_EXE, filepath, 0, BADADDR, 0)
 
 def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value,-1)
 def AddStruc(index,name):   return AddStrucEx(index,name,0)
