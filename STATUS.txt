@@ -1,14 +1,9 @@
 Status of the IDC wrapper
 -------------------------
 
-6 function unimplemented out of 434 (98% coverage):
+1 function unimplemented out of 434 (99% coverage):
 
-rotate_left
-XRefType
-SetMemberType
-GetType
-GuessType
-SetType
+rotate_left()
 
 
 Status of IDA API wrappers
