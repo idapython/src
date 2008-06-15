@@ -299,7 +299,7 @@ def rotate_left(value, count, nbits, offset):
 	"""
 	raise NotImplementedError
 
-z
+
 def AddHotkey(hotkey, idcfunc):
 	"""
 	Add hotkey for IDC function
