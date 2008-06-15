@@ -3259,10 +3259,8 @@ def XrefType():
 	[RD]first/next[B0] functions. 
 	
 	@return: constants fl_* or dr_*
-
-	FIXME: unimplemented
 	"""
-	raise NotImplementedError
+	raise DeprecatedIDCError, "use XrefsFrom() XrefsTo() from idautils instead."
 
 
 #----------------------------------------------------------------------------
