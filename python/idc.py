@@ -2094,7 +2094,8 @@ def FindBinary(ea, flag, str, radix=16):
 
     @note: Example: "41 42" - find 2 bytes 41h,42h (radix is 16)
     """
-    return idaapi.find_binary(ea, BADADDR, str, radix, flag)
+    endea = flag & 1 and idaapi.cvar.inf.maxEA or idaapi.cvar.inf.minEA
+    return idaapi.find_binary(ea, endea, str, radix, flag)
 
 
 #----------------------------------------------------------------------------
