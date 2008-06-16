@@ -133,6 +133,17 @@ def XrefTypeName(typecode):
     return ref_types[typecode]
 
 
+def _copy_xref(xref):
+    """ Make a private copy of the xref class to preserve its contents """
+    class _xref:
+        pass
+
+    xr = _xref()
+    for attr in [ 'frm', 'to', 'iscode', 'type', 'user' ]:
+        setattr(xr, attr, getattr(xref, attr))
+    return xr
+
+
 def XrefsFrom(ea, flags=0):
     """ 
     Return all references from address 'ea'
@@ -144,13 +155,12 @@ def XrefsFrom(ea, flags=0):
            for xref in XrefsFrom(here(), 0):
                print xref.type, XrefTypeName(xref.type), \
                          'from', hex(xref.frm), 'to', hex(xref.to)
-
     """
     xref = idaapi.xrefblk_t()
     if xref.first_from(ea, flags):
-        yield xref
+        yield _copy_xref(xref)
         while xref.next_from():
-            yield xref
+            yield _copy_xref(xref)
 
 
 def XrefsTo(ea, flags=0):
@@ -167,9 +177,9 @@ def XrefsTo(ea, flags=0):
     """
     xref = idaapi.xrefblk_t()
     if xref.first_to(ea, flags):
-        yield xref
+        yield _copy_xref(xref)
         while xref.next_to():
-            yield xref
+            yield _copy_xref(xref)
 
 
 def Heads(start, end):
