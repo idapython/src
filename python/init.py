@@ -79,6 +79,8 @@ class MyStdOut:
     def flush(self):
         pass
 
+    def isatty(self):
+        return False
 
 # Redirect stderr and stdout to the IDA message window
 sys.stdout = sys.stderr = MyStdOut()
