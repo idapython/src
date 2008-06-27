@@ -1,7 +1,11 @@
+#---------------------------------------------------------------------
+# Chooser test
 #
-# Demonstration of the new chooser usage
+# This script demonstrates the usage of the class-based chooser.
 #
-
+# Author: Gergely Erdelyi <dyce@d-dome.net>
+#---------------------------------------------------------------------
+from idaapi import Choose
 
 #
 # Modal chooser
@@ -20,7 +24,6 @@ if ch > 0:
 	print "You chose %d which is %s" % (ch, chooser.list[ch-1])
 else:
 	print "Escape from chooser"
-
 
 #
 # Normal chooser
@@ -43,4 +46,3 @@ class MyChoose(Choose):
 chooser = MyChoose([ "First", "Second", "Third" ], "MyChoose")
 # Run the chooser
 ch = chooser.choose()
-
