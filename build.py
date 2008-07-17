@@ -72,6 +72,7 @@ SRCDIST_MANIFEST = [
     "python.cpp",
     "basetsd.h",
     "build.py",
+    "swig/allins.i",
     "swig/auto.i",
     "swig/bytes.i",
     "swig/dbg.i",

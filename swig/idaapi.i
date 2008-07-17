@@ -10,6 +10,8 @@
 #define _SSIZE_T_DEFINED 1
 #endif
 #include "ida.hpp"
+#include "idp.hpp"
+#include "allins.hpp"
 #include "auto.hpp"
 #include "bytes.hpp"
 #include "dbg.hpp"
@@ -21,7 +23,6 @@
 #include "fixup.hpp"
 #include "funcs.hpp"
 #include "idd.hpp"
-#include "idp.hpp"
 #include "ints.hpp"
 #include "kernwin.hpp"
 #include "lines.hpp"
@@ -76,6 +77,7 @@ typedef          long long longlong;
 %include "idd.hpp"
 %include "idp.i"
 
+%include "allins.i"
 %include "area.hpp"
 %include "auto.i"
 %include "bytes.i"
