@@ -1,7 +1,7 @@
 Please see http://code.google.com/p/idapython/source/list for a
 detailed list of changes.
 
-Changes from version 0.9.0 to 0.9.58
+Changes from version 0.9.0 to 0.9.59
 ------------------------------------
 
 - INCOMPATIBLE CHANGE: the idaapi module needs to be imported manually
@@ -10,6 +10,7 @@ Changes from version 0.9.0 to 0.9.58
 - Support for IDB and debug notification hooks
 - IDC compatibility layer is now complete and up to date for IDA 5.1
 - Simple two-way calling mechanism between IDC and IDAPython
+- Wrapped allins.hpp
 
 Changes from version 0.8.0 to 0.9.0
 -----------------------------------
