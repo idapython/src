@@ -1991,7 +1991,7 @@ def LineA(ea, num):
     
     @return: anterior line string
     """
-    return idaapi.ExtraGet(ea, E_PREV + num)
+    return idaapi.ExtraGet(ea, idaapi.E_PREV + num)
 
 
 def LineB(ea, num):
@@ -2003,7 +2003,7 @@ def LineB(ea, num):
 
     @return: posterior line string
     """
-    return idaapi.ExtraGet(ea, E_NEXT + num)
+    return idaapi.ExtraGet(ea, idaapi.E_NEXT + num)
 
 
 def GetCommentEx(ea, repeatable):
