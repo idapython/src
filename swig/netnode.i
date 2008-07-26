@@ -79,4 +79,6 @@
 %ignore netnode::registerbase;
 %ignore netnode::setbase;
 
+%ignore netnode::altadjust;
+
 %include "netnode.hpp"
