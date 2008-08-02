@@ -201,6 +201,19 @@ FF_DOUBLE    = idaapi.FF_DOUBLE    # double
 FF_PACKREAL  = idaapi.FF_PACKREAL  # packed decimal real
 FF_ALIGN     = idaapi.FF_ALIGN     # alignment directive
 
+def isByte(F):     (isData(F) & (F & DT_TYPE) == FF_BYTE)
+def isWord(F):     (isData(F) & (F & DT_TYPE) == FF_WORD)
+def isDwrd(F):     (isData(F) & (F & DT_TYPE) == FF_DWRD)
+def isQwrd(F):     (isData(F) & (F & DT_TYPE) == FF_QWRD)
+def isOwrd(F):     (isData(F) & (F & DT_TYPE) == FF_OWRD)
+def isTbyt(F):     (isData(F) & (F & DT_TYPE) == FF_TBYT)
+def isFloat(F):    (isData(F) & (F & DT_TYPE) == FF_FLOAT)
+def isDouble(F):   (isData(F) & (F & DT_TYPE) == FF_DOUBLE)
+def isPackReal(F): (isData(F) & (F & DT_TYPE) == FF_PACKREAL)
+def isASCII(F):    (isData(F) & (F & DT_TYPE) == FF_ASCI)
+def isStruct(F):   (isData(F) & (F & DT_TYPE) == FF_STRU)
+def isAlign(F):    (isData(F) & (F & DT_TYPE) == FF_ALIGN)
+
 #
 #      Bits for CODE bytes
 #
@@ -318,6 +331,16 @@ def rotate_left(value, count, nbits, offset):
 
     return value
 
+def rotate_dword(x, count): rotate_left(x, count, 32, 0)
+def rotate_word(x, count): rotate_left(x, count, 16, 0)
+def rotate_byte(x, count): rotate_left(x, count, 8, 0)
+
+
+# AddHotkey return codes
+IDCHK_OK        =  0   # ok
+IDCHK_ARG       = -1   # bad argument(s)
+IDCHK_KEY       = -2   # bad hotkey name
+IDCHK_MAX       = -3   # too many IDC hotkeys
 
 def AddHotkey(hotkey, idcfunc):
     """
@@ -331,13 +354,6 @@ def AddHotkey(hotkey, idcfunc):
     @return: None
     """
     return idaapi.add_idc_hotkey(hotkey, idcfunc)    
-
-
-# AddHotkey return codes
-IDCHK_OK        =  0   # ok
-IDCHK_ARG       = -1   # bad argument(s)
-IDCHK_KEY       = -2   # bad hotkey name
-IDCHK_MAX       = -3   # too many IDC hotkeys
 
 
 def DelHotkey(hotkey):
@@ -604,6 +620,20 @@ def MakeStr(ea, endea):
     return idaapi.make_ascii_string(ea, endea - ea, GetLongPrm(INF_STRTYPE))    
 
 
+def MakeData(ea, flags, size, tid):
+    """
+    Create a data item at the specified address
+    
+    @param ea: linear address
+    @param flags: FF_BYTE..FF_PACKREAL
+    @param size: size of item in bytes
+    @param tid: for FF_STRU the structure id
+
+    @return: 1-ok, 0-failure
+    """
+    raise NotImplementedError
+
+
 def MakeByte(ea):
     """
     Convert the current item to a byte
@@ -813,6 +843,10 @@ def MakeUnkn(ea, flags):
     @return: None
     """
     return idaapi.do_unknown(ea, flags)
+
+
+def MakeUnkn(ea, flags):
+    raise NotImplementedError
 
 
 def MakeUnknown(ea, size, flags):
@@ -2017,6 +2051,9 @@ def GetCommentEx(ea, repeatable):
     return idaapi.get_cmt(ea, repeatable)
 
 
+def CommentEx(ea, repeatable): GetCommentEx(ea, repeatable)
+
+
 def AltOp(ea, n):
     """
     Get manually entered operand string
@@ -2029,6 +2066,23 @@ def AltOp(ea, n):
     @return: string or None if it fails
     """
     return idaapi.get_forced_operand(ea, n)
+
+
+def GetString(ea, len, type):
+    """
+    Get string contents
+    @param ea: linear address
+    @param len: string length. -1 means to calculate the max string length
+    @param type: the string type (one of ASCSTR_... constants)
+
+    return: string contents or empty string
+    """
+    if len == -1:
+        strlen = idaapi.get_max_ascii_length(ea, type)
+    else:
+        strlen = len
+
+    return idaapi.get_ascii_contents(ea, strlen, type)
 
 
 def GetStringType(ea):
@@ -3329,6 +3383,8 @@ def LoadFile(filepath, pos, ea, size):
     else:
         return 0
 
+def loadfile(filepath, pos, ea, size): LoadFile(filepath, pos, ea, size)
+
 
 def SaveFile(filepath, pos, ea, size):
     """
@@ -3349,6 +3405,8 @@ def SaveFile(filepath, pos, ea, size):
         return retval
     else:
         return 0
+
+def savefile(filepath, pos, ea, size): SaveFile(filepath, pos, ea, size)
 
 
 def fgetc(handle):
@@ -5842,7 +5900,7 @@ def SetRegValue(value, name):
     return idaapi.set_reg_val(name, value)
 
 
-def  GetBptQty():
+def GetBptQty():
     """
     Get number of breakpoints.
 
