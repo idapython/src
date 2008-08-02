@@ -631,7 +631,7 @@ def MakeData(ea, flags, size, tid):
 
     @return: 1-ok, 0-failure
     """
-    raise NotImplementedError
+    raise NotImplementedError, "Use the Make* functions to create data items"
 
 
 def MakeByte(ea):
