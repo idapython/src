@@ -55,6 +55,7 @@ def runscript(script):
     This function is used by the low-level plugin code.
     """
     addscriptpath(script)
+    watchdog.reset()
     argv = sys.argv
     sys.argv = [ script ]
     execfile(script, globals())
