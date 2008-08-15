@@ -12,6 +12,7 @@
 # build.py - Custom build script
 #------------------------------------------------------------
 import os, sys, platform, types, shutil
+import zipfile
 from distutils import sysconfig
 
 # Start of user configurable options
@@ -246,6 +247,10 @@ def build_distribution(manifest, distrootdir):
     # Remove the previous distibution if exits
     if os.path.exists(distrootdir):
         shutil.rmtree(distrootdir)
+
+    # Also make a ZIP archive of the build
+    zippath = distrootdir + ".zip"
+    zip = zipfile.ZipFile(zippath, "w", zipfile.ZIP_DEFLATED)
     
     # Create output directory
     os.makedirs(distrootdir)
@@ -271,9 +276,10 @@ def build_distribution(manifest, distrootdir):
             os.makedirs(dstdir)
             
         dstfilepath = dstdir + os.sep + srcfilename
-
         shutil.copyfile(srcfilepath, dstfilepath)
+        zip.write(dstfilepath)
 
+    zip.close()
 
 def build_plugin(system, idasdkdir):
     """ Build the plugin from the SWIG wrapper and plugin main source """
