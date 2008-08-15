@@ -845,10 +845,6 @@ def MakeUnkn(ea, flags):
     return idaapi.do_unknown(ea, flags)
 
 
-def MakeUnkn(ea, flags):
-    raise NotImplementedError
-
-
 def MakeUnknown(ea, size, flags):
     """
     Convert the current item to an explored item
