@@ -11,7 +11,11 @@
 #------------------------------------------------------------
 # build.py - Custom build script
 #------------------------------------------------------------
-import os, sys, platform, types, shutil
+import os
+import platform
+import shutil
+import sys
+import types
 import zipfile
 from distutils import sysconfig
 
@@ -65,7 +69,8 @@ BINDIST_MANIFEST = [
     "examples/debughook.py",
     "examples/ex1.idc",
     "examples/ex1_idaapi.py",
-    "examples/ex1_idautils.py" ]
+    "examples/ex1_idautils.py"
+]
 
 # List files for the source distribution (appended to binary list)
 SRCDIST_MANIFEST = [
@@ -381,17 +386,17 @@ if __name__ == "__main__":
         platform_string = "macosx"
         plugin_name = "python.pmc"
      
-    BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % ( VERSION_MAJOR, 
-                                                                  VERSION_MINOR, 
-                                                                  VERSION_PATCH, 
-                                                                  IDA_MAJOR_VERSION, 
-                                                                  IDA_MINOR_VERSION,
-                                                                  PYTHON_MAJOR_VERSION,
-                                                                  PYTHON_MINOR_VERSION,
-                                                                  platform_string)
-    SRCDISTDIR = "idapython-%d.%d.%d" % ( VERSION_MAJOR, 
-                                          VERSION_MINOR, 
-                                          VERSION_PATCH ) 
+    BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR, 
+                                                             VERSION_MINOR, 
+                                                             VERSION_PATCH, 
+                                                             IDA_MAJOR_VERSION, 
+                                                             IDA_MINOR_VERSION,
+                                                             PYTHON_MAJOR_VERSION,
+                                                             PYTHON_MINOR_VERSION,
+                                                             platform_string)
+    SRCDISTDIR = "idapython-%d.%d.%d" % (VERSION_MAJOR, 
+                                         VERSION_MINOR, 
+                                         VERSION_PATCH) 
     
     # Build the plugin
     res = build_plugin(system, IDA_SDK)
