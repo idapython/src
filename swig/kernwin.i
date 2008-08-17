@@ -69,6 +69,65 @@ def askseg(defval, format):
 %ignore skipSpaces;
 %ignore stristr;
 
+%{
+bool idaapi py_menu_item_callback(void *userdata)
+{
+   PyObject *func, *args, *result;
+   bool ret = 0;
+   
+   // userdata is a tuple of ( func, args )
+   // func and args are borrowed references from userdata
+   func = PyTuple_GET_ITEM(userdata, 0);
+   args = PyTuple_GET_ITEM(userdata, 1);
+   
+   // call the python function
+   result = PyEval_CallObject(func, args);
+   
+   // we cannot raise an exception in the callback, just print it.
+   if (!result) {
+     PyErr_Print();
+     return 0;
+   }
+   
+   // if the function returned a non-false value, then return 1 to ida,
+   // overwise return 0
+   if (PyObject_IsTrue(result)) {
+     ret = 1;
+   }
+   Py_DECREF(result);
+   
+   return ret;
+}
+%}
+
+%rename (add_menu_item) wrap_add_menu_item;
+%inline %{
+bool wrap_add_menu_item (
+   const char *menupath,
+   const char *name,
+   const char *hotkey,
+   int flags,
+   PyObject *pyfunc,
+   PyObject *args) {
+   // FIXME: probably should keep track of this data, and destroy it when the menu item is removed
+   PyObject *cb_data;
+   
+   if (args == Py_None) {
+     Py_DECREF(Py_None);
+     args = PyTuple_New( 0 );
+     if (!args) 
+	     return 0;
+   }
+
+   if(!PyTuple_Check(args)) {
+     PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
+     return 0;
+   }
+
+   cb_data = Py_BuildValue("(OO)", pyfunc, args);
+   return add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
+}
+%}
 
 %include "kernwin.hpp"
 

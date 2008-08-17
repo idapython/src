@@ -80,3 +80,11 @@
 }
 %enddef
 
+// Check that the argument is a callable Python object
+%typemap(in) PyObject *pyfunc {
+  if (!PyCallable_Check($input)) {
+      PyErr_SetString(PyExc_TypeError, "Expecting a callable object");
+      return NULL;
+  }
+  $1 = $input;
+}
