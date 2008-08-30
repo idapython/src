@@ -29,7 +29,7 @@ Future versions of IDA may use other definitions.
 """
 try:
     import idaapi
-except:
+except ImportError:
     print "Could not import idaapi. Running in 'pydoc mode'."
 
 import os, struct, re
@@ -38,35 +38,31 @@ class DeprecatedIDCError(Exception):
     """
     Exception for deprecated function calls
     """
-    def __init__(self, val):
-        self.var = val
-
-    def __str__(self):
-        return self.val
+    pass
 
 
-def _IDC_GetAttr(object, map, attroffs):
+def _IDC_GetAttr(obj, attrmap, attroffs):
     """
     Internal function to generically get object attributes
     Do not use unless you know what you are doing
     """
-    if attroffs in map and hasattr(object, map[attroffs]):
-        return getattr(object, map[attroffs])
+    if attroffs in attrmap and hasattr(obj, attrmap[attroffs]):
+        return getattr(obj, attrmap[attroffs])
     else:
-        str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-        raise KeyError, str
+        errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
+        raise KeyError, errormsg
 
 
-def _IDC_SetAttr(object, map, attroffs, value):
+def _IDC_SetAttr(obj, attrmap, attroffs, value):
     """
     Internal function to generically set object attributes
     Do not use unless you know what you are doing
     """
-    if attroffs in map and hasattr(object, map[attroffs]):
-        return setattr(object, map[attroffs], value)
+    if attroffs in attrmap and hasattr(obj, attrmap[attroffs]):
+        return setattr(obj, attrmap[attroffs], value)
     else:
-        str = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-        raise KeyError, str
+        errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
+        raise KeyError, errormsg
 
  
 BADADDR         = idaapi.BADADDR # Not allowed address value
@@ -201,18 +197,18 @@ FF_DOUBLE    = idaapi.FF_DOUBLE    # double
 FF_PACKREAL  = idaapi.FF_PACKREAL  # packed decimal real
 FF_ALIGN     = idaapi.FF_ALIGN     # alignment directive
 
-def isByte(F):     (isData(F) & (F & DT_TYPE) == FF_BYTE)
-def isWord(F):     (isData(F) & (F & DT_TYPE) == FF_WORD)
-def isDwrd(F):     (isData(F) & (F & DT_TYPE) == FF_DWRD)
-def isQwrd(F):     (isData(F) & (F & DT_TYPE) == FF_QWRD)
-def isOwrd(F):     (isData(F) & (F & DT_TYPE) == FF_OWRD)
-def isTbyt(F):     (isData(F) & (F & DT_TYPE) == FF_TBYT)
-def isFloat(F):    (isData(F) & (F & DT_TYPE) == FF_FLOAT)
-def isDouble(F):   (isData(F) & (F & DT_TYPE) == FF_DOUBLE)
-def isPackReal(F): (isData(F) & (F & DT_TYPE) == FF_PACKREAL)
-def isASCII(F):    (isData(F) & (F & DT_TYPE) == FF_ASCI)
-def isStruct(F):   (isData(F) & (F & DT_TYPE) == FF_STRU)
-def isAlign(F):    (isData(F) & (F & DT_TYPE) == FF_ALIGN)
+def isByte(F):     return (isData(F) & (F & DT_TYPE) == FF_BYTE)
+def isWord(F):     return (isData(F) & (F & DT_TYPE) == FF_WORD)
+def isDwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_DWRD)
+def isQwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_QWRD)
+def isOwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_OWRD)
+def isTbyt(F):     return (isData(F) & (F & DT_TYPE) == FF_TBYT)
+def isFloat(F):    return (isData(F) & (F & DT_TYPE) == FF_FLOAT)
+def isDouble(F):   return (isData(F) & (F & DT_TYPE) == FF_DOUBLE)
+def isPackReal(F): return (isData(F) & (F & DT_TYPE) == FF_PACKREAL)
+def isASCII(F):    return (isData(F) & (F & DT_TYPE) == FF_ASCI)
+def isStruct(F):   return (isData(F) & (F & DT_TYPE) == FF_STRU)
+def isAlign(F):    return (isData(F) & (F & DT_TYPE) == FF_ALIGN)
 
 #
 #      Bits for CODE bytes
@@ -259,16 +255,16 @@ def MK_FP(seg, off):
 def form(format, *args):
     raise DeprecatedIDCError, "form() is deprecated. Use python string operations instead."
 
-def substr(str,x1,x2):
+def substr(s, x1, x2):
     raise DeprecatedIDCError, "substr() is deprecated. Use python string operations instead."
 
-def strstr(str, substr):
+def strstr(s1, s2):
     raise DeprecatedIDCError, "strstr() is deprecated. Use python string operations instead."
 
-def strlen(str):
+def strlen(s):
     raise DeprecatedIDCError, "strlen() is deprecated. Use python string operations instead."
 
-def xtol(str):
+def xtol(s):
     raise DeprecatedIDCError, "xtol() is deprecated. Use python long() instead."
 
 
@@ -291,7 +287,7 @@ def atoa(ea):
 def ltoa(n, radix):
     raise DeprecatedIDCError, "ltoa() is deprecated. Use python string operations instead."
 
-def atol(str):
+def atol(s):
     raise DeprecatedIDCError, "atol() is deprecated. Use python long() instead."
 
 
@@ -803,13 +799,10 @@ def MakeLocal(start, end, location, name):
         offset = int(m.group(2), 0)
         frame = idaapi.get_frame(func)
 
-        print register, frame
-
         if register == -1 or not frame:
             return 0
 
         offset += func.frsize
-
         member = idaapi.get_member(frame, offset)
 
         if member:
@@ -1055,7 +1048,7 @@ def OpNumber(ea, n):
     return idaapi.op_num(ea, n)
 
 
-def OpAlt(ea, n, str):
+def OpAlt(ea, n, opstr):
     """
     Specify operand represenation manually.
 
@@ -1064,12 +1057,12 @@ def OpAlt(ea, n, str):
         - 0 - the first operand
         - 1 - the second, third and all other operands
         - -1 - all operands
-    @param str: a string represenation of the operand
+    @param opstr: a string represenation of the operand
 
     @note: IDA will not check the specified operand, it will simply display
     it instead of the orginal representation of the operand.
     """
-    return idaapi.set_forced_operand(ea, n, str)
+    return idaapi.set_forced_operand(ea, n, opstr)
 
 
 def OpSign(ea, n):
@@ -1082,7 +1075,7 @@ def OpSign(ea, n):
         - 1 - the second, third and all other operands
         - -1 - all operands
     """
-    return idaapi.toggle_signness(ea, n)
+    return idaapi.toggle_sign(ea, n)
 
 
 def OpNot(ea, n):
@@ -1355,7 +1348,7 @@ def AutoUnmark(start, end, queuetype):
     """
     Remove range of addresses from a queue.
     """
-    return autoUnmark(start, end, queuetype)
+    return idaapi.autoUnmark(start, end, queuetype)
     
 
 def AutoMark(ea,qtype):
@@ -1376,7 +1369,7 @@ AU_FINAL = idaapi.AU_FINAL # coagulate unexplored items
 #               P R O D U C E   O U T P U T   F I L E S
 #----------------------------------------------------------------------------
 
-def GenerateFile(type, path, ea1, ea2, flags):
+def GenerateFile(filetype, path, ea1, ea2, flags):
     """
     Generate an output file
 
@@ -1393,7 +1386,7 @@ def GenerateFile(type, path, ea1, ea2, flags):
     f = idaapi.fopenWT(path)
 
     if f:
-        retval = idaapi.gen_file(type, f, ea1, ea2, flags)
+        retval = idaapi.gen_file(filetype, f, ea1, ea2, flags)
         idaapi.eclose(f)
         return retval
     else:
@@ -1527,12 +1520,12 @@ def GetFloat(ea):
 
     @return: float
     """
-    str = chr(idaapi.get_byte(ea)) + \
+    tmp = chr(idaapi.get_byte(ea)) + \
           chr(idaapi.get_byte(ea+1)) + \
           chr(idaapi.get_byte(ea+2)) + \
           chr(idaapi.get_byte(ea+3)) 
 
-    return struct.unpack("f", str)[0]
+    return struct.unpack("f", tmp)[0]
 
 
 def GetDouble(ea):
@@ -1543,7 +1536,7 @@ def GetDouble(ea):
 
     @return: double
     """
-    str = chr(idaapi.get_byte(ea)) + \
+    tmp = chr(idaapi.get_byte(ea)) + \
           chr(idaapi.get_byte(ea+1)) + \
           chr(idaapi.get_byte(ea+2)) + \
           chr(idaapi.get_byte(ea+3)) + \
@@ -1552,7 +1545,7 @@ def GetDouble(ea):
           chr(idaapi.get_byte(ea+6)) + \
           chr(idaapi.get_byte(ea+7))
 
-    return struct.unpack("d", str)[0]
+    return struct.unpack("d", tmp)[0]
 
 
 def LocByName(name):
@@ -2064,7 +2057,7 @@ def AltOp(ea, n):
     return idaapi.get_forced_operand(ea, n)
 
 
-def GetString(ea, len, type):
+def GetString(ea, length, strtype):
     """
     Get string contents
     @param ea: linear address
@@ -2073,12 +2066,10 @@ def GetString(ea, len, type):
 
     return: string contents or empty string
     """
-    if len == -1:
-        strlen = idaapi.get_max_ascii_length(ea, type)
-    else:
-        strlen = len
+    if length == -1:
+        length = idaapi.get_max_ascii_length(ea, strtype)
 
-    return idaapi.get_ascii_contents(ea, strlen, type)
+    return idaapi.get_ascii_contents(ea, length, strtype)
 
 
 def GetStringType(ea):
@@ -2127,24 +2118,24 @@ SEARCH_REGEX    = idaapi.SEARCH_REGEX    # enable regular expressions (only for 
 SEARCH_NOBRK    = idaapi.SEARCH_NOBRK    # don't test ctrl-break
 SEARCH_NOSHOW   = idaapi.SEARCH_NOSHOW   # don't display the search progress
 
-def FindText(ea, flag, y, x, str):
+def FindText(ea, flag, y, x, searchstr):
     """
     @param ea: start address
     @param flag: combination of SEARCH_* flags
     @param y: number of text line at ea to start from (0..MAX_ITEM_LINES)
     @param x: coordinate in this line
-    @param str: search string
+    @param searchstr: search string
 
     @return: ea of result or BADADDR if not found
     """
-    return idaapi.find_text(ea, y, x, str, flag)
+    return idaapi.find_text(ea, y, x, searchstr, flag)
 
 
-def FindBinary(ea, flag, str, radix=16):
+def FindBinary(ea, flag, searchstr, radix=16):
     """
     @param ea: start address
     @param flag: combination of SEARCH_* flags
-    @param str: a string as a user enters it for Search Text in Core
+    @param searchstr: a string as a user enters it for Search Text in Core
     @param radix: radix of the numbers (default=16)
 
     @return: ea of result or BADADDR if not found
@@ -2152,7 +2143,7 @@ def FindBinary(ea, flag, str, radix=16):
     @note: Example: "41 42" - find 2 bytes 41h,42h (radix is 16)
     """
     endea = flag & 1 and idaapi.cvar.inf.maxEA or idaapi.cvar.inf.minEA
-    return idaapi.find_binary(ea, endea, str, radix, flag)
+    return idaapi.find_binary(ea, endea, searchstr, radix, flag)
 
 
 #----------------------------------------------------------------------------
@@ -2915,7 +2906,7 @@ def SegDelete(ea, flags):
 
     @return: boolean success
     """
-    return idaapi.del_segm(ea, disable)
+    return idaapi.del_segm(ea, flags)
 
 SEGDEL_PERM   = idaapi.SEGDEL_PERM   # permanently, i.e. disable addresses
 SEGDEL_KEEP   = idaapi.SEGDEL_KEEP   # keep information (code & data, etc)
@@ -3009,7 +3000,7 @@ def SegComb(segea, comb):
 
     @return: success (boolean)
     """
-    return SetSegmentAttr(ea, SEGATTR_COMB, comb)
+    return SetSegmentAttr(segea, SEGATTR_COMB, comb)
 
 
 scPriv   = idaapi.scPriv   # Private. Do not combine with any other program
@@ -3032,12 +3023,12 @@ def SegAddrng(ea, bitness):
     
     @return: success (boolean)
     """
-    seg = idaapi.getseg(segea)
+    seg = idaapi.getseg(ea)
 
     if not seg:
         return False
 
-    seg.bitness = use32
+    seg.bitness = bitness
 
     return True
 
@@ -3076,12 +3067,12 @@ def SegDefReg(ea, reg, value):
         return False
 
 
-def SetSegmentType(segea, type):
+def SetSegmentType(segea, segtype):
     """
     Set segment type
 
     @param segea: any address within segment
-    @param type: new segment type:
+    @param segtype: new segment type:
 
     @return: !=0 - ok
     """
@@ -3090,7 +3081,7 @@ def SetSegmentType(segea, type):
     if not seg:
         return False
 
-    seg.type = type
+    seg.type = segtype
     return seg.update()
 
 
@@ -3343,7 +3334,7 @@ def XrefType():
 #----------------------------------------------------------------------------
 #                            F I L E   I / O
 #----------------------------------------------------------------------------
-def fopen(file, mode):
+def fopen(f, mode):
     raise DeprecatedIDCError, "fopen() deprecated. Use Python file objects instead."
 
 def fclose(handle):
@@ -3429,7 +3420,7 @@ def writelong(handle, dword, mostfirst):
 def readstr(handle):
     raise DeprecatedIDCError, "readstr() deprecated. Use Python file objects instead."
 
-def writestr(handle, str):
+def writestr(handle, s):
     raise DeprecatedIDCError, "writestr() deprecated. Use Python file objects instead."
 
 # ----------------------------------------------------------------------------
@@ -3815,9 +3806,9 @@ def MakeFrame(ea, lvsize, frregs, argsize):
     if not func:
         return -1
 
-    id = idaapi.add_frame(func, lvsize, frregs, argsize)
+    frameid = idaapi.add_frame(func, lvsize, frregs, argsize)
 
-    if not id:
+    if not frameid:
         if not idaapi.set_frame_size(func, lvsize, frregs, argsize):
             return -1
 
@@ -4069,13 +4060,13 @@ def GetFixupTgtDispl(ea):
     return fd.displacement
 
 
-def SetFixup(ea, type, targetsel, targetoff, displ):
+def SetFixup(ea, fixuptype, targetsel, targetoff, displ):
     """
     Set fixup information
 
     @param ea: address to set fixup information about
-    @param type: fixup type. see GetFixupTgtType()
-                for possible fixup types.
+    @param fixuptype: fixup type. see GetFixupTgtType()
+                      for possible fixup types.
     @param targetsel: target selector
     @param targetoff: target offset
     @param displ: displacement
@@ -4083,7 +4074,7 @@ def SetFixup(ea, type, targetsel, targetoff, displ):
     @return:        none
     """
     fd = idaapi.fixup_data_t()
-    fd.type = type
+    fd.type = fixuptype
     fd.sel  = targetsel
     fd.off  = targetoff
     fd.displacement = displ
@@ -4232,18 +4223,18 @@ def GetPrevStrucIdx(index):
     return idaapi.get_prev_struc_idx(index)
 
 
-def GetStrucIdx(id):
+def GetStrucIdx(sid):
     """
     Get structure index by structure ID
 
-    @param id: structure ID
+    @param sid: structure ID
 
     @return:    -1 if bad structure ID is passed
                 otherwise returns structure index.
                 See GetFirstStrucIdx() for the explanation of
                 structure indices and IDs.
     """
-    return idaapi.get_struc_idx(id)
+    return idaapi.get_struc_idx(sid)
 
 
 def GetStrucId(index):
@@ -4271,65 +4262,65 @@ def GetStrucIdByName(name):
     return idaapi.get_struc_id(name)
 
 
-def GetStrucName(id):
+def GetStrucName(sid):
     """
     Get structure type name
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return:    -1 if bad structure type ID is passed
                 otherwise returns structure type name.
     """
-    return idaapi.get_struc_name(id)
+    return idaapi.get_struc_name(sid)
 
 
-def GetStrucComment(id, repeatable):
+def GetStrucComment(sid, repeatable):
     """
     Get structure type comment
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param repeatable: 1: get repeatable comment
                 0: get regular comment
 
     @return: None if bad structure type ID is passed
                 otherwise returns comment.
     """
-    return idaapi.get_struc_cmt(id, repeatable)
+    return idaapi.get_struc_cmt(sid, repeatable)
 
 
-def GetStrucSize(id):
+def GetStrucSize(sid):
     """
     Get size of a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return:    -1 if bad structure type ID is passed
                 otherwise returns size of structure in bytes.
     """
-    return idaapi.get_struc_size(id)
+    return idaapi.get_struc_size(sid)
 
 
-def GetMemberQty(id):
+def GetMemberQty(sid):
     """
     Get number of members of a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return: -1 if bad structure type ID is passed otherwise 
              returns number of members.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
     return s.memqty
 
 
-def GetStrucPrevOff(id, offset):
+def GetStrucPrevOff(sid, offset):
     """
     Get previous offset in a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param offset: current offset
 
     @return: -1 if bad structure type ID is passed
@@ -4343,18 +4334,18 @@ def GetStrucPrevOff(id, offset):
            It will return size of the structure if input
            'offset' is bigger than the structure size.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
     return idaapi.get_struc_prev_offset(s, offset)
 
 
-def GetStrucNextOff(id, offset):
+def GetStrucNextOff(sid, offset):
     """
     Get next offset in a structure
 
-    @param id:     structure type ID
+    @param sid:     structure type ID
     @param offset: current offset
 
     @return: -1 if bad structure type ID is passed
@@ -4368,18 +4359,18 @@ def GetStrucNextOff(id, offset):
            It will return size of the structure if input
            'offset' belongs to the last member of the structure.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
     return idaapi.get_struc_next_offset(s, offset)
 
 
-def GetFirstMember(id):
+def GetFirstMember(sid):
     """
     Get offset of the first member of a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return: -1 if bad structure type ID is passed
              or structure has no members
@@ -4389,18 +4380,18 @@ def GetFirstMember(id):
           structure. It treats these 'holes'
           as unnamed arrays of bytes.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
     return idaapi.get_struc_first_offset(s)
 
 
-def GetLastMember(id):
+def GetLastMember(sid):
     """
     Get offset of the last member of a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return: -1 if bad structure type ID is passed
              or structure has no members
@@ -4410,25 +4401,25 @@ def GetLastMember(id):
           structure. It treats these 'holes'
           as unnamed arrays of bytes.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
     return idaapi.get_struc_last_offset(s)
 
 
-def GetMemberOffset(id, member_name):
+def GetMemberOffset(sid, member_name):
     """
     Get offset of a member of a structure by the member name
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_name: name of structure member
 
     @return: -1 if bad structure type ID is passed
              or no such member in the structure
              otherwise returns offset of the specified member.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
@@ -4439,11 +4430,11 @@ def GetMemberOffset(id, member_name):
     return m.get_soff()
 
 
-def GetMemberName(id, member_offset):
+def GetMemberNames(sid, member_offset):
     """
     Get name of a member of a structure
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: member offset. The offset can be
                           any offset in the member. For example,
                           is a member is 4 bytes long and starts
@@ -4454,7 +4445,7 @@ def GetMemberName(id, member_offset):
              or no such member in the structure
              otherwise returns name of the specified member.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return None
 
@@ -4465,11 +4456,11 @@ def GetMemberName(id, member_offset):
     return idaapi.get_member_name(m.id)
 
 
-def GetMemberComment(id, member_offset, repeatable):
+def GetMemberComment(sid, member_offset, repeatable):
     """
     Get comment of a member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: member offset. The offset can be
                           any offset in the member. For example,
                           is a member is 4 bytes long and starts
@@ -4482,7 +4473,7 @@ def GetMemberComment(id, member_offset, repeatable):
              or no such member in the structure
              otherwise returns comment of the specified member.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return None
 
@@ -4493,11 +4484,11 @@ def GetMemberComment(id, member_offset, repeatable):
     return idaapi.get_member_cmt(m.id, repeatable)
 
 
-def GetMemberSize(id, member_offset):
+def GetMemberSize(sid, member_offset):
     """
     Get size of a member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: member offset. The offset can be
                           any offset in the member. For example,
                           is a member is 4 bytes long and starts
@@ -4509,7 +4500,7 @@ def GetMemberSize(id, member_offset):
              otherwise returns size of the specified
              member in bytes.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return None
 
@@ -4520,11 +4511,11 @@ def GetMemberSize(id, member_offset):
     return idaapi.get_member_size(m)
 
 
-def GetMemberFlag(id, member_offset):
+def GetMemberFlag(sid, member_offset):
     """
     Get type of a member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: member offset. The offset can be
                           any offset in the member. For example,
                           is a member is 4 bytes long and starts
@@ -4538,7 +4529,7 @@ def GetMemberFlag(id, member_offset):
              then function GetMemberStrid() should be used to
              get the structure type id.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
@@ -4549,11 +4540,11 @@ def GetMemberFlag(id, member_offset):
     return m.flag
 
 
-def GetMemberStrId(id, member_offset):
+def GetMemberStrId(sid, member_offset):
     """
     Get structure id of a member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: member offset. The offset can be
                           any offset in the member. For example,
                           is a member is 4 bytes long and starts
@@ -4564,7 +4555,7 @@ def GetMemberStrId(id, member_offset):
              otherwise returns structure id of the member.
              If the current member is not a structure, returns -1.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return -1
 
@@ -4579,18 +4570,18 @@ def GetMemberStrId(id, member_offset):
         return -1
 
 
-def IsUnion(id):
+def IsUnion(sid):
     """
     Is a structure a union?
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return: 1: yes, this is a union id
              0: no
 
     @note: Unions are a special kind of structures
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
@@ -4624,11 +4615,11 @@ def AddStrucEx(index, name, is_union):
     return idaapi.add_struc(index, name, is_union)
 
 
-def DelStruc(id):
+def DelStruc(sid):
     """
     Delete a structure type
 
-    @param id: structure type ID
+    @param sid: structure type ID
 
     @return: 0 if bad structure type ID is passed
              1 otherwise the structure type is deleted. All data
@@ -4636,18 +4627,18 @@ def DelStruc(id):
                deleted structure type will be displayed as array
                of bytes.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
     return idaapi.del_struc(s)
 
 
-def SetStrucIdx(id, index):
+def SetStrucIdx(sid, index):
     """
     Change structure index
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param index: new index of the structure
 
     @return: != 0 - ok
@@ -4655,36 +4646,36 @@ def SetStrucIdx(id, index):
     @note: See GetFirstStrucIdx() for the explanation of
            structure indices and IDs.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
     return idaapi.set_struc_idx(s, index)
 
 
-def SetStrucName(id, name):
+def SetStrucName(sid, name):
     """
     Change structure name
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param name: new name of the structure
     
     @return: != 0 - ok
     """
-    return idaapi.set_struc_name(id, name)
+    return idaapi.set_struc_name(sid, name)
 
 
-def SetStrucComment(id, comment, repeatable):
+def SetStrucComment(sid, comment, repeatable):
     """
     Change structure comment
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param comment: new comment of the structure
     @param repeatable: 1: change repeatable comment
                        0: change regular comment
     @return: != 0 - ok
     """
-    return idaapi.set_struc_cmt(id, comment, repeatable)
+    return idaapi.set_struc_cmt(sid, comment, repeatable)
 
 
 def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
@@ -4729,11 +4720,11 @@ def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
     return ti
 
 
-def AddStrucMember(id, name, offset, flag, typeid, nbytes):
+def AddStrucMember(sid, name, offset, flag, typeid, nbytes):
     """
     Add structure member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param name: name of the new member
     @param offset: offset of the new member
                    -1 means to add at the end of the structure
@@ -4749,7 +4740,7 @@ def AddStrucMember(id, name, offset, flag, typeid, nbytes):
 
     @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
     """
-    struc = idaapi.get_struc(id)
+    struc = idaapi.get_struc(sid)
     assert struct, "get_struc() failed"
     ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
     return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
@@ -4764,11 +4755,11 @@ STRUC_ERROR_MEMBER_UNIVAR  = -6 # unions can't have variable sized members
 STRUC_ERROR_MEMBER_VARLAST = -7 # variable sized member should be the last member in the structure
 
 
-def DelStrucMember(id, member_offset):
+def DelStrucMember(sid, member_offset):
     """
     Delete structure member
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: offset of the member
 
     @return: != 0 - ok.
@@ -4777,35 +4768,35 @@ def DelStrucMember(id, member_offset):
            structure. It treats these 'holes'
            as unnamed arrays of bytes.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
     return idaapi.del_struc_member(s, member_offset)
 
 
-def SetMemberName(id, member_offset, name):
+def SetMemberName(sid, member_offset, name):
     """
     Change structure member name
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: offset of the member
     @param name: new name of the member
 
     @return: != 0 - ok.
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
     return idaapi.set_member_name(s, member_offset, name)
 
 
-def SetMemberType(id, member_offset, flag, typeid, nitems):
+def SetMemberType(sid, member_offset, flag, typeid, nitems):
     """
     Change structure member type
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: offset of the member
     @param flag: new type of the member. Should be one of
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
@@ -4819,17 +4810,17 @@ def SetMemberType(id, member_offset, flag, typeid, nitems):
 
     @return: !=0 - ok.
     """
-    struc = idaapi.get_struc(id)
+    struc = idaapi.get_struc(sid)
     assert struct, "get_struc() failed"
     ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
     return idaapi.set_member_type(struc, member_offset, flag, ti, nitems)
 
 
-def SetMemberComment(id, member_offset, comment, repeatable):
+def SetMemberComment(sid, member_offset, comment, repeatable):
     """
     Change structure member comment
 
-    @param id: structure type ID
+    @param sid: structure type ID
     @param member_offset: offset of the member
     @param comment: new comment of the structure member
     @param repeatable: 1: change repeatable comment
@@ -4837,7 +4828,7 @@ def SetMemberComment(id, member_offset, comment, repeatable):
     
     @return: != 0 - ok
     """
-    s = idaapi.get_struc(id)
+    s = idaapi.get_struc(sid)
     if not s:
         return 0
 
@@ -5150,7 +5141,7 @@ def GetConstBmask(const_id):
     @return: bitmask of constant or 0
              ordinary enums have bitmask = -1
     """
-    return idaapi.get_const_bitmask(const_id)
+    return idaapi.get_const_bmask(const_id)
 
 
 def GetConstEnum(const_id):
@@ -5573,61 +5564,61 @@ def CreateArray(name):
 def GetArrayId(name):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def RenameArray(id, newname):
+def RenameArray(hashid, newname):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def DeleteArray(id):
+def DeleteArray(hashid):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetArrayLong(id, idx, value):
+def SetArrayLong(hashid, idx, value):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetArrayString(id, idx, str):
+def SetArrayString(hashid, idx, s):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetArrayElement(tag, id, idx):
+def GetArrayElement(tag, hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def DelArrayElement(tag, id, idx):
+def DelArrayElement(tag, hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetFirstIndex(tag, id):
+def GetFirstIndex(tag, hashid):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetLastIndex(tag, id):
+def GetLastIndex(tag, hashid):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetNextIndex(tag, id, idx):
+def GetNextIndex(tag, hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetPrevIndex(tag, id, idx):
+def GetPrevIndex(tag, hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetHashLong(id, idx, value):
+def SetHashLong(hashid, idx, value):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetHashString(id, idx, value):
+def SetHashString(hashid, idx, value):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetHashLong(id, idx):
+def GetHashLong(hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetHashString(id, idx):
+def GetHashString(hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def DelHashElement(id, idx):
+def DelHashElement(hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetFirstHashKey(id):
+def GetFirstHashKey(hashid):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetNextHashKey(id, idx):
+def GetNextHashKey(hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetLastHashKey(id):
+def GetLastHashKey(hashid):
     raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetPrevHashKey(id, idx):
+def GetPrevHashKey(hashid, idx):
     raise DeprecatedIDCError, "Use python pickles instead."
 
 
@@ -5772,22 +5763,22 @@ def GuessType(ea):
     return idaapi.idc_guess_type(ea)
 
 
-def SetType(ea, type):
+def SetType(ea, newtype):
     """
     Set type of function/variable
 
     @param ea: the address of the object
-    @param type: the type string in C declaration form. 
+    @param newtype: the type string in C declaration form. 
                  Must contain the closing ';'
                 if specified as an empty string, then the
                 assciated with 'ea' will be deleted
 
     @return: 1-ok, 0-failed.
     """
-    return idaapi.apply_cdecl(ea, type)
+    return idaapi.apply_cdecl(ea, newtype)
 
 
-def ParseTypes(input, flags):
+def ParseTypes(inputtype, flags):
     """
     Parse type declarations
     
@@ -5796,7 +5787,7 @@ def ParseTypes(input, flags):
 
     @return: number of errors
     """
-    return idaapi.idc_parse_types(input, flags)
+    return idaapi.idc_parse_types(inputtype, flags)
 
 
 PT_FILE =   0x0001  # input if a file name (otherwise contains type declarations)
@@ -6178,8 +6169,8 @@ def OpNum(ea):               return OpNumber(ea,-1)
 def OpChar(ea):              return OpChr(ea,-1)
 def OpSegment(ea):           return OpSeg(ea,-1)
 def OpDec(ea):               return OpDecimal(ea,-1)
-def OpAlt1(ea,str):          return OpAlt(ea,0,str)
-def OpAlt2(ea,str):          return OpAlt(ea,1,str)
+def OpAlt1(ea, opstr):       return OpAlt(ea, 0, opstr)
+def OpAlt2(ea, opstr):       return OpAlt(ea, 1, opstr)
 def StringStp(x):            return SetCharPrm(INF_ASCII_BREAK,x)
 def LowVoids(x):             return SetLongPrm(INF_LOW_OFF,x)
 def HighVoids(x):            return SetLongPrm(INF_HIGH_OFF,x)
@@ -6199,7 +6190,7 @@ def set_start_cs(x):         return SetLongPrm(INF_START_CS,x)
 def set_start_ip(x):         return SetLongPrm(INF_START_IP,x)
 
 def WriteMap(filepath):
-    return GenerateFile(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEGS|GENFLG_MAPNAME)
+    return GenerateFile(OFILE_MAP, filepath, 0, BADADDR, GENFLG_MAPSEG|GENFLG_MAPNAME)
 
 def WriteTxt(filepath, ea1, ea2):
     return GenerateFile(OFILE_ASM, filepath, ea1, ea2, 0)
@@ -6212,8 +6203,8 @@ def AddStruc(index,name):   return AddStrucEx(index,name,0)
 def AddUnion(index,name):   return AddStrucEx(index,name,1)
 def OpStroff(ea,n,strid):   return OpStroffEx(ea,n,strid,0)
 def OpEnum(ea,n,enumid):    return OpEnumEx(ea,n,enumid,0)
-def DelConst(id,v,mask):    return DelConstEx(id,v,0,mask)
-def GetConst(id,v,mask):    return GetConstEx(id,v,0,mask)
+def DelConst(constid, v, mask): return DelConstEx(constid, v, 0, mask)
+def GetConst(constid, v, mask): return GetConstEx(constid, v, 0, mask)
 def AnalyseArea(sEA, eEA):       AnalyzeArea(sEA,eEA)
 
 def MakeStruct(ea,name):         return MakeStructEx(ea, -1, name)
@@ -6221,22 +6212,19 @@ def Name(ea):               return NameEx(BADADDR, ea)
 def GetTrueName(ea):        return GetTrueNameEx(BADADDR, ea)
 def MakeName(ea, name):           MakeNameEx(ea,name,SN_CHECK)
 
-def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
-def GetFrameLvarSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRSIZE)
-def GetFrameRegsSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRREGS)
-def GetFrameArgsSize(ea):        return GetFunctionAttr(ea, FUNCATTR_ARGSIZE)
-def GetFunctionFlags(ea):        return GetFunctionAttr(ea, FUNCATTR_FLAGS)
-def SetFunctionFlags(ea, flags): return SetFunctionAttr(ea, FUNCATTR_FLAGS, flags)
+#def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
+#def GetFrameLvarSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRSIZE)
+#def GetFrameRegsSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRREGS)
+#def GetFrameArgsSize(ea):        return GetFunctionAttr(ea, FUNCATTR_ARGSIZE)
+#def GetFunctionFlags(ea):        return GetFunctionAttr(ea, FUNCATTR_FLAGS)
+#def SetFunctionFlags(ea, flags): return SetFunctionAttr(ea, FUNCATTR_FLAGS, flags)
 
-def SegStart(ea):                return GetSegmentAttr(ea, SEGATTR_START)
-def SegEnd(ea):                  return GetSegmentAttr(ea, SEGATTR_END)
-def SetSegmentType(ea, type):    return SetSegmentAttr(ea, SEGATTR_TYPE, type)
+#def SegStart(ea):                return GetSegmentAttr(ea, SEGATTR_START)
+#def SegEnd(ea):                  return GetSegmentAttr(ea, SEGATTR_END)
+#def SetSegmentType(ea, type):    return SetSegmentAttr(ea, SEGATTR_TYPE, type)
 
 def Comment(ea):                return GetCommentEx(ea, 0)
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
-
-def loadfile(filepath, pos, ea, size): return LoadFile(filepath, pos, ea, size)
-def savefile(filepath, pos, ea, size): return SaveFile(filepath, pos, ea, size)
 
 # A convenice macro:
 def here(): return ScreenEA()
