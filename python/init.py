@@ -14,7 +14,6 @@
 import os
 import sys
 import time
-import traceback
 import warnings
 
 import _idaapi
@@ -111,8 +110,12 @@ from idautils import *
 # Build up the ScriptBox tool
 #-----------------------------------------------------------
 class ScriptBox(Choose):
-    def __init__(self, list=[]):
-        Choose.__init__(self, list, "ScriptBox", 1)
+    def __init__(self, list=None):
+        if list:
+            self.list = list
+        else:
+            self.list = []
+        Choose.__init__(self, self.list, "ScriptBox", 1)
         self.width = 50
 
     def run(self):
@@ -128,9 +131,9 @@ class ScriptBox(Choose):
             return None
 
     def addscript(self, scriptpath):
-            self.list.append(scriptpath)
+        self.list.append(scriptpath)
 
-ScriptBox_instance = ScriptBox([])
+ScriptBox_instance = ScriptBox()
 
 #-------------------------------------------------------------
 # Watchdog to catch runaway scripts after a specified timeout
@@ -147,6 +150,7 @@ class WatchDog():
     Python tracer-based watchdog class
     """
     def __init__(self, timeout=10):
+        self.timestamp = 0
         self.timeout = timeout
         self.installed = False
         self.active = False
