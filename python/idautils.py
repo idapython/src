@@ -219,11 +219,7 @@ def Functions(start, end):
     @note: The last function that starts before 'end' is included even
     if it extends beyond 'end'.
     """
-    startaddr = start
-    endaddr = end
-
     funclist = []
-
     func = idaapi.get_func(start)
 
     if func:
@@ -297,21 +293,15 @@ def GetDataList(ea, count, itemsize=1):
     if itemsize == 2:
         getdata = idaapi.get_word
     if itemsize == 4:
-        getdata = idaapi.get_dword
+        getdata = idaapi.get_long
 
-    if getdata == None:
-        raise ValueError, "Invalid data size! Must be 1, 2 or 4"
+    assert getdata, "Invalid data size! Must be 1, 2 or 4"
 
-    list = []
-
-    for offs in range(count):
-        list.append(getdata(ea))
-        ea = ea + itemsize
-
-    return list
+    for curea in xrange(ea, ea+itemsize*count, itemsize):
+        yield getdata(curea)
 
 
-def PutDataList(ea, list, itemsize=1):
+def PutDataList(ea, datalist, itemsize=1):
     """
     Put data list - INTERNAL USE ONLY
     """
@@ -322,12 +312,11 @@ def PutDataList(ea, list, itemsize=1):
     if itemsize == 2:
         putdata = idaapi.patch_word
     if itemsize == 4:
-        putdata = idaapi.patch_dword
+        putdata = idaapi.patch_long
 
-    if putdata == None:
-        raise ValueError, "Invalid data size! Must be 1, 2 or 4"
+    assert putdata, "Invalid data size! Must be 1, 2 or 4"
 
-    for val in list:
+    for val in datalist:
         putdata(ea, val)
         ea = ea + itemsize
 
