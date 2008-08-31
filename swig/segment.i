@@ -1,9 +1,3 @@
-// FIXME: These could be fixed
-%ignore getn_selector;
-%ignore set_segment_translations;
-%ignore del_segment_translations;
-%ignore get_segment_translations;
-
 // Ignore functions with callbacks
 %ignore enumerate_selectors;
 %ignore enumerate_segments_with_selector;
