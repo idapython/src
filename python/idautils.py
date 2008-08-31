@@ -341,7 +341,7 @@ def GetInputFileMD5():
 
     @return: MD5 string or None on error
     """
-    ua=idaapi.ucharArray(16)
+    ua=idaapi.uchar_array(16)
     if idaapi.retrieve_input_file_md5(ua.cast()):
         md5str=""
         for i in range(16):

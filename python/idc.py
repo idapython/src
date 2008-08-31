@@ -1127,7 +1127,7 @@ def OpStroffEx(ea, n, strid, delta):
                     between the structure base and the pointer into the structure.
 
     """
-    path = idaapi.tidArray(1)
+    path = idaapi.tid_array(1)
     path[0] = strid
     return idaapi.op_stroff(ea, n, path.cast(), 1, delta)
 

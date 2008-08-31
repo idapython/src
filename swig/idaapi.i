@@ -67,9 +67,9 @@ typedef          long long longlong;
 // Convert all of these
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
 
-%array_class(uchar, ucharArray);
-%array_class(tid_t, tidArray);
-%array_class(ea_t, eaArray);
+%array_class(uchar, uchar_array);
+%array_class(tid_t, tid_array);
+%array_class(ea_t, ea_array);
 %array_class(sel_t, sel_array);
 %pointer_class(int, int_pointer);
 %pointer_class(ea_t, ea_pointer);
