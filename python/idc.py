@@ -2064,7 +2064,7 @@ def GetString(ea, length, strtype):
     @param len: string length. -1 means to calculate the max string length
     @param type: the string type (one of ASCSTR_... constants)
 
-    return: string contents or empty string
+    @return: string contents or empty string
     """
     if length == -1:
         length = idaapi.get_max_ascii_length(ea, strtype)
@@ -2078,7 +2078,7 @@ def GetStringType(ea):
 
     @param ea: linear address
 
-    Returns one of ASCSTR_... constants
+    @return: One of ASCSTR_... constants
     """
     ti = idaapi.typeinfo_t()
 
@@ -2785,7 +2785,7 @@ def NextSeg(ea):
     @param ea: linear address
 
     @return: start of the next segment
-        BADADDR - no next segment
+             BADADDR - no next segment
 
     TODO: Any better way of doing this?
     """
@@ -2811,7 +2811,7 @@ def SegStart(ea):
     @param ea: any address in the segment
 
     @return: start of segment
-        BADADDR - the specified address doesn't belong to any segment
+             BADADDR - the specified address doesn't belong to any segment
     """
     seg = idaapi.getseg(ea)
 
@@ -2828,7 +2828,7 @@ def SegEnd(ea):
     @param ea: any address in the segment
 
     @return: end of segment (an address past end of the segment)
-        BADADDR - the specified address doesn't belong to any segment
+             BADADDR - the specified address doesn't belong to any segment
     """
     seg = idaapi.getseg(ea)
 
@@ -4374,8 +4374,8 @@ def GetFirstMember(sid):
              otherwise returns offset of the first member.
 
     @note: IDA allows 'holes' between members of a
-          structure. It treats these 'holes'
-          as unnamed arrays of bytes.
+           structure. It treats these 'holes'
+           as unnamed arrays of bytes.
     """
     s = idaapi.get_struc(sid)
     if not s:
@@ -4620,9 +4620,9 @@ def DelStruc(sid):
 
     @return: 0 if bad structure type ID is passed
              1 otherwise the structure type is deleted. All data
-               and other structure types referencing to the
-               deleted structure type will be displayed as array
-               of bytes.
+             and other structure types referencing to the
+             deleted structure type will be displayed as array
+             of bytes.
     """
     s = idaapi.get_struc(sid)
     if not s:
