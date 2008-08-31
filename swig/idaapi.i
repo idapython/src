@@ -70,6 +70,7 @@ typedef          long long longlong;
 %array_class(uchar, ucharArray);
 %array_class(tid_t, tidArray);
 %array_class(ea_t, eaArray);
+%array_class(sel_t, sel_array);
 %pointer_class(int, int_pointer);
 %pointer_class(ea_t, ea_pointer);
 %pointer_class(sval_t, sval_pointer);
