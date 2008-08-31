@@ -2700,17 +2700,19 @@ def AskSelector(sel):
 
     @param sel: the selector number
 
-    @return:        selector value if found
-            otherwise the input value (sel)
+    @return: selector value if found
+             otherwise the input value (sel)
     
-    @note:           selector values are always in paragraphs
+    @note: selector values are always in paragraphs
     """
-    sel = idaapi.getn_selector(sel)
+    s = idaapi.sel_pointer()
+    base = idaapi.ea_pointer()
+    res,tmp = idaapi.getn_selector(sel, s.cast(), base.cast())
 
-    if not sel:
+    if not res:
         return sel
     else:
-        return sel.base
+        return base.value()
 
 
 def FindSelector(val):
@@ -2719,17 +2721,12 @@ def FindSelector(val):
 
     @param val: value to search for
     
-    @return:        the selector number if found,
-            otherwise the input value (val & 0xFFFF)
+    @return: the selector number if found,
+             otherwise the input value (val & 0xFFFF)
 
-    @note:           selector values are always in paragraphs
+    @note: selector values are always in paragraphs
     """
-    sel = idaapi.find_selector(val)
-
-    if not sel:
-        return val & 0xffff
-    else:
-        return sel.n
+    return idaapi.find_selector(val) & 0xFFFF
     
 
 def SetSelector(sel, value):
