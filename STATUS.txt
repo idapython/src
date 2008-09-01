@@ -54,7 +54,7 @@ pro.h         - COMPLETE (some needed SWIGs)
 queue.hpp     - INCOMPLETE (one FIXME)
 regex.h       - EXCLUDED
 search.hpp    - INCOMPLETE (one FIXME)
-segment.hpp   - INCOMPLETE (no SWIGs, few FIXMEs)
+segment.hpp   - COMPLETE
 sistack.hpp   - EXCLUDED
 srarea.hpp    - INCOMPLETE (not wrapped at all)
 strlist.hpp   - COMPLETE

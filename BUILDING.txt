@@ -5,16 +5,17 @@ Building From Source
 --------------------
 
 REQUIREMENTS
+------------
 
 [Tested versions are in brackets]
 
  - IDA and IDA SDK [5.1]
    http://www.datarescue.com/idabase/
 
- - Python [2.4.4, 2.5.1]
+ - Python [2.5.1]
    http://www.python.org/
 
- - Simplified Wrapper Interface Generator (SWIG) [1.3.31]
+ - Simplified Wrapper Interface Generator (SWIG) [1.3.36]
    http://www.swig.org/
 
  - Unix utilities (GNU patch on Windows):
@@ -22,14 +23,15 @@ REQUIREMENTS
    http://unxutils.sourceforge.net/  or
    http://www.cygwin.com/
 
- - GCC on Linux and Mac OS X [4.1.3]
+ - GCC on Linux and Mac OS X [4.0.1, 4.1.3]
    Comes with your distribution
 
- - Microsoft Visual C on Windows [Microsoft Visual C++ 2005 Express Edition]
+ - Microsoft Visual C on Windows [Microsoft Visual C++ 2008 Express Edition]
    http://msdn.microsoft.com/vstudio/express/visualc/
 
 
 BUILDING
+--------
 
 Make sure all the needed tools (compiler, swig) are on the PATH.
 
