@@ -475,7 +475,6 @@ diff -ur idasdk-versions/5.1/include/lines.hpp swigsdk-versions/5.1/include/line
  
  idaman bool ida_export save_line_in_array(const char *line);      // a standard line saver()
  idaman void ida_export init_lines_array(char *lnar[],int maxsize);// initialization function for it
-Only in swigsdk-versions/5.1/include/: md5.h.new
 diff -ur idasdk-versions/5.1/include/moves.hpp swigsdk-versions/5.1/include/moves.hpp
 --- idasdk-versions/5.1/include/moves.hpp	2006-03-17 17:41:22.000000000 +0200
 +++ swigsdk-versions/5.1/include/moves.hpp	2007-09-30 06:56:51.000000000 +0300
@@ -517,15 +516,15 @@ diff -ur idasdk-versions/5.1/include/moves.hpp swigsdk-versions/5.1/include/move
    location_t(void) {}
 diff -ur idasdk-versions/5.1/include/nalt.hpp swigsdk-versions/5.1/include/nalt.hpp
 --- idasdk-versions/5.1/include/nalt.hpp	2007-01-29 22:06:46.000000000 +0200
-+++ swigsdk-versions/5.1/include/nalt.hpp	2007-12-04 21:37:14.000000000 +0200
-@@ -29,6 +29,7 @@
- //      in them. Look at netnode.hpp for the definition of netnodes.
- //
++++ swigsdk-versions/5.1/include/nalt.hpp	2008-07-22 20:11:23.000000000 +0300
+@@ -53,6 +53,7 @@
+                             //   supval(ea) -> function name
+                             //   altval(ord) -> import ea
  
 +#ifndef SWIG
- #include <netnode.hpp>
- 
  //--------------------------------------------------------------------------
+ 
+ // Macro definitions used in this header file (internal)
 @@ -231,6 +232,7 @@
  // position of cursor in the window with cross-references to the address
  // Used by the user-interface.
