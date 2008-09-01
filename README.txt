@@ -20,7 +20,7 @@ http://www.d-dome.net/idapython/
 
 INSTALLATION FROM BINARIES
 
-1, Install Python 2.4 or 2.5 from http://www.python.org/
+1, Install Python 2.5 from http://www.python.org/
 2, Copy the directory python\ to the IDA install directory
 3. Copy the plugin to the %IDADIR%\plugins\
 
