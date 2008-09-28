@@ -66,10 +66,12 @@ BINDIST_MANIFEST = [
     ("idaapi.py", "python"),
     "docs/notes.txt",
     "examples/chooser.py",
+    "examples/colours.py",
     "examples/debughook.py",
     "examples/ex1.idc",
     "examples/ex1_idaapi.py",
-    "examples/ex1_idautils.py"
+    "examples/ex1_idautils.py",
+    "examples/structure.py",
 ]
 
 # List files for the source distribution (appended to binary list)
