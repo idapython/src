@@ -27,9 +27,9 @@ IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VER
 # End of user configurable options
 
 # IDAPython version
-VERSION_MAJOR  = 0
-VERSION_MINOR  = 9
-VERSION_PATCH  = 61
+VERSION_MAJOR  = 1
+VERSION_MINOR  = 0
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -71,6 +71,7 @@ BINDIST_MANIFEST = [
     "examples/ex1.idc",
     "examples/ex1_idaapi.py",
     "examples/ex1_idautils.py",
+    "examples/hotkey.py",
     "examples/structure.py",
 ]
 
