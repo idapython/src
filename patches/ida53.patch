@@ -1,0 +1,920 @@
+diff -ur idasdk-versions/5.3/include/area.hpp swigsdk-versions/5.3/include/area.hpp
+--- idasdk-versions/5.3/include/area.hpp	2008-05-04 21:37:00.000000000 +0300
++++ swigsdk-versions/5.3/include/area.hpp	2008-09-30 18:23:08.000000000 +0300
+@@ -60,6 +60,7 @@
+ };
+ 
+ 
++#ifndef SWIG
+ // Internal classes
+ 
+ class sarray;           // sorted array - keeps information in Btree.
+@@ -635,6 +636,7 @@
+         { return areacb_t_for_all_areas(this, ea1, ea2, av, ud); }
+ 
+ };
++#endif // SWIG
+ 
+ 
+ // Last request information -- for internal use
+diff -ur idasdk-versions/5.3/include/bytes.hpp swigsdk-versions/5.3/include/bytes.hpp
+--- idasdk-versions/5.3/include/bytes.hpp	2008-05-04 21:37:00.000000000 +0300
++++ swigsdk-versions/5.3/include/bytes.hpp	2008-09-30 18:23:08.000000000 +0300
+@@ -1642,9 +1642,9 @@
+                  const uchar *mask,    // comparision mask
+                  size_t len,           // length of string to search
+                  int step,             // direction:
++                 int flags);
+ #define BIN_SEARCH_FORWARD      1
+ #define BIN_SEARCH_BACKWARD     (-1)
+-                 int flags);
+ #define BIN_SEARCH_CASE         0x01
+ #define BIN_SEARCH_NOCASE       0x00
+ #define BIN_SEARCH_NOBREAK      0x02
+diff -ur idasdk-versions/5.3/include/dbg.hpp swigsdk-versions/5.3/include/dbg.hpp
+--- idasdk-versions/5.3/include/dbg.hpp	2008-07-07 22:06:00.000000000 +0300
++++ swigsdk-versions/5.3/include/dbg.hpp	2008-09-30 18:23:08.000000000 +0300
+@@ -29,6 +29,7 @@
+ 
+ idaman debugger_t ida_export_data *dbg; // Current debugger - NULL if no debugger
+ 
++#ifndef SWIG
+ //--------------------------------------------------------------------
+ //               D E B U G G E R   C A L L B A C K S
+ //--------------------------------------------------------------------
+@@ -544,6 +545,7 @@
+ // Notification: none (synchronous function)
+ 
+ bool idaapi is_reg_integer(const char *regname);
++#endif // SWIG
+ 
+ //--------------------------------------------------------------------
+ //                     B R E A K P O I N T S
+@@ -568,6 +570,7 @@
+ };
+ 
+ 
++#ifndef SWIG
+ // Get number of breakpoints.
+ // Type:         Synchronous function
+ // Notification: none (synchronous function)
+@@ -804,6 +807,7 @@
+ //--------------------------------------------------------------------
+ //                   T R A C I N G   E V E N T S
+ //--------------------------------------------------------------------
++#endif // SWIG
+ 
+ // Trace event types:
+ enum tev_type_t
+@@ -824,6 +828,7 @@
+ };
+ 
+ 
++#ifndef SWIG
+ // Get number of trace events available in trace buffer.
+ // Type:         Synchronous function
+ // Notification: none (synchronous function)
+@@ -902,6 +907,7 @@
+ //       corresponds to a valid breakpoint.
+ 
+ ea_t idaapi get_bpt_tev_ea(int n);
++#endif // SWIG
+ 
+ //--------------------------------------------------------------------
+ //      Utility functions
+diff -ur idasdk-versions/5.3/include/expr.hpp swigsdk-versions/5.3/include/expr.hpp
+--- idasdk-versions/5.3/include/expr.hpp	2008-07-03 16:28:00.000000000 +0300
++++ swigsdk-versions/5.3/include/expr.hpp	2008-09-30 19:30:22.000000000 +0300
+@@ -67,12 +67,14 @@
+                                 // number of arguments. The actual number of
+                                 // arguments will be passed in 'num'
+ 
++#ifndef SWIG
+   union
+   {
+     char *str;                  // VT_STR
+     sval_t num;                 // VT_LONG
+     ushort e[6];                // VT_FLOAT
+   };
++#endif // SWIG
+ 
+   idc_value_t(void) : vtype(VT_LONG) {}
+   idc_value_t(const idc_value_t &r) : vtype(VT_LONG)
+diff -ur idasdk-versions/5.3/include/funcs.hpp swigsdk-versions/5.3/include/funcs.hpp
+--- idasdk-versions/5.3/include/funcs.hpp	2008-05-04 21:36:00.000000000 +0300
++++ swigsdk-versions/5.3/include/funcs.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -86,10 +86,12 @@
+   bool is_far(void) const { return (flags & FUNC_FAR) != 0; }
+   bool does_return(void) const { return (flags & FUNC_NORET) == 0; }
+   bool analyzed_sp(void) const { return (flags & FUNC_SP_READY) != 0; }
++#ifndef SWIG
+   union
+   {
+     struct              // attributes of a function entry chunk
+     {
++#endif // SWIG
+       //
+       // Stack frame of the function. It is represented as a structure:
+       //
+@@ -145,15 +147,19 @@
+       int tailqty;         // number of function tails
+       area_t *tails;       // array of tails, sorted by ea
+                            // use func_tail_iterator_t to access function tails
++#ifndef SWIG
+     };
+     struct                 // attributes of a function tail chunk
+     {
++#endif // SWIG
+       ea_t owner;          // the address of the main function possessing this tail
+       int refqty;          // number of referers
+       ea_t *referers;      // array of referers (function start addresses)
+                            // use func_parent_iterator_t to access the referers
++#ifndef SWIG
+     };
+   };
++#endif // SWIG
+ };
+ 
+ inline bool is_func_entry(const func_t *pfn) { return pfn != NULL && (pfn->flags & FUNC_TAIL) == 0; }
+diff -ur idasdk-versions/5.3/include/ida.hpp swigsdk-versions/5.3/include/ida.hpp
+--- idasdk-versions/5.3/include/ida.hpp	2008-05-04 21:36:00.000000000 +0300
++++ swigsdk-versions/5.3/include/ida.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -371,6 +371,7 @@
+ inline bool idaapi should_create_stkvars(void) { return (inf.af & AF_LVAR) != 0; }
+ 
+ 
++#ifndef SWIG
+ // set a 'bit' in 'where' if 'value' if not zero
+ 
+ inline void idaapi setflag(uchar &where,uchar bit,int value)
+@@ -392,10 +393,13 @@
+      else where &= ~bit;
+   }
+ 
++#endif // SWIG
+ //------------------------------------------------------------------------//
+ 
++#ifndef SWIG
+ #define BADADDR ea_t(-1)        // this value is used for 'bad address'
+ #define BADSEL  sel_t(-1)       // 'bad selector' value
++#endif // SWIG
+ 
+ // Maximum address allowed to use in the program being disassebled.
+ // This is obsolete, don't use it!
+diff -ur idasdk-versions/5.3/include/idd.hpp swigsdk-versions/5.3/include/idd.hpp
+--- idasdk-versions/5.3/include/idd.hpp	2008-07-07 14:04:00.000000000 +0300
++++ swigsdk-versions/5.3/include/idd.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -51,6 +51,7 @@
+   char name[MAXSTR];
+ };
+ 
++#ifndef SWIG
+ //====================================================================
+ //
+ //                          Registers
+@@ -177,6 +178,7 @@
+     return eid == BREAKPOINT && bpt.kea != BADADDR ? bpt.kea : ea;
+   }
+ };
++#endif // SWIG
+ 
+ // Hardware breakpoint types
+ typedef int bpttype_t;
+@@ -187,6 +189,7 @@
+   BPT_SOFT  =  4;             // Software breakpoint
+ 
+ 
++#ifndef SWIG
+ // Exception information
+ struct exception_info_t
+ {
+@@ -452,6 +455,7 @@
+ #error "Size of debugger_t is incorrect"
+ #endif
+ #endif
++#endif // SWIG
+ 
+ #ifndef NO_OBSOLETE_FUNCS
+ typedef thid_t thread_id_t;
+diff -ur idasdk-versions/5.3/include/idp.hpp swigsdk-versions/5.3/include/idp.hpp
+--- idasdk-versions/5.3/include/idp.hpp	2008-07-01 00:15:00.000000000 +0300
++++ swigsdk-versions/5.3/include/idp.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -30,6 +30,7 @@
+ #define IDP_INTERFACE_VERSION 76        // This will not change anymore.
+                                         // Use IDA_SDK_VERSION from pro.h
+ 
++#ifndef SWIG
+ //-----------------------------------------------------------------------
+ // AbstractRegister and WorkReg are deprecated!
+ class WorkReg;
+@@ -109,6 +110,7 @@
+ #define CF_HLL  0x10000  // Instruction may be present in a high level
+                          // language function.
+ };
++#endif // SWIG
+ 
+ idaman bool ida_export InstrIsSet(int icode,int bit); // does the specified instruction
+                                                       // have the specified feature?
+@@ -118,6 +120,7 @@
+ idaman bool ida_export is_indirect_jump_insn(ea_t ea);
+ idaman bool ida_export is_basic_block_end(bool call_insn_stops_block); // in:cmd
+ 
++#ifndef SWIG
+ //-----------------------------------------------------------------------
+ // Structures related to checkarg_dispatch()
+ 
+@@ -188,6 +191,7 @@
+                            // arguments: NULL, char * const **outptr
+                            // This callback must be implemented
+ };
++#endif // SWIG
+ 
+ #ifdef __BORLANDC__
+ #pragma option pop
+@@ -553,6 +557,7 @@
+                                         // processor is changed.
+                                         // (NULL terminated)
+ 
++#ifndef SWIG
+ //
+ // Callback function. IDP module can take appropriate
+ // actions when some events occurs in the kernel.
+@@ -1165,6 +1170,7 @@
+                                 // defined by the loaders
+   };
+   int   (idaapi* notify)(idp_notify msgid, ...); // Various notifications for the idp
++#endif // SWIG
+ 
+ // Get the stack variable scaling factor
+ // Useful for processors who refer to the stack with implicit scaling factor.
+@@ -1417,8 +1423,10 @@
+    int icode_return;
+ 
+ 
++#ifndef SWIG
+ // Set IDP-specific option (see below)
+   set_options_t *set_idp_options;
++#endif // SWIG
+ 
+ //      Is the instruction created only for alignment purposes?
+ //      returns: number of bytes in the instruction
+@@ -1565,10 +1573,12 @@
+ idaman char *ida_export get_idp_name(char *buf, size_t bufsize);
+ 
+ 
++#ifndef SWIG
+ // Unload the processor module.
+ // This function is for the kernel only.
+ 
+ void free_processor_module(void);
++#endif // SWIG
+ 
+ 
+ // Set target assembler
+@@ -1577,11 +1587,13 @@
+ idaman void ida_export set_target_assembler(int asmnum);
+ 
+ 
++#ifndef SWIG
+ // Read IDA.CFG file and configure IDA for the current processor
+ // This is an internal kernel function.
+ // It should not be used in modules.
+ 
+ void read_config_file(int npass);
++#endif // SWIG
+ 
+ 
+ // get number of bits in a byte at the given address
+diff -ur idasdk-versions/5.3/include/kernwin.hpp swigsdk-versions/5.3/include/kernwin.hpp
+--- idasdk-versions/5.3/include/kernwin.hpp	2008-07-07 22:06:00.000000000 +0300
++++ swigsdk-versions/5.3/include/kernwin.hpp	2008-09-30 18:47:55.000000000 +0300
+@@ -27,9 +27,11 @@
+ #include <llong.hpp>
+ #include <auto.hpp>
+ 
++#ifndef SWIG
+ typedef uchar color_t;          // see <lines.hpp>
+ typedef uval_t bmask_t;         // see <enum.hpp>
+ typedef tid_t enum_t;           // see <enum.hpp>
++#endif // SWIG
+ 
+ // Message box kinds:
+ 
+@@ -92,6 +94,7 @@
+ class idc_value_t;
+ class linput_t;
+ 
++#ifndef SWIG
+ union callui_t          // Return codes (size of this type should be 4 bytes at most)
+ {                       //              (otherwise different compilers return it differently)
+   bool cnd;
+@@ -959,6 +962,8 @@
+ idaman void ida_export vshow_hex_file(linput_t *li, long pos, size_t count, const char *format, va_list va);
+ 
+ 
++#endif // SWIG
++#ifndef SWIG
+ //--------------------------------------------------------------------------
+ //      K E R N E L   S E R V I C E S   F O R   U I
+ //--------------------------------------------------------------------------
+@@ -1389,8 +1394,10 @@
+         { return linearray_t_up(this); }
+ 
+ };
++#endif // SWIG
+ 
+ 
++
+ // Bitmask of builtin window types to be refreshed:
+ idaman int ida_export_data dirty_infos;
+ 
+@@ -1460,6 +1467,7 @@
+ 
+ #define IWID_ALL     0xFFFFFFFF
+ 
++#ifndef SWIG
+ //---------------------------------------------------------------------------
+ //      D E B U G G I N G   F U N C T I O N S
+ //---------------------------------------------------------------------------
+@@ -1543,11 +1551,13 @@
+   vshow_hex_file(li, pos, count, fmt, va);
+   va_end(va);
+ }
++#endif // SWIG
+ 
+ //-------------------------------------------------------------------------
+ //      U I   S E R V I C E  F U N C T I O N S
+ //-------------------------------------------------------------------------
+ 
++#ifndef SWIG
+ // Common function prototypes
+ // These functions are inlined for the kernel
+ // They are not inlined for the user-interfaces
+@@ -1723,6 +1733,7 @@
+                  sizer, getl, title, icon, deflt, del,
+                  ins, update, edit, enter, destroy, popup_names, get_icon);
+ }
++#endif // SWIG
+ 
+ // definitions for add_chooser_command():
+ // the flags parameter is combination of the following bits:
+@@ -1854,6 +1865,7 @@
+ 
+ // Get VCL global variables
+ 
++#ifndef SWIG
+ #if defined(__BORLANDC__)
+ namespace Forms
+ {
+@@ -1874,6 +1886,7 @@
+ }
+ 
+ #endif // __BORLANDC__
++#endif // SWIG
+ 
+ namespace Forms
+ {
+@@ -2084,6 +2097,7 @@
+ }
+ 
+ 
++#ifndef SWIG
+ // Pointer to idaview marker function.
+ // This pointer is initialized by callui(ui_get_marker)
+ 
+@@ -2116,6 +2130,7 @@
+   if ( idaview_marker != NULL )
+     idaview_marker(get_screen_ea());
+ }
++#endif // SWIG
+ 
+ 
+ inline TForm *open_exports_window(ea_t ea)
+@@ -2296,6 +2311,7 @@
+   return callui(ui_choose, chtype_struc, title).strptr;
+ }
+ 
++#ifndef SWIG
+ inline int choose_struc_path(const char *title, tid_t strid,
+                       uval_t offset, adiff_t delta, bool appzero, tid_t *path)
+ {
+@@ -2360,6 +2376,7 @@
+                 widths, sizer, getl, title, icon, deflt, del, ins,
+                 update, edit, enter, destroy, popup_names, get_icon).i32;
+ }
++#endif // SWIG
+ 
+ 
+ // Add a command for a chooser window. Works only the GUI version
+@@ -2711,6 +2728,7 @@
+   return nbytes;
+ }
+ 
++#ifndef SWIG
+ inline int Message(help_t format,...)
+ {
+   va_list va;
+@@ -2719,8 +2737,10 @@
+   va_end(va);
+   return nbytes;
+ }
++#endif // SWIG
+ 
+ 
++#ifndef SWIG
+ //----------------------------------------------------------------------
+ //      F O R M S  -  C O M P L E X   D I A L O G   B O X E S
+ //----------------------------------------------------------------------
+@@ -2936,6 +2956,7 @@
+    <Names pre~f~ix  :A:15:15::>
+ 
+ */
++#endif // SWIG
+ 
+ //---------------------------------------------------------------------------
+ //      Y E S / N O   D I A L O G  B O X
+@@ -3097,6 +3118,7 @@
+ #define HIST_TYPE   8           // type declarations
+ 
+ 
++#ifndef SWIG
+ // Display a dialog box and wait for the user to input multiline text
+ //      size    - maximum size of text in bytes
+ //      answer  - output buffer. if you specify NULL then the answer
+@@ -3121,6 +3143,7 @@
+   va_end(va);
+   return result;
+ }
++#endif // SWIG
+ 
+ 
+ //---------------------------------------------------------------------------
+@@ -3196,6 +3219,7 @@
+ idaman const char *ida_export strarray(const strarray_t *array, size_t array_size, int code);
+ 
+ 
++#ifndef SWIG
+ // Convert whitespace to tabulations
+ // This functin will stop the conversion as soon as a string or character constant
+ // is encountered
+@@ -3388,6 +3412,7 @@
+ // match a string with a regular expression
+ // returns: 0-no match, 1-match, -1-error
+ idaman int ida_export regex_match(const char *str, const char *pattern, bool sense_case);
++#endif // SWIG
+ 
+ #ifndef NO_OBSOLETE_FUNCS
+ typedef idc_value_t value_t;
+diff -ur idasdk-versions/5.3/include/lines.hpp swigsdk-versions/5.3/include/lines.hpp
+--- idasdk-versions/5.3/include/lines.hpp	2008-05-04 21:36:00.000000000 +0300
++++ swigsdk-versions/5.3/include/lines.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -612,12 +612,11 @@
+         ml_getnam_t *getnam,
+         ml_genxrf_t *genxrf,
+         ml_saver_t *saver,
+-        int flags
++        int flags);
+ #define MAKELINE_NONE           0x00
+ #define MAKELINE_BINPREF        0x01
+ #define MAKELINE_VOID           0x02
+ #define MAKELINE_STACK          0x04
+-                        );
+ 
+ idaman bool ida_export save_line_in_array(const char *line);      // a standard line saver()
+ idaman void ida_export init_lines_array(char *lnar[],int maxsize);// initialization function for it
+diff -ur idasdk-versions/5.3/include/moves.hpp swigsdk-versions/5.3/include/moves.hpp
+--- idasdk-versions/5.3/include/moves.hpp	2008-05-04 21:36:00.000000000 +0300
++++ swigsdk-versions/5.3/include/moves.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -23,6 +23,8 @@
+     { return !(*this == r); }
+ };
+ 
++
++#ifndef SWIG
+ // Helper functions. Should not be called directly!
+ class curloc;
+ class location_t;
+@@ -46,13 +48,16 @@
+ 
+ DEFINE_CURLOC_HELPERS(idaman)
+ DEFINE_LOCATION_HELPERS(idaman)
++#endif // SWIG
+ 
+ #define CURLOC_SISTACK_ITEMS 4
+ 
+ class curloc : public sistack_t
+ {
+   void push(void);
++#ifndef SWIG
+   DEFINE_CURLOC_HELPERS(friend)
++#endif // SWIG
+   void unhide_if_necessary(ea_t ea);
+   void hide_if_necessary(void);
+ protected:
+@@ -117,7 +122,9 @@
+ class location_t : public curloc
+ {
+   typedef curloc inherited;
++#ifndef SWIG
+   DEFINE_LOCATION_HELPERS(friend)
++#endif // SWIG
+ public:
+   graph_location_info_t gli;
+   location_t(void) {}
+diff -ur idasdk-versions/5.3/include/nalt.hpp swigsdk-versions/5.3/include/nalt.hpp
+--- idasdk-versions/5.3/include/nalt.hpp	2008-06-09 17:27:00.000000000 +0300
++++ swigsdk-versions/5.3/include/nalt.hpp	2008-09-30 18:23:09.000000000 +0300
+@@ -52,6 +52,7 @@
+                             //   supval(ea) -> function name
+                             //   altval(ord) -> import ea
+ 
++#ifndef SWIG
+ //--------------------------------------------------------------------------
+ 
+ // Macro definitions used in this header file (internal)
+@@ -233,6 +234,7 @@
+ // position of cursor in the window with cross-references to the address
+ // Used by the user-interface.
+ NALT_EA(get_xrefpos, set_xrefpos, del_xrefpos, NALT_XREFPOS)
++#endif // SWIG
+ 
+ // Additional flags for the location.
+ // All 32-bits of the main flags (see bytes.hpp) are used up.
+@@ -287,6 +289,7 @@
+ #define AFL_USERTI      0x02000000L     // the type information is definitive
+                                         // (comes from the user or type library)
+ 
++#ifndef SWIG
+ // The following macro is used to define 3 functions to work with a bit:
+ //      int  test(ea_t ea);    - test if the bit is set
+ //      void set(ea_t ea);     - set bit
+@@ -326,6 +329,7 @@
+ IMPL__IS_AFLAG_FUNCS(AFL_FIXEDSPD, fixed_spd)
+ IMPL__IS_AFLAG_FUNCS(AFL_ALIGNFLOW,align_flow)
+ IMPL__IS_AFLAG_FUNCS(AFL_USERTI,   userti)
++#endif // SWIG
+ 
+ inline void set_visible_item(ea_t ea, bool visible)
+ {
+@@ -343,11 +347,14 @@
+ 
+ // source line numbers (they are sometimes present in object files)
+ // Thes functions may be used if necessary.
++#ifndef SWIG
+ NALT_EA(get_linnum0,set_linnum0, del_linnum0, NALT_LINNUM)
++#endif // SWIG
+ idaman void   ida_export set_source_linnum(ea_t ea, uval_t lnnum);
+ idaman uval_t ida_export get_source_linnum(ea_t ea);      // returns BADADDR if no lnnum
+ idaman void   ida_export del_source_linnum(ea_t ea);
+ 
++#ifndef SWIG
+ // absolute segment base address
+ // These functions may be used if necessary.
+ NALT_EA(get_absbase,set_absbase, del_absbase, NALT_ABSBASE)
+@@ -368,6 +375,7 @@
+ // type of string
+ // Don't use, see: get_typeinfo()
+ NALT_ULONG(get_str_type,set_str_type,del_str_type,NALT_STRTYPE)
++#endif // SWIG
+ 
+ inline char idaapi get_str_type_code(uval_t strtype) { return char(strtype); }
+ 
+@@ -404,16 +412,19 @@
+ }
+ 
+ 
++#ifndef SWIG
+ // alignment value (should be power of 2)
+ // These functions may be used if necessary.
+ NALT_ULONG(get_alignment,set_alignment,del_alignment,NALT_ALIGN)
+ 
+ // instruction/data background color
+ NALT_ULONG(_get_item_color,_set_item_color,_del_item_color,NALT_COLOR)
++#endif // SWIG
+ idaman void      ida_export set_item_color(ea_t ea, bgcolor_t color);
+ idaman bgcolor_t ida_export get_item_color(ea_t ea);      // returns DEFCOLOR if no color
+ idaman void      ida_export del_item_color(ea_t ea);
+ 
++#ifndef SWIG
+ //----------------------------------------------------------------------
+ NSUP_STRING(nalt_cmt,NSUP_CMT)          // regular comment       (low level, don't use)
+ NSUP_STRING(nalt_rptcmt,NSUP_REPCMT)    // repeatable comment    (low level, don't use)
+@@ -562,6 +573,7 @@
+ 
+ // Address which holds the switch info. Used at the jump targets.
+ NALT_EA(get_switch_parent,set_switch_parent,del_switch_parent, NALT_SWITCH)
++#endif // SWIG
+ 
+ 
+ //--------------------------------------------------------------------------
+@@ -674,6 +686,7 @@
+ idaman void ida_export write_struc_path(netnode node, int idx, const tid_t *path, int plen, adiff_t delta);
+ idaman int  ida_export read_struc_path(netnode node, int idx, tid_t *path, adiff_t *delta);  // returns plen
+ 
++#ifndef SWIG
+ #define DEFINE_PATH_FUNCS(name, code)                                \
+ inline int  N_PASTE(get_,name)(ea_t ea, tid_t *path, adiff_t *delta) \
+  { return read_struc_path(netnode(ea), code, path, delta); }         \
+@@ -735,6 +748,7 @@
+ #define RIDX_ALT_CRC32          uval_t(-5) // input file crc32
+ #define RIDX_ALT_IMAGEBASE      uval_t(-6) // image base
+ #define RIDX_ALT_IDSNODE        uval_t(-7) // ids modnode id (for import_module)
++#endif // SWIG
+ 
+ //--------------------------------------------------------------------------
+ // Get full path of the input file
+@@ -781,6 +795,7 @@
+     return get_input_file_path(buf, bufsize);
+ }
+ 
++#ifndef SWIG
+ #ifndef NO_OBSOLETE_FUNCS
+ #define SWI_SHIFT1      0x80    // use formula (element*2 + elbase)
+                                 // to find jump targets (obsolete)
+@@ -793,6 +808,7 @@
+ idaman bool ida_export set_op_ti(ea_t ea, int n, const type_t *ti, const p_list *fnames);
+ inline void idaapi del_ti(ea_t ea, int n) { set_op_ti(ea, n, (type_t *)"", NULL); }
+ #endif
++#endif // SWIG
+ 
+ #ifndef BYTES_SOURCE    // undefined bit masks so no one can use them directly
+ #undef AFL_LINNUM
+diff -ur idasdk-versions/5.3/include/pro.h swigsdk-versions/5.3/include/pro.h
+--- idasdk-versions/5.3/include/pro.h	2008-07-03 23:38:00.000000000 +0300
++++ swigsdk-versions/5.3/include/pro.h	2008-09-30 21:20:49.000000000 +0300
+@@ -64,6 +64,7 @@
+ #define __EA64__
+ #endif
+ 
++#ifndef SWIG
+ #ifdef __VC__
+ #define ENUM_SIZE(t) : t
+ #else
+@@ -140,6 +141,7 @@
+ #define __KYLIX__
+ #endif
+ 
++#endif // SWIG
+ /*==================================================*/
+ #ifndef MAXSTR
+ #define MAXSTR 1024
+@@ -180,7 +182,12 @@
+ 
+ /*==================================================*/
+ 
+-#if defined(__IDP__) && defined(__NT__) // for modules
++#if defined(SWIG)                       // for SWIG
++#define idaapi
++#define idaman
++#define ida_export
++#define ida_export_data
++#elif defined(__IDP__) && defined(__NT__) // for modules
+ #define idaapi          __stdcall
+ #define idaman          EXTERNC
+ #define ida_export      idaapi
+@@ -239,7 +246,9 @@
+ typedef unsigned long  ulong;
+ #endif
+ 
++#ifndef SWIG
+ #include <llong.hpp>
++#endif // SWIG
+ 
+ typedef          char   int8;
+ typedef signed   char   sint8;
+@@ -305,6 +314,7 @@
+ typedef adiff_t sval_t;   // signed value used by the processor
+                           // for 32-bit ea_t, long
+                           // for 64-bit ea_t, longlong
++#ifndef SWIG
+ #define BADADDR ea_t(-1)  // this value is used for 'bad address'
+ 
+ typedef int32 qtime32_t;  // We use our own time type because time_t
+@@ -701,7 +711,9 @@
+ idaman bool  ida_export qisdir(const char *file);
+ 
+ /*==================================================*/
++#endif // SWIG
+ idaman void ida_export qexit(int code);
++#ifndef SWIG
+ idaman void ida_export qatexit(void (idaapi *func)(void));
+ 
+ /*==================================================*/
+@@ -1593,6 +1605,7 @@
+ 
+ // Convert a unicode character to 1 byte character. If failed, return 0.
+ uchar wchar2char(wchar16_t wc);
++#endif // SWIG
+ 
+ idaman bool ida_export u2cstr(const wchar16_t *in, qstring *out, int nsyms=-1); // unicode -> char
+ idaman bool ida_export c2ustr(const char *in, qwstring *out, int nsyms=-1);   // char -> unicode
+diff -ur idasdk-versions/5.3/include/typeinf.hpp swigsdk-versions/5.3/include/typeinf.hpp
+--- idasdk-versions/5.3/include/typeinf.hpp	2008-05-07 15:23:00.000000000 +0300
++++ swigsdk-versions/5.3/include/typeinf.hpp	2008-09-30 20:51:08.000000000 +0300
+@@ -770,11 +770,6 @@
+         int indent,
+         int cmtindent,
+         int flags,
+-#define PRTYPE_1LINE  0x0000              // print to one line
+-#define PRTYPE_MULTI  0x0001              // print to many lines
+-#define PRTYPE_TYPE   0x0002              // print type declaration (not variable declaration)
+-#define PRTYPE_PRAGMA 0x0004              // print pragmas for alignment
+-#define PRTYPE_SEMI   0x0008              // append ; to the end
+         const til_t *ti,
+         const type_t *pt,
+         const char *name=NULL,
+@@ -782,6 +777,12 @@
+         const p_list *field_names=NULL,
+         const p_list *field_cmts=NULL);
+ 
++#define PRTYPE_1LINE  0x0000              // print to one line
++#define PRTYPE_MULTI  0x0001              // print to many lines
++#define PRTYPE_TYPE   0x0002              // print type declaration (not variable declaration)
++#define PRTYPE_PRAGMA 0x0004              // print pragmas for alignment
++#define PRTYPE_SEMI   0x0008              // append ; to the end
++
+ // Get type declaration for the specified address
+ idaman bool ida_export print_type(ea_t ea, char *buf, size_t bufsize, bool one_line);
+ 
+@@ -791,7 +792,6 @@
+ void show_plist(int (*print_cb)(const char *format, ...),
+                 const char *header,
+                 const p_list *list);
+-
+ //=========================================================================
+ // some examples:
+ //
+@@ -832,6 +832,7 @@
+ //------------------------------------------------------------------------
+ // CM (calling convention & model)
+ 
++
+ // default pointer size
+ const cm_t CM_MASK = 0x03;
+ const cm_t  CM_UNKNOWN   = 0x00;
+diff -ur idasdk-versions/5.3/include/ua.hpp swigsdk-versions/5.3/include/ua.hpp
+--- idasdk-versions/5.3/include/ua.hpp	2008-05-04 21:34:00.000000000 +0300
++++ swigsdk-versions/5.3/include/ua.hpp	2008-09-30 19:30:53.000000000 +0300
+@@ -42,10 +42,12 @@
+ //      in 'cmd' structure. They should not access to bytes of instruction
+ //      and decode it again - this should be done in the analysis step.
+ 
++#ifndef SWIG
+ #include <kernwin.hpp>  // for btoa()
+ #include <lines.hpp>    // for color_t
+ #include <xref.hpp>     // add_cref()
+ #include <llong.hpp>    // longlong
++#endif // SWIG
+ 
+ //--------------------------------------------------------------------------
+ //      T Y P E   O F   O P E R A N D
+@@ -201,7 +203,7 @@
+ // for example, byte ptr [epb+32_bit_offset]  will have dt_byte type.
+ 
+   char          dtyp;
+-// βαξ¤ ...
++// Ββαξ¤ ...
+ #define dt_byte         0       // 8 bit
+ #define dt_word         1       // 16 bit
+ #define dt_dword        2       // 32 bit
+@@ -223,13 +225,17 @@
+ 
+ // The following unions keep other information about the operand
+ 
++#ifndef SWIG
+   union
+   {
++#endif // SWIG
+     ushort reg;                 // number of register (o_reg)
+     ushort phrase;              // number of register phrase (o_phrase,o_displ)
+                                 // you yourself define numbers of phrases
+                                 // as you like
++#ifndef SWIG
+   };
++#endif // SWIG
+ 
+   bool is_reg(int r) const { return type == o_reg && reg == r; }
+ 
+@@ -238,7 +244,9 @@
+ 
+ // VALUE
+ 
++#ifndef SWIG
+   union {
++#endif // SWIG
+     uval_t value;               // value of operand (o_imm)
+                                 // outer displacement (o_displ+OF_OUTER_DISP)
+ 
+@@ -246,14 +254,18 @@
+         ushort low;             // your convenience only
+         ushort high;
+     } value_shorts;
++#ifndef SWIG
+   };
++#endif // SWIG
+ 
+   bool is_imm(uval_t v) const { return type == o_imm && value == v; }
+ 
+ 
+ // VIRTUAL ADDRESS (OFFSET WITHIN THE SEGMENT)
+ 
++#ifndef SWIG
+   union {
++#endif // SWIG
+     ea_t addr;                  // virtual address pointed or used by the operand
+                                 // (o_mem,o_displ,o_far,o_near)
+ 
+@@ -261,18 +273,25 @@
+         ushort low;             // your convenience only
+         ushort high;
+     } addr_shorts;
++
++#ifndef SWIG
+   };
++#endif // SWIG
+ 
+ 
+ // IDP SPECIFIC INFORMATION
+ 
++#ifndef SWIG
+   union {
++#endif // SWIG
+     ea_t specval;               // This field may be used as you want.
+     struct {                    // this structure is defined for your convenience only
+         ushort low;             // IBM PC: segment register number (o_mem,o_far,o_near)
+         ushort high;            // IBM PC: segment selector value  (o_mem,o_far,o_near)
+     } specval_shorts;
++#ifndef SWIG
+   };
++#endif // SWIG
+ 
+ // The following fields are used only in idp modules
+ // You may use them as you want to store additional information about
+@@ -336,15 +355,19 @@
+ // Additinal information about the instruction.
+ // You may use these field as you want.
+ 
++#ifndef SWIG
+   union
+   {
++#endif // SWIG
+     ushort auxpref;             // processor dependent field
+     struct
+     {
+       uchar low;
+       uchar high;
+     } auxpref_chars;
++#ifndef SWIG
+   };
++#endif // SWIG
+   char segpref;                 // processor dependent field
+   char insnpref;                // processor dependent field
+ 
+@@ -374,6 +397,7 @@
+ 
+ // This structure is used to pass values of bytes to helper functions.
+ 
++#ifndef SWIG
+ union value_u
+ {
+   uchar v_char;
+@@ -393,6 +417,7 @@
+ // returns: number of immediate values (0..2*UA_MAXOP)
+ 
+ idaman size_t ida_export get_operand_immvals(ea_t ea, int n, uval_t *v);
++#endif // SWIG
+ 
+ 
+ //--------------------------------------------------------------------------
+@@ -405,6 +430,7 @@
+ idaman insn_t ida_export_data cmd;      // current instruction
+ 
+ 
++#ifndef SWIG
+ // Undocumented variable. It is not used by the kernel.
+ // Its value may be specified in IDA.CFG:
+ //      LOOKBACK = <number>
+@@ -815,6 +841,7 @@
+ 
+ idaman ea_t ida_export ua_add_off_drefs(const op_t &x, dref_t type);
+ idaman ea_t ida_export ua_add_off_drefs2(const op_t &x, dref_t type, int outf);
++#endif // SWIG
+ 
+ 
+ // Get size and flags for op_t.dtyp field.
+@@ -876,6 +903,7 @@
+ idaman const char *ida_export ua_mnem(ea_t ea, char *buf, size_t bufsize);
+ 
+ 
++#ifndef SWIG
+ //--------------------------------------------------------------------------
+ //      Helper functions for the processor emulator/analyzer
+ //--------------------------------------------------------------------------
+@@ -947,6 +975,7 @@
+                                   // Also converts to code, uses fixups, increases segments etc
+                                   // This function is only for the kernel
+                                   // Use ua_code() instead
++#endif // SWIG
+ 
+ #ifndef NO_OBSOLETE_FUNCS
+ idaman void ida_export ua_dodata(ea_t ea, int dtype);
