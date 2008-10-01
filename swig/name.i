@@ -26,6 +26,7 @@
 %ignore fix_new_name;
 %ignore rename;
 %ignore move_names;
+%ignore is_noret_name;
 %ignore is_exit_name;
 %ignore dummy_name_ea;
 

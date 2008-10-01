@@ -48,10 +48,13 @@
 %ignore lock_dbgmem_config;
 %ignore unlock_dbgmem_config;
 %ignore set_op_type_no_event;
+%ignore shuffle_tribytes;
 %ignore ida_vpagesize;
 %ignore ida_vpages;
 %ignore ida_npagesize;
 %ignore ida_npages;
+%ignore fpnum_digits;
+%ignore fpnum_length;
 %ignore FlagsInit;
 %ignore FlagsTerm;
 %ignore FlagsReset;

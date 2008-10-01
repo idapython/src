@@ -1,7 +1,9 @@
 // Kernel-only symbols
-%ignore init_struc;
-%ignore save_struc;
-%ignore term_struc;
+%ignore init_structs;
+%ignore save_structs;
+%ignore term_structs;
+
+%ignore sync_from_struc;
 
 %feature("compactdefaultargs") add_struc;
 

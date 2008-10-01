@@ -28,6 +28,7 @@
 
 %ignore create_func_eas_array;
 %ignore auto_add_func_tails;
+%ignore read_tails;
 
 %include "funcs.hpp"
 

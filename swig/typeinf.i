@@ -114,12 +114,16 @@
 %ignore is_stkarg_load_t;
 %ignore has_delay_slot_t;
 %ignore gen_use_arg_types;
+%ignore enable_numbered_types;
+
+%ignore type_pair_vec_t::add_names;
 
 // Kernel-only symbols
 %ignore init_til;
 %ignore save_til;
 %ignore term_til;
 %ignore determine_til;
+%ignore sync_from_til;
 %ignore get_tilpath;
 %ignore autoload_til;
 %ignore get_idainfo_by_type;

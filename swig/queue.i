@@ -9,4 +9,7 @@
 %ignore move_problems;
 %ignore queue_del;
 
+%ignore mark_rollback;
+%ignore had_rolled_back;
+
 %include "queue.hpp"

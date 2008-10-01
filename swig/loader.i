@@ -41,6 +41,9 @@
 %ignore unhook_from_notification_point;
 %ignore invoke_callbacks;
 
+// Ignore this experimental function
+%ignore gen_dev_event;
+
 // Ignore kernel-only & unexported symbols
 %ignore LDSC;
 %ignore PLUGIN;
@@ -78,6 +81,7 @@
 %ignore database_id0;
 %ignore is_database_ext;
 %ignore ida_database_memory;
+%ignore ida_workdir;
 %ignore database_flags;
 %ignore DBFL_KILL;
 %ignore DBFL_COMP;
@@ -87,6 +91,8 @@
 %ignore pe_create_idata;
 %ignore pe_load_resources;
 %ignore pe_create_flat_group;
+%ignore initializing;
+%ignore highest_processor_level;
 %ignore dbcheck_t;
 %ignore DBCHK_NONE;
 %ignore DBCHK_OK;
@@ -96,11 +102,13 @@
 %ignore open_database;
 %ignore flush_buffers;
 %ignore save_database;
+%ignore get_workbase_fname;
 %ignore close_database;
 %ignore compress_btree;
 %ignore get_input_file_from_archive;
 %ignore loader_move_segm;
 %ignore generate_ida_copyright;
+%ignore clear_plugin_options;
 %ignore is_in_loader;
 %ignore get_ids_filename;
 

@@ -3,6 +3,9 @@
 %ignore init_enums;
 %ignore save_enums;
 %ignore term_enums;
+%ignore set_enum_flag;
+%ignore sync_from_enum;;
+%ignore del_all_consts;
 %ignore get_selected_enum;
 %ignore add_selected_enum;
 %ignore unmark_selected_enums;

@@ -35,7 +35,7 @@ extern "C"
 /* Python-style version tuple comes from the makefile */
 /* Only the serial and status is set here */
 #define VER_SERIAL 0
-#define VER_STATUS "final"
+#define VER_STATUS "alpha"
 
 #define IDAPYTHON_RUNFILE      0
 #define IDAPYTHON_RUNSTATEMENT 1

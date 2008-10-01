@@ -22,14 +22,14 @@ from distutils import sysconfig
 # Start of user configurable options
 VERBOSE = True
 IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 1
+IDA_MINOR_VERSION = 3
 IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
 # End of user configurable options
 
 # IDAPython version
-VERSION_MAJOR  = 0
-VERSION_MINOR  = 9
-VERSION_PATCH  = 61
+VERSION_MAJOR  = 1
+VERSION_MINOR  = 0
+VERSION_PATCH  = 50
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -71,6 +71,7 @@ BINDIST_MANIFEST = [
     "examples/ex1.idc",
     "examples/ex1_idaapi.py",
     "examples/ex1_idautils.py",
+    "examples/hotkey.py",
     "examples/structure.py",
 ]
 
@@ -101,6 +102,7 @@ SRCDIST_MANIFEST = [
     "swig/moves.i",
     "swig/nalt.i",
     "swig/name.i",
+    "swig/netnode.i",
     "swig/offset.i",
     "swig/pro.i",
     "swig/queue.i",
@@ -421,4 +423,3 @@ if __name__ == "__main__":
     cleanlist.extend(BUILD_TEMPFILES)
     cleanlist.append(plugin_name)
 #    clean(cleanlist)
-
