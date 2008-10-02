@@ -88,7 +88,7 @@ def byteValue(F):    return (F & MS_VAL)    # quick replacement for Byte()
 
 # Is the byte initialized?
 
-def isLoaded(ea):    hasValue(GetFlags(ea))  # any defined value?
+def isLoaded(ea):    return hasValue(GetFlags(ea))  # any defined value?
 
 MS_CLS   = idaapi.MS_CLS   # Mask for typing
 FF_CODE  = idaapi.FF_CODE  # Code ?
