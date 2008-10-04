@@ -100,6 +100,7 @@
 %ignore extract_func_ret_type;
 %ignore calc_names_cmts;
 %ignore resolve_complex_type;
+%ignore visit_strmems;
 %ignore foreach_strmem;
 %ignore is_type_scalar;
 %ignore get_type_signness;

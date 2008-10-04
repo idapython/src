@@ -1,5 +1,8 @@
 %ignore extfun_t;
 %ignore funcset_t;
+%ignore extlang_t;
+%ignore extlang;
+%ignore register_extlang;
 %ignore IDCFuncs;
 %ignore set_idc_func;
 %ignore VarLong;
