@@ -115,7 +115,7 @@ SRCDIST_MANIFEST = [
     "swig/typeinf.i",
     "swig/ua.i",
     "swig/xref.i",
-    "patches/ida51.patch",
+    "patches/ida53.patch",
     "tools/gendocs.py",
 ]
 
