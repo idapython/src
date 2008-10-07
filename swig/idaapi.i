@@ -119,3 +119,7 @@ idainfo *get_inf_structure(void)
 %include "typeinf.i"
 %include "ua.i"
 %include "xref.i"
+
+%inline {
+	void enable_extlang_python(bool enable);
+}
