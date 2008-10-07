@@ -255,6 +255,112 @@ bool idaapi IDAPython_Menu_Callback(void *ud)
 	return true;
 }
 
+/* Compile callback for Python external language evaluator */ 
+bool idaapi IDAPython_extlang_compile(const char *name,
+				      ea_t current_ea,
+				      const char *expr,
+				      char *errbuf,
+				      size_t errbufsize)
+{
+  qstrncpy(errbuf, "evaluation error", errbufsize);
+  return false;
+}
+
+/* Run callback for Python external language evaluator */ 
+bool idaapi IDAPython_extlang_run(const char *name,
+				  int nargs,
+				  const idc_value_t args[],
+				  idc_value_t *result,
+				  char *errbuf,
+				  size_t errbufsize)
+{
+  qstrncpy(errbuf, "evaluation error", errbufsize);
+  return false;
+}
+
+
+/* Calculator callback for Python external language evaluator */ 
+bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
+				      const char *expr,
+				      idc_value_t *rv,
+				      char *errbuf,
+				      size_t errbufsize)
+{
+  PyObject *result;
+  PyObject *ptype, *pvalue, *ptraceback;
+  PyObject *module = PyImport_AddModule("__main__");
+
+  if (module == NULL)
+    return false;
+
+  PyObject *globals = PyModule_GetDict(module);
+
+  result = PyRun_String(expr, Py_eval_input, globals, globals);
+
+  if (result == NULL)
+    {
+      if (PyErr_Occurred())
+	{
+	  PyErr_Print();
+	}
+      return false;
+    }
+
+  VarFree(rv);
+
+  if (PyInt_Check(result))
+    {
+      rv->num = PyInt_AsLong(result);
+      rv->vtype = VT_LONG;
+      Py_XDECREF(result);
+      return true;
+    }
+
+  if (PyString_Check(result))
+    {
+      rv->str = (char *)qalloc(PyString_Size(result)+1);
+      if (!rv->str)
+	{
+	  return false;
+	}
+      strcpy(rv->str, PyString_AsString(result));
+      rv->vtype = VT_STR;
+      Py_XDECREF(result);
+      return true;
+    }
+
+  if (PyFloat_Check(result))
+    {
+      rv->num = PyInt_AsLong(result);
+      rv->vtype = VT_LONG;
+      Py_XDECREF(result);
+      return true;
+    }
+
+  return false;
+}
+
+extlang_t extlang_python = 
+  {
+    sizeof(extlang_t),
+    0,
+    "Python",
+    IDAPython_extlang_compile,
+    IDAPython_extlang_run,
+    IDAPython_extlang_calcexpr
+  };
+
+void enable_extlang_python(bool enable)
+{
+  if (enable)
+    {
+      register_extlang(&extlang_python);
+    }
+  else
+    {
+      register_extlang(NULL);
+    }
+}
 
 /* Initialize the Python environment */
 bool IDAPython_Init(void)
@@ -367,7 +473,7 @@ bool IDAPython_Init(void)
 
 	/* Register a RunPythonStatement() function for IDC */
 	set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
-	
+
 	initialized = 1;
 
 	return true;
@@ -381,6 +487,9 @@ void IDAPython_Term(void)
 	del_menu_item("File/Python file...");
 	del_menu_item("File/Python command...");
 	del_menu_item("View/Open subviews/Python Scripts");
+
+	/* Remove the extlang */
+	register_extlang(NULL);
 	
 	/* Shut the interpreter down */
 	Py_Finalize();
