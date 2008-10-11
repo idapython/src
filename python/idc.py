@@ -32,7 +32,10 @@ try:
 except ImportError:
     print "Could not import idaapi. Running in 'pydoc mode'."
 
-import os, struct, re
+import os
+import re
+import struct
+import time
 
 class DeprecatedIDCError(Exception):
     """
@@ -246,6 +249,15 @@ NEF_FLAT   = idaapi.NEF_FLAT   # Autocreate FLAT group (PE)
 # ----------------------------------------------------------------------------
 #                       M I S C E L L A N E O U S
 # ----------------------------------------------------------------------------
+"""
+// Check the variable type
+// Returns true if the variable type is the expected one
+
+success IsString(var);
+success IsLong(var);
+success IsFloat(var);
+"""
+
 def MK_FP(seg, off):
     """
     Return value of expression: ((seg<<4) + off)
@@ -381,17 +393,20 @@ def Wait():
     return idaapi.autoWait()
 
 
-def Compile(filename):
+def CompileEx(filename):
     """
-    Compile an IDC file.
+    Compile an IDC script
 
-    The file being compiled should not contain functions that are
+    The input should not contain functions that are
     currently executing - otherwise the behaviour of the replaced
     functions is undefined.
 
-    @param filename: name of file to compile
+    @param input: if isfile != 0, then this is the name of file to compile
+                  otherwise it holds the text to compile
 
     @return: 0 - ok, otherwise it returns an error message
+
+    FIXME: This needs to be updated to latest doc
     """
     res = idaapi.Compile(filename)
 
@@ -400,6 +415,28 @@ def Compile(filename):
     else:
         return 0
 
+"""
+FIXME: this
+// Macro to check for evaluation failures:
+#define EVAL_FAILURE(code) (IsString(code) && substr(code, 0, 13) == "IDC_FAILURE: ")
+#ifdef _notdefinedsymbol
+"""
+
+def SaveBase(idbname, flags=0):
+    """
+    Save current database to the specified idb file
+
+    @param idbname: name of the idb file. if empty, the current idb
+                    file will be used.
+    @param flags: DBFL_BAK or 0
+
+    FIXME: backup might not work at all
+    """
+    if flags == DBFL_BAK:
+        idaapi.cvar.database_flags |= DBFL_BAK
+    return idaapi.save_database(idbname, 0)
+
+DBFL_BAK = 0x04            # create backup file
 
 def Exit(code):
     """
@@ -427,6 +464,16 @@ def Exec(command):
     "start" command.
     """
     return os.system(command)
+
+
+def Sleep(milliseconds):
+    """
+    Sleep the specified number of milliseconds
+    This function suspends IDA for the specified amount of time
+    
+    @param milliseconds: time to sleep
+    """
+    time.sleep(float(milliseconds)/1000)
 
 
 def RunPlugin(name, arg):
@@ -945,7 +992,7 @@ def OpOff(ea, n, base):
         Then you need to specify a linear address of the segment base to
         create a proper offset:
         
-        OpOffset(["seg000",0x2000],0,0x10000);
+        OpOff(["seg000",0x2000],0,0x10000);
         
         and you will have:
         
@@ -1411,6 +1458,39 @@ GENFLG_ASMTYPE = idaapi.GENFLG_ASMTYPE # asm&lst: gen information about types to
 GENFLG_GENHTML = idaapi.GENFLG_GENHTML # asm&lst: generate html (gui version only)
 GENFLG_ASMINC  = idaapi.GENFLG_ASMINC  # asm&lst: gen information only about types
 
+def GenFuncGdl(outfile, title, ea1, ea2, flags):
+    """
+    Generate a flow chart GDL file
+ 
+    @param outfile: output file name. GDL extension will be used
+    @param title: graph title
+    @param ea1: beginning of the area to flow chart
+    @param ea2: end of the area to flow chart. 
+    @param flags: combination of CHART_... constants
+
+    @note: If ea2 == BADADDR then ea1 is treated as an address within a function.
+           That function will be flow charted.
+    """
+    return idaapi.gen_flow_graph(outfile, title, None, ea1, ea2, flags)
+
+
+CHART_PRINT_NAMES = 0x1000 # print labels for each block?
+CHART_GEN_GDL     = 0x4000 # generate .gdl file (file extension is forced to .gdl)
+CHART_WINGRAPH    = 0x8000 # call wingraph32 to display the graph
+CHART_NOLIBFUNCS  = 0x0400 # don't include library functions in the graph
+
+
+def GenCallGdl(outfile, title, flags):
+    """
+    Generate a function call graph GDL file
+    
+    @param outfile: output file name. GDL extension will be used
+    @param title:   graph title
+    @param flags:   combination of CHART_GEN_GDL, CHART_WINGRAPH, CHART_NOLIBFUNCS
+    """
+    return idaapi.gen_simple_call_chart(outfile, "Generating chart", title, flags)
+
+
 #----------------------------------------------------------------------------
 #                 C O M M O N   I N F O R M A T I O N
 #----------------------------------------------------------------------------
@@ -1441,6 +1521,19 @@ def GetInputFilePath():
     return idaapi.get_input_file_path()
 
 
+def SetInputFilePath(path):
+    """
+    Set input file name
+    This function updates the file name that is stored in the database
+    It is used by the debugger and other parts of IDA
+    Use it when the database is moved to another location or when you
+    use remote debugging.
+
+    @param path: new input file path
+    """
+    return idaapi.set_root_filename(path)
+
+
 def GetIdbPath():
     """
     Get IDB full path
@@ -1448,6 +1541,22 @@ def GetIdbPath():
     This function returns full path of the current IDB database
     """
     return idaapi.cvar.database_idb
+
+
+def GetInputMD5():
+    """
+    Return the MD5 hash of the input binary file
+
+    @return: MD5 string or None on error
+    """
+    ua=idaapi.uchar_array(16)
+    if idaapi.retrieve_input_file_md5(ua.cast()):
+        md5str=""
+        for i in range(16):
+            md5str += "%02x" % ua[i]
+        return md5str
+    else:
+        return None
 
 
 def GetFlags(ea):
@@ -1506,10 +1615,22 @@ def Dword(ea):
 
     @param ea: linear address
     
-    @return: the value of the double word. If double word has no value
-        then returns 0xFFFFFFFF.
+    @return: the value of the double word. If failed returns -1
     """
     return idaapi.get_long(ea)
+
+
+def Qword(ea):
+    """
+    Get value of program quadro word (8 bytes)
+    
+    @param ea: linear address
+    
+    @return: the value of the quadro word. If failed, returns -1
+
+    @note: this function is available only in the 64-bit version of IDA Pro
+    """
+    raise NotImplementedError, "will be implemented in the 64-bit version"
 
 
 def GetFloat(ea):
@@ -1571,6 +1692,9 @@ def LocByNameEx(fromaddr, name):
     @param name: name of program byte
     
     @return: address of the name (BADADDR - no such name)
+
+    @note: Dummy names (like byte_xxxx where xxxx are hex digits) are parsed by this
+           function to obtain the address. The database is not consulted for them.
     """
     return idaapi.get_name_ea(fromaddr, name)
 
@@ -1877,72 +2001,7 @@ def GetOpType(ea, n):
         0 - the first operand
         1 - the second operand
 
-    @return:
-        - -1      bad operand number passed
-        - 0       None
-        - 1       General Register
-        - 2       Memory Reference
-        - 3       Base + Index
-        - 4       Base + Index + Displacement
-        - 5       Immediate
-        - 6       Immediate Far Address (with a Segment Selector)
-        - 7       Immediate Near Address
-        
-        B{PC:}
-        
-        - 8       386 Trace register
-        - 9       386 Debug register
-        - 10      386 Control register
-        - 11      FPP register
-        - 12      MMX register
-        
-        B{8051:}
-
-        - 8       bit
-        - 9       /bit
-        - 10      bit
-        
-        B{80196:}
-
-        - 8       [intmem]
-        - 9       [intmem]+
-        - 10      offset[intmem]
-        - 11      bit
-        
-        B{ARM:}
-        
-        - 8       shifted register
-        - 9       MLA operands
-        - 10      register list (for LDM/STM)
-        - 11      coprocessor register list (for CDP)
-        - 12      coprocessor register (for LDC/STC)
-        
-        B{PPC:}
-        
-        - 8       SPR
-        - 9       2 FPRs
-        - 10      SH & MB & ME
-        - 11      CR field
-        - 12      CR bit
-        
-        B{TMS320C5:}
-        
-        - 8       bit
-        - 9       bit not
-        - 10      condition
-        
-        B{TMS320C6:}
-        
-        - 8       register pair (A1:A0..B15:B14)
-        
-        B{Z8:}
-        
-        - 8       @intmem
-        - 9       @Rx
-        
-        B{Z80:}
-        
-        - 8       condition
+    @return: any of o_* constants or -1 on error
     """
     inslen = idaapi.ua_code(ea)
 
@@ -1961,6 +2020,44 @@ def GetOpType(ea, n):
 
     return op.type
 
+o_void  =      0  # No Operand                           ----------
+o_reg  =       1  # General Register (al,ax,es,ds...)    reg
+o_mem  =       2  # Direct Memory Reference  (DATA)      addr
+o_phrase  =    3  # Memory Ref [Base Reg + Index Reg]    phrase
+o_displ  =     4  # Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
+o_imm  =       5  # Immediate Value                      value
+o_far  =       6  # Immediate Far Address  (CODE)        addr
+o_near  =      7  # Immediate Near Address (CODE)        addr
+o_idpspec0  =  8  # IDP specific type
+o_idpspec1  =  9  # IDP specific type
+o_idpspec2  = 10  # IDP specific type
+o_idpspec3  = 11  # IDP specific type
+o_idpspec4  = 12  # IDP specific type
+o_idpspec5  = 13  # IDP specific type
+
+# x86
+o_trreg  =       o_idpspec0      # trace register
+o_dbreg  =       o_idpspec1      # debug register
+o_crreg  =       o_idpspec2      # control register
+o_fpreg  =       o_idpspec3      # floating point register
+o_mmxreg  =      o_idpspec4      # mmx register
+o_xmmreg  =      o_idpspec5      # xmm register
+
+# arm
+o_reglist  =     o_idpspec1      # Register list (for LDM/STM)
+o_creglist  =    o_idpspec2      # Coprocessor register list (for CDP)
+o_creg  =        o_idpspec3      # Coprocessor register (for LDC/STC)
+o_fpreg  =       o_idpspec4      # Floating point register
+o_fpreglist  =   o_idpspec5      # Floating point register list
+o_text  =        (o_idpspec5+1)  # Arbitrary text stored in the operand
+
+# ppc
+o_spr  =         o_idpspec0      # Special purpose register
+o_twofpr  =      o_idpspec1      # Two FPRs
+o_shmbme  =      o_idpspec2      # SH & MB & ME
+o_crf  =         o_idpspec3      # crfield      x.reg
+o_crb  =         o_idpspec4      # crbit        x.reg
+o_dcr  =         o_idpspec5      # Device control register
 
 def GetOperandValue(ea, n):
     """
@@ -2149,6 +2246,16 @@ def FindBinary(ea, flag, searchstr, radix=16):
 #----------------------------------------------------------------------------
 #       G L O B A L   S E T T I N G S   M A N I P U L A T I O N
 #----------------------------------------------------------------------------
+def ChangeConfig(directive):
+    """
+    Parse one or more ida.cfg config directives
+    @param directive: directives to process, for example: PACK_DATABASE=2
+
+    @note: If the directives are erroneous, a fatal error will be generated.
+           The changes will be effective only for the current session.
+    """
+    raise NotImplementedError, "not implemented yet"
+
 
 # The following functions allow you to set/get common parameters.
 # Please note that not all parameters can be set directly.
@@ -2385,7 +2492,8 @@ AF2_DATOFF      = 0x0200  # Automatically convert data to offsets
 AF2_ANORET      = 0x0400  # Perform 'no-return' analysis
 AF2_VERSP       = 0x0800  # Perform full stack pointer analysis
 AF2_DOCODE      = 0x1000  # Coagulate code segs at the final pass
-
+AF2_TRFUNC      = 0x2000  # Truncate functions upon code deletion
+AF2_PURDAT      = 0x4000  # Control flow to data segment is ignored
 INF_NAMELEN     = 160    # ushort;  max name length (without zero byte)
 INF_MARGIN      = 162    # ushort;  max length of data lines
 INF_LENXREF     = 164    # ushort;  max length of line with xrefs
@@ -2677,6 +2785,7 @@ IDA_STATUS_THINKING = 1 # THINKING  Analyzing but the user may press keys
 IDA_STATUS_WAITING  = 2 # WAITING   Waiting for the user input
 IDA_STATUS_WORK     = 3 # BUSY      IDA is busy
 
+
 def Refresh():
     """
     Refresh all disassembly views
@@ -2899,29 +3008,31 @@ def SegDelete(ea, flags):
     Delete a segment
 
     @param ea: any address in the segment
-    @param flags: combination of SEGDEL_* flags
+    @param flags: combination of SEGMOD_* flags
 
     @return: boolean success
     """
     return idaapi.del_segm(ea, flags)
 
-SEGDEL_PERM   = idaapi.SEGDEL_PERM   # permanently, i.e. disable addresses
-SEGDEL_KEEP   = idaapi.SEGDEL_KEEP   # keep information (code & data, etc)
-SEGDEL_SILENT = idaapi.SEGDEL_SILENT # be silent
+SEGMOD_KILL   = idaapi.SEGMOD_KILL   # disable addresses if segment gets
+                                     # shrinked or deleted
+SEGMOD_KEEP   = idaapi.SEGMOD_KEEP   # keep information (code & data, etc)
+SEGMOD_SILENT = idaapi.SEGMOD_SILENT # be silent
 
-def SegBounds(ea, startea, endea, disable):
+
+def SegBounds(ea, startea, endea, flags):
     """
     Change segment boundaries
 
     @param ea: any address in the segment
     @param startea: new start address of the segment
     @param endea: new end address of the segment
-    @param disable: discard bytes that go out of the segment
+    @param flags: combination of SEGMOD_... flags
 
     @return: boolean success
     """
-    return idaapi.set_segm_start(ea, startea, disable) & \
-           idaapi.set_segm_end(ea, endea, disable)
+    return idaapi.set_segm_start(ea, startea, flags) & \
+           idaapi.set_segm_end(ea, endea, flags)
 
 
 def SegRename(ea, name):
@@ -3156,6 +3267,7 @@ SEGATTR_GS      = 50      # default GS value
 SEGATTR_TYPE    = 94      # segment type
 SEGATTR_COLOR   = 95      # segment color
 
+
 _SEGATTRMAP = {
     SEGATTR_START   : 'startEA',
     SEGATTR_END     : 'endEA',
@@ -3176,6 +3288,15 @@ _SEGATTRMAP = {
     SEGATTR_COLOR   : 'color',
 }
 
+"""
+// Valid segment flags
+#define SFL_COMORG   0x01       // IDP dependent field (IBM PC: if set, ORG directive is not commented out)
+#define SFL_OBOK     0x02       // orgbase is present? (IDP dependent field)
+#define SFL_HIDDEN   0x04 	// is the segment hidden?
+#define SFL_DEBUG    0x08       // is the segment created for the debugger?
+#define SFL_LOADER   0x10       // is the segment created by the loader?
+#define SFL_HIDETYPE 0x20       // hide segment type (do not print it in the listing)
+"""
 
 #----------------------------------------------------------------------------
 #                    C R O S S   R E F E R E N C E S
@@ -3919,6 +4040,17 @@ def GetEntryPoint(ordinal):
             number, then the entry point has no ordinal.
     """
     return idaapi.get_entry(ordinal)
+
+
+def GetEntryName(ordinal):
+    """
+    Retrieve entry point name
+    
+    @param ordinal: entry point number, ass returned by GetEntryPointOrdinal()
+    
+    @return: entry point name or None
+    """
+    return idaapi.get_entry_name(ordinal)
 
 
 def RenameEntryPoint(ordinal, name):
@@ -4717,7 +4849,7 @@ def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
     return ti
 
 
-def AddStrucMember(sid, name, offset, flag, typeid, nbytes):
+def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=None, tdelta=None, reftype=None):
     """
     Add structure member
 
@@ -4727,15 +4859,25 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes):
                    -1 means to add at the end of the structure
     @param flag: type of the new member. Should be one of 
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-    @param typeid: structure id if 'flag' == FF_STRU
-                   Denotes type of the member if the member itself is a structure.
+    @param typeid: if isStruc(flag) then typeid specifies
+                   the structure id for the member
                    if isOff0(flag) then typeid specifies the offset base.
                    if isASCII(flag) then typeid specifies the string type (ASCSTR_...).
                    if isStroff(flag) then typeid specifies the structure id
                    Otherwise should be -1.
     @param nbytes: number of bytes in the new member
 
+    @param target: target address of the offset expr. You may specify it as
+                   -1, ida will calculate it itself
+    @param tdelta: offset target delta. usually 0
+    @param reftype: see REF_... definitions
+
+    @note: The remaining arguments are allowed only if isOff0(flag) and you want
+           to specify a complex offset expression
+
     @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
+
+    FIXME: This needs fixing
     """
     struc = idaapi.get_struc(sid)
     assert struct, "get_struc() failed"
@@ -4789,7 +4931,7 @@ def SetMemberName(sid, member_offset, name):
     return idaapi.set_member_name(s, member_offset, name)
 
 
-def SetMemberType(sid, member_offset, flag, typeid, nitems):
+def SetMemberType(sid, member_offset, flag, typeid, nitems, target=None, tdelta=None, reftype=None):
     """
     Change structure member type
 
@@ -4805,7 +4947,17 @@ def SetMemberType(sid, member_offset, flag, typeid, nitems):
                    (ASCSTR_...).
     @param nitems: number of items in the member
 
+    @param target: target address of the offset expr. You may specify it as
+                   -1, ida will calculate it itself
+    @param tdelta: offset target delta. usually 0
+    @param reftype: see REF_... definitions
+
+    @note: The remaining arguments are allowed only if isOff0(flag) and you want
+           to specify a complex offset expression
+
     @return: !=0 - ok.
+
+    FIXME: Fix this too
     """
     struc = idaapi.get_struc(sid)
     assert struct, "get_struc() failed"
@@ -4841,7 +4993,7 @@ def GetFchunkAttr(ea, attr):
     Get a function chunk attribute
 
     @param ea: any address in the chunk
-                         @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR
+    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR
 
     @return: desired attribute or -1
     """
@@ -5090,6 +5242,20 @@ def GetEnumSize(enum_id):
               Returns 0 if enum_id is bad.
     """
     return idaapi.get_enum_size(enum_id)
+
+
+def GetEnumWidth(enum_id):
+    """
+    Get width of enum elements
+
+    @param enum_id: ID of enum
+
+    @return: log2(size of enum elements in bytes)+1
+             possible returned values are 1..7
+             1-1byte,2-2bytes,3-4bytes,4-8bytes,etc
+             Returns 0 if enum_id is bad or the width is unknown.
+    """
+    return idaapi.get_enum_width(enum_id)
 
 
 def GetEnumFlag(enum_id):
@@ -5475,6 +5641,20 @@ def SetEnumBf(enum_id, flag):
     return idaapi.set_enum_bf(enum_id, flag)
 
 
+def SetEnumWidth(enum_id, width):
+    """
+    Set width of enum elements
+
+    @param enum_id: id of enum
+    @param width: element width in bytes 
+                  allowed values: 0-unknown
+                  or 1..7: (log2 of the element size)+1
+
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_enum_width(enum_id, width)
+
+
 def IsBitfield(enum_id):
     """
     Is enum a bitfield?
@@ -5796,6 +5976,47 @@ PT_PAK4 =   0x0030  # #pragma pack(4)
 PT_PAK8 =   0x0040  # #pragma pack(8)
 PT_PAK16 =  0x0050  # #pragma pack(16)
 
+"""
+// ***********************************************
+// ** Get number of local types + 1
+//    returns: value >= 1. 1 means that there are no local types.
+
+long GetMaxLocalType(void);
+
+
+// ***********************************************
+// ** Parse one type declaration and store it in the specified slot
+//         ordinal -  slot number (1...NumberOfLocalTypes)
+//                    -1 means allocate new slot or reuse the slot
+//                    of the existing named type
+//         input -  C declaration. Empty input empties the slot
+//         flags -  combination of PT_... constants or 0
+//    returns: slot number or 0 if error
+
+success SetLocalType(long ordinal, string input, long flags);
+
+
+// ***********************************************
+// ** Retrieve a local type declaration
+//         ordinal -  slot number (1...NumberOfLocalTypes)
+//    returns: local type as a C declaration or ""
+
+string GetLocalType(long ordinal, long flags);
+#endif
+#define PRTYPE_1LINE  0x0000 // print to one line
+#define PRTYPE_MULTI  0x0001 // print to many lines
+#define PRTYPE_TYPE   0x0002 // print type declaration (not variable declaration)
+#define PRTYPE_PRAGMA 0x0004 // print pragmas for alignment
+#ifdef _notdefinedsymbol
+
+
+// ***********************************************
+// ** Retrieve a local type name
+//         ordinal -  slot number (1...NumberOfLocalTypes)
+//    returns: local type name or ""
+
+string GetLocalTypeName(long ordinal);
+"""
 # ----------------------------------------------------------------------------
 #                           H I D D E N  A R E A S
 # ----------------------------------------------------------------------------
@@ -5848,6 +6069,475 @@ def DelHiddenArea(ea):
 #--------------------------------------------------------------------------
 #                   D E B U G G E R  I N T E R F A C E
 #--------------------------------------------------------------------------
+def LoadDebugger(dbgname, use_remote):
+    """
+    Load the debugger
+
+    @param dbgname: debugger module name Examples: win32, linux, mac.
+    @param use_remote: 0/1: use remote debugger or not
+
+    @note: This function is needed only when running idc scripts from the command line.
+           In other cases IDA loads the debugger module automatically.
+    """
+    return idaapi.load_debugger(dbgname, use_remote)
+
+
+def StartDebugger(path, args, sdir):
+    """
+    Launch the debugger
+
+    @param path: path to the executable file.
+    @param args: command line arguments
+    @param sdir: initial directory for the process
+
+    @return: -1-failed, 0-cancelled by the user, 1-ok
+
+    @note: For all args: if empty, the default value from the database will be used
+           See the important note to the StepInto() function
+    """
+    return idaapi.start_process(path, args, sdir)
+
+
+def StopDebugger():
+    """
+    Stop the debugger
+    Kills the currently debugger process and returns to the disassembly mode
+
+    @return: success
+    """
+    return idaapi.exit_process()
+
+
+def PauseProcess():
+    """
+    Suspend the running process
+    Tries to suspend the process. If successful, the PROCESS_SUSPEND
+    debug event will arrive (see GetDebuggerEvent)
+
+    @return: success
+
+    @note: To resume a suspended process use the GetDebuggerEvent function.
+           See the important note to the StepInto() function
+    """
+    return idaapi.suspend_process()
+
+
+def GetProcessQty():
+    """
+    Take a snapshot of running processes and return their number.
+    """
+    return idaapi.get_process_qty()
+
+
+def GetProcessPid(idx):
+    """
+    Get the process ID of a running process
+
+    @param idx: number of process, is in range 0..GetProcessQty()-1
+
+    @return: 0 if failure
+    """
+    pinfo = idaapi.process_info_t()
+    pid = idaapi.get_process_info(idx, pinfo)
+    if pid != idaapi.NO_PROCESS:
+        return pinfo.pid
+    else:
+        return 0
+
+
+def GetProccessName(idx):
+    """
+    Get the name of a running process
+
+    @param idx: number of process, is in range 0..GetProcessQty()-1
+
+    @return: None if failure
+    """
+    pinfo = idaapi.process_info_t()
+    pid = idaapi.get_process_info(idx, pinfo)
+    if pid != idaapi.NO_PROCESS:
+        return pinfo.name
+    else:
+        return ""
+
+
+def AttachProcess(pid, event_id):
+    """
+    Attach the debugger to a running process
+
+    @param pid: PID of the process to attach to. If NO_PROCESS, a dialog box
+                will interactively ask the user for the process to attach to.
+    @param event_id: reserved, must be -1
+
+    @return: -2 - impossible to find a compatible process
+             -1 - impossible to attach to the given process (process died, privilege
+                  needed, not supported by the debugger plugin, ...)
+              0 - the user cancelled the attaching to the process
+              1 - the debugger properly attached to the process
+    @note: See the important note to the StepInto() function
+    """
+    return idaapi.attach_process(pid, event_id)
+
+
+def DetachProcess():
+    """
+    Detach the debugger from the debugged process.
+    
+    @return: success
+    """
+    return idaapi.detach_process()
+
+
+def GetThreadQty():
+    """
+    Get number of threads.
+
+    @return: number of threads
+    """
+    return idaapi.get_thread_qty()
+
+
+def GetThreadId(idx):
+    """
+    Get the ID of a thread
+
+    @param idx: number of thread, is in range 0..GetThreadQty()-1
+
+    @return: -1 if failure
+    """
+    return idaapi.getn_thread(idx)
+
+
+def GetCurrentThreadId():
+    """
+    Get current thread ID
+
+    @return: -1 if failure
+    """
+    return idaapi.get_current_thread()
+
+
+def SelectThread(tid):
+    """
+    Select the given thread as the current debugged thread.
+
+    @param tid: ID of the thread to select
+    
+    @return: success
+
+    @note: The process must be suspended to select a new thread.
+    """
+    return idaapi.select_thread(tid)
+
+
+def SuspendThread(tid):
+    """
+    Suspend thread
+
+    @param tid: thread id
+
+    @return: -1:network error, 0-failed, 1-ok
+
+    @note: Suspending a thread may deadlock the whole application if the suspended
+           was owning some synchronization objects.
+    """
+    return idaapi.suspend_thread(tid)
+
+
+def ResumeThread(tid):
+    """
+    Resume thread
+
+    @param tid: thread id
+
+    @return: -1:network error, 0-failed, 1-ok
+    """
+    return idaapi.resume_thread(tid)
+
+
+"""
+// Enumerate process modules
+// These function return the module base address
+
+long GetFirstModule(void);
+long GetNextModule(long base);
+
+
+// ***********************************************
+// Get process module name
+//      base - the base address of the module
+// returns: required info or 0
+
+string GetModuleName(long base);
+
+
+// ***********************************************
+// Get process module size
+//      base - the base address of the module
+// returns: required info or -1
+
+long GetModuleSize(long base);
+"""
+
+def StepInto():
+    """
+    Execute one instruction in the current thread.
+    Other threads are kept suspended.
+
+    @return: success
+
+    @note: You must call GetDebuggerEvent() after this call
+           in order to find out what happened. Normally you will
+           get the STEP event but other events are possible (for example,
+           an exception might occur or the process might exit).
+           This remark applies to all execution control functions.
+           The event codes depend on the issued command.
+    """
+    return idaapi.step_into()
+
+
+def StepOver():
+    """
+    Execute one instruction in the current thread,
+    but without entering into functions
+    Others threads keep suspended.
+    See the important note to the StepInto() function
+
+    @return: success
+    """
+    return idaapi.step_over()
+
+
+def RunTo(ea):
+    """
+    Execute the process until the given address is reached.
+    If no process is active, a new process is started.
+    See the important note to the StepInto() function
+
+    @return: success
+    """
+    return idaapi.run_to()
+
+
+def StepUntilRet():
+    """
+    Execute instructions in the current thread until
+    a function return instruction is reached.
+    Other threads are kept suspended.
+    See the important note to the StepInto() function
+
+    @return: success
+    """
+    return idaapi.step_until_ret()
+
+
+"""
+// ***********************************************
+// Wait for the next event
+// This function (optionally) resumes the process
+// execution and wait for a debugger event until timeout
+//      wfne - combination of WFNE_... constants
+//      timeout - number of seconds to wait, -1-infinity
+// returns: debugger event codes, see below
+
+long GetDebuggerEvent(long wfne, long timeout);
+
+#endif
+// convenience function
+#define ResumeProcess() GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
+// wfne flag is combination of the following:
+#define WFNE_ANY    0x0001 // return the first event (even if it doesn't suspend the process)
+                           // if the process is still running, the database
+                           // does not reflect the memory state. you might want
+                           // to call RefreshDebuggerMemory() in this case
+#define WFNE_SUSP   0x0002 // wait until the process gets suspended
+#define WFNE_SILENT 0x0004 // 1: be slient, 0:display modal boxes if necessary
+#define WFNE_CONT   0x0008 // continue from the suspended state
+#define WFNE_NOWAIT 0x0010 // do not wait for any event, immediately return DEC_TIMEOUT
+                           // (to be used with WFNE_CONT)
+
+// debugger event codes
+#define NOTASK         -2         // process does not exist
+#define DBG_ERROR      -1         // error (e.g. network problems)
+#define DBG_TIMEOUT     0         // timeout
+#define PROCESS_START  0x00000001 // New process started
+#define PROCESS_EXIT   0x00000002 // Process stopped
+#define THREAD_START   0x00000004 // New thread started
+#define THREAD_EXIT    0x00000008 // Thread stopped
+#define BREAKPOINT     0x00000010 // Breakpoint reached
+#define STEP           0x00000020 // One instruction executed
+#define EXCEPTION      0x00000040 // Exception
+#define LIBRARY_LOAD   0x00000080 // New library loaded
+#define LIBRARY_UNLOAD 0x00000100 // Library unloaded
+#define INFORMATION    0x00000200 // User-defined information
+#define SYSCALL        0x00000400 // Syscall (not used yet)
+#define WINMESSAGE     0x00000800 // Window message (not used yet)
+#define PROCESS_ATTACH 0x00001000 // Attached to running process
+#define PROCESS_DETACH 0x00002000 // Detached from process
+#ifdef _notdefinedsymbol
+
+
+// ***********************************************
+// Refresh debugger memory
+// Upon this call IDA will forget all cached information
+// about the debugged process. This includes the segmentation
+// information and memory contents (register cache is managed
+// automatically). Also, this function refreshes exported name
+// from loaded DLLs.
+// You must call this function before using the segmentation
+// information, memory contents, or names of a non-suspended process.
+// This is an expensive call.
+
+void RefreshDebuggerMemory(void);
+
+
+// ***********************************************
+// Take memory snapshot of the debugged process
+//      only_loader_segs: 0-copy all segments to idb
+//                        1-copy only SFL_LOADER segments
+
+success TakeMemorySnapshot(long only_loader_segs);
+
+
+// ***********************************************
+// Get debugged process state
+// returns: one of the DBG_... constants (see below)
+
+long GetProcessState(void);
+
+#endif
+#define DSTATE_SUSP_FOR_EVENT   -2 // process is currently suspended to react to a debug event
+#define DSTATE_SUSP             -1 // process is suspended
+#define DSTATE_NOTASK            0 // no process is currently debugged
+#define DSTATE_RUN               1 // process is running
+#define DSTATE_RUN_WAIT_ATTACH   2 // process is running, waiting for process properly attached
+#define DSTATE_RUN_WAIT_END      3 // process is running, but the user asked to kill/detach the process
+                                   //   remark: in this case, most events are ignored
+#ifdef _notdefinedsymbol
+
+
+// ***********************************************
+// Get various information about the current debug event
+// These function are valid only when the current event exists
+// (the process is in the suspended state)
+
+// For all events:
+long GetEventId(void);
+long GetEventPid(void);
+long GetEventTid(void);
+long GetEventEa(void);
+long IsEventHandled(void);
+
+// For PROCESS_START, PROCESS_ATTACH, LIBRARY_LOAD events:
+string GetEventModuleName(void);
+long GetEventModuleBase(void);
+long GetEventModuleSize(void);
+
+// For PROCESS_EXIT, THREAD_EXIT events
+long GetEventExitCode(void);
+
+// For LIBRARY_UNLOAD (unloaded library name)
+// For INFORMATION (message to display)
+string GetEventInfo(void);
+
+// For BREAKPOINT event
+long GetEventBptHardwareEa(void);
+
+// For EXCEPTION event
+long GetEventExceptionCode(void);
+long GetEventExceptionEa(void);
+long CanExceptionContinue(void);
+string GetEventExceptionInfo(void);
+
+
+// ***********************************************
+// Get/set debugger options
+//      opt - combination of DOPT_... constants
+// returns: old options
+
+long SetDebuggerOptions(long opt);
+#endif
+#define DOPT_SEGM_MSGS    0x00000001 // print messages on debugger segments modifications
+#define DOPT_START_BPT    0x00000002 // break on process start
+#define DOPT_THREAD_MSGS  0x00000004 // print messages on thread start/exit
+#define DOPT_THREAD_BPT   0x00000008 // break on thread start/exit
+#define DOPT_BPT_MSGS     0x00000010 // print message on breakpoint
+#define DOPT_LIB_MSGS     0x00000040 // print message on library load/unlad
+#define DOPT_LIB_BPT      0x00000080 // break on library load/unlad
+#define DOPT_INFO_MSGS    0x00000100 // print message on debugging information
+#define DOPT_INFO_BPT     0x00000200 // break on debugging information
+#define DOPT_REAL_MEMORY  0x00000400 // don't hide breakpoint instructions
+#define DOPT_REDO_STACK   0x00000800 // reconstruct the stack
+#define DOPT_ENTRY_BPT    0x00001000 // break on program entry point
+#define DOPT_EXCDLG       0x00006000 // exception dialogs:
+#  define EXCDLG_NEVER    0x00000000 // never display exception dialogs
+#  define EXCDLG_UNKNOWN  0x00002000 // display for unknown exceptions
+#  define EXCDLG_ALWAYS   0x00006000 // always display
+#ifdef _notdefinedsymbol
+
+
+// ***********************************************
+// Set remote debugging options
+//      hostname - remote host name or address
+//                 if empty, revert to local debugger
+//      password - password for the debugger server
+//      portnum  - port number to connect (-1: don't change)
+// returns: nothing
+
+void SetRemoteDebugger(string hostname, string password, long portnum);
+
+
+// ***********************************************
+// Get number of defined exception codes
+
+long GetExceptionQty(void);
+
+
+// ***********************************************
+// Get exception code
+//      idx - number of exception in the vector (0..GetExceptionQty()-1)
+// returns: exception code (0 - error)
+
+long GetExceptionCode(long idx);
+
+
+// ***********************************************
+// Get exception information
+//      code - exception code
+
+string GetExceptionName(long code); // returns "" on error
+long GetExceptionFlags(long code);  // returns -1 on error
+
+
+// ***********************************************
+// Add exception handling information
+//      code - exception code
+//      name - exception name
+//      desc - exception description
+//      flags - exception flags (combination of EXC_...)
+// returns: failure description or ""
+
+string DefineException(long code, string name, string desc, long flags);
+#endif
+#define EXC_BREAK  0x0001 // break on the exception
+#define EXC_HANDLE 0x0002 // should be handled by the debugger?
+#ifdef _notdefinedsymbol
+
+
+// ***********************************************
+// Set exception flags
+//      code - exception code
+//      flags - exception flags (combination of EXC_...)
+
+success SetExceptionFlags(long code, long flags);
+
+
+// ***********************************************
+// Delete exception handling information
+//      code - exception code
+
+success ForgetException(long code);
+"""
 
 def GetRegValue(name):
     """
@@ -6046,6 +6736,20 @@ def EnableBpt(ea, enable):
     """
     return idaapi.enable_bpt(ea, enable)
 
+"""
+// Enable step tracing
+//      trace_level - what kind of trace to modify
+//      enable      - 0: turn off, 1: turn on
+// Returns: success
+
+success EnableTracing(long trace_level, long enable);
+
+#endif
+#define TRACE_STEP 0x0  // lowest level trace. trace buffers are not maintained
+#define TRACE_INSN 0x1  // instruction level trace
+#define TRACE_FUNC 0x2  // function level trace (calls & rets)
+#ifdef _notdefinedsymbol
+"""
 
 #--------------------------------------------------------------------------
 #                             C O L O R S
@@ -6161,6 +6865,7 @@ def GetXML(path):
 
 #--------------------------------------------------------------------------
 # Compatibility macros:
+def Compile(file):           return CompileEx(file, 1)
 def OpOffset(ea,base):       return OpOff(ea,-1,base)
 def OpNum(ea):               return OpNumber(ea,-1)
 def OpChar(ea):              return OpChr(ea,-1)
@@ -6223,7 +6928,14 @@ def MakeName(ea, name):           MakeNameEx(ea,name,SN_CHECK)
 def Comment(ea):                return GetCommentEx(ea, 0)
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
 
-# A convenice macro:
+# Convenience functions:
 def here(): return ScreenEA()
+def isEnabled(ea): return (PrevAddr(ea+1)==ea)
+
+# Obsolete segdel macros:
+SEGDEL_PERM   = 0x0001 # permanently, i.e. disable addresses
+SEGDEL_KEEP   = 0x0002 # keep information (code & data, etc)
+SEGDEL_SILENT = 0x0004 # be silent
+
 
 # END OF IDC COMPATIBILY CODE
