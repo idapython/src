@@ -21,6 +21,7 @@
 #include <string.h>
 #include <ida.hpp>
 #include <idp.hpp>
+#include <ieee.h>
 #include <bytes.hpp>
 #include <diskio.hpp>
 #include <expr.hpp>
@@ -289,6 +290,7 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
   PyObject *result;
   PyObject *ptype, *pvalue, *ptraceback;
   PyObject *module = PyImport_AddModule("__main__");
+  double dresult;
 
   if (module == NULL)
     return false;
@@ -299,9 +301,23 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
 
   if (result == NULL)
     {
+      /* Return a formatted error or just print it to the console */
       if (PyErr_Occurred())
 	{
-	  PyErr_Print();
+	  PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+	  result = PyObject_Repr(pvalue);
+	  if (result)
+	    {
+	      qsnprintf(errbuf, errbufsize, "ERROR: %s", PyString_AsString(result));
+	      PyErr_Clear();
+	      Py_XDECREF(ptype);
+	      Py_XDECREF(pvalue);
+	      Py_XDECREF(ptraceback);
+	    }
+	  else
+	    {
+	      PyErr_Print();
+	    }
 	}
       return false;
     }
@@ -331,8 +347,9 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
 
   if (PyFloat_Check(result))
     {
-      rv->num = PyInt_AsLong(result);
-      rv->vtype = VT_LONG;
+      dresult = PyFloat_AsDouble(result);
+      ieee_realcvt((void *)&dresult, rv->e, 3);
+      rv->vtype = VT_FLOAT;
       Py_XDECREF(result);
       return true;
     }
