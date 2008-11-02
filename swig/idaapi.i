@@ -78,7 +78,7 @@ typedef          long long longlong;
 %pointer_class(sel_t, sel_pointer);
 
 %include "ida.i"
-%include "idd.hpp"
+%include "idd.i"
 %include "idp.i"
 %include "netnode.i"
 %include "nalt.i"
