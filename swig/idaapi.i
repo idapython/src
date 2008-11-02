@@ -22,6 +22,7 @@
 #include "frame.hpp"
 #include "fixup.hpp"
 #include "funcs.hpp"
+#include "gdl.hpp"
 #include "idd.hpp"
 #include "ints.hpp"
 #include "kernwin.hpp"
@@ -103,6 +104,7 @@ idainfo *get_inf_structure(void)
 }
 }
 
+%include "gdl.i"
 %include "ints.i"
 %include "kernwin.i"
 %include "lines.i"
