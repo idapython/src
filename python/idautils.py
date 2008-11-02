@@ -12,6 +12,7 @@
 idautils.py - High level utility functions for IDA
 """
 import idaapi
+import idc
 
 def refs(ea, funcfirst, funcnext):
     """
@@ -341,12 +342,4 @@ def GetInputFileMD5():
 
     @return: MD5 string or None on error
     """
-    ua=idaapi.uchar_array(16)
-    if idaapi.retrieve_input_file_md5(ua.cast()):
-        md5str=""
-        for i in range(16):
-            md5str += "%02x" % ua[i]
-        return md5str
-    else:
-        return None
-
+    return idc.GetInputMD5()
