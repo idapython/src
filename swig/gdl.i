@@ -20,5 +20,6 @@
 %ignore node_set_t::sub;
 
 %ignore flow_chart_t;
+%ignore setup_graph_subsystem;
 
 %include "gdl.hpp"
