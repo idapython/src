@@ -339,9 +339,10 @@ def rotate_left(value, count, nbits, offset):
 
     return value
 
-def rotate_dword(x, count): rotate_left(x, count, 32, 0)
-def rotate_word(x, count): rotate_left(x, count, 16, 0)
-def rotate_byte(x, count): rotate_left(x, count, 8, 0)
+
+def rotate_dword(x, count): return rotate_left(x, count, 32, 0)
+def rotate_word(x, count):  return rotate_left(x, count, 16, 0)
+def rotate_byte(x, count):  return rotate_left(x, count, 8, 0)
 
 
 # AddHotkey return codes
@@ -5976,14 +5977,16 @@ PT_PAK4 =   0x0030  # #pragma pack(4)
 PT_PAK8 =   0x0040  # #pragma pack(8)
 PT_PAK16 =  0x0050  # #pragma pack(16)
 
+def GetMaxLocalType():
+    """
+    Get number of local types + 1
+   
+    @return: value >= 1. 1 means that there are no local types.
+    """
+    return idaapi.get_ordinal_qty(idaapi.cvar.idati)
+
+
 """
-// ***********************************************
-// ** Get number of local types + 1
-//    returns: value >= 1. 1 means that there are no local types.
-
-long GetMaxLocalType(void);
-
-
 // ***********************************************
 // ** Parse one type declaration and store it in the specified slot
 //         ordinal -  slot number (1...NumberOfLocalTypes)
@@ -6008,15 +6011,19 @@ string GetLocalType(long ordinal, long flags);
 #define PRTYPE_TYPE   0x0002 // print type declaration (not variable declaration)
 #define PRTYPE_PRAGMA 0x0004 // print pragmas for alignment
 #ifdef _notdefinedsymbol
-
-
-// ***********************************************
-// ** Retrieve a local type name
-//         ordinal -  slot number (1...NumberOfLocalTypes)
-//    returns: local type name or ""
-
-string GetLocalTypeName(long ordinal);
 """
+
+
+def GetLocalTypeName(ordinal):
+    """
+    Retrieve a local type name
+
+    @param ordinal:  slot number (1...NumberOfLocalTypes)
+
+    returns: local type name or None
+    """
+    return idaapi.get_numbered_type_name(idaapi.cvar.idati, ordinal)
+
 # ----------------------------------------------------------------------------
 #                           H I D D E N  A R E A S
 # ----------------------------------------------------------------------------
@@ -6255,29 +6262,76 @@ def ResumeThread(tid):
     return idaapi.resume_thread(tid)
 
 
-"""
-// Enumerate process modules
-// These function return the module base address
-
-long GetFirstModule(void);
-long GetNextModule(long base);
-
-
-// ***********************************************
-// Get process module name
-//      base - the base address of the module
-// returns: required info or 0
-
-string GetModuleName(long base);
+def _get_modules():
+    """
+    INTERNAL: Enumerate process modules
+    """
+    module = idaapi.module_info_t()
+    result = idaapi.get_first_module(module)
+    while result:
+        yield module
+        result = idaapi.get_next_module(module)
 
 
-// ***********************************************
-// Get process module size
-//      base - the base address of the module
-// returns: required info or -1
+def GetFirstModule():
+    """
+    Enumerate process modules
 
-long GetModuleSize(long base);
-"""
+    @return: first module's base address or None on failure
+    """
+    for module in _get_modules():
+        return module.base
+    else:
+        return None
+
+
+def GetNextModule(base):
+    """
+    Enumerate process modules
+
+    @param base: previous module's base address
+
+    @return: next module's base address or None on failure
+    """
+    foundit = False
+    for module in _get_modules():
+        if foundit:
+            return module.base
+        if module.base == base:
+            foundit = True
+    else:
+        return None
+
+
+def GetModuleName(base):
+    """
+    Get process module name
+    
+    @param base: the base address of the module
+
+    @return: required info or 0
+    """
+    for module in _get_modules():
+        if module.base == base:
+            return module.name
+    else:
+        return 0
+
+
+def GetModuleSize(base):
+    """
+    Get process module size
+    
+    @param base: the base address of the module
+
+    @return: required info or -1
+    """
+    for module in _get_modules():
+        if module.base == base:
+            return module.size
+    else:
+        return -1
+
 
 def StepInto():
     """
@@ -6331,52 +6385,55 @@ def StepUntilRet():
     return idaapi.step_until_ret()
 
 
+def GetDebuggerEvent(wfne, timeout):
+    """
+    Wait for the next event
+    This function (optionally) resumes the process
+    execution and wait for a debugger event until timeout
+
+    @param wfne: combination of WFNE_... constants
+    @param timeout: number of seconds to wait, -1-infinity
+
+    @return: debugger event codes, see below
+    """
+    return idaapi.wait_for_next_even(wfne, timeout)
+
+
+def ResumeProcess(): return GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
+
+
+# wfne flag is combination of the following:
+WFNE_ANY    = 0x0001 # return the first event (even if it doesn't suspend the process)
+                     # if the process is still running, the database
+                     # does not reflect the memory state. you might want
+                     # to call RefreshDebuggerMemory() in this case
+WFNE_SUSP   = 0x0002 # wait until the process gets suspended
+WFNE_SILENT = 0x0004 # 1: be slient, 0:display modal boxes if necessary
+WFNE_CONT   = 0x0008 # continue from the suspended state
+WFNE_NOWAIT = 0x0010 # do not wait for any event, immediately return DEC_TIMEOUT
+                     # (to be used with WFNE_CONT)
+
+# debugger event codes
+NOTASK         = -2         # process does not exist
+DBG_ERROR      = -1         # error (e.g. network problems)
+DBG_TIMEOUT    = 0          # timeout
+PROCESS_START  = 0x00000001 # New process started
+PROCESS_EXIT   = 0x00000002 # Process stopped
+THREAD_START   = 0x00000004 # New thread started
+THREAD_EXIT    = 0x00000008 # Thread stopped
+BREAKPOINT     = 0x00000010 # Breakpoint reached
+STEP           = 0x00000020 # One instruction executed
+EXCEPTION      = 0x00000040 # Exception
+LIBRARY_LOAD   = 0x00000080 # New library loaded
+LIBRARY_UNLOAD = 0x00000100 # Library unloaded
+INFORMATION    = 0x00000200 # User-defined information
+SYSCALL        = 0x00000400 # Syscall (not used yet)
+WINMESSAGE     = 0x00000800 # Window message (not used yet)
+PROCESS_ATTACH = 0x00001000 # Attached to running process
+PROCESS_DETACH = 0x00002000 # Detached from process
+
+
 """
-// ***********************************************
-// Wait for the next event
-// This function (optionally) resumes the process
-// execution and wait for a debugger event until timeout
-//      wfne - combination of WFNE_... constants
-//      timeout - number of seconds to wait, -1-infinity
-// returns: debugger event codes, see below
-
-long GetDebuggerEvent(long wfne, long timeout);
-
-#endif
-// convenience function
-#define ResumeProcess() GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
-// wfne flag is combination of the following:
-#define WFNE_ANY    0x0001 // return the first event (even if it doesn't suspend the process)
-                           // if the process is still running, the database
-                           // does not reflect the memory state. you might want
-                           // to call RefreshDebuggerMemory() in this case
-#define WFNE_SUSP   0x0002 // wait until the process gets suspended
-#define WFNE_SILENT 0x0004 // 1: be slient, 0:display modal boxes if necessary
-#define WFNE_CONT   0x0008 // continue from the suspended state
-#define WFNE_NOWAIT 0x0010 // do not wait for any event, immediately return DEC_TIMEOUT
-                           // (to be used with WFNE_CONT)
-
-// debugger event codes
-#define NOTASK         -2         // process does not exist
-#define DBG_ERROR      -1         // error (e.g. network problems)
-#define DBG_TIMEOUT     0         // timeout
-#define PROCESS_START  0x00000001 // New process started
-#define PROCESS_EXIT   0x00000002 // Process stopped
-#define THREAD_START   0x00000004 // New thread started
-#define THREAD_EXIT    0x00000008 // Thread stopped
-#define BREAKPOINT     0x00000010 // Breakpoint reached
-#define STEP           0x00000020 // One instruction executed
-#define EXCEPTION      0x00000040 // Exception
-#define LIBRARY_LOAD   0x00000080 // New library loaded
-#define LIBRARY_UNLOAD 0x00000100 // Library unloaded
-#define INFORMATION    0x00000200 // User-defined information
-#define SYSCALL        0x00000400 // Syscall (not used yet)
-#define WINMESSAGE     0x00000800 // Window message (not used yet)
-#define PROCESS_ATTACH 0x00001000 // Attached to running process
-#define PROCESS_DETACH 0x00002000 // Detached from process
-#ifdef _notdefinedsymbol
-
-
 // ***********************************************
 // Refresh debugger memory
 // Upon this call IDA will forget all cached information
@@ -6397,25 +6454,26 @@ void RefreshDebuggerMemory(void);
 //                        1-copy only SFL_LOADER segments
 
 success TakeMemorySnapshot(long only_loader_segs);
+"""
 
 
-// ***********************************************
-// Get debugged process state
-// returns: one of the DBG_... constants (see below)
+def GetProcessState():
+    """
+    Get debugged process state
 
-long GetProcessState(void);
+    @return: one of the DBG_... constants (see below)
+    """
+    return idaapi.get_process_state()
 
-#endif
-#define DSTATE_SUSP_FOR_EVENT   -2 // process is currently suspended to react to a debug event
-#define DSTATE_SUSP             -1 // process is suspended
-#define DSTATE_NOTASK            0 // no process is currently debugged
-#define DSTATE_RUN               1 // process is running
-#define DSTATE_RUN_WAIT_ATTACH   2 // process is running, waiting for process properly attached
-#define DSTATE_RUN_WAIT_END      3 // process is running, but the user asked to kill/detach the process
-                                   //   remark: in this case, most events are ignored
-#ifdef _notdefinedsymbol
+DSTATE_SUSP_FOR_EVENT  = -2 # process is currently suspended to react to a debug event
+DSTATE_SUSP            = -1 # process is suspended
+DSTATE_NOTASK          =  0 # no process is currently debugged
+DSTATE_RUN             =  1 # process is running
+DSTATE_RUN_WAIT_ATTACH =  2 # process is running, waiting for process properly attached
+DSTATE_RUN_WAIT_END    =  3 # process is running, but the user asked to kill/detach the process
+                            # remark: in this case, most events are ignored
 
-
+"""
 // ***********************************************
 // Get various information about the current debug event
 // These function are valid only when the current event exists
@@ -6448,45 +6506,52 @@ long GetEventExceptionCode(void);
 long GetEventExceptionEa(void);
 long CanExceptionContinue(void);
 string GetEventExceptionInfo(void);
+"""
+
+def SetDebuggerOptions(opt):
+    """
+    Get/set debugger options
+
+    @param opt: combination of DOPT_... constants
+
+    @return: old options
+    """
+    return idaapi.set_debugger_options(opt)
 
 
-// ***********************************************
-// Get/set debugger options
-//      opt - combination of DOPT_... constants
-// returns: old options
+DOPT_SEGM_MSGS    = 0x00000001 # print messages on debugger segments modifications
+DOPT_START_BPT    = 0x00000002 # break on process start
+DOPT_THREAD_MSGS  = 0x00000004 # print messages on thread start/exit
+DOPT_THREAD_BPT   = 0x00000008 # break on thread start/exit
+DOPT_BPT_MSGS     = 0x00000010 # print message on breakpoint
+DOPT_LIB_MSGS     = 0x00000040 # print message on library load/unlad
+DOPT_LIB_BPT      = 0x00000080 # break on library load/unlad
+DOPT_INFO_MSGS    = 0x00000100 # print message on debugging information
+DOPT_INFO_BPT     = 0x00000200 # break on debugging information
+DOPT_REAL_MEMORY  = 0x00000400 # don't hide breakpoint instructions
+DOPT_REDO_STACK   = 0x00000800 # reconstruct the stack
+DOPT_ENTRY_BPT    = 0x00001000 # break on program entry point
+DOPT_EXCDLG       = 0x00006000 # exception dialogs:
 
-long SetDebuggerOptions(long opt);
-#endif
-#define DOPT_SEGM_MSGS    0x00000001 // print messages on debugger segments modifications
-#define DOPT_START_BPT    0x00000002 // break on process start
-#define DOPT_THREAD_MSGS  0x00000004 // print messages on thread start/exit
-#define DOPT_THREAD_BPT   0x00000008 // break on thread start/exit
-#define DOPT_BPT_MSGS     0x00000010 // print message on breakpoint
-#define DOPT_LIB_MSGS     0x00000040 // print message on library load/unlad
-#define DOPT_LIB_BPT      0x00000080 // break on library load/unlad
-#define DOPT_INFO_MSGS    0x00000100 // print message on debugging information
-#define DOPT_INFO_BPT     0x00000200 // break on debugging information
-#define DOPT_REAL_MEMORY  0x00000400 // don't hide breakpoint instructions
-#define DOPT_REDO_STACK   0x00000800 // reconstruct the stack
-#define DOPT_ENTRY_BPT    0x00001000 // break on program entry point
-#define DOPT_EXCDLG       0x00006000 // exception dialogs:
-#  define EXCDLG_NEVER    0x00000000 // never display exception dialogs
-#  define EXCDLG_UNKNOWN  0x00002000 // display for unknown exceptions
-#  define EXCDLG_ALWAYS   0x00006000 // always display
-#ifdef _notdefinedsymbol
+EXCDLG_NEVER      = 0x00000000 # never display exception dialogs
+EXCDLG_UNKNOWN    = 0x00002000 # display for unknown exceptions
+EXCDLG_ALWAYS     = 0x00006000 # always display
 
 
-// ***********************************************
-// Set remote debugging options
-//      hostname - remote host name or address
-//                 if empty, revert to local debugger
-//      password - password for the debugger server
-//      portnum  - port number to connect (-1: don't change)
-// returns: nothing
+def SetRemoteDebugger(hostname, password, portnum):
+    """
+    Set remote debugging options
+    
+    @param hostname: remote host name or address if empty, revert to local debugger
+    @param password: password for the debugger server
+    @param portnum: port number to connect (-1: don't change)
 
-void SetRemoteDebugger(string hostname, string password, long portnum);
+    @return: nothing
+    """
+    return idaapi.set_remote_debugger(hostname, password, portnum)
 
 
+"""
 // ***********************************************
 // Get number of defined exception codes
 
@@ -6507,23 +6572,26 @@ long GetExceptionCode(long idx);
 
 string GetExceptionName(long code); // returns "" on error
 long GetExceptionFlags(long code);  // returns -1 on error
+"""
+
+def DefineException(code, name, desc, flags):
+    """
+    Add exception handling information
+
+    @param code: exception code
+    @param name: exception name
+    @param desc: exception description
+    @param flags: exception flags (combination of EXC_...)
+
+    @return: failure description or ""
+    """
+    return idaapi.define_exception(code, name, desc, flags)
+
+EXC_BREAK  = 0x0001 # break on the exception
+EXC_HANDLE = 0x0002 # should be handled by the debugger?
 
 
-// ***********************************************
-// Add exception handling information
-//      code - exception code
-//      name - exception name
-//      desc - exception description
-//      flags - exception flags (combination of EXC_...)
-// returns: failure description or ""
-
-string DefineException(long code, string name, string desc, long flags);
-#endif
-#define EXC_BREAK  0x0001 // break on the exception
-#define EXC_HANDLE 0x0002 // should be handled by the debugger?
-#ifdef _notdefinedsymbol
-
-
+"""
 // ***********************************************
 // Set exception flags
 //      code - exception code
@@ -6736,20 +6804,33 @@ def EnableBpt(ea, enable):
     """
     return idaapi.enable_bpt(ea, enable)
 
-"""
-// Enable step tracing
-//      trace_level - what kind of trace to modify
-//      enable      - 0: turn off, 1: turn on
-// Returns: success
 
-success EnableTracing(long trace_level, long enable);
+def EnableTracing(trace_level, enable):
+    """
+    Enable step tracing
 
-#endif
-#define TRACE_STEP 0x0  // lowest level trace. trace buffers are not maintained
-#define TRACE_INSN 0x1  // instruction level trace
-#define TRACE_FUNC 0x2  // function level trace (calls & rets)
-#ifdef _notdefinedsymbol
-"""
+    @param trace_level:  what kind of trace to modify
+    @param enable: 0: turn off, 1: turn on
+
+    @return: success
+    """
+    assert trace_level in [ TRACE_STEP, TRACE_INSN, TRACE_FUNC ], \
+        "trace_level must be one of TRACE_* constants"
+
+    if trace_level == TRACE_STEP:
+        return idaapi.enable_step_trace(enable)
+
+    if trace_level == TRACE_INSN:
+        return idaapi.enable_insn_trace(enable)
+
+    if trace_level == TRACE_FUNC:
+        return idaapi.enable_func_trace(enable)
+
+    return False
+
+TRACE_STEP = 0x0  # lowest level trace. trace buffers are not maintained
+TRACE_INSN = 0x1  # instruction level trace
+TRACE_FUNC = 0x2  # function level trace (calls & rets)
 
 #--------------------------------------------------------------------------
 #                             C O L O R S
@@ -6823,7 +6904,6 @@ def SetColor(ea, what, color):
             return True
         else:
             return False
-
 
 
 #--------------------------------------------------------------------------
@@ -6936,6 +7016,5 @@ def isEnabled(ea): return (PrevAddr(ea+1)==ea)
 SEGDEL_PERM   = 0x0001 # permanently, i.e. disable addresses
 SEGDEL_KEEP   = 0x0002 # keep information (code & data, etc)
 SEGDEL_SILENT = 0x0004 # be silent
-
 
 # END OF IDC COMPATIBILY CODE
