@@ -6893,7 +6893,7 @@ def SetColor(ea, what, color):
         func = idaapi.get_func(ea)
         if func:
             func.color = color
-            return True
+            return bool(idaapi.update_func(func))
         else:
             return False
 
@@ -6901,7 +6901,7 @@ def SetColor(ea, what, color):
         seg = idaapi.getseg(ea)
         if seg:
             seg.color = color
-            return True
+            return bool(seg.update())
         else:
             return False
 
