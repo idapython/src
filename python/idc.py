@@ -185,41 +185,41 @@ def isStkvar1(F):    return ((F & MS_1TYPE) == FF_1STK)
 #
 #      Bits for DATA bytes
 #
-DT_TYPE  = idaapi.DT_TYPE  # Mask for DATA typing
+DT_TYPE  = idaapi.DT_TYPE & 0xFFFFFFFF  # Mask for DATA typing
 
-FF_BYTE      = idaapi.FF_BYTE      # byte
-FF_WORD      = idaapi.FF_WORD      # word
-FF_DWRD      = idaapi.FF_DWRD      # dword
-FF_QWRD      = idaapi.FF_QWRD      # qword
-FF_TBYT      = idaapi.FF_TBYT      # tbyte
-FF_ASCI      = idaapi.FF_ASCI      # ASCII ?
-FF_STRU      = idaapi.FF_STRU      # Struct ?
-FF_OWRD      = idaapi.FF_OWRD      # octaword (16 bytes)
-FF_FLOAT     = idaapi.FF_FLOAT     # float
-FF_DOUBLE    = idaapi.FF_DOUBLE    # double
-FF_PACKREAL  = idaapi.FF_PACKREAL  # packed decimal real
-FF_ALIGN     = idaapi.FF_ALIGN     # alignment directive
+FF_BYTE      = idaapi.FF_BYTE & 0xFFFFFFFF      # byte
+FF_WORD      = idaapi.FF_WORD & 0xFFFFFFFF      # word
+FF_DWRD      = idaapi.FF_DWRD & 0xFFFFFFFF      # dword
+FF_QWRD      = idaapi.FF_QWRD & 0xFFFFFFFF      # qword
+FF_TBYT      = idaapi.FF_TBYT & 0xFFFFFFFF      # tbyte
+FF_ASCI      = idaapi.FF_ASCI & 0xFFFFFFFF      # ASCII ?
+FF_STRU      = idaapi.FF_STRU & 0xFFFFFFFF      # Struct ?
+FF_OWRD      = idaapi.FF_OWRD & 0xFFFFFFFF      # octaword (16 bytes)
+FF_FLOAT     = idaapi.FF_FLOAT & 0xFFFFFFFF     # float
+FF_DOUBLE    = idaapi.FF_DOUBLE & 0xFFFFFFFF    # double
+FF_PACKREAL  = idaapi.FF_PACKREAL & 0xFFFFFFFF  # packed decimal real
+FF_ALIGN     = idaapi.FF_ALIGN & 0xFFFFFFFF     # alignment directive
 
-def isByte(F):     return (isData(F) & (F & DT_TYPE) == FF_BYTE)
-def isWord(F):     return (isData(F) & (F & DT_TYPE) == FF_WORD)
-def isDwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_DWRD)
-def isQwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_QWRD)
-def isOwrd(F):     return (isData(F) & (F & DT_TYPE) == FF_OWRD)
-def isTbyt(F):     return (isData(F) & (F & DT_TYPE) == FF_TBYT)
-def isFloat(F):    return (isData(F) & (F & DT_TYPE) == FF_FLOAT)
-def isDouble(F):   return (isData(F) & (F & DT_TYPE) == FF_DOUBLE)
-def isPackReal(F): return (isData(F) & (F & DT_TYPE) == FF_PACKREAL)
-def isASCII(F):    return (isData(F) & (F & DT_TYPE) == FF_ASCI)
-def isStruct(F):   return (isData(F) & (F & DT_TYPE) == FF_STRU)
-def isAlign(F):    return (isData(F) & (F & DT_TYPE) == FF_ALIGN)
+def isByte(F):     return (isData(F) and (F & DT_TYPE) == FF_BYTE)
+def isWord(F):     return (isData(F) and (F & DT_TYPE) == FF_WORD)
+def isDwrd(F):     return (isData(F) and (F & DT_TYPE) == FF_DWRD)
+def isQwrd(F):     return (isData(F) and (F & DT_TYPE) == FF_QWRD)
+def isOwrd(F):     return (isData(F) and (F & DT_TYPE) == FF_OWRD)
+def isTbyt(F):     return (isData(F) and (F & DT_TYPE) == FF_TBYT)
+def isFloat(F):    return (isData(F) and (F & DT_TYPE) == FF_FLOAT)
+def isDouble(F):   return (isData(F) and (F & DT_TYPE) == FF_DOUBLE)
+def isPackReal(F): return (isData(F) and (F & DT_TYPE) == FF_PACKREAL)
+def isASCII(F):    return (isData(F) and (F & DT_TYPE) == FF_ASCI)
+def isStruct(F):   return (isData(F) and (F & DT_TYPE) == FF_STRU)
+def isAlign(F):    return (isData(F) and (F & DT_TYPE) == FF_ALIGN)
 
 #
 #      Bits for CODE bytes
 #
-MS_CODE  = idaapi.MS_CODE  
-FF_FUNC  = idaapi.FF_FUNC  # function start?
-FF_IMMD  = idaapi.FF_IMMD  # Has Immediate value ?
-FF_JUMP  = idaapi.FF_JUMP  # Has jump table
+MS_CODE  = idaapi.MS_CODE & 0xFFFFFFFF  
+FF_FUNC  = idaapi.FF_FUNC & 0xFFFFFFFF  # function start?
+FF_IMMD  = idaapi.FF_IMMD & 0xFFFFFFFF  # Has Immediate value ?
+FF_JUMP  = idaapi.FF_JUMP & 0xFFFFFFFF  # Has jump table
 
 #
 #      Loader flags
