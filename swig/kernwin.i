@@ -243,6 +243,12 @@ class Choose:
 
 		self.width = -1
 
+		# HACK: Add a circular reference for non-modal choosers. This prevents the GC
+		# from collecting the class object the callbacks need. Unfortunately this means
+		# that the class will never be collected, unless refhack is set to None explicitly.
+		if (flags & 2) == 0:
+			self.refhack = self
+	
 	def sizer(self):
 		"""
 		Callback: sizer - returns the length of the list
