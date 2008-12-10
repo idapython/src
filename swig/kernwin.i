@@ -204,23 +204,25 @@ ulong choose_choose(void *self,
 	}
 
 	return choose(
-		flags,                // various flags: see above for description
-		x0, y0,           // x0=-1 for autoposition
+		flags,
+		x0, y0,
 		x1, y1,
-		self,             // object to show
-		width,               // Max width of lines
-		&choose_sizer,    // Number of items
-		&choose_getl,     // Description of n-th item (1..n)
-						  // 0-th item if header line
+		self,
+		width,
+		&choose_sizer,
+		&choose_getl,
 		title ? title : deftitle,
 		1,
 		1,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		&choose_enter
-	);               // number of the default icon to display
+		NULL, /* del */
+		NULL, /* inst */
+		NULL, /* update */
+		NULL, /* edit */
+		&choose_enter,
+		NULL, /* destroy */
+		NULL, /* popup_names */
+		NULL  /* get_icon */ 
+	);
 }
 %}
 
@@ -251,8 +253,10 @@ class Choose:
 		"""
 		Callback: getl - get one item from the list
 		"""
-		if n <= len(self.list):
-			return self.list[n-1]
+		if n == 0:
+		   return self.title
+		if n <= self.sizer():
+			return str(self.list[n-1])
 		else:
 			return "<Empty>"
 
