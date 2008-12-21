@@ -4560,7 +4560,7 @@ def GetMemberOffset(sid, member_name):
     return m.get_soff()
 
 
-def GetMemberNames(sid, member_offset):
+def GetMemberName(sid, member_offset):
     """
     Get name of a member of a structure
 
