@@ -1,3 +1,26 @@
+// Ignore the va_list functions
+%ignore AskUsingForm_cv;
+%ignore close_form;
+%ignore vaskstr;
+%ignore vasktext;
+%ignore vwarning;
+%ignore vinfo;
+%ignore vnomem;
+%ignore vmsg;
+%ignore show_wait_box_v;
+%ignore askbuttons_cv;
+%ignore askfile_cv;
+%ignore askyn_cv;
+%ignore askyn_v;
+// Ignore these string functions. There are trivial replacements in Python.
+%ignore addblanks;
+%ignore trim;
+%ignore skipSpaces;
+%ignore stristr;
+
+// Ignore the cli_t class
+%ignore cli_t;
+
 %include "typemaps.i"
 
 // Make askaddr(), askseg(), and asklong() return a
@@ -48,26 +71,6 @@ def askseg(defval, format):
 
 # This is for read_selection()
 %apply unsigned long *OUTPUT { ea_t *ea1, ea_t *ea2 };
-
-// Ignore the va_list functions
-%ignore AskUsingForm_cv;
-%ignore close_form;
-%ignore vaskstr;
-%ignore vasktext;
-%ignore vwarning;
-%ignore vinfo;
-%ignore vnomem;
-%ignore vmsg;
-%ignore show_wait_box_v;
-%ignore askbuttons_cv;
-%ignore askfile_cv;
-%ignore askyn_cv;
-%ignore askyn_v;
-// Ignore these string functions. There are trivial replacements in Python.
-%ignore addblanks;
-%ignore trim;
-%ignore skipSpaces;
-%ignore stristr;
 
 %{
 bool idaapi py_menu_item_callback(void *userdata)
@@ -290,4 +293,3 @@ class Choose:
 		"""
 		return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
 %}
-
