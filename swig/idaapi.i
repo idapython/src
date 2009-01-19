@@ -45,6 +45,7 @@
 
 %constant ea_t BADADDR = 0xFFFFFFFF;
 %constant sel_t BADSEL = 0xFFFFFFFF;
+%constant nodeidx_t BADNODE = 0xFFFFFFFF;
 
 // Help SWIG to figure out the ulonglong type
 #ifdef SWIGWIN
@@ -65,6 +66,9 @@ typedef          long long longlong;
 
 %include "pro.h"
 
+// Do not move this. We need to override the define from pro.h
+#define CASSERT(type)
+
 // Convert all of these
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
 
@@ -72,6 +76,7 @@ typedef          long long longlong;
 %array_class(tid_t, tid_array);
 %array_class(ea_t, ea_array);
 %array_class(sel_t, sel_array);
+%array_class(uval_t, uval_array);
 %pointer_class(int, int_pointer);
 %pointer_class(ea_t, ea_pointer);
 %pointer_class(sval_t, sval_pointer);
@@ -84,7 +89,7 @@ typedef          long long longlong;
 %include "nalt.i"
 
 %include "allins.i"
-%include "area.hpp"
+%include "area.i"
 %include "auto.i"
 %include "bytes.i"
 %include "dbg.i"
