@@ -1,6 +1,25 @@
-%ignore gen_idb_event;
+// Ignore the following symbols
+%ignore WorkReg; 
+%ignore AbstractRegister;
+%ignore rginfo;
+%ignore bytes_t;
+%ignore IDPOPT_STR;
+%ignore IDPOPT_NUM;
+%ignore IDPOPT_BIT;
+%ignore IDPOPT_FLT;
+%ignore IDPOPT_OK;
+%ignore IDPOPT_BADKEY;
+%ignore IDPOPT_BADTYPE;
+%ignore IDPOPT_BADVALUE;
+%ignore set_options_t;
+%ignore read_user_config_file;
+%ignore instruc_t;
 
-// Ignore the function pointers
+%ignore s_preline;
+%ignore ca_operation_t;
+%ignore _chkarg_cmd;
+%ignore ENUM_SIZE;
+
 %ignore asm_t::checkarg_dispatch;
 %ignore asm_t::func_header;
 %ignore asm_t::func_footer;
@@ -31,6 +50,16 @@
 %ignore processor_t::gen_stkvar_def;
 %ignore processor_t::u_outspec;
 %ignore processor_t::is_align_insn;
+
+%ignore processor_t::idp_notify;
+%ignore processor_t::notify;
+%ignore processor_t::set_idp_options;
+
+%ignore free_processor_module;
+%ignore read_config_file;
+
+%ignore gen_idb_event;
+
 
 %include "idp.hpp"
 

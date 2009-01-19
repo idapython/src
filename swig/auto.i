@@ -1,3 +1,4 @@
+%ignore queue_weak_code;
 %ignore auto_process_all;
 %ignore autoPlanned;
 %ignore nextPlanned;

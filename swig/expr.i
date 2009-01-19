@@ -24,8 +24,10 @@
 %ignore idaapi init_idc;
 %ignore idaapi term_idc;
 %ignore del_idc_userfuncs;
+%ignore del_idc_userdefs;
 %ignore find_builtin_idc_func;
 %ignore idc_lx;
+%ignore idc_vars;
 
 %cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
 

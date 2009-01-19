@@ -49,6 +49,8 @@
 %ignore unlock_dbgmem_config;
 %ignore set_op_type_no_event;
 %ignore shuffle_tribytes;
+%ignore set_enum_id;
+%ignore validate_tofs;
 %ignore ida_vpagesize;
 %ignore ida_vpages;
 %ignore ida_npagesize;

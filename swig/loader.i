@@ -100,8 +100,6 @@
 %ignore DBCHK_NEW;
 %ignore check_database;
 %ignore open_database;
-%ignore flush_buffers;
-%ignore save_database;
 %ignore get_workbase_fname;
 %ignore close_database;
 %ignore compress_btree;

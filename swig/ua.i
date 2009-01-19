@@ -1,6 +1,4 @@
-// Include the patched header
-// All the unchecked declarations are between
-// #ifndef SWIG
+
 %include "ua.hpp"
 
 // Small function to get the global cmd pointer
