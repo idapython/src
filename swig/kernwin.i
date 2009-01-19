@@ -134,17 +134,17 @@ bool wrap_add_menu_item (
 
 %include "kernwin.hpp"
 
-ulong choose_choose(PyObject *self,
+uint32 choose_choose(PyObject *self,
     int flags,
     int x0,int y0,
     int x1,int y1,
     int width);
 
 %{
-ulong idaapi choose_sizer(void *self)
+uint32 idaapi choose_sizer(void *self)
 {
 	PyObject *pyres;
-	ulong res;
+	uint32 res;
 
 	pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
 	res = PyInt_AsLong(pyres);
@@ -152,7 +152,7 @@ ulong idaapi choose_sizer(void *self)
 	return res;
 }
 
-char * idaapi choose_getl(void *self, ulong n, char *buf)
+char * idaapi choose_getl(void *self, uint32 n, char *buf)
 {
 	PyObject *pyres;
 	char *res;
@@ -184,13 +184,13 @@ char * idaapi choose_getl(void *self, ulong n, char *buf)
 	return res;
 }
 
-void idaapi choose_enter(void *self, ulong n)
+void idaapi choose_enter(void *self, uint32 n)
 {
 	PyObject_CallMethod((PyObject *)self, "enter", "l", n);
 	return;
 }
 
-ulong choose_choose(void *self,
+uint32 choose_choose(void *self,
 	int flags,
 	int x0,int y0,
 	int x1,int y1,
