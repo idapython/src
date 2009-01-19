@@ -379,6 +379,38 @@ void enable_extlang_python(bool enable)
     }
 }
 
+/* Execute a line in the Python CLI */
+bool idaapi IDAPython_cli_execute_line(const char *line)
+{
+  PyRun_SimpleString(line);
+  return true;
+}
+
+cli_t cli_python =
+  {
+    sizeof(cli_t),
+    0,
+    "Python",
+    "Python - IDAPython plugin",
+    "Enter any Python expression",
+    IDAPython_cli_execute_line,
+    NULL,
+    NULL
+  };
+
+/* Control the Python CLI status */
+void enable_python_cli(bool enable)
+{
+  if (enable)
+    {
+      install_command_interpreter(&cli_python);
+    }
+  else
+    {
+      remove_command_interpreter(&cli_python);
+    }
+}
+
 /* Initialize the Python environment */
 bool IDAPython_Init(void)
 {
@@ -491,6 +523,9 @@ bool IDAPython_Init(void)
 	/* Register a RunPythonStatement() function for IDC */
 	set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
 
+  	/* Enable the CLI by default */
+	enable_python_cli(true);
+
 	initialized = 1;
 
 	return true;
@@ -504,6 +539,9 @@ void IDAPython_Term(void)
 	del_menu_item("File/Python file...");
 	del_menu_item("File/Python command...");
 	del_menu_item("View/Open subviews/Python Scripts");
+
+  	/* Remove the CLI */
+	enable_python_cli(false);
 
 	/* Remove the extlang */
 	register_extlang(NULL);

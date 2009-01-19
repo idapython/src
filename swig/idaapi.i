@@ -129,4 +129,5 @@ idainfo *get_inf_structure(void)
 
 %inline {
 	void enable_extlang_python(bool enable);
+	void enable_python_cli(bool enable);
 }
