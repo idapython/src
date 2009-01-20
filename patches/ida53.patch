@@ -84,17 +84,19 @@ diff -ur idasdk-versions/5.3/include/dbg.hpp swigsdk-versions/5.3/include/dbg.hp
  //      Utility functions
 diff -ur idasdk-versions/5.3/include/expr.hpp swigsdk-versions/5.3/include/expr.hpp
 --- idasdk-versions/5.3/include/expr.hpp	2008-07-03 16:28:00.000000000 +0300
-+++ swigsdk-versions/5.3/include/expr.hpp	2008-09-30 19:30:22.000000000 +0300
-@@ -67,12 +67,14 @@
++++ swigsdk-versions/5.3/include/expr.hpp	2008-11-02 20:04:48.000000000 +0200
+@@ -67,12 +67,16 @@
                                  // number of arguments. The actual number of
                                  // arguments will be passed in 'num'
  
 +#ifndef SWIG
    union
    {
++#endif //SWIG
      char *str;                  // VT_STR
      sval_t num;                 // VT_LONG
      ushort e[6];                // VT_FLOAT
++#ifndef SWIG
    };
 +#endif // SWIG
  
@@ -136,6 +138,35 @@ diff -ur idasdk-versions/5.3/include/funcs.hpp swigsdk-versions/5.3/include/func
  };
  
  inline bool is_func_entry(const func_t *pfn) { return pfn != NULL && (pfn->flags & FUNC_TAIL) == 0; }
+diff -ur idasdk-versions/5.3/include/gdl.hpp swigsdk-versions/5.3/include/gdl.hpp
+--- idasdk-versions/5.3/include/gdl.hpp	2008-05-04 21:36:00.000000000 +0300
++++ swigsdk-versions/5.3/include/gdl.hpp	2008-10-09 19:42:47.000000000 +0300
+@@ -39,10 +39,14 @@
+   fcb_error,     // block passes execution past the function end
+ };
+ 
++#ifndef SWIG
+ #define DECLARE_HELPER(decl)                                        \
+ decl node_iterator &ida_export node_iterator_goup(node_iterator *); \
+ decl void ida_export create_qflow_chart(qflow_chart_t &);           \
+ decl fc_block_type_t ida_export fc_calc_block_type(const qflow_chart_t &, size_t);
++#else
++#define DECLARE_HELPER(decl)
++#endif // SWIG
+ 
+ DECLARE_HELPER(idaman)
+ 
+@@ -380,8 +384,10 @@
+   area_t bounds;
+   func_t *pfn;
+   int flags;
++#ifndef SWIG
+ #define FC_PRINT 0x0001 // print names
+ #define FC_NOEXT 0x0002 // do not compute external blocks
++#endif // SWIG
+   blocks_t blocks;
+   bn_t bn;              // block numbers
+   int nproper;          // number of basic blocks belonging to the specified area
 diff -ur idasdk-versions/5.3/include/ida.hpp swigsdk-versions/5.3/include/ida.hpp
 --- idasdk-versions/5.3/include/ida.hpp	2008-05-04 21:36:00.000000000 +0300
 +++ swigsdk-versions/5.3/include/ida.hpp	2008-09-30 18:23:09.000000000 +0300
@@ -161,41 +192,6 @@ diff -ur idasdk-versions/5.3/include/ida.hpp swigsdk-versions/5.3/include/ida.hp
  
  // Maximum address allowed to use in the program being disassebled.
  // This is obsolete, don't use it!
-diff -ur idasdk-versions/5.3/include/idd.hpp swigsdk-versions/5.3/include/idd.hpp
---- idasdk-versions/5.3/include/idd.hpp	2008-07-07 14:04:00.000000000 +0300
-+++ swigsdk-versions/5.3/include/idd.hpp	2008-09-30 18:23:09.000000000 +0300
-@@ -51,6 +51,7 @@
-   char name[MAXSTR];
- };
- 
-+#ifndef SWIG
- //====================================================================
- //
- //                          Registers
-@@ -177,6 +178,7 @@
-     return eid == BREAKPOINT && bpt.kea != BADADDR ? bpt.kea : ea;
-   }
- };
-+#endif // SWIG
- 
- // Hardware breakpoint types
- typedef int bpttype_t;
-@@ -187,6 +189,7 @@
-   BPT_SOFT  =  4;             // Software breakpoint
- 
- 
-+#ifndef SWIG
- // Exception information
- struct exception_info_t
- {
-@@ -452,6 +455,7 @@
- #error "Size of debugger_t is incorrect"
- #endif
- #endif
-+#endif // SWIG
- 
- #ifndef NO_OBSOLETE_FUNCS
- typedef thid_t thread_id_t;
 diff -ur idasdk-versions/5.3/include/idp.hpp swigsdk-versions/5.3/include/idp.hpp
 --- idasdk-versions/5.3/include/idp.hpp	2008-07-01 00:15:00.000000000 +0300
 +++ swigsdk-versions/5.3/include/idp.hpp	2008-09-30 18:23:09.000000000 +0300
@@ -484,20 +480,22 @@ diff -ur idasdk-versions/5.3/include/lines.hpp swigsdk-versions/5.3/include/line
  idaman void ida_export init_lines_array(char *lnar[],int maxsize);// initialization function for it
 diff -ur idasdk-versions/5.3/include/moves.hpp swigsdk-versions/5.3/include/moves.hpp
 --- idasdk-versions/5.3/include/moves.hpp	2008-05-04 21:36:00.000000000 +0300
-+++ swigsdk-versions/5.3/include/moves.hpp	2008-09-30 18:23:09.000000000 +0300
-@@ -23,6 +23,8 @@
++++ swigsdk-versions/5.3/include/moves.hpp	2008-11-02 19:37:47.000000000 +0200
+@@ -23,6 +23,7 @@
      { return !(*this == r); }
  };
  
-+
 +#ifndef SWIG
  // Helper functions. Should not be called directly!
  class curloc;
  class location_t;
-@@ -46,13 +48,16 @@
+@@ -46,13 +47,19 @@
  
  DEFINE_CURLOC_HELPERS(idaman)
  DEFINE_LOCATION_HELPERS(idaman)
++#else
++#define DEFINE_CURLOC_HELPERS(decl)
++#define DEFINE_LOCATION_HELPERS(decl)
 +#endif // SWIG
  
  #define CURLOC_SISTACK_ITEMS 4
@@ -511,7 +509,7 @@ diff -ur idasdk-versions/5.3/include/moves.hpp swigsdk-versions/5.3/include/move
    void unhide_if_necessary(ea_t ea);
    void hide_if_necessary(void);
  protected:
-@@ -117,7 +122,9 @@
+@@ -117,7 +124,9 @@
  class location_t : public curloc
  {
    typedef curloc inherited;
@@ -641,7 +639,7 @@ diff -ur idasdk-versions/5.3/include/nalt.hpp swigsdk-versions/5.3/include/nalt.
  #undef AFL_LINNUM
 diff -ur idasdk-versions/5.3/include/pro.h swigsdk-versions/5.3/include/pro.h
 --- idasdk-versions/5.3/include/pro.h	2008-07-03 23:38:00.000000000 +0300
-+++ swigsdk-versions/5.3/include/pro.h	2008-09-30 21:20:49.000000000 +0300
++++ swigsdk-versions/5.3/include/pro.h	2008-10-04 15:14:41.000000000 +0300
 @@ -64,6 +64,7 @@
  #define __EA64__
  #endif
@@ -700,14 +698,14 @@ diff -ur idasdk-versions/5.3/include/pro.h swigsdk-versions/5.3/include/pro.h
  idaman void ida_export qatexit(void (idaapi *func)(void));
  
  /*==================================================*/
-@@ -1593,6 +1605,7 @@
- 
- // Convert a unicode character to 1 byte character. If failed, return 0.
- uchar wchar2char(wchar16_t wc);
+@@ -1598,6 +1610,7 @@
+ idaman bool ida_export c2ustr(const char *in, qwstring *out, int nsyms=-1);   // char -> unicode
+ // utf8 -> 16bit unicode
+ idaman int ida_export utf8_unicode(const char *in, wchar16_t *out, size_t outsize);
 +#endif // SWIG
  
- idaman bool ida_export u2cstr(const wchar16_t *in, qstring *out, int nsyms=-1); // unicode -> char
- idaman bool ida_export c2ustr(const char *in, qwstring *out, int nsyms=-1);   // char -> unicode
+ // Old Visual C++ compilers were not defining the following:
+ #ifdef __NT__
 diff -ur idasdk-versions/5.3/include/typeinf.hpp swigsdk-versions/5.3/include/typeinf.hpp
 --- idasdk-versions/5.3/include/typeinf.hpp	2008-05-07 15:23:00.000000000 +0300
 +++ swigsdk-versions/5.3/include/typeinf.hpp	2008-09-30 20:51:08.000000000 +0300
