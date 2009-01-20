@@ -43,9 +43,15 @@
 #include "xref.hpp"
 %}
 
+#ifdef __EA64__
+%constant ea_t BADADDR = 0xFFFFFFFFFFFFFFFF;
+%constant sel_t BADSEL = 0xFFFFFFFFFFFFFFFF;
+%constant nodeidx_t BADNODE = 0xFFFFFFFFFFFFFFFF;
+#else
 %constant ea_t BADADDR = 0xFFFFFFFF;
 %constant sel_t BADSEL = 0xFFFFFFFF;
 %constant nodeidx_t BADNODE = 0xFFFFFFFF;
+#endif
 
 // Help SWIG to figure out the ulonglong type
 #ifdef SWIGWIN
