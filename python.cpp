@@ -379,6 +379,7 @@ void enable_extlang_python(bool enable)
     }
 }
 
+#if IDA_SDK_VERSION >= 540
 /* Execute a line in the Python CLI */
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
@@ -410,6 +411,7 @@ void enable_python_cli(bool enable)
       remove_command_interpreter(&cli_python);
     }
 }
+#endif
 
 /* Initialize the Python environment */
 bool IDAPython_Init(void)
@@ -523,8 +525,10 @@ bool IDAPython_Init(void)
 	/* Register a RunPythonStatement() function for IDC */
 	set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
 
+#if IDA_SDK_VERSION >= 540
   	/* Enable the CLI by default */
 	enable_python_cli(true);
+#endif
 
 	initialized = 1;
 
@@ -540,8 +544,10 @@ void IDAPython_Term(void)
 	del_menu_item("File/Python command...");
 	del_menu_item("View/Open subviews/Python Scripts");
 
+#if IDA_SDK_VERSION >= 540
   	/* Remove the CLI */
 	enable_python_cli(false);
+#endif
 
 	/* Remove the extlang */
 	register_extlang(NULL);

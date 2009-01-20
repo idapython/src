@@ -129,5 +129,7 @@ idainfo *get_inf_structure(void)
 
 %inline {
 	void enable_extlang_python(bool enable);
+#if IDA_SDK_VERSION >= 540
 	void enable_python_cli(bool enable);
+#endif
 }
