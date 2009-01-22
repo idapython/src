@@ -249,14 +249,9 @@ NEF_FLAT   = idaapi.NEF_FLAT   # Autocreate FLAT group (PE)
 # ----------------------------------------------------------------------------
 #                       M I S C E L L A N E O U S
 # ----------------------------------------------------------------------------
-"""
-// Check the variable type
-// Returns true if the variable type is the expected one
-
-success IsString(var);
-success IsLong(var);
-success IsFloat(var);
-"""
+def IsString(var): raise NotImplementedError, "this function is not needed in Python"
+def IsLong(var):   raise NotImplementedError, "this function is not needed in Python"
+def IsFloat(var):  raise NotImplementedError, "this function is not needed in Python"
 
 def MK_FP(seg, off):
     """
@@ -790,8 +785,7 @@ def MakeStructEx(ea, size, strname):
     """
     strid = idaapi.get_struc_id(strname)
 
-    # FIXME: This should be changed to BADNODE
-    if strid == 0xFFFFFFFF:
+    if strid == idaapi.BADNODE:
         return False
 
     if size == -1:
@@ -906,6 +900,27 @@ DOUNK_EXPAND   = idaapi.DOUNK_EXPAND   # propogate undefined items, for example
                                        # plan to convert to unexplored the next
                                        # instruction too.
 DOUNK_DELNAMES = idaapi.DOUNK_DELNAMES # delete any names at the specified address(es)
+
+
+def SetArrayFormat(ea, flags, litems, align):
+    """
+    Set array representation format
+
+    @param ea: linear address
+    @param flags: combination of AP_... constants or 0
+    @param litems: number of items per line. 0 means auto
+    @param align: element alignment:
+                  -1: do not align
+                   0:  automatic alignment
+                   other values: element width
+
+    @return: 1-ok, 0-failure
+    """
+    raise NotImplementedError
+
+AP_ALLOWDUPS    = 0x00000001L     # use 'dup' construct
+AP_SIGNED       = 0x00000002L     # treats numbers as signed
+AP_INDEX        = 0x00000004L     # display array element indexes as comments
 
 
 def OpBinary(ea, n):
@@ -1309,14 +1324,29 @@ def GetManualInsn(ea):
     return idaapi.get_manual_insn(ea)
 
 
+def PatchDbgByte(ea,value):
+    """
+    Change a byte in the debugged process memory only
+
+    @param ea: address
+    @param value: new value of the byte
+
+    @return: 1 if successful, 0 if not
+    """
+    return idaapi.put_dbg_byte(ea, value)
+
+
 def PatchByte(ea, value):
     """
     Change value of a program byte
+    If debugger was active then the debugged process memory will be patched too
 
     @param ea: linear address
     @param value: new value of the byte
 
-    @return: None
+    @return: 1 if successful, 0 if not
+
+    FIXME: Check that patch_byte patches memory too
     """
     return idaapi.patch_byte(ea, value)
 
@@ -1327,6 +1357,8 @@ def PatchWord(ea, value):
 
     @param ea: linear address
     @param value: new value of the word
+
+    @return: 1 if successful, 0 if not
     """
     return idaapi.patch_word(ea, value)
 
@@ -1337,6 +1369,8 @@ def PatchDword(ea, value):
 
     @param ea: linear address
     @param value: new value of the double word
+
+    @return: 1 if successful, 0 if not
     """
     return idaapi.patch_long(ea, value)
 
@@ -1362,23 +1396,30 @@ _REGMAP = {
     'gs' : idaapi.R_gs
 }
 
-def SetReg(ea, reg, value):
+def SetRegEx(ea, reg, value, tag):
     """
     Set value of a segment register.
 
     @param ea: linear address
     @param reg: name of a register, like "cs", "ds", "es", etc.
     @param value: new value of the segment register.
+    @param tag: of SR_... constants
 
     @note: IDA keeps tracks of all the points where segment register change their
            values. This function allows you to specify the correct value of a segment
            register if IDA is not able to find the corrent value.
-
+           
+           See also SetReg() compatibility macro.
     """
     if _REGMAP.has_key(reg):
-        return idaapi.splitSRarea1(ea, _REGMAP[reg], value, 2)
+        return idaapi.splitSRarea1(ea, _REGMAP[reg], value, tag)
     else:
         return False
+
+SR_inherit      = 1 # value is inherited from the previous area
+SR_user         = 2 # value is specified by the user
+SR_auto         = 3 # value is determined by IDA
+SR_autostart    = 4 # as SR_auto for segment starting address
 
 
 def AutoMark2(start, end, queuetype):
@@ -1570,6 +1611,20 @@ def GetFlags(ea):
         for explanations.
     """
     return idaapi.getFlags(ea)
+
+
+def IdbByte(ea):
+    """
+    Get one byte (8-bit) of the program at 'ea' from the database even if the debugger is active
+    
+    @param ea - linear address
+
+    @return: byte value. If the byte has no value then 0xFF is returned.
+
+    @note: If the current byte size is different from 8 bits, then the returned value may have more 1's.
+           To check if a byte has a value, use this expr: hasValue(GetFlags(ea))
+    """
+    return idaapi.get_db_byte(ea)
 
 
 def Byte(ea):
@@ -2209,7 +2264,7 @@ def FindImmediate   (ea, flag, value): return idaapi.find_imm(ea, flag, value)
 
 SEARCH_UP       = idaapi.SEARCH_UP       # search backward
 SEARCH_DOWN     = idaapi.SEARCH_DOWN     # search forward
-SEARCH_NEXT     = idaapi.SEARCH_NEXT     # search next occurence
+SEARCH_NEXT     = idaapi.SEARCH_NEXT     # start the search at the next/prev item
 SEARCH_CASE     = idaapi.SEARCH_CASE     # search case-sensitive
                                          # (only for bin&txt search)
 SEARCH_REGEX    = idaapi.SEARCH_REGEX    # enable regular expressions (only for text)
@@ -2392,6 +2447,7 @@ INF_BORDER      = 82      # char;    Generate borders?
 INF_NULL        = 83      # char;    Generate empty lines?
 INF_GENFLAGS    = 84      # char;    General flags:
 INFFL_LZERO     = 0x01    #              generate leading zeroes in numbers
+INFFL_LOADIDC   = 0x04    #              Loading an idc file t
 INF_SHOWPREF    = 85      # char;    Show line prefixes?
 INF_PREFSEG     = 86      # char;    line prefixes with segment name?
 INF_ASMTYPE     = 87      # char;    target assembler number (0..n)
@@ -2503,7 +2559,7 @@ INF_LPREFIX     = 166    # char[16];prefix of local names
                          #          it will be automatically converted to a local name
 INF_LPREFIXLEN  = 182    # uchar;   length of the lprefix
 INF_COMPILER    = 183    # uchar;   compiler
-COMP_MASK       = 0x0F
+COMP_MASK       = 0x0F      # mask to apply to get the pure compiler id
 COMP_UNK        = 0x00      # Unknown
 COMP_MS         = 0x01      # Visual C++
 COMP_BC         = 0x02      # Borland C++
@@ -2520,6 +2576,7 @@ INF_SIZEOF_ALGN = 188    # uchar;   default alignment
 INF_SIZEOF_SHORT = 189
 INF_SIZEOF_LONG  = 190
 INF_SIZEOF_LLONG = 191
+INF_CHANGE_COUNTER = 192 # database change counter; keeps track of byte and segment modifications
 
 _INFMAP = {
 INF_VERSION     : 'version',      # short;   Version of database
@@ -2899,7 +2956,6 @@ def NextSeg(ea):
 
     TODO: Any better way of doing this?
     """
-
     for n in range(idaapi.get_segm_qty()):
         currseg = idaapi.getnseg(n)
 
@@ -3289,15 +3345,13 @@ _SEGATTRMAP = {
     SEGATTR_COLOR   : 'color',
 }
 
-"""
-// Valid segment flags
-#define SFL_COMORG   0x01       // IDP dependent field (IBM PC: if set, ORG directive is not commented out)
-#define SFL_OBOK     0x02       // orgbase is present? (IDP dependent field)
-#define SFL_HIDDEN   0x04 	// is the segment hidden?
-#define SFL_DEBUG    0x08       // is the segment created for the debugger?
-#define SFL_LOADER   0x10       // is the segment created by the loader?
-#define SFL_HIDETYPE 0x20       // hide segment type (do not print it in the listing)
-"""
+# Valid segment flags
+SFL_COMORG   = 0x01       # IDP dependent field (IBM PC: if set, ORG directive is not commented out)
+SFL_OBOK     = 0x02       # orgbase is present? (IDP dependent field)
+SFL_HIDDEN   = 0x04       # is the segment hidden?
+SFL_DEBUG    = 0x08       # is the segment created for the debugger?
+SFL_LOADER   = 0x10       # is the segment created by the loader?
+SFL_HIDETYPE = 0x20       # hide segment type (do not print it in the listing)
 
 #----------------------------------------------------------------------------
 #                    C R O S S   R E F E R E N C E S
@@ -3663,6 +3717,8 @@ FUNCATTR_FRREGS  = 18     # size of saved registers area
 FUNCATTR_ARGSIZE = 20     # number of bytes purged from the stack
 FUNCATTR_FPD     = 24     # frame pointer delta
 FUNCATTR_COLOR   = 28     # function color code
+FUNCATTR_OWNER   = 10     # chunk owner (valid only for tail chunks)
+FUNCATTR_REFQTY  = 14     # number of chunk parents (valid only for ta
 
 _FUNCATTRMAP = {
     FUNCATTR_START   : 'startEA',
@@ -3673,7 +3729,9 @@ _FUNCATTRMAP = {
     FUNCATTR_FRREGS  : 'frregs',
     FUNCATTR_ARGSIZE : 'argsize',
     FUNCATTR_FPD     : 'fpd',
-    FUNCATTR_COLOR   : 'color'
+    FUNCATTR_COLOR   : 'color',
+    FUNCATTR_OWNER   : 'owner',
+    FUNCATTR_REFQTY  : 'refwty'
 }
 
 
@@ -4994,7 +5052,7 @@ def GetFchunkAttr(ea, attr):
     Get a function chunk attribute
 
     @param ea: any address in the chunk
-    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR
+    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR, FUNCATTR_OWNER, FUNCATTR_REFQTY
 
     @return: desired attribute or -1
     """
@@ -5013,11 +5071,25 @@ def SetFchunkAttr(ea, attr, value):
     @param value: desired bg color (RGB)
 
     @return: 0 if failed, 1 if success
+
+    FIXME: Check if this works
     """
     if attr in [ FUNCATTR_COLOR ]:
         return SetFunctionAttr(ea, attr, value)
     else:
         return 0
+
+
+def GetFchunkReferer(ea, idx):
+    """
+    Get a function chunk referer
+
+    @param ea: any address in the chunk
+    @param idx: referer index (0..GetFchunkAttr(FUNCATTR_REFQTY))
+
+    @return: referer address or BADADDR
+    """
+    raise NotImplmentedError
 
 
 def NextFchunk(ea):
@@ -5986,32 +6058,36 @@ def GetMaxLocalType():
     return idaapi.get_ordinal_qty(idaapi.cvar.idati)
 
 
-"""
-// ***********************************************
-// ** Parse one type declaration and store it in the specified slot
-//         ordinal -  slot number (1...NumberOfLocalTypes)
-//                    -1 means allocate new slot or reuse the slot
-//                    of the existing named type
-//         input -  C declaration. Empty input empties the slot
-//         flags -  combination of PT_... constants or 0
-//    returns: slot number or 0 if error
+def SetLocalType(ordinal, input, flags):
+    """
+    Parse one type declaration and store it in the specified slot
 
-success SetLocalType(long ordinal, string input, long flags);
+    @param ordinal:  slot number (1...NumberOfLocalTypes)
+                     -1 means allocate new slot or reuse the slot
+                     of the existing named type
+    @param input:  C declaration. Empty input empties the slot
+    @param flags:  combination of PT_... constants or 0
+
+    @return: slot number or 0 if error
+    """
+    raise NotImplementedError
 
 
-// ***********************************************
-// ** Retrieve a local type declaration
-//         ordinal -  slot number (1...NumberOfLocalTypes)
-//    returns: local type as a C declaration or ""
+def GetLocalType(ordinal, flags):
+    """
+    Retrieve a local type declaration
+    
+    @param ordinal:  slot number (1...NumberOfLocalTypes)
+    @param flags: any of PRTYPE_* constants
+    
+    @return: local type as a C declaration or ""
+    """
+    raise NotImplementedError
 
-string GetLocalType(long ordinal, long flags);
-#endif
-#define PRTYPE_1LINE  0x0000 // print to one line
-#define PRTYPE_MULTI  0x0001 // print to many lines
-#define PRTYPE_TYPE   0x0002 // print type declaration (not variable declaration)
-#define PRTYPE_PRAGMA 0x0004 // print pragmas for alignment
-#ifdef _notdefinedsymbol
-"""
+PRTYPE_1LINE  = 0x0000 # print to one line
+PRTYPE_MULTI  = 0x0001 # print to many lines
+PRTYPE_TYPE   = 0x0002 # print type declaration (not variable declaration)
+PRTYPE_PRAGMA = 0x0004 # print pragmas for alignment
 
 
 def GetLocalTypeName(ordinal):
@@ -6023,6 +6099,7 @@ def GetLocalTypeName(ordinal):
     returns: local type name or None
     """
     return idaapi.get_numbered_type_name(idaapi.cvar.idati, ordinal)
+
 
 # ----------------------------------------------------------------------------
 #                           H I D D E N  A R E A S
@@ -6431,30 +6508,32 @@ SYSCALL        = 0x00000400 # Syscall (not used yet)
 WINMESSAGE     = 0x00000800 # Window message (not used yet)
 PROCESS_ATTACH = 0x00001000 # Attached to running process
 PROCESS_DETACH = 0x00002000 # Detached from process
+PROCESS_SUSPEND = 0x00004000 # Process has been suspended
 
 
-"""
-// ***********************************************
-// Refresh debugger memory
-// Upon this call IDA will forget all cached information
-// about the debugged process. This includes the segmentation
-// information and memory contents (register cache is managed
-// automatically). Also, this function refreshes exported name
-// from loaded DLLs.
-// You must call this function before using the segmentation
-// information, memory contents, or names of a non-suspended process.
-// This is an expensive call.
+def RefreshDebuggerMemory():
+    """
+    Refresh debugger memory
+    Upon this call IDA will forget all cached information
+    about the debugged process. This includes the segmentation
+    information and memory contents (register cache is managed
+    automatically). Also, this function refreshes exported name
+    from loaded DLLs.
+    You must call this function before using the segmentation
+    information, memory contents, or names of a non-suspended process.
+    This is an expensive call.
+    """
+    raise NotImplementedError
 
-void RefreshDebuggerMemory(void);
 
+def TakeMemorySnapshot(only_loader_segs):
+    """
+    Take memory snapshot of the debugged process
 
-// ***********************************************
-// Take memory snapshot of the debugged process
-//      only_loader_segs: 0-copy all segments to idb
-//                        1-copy only SFL_LOADER segments
-
-success TakeMemorySnapshot(long only_loader_segs);
-"""
+    @param only_loader_segs: 0-copy all segments to idb
+                             1-copy only SFL_LOADER segments
+    """
+    raise NotImplementedError
 
 
 def GetProcessState():
@@ -6537,6 +6616,8 @@ EXCDLG_NEVER      = 0x00000000 # never display exception dialogs
 EXCDLG_UNKNOWN    = 0x00002000 # display for unknown exceptions
 EXCDLG_ALWAYS     = 0x00006000 # always display
 
+DOPT_LOAD_DINFO   = 0x00008000 # automatically load debug files (pdb)
+
 
 def SetRemoteDebugger(hostname, password, portnum):
     """
@@ -6551,28 +6632,45 @@ def SetRemoteDebugger(hostname, password, portnum):
     return idaapi.set_remote_debugger(hostname, password, portnum)
 
 
-"""
-// ***********************************************
-// Get number of defined exception codes
-
-long GetExceptionQty(void);
-
-
-// ***********************************************
-// Get exception code
-//      idx - number of exception in the vector (0..GetExceptionQty()-1)
-// returns: exception code (0 - error)
-
-long GetExceptionCode(long idx);
+def GetExceptionQty():
+    """
+    Get number of defined exception codes
+    """
+    raise NotImplementedError
 
 
-// ***********************************************
-// Get exception information
-//      code - exception code
+def GetExceptionCode(idx):
+    """
+    Get exception code
 
-string GetExceptionName(long code); // returns "" on error
-long GetExceptionFlags(long code);  // returns -1 on error
-"""
+    @param idx: number of exception in the vector (0..GetExceptionQty()-1)
+
+    @return: exception code (0 - error)
+    """
+    raise NotImplementedError
+
+
+def GetExceptionName(code):
+    """
+    Get exception information
+
+    @param code: exception code
+
+    @return: "" on error
+    """
+    raise NotImplementedError
+
+
+def GetExceptionFlags(code):
+    """
+    Get exception information
+
+    @param code: exception code
+
+    @return: -1 on error
+    """
+    raise NotImplementedError
+
 
 def DefineException(code, name, desc, flags):
     """
@@ -6591,21 +6689,24 @@ EXC_BREAK  = 0x0001 # break on the exception
 EXC_HANDLE = 0x0002 # should be handled by the debugger?
 
 
-"""
-// ***********************************************
-// Set exception flags
-//      code - exception code
-//      flags - exception flags (combination of EXC_...)
+def SetExceptionFlags(code, flags):
+    """
+    Set exception flags
+    
+    @param code: exception code
+    @param flags: exception flags (combination of EXC_...)
+    """
+    raise NotImplementedError
 
-success SetExceptionFlags(long code, long flags);
 
+def ForgetException(code):
+    """
+    Delete exception handling information
+    
+    @param code: exception code
+    """
+    raise NotImplementedError
 
-// ***********************************************
-// Delete exception handling information
-//      code - exception code
-
-success ForgetException(long code);
-"""
 
 def GetRegValue(name):
     """
@@ -6796,13 +6897,29 @@ def EnableBpt(ea, enable):
     """
     Enable/disable breakpoint
 
-    @param ea: any address in the process memory space:
+    @param ea: any address in the process memory space
 
     @return: success
 
     @note: Disabled breakpoints are not written to the process memory
     """
     return idaapi.enable_bpt(ea, enable)
+
+
+def CheckBpt(ea):
+    """
+    Check a breakpoint
+
+    @param ea: address in the process memory space
+
+    @return: one of BPTCK_... constants
+    """
+    raise NotImplementedError
+
+BPTCK_NONE = -1  # breakpoint does not exist
+BPTCK_NO   =  0  # breakpoint is disabled
+BPTCK_YES  =  1  # breakpoint is enabled
+BPTCK_ACT  =  2  # breakpoint is active (written to the process)
 
 
 def EnableTracing(trace_level, enable):
@@ -6941,7 +7058,38 @@ def GetXML(path):
         return v.str
     else:
         return None
+
+
+#----------------------------------------------------------------------------
+#                       A R M   S P E C I F I C
+#----------------------------------------------------------------------------
+def ArmForceBLJump(ea):
+    """
+    Some ARM compilers in Thumb mode use BL (branch-and-link)
+    instead of B (branch) for long jumps, since BL has more range.
+    By default, IDA tries to determine if BL is a jump or a call.
+    You can override IDA's decision using commands in Edit/Other menu
+    (Force BL call/Force BL jump) or the following two functions.
+
+    Force BL instruction to be a jump
+
+    @param ea: address of the BL instruction
+
+    @return: 1-ok, 0-failed
+    """
+    raise NotImplementedError
+
+
+def ArmForceBLCall(ea):
+    """
+    Force BL instruction to be a call
     
+    @param ea: address of the BL instruction
+    
+    @return: 1-ok, 0-failed
+    """
+    raise NotImplementedError
+
 
 #--------------------------------------------------------------------------
 # Compatibility macros:
@@ -7007,6 +7155,9 @@ def MakeName(ea, name):           MakeNameEx(ea,name,SN_CHECK)
 
 def Comment(ea):                return GetCommentEx(ea, 0)
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
+
+def SetReg(ea, reg, value): return SetRegEx(ea, reg, value, SR_user)
+
 
 # Convenience functions:
 def here(): return ScreenEA()
