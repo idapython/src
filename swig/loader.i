@@ -82,7 +82,6 @@
 %ignore is_database_ext;
 %ignore ida_database_memory;
 %ignore ida_workdir;
-%ignore database_flags;
 %ignore DBFL_KILL;
 %ignore DBFL_COMP;
 %ignore DBFL_BAK;
