@@ -36,6 +36,7 @@ import os
 import re
 import struct
 import time
+import types
 
 class DeprecatedIDCError(Exception):
     """
@@ -389,7 +390,7 @@ def Wait():
     return idaapi.autoWait()
 
 
-def CompileEx(filename):
+def CompileEx(input, isfile):
     """
     Compile an IDC script
 
@@ -399,24 +400,56 @@ def CompileEx(filename):
 
     @param input: if isfile != 0, then this is the name of file to compile
                   otherwise it holds the text to compile
+    @param isfile: specify if 'input' holds a filename or the expression itself
 
     @return: 0 - ok, otherwise it returns an error message
-
-    FIXME: This needs to be updated to latest doc
     """
-    res = idaapi.Compile(filename)
+    if isfile:
+        res = idaapi.Compile(input)
+    else:
+        res = idaapi.CompileLine(input)
 
     if res:
         return res
     else:
         return 0
 
-"""
-FIXME: this
-// Macro to check for evaluation failures:
-#define EVAL_FAILURE(code) (IsString(code) && substr(code, 0, 13) == "IDC_FAILURE: ")
-#ifdef _notdefinedsymbol
-"""
+
+def Eval(expr):
+    """
+    Evaluate an IDC expression
+
+    @param expr: an expression
+
+    @return: the expression value. If there are problems, the returned value will be "IDC_FAILURE: xxx"
+             where xxx is the error description
+
+    @note: Python implementation evaluates IDC only, while IDC can call other registered languages
+    """
+    rv = idaapi.idc_value_t()
+
+    err = idaapi.calc_idc_expr(BADADDR, expr, rv)
+    if err:
+        return "IDC_FAILURE: "+err
+    else:
+        if rv.vtype == '\x01':   # string
+            return rv.str
+        elif rv.vtype == '\x02': # long
+            return rv.num
+        else:
+            raise NotImplementedError, "Eval() supports only expressions returning strings or longs"
+
+
+def EVAL_FAILURE(code):
+    """ 
+    Check the result of Eval() for evaluation failures 
+
+    @param code: result of Eval()
+
+    @return: True if there was an evaluation error
+    """
+    return type(code) == types.StringType and code.startswith("IDC_FAILURE: ")
+
 
 def SaveBase(idbname, flags=0):
     """
@@ -425,12 +458,17 @@ def SaveBase(idbname, flags=0):
     @param idbname: name of the idb file. if empty, the current idb
                     file will be used.
     @param flags: DBFL_BAK or 0
-
-    FIXME: backup might not work at all
     """
-    if flags == DBFL_BAK:
+    if len(idbname)==0:
+        idbname = idaapi.cvar.database_idb
+    saveflags = idaapi.cvar.database_flags
+    if flags & DBFL_BAK:
         idaapi.cvar.database_flags |= DBFL_BAK
-    return idaapi.save_database(idbname, 0)
+    else:
+        idaapi.cvar.database_flags &= ~DBFL_BAK
+    res = idaapi.save_database(idbname, 0)
+    idaapi.cvar.database_flags = saveflags
+    return res
 
 DBFL_BAK = 0x04            # create backup file
 
@@ -671,7 +709,7 @@ def MakeData(ea, flags, size, tid):
 
     @return: 1-ok, 0-failure
     """
-    raise NotImplementedError, "Use the Make* functions to create data items"
+    return idaapi.do_data_ex(ea, flags, size, tid)
 
 
 def MakeByte(ea):
@@ -785,9 +823,6 @@ def MakeStructEx(ea, size, strname):
     @return: 1-ok, 0-failure
     """
     strid = idaapi.get_struc_id(strname)
-
-    if strid == idaapi.BADNODE:
-        return False
 
     if size == -1:
         size = idaapi.get_struc_size(strid)
@@ -916,8 +951,10 @@ def SetArrayFormat(ea, flags, litems, align):
                    other values: element width
 
     @return: 1-ok, 0-failure
+
+    FIXME: This idaapi function is not exported yet
     """
-    raise NotImplementedError
+    return idaapi.set_array_params(ea, flags, litems, align)
 
 AP_ALLOWDUPS    = 0x00000001L     # use 'dup' construct
 AP_SIGNED       = 0x00000002L     # treats numbers as signed
@@ -2308,8 +2345,10 @@ def ChangeConfig(directive):
 
     @note: If the directives are erroneous, a fatal error will be generated.
            The changes will be effective only for the current session.
+    
+    FIXME: This idaapi function is not exported yet
     """
-    raise NotImplementedError, "not implemented yet"
+    return idaapi.process_config_line(directive)
 
 
 # The following functions allow you to set/get common parameters.
@@ -2608,7 +2647,6 @@ INF_SPECSEGS    : 'specsegs',
 INF_VOIDS       : 's_void',       # char;    Display void marks?
 INF_SHOWAUTO    : 's_showauto',   # char;    Display autoanalysis indicator?
 INF_AUTO        : 's_auto',       # char;    Autoanalysis is enabled?
-# FIXME: This might be incorrect
 INF_BORDER      : 's_limiter',    # char;    Generate borders?
 INF_NULL        : 's_null',       # char;    Generate empty lines?
 INF_GENFLAGS    : 's_genflags',   # char;    General flags:
@@ -2931,17 +2969,11 @@ def FirstSeg():
     @return: address of the start of the first segment
         BADADDR - no segments are defined
     """
-    segn = idaapi.get_segm_qty()
-
-    if segn == 0:
+    seg = idaapi.get_first_seg()
+    if not seg:
         return BADADDR
     else:
-        seg = idaapi.getnseg(0)
-
-        if not seg:
-            return BADADDR
-        else:
-            return seg.startEA
+        return seg.startEA
 
 
 def NextSeg(ea):
@@ -2952,19 +2984,12 @@ def NextSeg(ea):
 
     @return: start of the next segment
              BADADDR - no next segment
-
-    TODO: Any better way of doing this?
     """
-    for n in range(idaapi.get_segm_qty()):
-        currseg = idaapi.getnseg(n)
-
-        if ea >= currseg.startEA and ea < currseg.endEA:
-            nextseg = idaapi.getnseg(n+1)
-
-            if not nextseg:
-                return BADADDR
-            else:
-                return nextseg.startEA
+    nextseg = idaapi.get_next_seg(ea)
+    if not nextseg:
+        return BADADDR
+    else:
+        return nextseg.startEA
 
     return BADADDR
 
@@ -3042,21 +3067,14 @@ def SegCreate(startea, endea, base, use32, align, comb):
 
     @return: 0-failed, 1-ok
     """
-    success = idaapi.add_segm(base, startea, endea, "Segment", "CODE")
-
-    if success != 1:
-        return 0
-
-    seg = idaapi.getseg(startea)
-
-    if not seg:
-        return 0
-
-    seg.bitness = use32
-    seg.align = align
-    seg.comb = comb
-
-    return 1
+    s = idaapi.segment_t()
+    s.startEA     = startea
+    s.endEA       = endea
+    s.sel         = idaapi.setup_selector(base)
+    s.bitness     = use32
+    s.align       = align
+    s.comb        = comb
+    return idaapi.add_segm_ex(s, "", "", idaapi.ADDSEG_NOSREG)
 
 
 def SegDelete(ea, flags):
@@ -3717,7 +3735,7 @@ FUNCATTR_ARGSIZE = 20     # number of bytes purged from the stack
 FUNCATTR_FPD     = 24     # frame pointer delta
 FUNCATTR_COLOR   = 28     # function color code
 FUNCATTR_OWNER   = 10     # chunk owner (valid only for tail chunks)
-FUNCATTR_REFQTY  = 14     # number of chunk parents (valid only for ta
+FUNCATTR_REFQTY  = 14     # number of chunk parents (valid only for tail chunks)
 
 _FUNCATTRMAP = {
     FUNCATTR_START   : 'startEA',
@@ -3730,7 +3748,7 @@ _FUNCATTRMAP = {
     FUNCATTR_FPD     : 'fpd',
     FUNCATTR_COLOR   : 'color',
     FUNCATTR_OWNER   : 'owner',
-    FUNCATTR_REFQTY  : 'refwty'
+    FUNCATTR_REFQTY  : 'refqty'
 }
 
 
@@ -4865,45 +4883,44 @@ def SetStrucComment(sid, comment, repeatable):
     return idaapi.set_struc_cmt(sid, comment, repeatable)
 
 
-def _IDC_PrepareStrucMemberTypeinfo(flag, typeid):
+def _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target=None, tdelta=None, reftype=None):
     """ Internal function to prepare typeinfo_t for adding/setting structure members """
 
-    simple_types = [ FF_BYTE, FF_WORD, FF_DWRD, FF_QWRD, FF_OWRD, FF_TBYT, FF_FLOAT, FF_DOUBLE, FF_PACKREAL ]
-
-    if idaapi.isASCII(flag):
-        ti = idaapi.typeinfo_t()
-        ti.strtype = typeid
-    elif idaapi.isStruct(flag):
-        ti = idaapi.typeinfo_t()
-        ti.tid = typeid
-    elif idaapi.isOff0(flag):
+    if idaapi.isOff0(flag):
         ti = idaapi.typeinfo_t()
         ri = idaapi.refinfo_t()
-        ri.target = BADADDR
         ri.base = typeid
-        ri.tdelta = 0
-        if (flag & FF_WORD):
-            ri.flags = REF_OFF16
+        if target != None:
+          ri.target = target
+          ri.tdelta = 0
+          ri.flags = reftype
         else:
-            ri.flags = REF_OFF32
+          ri.target = BADADDR
+          ri.tdelta = 0
+          if (flag & FF_WORD):
+              ri.flags = REF_OFF16
+          elif (flag & FF_BYTE):
+              ri.flags = REF_OFF8
+          elif (flag & FF_QWRD):
+              ri.flags = REF_OFF64
+          else:
+              ri.flags = REF_OFF32
         ti.ri = ri
     elif idaapi.isEnum0(flag):
         ti = idaapi.typeinfo_t()
         ec = idaapi.enum_const_t()
         ec.tid = typeid
+        ec.serial = 0
         ti.ec = ec
     elif idaapi.isStroff0(flag):
         ti = idaapi.typeinfo_t()
-        ti.path.len = 2
+        ti.path.len = 1
         target_struct = idaapi.get_struc(typeid)
         assert target_struct, "Target structure is invalid"
-        target_member = idaapi.get_member(target_struct, 0)
-        assert target_member, "Target member is not found"
-        ti.path.ids = [ typeid, target_member.id ]
-    elif ((flag & 0xFFFFFF) & idaapi.DT_TYPE) in simple_types:
-        ti = None
+        ti.path.ids = [ typeid ]
     else:
-        assert False, "Unknown type flag 0x%08x" % flag
+        ti = idaapi.typeinfo_t()
+        ti.tid = typeid
     return ti
 
 
@@ -4935,11 +4952,10 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=None, tdelta=
 
     @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
 
-    FIXME: This needs fixing
     """
     struc = idaapi.get_struc(sid)
     assert struct, "get_struc() failed"
-    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
+    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target, tdelta, reftype)
     return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
 
 
@@ -5014,13 +5030,10 @@ def SetMemberType(sid, member_offset, flag, typeid, nitems, target=None, tdelta=
            to specify a complex offset expression
 
     @return: !=0 - ok.
-
-    FIXME: Fix this too
     """
-    struc = idaapi.get_struc(sid)
-    assert struct, "get_struc() failed"
-    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid)
-    return idaapi.set_member_type(struc, member_offset, flag, ti, nitems)
+    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target, tdelta, reftype)
+    elsize = idaapi.get_data_elsize(BADADDR, flag, ti);
+    return idaapi.set_member_type(idaapi.get_struc(sid), member_offset, flag, ti, elsize*nitems)
 
 
 def SetMemberComment(sid, member_offset, comment, repeatable):
@@ -5051,11 +5064,11 @@ def GetFchunkAttr(ea, attr):
     Get a function chunk attribute
 
     @param ea: any address in the chunk
-    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR, FUNCATTR_OWNER, FUNCATTR_REFQTY
+    @param attr: one of: FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY
 
     @return: desired attribute or -1
     """
-    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_COLOR ]:
+    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY ]:
         return GetFunctionAttr(ea, attr)
     else:
         return -1
@@ -5066,17 +5079,15 @@ def SetFchunkAttr(ea, attr, value):
     Set a function chunk attribute
 
     @param ea: any address in the chunk
-    @param attr: only FUNCATTR_COLOR
+    @param attr: only FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER
     @param value: desired bg color (RGB)
 
     @return: 0 if failed, 1 if success
-
-    FIXME: Check if this works
     """
-    if attr in [ FUNCATTR_COLOR ]:
-        return SetFunctionAttr(ea, attr, value)
+    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER ]:
+        return SetFunctionAttr(ea, attr)
     else:
-        return 0
+        return -1
 
 
 def GetFchunkReferer(ea, idx):
@@ -5088,7 +5099,14 @@ def GetFchunkReferer(ea, idx):
 
     @return: referer address or BADADDR
     """
-    raise NotImplmentedError
+    pfn = idaapi.get_fchunk(ea)
+    if pfn:
+        dummy = idaapi.func_parent_iterator_t(pfn); # read referer info
+        if idx >= pfn.refqty or len(pfn.referers) == 0:
+            return BADADDR
+        # FIXME: swig didn't make referers into an array
+        return pfn.referers[idx]
+    return BADADDR
 
 
 def NextFchunk(ea):
@@ -6069,7 +6087,11 @@ def SetLocalType(ordinal, input, flags):
 
     @return: slot number or 0 if error
     """
-    raise NotImplementedError
+    if input:
+        idaapi.del_numbered_type(idaapi.cvar.idati, ordinal)
+    else:
+        # FIXME: Emptying the slot is not implemented yet
+        raise NotImplementedError
 
 
 def GetLocalType(ordinal, flags):
@@ -6522,7 +6544,7 @@ def RefreshDebuggerMemory():
     information, memory contents, or names of a non-suspended process.
     This is an expensive call.
     """
-    raise NotImplementedError
+    return idaapi.refresh_debugger_memory()
 
 
 def TakeMemorySnapshot(only_loader_segs):
@@ -6532,7 +6554,7 @@ def TakeMemorySnapshot(only_loader_segs):
     @param only_loader_segs: 0-copy all segments to idb
                              1-copy only SFL_LOADER segments
     """
-    raise NotImplementedError
+    return idaapi.take_memory_snapshot(only_loader_segs)
 
 
 def GetProcessState():
@@ -6635,7 +6657,7 @@ def GetExceptionQty():
     """
     Get number of defined exception codes
     """
-    raise NotImplementedError
+    return iddapi.get_exception_qty()
 
 
 def GetExceptionCode(idx):
@@ -6646,7 +6668,7 @@ def GetExceptionCode(idx):
 
     @return: exception code (0 - error)
     """
-    raise NotImplementedError
+    return idaapi.get_exception_code(idx)
 
 
 def GetExceptionName(code):
@@ -6657,7 +6679,7 @@ def GetExceptionName(code):
 
     @return: "" on error
     """
-    raise NotImplementedError
+    return idaapi.get_exception_name(code)
 
 
 def GetExceptionFlags(code):
@@ -6668,8 +6690,7 @@ def GetExceptionFlags(code):
 
     @return: -1 on error
     """
-    raise NotImplementedError
-
+    return idaapi.get_exception_flags(code)
 
 def DefineException(code, name, desc, flags):
     """
@@ -6695,7 +6716,7 @@ def SetExceptionFlags(code, flags):
     @param code: exception code
     @param flags: exception flags (combination of EXC_...)
     """
-    raise NotImplementedError
+    return idaapi.set_exception_flags(code, flags)
 
 
 def ForgetException(code):
@@ -6704,7 +6725,7 @@ def ForgetException(code):
 
     @param code: exception code
     """
-    raise NotImplementedError
+    return idaapi.forget_exception(code)
 
 
 def GetRegValue(name):
@@ -6739,7 +6760,7 @@ def SetRegValue(value, name):
     """
     rv = idaapi.regval_t()
     rv.ival = value
-    return idaapi.set_reg_val(name, value)
+    return idaapi.set_reg_val(name, rv)
 
 
 def GetBptQty():
@@ -6913,7 +6934,7 @@ def CheckBpt(ea):
 
     @return: one of BPTCK_... constants
     """
-    raise NotImplementedError
+    return idaapi.check_bpt(ea)
 
 BPTCK_NONE = -1  # breakpoint does not exist
 BPTCK_NO   =  0  # breakpoint is disabled
@@ -7076,7 +7097,7 @@ def ArmForceBLJump(ea):
 
     @return: 1-ok, 0-failed
     """
-    raise NotImplementedError
+    return Eval("ArmForceBLJump(0x%x)"%ea)
 
 
 def ArmForceBLCall(ea):
@@ -7087,7 +7108,7 @@ def ArmForceBLCall(ea):
 
     @return: 1-ok, 0-failed
     """
-    raise NotImplementedError
+    return Eval("ArmForceBLCall(0x%x)"%ea)
 
 
 #--------------------------------------------------------------------------
