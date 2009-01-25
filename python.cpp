@@ -1,7 +1,7 @@
 //------------------------------------------------------------
 // IDAPython - Python plugin for Interactive Disassembler Pro
 //
-// Copyright (c) 2004-2008 Gergely Erdelyi <dyce@d-dome.net> 
+// Copyright (c) 2004-2008 Gergely Erdelyi <dyce@d-dome.net>
 //
 // All rights reserved.
 //
@@ -64,7 +64,7 @@ int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 	PyObject *str;
 
 	/* Catch line change events. */
-	/* Print the filename and line number */	
+	/* Print the filename and line number */
 	if (what == PyTrace_LINE)
 	{
 		str = PyObject_Str(frame->f_code->co_filename);
@@ -92,7 +92,7 @@ int ExecFile(char *FileName)
 {
 	PyObject* PyFileObject = PyFile_FromString(FileName, "r");
 
-	if (!PyFileObject) 
+	if (!PyFileObject)
 	{
 		return 0;
 	}
@@ -120,7 +120,7 @@ bool CheckFile(char *filename)
 	qmakepath(filepath, idadir(NULL), "python", filename, NULL);
 #else
 	qmakepath(filepath, idadir(), "python", filename, NULL);
-#endif	
+#endif
 
 	if (!qfileexist(filepath))
 	{
@@ -167,10 +167,10 @@ void IDAPython_RunScript(char *script)
 			slashpath[i] = scriptpath[i];
 		}
 	}
-	
+
 	slashpath[i] = '\0';
 
-	/* Add the script't path to sys.path */	
+	/* Add the script't path to sys.path */
 	snprintf(statement, sizeof(statement), "runscript(\"%s\")", slashpath);
 	PyRun_SimpleString(statement);
 
@@ -248,7 +248,7 @@ void IDAPython_ScriptBox(void)
 			PyErr_Print();
 		}
 	}
-}	
+}
 
 bool idaapi IDAPython_Menu_Callback(void *ud)
 {
@@ -256,7 +256,7 @@ bool idaapi IDAPython_Menu_Callback(void *ud)
 	return true;
 }
 
-/* Compile callback for Python external language evaluator */ 
+/* Compile callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_compile(const char *name,
 				      ea_t current_ea,
 				      const char *expr,
@@ -267,7 +267,7 @@ bool idaapi IDAPython_extlang_compile(const char *name,
   return false;
 }
 
-/* Run callback for Python external language evaluator */ 
+/* Run callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_run(const char *name,
 				  int nargs,
 				  const idc_value_t args[],
@@ -280,7 +280,7 @@ bool idaapi IDAPython_extlang_run(const char *name,
 }
 
 
-/* Calculator callback for Python external language evaluator */ 
+/* Calculator callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
 				      const char *expr,
 				      idc_value_t *rv,
@@ -357,7 +357,7 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t current_ea,
   return false;
 }
 
-extlang_t extlang_python = 
+extlang_t extlang_python =
   {
     sizeof(extlang_t),
     0,
@@ -420,7 +420,7 @@ bool IDAPython_Init(void)
 	char tmp[MAXSTR+64];
 	char *initpath;
 	bool result = 1;
-	
+
 	/* Already initialized? */
 	if (initialized == 1)
 	{
@@ -439,7 +439,7 @@ bool IDAPython_Init(void)
 	{
 		return false;
 	}
-	
+
 	/* Start the interpreter */
 	Py_Initialize();
 
@@ -491,35 +491,35 @@ bool IDAPython_Init(void)
 
 	/* Add menu items for all the functions */
 	/* Different paths are used for the GUI version */
-	result = add_menu_item("File/IDC command...", "P~y~thon command...", 
-					"Alt-8", SETMENU_APP, 
-					(menu_item_callback_t *)IDAPython_Menu_Callback, 
+	result = add_menu_item("File/IDC command...", "P~y~thon command...",
+					"Alt-8", SETMENU_APP,
+					(menu_item_callback_t *)IDAPython_Menu_Callback,
 					(void *)IDAPYTHON_RUNSTATEMENT);
 
-	result = add_menu_item("File/Load file/IDC file...", "P~y~thon file...", 
-					"Alt-9", SETMENU_APP, 
-					(menu_item_callback_t *)IDAPython_Menu_Callback, 
-					(void *)IDAPYTHON_RUNFILE); 
-	
+	result = add_menu_item("File/Load file/IDC file...", "P~y~thon file...",
+					"Alt-9", SETMENU_APP,
+					(menu_item_callback_t *)IDAPython_Menu_Callback,
+					(void *)IDAPYTHON_RUNFILE);
+
 	if (!result)
 	{
-		add_menu_item("File/IDC command...", "P~y~thon file...", 
-					"Alt-9", SETMENU_APP, 
-					(menu_item_callback_t *)IDAPython_Menu_Callback, 
-					(void *)IDAPYTHON_RUNFILE); 
+		add_menu_item("File/IDC command...", "P~y~thon file...",
+					"Alt-9", SETMENU_APP,
+					(menu_item_callback_t *)IDAPython_Menu_Callback,
+					(void *)IDAPYTHON_RUNFILE);
 	}
 
-	result = add_menu_item("View/Open subviews/Show strings", "Python S~c~ripts", 
-					"Alt-7", SETMENU_APP, 
-					(menu_item_callback_t *)IDAPython_Menu_Callback, 
-					(void *)IDAPYTHON_SCRIPTBOX); 
-	
-	if (!result) 
+	result = add_menu_item("View/Open subviews/Show strings", "Python S~c~ripts",
+					"Alt-7", SETMENU_APP,
+					(menu_item_callback_t *)IDAPython_Menu_Callback,
+					(void *)IDAPYTHON_SCRIPTBOX);
+
+	if (!result)
 	{
-		add_menu_item("View/Open subviews/Problems", "Python S~c~ripts", 
-						"Alt-7", SETMENU_APP, 
-						(menu_item_callback_t *)IDAPython_Menu_Callback, 
-						(void *)IDAPYTHON_SCRIPTBOX); 
+		add_menu_item("View/Open subviews/Problems", "Python S~c~ripts",
+						"Alt-7", SETMENU_APP,
+						(menu_item_callback_t *)IDAPython_Menu_Callback,
+						(void *)IDAPYTHON_SCRIPTBOX);
 	}
 
 	/* Register a RunPythonStatement() function for IDC */
@@ -551,7 +551,7 @@ void IDAPython_Term(void)
 
 	/* Remove the extlang */
 	register_extlang(NULL);
-	
+
 	/* Shut the interpreter down */
 	Py_Finalize();
 
