@@ -50,6 +50,22 @@ bool Compile_wrap(const char *file, char *errbuf, size_t errbufsize)
 }
 %}
 
+%rename (calcexpr) calcexpr_wrap;
+%inline %{
+bool calcexpr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errbuf, size_t errbufsize)
+{
+ 	return !calcexpr(where, line, rv, errbuf, errbufsize);
+}
+%}
+
+%rename (calc_idc_expr) calc_idc_expr_wrap;
+%inline %{
+bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errbuf, size_t errbufsize)
+{
+ 	return !calc_idc_expr(where, line, rv, errbuf, errbufsize);
+}
+%}
+        
 //%feature("compactdefaultargs") CompileLine;
 
 %ignore CompileLine(const char *line, char *errbuf, size_t errbufsize, uval_t (idaapi*_getname)(const char *name)=NULL);
