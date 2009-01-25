@@ -61,13 +61,18 @@ def runscript(script):
     sys.argv = argv
 
 def print_banner():
-    version1 = "IDAPython version %d.%d.%d %s (serial %d) initialized" % IDAPYTHON_VERSION
-    version2 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
-    linelen  = max(len(version1), len(version2))
+    version1 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
+    version2 = "Copyright (c) 1990-2009 Python Software Foundation - http://www.python.org/"
+    version3 = "IDAPython version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION
+    version4 = "Copyright (c) 2004-2009 Gergely Erdelyi - http://d-dome.net/idapython/"
+    linelen  = max(len(version1), len(version2), len(version3), len(version4))
 
     print '-' * linelen
     print version1
     print version2
+    print
+    print version3
+    print version4
     print '-' * linelen
 
 
