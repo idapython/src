@@ -71,7 +71,7 @@ ${HOME}/.idapro/
 
 or 
 
-C:\Documents and Settings\%USER%\Application Data\Datarescue\IDA Pro
+C:\Documents and Settings\%USER%\Application Data\Hex-Rays\IDA Pro
 
 The user init file is read and executed at the end of the init process.
 
