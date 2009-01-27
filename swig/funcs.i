@@ -35,3 +35,13 @@
 %clear(char *buf);
 %clear(char *optlibs);
 
+%inline %{
+ea_t get_fchunk_referer(ea_t ea, size_t idx)
+{
+  func_t *pfn = get_fchunk(ea);
+  func_parent_iterator_t dummy(pfn); // read referer info
+  if ( idx >= pfn->refqty || pfn->referers == NULL )
+    return BADADDR;
+  return pfn->referers[idx];
+}
+%}
