@@ -290,6 +290,9 @@ static bool return_python_result(idc_value_t *rv,
                                  char *errbuf,
                                  size_t errbufsize)
 {
+  if (errbufsize > 0)
+    errbuf[0] = '\0';
+
   if (result == NULL)
     {
       handle_python_error(errbuf, errbufsize);
@@ -326,6 +329,7 @@ static bool return_python_result(idc_value_t *rv,
       return true;
     }
 
+  qsnprintf(errbuf, errbufsize, "ERROR: bad return value");
   return false;
 }
 
@@ -704,6 +708,14 @@ void idaapi run(int arg)
 				;;
 			case 2:
 				IDAPython_ScriptBox();
+				break;
+				;;
+			case 3:
+				enable_extlang_python(true);
+				break;
+				;;
+			case 4:
+				enable_extlang_python(false);
 				break;
 				;;
 			default:
