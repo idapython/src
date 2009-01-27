@@ -221,7 +221,7 @@ void IDAPython_ScriptBox(void)
 	module = PyImport_AddModule("__main__");
 	dict = PyModule_GetDict(module);
 
-	scriptbox = PyDict_GetItemString(dict, "ScriptBox_instance");
+	scriptbox = PyDict_GetItemString(dict, "scriptbox");
 
 	if (!scriptbox)
 	{

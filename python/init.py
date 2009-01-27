@@ -42,8 +42,8 @@ def addscriptpath(script):
         sys.path.append(scriptpath)
 
     # Add the script to ScriptBox if it's not there yet
-    if not script in ScriptBox_instance.list:
-        ScriptBox_instance.list.insert(0, script)
+    if not script in scriptbox.list:
+        scriptbox.list.insert(0, script)
 
 
 def runscript(script):
@@ -138,7 +138,7 @@ class ScriptBox(Choose):
     def addscript(self, scriptpath):
         self.list.append(scriptpath)
 
-ScriptBox_instance = ScriptBox()
+scriptbox = ScriptBox()
 
 #-------------------------------------------------------------
 # Watchdog to catch runaway scripts after a specified timeout
@@ -202,7 +202,6 @@ userrc = get_user_idadir() + os.sep + "idapythonrc.py"
 if os.path.exists(userrc):
     runscript(userrc)
     # Remove the user script from the history
-    del ScriptBox_instance.list[0]
-
+    del scriptbox.list[0]
 
 # All done, ready to rock.
