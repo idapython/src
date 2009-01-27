@@ -343,3 +343,16 @@ def GetInputFileMD5():
     @return: MD5 string or None on error
     """
     return idc.GetInputMD5()
+
+
+class _cpu:
+    "Simple wrapper around GetRegValue/SetRegValue"
+    def __getattr__(self, name):
+        #print "cpu.get(%s)"%name
+        return idc.GetRegValue(name)
+
+    def __setattr__(self, name, value):
+        #print "cpu.set(%s)"%name
+        return idc.SetRegValue(value, name)
+
+cpu = _cpu()
