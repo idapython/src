@@ -223,4 +223,65 @@ char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
      }                                                              \
      return NULL;
 }
+
+int idc_set_local_type(int ordinal, const char *dcl, int flags)
+{
+  if (dcl == NULL || dcl[0] == '\0')
+    {
+      if (!del_numbered_type(idati, ordinal))
+	return 0;
+    }
+  else
+    {
+      qstring name;
+      qtype type;
+      qtype fields;
+      
+      if (!parse_decl(idati, dcl, &name, &type, &fields, flags))
+	return 0;
+
+      if (ordinal <= 0)
+	{
+	  if (!name.empty())
+	    ordinal = get_type_ordinal(idati, name.c_str());
+
+	  if (ordinal <= 0)
+	    ordinal = alloc_type_ordinal(idati);
+	}
+
+      if (!set_numbered_type(idati, ordinal, 0, name.c_str(), type.c_str(), fields.c_str()))
+	return 0;
+    }
+  return ordinal;
+}
+
+char idc_get_local_type(int ordinal, int flags, char *buf, size_t bufsize)
+{
+  const type_t *type;
+  const p_list *fields;
+
+  if (!get_numbered_type(idati, ordinal, &type, &fields))
+    return false;
+
+  qstring res;
+  const char *name = get_numbered_type_name(idati, ordinal);
+
+  if (print_type_to_qstring(&res, NULL, 2, 40, flags, idati, type, name, NULL, fields) <= 0)
+    return false;
+
+  qstrncpy(buf, res.c_str(), bufsize);
+  return true;
+}
+
+char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
+{
+  const char *name = get_numbered_type_name(idati, ordinal);
+
+  if (name == NULL)
+    return false;
+
+  qstrncpy(buf, name, bufsize);
+  return true;
+}
+
 %}
