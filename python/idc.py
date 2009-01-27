@@ -50,8 +50,8 @@ def _IDC_GetAttr(obj, attrmap, attroffs):
     Internal function to generically get object attributes
     Do not use unless you know what you are doing
     """
-    if attroffs in attrmap and hasattr(obj, attrmap[attroffs]):
-        return getattr(obj, attrmap[attroffs])
+    if attroffs in attrmap and hasattr(obj, attrmap[attroffs][1]):
+        return getattr(obj, attrmap[attroffs][1])
     else:
         errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
         raise KeyError, errormsg
@@ -62,11 +62,14 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
     Internal function to generically set object attributes
     Do not use unless you know what you are doing
     """
-    if attroffs in attrmap and hasattr(obj, attrmap[attroffs]):
-        return setattr(obj, attrmap[attroffs], value)
-    else:
-        errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-        raise KeyError, errormsg
+    # check for read-only atributes
+    if attroffs in attrmap:
+        if attrmap[attroffs][0]:
+            raise KeyError, "attribute with offset %d is read-only" % attroffs
+        elif hasattr(obj, attrmap[attroffs][1]):
+            return setattr(obj, attrmap[attroffs][1], value)
+    errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
+    raise KeyError, errormsg
 
 
 BADADDR         = idaapi.BADADDR # Not allowed address value
@@ -951,10 +954,8 @@ def SetArrayFormat(ea, flags, litems, align):
                    other values: element width
 
     @return: 1-ok, 0-failure
-
-    FIXME: This idaapi function is not exported yet
     """
-    return idaapi.set_array_params(ea, flags, litems, align)
+    return Eval("SetArrayFormat(0x%X, 0x%X, %d, %d)"%(ea, flags, litems, align))
 
 AP_ALLOWDUPS    = 0x00000001L     # use 'dup' construct
 AP_SIGNED       = 0x00000002L     # treats numbers as signed
@@ -2345,10 +2346,8 @@ def ChangeConfig(directive):
 
     @note: If the directives are erroneous, a fatal error will be generated.
            The changes will be effective only for the current session.
-    
-    FIXME: This idaapi function is not exported yet
     """
-    return idaapi.process_config_line(directive)
+    return Eval('ChangeConfig("%s")'%directive)
 
 
 # The following functions allow you to set/get common parameters.
@@ -2617,73 +2616,73 @@ INF_SIZEOF_LLONG = 191
 INF_CHANGE_COUNTER = 192 # database change counter; keeps track of byte and segment modifications
 
 _INFMAP = {
-INF_VERSION     : 'version',      # short;   Version of database
-INF_PROCNAME    : 'procname',     # char[8]; Name of current processor
-INF_LFLAGS      : 'lflags',       # char;    IDP-dependent flags
-INF_DEMNAMES    : 'demnames',     # char;    display demangled names as:
-INF_FILETYPE    : 'filetype',     # short;   type of input file (see ida.hpp)
-INF_FCORESIZ    : 'fcoresize',
-INF_CORESTART   : 'corestart',
-INF_OSTYPE      : 'ostype',       # short;   FLIRT: OS type the program is for
-INF_APPTYPE     : 'apptype',      # short;   FLIRT: Application type
-INF_START_SP    : 'startSP',      # long;    SP register value at the start of
-INF_START_AF    : 'af',           # short;   Analysis flags:
-INF_START_IP    : 'startIP',      # long;    IP register value at the start of
-INF_BEGIN_EA    : 'beginEA',      # long;    Linear address of program entry point
-INF_MIN_EA      : 'minEA',        # long;    The lowest address used
-INF_MAX_EA      : 'maxEA',        # long;    The highest address used
-INF_OMIN_EA     : 'ominEA',
-INF_OMAX_EA     : 'omaxEA',
-INF_LOW_OFF     : 'lowoff',       # long;    low limit of voids
-INF_HIGH_OFF    : 'highoff',      # long;    high limit of voids
-INF_MAXREF      : 'maxref',       # long;    max xref depth
-INF_ASCII_BREAK : 'ASCIIbreak',   # char;    ASCII line break symbol
-INF_WIDE_HIGH_BYTE_FIRST : 'wide_high_byte_first',
-INF_INDENT      : 'indent',       # char;    Indention for instructions
-INF_COMMENT     : 'comment',      # char;    Indention for comments
-INF_XREFNUM     : 'xrefnum',      # char;    Number of references to generate
-INF_ENTAB       : 's_entab',      # char;    Use '\t' chars in the output file?
-INF_SPECSEGS    : 'specsegs',
-INF_VOIDS       : 's_void',       # char;    Display void marks?
-INF_SHOWAUTO    : 's_showauto',   # char;    Display autoanalysis indicator?
-INF_AUTO        : 's_auto',       # char;    Autoanalysis is enabled?
-INF_BORDER      : 's_limiter',    # char;    Generate borders?
-INF_NULL        : 's_null',       # char;    Generate empty lines?
-INF_GENFLAGS    : 's_genflags',   # char;    General flags:
-INF_SHOWPREF    : 's_showpref',   # char;    Show line prefixes?
-INF_PREFSEG     : 's_prefseg',    # char;    line prefixes with segment name?
-INF_ASMTYPE     : 'asmtype',      # char;    target assembler number (0..n)
-INF_BASEADDR    : 'baseaddr',     # long;    base paragraph of the program
-INF_XREFS       : 's_xrefflag',   # char;    xrefs representation:
-INF_BINPREF     : 'binSize',      # short;   # of instruction bytes to show
-INF_CMTFLAG     : 's_cmtflg',     # char;    comments:
-INF_NAMETYPE    : 'nametype',     # char;    dummy names represenation type
-INF_SHOWBADS    : 's_showbads',   # char;    show bad instructions?
-INF_PREFFLAG    : 's_prefflag',   # char;    line prefix type:
-INF_PACKBASE    : 's_packbase',   # char;    pack database?
-INF_ASCIIFLAGS  : 'asciiflags',   # uchar;   ascii flags
-INF_LISTNAMES   : 'listnames',    # uchar;   What names should be included in the list?
-INF_ASCIIPREF   : 'ASCIIpref',    # char[16];ASCII names prefix
-INF_ASCIISERNUM : 'ASCIIsernum',  # ulong;   serial number
-INF_ASCIIZEROES : 'ASCIIzeroes',  # char;    leading zeroes
-INF_MF          : 'mf',           # uchar;   Byte order: 1==MSB first
-INF_ORG         : 's_org',        # char;    Generate 'org' directives?
-INF_ASSUME      : 's_assume',     # char;    Generate 'assume' directives?
-INF_CHECKARG    : 's_checkarg',   # char;    Check manual operands?
-INF_START_SS    : 'start_ss',     # long;    value of SS at the start
-INF_START_CS    : 'start_cs',     # long;    value of CS at the start
-INF_MAIN        : 'main',         # long;    address of main()
-INF_SHORT_DN    : 'short_demnames', # long;    short form of demangled names
-INF_LONG_DN     : 'long_demnames', # long;    long form of demangled names
-INF_DATATYPES   : 'datatypes',    # long;    data types allowed in data carousel
-INF_STRTYPE     : 'strtype',      # long;    current ascii string type
-INF_AF2         : 'af2',          # ushort;  Analysis flags 2
-INF_NAMELEN     : 'namelen',      # ushort;  max name length (without zero byte)
-INF_MARGIN      : 'margin',       # ushort;  max length of data lines
-INF_LENXREF     : 'lenxref',      # ushort;  max length of line with xrefs
-INF_LPREFIX     : 'lprefix',      # char[16];prefix of local names
-INF_LPREFIXLEN  : 'lprefixlen',   # uchar;   length of the lprefix
-INF_COMPILER    : 'cc'            # uchar;   compiler
+INF_VERSION     : (False, 'version'),      # short;   Version of database
+INF_PROCNAME    : (False, 'procname'),     # char[8]; Name of current processor
+INF_LFLAGS      : (False, 'lflags'),       # char;    IDP-dependent flags
+INF_DEMNAMES    : (False, 'demnames'),     # char;    display demangled names as:
+INF_FILETYPE    : (False, 'filetype'),     # short;   type of input file (see ida.hpp)
+INF_FCORESIZ    : (False, 'fcoresize'),
+INF_CORESTART   : (False, 'corestart'),
+INF_OSTYPE      : (False, 'ostype'),       # short;   FLIRT: OS type the program is for
+INF_APPTYPE     : (False, 'apptype'),      # short;   FLIRT: Application type
+INF_START_SP    : (False, 'startSP'),      # long;    SP register value at the start of
+INF_START_AF    : (False, 'af'),           # short;   Analysis flags:
+INF_START_IP    : (False, 'startIP'),      # long;    IP register value at the start of
+INF_BEGIN_EA    : (False, 'beginEA'),      # long;    Linear address of program entry point
+INF_MIN_EA      : (False, 'minEA'),        # long;    The lowest address used
+INF_MAX_EA      : (False, 'maxEA'),        # long;    The highest address used
+INF_OMIN_EA     : (False, 'ominEA'),
+INF_OMAX_EA     : (False, 'omaxEA'),
+INF_LOW_OFF     : (False, 'lowoff'),       # long;    low limit of voids
+INF_HIGH_OFF    : (False, 'highoff'),      # long;    high limit of voids
+INF_MAXREF      : (False, 'maxref'),       # long;    max xref depth
+INF_ASCII_BREAK : (False, 'ASCIIbreak'),   # char;    ASCII line break symbol
+INF_WIDE_HIGH_BYTE_FIRST : (False, 'wide_high_byte_first'),
+INF_INDENT      : (False, 'indent'),       # char;    Indention for instructions
+INF_COMMENT     : (False, 'comment'),      # char;    Indention for comments
+INF_XREFNUM     : (False, 'xrefnum'),      # char;    Number of references to generate
+INF_ENTAB       : (False, 's_entab'),      # char;    Use '\t' chars in the output file?
+INF_SPECSEGS    : (False, 'specsegs'),
+INF_VOIDS       : (False, 's_void'),       # char;    Display void marks?
+INF_SHOWAUTO    : (False, 's_showauto'),   # char;    Display autoanalysis indicator?
+INF_AUTO        : (False, 's_auto'),       # char;    Autoanalysis is enabled?
+INF_BORDER      : (False, 's_limiter'),    # char;    Generate borders?
+INF_NULL        : (False, 's_null'),       # char;    Generate empty lines?
+INF_GENFLAGS    : (False, 's_genflags'),   # char;    General flags:
+INF_SHOWPREF    : (False, 's_showpref'),   # char;    Show line prefixes?
+INF_PREFSEG     : (False, 's_prefseg'),    # char;    line prefixes with segment name?
+INF_ASMTYPE     : (False, 'asmtype'),      # char;    target assembler number (0..n)
+INF_BASEADDR    : (False, 'baseaddr'),     # long;    base paragraph of the program
+INF_XREFS       : (False, 's_xrefflag'),   # char;    xrefs representation:
+INF_BINPREF     : (False, 'binSize'),      # short;   # of instruction bytes to show
+INF_CMTFLAG     : (False, 's_cmtflg'),     # char;    comments:
+INF_NAMETYPE    : (False, 'nametype'),     # char;    dummy names represenation type
+INF_SHOWBADS    : (False, 's_showbads'),   # char;    show bad instructions?
+INF_PREFFLAG    : (False, 's_prefflag'),   # char;    line prefix type:
+INF_PACKBASE    : (False, 's_packbase'),   # char;    pack database?
+INF_ASCIIFLAGS  : (False, 'asciiflags'),   # uchar;   ascii flags
+INF_LISTNAMES   : (False, 'listnames'),    # uchar;   What names should be included in the list?
+INF_ASCIIPREF   : (False, 'ASCIIpref'),    # char[16];ASCII names prefix
+INF_ASCIISERNUM : (False, 'ASCIIsernum'),  # ulong;   serial number
+INF_ASCIIZEROES : (False, 'ASCIIzeroes'),  # char;    leading zeroes
+INF_MF          : (False, 'mf'),           # uchar;   Byte order: 1==MSB first
+INF_ORG         : (False, 's_org'),        # char;    Generate 'org' directives?
+INF_ASSUME      : (False, 's_assume'),     # char;    Generate 'assume' directives?
+INF_CHECKARG    : (False, 's_checkarg'),   # char;    Check manual operands?
+INF_START_SS    : (False, 'start_ss'),     # long;    value of SS at the start
+INF_START_CS    : (False, 'start_cs'),     # long;    value of CS at the start
+INF_MAIN        : (False, 'main'),         # long;    address of main()
+INF_SHORT_DN    : (False, 'short_demnames'), # long;    short form of demangled names
+INF_LONG_DN     : (False, 'long_demnames'), # long;    long form of demangled names
+INF_DATATYPES   : (False, 'datatypes'),    # long;    data types allowed in data carousel
+INF_STRTYPE     : (False, 'strtype'),      # long;    current ascii string type
+INF_AF2         : (False, 'af2'),          # ushort;  Analysis flags 2
+INF_NAMELEN     : (False, 'namelen'),      # ushort;  max name length (without zero byte)
+INF_MARGIN      : (False, 'margin'),       # ushort;  max length of data lines
+INF_LENXREF     : (False, 'lenxref'),      # ushort;  max length of line with xrefs
+INF_LPREFIX     : (False, 'lprefix'),      # char[16];prefix of local names
+INF_LPREFIXLEN  : (False, 'lprefixlen'),   # uchar;   length of the lprefix
+INF_COMPILER    : (False, 'cc')            # uchar;   compiler
 
 #INF_MODEL       = 184             # uchar;   memory model & calling convention
 #INF_SIZEOF_INT  = 185             # uchar;   sizeof(int)
@@ -3343,23 +3342,23 @@ SEGATTR_COLOR   = 95      # segment color
 
 
 _SEGATTRMAP = {
-    SEGATTR_START   : 'startEA',
-    SEGATTR_END     : 'endEA',
-    SEGATTR_ORGBASE : 'orgbase',
-    SEGATTR_ALIGN   : 'align',
-    SEGATTR_COMB    : 'comb',
-    SEGATTR_PERM    : 'perm',
-    SEGATTR_BITNESS : 'bitness',
-    SEGATTR_FLAGS   : 'flags',
-    SEGATTR_SEL     : 'sel',
-    SEGATTR_ES      : 0,
-    SEGATTR_CS      : 1,
-    SEGATTR_SS      : 2,
-    SEGATTR_DS      : 3,
-    SEGATTR_FS      : 4,
-    SEGATTR_GS      : 5,
-    SEGATTR_TYPE    : 'type',
-    SEGATTR_COLOR   : 'color',
+    SEGATTR_START   : (True, 'startEA'),
+    SEGATTR_END     : (True, 'endEA'),
+    SEGATTR_ORGBASE : (False, 'orgbase'),
+    SEGATTR_ALIGN   : (False, 'align'),
+    SEGATTR_COMB    : (False, 'comb'),
+    SEGATTR_PERM    : (False, 'perm'),
+    SEGATTR_BITNESS : (False, 'bitness'),
+    SEGATTR_FLAGS   : (False, 'flags'),
+    SEGATTR_SEL     : (False, 'sel'),
+    SEGATTR_ES      : (False, 0),
+    SEGATTR_CS      : (False, 1),
+    SEGATTR_SS      : (False, 2),
+    SEGATTR_DS      : (False, 3),
+    SEGATTR_FS      : (False, 4),
+    SEGATTR_GS      : (False, 5),
+    SEGATTR_TYPE    : (False, 'type'),
+    SEGATTR_COLOR   : (False, 'color'),
 }
 
 # Valid segment flags
@@ -3720,8 +3719,7 @@ def SetFunctionAttr(ea, attr, value):
     """
     func = idaapi.get_func(ea)
 
-    if func:
-        _IDC_SetAttr(func, _FUNCATTRMAP, attr, value)
+    if func and _IDC_SetAttr(func, _FUNCATTRMAP, attr, value):
         return idaapi.update_func(func)
 
 
@@ -3738,17 +3736,17 @@ FUNCATTR_OWNER   = 10     # chunk owner (valid only for tail chunks)
 FUNCATTR_REFQTY  = 14     # number of chunk parents (valid only for tail chunks)
 
 _FUNCATTRMAP = {
-    FUNCATTR_START   : 'startEA',
-    FUNCATTR_END     : 'endEA',
-    FUNCATTR_FLAGS   : 'flags',
-    FUNCATTR_FRAME   : 'frame',
-    FUNCATTR_FRSIZE  : 'frsize',
-    FUNCATTR_FRREGS  : 'frregs',
-    FUNCATTR_ARGSIZE : 'argsize',
-    FUNCATTR_FPD     : 'fpd',
-    FUNCATTR_COLOR   : 'color',
-    FUNCATTR_OWNER   : 'owner',
-    FUNCATTR_REFQTY  : 'refqty'
+    FUNCATTR_START   : (True, 'startEA'),
+    FUNCATTR_END     : (True, 'endEA'),
+    FUNCATTR_FLAGS   : (False, 'flags'),
+    FUNCATTR_FRAME   : (True, 'frame'),
+    FUNCATTR_FRSIZE  : (True, 'frsize'),
+    FUNCATTR_FRREGS  : (True, 'frregs'),
+    FUNCATTR_ARGSIZE : (True, 'argsize'),
+    FUNCATTR_FPD     : (False, 'fpd'),
+    FUNCATTR_COLOR   : (False, 'color'),
+    FUNCATTR_OWNER   : (True, 'owner'),
+    FUNCATTR_REFQTY  : (True, 'refqty')
 }
 
 
@@ -5069,9 +5067,10 @@ def GetFchunkAttr(ea, attr):
     @return: desired attribute or -1
     """
     if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY ]:
-        return GetFunctionAttr(ea, attr)
-    else:
-        return -1
+        chunk = idaapi.get_fchunk(ea)
+        if chunk:
+            return _IDC_GetAttr(chunk, _FUNCATTRMAP, attr)
+    return -1
 
 
 def SetFchunkAttr(ea, attr, value):
@@ -5080,14 +5079,14 @@ def SetFchunkAttr(ea, attr, value):
 
     @param ea: any address in the chunk
     @param attr: only FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER
-    @param value: desired bg color (RGB)
+    @param value: desired value
 
     @return: 0 if failed, 1 if success
     """
     if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER ]:
-        return SetFunctionAttr(ea, attr)
-    else:
-        return -1
+        chunk = idaapi.get_fchunk(ea)
+        if chunk and _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value):
+            return idaapi.update_func(chunk)
 
 
 def GetFchunkReferer(ea, idx):
@@ -5099,14 +5098,7 @@ def GetFchunkReferer(ea, idx):
 
     @return: referer address or BADADDR
     """
-    pfn = idaapi.get_fchunk(ea)
-    if pfn:
-        dummy = idaapi.func_parent_iterator_t(pfn); # read referer info
-        if idx >= pfn.refqty or len(pfn.referers) == 0:
-            return BADADDR
-        # FIXME: swig didn't make referers into an array
-        return pfn.referers[idx]
-    return BADADDR
+    return idaapi.get_fchunk_referer(ea, idx)
 
 
 def NextFchunk(ea):
@@ -6087,12 +6079,7 @@ def SetLocalType(ordinal, input, flags):
 
     @return: slot number or 0 if error
     """
-    if input:
-        idaapi.del_numbered_type(idaapi.cvar.idati, ordinal)
-    else:
-        # FIXME: Emptying the slot is not implemented yet
-        raise NotImplementedError
-
+    return idaapi.idc_set_local_type(ordinal, input, flags)
 
 def GetLocalType(ordinal, flags):
     """
@@ -6103,7 +6090,7 @@ def GetLocalType(ordinal, flags):
 
     @return: local type as a C declaration or ""
     """
-    raise NotImplementedError
+    return idaapi.idc_get_local_type(ordinal, flags)
 
 PRTYPE_1LINE  = 0x0000 # print to one line
 PRTYPE_MULTI  = 0x0001 # print to many lines
@@ -6119,7 +6106,7 @@ def GetLocalTypeName(ordinal):
 
     returns: local type name or None
     """
-    return idaapi.get_numbered_type_name(idaapi.cvar.idati, ordinal)
+    return idaapi.idc_get_local_type_name(ordinal)
 
 
 # ----------------------------------------------------------------------------
@@ -6574,39 +6561,180 @@ DSTATE_RUN_WAIT_END    =  3 # process is running, but the user asked to kill/det
                             # remark: in this case, most events are ignored
 
 """
-// ***********************************************
-// Get various information about the current debug event
-// These function are valid only when the current event exists
-// (the process is in the suspended state)
-
-// For all events:
-long GetEventId(void);
-long GetEventPid(void);
-long GetEventTid(void);
-long GetEventEa(void);
-long IsEventHandled(void);
-
-// For PROCESS_START, PROCESS_ATTACH, LIBRARY_LOAD events:
-string GetEventModuleName(void);
-long GetEventModuleBase(void);
-long GetEventModuleSize(void);
-
-// For PROCESS_EXIT, THREAD_EXIT events
-long GetEventExitCode(void);
-
-// For LIBRARY_UNLOAD (unloaded library name)
-// For INFORMATION (message to display)
-string GetEventInfo(void);
-
-// For BREAKPOINT event
-long GetEventBptHardwareEa(void);
-
-// For EXCEPTION event
-long GetEventExceptionCode(void);
-long GetEventExceptionEa(void);
-long CanExceptionContinue(void);
-string GetEventExceptionInfo(void);
+ Get various information about the current debug event
+ These functions are valid only when the current event exists
+ (the process is in the suspended state)
 """
+
+# For all events:
+
+def GetEventId():
+    """
+    Get ID of debug event
+
+    @return: event ID
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.eid
+
+
+def GetEventPid():
+    """
+    Get process ID for debug event
+
+    @return: process ID
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.pid
+
+
+def GetEventTid():
+    """
+    Get type ID for debug event
+
+    @return: type ID
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.tid
+
+
+def GetEventEa():
+    """
+    Get ea for debug event
+
+    @return: ea
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.ea
+
+
+def IsEventHandled():
+    """
+    Is the debug event handled?
+
+    @return: boolean
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.handled
+
+
+# For PROCESS_START, PROCESS_ATTACH, LIBRARY_LOAD events:
+
+def GetEventModuleName():
+    """
+    Get module name for debug event
+
+    @return: module name
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_module_name(ev)
+
+
+def GetEventModuleBase():
+    """
+    Get module base for debug event
+
+    @return: module base
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_module_base(ev)
+
+
+def GetEventModuleSize():
+    """
+    Get module size for debug event
+
+    @return: module size
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_module_size(ev)
+
+
+def GetEventExitCode():
+    """
+    Get exit code for debug event
+
+    @return: exit code for PROCESS_EXIT, THREAD_EXIT events
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return ev.exit_code
+
+
+def GetEventInfo():
+    """
+    Get debug event info
+
+    @return: event info: for LIBRARY_UNLOAD (unloaded library name)
+                         for INFORMATION (message to display)
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_info(ev)
+
+
+def GetEventBptHardwareEa():
+    """
+    Get hardware address for BREAKPOINT event
+
+    @return: hardware address
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_bpt_hea(ev)
+
+
+def GetEventExceptionCode():
+    """
+    Get exception code for EXCEPTION event
+
+    @return: exception code
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_exc_code(ev)
+
+
+def GetEventExceptionEa():
+    """
+    Get address for EXCEPTION event
+
+    @return: adress of exception
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_exc_ea(ev)
+
+
+def CanExceptionContinue():
+    """
+    Can it continue after EXCEPTION event?
+
+    @return: boolean
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.can_exc_continue(ev)
+
+
+def GetEventExceptionInfo():
+    """
+    Get info for EXCEPTION event
+
+    @return: info string
+    """
+    ev = idaapi.get_debug_event()
+    assert ev, "Could not retrieve debug event"
+    return idaapi.get_event_exc_info(ev)
+
 
 def SetDebuggerOptions(opt):
     """
