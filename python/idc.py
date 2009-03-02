@@ -6481,7 +6481,7 @@ def GetDebuggerEvent(wfne, timeout):
 
     @return: debugger event codes, see below
     """
-    return idaapi.wait_for_next_even(wfne, timeout)
+    return idaapi.wait_for_next_event(wfne, timeout)
 
 
 def ResumeProcess(): return GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
