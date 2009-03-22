@@ -578,7 +578,7 @@ def MakeCode(ea):
     would overlap with existing items, etc) otherwise returns length of the
     instruction in bytes
     """
-    return idaapi.ua_code(ea)
+    return idaapi.create_insn(ea)
 
 
 def AnalyzeArea(sEA, eEA):
@@ -2096,7 +2096,7 @@ def GetOpType(ea, n):
 
     @return: any of o_* constants or -1 on error
     """
-    inslen = idaapi.ua_code(ea)
+    inslen = idaapi.decode_insn(ea)
 
     if inslen == 0:
         return -1
@@ -2169,7 +2169,7 @@ def GetOperandValue(ea, n):
         operand is a register phrase   => phrase number
         otherwise                      => -1
     """
-    inslen = idaapi.ua_code(ea)
+    inslen = idaapi.decode_insn(ea)
     if inslen == 0:
         return -1
 
