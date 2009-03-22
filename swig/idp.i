@@ -279,4 +279,32 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 	}
     }
 }
+
+// Assemble an instruction (display a warning if an error is found)
+// args:
+//  ea_t ea -  linear address of instruction
+//  ea_t cs -  cs of instruction
+//  ea_t ip -  ip of instruction
+//  bool use32 - is 32bit segment?
+//  const char *line - line to assemble
+// returns: 1: success, 0: failure 
+inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+{
+  int instr_len, i;
+  char buf[256]; // FIXME: Shouldn't be longer than this... is there a MAX_INSTR_LENGTH anywhere?
+
+  if (ph.notify != NULL)
+    {
+      instr_len =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
+      if (instr_len > 0)
+	{
+	  for (i=0; i<instr_len; i++)
+	    {
+	      patch_byte(ea+i, buf[i]);
+	    }
+	  return 1;
+	}
+    }
+  return 0;
+}
 %}
