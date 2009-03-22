@@ -290,18 +290,15 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 // returns: 1: success, 0: failure 
 inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
 {
-  int instr_len, i;
+  int inslen;
   char buf[256]; // FIXME: Shouldn't be longer than this... is there a MAX_INSTR_LENGTH anywhere?
 
   if (ph.notify != NULL)
     {
-      instr_len =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
-      if (instr_len > 0)
+      inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
+      if (inslen > 0)
 	{
-	  for (i=0; i<instr_len; i++)
-	    {
-	      patch_byte(ea+i, buf[i]);
-	    }
+	  patch_many_bytes(ea, buf, inslen);
 	  return 1;
 	}
     }
