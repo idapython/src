@@ -66,8 +66,6 @@ bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errb
 }
 %}
         
-//%feature("compactdefaultargs") CompileLine;
-
 %ignore CompileLine(const char *line, char *errbuf, size_t errbufsize, uval_t (idaapi*_getname)(const char *name)=NULL);
 
 %rename (CompileLine) CompileLine_wrap;

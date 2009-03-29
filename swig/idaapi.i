@@ -77,7 +77,16 @@ typedef          long long longlong;
 
 // Convert all of these
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
+%binary_output_or_none(void *buf, size_t bufsize);
 
+// Accept single Python string for const void * + size input arguments 
+// For example: put_many_bytes() and patch_many_bytes()
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
+%apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
+%apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
+
+// Create wrapper classes for basic type arrays
 %array_class(uchar, uchar_array);
 %array_class(tid_t, tid_array);
 %array_class(ea_t, ea_array);
@@ -87,6 +96,9 @@ typedef          long long longlong;
 %pointer_class(ea_t, ea_pointer);
 %pointer_class(sval_t, sval_pointer);
 %pointer_class(sel_t, sel_pointer);
+
+// Do not create separate wrappers for default arguments
+%feature("compactdefaultargs"); 
 
 %include "ida.i"
 %include "idd.i"

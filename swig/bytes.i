@@ -1,6 +1,3 @@
-// Make put_many_bytes and patch_many_bytes work
-%apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
-
 // Make get_any_cmt() work
 %apply unsigned char *OUTPUT { color_t *cmttype };
 

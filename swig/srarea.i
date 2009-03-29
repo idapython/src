@@ -16,6 +16,4 @@
 #define R_fs 33
 #define R_gs 34
 
-%feature("compactdefaultargs") splitSRarea1;
-
 %include "srarea.hpp"
