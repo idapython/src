@@ -80,6 +80,38 @@
 }
 %enddef
 
+%define %binary_output_or_none(TYPEMAP, SIZE)
+%typemap (default) SIZE {
+	$1 = MAXSPECSIZE;
+}
+%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
+#ifdef __cplusplus
+   $1 = (char *) new char[MAXSPECSIZE+1];
+#else
+   $1 = (char *) malloc(MAXSPECSIZE+1);
+#endif
+}
+%typemap(out) ssize_t {
+    /* REMOVING ssize_t return value in $symname */
+}
+%typemap(argout) (TYPEMAP,SIZE) {
+   if (result > 0)
+   {
+     resultobj = PyString_FromStringAndSize((char *)$1, result);
+   }
+   else
+   {
+     Py_INCREF(Py_None);
+	 resultobj = Py_None;
+   }
+#ifdef __cplusplus
+   delete [] (char *)$1;
+#else
+   free((char *)$1);
+#endif
+}
+%enddef
+
 // Check that the argument is a callable Python object
 %typemap(in) PyObject *pyfunc {
   if (!PyCallable_Check($input)) {
