@@ -209,8 +209,8 @@ class GCCBuilder(BuilderBase):
         self.compiler_parameters = "-fpermissive"
         self.linker_parameters = "-shared"
         self.basemacros = [ ]
-        self.compiler = "g++"
-        self.linker = "g++"
+        self.compiler = "g++ -m32"
+        self.linker = "g++ -m32"
         self.source_extension = ".cpp"
         self.object_extension = ".o"
 
@@ -305,7 +305,7 @@ def build_plugin(system, idasdkdir):
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = idasdkdir + os.sep + "libgcc32.lnx"
         ida_lib = ""
-        extra_link_parameters = "/usr/lib/python%s.%s/lib-dynload/*.so" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
+        extra_link_parameters = "%s/python%s.%s/lib-dynload/*.so" % (python_libpath, PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
 
     # Platform-specific settings for the Windows build
     if system == "Windows":
