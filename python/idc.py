@@ -306,7 +306,7 @@ def rotate_left(value, count, nbits, offset):
     """
     Rotate a value to the left (or right)
 
-    @param x: value to rotate
+    @param value: value to rotate
     @param count: number of times to rotate. negative counter means
                   rotate to the right
     @param nbits: number of bits to rotate
@@ -948,10 +948,10 @@ def SetArrayFormat(ea, flags, litems, align):
     @param ea: linear address
     @param flags: combination of AP_... constants or 0
     @param litems: number of items per line. 0 means auto
-    @param align: element alignment:
-                  -1: do not align
-                   0:  automatic alignment
-                   other values: element width
+    @param align: element alignment
+                  - -1: do not align
+                  - 0:  automatic alignment
+                  - other values: element width
 
     @return: 1-ok, 0-failure
     """
@@ -1499,7 +1499,7 @@ def GenerateFile(filetype, path, ea1, ea2, flags):
     """
     Generate an output file
 
-    @param type:  type of output file. One of OFILE_... symbols. See below.
+    @param filetype:  type of output file. One of OFILE_... symbols. See below.
     @param path:  the output file path (will be overwritten!)
     @param ea1:   start address. For some file types this argument is ignored
     @param ea2:   end address. For some file types this argument is ignored
@@ -1654,7 +1654,7 @@ def IdbByte(ea):
     """
     Get one byte (8-bit) of the program at 'ea' from the database even if the debugger is active
 
-    @param ea - linear address
+    @param ea: linear address
 
     @return: byte value. If the byte has no value then 0xFF is returned.
 
@@ -2251,8 +2251,8 @@ def GetString(ea, length, strtype):
     """
     Get string contents
     @param ea: linear address
-    @param len: string length. -1 means to calculate the max string length
-    @param type: the string type (one of ASCSTR_... constants)
+    @param length: string length. -1 means to calculate the max string length
+    @param strtype: the string type (one of ASCSTR_... constants)
 
     @return: string contents or empty string
     """
@@ -2702,14 +2702,14 @@ def SetProcessorType (processor, level):
     @param processor: name of processor in short form.
                       run 'ida ?' to get list of allowed processor types
     @param level: the power of request:
-                  SETPROC_COMPAT - search for the processor type in the current module
-                  SETPROC_ALL    - search for the processor type in all modules
-                                   only if there were not calls with SETPROC_USER
-                  SETPROC_USER   - search for the processor type in all modules
-                                   and prohibit level SETPROC_USER
-                  SETPROC_FATAL  - can be combined with previous bits.
-                                   means that if the processor type can't be
-                                   set, IDA should display an error message and exit.
+                  - SETPROC_COMPAT - search for the processor type in the current module
+                  - SETPROC_ALL    - search for the processor type in all modules
+                                     only if there were not calls with SETPROC_USER
+                  - SETPROC_USER   - search for the processor type in all modules
+                                     and prohibit level SETPROC_USER
+                  - SETPROC_FATAL  - can be combined with previous bits.
+                                     means that if the processor type can't be
+                                     set, IDA should display an error message and exit.
     """
     return idaapi.set_processor_type(processor, level)
 
@@ -3872,7 +3872,7 @@ def GetFuncOffset(ea):
     """
     Convert address to 'funcname+offset' string
 
-    @param ea - address to convert
+    @param ea: address to convert
 
     @return: if the address belongs to a function then return a string
              formed as 'name+offset' where 'name' is a function name
@@ -5162,7 +5162,7 @@ def RemoveFchunk(funcea, tailea):
     Remove a function chunk from the function
 
     @param funcea: any address in the function
-    @param ea1: any address in the function chunk to remove
+    @param tailea: any address in the function chunk to remove
 
     @return: 0 if failed, 1 if success
     """
@@ -6028,7 +6028,7 @@ def SetType(ea, newtype):
 
     @param ea: the address of the object
     @param newtype: the type string in C declaration form.
-                 Must contain the closing ';'
+                Must contain the closing ';'
                 if specified as an empty string, then the
                 assciated with 'ea' will be deleted
 
@@ -6041,7 +6041,7 @@ def ParseTypes(inputtype, flags):
     """
     Parse type declarations
 
-    @param input: file name or C declarations (depending on the flags)
+    @param inputtype: file name or C declarations (depending on the flags)
     @param flags: combination of PT_... constants or 0
 
     @return: number of errors
@@ -6261,11 +6261,12 @@ def AttachProcess(pid, event_id):
                 will interactively ask the user for the process to attach to.
     @param event_id: reserved, must be -1
 
-    @return: -2 - impossible to find a compatible process
-             -1 - impossible to attach to the given process (process died, privilege
-                  needed, not supported by the debugger plugin, ...)
-              0 - the user cancelled the attaching to the process
-              1 - the debugger properly attached to the process
+    @return: 
+             - -2: impossible to find a compatible process
+             - -1: impossible to attach to the given process (process died, privilege
+               needed, not supported by the debugger plugin, ...)
+             - 0: the user cancelled the attaching to the process
+             - 1: the debugger properly attached to the process
     @note: See the important note to the StepInto() function
     """
     return idaapi.attach_process(pid, event_id)
@@ -6920,7 +6921,7 @@ def GetBptAttr(ea, bptattr):
     """
     Get the characteristics of a breakpoint
 
-    @param address: any address in the breakpoint range
+    @param ea: any address in the breakpoint range
     @param bptattr: the desired attribute code, one of BPTATTR_... constants
 
     @return: the desired attribute value or -1
@@ -6997,7 +6998,7 @@ def SetBptCnd(ea, cnd):
     """
     Set breakpoint condition
 
-    @param address: any address in the breakpoint range
+    @param ea: any address in the breakpoint range
     @param cnd: breakpoint condition
 
     @return: success
@@ -7018,7 +7019,7 @@ def AddBptEx(ea, size, bpttype):
 
     @param ea: any address in the process memory space:
     @param size: size of the breakpoint (irrelevant for software breakpoints):
-    @param type: type of the breakpoint (one of BPT_... constants)
+    @param bpttype: type of the breakpoint (one of BPT_... constants)
 
     @return: success
 
