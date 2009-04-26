@@ -379,6 +379,7 @@ if __name__ == "__main__":
     system = platform.system()
 
     if system == "Windows" or system == "Microsoft":
+        system = "Windows"
         platform_string = "win32"
         plugin_name = "python.plw"
     
