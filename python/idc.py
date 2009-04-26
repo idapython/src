@@ -3,10 +3,10 @@
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
 # Original IDC.IDC:
-# Copyright (c) 1990-2008 Ilfak Guilfanov
+# Copyright (c) 1990-2009 Ilfak Guilfanov
 #
 # Python conversion:
-# Copyright (c) 2004-2008 Gergely Erdelyi <dyce@d-dome.net>
+# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
 #
 # All rights reserved.
 #
