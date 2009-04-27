@@ -18,23 +18,11 @@ def refs(ea, funcfirst, funcnext):
     """
     Generic reference collector - INTERNAL USE ONLY.
     """
-    reflist = []
-
     ref = funcfirst(ea)
+    while ref != idaapi.BADADDR:
+        yield ref
+        ref = funcnext(ea, ref)
 
-    if ref != idaapi.BADADDR:
-        reflist.append(ref)
-
-        while 1:
-            ref = funcnext(ea, ref)
-
-            if ref == idaapi.BADADDR:
-                break
-            else:
-                reflist.append(ref)
-    
-    return reflist
-    
 
 def CodeRefsTo(ea, flow):
     """
@@ -192,21 +180,11 @@ def Heads(start, end):
 
     @return: list of heads between start and end
     """
-    headlist = []
-    headlist.append(start)
-
     ea = start
-
-    while 1:
+    while ea != idaapi.BADADDR:
+        yield ea
         ea = idaapi.next_head(ea, end)
 
-        if ea == idaapi.BADADDR:
-            break
-        else:
-            headlist.append(ea)
-    
-    return headlist
-    
 
 def Functions(start, end):
     """
@@ -220,27 +198,11 @@ def Functions(start, end):
     @note: The last function that starts before 'end' is included even
     if it extends beyond 'end'.
     """
-    funclist = []
     func = idaapi.get_func(start)
+    while func and func.startEA < end:
+        yield func.startEA
+        func = idaapi.get_next_func(func.startEA)
 
-    if func:
-        funclist.append(func.startEA)
-
-    ea = start
-
-    while 1:
-        func = idaapi.get_next_func(ea)
-
-        if not func: break
-
-        if func.startEA < end:
-            funclist.append(func.startEA)
-            ea = func.startEA
-        else:
-            break
-
-    return funclist
-    
 
 def Chunks(start):
     """
@@ -251,17 +213,12 @@ def Chunks(start):
     @return: list of funcion chunks (tuples of the form (start_ea, end_ea))
              belonging to the function
     """
-    function_chunks = []
-
     func_iter = idaapi.func_tail_iterator_t( idaapi.get_func( start ) )
     status = func_iter.main()
-
     while status:
         chunk = func_iter.chunk()
-        function_chunks.append((chunk.startEA, chunk.endEA))
+        yield (chunk.startEA, chunk.endEA)
         status = func_iter.next()
-
-    return function_chunks
 
 
 def Segments():
@@ -270,17 +227,10 @@ def Segments():
 
     @return: List of segment start addresses.
     """
-    seglist = []
-
     for n in range(idaapi.get_segm_qty()):
         seg = idaapi.getnseg(n)
-
-        if not seg:
-            break
-        else:
-            seglist.append(seg.startEA)
-    
-    return seglist
+        if seg:
+            yield seg.startEA
 
 
 def GetDataList(ea, count, itemsize=1):
