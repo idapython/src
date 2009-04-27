@@ -171,27 +171,29 @@ def XrefsTo(ea, flags=0):
             yield _copy_xref(xref)
 
 
-def Heads(start, end):
+def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     """
     Get a list of heads (instructions or data)
 
-    @param start: start address (this one is always included)
-    @param end:   end address
+    @param start: start address (default: inf.minEA)
+    @param end:   end address (default: inf.maxEA)
 
     @return: list of heads between start and end
     """
     ea = start
+    if not idc.isHead(idc.GetFlags(ea)):
+        ea = idaapi.next_head(ea, end)
     while ea != idaapi.BADADDR:
         yield ea
         ea = idaapi.next_head(ea, end)
 
 
-def Functions(start, end):
+def Functions(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     """
     Get a list of functions
 
-    @param start: start address
-    @param end:   end address
+    @param start: start address (default: inf.minEA)
+    @param end:   end address (default: inf.maxEA)
 
     @return: list of heads between start and end
 
