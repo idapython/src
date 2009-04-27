@@ -176,6 +176,8 @@ til_t * load_til_header_wrap(const char *tildir, const char *name)
 }
 %}
 
+%cstring_output_maxsize(char *buf, size_t maxsize);
+
 %inline %{
 /* Parse types from a string or file. See ParseTypes() in idc.py */
 int idc_parse_types(const char *input, int flags)
@@ -255,21 +257,27 @@ int idc_set_local_type(int ordinal, const char *dcl, int flags)
   return ordinal;
 }
 
-char idc_get_local_type(int ordinal, int flags, char *buf, size_t bufsize)
+int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 {
   const type_t *type;
   const p_list *fields;
 
   if (!get_numbered_type(idati, ordinal, &type, &fields))
-    return false;
+    {
+      buf[0] = 0;
+      return false;
+    }
 
   qstring res;
   const char *name = get_numbered_type_name(idati, ordinal);
 
   if (print_type_to_qstring(&res, NULL, 2, 40, flags, idati, type, name, NULL, fields) <= 0)
-    return false;
+    {
+      buf[0] = 0;
+      return false;
+    }
 
-  qstrncpy(buf, res.c_str(), bufsize);
+  qstrncpy(buf, res.c_str(), maxsize);
   return true;
 }
 

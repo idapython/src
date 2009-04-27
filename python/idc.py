@@ -6089,8 +6089,12 @@ def GetLocalType(ordinal, flags):
     @param flags: any of PRTYPE_* constants
 
     @return: local type as a C declaration or ""
+
+    @note: This function can return types strings up to 64KiB. Use idaapi.idc_get_local_type()
+           for larger types.
     """
-    return idaapi.idc_get_local_type(ordinal, flags)
+    res,str = idaapi.idc_get_local_type(ordinal, flags, 2**16)
+    return str
 
 PRTYPE_1LINE  = 0x0000 # print to one line
 PRTYPE_MULTI  = 0x0001 # print to many lines
