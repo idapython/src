@@ -444,8 +444,8 @@ def Eval(expr):
 
 
 def EVAL_FAILURE(code):
-    """ 
-    Check the result of Eval() for evaluation failures 
+    """
+    Check the result of Eval() for evaluation failures
 
     @param code: result of Eval()
 
@@ -1148,6 +1148,19 @@ def OpNumber(ea, n):
         - -1 - all operands
     """
     return idaapi.op_num(ea, n)
+
+
+def OpFloat(ea, n):
+    """
+    Convert operand to a floating-point number
+
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+    """
+    return idaapi.op_flt(ea, n)
 
 
 def OpAlt(ea, n, opstr):
@@ -6892,6 +6905,16 @@ def SetRegValue(value, name):
            A register name in the left side of an assignment will do too.
     """
     rv = idaapi.regval_t()
+    if type(value)==types.StringType:
+      value = int(value)
+    elif type(value)!=types.IntType:
+      print "SetRegValue: value must be integer!"
+      return BADADDR
+
+    if value<0:
+      #ival_set cannot handle negative numbers
+      value &= 0xFFFFFFFF
+
     rv.ival = value
     return idaapi.set_reg_val(name, rv)
 
