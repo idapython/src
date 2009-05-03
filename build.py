@@ -30,7 +30,7 @@ IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VER
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 1
-VERSION_PATCH  = 90
+VERSION_PATCH  = 91
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
