@@ -78,11 +78,69 @@ int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 }
 #endif
 
+/* Helper routines to make Python script execution breakable from IDA */
+static int ninsns = 0;      // number of times trace function was called
+static bool box_displayed;  // has the wait box been displayed?
+static time_t start_time;   // the start time of the execution
+static int script_timeout = 2;
+
+/* Exported to the Python environment */
+void set_script_timeout(int timeout)
+{
+	script_timeout = timeout;
+}
+
+/* This callback is called on various interpreter events */
+int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
+{
+	if (wasBreak())
+		/* User pressed Cancel in the waitbox; send KeyboardInterrupt exception */
+		PyErr_SetInterrupt();
+	else if (!box_displayed && ++ninsns > 10)
+	{
+		/* We check the timer once every 10 calls */
+		ninsns = 0;
+		if (time(NULL) - start_time > script_timeout) /* Timeout elapsed? */
+		{
+			show_wait_box("Running Python script");
+			box_displayed = true;
+		}
+	}
+#ifdef ENABLE_PYTHON_PROFILING
+	return tracefunc(obj, frame, what, arg);
+#else
+	return 0;
+#endif
+}
+
+/* Prepare for Python execution */
+void begin_execution()
+{
+	ninsns = 0;
+	box_displayed = false;
+	start_time = time(NULL);
+	PyEval_SetTrace(break_check, NULL);
+}
+
+/* Called after Python execution finishes */
+void end_execution()
+{
+	if (box_displayed)
+		hide_wait_box();
+#ifdef ENABLE_PYTHON_PROFILING
+	PyEval_SetTrace(tracefunc, NULL);
+#else
+	PyEval_SetTrace(NULL, NULL);
+#endif
+}
+
 /* Simple Python statement runner function for IDC */
 static const char idc_runpythonstatement_args[] = { VT_STR, 0 };
 static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res)
 {
+	begin_execution();
 	res->num = PyRun_SimpleString(argv[0].str);
+	end_execution();
 	return eOk;
 }
 
@@ -172,7 +230,9 @@ void IDAPython_RunScript(char *script)
 
 	/* Add the script't path to sys.path */
 	qsnprintf(statement, sizeof(statement), "runscript(\"%s\")", slashpath);
+	begin_execution();
 	PyRun_SimpleString(statement);
+	end_execution();
 
 	/* Error handling */
 	if (PyErr_Occurred())
@@ -201,7 +261,9 @@ void IDAPython_RunStatement(void)
 
 	if (asktext(sizeof(statement), statement, statement, "Enter Python expressions"))
 	{
+		begin_execution();
 		PyRun_SimpleString(statement);
+		end_execution();
 		/* Store the statement to the database */
 		history.supset(IDAPYTHON_DATA_STATEMENT, statement);
 	}
@@ -236,7 +298,9 @@ void IDAPython_ScriptBox(void)
 		/* If the return value is string use it as path */
 		if (PyObject_TypeCheck(pystr, &PyString_Type))
 		{
+			begin_execution();
 			ExecFile(PyString_AsString(pystr));
+			end_execution();
 		}
 		Py_DECREF(pystr);
 	}
