@@ -4,6 +4,7 @@
 # Place this script to ~/.idapro/ or to 
 # C:\Documents and Settings\%USER%\Application Data\Hex-Rays\IDA Pro
 #---------------------------------------------------------------------
+import idaapi
 
 # Add your favourite script to ScriptBox for easy access
 # scriptbox.addscript("/here/is/my/favourite/script.py")
@@ -13,3 +14,6 @@
 
 # Disable the Python from interactive command-line
 # idaapi.enable_python_cli(False)
+
+# Set the timeout for the script execution cancel dialog
+# idaapi.set_script_timeout(10)
