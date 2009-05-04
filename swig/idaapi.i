@@ -43,6 +43,9 @@
 #include "xref.hpp"
 %}
 
+// Do not create separate wrappers for default arguments
+%feature("compactdefaultargs"); 
+
 #ifdef __EA64__
 %constant ea_t BADADDR = 0xFFFFFFFFFFFFFFFF;
 %constant sel_t BADSEL = 0xFFFFFFFFFFFFFFFF;
@@ -78,6 +81,7 @@ typedef          long long longlong;
 // Convert all of these
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
 %binary_output_or_none(void *buf, size_t bufsize);
+%binary_output_with_size(void *buf, size_t *bufsize);
 
 // Accept single Python string for const void * + size input arguments 
 // For example: put_many_bytes() and patch_many_bytes()
@@ -96,9 +100,6 @@ typedef          long long longlong;
 %pointer_class(ea_t, ea_pointer);
 %pointer_class(sval_t, sval_pointer);
 %pointer_class(sel_t, sel_pointer);
-
-// Do not create separate wrappers for default arguments
-%feature("compactdefaultargs"); 
 
 %include "ida.i"
 %include "idd.i"
