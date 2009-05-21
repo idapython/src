@@ -305,7 +305,7 @@ def build_plugin(system, idasdkdir):
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = idasdkdir + os.sep + "libgcc32.lnx"
         ida_lib = ""
-        extra_link_parameters = "%s/python%s.%s/lib-dynload/*.so" % (python_libpath, PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
+        extra_link_parameters = ""
 
     # Platform-specific settings for the Windows build
     if system == "Windows":
@@ -316,7 +316,7 @@ def build_plugin(system, idasdkdir):
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = idasdkdir + os.sep + "libvc.w32"
         ida_lib = "ida.lib"
-        extra_link_parameters = None
+        extra_link_parameters = ""
 
     # Platform-specific settings for the Linux build
     if system == "Darwin":
