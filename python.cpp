@@ -19,6 +19,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#ifdef __LINUX__
+#include <dlfcn.h>
+#endif
 #include <ida.hpp>
 #include <idp.hpp>
 #include <ieee.h>
@@ -617,6 +620,18 @@ bool IDAPython_Init(void)
 	{
 		return false;
 	}
+
+#ifdef __LINUX__
+	/* Export symbols from libpython to resolve imported module deps */
+	qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so",
+			PY_MAJOR_VERSION,
+			PY_MINOR_VERSION);
+	if (!dlopen(tmp, RTLD_NOLOAD | RTLD_GLOBAL))
+	{
+		warning("IDAPython: dlopen(%s) failed", tmp);
+		return false;
+	}
+#endif
 
 	/* Start the interpreter */
 	Py_Initialize();
