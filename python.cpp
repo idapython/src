@@ -204,11 +204,8 @@ void IDAPython_RunScript(char *script)
     else
     {
         scriptpath = askfile_c(0, "*.py", "Python file to run");
-
         if (!scriptpath)
-        {
             return;
-        }
     }
 
     /* Make a copy of the path with '\\' => '/' */
@@ -527,13 +524,9 @@ extlang_t extlang_python =
 void enable_extlang_python(bool enable)
 {
     if (enable)
-    {
         register_extlang(&extlang_python);
-    }
     else
-    {
         register_extlang(NULL);
-    }
 }
 
 #if IDA_SDK_VERSION >= 540
@@ -602,7 +595,6 @@ bool IDAPython_Init(void)
 
     /* Start the interpreter */
     Py_Initialize();
-
     if (!Py_IsInitialized())
     {
         warning("IDAPython: Py_Initialize() failed");
@@ -612,6 +604,7 @@ bool IDAPython_Init(void)
     /* Init the SWIG wrapper */
     init_idaapi();
 
+    /* Set IDAPYTHON_VERSION in Python */
     qsnprintf(tmp, sizeof(tmp), "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)", \
               VER_MAJOR,
               VER_MINOR,
@@ -620,15 +613,8 @@ bool IDAPython_Init(void)
               VER_SERIAL);
     PyRun_SimpleString(tmp);
 
-#if IDP_INTERFACE_VERSION >= 75
-    qmakepath(tmp, MAXSTR, idadir("python"), "init.py", NULL);
-#elif IDP_INTERFACE_VERSION >= 69
-    qmakepath(tmp, idadir("python"), "init.py", NULL);
-#else
-    qmakepath(tmp, idadir(), "python", "init.py", NULL);
-#endif
-
     /* Pull in the Python side of init */
+    qmakepath(tmp, MAXSTR, idadir("python"), "init.py", NULL);
     if (!ExecFile(tmp))
     {
         warning("IDAPython: error executing init.py");
@@ -714,13 +700,9 @@ void IDAPython_Term(void)
 int idaapi init(void)
 {
     if (IDAPython_Init())
-    {
         return PLUGIN_KEEP;
-    }
     else
-    {
         return PLUGIN_SKIP;
-    }
 }
 
 /* Plugin term routine */
