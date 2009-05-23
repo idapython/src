@@ -120,7 +120,7 @@
 %inline %{
 int mem2base_wrap(char *buf, int len, ea_t ea, long fpos)
 {
-	return mem2base((void *)buf, ea, ea+len, fpos);
+    return mem2base((void *)buf, ea, ea+len, fpos);
 }
 %}
 

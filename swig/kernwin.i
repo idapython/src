@@ -41,28 +41,28 @@ void refresh_lists(void)
 
 %pythoncode %{
 def asklong(defval, format):
-	res, val = _idaapi._asklong(defval, format)
+    res, val = _idaapi._asklong(defval, format)
 
-	if res == 1:
-		return val
-	else:
-		return None
+    if res == 1:
+        return val
+    else:
+        return None
 
 def askaddr(defval, format):
-	res, ea = _idaapi._askaddr(defval, format)
+    res, ea = _idaapi._askaddr(defval, format)
 
-	if res == 1:
-		return ea
-	else:
-		return None
+    if res == 1:
+        return ea
+    else:
+        return None
 
 def askseg(defval, format):
-	res, sel = _idaapi._askseg(defval, format)
+    res, sel = _idaapi._askseg(defval, format)
 
-	if res == 1:
-		return sel
-	else:
-		return None
+    if res == 1:
+        return sel
+    else:
+        return None
 
 %}
 
@@ -75,60 +75,60 @@ def askseg(defval, format):
 %{
 bool idaapi py_menu_item_callback(void *userdata)
 {
-   PyObject *func, *args, *result;
-   bool ret = 0;
+    PyObject *func, *args, *result;
+    bool ret = 0;
    
-   // userdata is a tuple of ( func, args )
-   // func and args are borrowed references from userdata
-   func = PyTuple_GET_ITEM(userdata, 0);
-   args = PyTuple_GET_ITEM(userdata, 1);
+    // userdata is a tuple of ( func, args )
+    // func and args are borrowed references from userdata
+    func = PyTuple_GET_ITEM(userdata, 0);
+    args = PyTuple_GET_ITEM(userdata, 1);
    
-   // call the python function
-   result = PyEval_CallObject(func, args);
+    // call the python function
+    result = PyEval_CallObject(func, args);
    
-   // we cannot raise an exception in the callback, just print it.
-   if (!result) {
-     PyErr_Print();
-     return 0;
-   }
+    // we cannot raise an exception in the callback, just print it.
+    if (!result) {
+        PyErr_Print();
+        return 0;
+    }
    
-   // if the function returned a non-false value, then return 1 to ida,
-   // overwise return 0
-   if (PyObject_IsTrue(result)) {
-     ret = 1;
-   }
-   Py_DECREF(result);
+    // if the function returned a non-false value, then return 1 to ida,
+    // overwise return 0
+    if (PyObject_IsTrue(result)) {
+        ret = 1;
+    }
+    Py_DECREF(result);
    
-   return ret;
+    return ret;
 }
 %}
 
 %rename (add_menu_item) wrap_add_menu_item;
 %inline %{
 bool wrap_add_menu_item (
-   const char *menupath,
-   const char *name,
-   const char *hotkey,
-   int flags,
-   PyObject *pyfunc,
-   PyObject *args) {
-   // FIXME: probably should keep track of this data, and destroy it when the menu item is removed
-   PyObject *cb_data;
+    const char *menupath,
+    const char *name,
+    const char *hotkey,
+    int flags,
+    PyObject *pyfunc,
+    PyObject *args) {
+    // FIXME: probably should keep track of this data, and destroy it when the menu item is removed
+    PyObject *cb_data;
    
-   if (args == Py_None) {
-     Py_DECREF(Py_None);
-     args = PyTuple_New( 0 );
-     if (!args) 
-	     return 0;
-   }
+    if (args == Py_None) {
+        Py_DECREF(Py_None);
+        args = PyTuple_New( 0 );
+        if (!args) 
+            return 0;
+    }
 
-   if(!PyTuple_Check(args)) {
-     PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
-     return 0;
-   }
+    if(!PyTuple_Check(args)) {
+        PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
+        return 0;
+    }
 
-   cb_data = Py_BuildValue("(OO)", pyfunc, args);
-   return add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
+    cb_data = Py_BuildValue("(OO)", pyfunc, args);
+    return add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
 }
 %}
 
@@ -143,51 +143,51 @@ uint32 choose_choose(PyObject *self,
 %{
 uint32 idaapi choose_sizer(void *self)
 {
-	PyObject *pyres;
-	uint32 res;
+    PyObject *pyres;
+    uint32 res;
 
-	pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
-	res = PyInt_AsLong(pyres);
-	Py_DECREF(pyres);
-	return res;
+    pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
+    res = PyInt_AsLong(pyres);
+    Py_DECREF(pyres);
+    return res;
 }
 
 char * idaapi choose_getl(void *self, uint32 n, char *buf)
 {
-	PyObject *pyres;
-	char *res;
+    PyObject *pyres;
+    char *res;
 
-	char tmp[1024];
+    char tmp[1024];
 
-	pyres = PyObject_CallMethod((PyObject *)self, "getl", "l", n);
+    pyres = PyObject_CallMethod((PyObject *)self, "getl", "l", n);
 
-	if (!pyres)
-	{
-		strcpy(buf, "<Empty>");
-		return buf;
-	}
+    if (!pyres)
+    {
+        strcpy(buf, "<Empty>");
+        return buf;
+    }
 
-	res = PyString_AsString(pyres);
+    res = PyString_AsString(pyres);
 
-	if (res)
-	{
-		strcpy(buf, res);
-		res = buf;
-	}
-	else
-	{
-		strcpy(buf, "<Empty>");
-		res = buf;
-	}
+    if (res)
+    {
+        strcpy(buf, res);
+        res = buf;
+    }
+    else
+    {
+        strcpy(buf, "<Empty>");
+        res = buf;
+    }
 
-	Py_DECREF(pyres);
-	return res;
+    Py_DECREF(pyres);
+    return res;
 }
 
 void idaapi choose_enter(void *self, uint32 n)
 {
-	PyObject_CallMethod((PyObject *)self, "enter", "l", n);
-	return;
+    PyObject_CallMethod((PyObject *)self, "enter", "l", n);
+    return;
 }
 
 uint32 choose_choose(void *self,
@@ -196,35 +196,35 @@ uint32 choose_choose(void *self,
 	int x1,int y1,
 	int width)
 {
-	PyObject *pytitle;
+    PyObject *pytitle;
 
-	char deftitle[] = "Choose";
-	char *title = NULL;
+    char deftitle[] = "Choose";
+    char *title = NULL;
 
-	if ((pytitle = PyObject_GetAttrString((PyObject *)self, "title")))
-	{
-		title = PyString_AsString(pytitle);
-	}
+    if ((pytitle = PyObject_GetAttrString((PyObject *)self, "title")))
+    {
+        title = PyString_AsString(pytitle);
+    }
 
-	return choose(
-		flags,
-		x0, y0,
-		x1, y1,
-		self,
-		width,
-		&choose_sizer,
-		&choose_getl,
-		title ? title : deftitle,
-		1,
-		1,
-		NULL, /* del */
-		NULL, /* inst */
-		NULL, /* update */
-		NULL, /* edit */
-		&choose_enter,
-		NULL, /* destroy */
-		NULL, /* popup_names */
-		NULL  /* get_icon */ 
+    return choose(
+        flags,
+        x0, y0,
+        x1, y1,
+        self,
+        width,
+        &choose_sizer,
+        &choose_getl,
+        title ? title : deftitle,
+        1,
+        1,
+        NULL, /* del */
+        NULL, /* inst */
+        NULL, /* update */
+        NULL, /* edit */
+        &choose_enter,
+        NULL, /* destroy */
+        NULL, /* popup_names */
+        NULL  /* get_icon */ 
 	);
 }
 %}

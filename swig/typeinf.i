@@ -142,18 +142,18 @@
 %inline %{
 til_t * load_til(const char *tildir, const char *name)
 {
-	char errbuf[4096];
-	til_t *res;
+    char errbuf[4096];
+    til_t *res;
 	
-	res = load_til(tildir, name, errbuf, sizeof(errbuf));
+    res = load_til(tildir, name, errbuf, sizeof(errbuf));
 	
-	if (!res)
-	{
-		PyErr_SetString(PyExc_RuntimeError, errbuf);
-		return NULL;
-	}
+    if (!res)
+    {
+        PyErr_SetString(PyExc_RuntimeError, errbuf);
+        return NULL;
+    }
 
-	return res;
+    return res;
 }
 %}
 
@@ -161,18 +161,18 @@ til_t * load_til(const char *tildir, const char *name)
 %inline %{
 til_t * load_til_header_wrap(const char *tildir, const char *name)
 {
-	char errbuf[4096];
-	til_t *res;
+    char errbuf[4096];
+    til_t *res;
 	
-	res = load_til_header(tildir, name, errbuf, sizeof(errbuf));;
+    res = load_til_header(tildir, name, errbuf, sizeof(errbuf));;
 	
-	if (!res)
-	{
-		PyErr_SetString(PyExc_RuntimeError, errbuf);
-		return NULL;
-	}
+    if (!res)
+    {
+        PyErr_SetString(PyExc_RuntimeError, errbuf);
+        return NULL;
+    }
 
-	return res;
+    return res;
 }
 %}
 
@@ -184,10 +184,8 @@ int idc_parse_types(const char *input, int flags)
 {
     int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
 
-    if ( (flags & 1) != 0 )
-    {   
+    if ((flags & 1) != 0)
         hti |= HTI_FIL;
-    }
 
     return parse_types2(input, (flags & 2) == 0 ? msg : NULL, hti);
 }
@@ -201,12 +199,10 @@ char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
     {
         int code = print_type_to_one_line(buf, bufsize, idati, type,
                                           NULL, NULL, fnames);
-        if ( code == T_NORMAL )
-        {
+        if (code == T_NORMAL)
             return buf;
-        }
-     }                                                              \
-     return NULL;
+    }                                                              \
+    return NULL;
 }
 
 char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
@@ -218,78 +214,75 @@ char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
     {
         int code = print_type_to_one_line(buf, bufsize, idati, type,
                                           NULL, NULL, fnames);
-        if ( code == T_NORMAL )
-        {
+        if (code == T_NORMAL)
             return buf;
-        }
-     }                                                              \
-     return NULL;
+    }                                                              \
+    return NULL;
 }
 
 int idc_set_local_type(int ordinal, const char *dcl, int flags)
 {
-  if (dcl == NULL || dcl[0] == '\0')
+    if (dcl == NULL || dcl[0] == '\0')
     {
-      if (!del_numbered_type(idati, ordinal))
-	return 0;
+        if (!del_numbered_type(idati, ordinal))
+            return 0;
     }
-  else
+    else
     {
-      qstring name;
-      qtype type;
-      qtype fields;
+        qstring name;
+        qtype type;
+        qtype fields;
       
-      if (!parse_decl(idati, dcl, &name, &type, &fields, flags))
-	return 0;
+        if (!parse_decl(idati, dcl, &name, &type, &fields, flags))
+            return 0;
 
-      if (ordinal <= 0)
+        if (ordinal <= 0)
 	{
-	  if (!name.empty())
-	    ordinal = get_type_ordinal(idati, name.c_str());
+            if (!name.empty())
+                ordinal = get_type_ordinal(idati, name.c_str());
 
-	  if (ordinal <= 0)
-	    ordinal = alloc_type_ordinal(idati);
+            if (ordinal <= 0)
+                ordinal = alloc_type_ordinal(idati);
 	}
 
-      if (!set_numbered_type(idati, ordinal, 0, name.c_str(), type.c_str(), fields.c_str()))
-	return 0;
+        if (!set_numbered_type(idati, ordinal, 0, name.c_str(), type.c_str(), fields.c_str()))
+            return 0;
     }
-  return ordinal;
+    return ordinal;
 }
 
 int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 {
-  const type_t *type;
-  const p_list *fields;
+    const type_t *type;
+    const p_list *fields;
 
-  if (!get_numbered_type(idati, ordinal, &type, &fields))
+    if (!get_numbered_type(idati, ordinal, &type, &fields))
     {
-      buf[0] = 0;
-      return false;
+        buf[0] = 0;
+        return false;
     }
 
-  qstring res;
-  const char *name = get_numbered_type_name(idati, ordinal);
+    qstring res;
+    const char *name = get_numbered_type_name(idati, ordinal);
 
-  if (print_type_to_qstring(&res, NULL, 2, 40, flags, idati, type, name, NULL, fields) <= 0)
+    if (print_type_to_qstring(&res, NULL, 2, 40, flags, idati, type, name, NULL, fields) <= 0)
     {
-      buf[0] = 0;
-      return false;
+        buf[0] = 0;
+        return false;
     }
 
-  qstrncpy(buf, res.c_str(), maxsize);
-  return true;
+    qstrncpy(buf, res.c_str(), maxsize);
+    return true;
 }
 
 char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
 {
-  const char *name = get_numbered_type_name(idati, ordinal);
+    const char *name = get_numbered_type_name(idati, ordinal);
 
-  if (name == NULL)
-    return false;
+    if (name == NULL)
+        return false;
 
-  qstrncpy(buf, name, bufsize);
-  return true;
+    qstrncpy(buf, name, bufsize);
+    return true;
 }
-
 %}

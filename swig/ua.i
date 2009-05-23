@@ -6,7 +6,7 @@
 %inline {
 insn_t * get_current_instruction()
 {
-	return &cmd;
+    return &cmd;
 }
 }
 
@@ -14,12 +14,9 @@ insn_t * get_current_instruction()
 %inline {
 op_t *get_instruction_operand(insn_t *ins, int n)
 {
-	if (!ins)
-	{
-		return NULL;
-	}
-
-	return &(ins->Operands[n]);
+    if (!ins)
+        return NULL;
+    return &(ins->Operands[n]);
 }
 }
 

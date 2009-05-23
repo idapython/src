@@ -38,7 +38,7 @@
 bool CompileEx_wrap(const char *file, bool del_macros,
                     char *errbuf, size_t errbufsize)
 {
-	return !CompileEx(file, del_macros, errbuf, errbufsize);
+    return !CompileEx(file, del_macros, errbuf, errbufsize);
 }
 %}
 
@@ -46,7 +46,7 @@ bool CompileEx_wrap(const char *file, bool del_macros,
 %inline %{
 bool Compile_wrap(const char *file, char *errbuf, size_t errbufsize)
 {
-	return !Compile(file, errbuf, errbufsize);
+    return !Compile(file, errbuf, errbufsize);
 }
 %}
 
@@ -54,7 +54,7 @@ bool Compile_wrap(const char *file, char *errbuf, size_t errbufsize)
 %inline %{
 bool calcexpr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errbuf, size_t errbufsize)
 {
- 	return !calcexpr(where, line, rv, errbuf, errbufsize);
+    return !calcexpr(where, line, rv, errbuf, errbufsize);
 }
 %}
 
@@ -62,7 +62,7 @@ bool calcexpr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errbuf, s
 %inline %{
 bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errbuf, size_t errbufsize)
 {
- 	return !calc_idc_expr(where, line, rv, errbuf, errbufsize);
+    return !calc_idc_expr(where, line, rv, errbuf, errbufsize);
 }
 %}
         
@@ -72,7 +72,7 @@ bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errb
 %inline %{
 bool CompileLine_wrap(const char *line, char *errbuf, size_t errbufsize)
 {
-	return !CompileLine(line, errbuf, errbufsize);
+    return !CompileLine(line, errbuf, errbufsize);
 }
 %}
 

@@ -124,7 +124,7 @@ typedef          long long longlong;
 /* Small wrapper to get the inf structure */
 idainfo *get_inf_structure(void)
 {
-	return &inf;
+    return &inf;
 }
 }
 
@@ -147,7 +147,7 @@ idainfo *get_inf_structure(void)
 %include "xref.i"
 
 %inline {
-        void set_script_timeout(int timeout);
-	void enable_extlang_python(bool enable);
-	void enable_python_cli(bool enable);
+    void set_script_timeout(int timeout);
+    void enable_extlang_python(bool enable);
+    void enable_python_cli(bool enable);
 }

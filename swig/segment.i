@@ -22,12 +22,12 @@
 %include "segment.hpp"
 
 %inline %{
-  sel_t get_defsr(segment_t *s, int reg)
-  {
+sel_t get_defsr(segment_t *s, int reg)
+{
     return s->defsr[reg];
-  }
-  void set_defsr(segment_t *s, int reg, sel_t value)
-  {
+}
+void set_defsr(segment_t *s, int reg, sel_t value)
+{
     s->defsr[reg] = value;
-  }
+}
 %}
