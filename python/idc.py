@@ -38,6 +38,9 @@ import struct
 import time
 import types
 
+__EA64__ = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+WORDMASK = __EA64__ and 0xFFFFFFFFFFFFFFFF or 0xFFFFFFFF
+
 class DeprecatedIDCError(Exception):
     """
     Exception for deprecated function calls
@@ -74,7 +77,7 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
 
 BADADDR         = idaapi.BADADDR # Not allowed address value
 BADSEL          = idaapi.BADSEL  # Not allowed selector value/number
-MAXADDR         = idaapi.MAXADDR
+MAXADDR         = idaapi.MAXADDR & WORDMASK
 
 #
 #      Flag bit definitions (for GetFlags())
@@ -2628,6 +2631,80 @@ INF_SIZEOF_LONG  = 190
 INF_SIZEOF_LLONG = 191
 INF_CHANGE_COUNTER = 192 # database change counter; keeps track of byte and segment modifications
 
+# Redefine these offsets for 64-bit version
+if __EA64__:
+    INF_CORESTART             = 25
+    INF_OSTYPE                = 33
+    INF_APPTYPE               = 35
+    INF_START_SP              = 37
+    INF_AF                    = 45
+    INF_START_IP              = 47
+    INF_BEGIN_EA              = 55
+    INF_MIN_EA                = 63
+    INF_MAX_EA                = 71
+    INF_OMIN_EA               = 79
+    INF_OMAX_EA               = 87
+    INF_LOW_OFF               = 95
+    INF_HIGH_OFF             = 103
+    INF_MAXREF               = 111
+    INF_ASCII_BREAK          = 119
+    INF_WIDE_HIGH_BYTE_FIRST = 120
+    INF_INDENT               = 121
+    INF_COMMENT              = 122
+    INF_XREFNUM              = 123
+    INF_ENTAB                = 124
+    INF_SPECSEGS             = 125
+    INF_VOIDS                = 126
+    INF_SHOWAUTO             = 128
+    INF_AUTO                 = 129
+    INF_BORDER               = 130
+    INF_NULL                 = 131
+    INF_GENFLAGS             = 132
+    INF_SHOWPREF             = 133
+    INF_PREFSEG              = 134
+    INF_ASMTYPE              = 135
+    INF_BASEADDR             = 136
+    INF_XREFS                = 144
+    INF_BINPREF              = 145
+    INF_CMTFLAG              = 147
+    INF_NAMETYPE             = 148
+    INF_SHOWBADS             = 149
+    INF_PREFFLAG             = 150
+    INF_PACKBASE             = 151
+    INF_ASCIIFLAGS           = 152
+    INF_LISTNAMES            = 153
+    INF_ASCIIPREF            = 154
+    INF_ASCIISERNUM          = 170
+    INF_ASCIIZEROES          = 178
+    INF_MF                   = 182
+    INF_ORG                  = 183
+    INF_ASSUME               = 184
+    INF_CHECKARG             = 185
+    INF_START_SS             = 186
+    INF_START_CS             = 194
+    INF_MAIN                 = 202
+    INF_SHORT_DN             = 210
+    INF_LONG_DN              = 218
+    INF_DATATYPES            = 226
+    INF_STRTYPE              = 234
+    INF_AF2                  = 242
+    INF_NAMELEN              = 244
+    INF_MARGIN               = 246
+    INF_LENXREF              = 248
+    INF_LPREFIX              = 250
+    INF_LPREFIXLEN           = 266
+    INF_COMPILER             = 267
+    INF_MODEL                = 268
+    INF_SIZEOF_INT           = 269
+    INF_SIZEOF_BOOL          = 270
+    INF_SIZEOF_ENUM          = 271
+    INF_SIZEOF_ALGN          = 272
+    INF_SIZEOF_SHORT         = 273
+    INF_SIZEOF_LONG          = 274
+    INF_SIZEOF_LLONG         = 275
+    INF_CHANGE_COUNTER       = 276
+    INF_SIZEOF_LBDL          = 280
+
 _INFMAP = {
 INF_VERSION     : (False, 'version'),      # short;   Version of database
 INF_PROCNAME    : (False, 'procname'),     # char[8]; Name of current processor
@@ -3353,6 +3430,25 @@ SEGATTR_GS      = 50      # default GS value
 SEGATTR_TYPE    = 94      # segment type
 SEGATTR_COLOR   = 95      # segment color
 
+# Redefining these for 64-bit
+if __EA64__:
+    SEGATTR_START   = 0
+    SEGATTR_END     = 8
+    SEGATTR_ORGBASE = 32
+    SEGATTR_ALIGN   = 40
+    SEGATTR_COMB    = 41
+    SEGATTR_PERM    = 42
+    SEGATTR_BITNESS = 43
+    SEGATTR_FLAGS   = 44
+    SEGATTR_SEL     = 46
+    SEGATTR_ES      = 54
+    SEGATTR_CS      = 62
+    SEGATTR_SS      = 70
+    SEGATTR_DS      = 78
+    SEGATTR_FS      = 86
+    SEGATTR_GS      = 94
+    SEGATTR_TYPE    = 182
+    SEGATTR_COLOR   = 183
 
 _SEGATTRMAP = {
     SEGATTR_START   : (True, 'startEA'),
@@ -3747,6 +3843,21 @@ FUNCATTR_FPD     = 24     # frame pointer delta
 FUNCATTR_COLOR   = 28     # function color code
 FUNCATTR_OWNER   = 10     # chunk owner (valid only for tail chunks)
 FUNCATTR_REFQTY  = 14     # number of chunk parents (valid only for tail chunks)
+
+# Redefining the constants for 64-bit
+if __EA64__:
+    FUNCATTR_START   = 0
+    FUNCATTR_END     = 8
+    FUNCATTR_FLAGS   = 16
+    FUNCATTR_FRAME   = 18
+    FUNCATTR_FRSIZE  = 26
+    FUNCATTR_FRREGS  = 34
+    FUNCATTR_ARGSIZE = 36
+    FUNCATTR_FPD     = 44
+    FUNCATTR_COLOR   = 52
+    FUNCATTR_OWNER   = 18
+    FUNCATTR_REFQTY  = 26
+
 
 _FUNCATTRMAP = {
     FUNCATTR_START   : (True, 'startEA'),
@@ -6979,6 +7090,13 @@ BPTATTR_TYPE  =  8   # type of the breakpoint
 BPTATTR_COUNT = 12   # how many times does the execution reach this breakpoint ?
 BPTATTR_FLAGS = 16   # Breakpoint attributes:
 BPTATTR_COND  = 20   # Breakpoint condition NOTE: the return value is a string in this case
+
+if __EA64__:
+    BPTATTR_SIZE  = 8
+    BPTATTR_TYPE  = 16
+    BPTATTR_COUNT = 20
+    BPTATTR_FLAGS = 24
+    BPTATTR_COND  = 28
 
 # Breakpoint types:
 BPT_EXEC    = 0    # Hardware: Execute instruction
