@@ -18,6 +18,8 @@ import warnings
 
 import _idaapi
 
+__EA64__ = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+
 # FIXME: Should fix the offending constant instead
 warnings.filterwarnings('ignore', category=FutureWarning)
 
@@ -63,7 +65,11 @@ def runscript(script):
 def print_banner():
     version1 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
     version2 = "Copyright (c) 1990-2009 Python Software Foundation - http://www.python.org/"
-    version3 = "IDAPython version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION
+    if __EA64__:
+        version3 = "IDAPython 64-bit"
+    else:
+        version3 = "IDAPython"
+    version3 += " version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION
     version4 = "Copyright (c) 2004-2009 Gergely Erdelyi - http://d-dome.net/idapython/"
     linelen  = max(len(version1), len(version2), len(version3), len(version4))
 
@@ -74,7 +80,6 @@ def print_banner():
     print version3
     print version4
     print '-' * linelen
-
 
 #-----------------------------------------------------------
 # Take over the standard text outputs
