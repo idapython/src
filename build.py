@@ -393,5 +393,6 @@ if __name__ == "__main__":
     # Do 64-bit build?
     ea64 = '--ea64' in sys.argv    
     build_binary_package(ea64=False, nukeold=True)
-    build_binary_package(ea64=True, nukeold=False)
+    if ea64:
+        build_binary_package(ea64=True, nukeold=False)
     build_source_package()
