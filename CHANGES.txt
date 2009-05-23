@@ -1,6 +1,17 @@
 Please see http://code.google.com/p/idapython/source/list for a
 detailed list of changes.
 
+Changes from version 1.1.0 to 1.0.92
+------------------------------------
+
+- 64-bit support (largely untested)
+- Long running (or inifinitely looping) scripts can not be stopped
+- Host of IDC updates and fixes
+- netnode.hpp is now mostly wrapped
+- idautils use generators instead of lists
+- Lots of cleanups and fixes
+
+
 Changes from version 0.9.0 to 1.0.0
 -----------------------------------
 

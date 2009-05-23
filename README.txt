@@ -38,9 +38,9 @@ Mailing list for the project is hosted by Google Groups at
 INSTALLATION FROM BINARIES
 --------------------------
 
-1, Install Python 2.5 from http://www.python.org/
-2, Copy the directory python\ to the IDA install directory
-3. Copy the plugin to the %IDADIR%\plugins\
+1, Install Python 2.5 or 2.6 from http://www.python.org/
+2, Copy the python and python64 directories to the IDA install directory
+3. Copy the plugins to the %IDADIR%\plugins\
 
 
 USAGE
