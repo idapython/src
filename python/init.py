@@ -99,7 +99,11 @@ sys.stdout = sys.stderr = MyStdOut()
 sys.argv = [ "" ]
 
 # Have to make sure Python finds our modules
-sys.path.append(_idaapi.idadir("python"))
+if _idaapi.idainfo_is_64bit(_idaapi.cvar.inf):
+    pythonDir = "python64"
+else:
+    pythonDir = "python"
+sys.path.append(_idaapi.idadir(pythonDir))
 
 print_banner()
 

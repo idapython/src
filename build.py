@@ -30,7 +30,7 @@ IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VER
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 1
-VERSION_PATCH  = 91
+VERSION_PATCH  = 92
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -61,10 +61,6 @@ BINDIST_MANIFEST = [
     "COPYING.txt",
     "CHANGES.txt",
     "STATUS.txt",
-    "python/init.py",
-    "python/idc.py",
-    "python/idautils.py",
-    ("idaapi.py", "python"),
     "docs/notes.txt",
     "examples/chooser.py",
     "examples/colours.py",
@@ -83,6 +79,7 @@ SRCDIST_MANIFEST = [
     "basetsd.h",
     "build.py",
     "swig/allins.i",
+    "swig/area.i",
     "swig/auto.i",
     "swig/bytes.i",
     "swig/dbg.i",
@@ -93,8 +90,10 @@ SRCDIST_MANIFEST = [
     "swig/fixup.i",
     "swig/frame.i",
     "swig/funcs.i",
+    "swig/gdl.i",
     "swig/ida.i",
     "swig/idaapi.i",
+    "swig/idd.i",
     "swig/idp.i",
     "swig/ints.i",
     "swig/kernwin.i",
@@ -117,19 +116,6 @@ SRCDIST_MANIFEST = [
     "swig/ua.i",
     "swig/xref.i",
     "tools/gendocs.py",
-]
-
-# Temporaty build files to remove
-BUILD_TEMPFILES = [
-    "idaapi.cpp",
-    "idaapi.obj",
-    "idaapi.o",
-    "idaapi.py",
-    "idapython.sln",
-    "idapython.ncb",
-    "python.exp",
-    "python.lib",
-    "python.obj"
 ]
 
 class BuilderBase:
@@ -165,7 +151,6 @@ class BuilderBase:
         if VERBOSE: print cmdstring
         return os.system(cmdstring)
 
-
     def link(self, objects, outfile, libpaths=[], libraries=[], extra_parameters=None):
         """ Link the binary from objects and libraries """
         cmdstring = "%s %s %s" % (self.linker,
@@ -174,19 +159,15 @@ class BuilderBase:
 
         for objectfile in objects:
             cmdstring = "%s %s" % (cmdstring, objectfile + self.object_extension) 
-
         for libpath in libpaths:
             cmdstring = "%s %s%s" % (cmdstring, self.libpath_delimiter, libpath)
-
         for library in libraries:
             cmdstring = "%s %s" % (cmdstring, library)
-
         if extra_parameters:
             cmdstring = "%s %s" % (cmdstring, extra_parameters)
 
         if VERBOSE: print cmdstring
         return os.system(cmdstring)
-
 
     def _build_command_string(self, macros, argument_delimiter):
         macrostring = ""
@@ -225,7 +206,7 @@ class GCCBuilder(BuilderBase):
 
 
 class MSVCBuilder(BuilderBase):
-    """ Generic GCC compiler class """
+    """ Generic Visual C compiler class """
     def __init__(self):
         self.include_delimiter = "/I"
         self.macro_delimiter = "/D"
@@ -250,19 +231,19 @@ class MSVCBuilder(BuilderBase):
         return "/out:%s" % filename
 
 
-def build_distribution(manifest, distrootdir):
-    """ Create dist tree and copy files to it """
-
-    # Remove the previous distibution if exits
+def build_distribution(manifest, distrootdir, ea64, nukeold):
+    """ Create a distibution to a directory and a ZIP file """
+    # (Re)create the output directory
     if os.path.exists(distrootdir):
-        shutil.rmtree(distrootdir)
+        if nukeold:
+            shutil.rmtree(distrootdir)
+            os.makedirs(distrootdir)
+    else:
+            os.makedirs(distrootdir)
 
     # Also make a ZIP archive of the build
     zippath = distrootdir + ".zip"
-    zip = zipfile.ZipFile(zippath, "w", zipfile.ZIP_DEFLATED)
-    
-    # Create output directory
-    os.makedirs(distrootdir)
+    zip = zipfile.ZipFile(zippath, nukeold and "w" or "a", zipfile.ZIP_DEFLATED)
     
     # Copy files, one by one
     for f in manifest:
@@ -275,12 +256,13 @@ def build_distribution(manifest, distrootdir):
             srcfilepath = f
             srcfilename = os.path.basename(f)
             srcdir  = os.path.dirname(f)
-            
             if srcdir == "":
                 dstdir = distrootdir
             else:
                 dstdir = distrootdir + os.sep + srcdir 
-              
+        # Move the python files to python64 when building a 64-bit plugin
+#        if ea64:
+#            dstdir = dstdir.replace(os.sep+'python', os.sep+'python64')
         if not os.path.exists(dstdir):
             os.makedirs(dstdir)
             
@@ -290,67 +272,66 @@ def build_distribution(manifest, distrootdir):
 
     zip.close()
 
-def build_plugin(system, idasdkdir):
-    """ Build the plugin from the SWIG wrapper and plugin main source """
 
-    # Find IDA SDK headers
+def build_plugin(platform, idasdkdir, plugin_name, ea64):
+    """ Build the plugin from the SWIG wrapper and plugin main source """
+    # Path to the IDA SDK headers
     ida_include_directory = idasdkdir + os.sep + "include"
 
+    builder = None
     # Platform-specific settings for the Linux build
-    if system == "Linux":
+    if platform == "linux":
         builder = GCCBuilder()
-        plugin_name = "python.plx"
         platform_macros = [ "__LINUX__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "lib"
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = idasdkdir + os.sep + "libgcc32.lnx"
+        ida_libpath = os.path.join(idasdkdir, ea64 and "libgcc64.lnx" or "libgcc32.lnx")
         ida_lib = ""
         extra_link_parameters = ""
-
     # Platform-specific settings for the Windows build
-    if system == "Windows":
+    if platform == "win32":
         builder = MSVCBuilder()
-        plugin_name = "python.plw"
         platform_macros = [ "__NT__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "libs"
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = idasdkdir + os.sep + "libvc.w32"
+        ida_libpath = os.path.join(idasdkdir, ea64 and "libvc.w64" or "libvc.w32")
         ida_lib = "ida.lib"
         extra_link_parameters = ""
-
-    # Platform-specific settings for the Linux build
-    if system == "Darwin":
+    # Platform-specific settings for the Mac OS X build
+    if platform == "macosx":
         builder = GCCBuilder()
         builder.linker_parameters = "-dynamiclib"
-        plugin_name = "python.pmc"
         platform_macros = [ "__MAC__" ]
         python_libpath = "."
         python_library = "-framework Python"
-        ida_libpath = idasdkdir + os.sep + "libgcc32.mac"
-        ida_lib = "-lida"
+        ida_libpath = os.path.join(idasdkdir, ea64 and "libgcc64.mac" or "libgcc32.mac")
+        ida_lib = ea64 and "-lida64" or "-lida"
         extra_link_parameters = ""
 
+    assert builder, "Unknown platform! No idea how to build here..."
+
+    # Enable EA64 for the compiler if necessary
+    if ea64:
+        platform_macros.append("__EA64__")
 
     # Build the wrapper from the interface files
-    swigcmd = "swig %s -Iswig -o idaapi.cpp -I%s idaapi.i" % (SWIG_OPTIONS, ida_include_directory)
+    ea64flag = ea64 and "-D__EA64__" or ""
+    swigcmd = "swig %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_OPTIONS, ea64flag, ida_include_directory)
     if VERBOSE: print swigcmd
     res =  os.system(swigcmd)
-
-    if res != 0: return False
+    assert res == 0, "Failed to build the wrapper with SWIG"
 
     # Compile the wrapper
     res = builder.compile("idaapi",
                           includes=[ PYTHON_INCLUDE_DIRECTORY, ida_include_directory ],
                           macros=platform_macros)
-
-    if res != 0: return False
+    assert res == 0, "Failed to build the wrapper module"
 
     # Compile the main plugin source
     res =  builder.compile("python",
                            includes=[ PYTHON_INCLUDE_DIRECTORY, ida_include_directory ],
                            macros=platform_macros)
-
-    if res != 0: return False
+    assert res == 0, "Failed to build the main plugin object"
 
     # Link the final binary
     res =  builder.link( ["idaapi", "python"],
@@ -358,39 +339,26 @@ def build_plugin(system, idasdkdir):
                          [ python_libpath, ida_libpath ],
                          [ python_library, ida_lib ],
                          extra_link_parameters)
-
-    if res != 0: return False
-
-    return True
-
-    
-def clean(manifest):
-    """ Clean the temporary files """
-
-    for i in manifest:
-        try:
-            os.unlink(i)
-        except:
-            pass
+    assert res == 0, "Failed to link the plugin binary"
 
 
-if __name__ == "__main__":
+def build_binary_package(ea64, nukeold):
     # Detect the platform
     system = platform.system()
 
     if system == "Windows" or system == "Microsoft":
         system = "Windows"
         platform_string = "win32"
-        plugin_name = "python.plw"
+        plugin_name = ea64 and "python.p64" or "python.plw"
     
     if system == "Linux":
         platform_string = "linux"
-        plugin_name = "python.plx"
+        plugin_name = ea64 and "python.plx64" or "python.plx"
 
     if system == "Darwin":
         platform_string = "macosx"
-        plugin_name = "python.pmc"
-     
+        plugin_name = ea64 and "python.pmc64" or "python.pmc"
+
     BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR, 
                                                              VERSION_MINOR, 
                                                              VERSION_PATCH, 
@@ -399,28 +367,33 @@ if __name__ == "__main__":
                                                              PYTHON_MAJOR_VERSION,
                                                              PYTHON_MINOR_VERSION,
                                                              platform_string)
+    # Build the plugin
+    build_plugin(platform_string, IDA_SDK, plugin_name, ea64)
+    # Build the binary distribution
+    binmanifest = []
+    if nukeold:
+        binmanifest.extend(BINDIST_MANIFEST)
+    binmanifest.extend([(x, ea64 and "python64" or "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
+    binmanifest.append((plugin_name, "plugins"))
+    build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
+
+
+def build_source_package():
+    """ Build a directory and a ZIP file with all the sources """
     SRCDISTDIR = "idapython-%d.%d.%d" % (VERSION_MAJOR, 
                                          VERSION_MINOR, 
                                          VERSION_PATCH) 
-    
-    # Build the plugin
-    res = build_plugin(system, IDA_SDK)
-    if not res: sys.exit(1)
-    
-    # Build the binary distribution
-    binmanifest = []
-    binmanifest.extend(BINDIST_MANIFEST)
-    binmanifest.append((plugin_name, "plugins"))
-    build_distribution(binmanifest, BINDISTDIR)
-
-    # Build the binary distribution
+    # Build the source distribution
     srcmanifest = []
     srcmanifest.extend(BINDIST_MANIFEST)
     srcmanifest.extend(SRCDIST_MANIFEST)
-    build_distribution(srcmanifest, SRCDISTDIR)
+    srcmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py"])
+    build_distribution(srcmanifest, SRCDISTDIR, ea64=False, nukeold=True)
 
-    # Clean the temp files
-    cleanlist = []
-    cleanlist.extend(BUILD_TEMPFILES)
-    cleanlist.append(plugin_name)
-#    clean(cleanlist)
+
+if __name__ == "__main__":
+    # Do 64-bit build?
+    ea64 = '--ea64' in sys.argv    
+    build_binary_package(ea64=False, nukeold=True)
+    build_binary_package(ea64=True, nukeold=False)
+    build_source_package()

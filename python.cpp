@@ -45,14 +45,18 @@ extern "C"
 #define IDAPYTHON_RUNSTATEMENT 1
 #define IDAPYTHON_SCRIPTBOX    2
 
+
 #define IDAPYTHON_DATA_STATEMENT 0
 
+#ifdef __EA64__
+#define PYTHON_DIR_NAME "python64"
+#else
+#define PYTHON_DIR_NAME "python"
+#endif
 
 void init_idaapi(void);
 void idaapi run(int arg);
-
 static int initialized = 0;
-
 
 /* This is a simple tracing code for debugging purposes. */
 /* It might evolve into a tracing facility for user scripts. */
@@ -172,14 +176,7 @@ bool CheckFile(char *filename)
 {
     char filepath[MAXSTR+1];
 
-#if IDP_INTERFACE_VERSION >= 75
-    qmakepath(filepath, MAXSTR, idadir(NULL), "python", filename, NULL);
-#elif IDP_INTERFACE_VERSION >= 69
-    qmakepath(filepath, idadir(NULL), "python", filename, NULL);
-#else
-    qmakepath(filepath, idadir(), "python", filename, NULL);
-#endif
-
+    qmakepath(filepath, MAXSTR, idadir(PYTHON_DIR_NAME), filename, NULL);
     if (!qfileexist(filepath))
     {
         warning("IDAPython: Missing required file %s", filename);
@@ -614,7 +611,7 @@ bool IDAPython_Init(void)
     PyRun_SimpleString(tmp);
 
     /* Pull in the Python side of init */
-    qmakepath(tmp, MAXSTR, idadir("python"), "init.py", NULL);
+    qmakepath(tmp, MAXSTR, idadir(PYTHON_DIR_NAME), "init.py", NULL);
     if (!ExecFile(tmp))
     {
         warning("IDAPython: error executing init.py");
