@@ -260,9 +260,7 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
                 dstdir = distrootdir
             else:
                 dstdir = distrootdir + os.sep + srcdir 
-        # Move the python files to python64 when building a 64-bit plugin
-#        if ea64:
-#            dstdir = dstdir.replace(os.sep+'python', os.sep+'python64')
+
         if not os.path.exists(dstdir):
             os.makedirs(dstdir)
             
