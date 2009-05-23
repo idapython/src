@@ -38,7 +38,7 @@ import struct
 import time
 import types
 
-__EA64__ = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+__EA64__ = idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
 WORDMASK = __EA64__ and 0xFFFFFFFFFFFFFFFF or 0xFFFFFFFF
 
 class DeprecatedIDCError(Exception):
