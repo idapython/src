@@ -57,6 +57,10 @@
 %ignore FlagsInit;
 %ignore FlagsTerm;
 %ignore FlagsReset;
+%ignore init_flags;
+%ignore term_flags;
+%ignore reset_flags;
+%ignore flush_flags;
 
 // TODO: These could be fixed if someone needs them.
 %ignore get_many_bytes;

@@ -134,6 +134,8 @@
 %ignore type_names;
 %ignore get_compiler_id;
 
+%ignore build_func_type;
+
 %include "typeinf.hpp"
 
 // Custom wrappers

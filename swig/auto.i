@@ -2,6 +2,8 @@
 %ignore auto_process_all;
 %ignore autoPlanned;
 %ignore nextPlanned;
+%ignore is_planned_ea;
+%ignore get_next_planned_ea;
 %ignore autoDelCode;
 %ignore autoPeek;
 %ignore autoProcess;

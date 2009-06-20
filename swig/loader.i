@@ -108,6 +108,7 @@
 %ignore clear_plugin_options;
 %ignore is_in_loader;
 %ignore get_ids_filename;
+%ignore is_embedded_dbfile_ext;
 
 // mem2base() has a custom wrapper
 %ignore mem2base;

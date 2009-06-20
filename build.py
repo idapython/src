@@ -22,7 +22,7 @@ from distutils import sysconfig
 # Start of user configurable options
 VERBOSE = True
 IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 4
+IDA_MINOR_VERSION = 5
 IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
 #IDA_SDK = ".." + os.sep + ".."
 # End of user configurable options
