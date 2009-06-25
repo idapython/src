@@ -201,6 +201,8 @@ def Functions(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     if it extends beyond 'end'.
     """
     func = idaapi.get_func(start)
+    if not func:
+        func = idaapi.get_next_func(start)
     while func and func.startEA < end:
         yield func.startEA
         func = idaapi.get_next_func(func.startEA)
