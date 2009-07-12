@@ -1,14 +1,16 @@
 Please see http://code.google.com/p/idapython/source/list for a
 detailed list of changes.
 
-Changes from version 1.1.0 to 1.0.92
+Changes from version 1.1.0 to 1.2.0
 ------------------------------------
 
 - 64-bit support (largely untested)
-- Long running (or inifinitely looping) scripts can not be stopped
+- IDA Pro 5.5 support
+- Long running (or inifinitely looping) scripts can now be stopped
 - Host of IDC updates and fixes
 - netnode.hpp is now mostly wrapped
 - idautils use generators instead of lists
+- Functions() and GetFchunkAttr() now work properly
 - Lots of cleanups and fixes
 
 
