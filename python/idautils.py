@@ -198,7 +198,8 @@ def Functions(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     @return: list of heads between start and end
 
     @note: The last function that starts before 'end' is included even
-    if it extends beyond 'end'.
+    if it extends beyond 'end'. Any function that has its chunks in
+    multiple segments will be reported multiple times. 
     """
     func = idaapi.get_func(start)
     if not func:
