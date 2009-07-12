@@ -22,15 +22,15 @@ from distutils import sysconfig
 # Start of user configurable options
 VERBOSE = True
 IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 5
+IDA_MINOR_VERSION = 4
 IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
 #IDA_SDK = ".." + os.sep + ".."
 # End of user configurable options
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 1
-VERSION_PATCH  = 92
+VERSION_MINOR  = 2
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
