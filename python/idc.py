@@ -5190,11 +5190,7 @@ def GetFchunkAttr(ea, attr):
 
     @return: desired attribute or -1
     """
-    if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER, FUNCATTR_REFQTY ]:
-        chunk = idaapi.get_fchunk(ea)
-        if chunk:
-            return _IDC_GetAttr(chunk, _FUNCATTRMAP, attr)
-    return -1
+    return Eval("GetFchunkAttr(0x%x, %d);" % (ea, attr))
 
 
 def SetFchunkAttr(ea, attr, value):
