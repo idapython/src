@@ -5005,48 +5005,7 @@ def SetStrucComment(sid, comment, repeatable):
     return idaapi.set_struc_cmt(sid, comment, repeatable)
 
 
-def _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target=None, tdelta=None, reftype=None):
-    """ Internal function to prepare typeinfo_t for adding/setting structure members """
-
-    if idaapi.isOff0(flag):
-        ti = idaapi.typeinfo_t()
-        ri = idaapi.refinfo_t()
-        ri.base = typeid
-        if target != None:
-          ri.target = target
-          ri.tdelta = 0
-          ri.flags = reftype
-        else:
-          ri.target = BADADDR
-          ri.tdelta = 0
-          if (flag & FF_WORD):
-              ri.flags = REF_OFF16
-          elif (flag & FF_BYTE):
-              ri.flags = REF_OFF8
-          elif (flag & FF_QWRD):
-              ri.flags = REF_OFF64
-          else:
-              ri.flags = REF_OFF32
-        ti.ri = ri
-    elif idaapi.isEnum0(flag):
-        ti = idaapi.typeinfo_t()
-        ec = idaapi.enum_const_t()
-        ec.tid = typeid
-        ec.serial = 0
-        ti.ec = ec
-    elif idaapi.isStroff0(flag):
-        ti = idaapi.typeinfo_t()
-        ti.path.len = 1
-        target_struct = idaapi.get_struc(typeid)
-        assert target_struct, "Target structure is invalid"
-        ti.path.ids = [ typeid ]
-    else:
-        ti = idaapi.typeinfo_t()
-        ti.tid = typeid
-    return ti
-
-
-def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=None, tdelta=None, reftype=None):
+def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0, reftype=REF_OFF32):
     """
     Add structure member
 
@@ -5075,10 +5034,11 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=None, tdelta=
     @return: 0 - ok, otherwise error code (one of STRUC_ERROR_*)
 
     """
-    struc = idaapi.get_struc(sid)
-    assert struct, "get_struc() failed"
-    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target, tdelta, reftype)
-    return idaapi.add_struc_member(struc, name, offset, flag, ti, nbytes)
+    if isOff0(flag):
+        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes, 
+                                                                               target, tdelta, reftype))
+    else:
+        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes))
 
 
 STRUC_ERROR_MEMBER_NAME    = -1 # already has member with this name (bad name)
@@ -5127,7 +5087,7 @@ def SetMemberName(sid, member_offset, name):
     return idaapi.set_member_name(s, member_offset, name)
 
 
-def SetMemberType(sid, member_offset, flag, typeid, nitems, target=None, tdelta=None, reftype=None):
+def SetMemberType(sid, member_offset, flag, typeid, nitems, target=-1, tdelta=0, reftype=REF_OFF32):
     """
     Change structure member type
 
@@ -5153,9 +5113,11 @@ def SetMemberType(sid, member_offset, flag, typeid, nitems, target=None, tdelta=
 
     @return: !=0 - ok.
     """
-    ti = _IDC_PrepareStrucMemberTypeinfo(flag, typeid, target, tdelta, reftype)
-    elsize = idaapi.get_data_elsize(BADADDR, flag, ti);
-    return idaapi.set_member_type(idaapi.get_struc(sid), member_offset, flag, ti, elsize*nitems)
+    if isOff0(flag):
+        return Eval('SetMemberType(%d, %d, %d, %d, %d, %d, %d, %d);' % (sid, member_offset, flag, typeid, nitems, 
+                                                                              target, tdelta, reftype))
+    else:
+        return Eval('SetMemberType(%d, %d, %d, %d, %d);' % (sid, member_offset, flag, typeid, nitems))
 
 
 def SetMemberComment(sid, member_offset, comment, repeatable):
