@@ -59,8 +59,17 @@ def runscript(script):
     watchdog.reset()
     argv = sys.argv
     sys.argv = [ script ]
-    execfile(script, globals())
-    sys.argv = argv
+    # Adjust the __file__ path in the globals we pass to the script
+    g = globals()
+    old__file__ = g['__file__']
+    g['__file__'] = script
+    try:
+        execfile(script, g)
+    except:
+        raise
+    finally:
+        g['__file__'] = old__file__
+
 
 def print_banner():
     version1 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
