@@ -1,7 +1,12 @@
+// Convert op_t char members to integers 
 %apply unsigned char { char n };
 %apply unsigned char { char offb };
 %apply unsigned char { char offo };
 %apply unsigned char { char dtyp };
+// Convert insn_t char members to integers
+%apply unsigned char { char segpref };
+%apply unsigned char { char insnpref };
+%apply unsigned char { char flags };
 
 %include "ua.hpp"
 
@@ -9,6 +14,10 @@
 %clear (char offb);
 %clear (char offo);
 %clear (char dtyp);
+
+%clear (segpref);
+%clear (insnpref);
+%clear (flags);
 
 // Small function to get the global cmd pointer
 // In Python it returns an insn_t class instance
