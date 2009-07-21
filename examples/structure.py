@@ -24,7 +24,7 @@ for t,nsize in zip(simple_types, simple_sizes):
     i+=1
  
 # Test ASCII type
-print "ASCII:", AddStrucMember(sid, "tascii", BADADDR, FF_ASCI|FF_DATA, ASCSTR_C, 8)
+print "ASCII:", AddStrucMember(sid, "tascii", -1, FF_ASCI|FF_DATA, ASCSTR_C, 8)
 
 # Test enum type - Add a defined enum name or load MACRO_WMI from a type library.
 #eid = GetEnum("MACRO_WMI")
@@ -35,14 +35,15 @@ msid = GetStrucIdByName("mystr2")
 if msid != -1:
     DelStruc(msid)
 msid = AddStrucEx(-1, "mystr2", 0)
-print AddStrucMember(msid, "member", BADADDR, (FF_DWRD|FF_DATA )&0xFFFFFFFF, -1, 4)
+print AddStrucMember(msid, "member1", -1, (FF_DWRD|FF_DATA )&0xFFFFFFFF, -1, 4)
+print AddStrucMember(msid, "member2", -1, (FF_DWRD|FF_DATA )&0xFFFFFFFF, -1, 4)
 
 msize = GetStrucSize(msid)
-print "Struct:", AddStrucMember(sid, "tstruct", BADADDR, FF_STRU|FF_DATA, msid, msize)
-print "Stroff:", AddStrucMember(sid, "tstroff", BADADDR, stroffflag()|FF_DWRD, msid, 4)
+print "Struct:", AddStrucMember(sid, "tstruct", -1, FF_STRU|FF_DATA, msid, msize)
+print "Stroff:", AddStrucMember(sid, "tstroff", -1, stroffflag()|FF_DWRD, msid, 4)
 
 # Test offset types
-print "Offset:", AddStrucMember(sid, "toffset", BADADDR, offflag()|FF_DATA|FF_DWRD, 0, 4)
+print "Offset:", AddStrucMember(sid, "toffset", -1, offflag()|FF_DATA|FF_DWRD, 0, 4)
 print "Offset:", SetMemberType(sid, 0, offflag()|FF_DATA|FF_DWRD, 0, 4)
 
 print "Done"
