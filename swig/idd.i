@@ -1,6 +1,11 @@
 %ignore debugger_t;
 
+%apply unsigned char (char dtyp);
+
 %include "idd.hpp"
+
+%clear(char dtyp);
+
 
 %inline %{
 char get_event_module_name(const debug_event_t* ev, char *buf, size_t bufsize)
