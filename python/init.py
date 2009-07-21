@@ -98,6 +98,8 @@ class MyStdOut:
     Dummy file-like class that receives stout and stderr
     """
     def write(self, text):
+        # Swap out the unprintable characters
+        text = text.decode('ascii', 'replace').encode('ascii', 'replace')
         _idaapi.msg(text.replace("%", "%%"))
 
     def flush(self):
