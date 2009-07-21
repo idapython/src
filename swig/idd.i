@@ -1,6 +1,6 @@
 %ignore debugger_t;
 
-%apply unsigned char (char dtyp);
+%apply unsigned char { char dtyp };
 
 %include "idd.hpp"
 
