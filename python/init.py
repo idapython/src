@@ -129,7 +129,7 @@ print_banner()
 from idaapi import Choose, get_user_idadir, cvar
 from idc import *
 from idautils import *
-
+import idaapi
 
 #-----------------------------------------------------------
 # Build up the ScriptBox tool
