@@ -26,6 +26,4 @@
 %ignore CONST_SERIAL;
 %ignore CONST_SERIALS;
 
-// FIXME: Check uval_t declarations
-
 %include "enum.hpp"
