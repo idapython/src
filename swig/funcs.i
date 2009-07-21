@@ -1,12 +1,10 @@
 %cstring_bounded_output_none(char *buf, MAXSTR);
 %cstring_bounded_output_none(char *optlibs, MAXSTR);
 
-// FIXME: These should probably be fixed
+// FIXME: Are these really useful?
 %ignore iterate_func_chunks;
 %ignore get_idasgn_desc;
-%ignore get_sig_filename;
 %ignore get_idasgn_header_by_short_name;
-%ignore get_idasgn_title;
 
 // Kernel-only & unexported symbols
 %ignore del_regargs;
