@@ -13,31 +13,31 @@ INCOMPLETE: some wrapping or SWIG ifdefs still left
 EXCLUDED:   will not be wrapped
 
 allins.hpp    - COMPLETE
-area.hpp      - INCOMPLETE (SWIGdefs left)
+area.hpp      - COMPLETE (necessary SWIGdefs)
 auto.hpp      - COMPLETE
-bytes.hpp     - INCOMPLETE (no SWIGs, some unwrapped)
+bytes.hpp     - COMPLETE (some minor unwrapped)
 compress.hpp  - EXCLUDED
 dbg.hpp       - INCOMPLETE (SWIGs and lot of fixing to do)
 demangle.hpp  - EXCLUDED
 diskio.hpp    - INCOMPLETE (no SWIGs, some unwrapped)
 entry.hpp     - COMPLETE
-enum.hpp      - INCOMPLETE (no SWIGs, one FIXME)
+enum.hpp      - COMPLETE
 err.h         - EXCLUDED
 exehdr.h      - EXCLUDED
-expr.hpp      - INCOMPLETE (wrapped, needs testing)
+expr.hpp      - COMPLETE (necessary SWIGs)
 fixup.hpp     - COMPLETE
 fpro.h        - EXCLUDED
 frame.hpp     - COMPLETE
-funcs.hpp     - INCOMPLETE (some SWIGs, few FIXMEs)
+funcs.hpp     - COMPLETE (necessary SWIGs, minor FIXME)
 gdl.hpp       - EXCLUDED
 graph.hpp     - EXCLUDED
 help.h        - EXCLUDED
-ida.hpp       - INCOMPLETE (SWIGs)
-idd.hpp       - INCOMPLETE (SWIGs)
-idp.hpp       - INCOMPLETE (SWIGs)
+ida.hpp       - COMPLETE
+idd.hpp       - COMPLETE (necessary SWIGs)
+idp.hpp       - COMPLETE
 ieee.h        - EXCLUDED
 intel.hpp     - EXCLUDED
-ints.hpp      - INCOMPLETE (SWIGs)
+ints.hpp      - COMPLETE
 kernwin.hpp   - INCOMPLETE (SWIGs and lot of fixing to do)
 lex.hpp       - EXCLUDED
 lines.hpp     - INCOMPLETE (few FIXMEs)
@@ -47,13 +47,13 @@ md5.h         - EXCLUDED
 moves.hpp     - COMPLETE (some needed SWIGs)
 nalt.hpp      - INCOMPLETE (SWIGs and lot of fixing to do)
 name.hpp      - INCOMPLETE (few FIXMEs)
-netnode.hpp   - INCOMPLETE (not wrapped at all)
+netnode.hpp   - COMPLETE
 offset.hpp    - COMPLETE
 prodir.h      - EXCLUDED
 pro.h         - COMPLETE (some needed SWIGs)
 queue.hpp     - INCOMPLETE (one FIXME)
 regex.h       - EXCLUDED
-search.hpp    - INCOMPLETE (one FIXME)
+search.hpp    - COMPLETE
 segment.hpp   - COMPLETE
 sistack.hpp   - EXCLUDED
 srarea.hpp    - INCOMPLETE (not wrapped at all)
