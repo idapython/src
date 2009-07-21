@@ -1,5 +1,14 @@
+%apply unsigned char { char n };
+%apply unsigned char { char offb };
+%apply unsigned char { char offo };
+%apply unsigned char { char dtyp };
 
 %include "ua.hpp"
+
+%clear (char n);
+%clear (char offb);
+%clear (char offo);
+%clear (char dtyp);
 
 // Small function to get the global cmd pointer
 // In Python it returns an insn_t class instance
