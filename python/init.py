@@ -61,7 +61,7 @@ def runscript(script):
     sys.argv = [ script ]
     # Adjust the __file__ path in the globals we pass to the script
     g = globals()
-    old__file__ = g['__file__']
+    old__file__ = g['__file__'] if '__file__' in g else ''
     g['__file__'] = script
     try:
         execfile(script, g)
