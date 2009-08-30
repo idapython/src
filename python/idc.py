@@ -241,7 +241,7 @@ NEF_TIGHT  = idaapi.NEF_TIGHT  # Don't align segments (OMF)
 NEF_FIRST  = idaapi.NEF_FIRST  # This is the first file loaded
 NEF_CODE   = idaapi.NEF_CODE   # for load_binary_file:
 NEF_RELOAD = idaapi.NEF_RELOAD # reload the file at the same place:
-NEF_FLAT   = idaapi.NEF_FLAT   # Autocreate FLAT group (PE)
+NEF_FLAT   = idaapi.NEF_FLAT   # Autocreated FLAT group (PE)
 
 #         List of built-in functions
 #         --------------------------
@@ -963,7 +963,12 @@ def SetArrayFormat(ea, flags, litems, align):
 AP_ALLOWDUPS    = 0x00000001L     # use 'dup' construct
 AP_SIGNED       = 0x00000002L     # treats numbers as signed
 AP_INDEX        = 0x00000004L     # display array element indexes as comments
-
+AP_ARRAY        = 0x00000008L     # reserved (this flag is not stored in database)
+AP_IDXBASEMASK  = 0x000000F0L     # mask for number base of the indexes
+AP_IDXDEC       = 0x00000000L     # display indexes in decimal
+AP_IDXHEX       = 0x00000010L     # display indexes in hex
+AP_IDXOCT       = 0x00000020L     # display indexes in octal
+AP_IDXBIN       = 0x00000030L     # display indexes in binary
 
 def OpBinary(ea, n):
     """
@@ -1151,6 +1156,21 @@ def OpNumber(ea, n):
         - -1 - all operands
     """
     return idaapi.op_num(ea, n)
+
+
+def OpFloat(ea, n):
+    """
+    Convert operand to a floating-point number
+
+    @param ea: linear address
+    @param n: number of operand
+        - 0 - the first operand
+        - 1 - the second, third and all other operands
+        - -1 - all operands
+
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.op_flt(ea, n)
 
 
 def OpFloat(ea, n):
@@ -2630,6 +2650,7 @@ INF_SIZEOF_SHORT = 189
 INF_SIZEOF_LONG  = 190
 INF_SIZEOF_LLONG = 191
 INF_CHANGE_COUNTER = 192 # database change counter; keeps track of byte and segment modifications
+INF_SIZEOF_LDBL  = 196   # uchar;  sizeof(long double)
 
 # Redefine these offsets for 64-bit version
 if __EA64__:
@@ -3138,7 +3159,7 @@ def SegName(ea):
             return name
 
 
-def SegCreate(startea, endea, base, use32, align, comb):
+def AddSeg(startea, endea, base, use32, align, comb):
     """
     Create a new segment
 
@@ -3166,7 +3187,7 @@ def SegCreate(startea, endea, base, use32, align, comb):
     return idaapi.add_segm_ex(s, "", "", idaapi.ADDSEG_NOSREG)
 
 
-def SegDelete(ea, flags):
+def DelSeg(ea, flags):
     """
     Delete a segment
 
@@ -3183,7 +3204,7 @@ SEGMOD_KEEP   = idaapi.SEGMOD_KEEP   # keep information (code & data, etc)
 SEGMOD_SILENT = idaapi.SEGMOD_SILENT # be silent
 
 
-def SegBounds(ea, startea, endea, flags):
+def SetSegBounds(ea, startea, endea, flags):
     """
     Change segment boundaries
 
@@ -3198,7 +3219,7 @@ def SegBounds(ea, startea, endea, flags):
            idaapi.set_segm_end(ea, endea, flags)
 
 
-def SegRename(ea, name):
+def RenameSeg(ea, name):
     """
     Change name of the segment
 
@@ -3215,7 +3236,7 @@ def SegRename(ea, name):
     return idaapi.set_segm_name(seg, name)
 
 
-def SegClass(ea, segclass):
+def SetSegClass(ea, segclass):
     """
     Change class of the segment
 
@@ -3285,7 +3306,7 @@ scCommon = idaapi.scCommon # Common. Combine by overlay using maximum size.
 scPub3   = idaapi.scPub3   # As defined by Microsoft, same as C=2 (public).
 
 
-def SegAddrng(ea, bitness):
+def SetSegAddressing(ea, bitness):
     """
     Change segment addressing
 
@@ -3320,7 +3341,7 @@ def SegByName(segname):
     return seg.startEA
 
 
-def SegDefReg(ea, reg, value):
+def SetSegDefReg(ea, reg, value):
     """
     Set default segment register value for a segment
 
@@ -3398,7 +3419,7 @@ def SetSegmentAttr(segea, attr, value):
 
     @note: Please note that not all segment attributes are modifiable.
            Also some of them should be modified using special functions
-           like SegAddrng, etc.
+           like SetSegAddressing, etc.
     """
     seg = idaapi.getseg(segea)
     assert seg, "could not find segment at 0x%x" % segea
@@ -3418,7 +3439,7 @@ SEGATTR_PERM    = 22      # permissions
 SEGATTR_BITNESS = 23      # bitness (0: 16, 1: 32, 2: 64 bit segment)
                           # Note: modifying the attribute directly does
                           #       not lead to the reanalysis of the segment.
-                          #       Using SegAddrng() is more correct.
+                          #       Using SetSegAddressing() is more correct.
 SEGATTR_FLAGS   = 24      # segment flags
 SEGATTR_SEL     = 26      # segment selector
 SEGATTR_ES      = 30      # default ES value
@@ -3477,6 +3498,71 @@ SFL_HIDDEN   = 0x04       # is the segment hidden?
 SFL_DEBUG    = 0x08       # is the segment created for the debugger?
 SFL_LOADER   = 0x10       # is the segment created by the loader?
 SFL_HIDETYPE = 0x20       # hide segment type (do not print it in the listing)
+
+
+def MoveSegm(ea, to, flags):
+    """
+    Move a segment to a new address
+    This function moves all information to the new address
+    It fixes up address sensitive information in the kernel
+    The total effect is equal to reloading the segment to the target address
+
+    @param ea: any address within the segment to move
+    @param to: new segment start address
+    @param flags: combination MFS_... constants
+
+    @returns: MOVE_SEGM_... error code
+    """
+    seg = idaapi.getseg(ea)
+    if not seg:
+        return MOVE_SEGM_PARAM
+    return idaapi.move_segm(seg, to, flags)
+
+
+MSF_SILENT    = 0x0001    # don't display a "please wait" box on the screen
+MSF_NOFIX     = 0x0002    # don't call the loader to fix relocations
+MSF_LDKEEP    = 0x0004    # keep the loader in the memory (optimization)
+MSF_FIXONCE   = 0x0008    # valid for rebase_program(): call loader only once
+
+MOVE_SEGM_OK     =  0     # all ok
+MOVE_SEGM_PARAM  = -1     # The specified segment does not exist
+MOVE_SEGM_ROOM   = -2     # Not enough free room at the target address
+MOVE_SEGM_IDP    = -3     # IDP module forbids moving the segment
+MOVE_SEGM_CHUNK  = -4     # Too many chunks are defined, can't move
+MOVE_SEGM_LOADER = -5     # The segment has been moved but the loader complained
+MOVE_SEGM_ODD    = -6     # Can't move segments by an odd number of bytes
+
+
+def rebase_program(delta, flags):
+    """
+    Rebase the whole program by 'delta' bytes
+
+    @param delta: number of bytes to move the program
+    @param flags: combination of MFS_... constants
+                  it is recommended to use MSF_FIXONCE so that the loader takes
+                  care of global variables it stored in the database
+
+    @returns: error code MOVE_SEGM_...
+    """
+    return idaapi.rebase_program(delta, flags)
+
+
+def SetStorageType(startEA, endEA, stt):
+    """
+    Set storage type
+
+    @param startEA: starting address
+    @param endEA: ending address
+    @param stt: new storage type, one of STT_VA and STT_MM
+
+    @returns: 0 - ok, otherwise internal error code
+    """
+    return idaapi.change_storage_type(startEA, endEA, stt)
+
+
+STT_VA = 0  # regular storage: virtual arrays, an explicit flag for each byte
+STT_MM = 1  # memory map: sparse storage. useful for huge objects
+
 
 #----------------------------------------------------------------------------
 #                    C R O S S   R E F E R E N C E S
@@ -7043,9 +7129,9 @@ def GetBptAttr(ea, bptattr):
 
 
 BPTATTR_EA    =  0   # starting address of the breakpoint
-BPTATTR_SIZE  =  4   # size of the breakpoint (undefined if software breakpoint)
+BPTATTR_SIZE  =  4   # size of the breakpoint (undefined for software breakpoint)
 BPTATTR_TYPE  =  8   # type of the breakpoint
-BPTATTR_COUNT = 12   # how many times does the execution reach this breakpoint ?
+BPTATTR_COUNT = 12   # number of times this breakpoint is hit before stopping
 BPTATTR_FLAGS = 16   # Breakpoint attributes:
 BPTATTR_COND  = 20   # Breakpoint condition NOTE: the return value is a string in this case
 
@@ -7062,8 +7148,8 @@ BPT_WRITE   = 1    # Hardware: Write access
 BPT_RDWR    = 3    # Hardware: Read/write access
 BPT_SOFT    = 4    # Software breakpoint
 
-BPT_BRK        = 0x01  # does the debugger stop on this breakpoint?
-BPT_TRACE      = 0x02  # does the debugger add trace information when this breakpoint is reached?
+BPT_BRK        = 0x01  # the debugger stops on this breakpoint
+BPT_TRACE      = 0x02  # the debugger adds trace information when this breakpoint is reached
 
 
 def SetBptAttr(address, bptattr, value):
@@ -7404,6 +7490,15 @@ def MakeName(ea, name):           MakeNameEx(ea,name,SN_CHECK)
 #def SegStart(ea):                return GetSegmentAttr(ea, SEGATTR_START)
 #def SegEnd(ea):                  return GetSegmentAttr(ea, SEGATTR_END)
 #def SetSegmentType(ea, type):    return SetSegmentAttr(ea, SEGATTR_TYPE, type)
+
+def SegCreate(a1, a2, base, use32, align, comb): return AddSeg(a1, a2, base, use32, align, comb)
+def SegDelete(ea, flags):                        return DelSeg(ea, flags)
+def SegBounds(ea, startea, endea, flags):        return SetSegBounds(ea, startea, endea, flags)
+def SegRename(ea, name):                         return RenameSeg(ea, name)
+def SegClass(ea, segclass):                      return SetSegClass(ea, segclass)
+def SegAddrng(ea, bitness):                      return SetSegAddressing(ea, bitness)
+def SegDefReg(ea, reg, value):                   return SetSegDefReg(ea, reg, value)
+
 
 def Comment(ea):                return GetCommentEx(ea, 0)
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
