@@ -65,6 +65,8 @@ typedef unsigned long long ulonglong;
 typedef          long long longlong;
 #endif
 
+typedef int error_t;
+
 %include "typemaps.i"
 
 %include "cstring.i"
