@@ -18,10 +18,8 @@ import warnings
 
 import _idaapi
 
+# __EA64__ is set if IDA is running in 64-bit mode
 __EA64__ = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
-
-# FIXME: Should fix the offending constant instead
-warnings.filterwarnings('ignore', category=FutureWarning)
 
 
 def addscriptpath(script):
