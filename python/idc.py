@@ -1173,19 +1173,6 @@ def OpFloat(ea, n):
     return idaapi.op_flt(ea, n)
 
 
-def OpFloat(ea, n):
-    """
-    Convert operand to a floating-point number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return idaapi.op_flt(ea, n)
-
-
 def OpAlt(ea, n, opstr):
     """
     Specify operand represenation manually.
