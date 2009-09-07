@@ -65,8 +65,6 @@
 // TODO: These could be fixed if someone needs them.
 %ignore get_many_bytes;
 %ignore set_dbgmem_source;
-%ignore invalidate_dbgmem_config;
-%ignore invalidate_dbgmem_contents;
 
 %include "bytes.hpp"
 
