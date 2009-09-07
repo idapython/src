@@ -258,6 +258,54 @@ def GetDataList(ea, count, itemsize=1):
         yield getdata(curea)
 
 
+def FuncItems(start):
+    """
+    Get a list of function items
+
+    @param start: address of the function
+
+    @return: ea of each item in the function
+    """
+    func = idaapi.get_func(start)
+    if not func:
+        return
+    fii = idaapi.func_item_iterator_t()
+    ok = fii.set(func)
+    while ok:
+        yield fii.current()
+        ok = fii.next_code()
+
+
+def DecodeInstruction(ea):
+    """
+    Decodes an instruction and returns a insn_t like class
+    
+    @param ea: address to decode
+
+    @return: None or an insn_t like structure
+    """
+    inslen = idaapi.decode_insn(ea)
+    if inslen == 0:
+        return None
+    insn = idaapi.get_current_instruction()
+    if not insn:
+        return None
+    class dup:
+        def __init__(self, op):
+            for x in dir(op):
+                if x.startswith("__") and x.endswith("__"):
+                    continue
+                setattr(self, x, getattr(op, x))
+    r = dup(insn)
+    r.Operands = []
+    for n in range(0, idaapi.UA_MAXOP):
+        t = idaapi.get_instruction_operand(insn, n)
+        if t.type == idaapi.o_void:
+            break
+        r.Operands.append(dup(t))
+    return r
+
+
 def PutDataList(ea, datalist, itemsize=1):
     """
     Put data list - INTERNAL USE ONLY
