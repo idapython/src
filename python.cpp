@@ -499,7 +499,9 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t /*current_ea*/,
 
     PyObject *globals = PyModule_GetDict(module);
 
+    begin_execution();
     result = PyRun_String(expr, Py_eval_input, globals, globals);
+    end_execution();
 
     VarFree(rv);
 
@@ -530,7 +532,9 @@ void enable_extlang_python(bool enable)
 /* Execute a line in the Python CLI */
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
+    begin_execution();
     PyRun_SimpleString(line);
+    end_execution();
     return true;
 }
 
@@ -608,7 +612,9 @@ bool IDAPython_Init(void)
               VER_PATCH,
               VER_STATUS,
               VER_SERIAL);
+    begin_execution();
     PyRun_SimpleString(tmp);
+    end_execution();
 
     /* Pull in the Python side of init */
     qmakepath(tmp, MAXSTR, idadir(PYTHON_DIR_NAME), "init.py", NULL);
