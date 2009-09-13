@@ -140,7 +140,7 @@ def XrefsFrom(ea, flags=0):
     @param ea: Reference address
     @param flags: any of idaapi.XREF_* flags
 
-    Example:
+    Example::
            for xref in XrefsFrom(here(), 0):
                print xref.type, XrefTypeName(xref.type), \
                          'from', hex(xref.frm), 'to', hex(xref.to)
@@ -159,7 +159,7 @@ def XrefsTo(ea, flags=0):
     @param ea: Reference address
     @param flags: any of idaapi.XREF_* flags
 
-    Example:
+    Example::
            for xref in XrefsTo(here(), 0):
                print xref.type, XrefTypeName(xref.type), \
                          'from', hex(xref.frm), 'to', hex(xref.to)
