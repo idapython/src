@@ -157,8 +157,6 @@ char * idaapi choose_getl(void *self, uint32 n, char *buf)
     PyObject *pyres;
     char *res;
 
-    char tmp[1024];
-
     pyres = PyObject_CallMethod((PyObject *)self, "getl", "l", n);
 
     if (!pyres)
@@ -171,7 +169,7 @@ char * idaapi choose_getl(void *self, uint32 n, char *buf)
 
     if (res)
     {
-        strcpy(buf, res);
+        strncpy(buf, res, MAXSTR);
         res = buf;
     }
     else
