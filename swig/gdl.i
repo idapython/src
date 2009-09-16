@@ -50,7 +50,7 @@ class BasicBlock:
 
     def preds(self):
         """
-        Iteratres the predecessors list
+        Iterates the predecessors list
         """
         q = self._f._q
         for i in xrange(0, self._f._q.npred(self.id)):
@@ -58,7 +58,7 @@ class BasicBlock:
 
     def succs(self):
         """
-        Iteratres the successors list
+        Iterates the successors list
         """
         q = self._f._q
         for i in xrange(0, q.nsucc(self.id)):
@@ -83,9 +83,11 @@ class FlowChart:
         # create the flowchart
         self._q = qflow_chart_t("", f, bounds[0], bounds[1], flags)
         self.size = self._q.size()
+
     def refresh():
         self._q.refresh()
         self.size = self._q.size()
+
     def __getitem__(self, index):
         """
         Returns a basic block
@@ -94,6 +96,5 @@ class FlowChart:
         if index >= self.size:
             raise StopIteration
         return BasicBlock(index, self._q[index], self)
-
 
 %}
