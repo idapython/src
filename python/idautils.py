@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net> 
+# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
 #
 # All rights reserved.
 #
@@ -40,9 +40,9 @@ def CodeRefsTo(ea, flow):
             print ref
     """
     if flow == 1:
-        return refs(ea, idaapi.get_first_cref_to, idaapi.get_next_cref_to)    
+        return refs(ea, idaapi.get_first_cref_to, idaapi.get_next_cref_to)
     else:
-        return refs(ea, idaapi.get_first_fcref_to, idaapi.get_next_fcref_to)    
+        return refs(ea, idaapi.get_first_fcref_to, idaapi.get_next_fcref_to)
 
 
 def CodeRefsFrom(ea, flow):
@@ -61,9 +61,9 @@ def CodeRefsFrom(ea, flow):
             print ref
     """
     if flow == 1:
-        return refs(ea, idaapi.get_first_cref_from, idaapi.get_next_cref_from)    
+        return refs(ea, idaapi.get_first_cref_from, idaapi.get_next_cref_from)
     else:
-        return refs(ea, idaapi.get_first_fcref_from, idaapi.get_next_fcref_from)    
+        return refs(ea, idaapi.get_first_fcref_from, idaapi.get_next_fcref_from)
 
 
 def DataRefsTo(ea):
@@ -79,7 +79,7 @@ def DataRefsTo(ea):
         for ref in DataRefsTo(ScreenEA(), 1):
             print ref
     """
-    return refs(ea, idaapi.get_first_dref_to, idaapi.get_next_dref_to)    
+    return refs(ea, idaapi.get_first_dref_to, idaapi.get_next_dref_to)
 
 
 def DataRefsFrom(ea):
@@ -95,7 +95,7 @@ def DataRefsFrom(ea):
         for ref in DataRefsFrom(ScreenEA(), 1):
             print ref
     """
-    return refs(ea, idaapi.get_first_dref_from, idaapi.get_next_dref_from)    
+    return refs(ea, idaapi.get_first_dref_from, idaapi.get_next_dref_from)
 
 
 def XrefTypeName(typecode):
@@ -104,9 +104,9 @@ def XrefTypeName(typecode):
 
     @param typecode: cross-reference type code
     """
-    ref_types = { 
+    ref_types = {
         0  : 'Data_Unknown',
-        1  : 'Data_Offset', 
+        1  : 'Data_Offset',
         2  : 'Data_Write',
         3  : 'Data_Read',
         4  : 'Data_Text',
@@ -233,7 +233,7 @@ def Segments():
 
     @return: List of segment start addresses.
     """
-    for n in range(idaapi.get_segm_qty()):
+    for n in xrange(idaapi.get_segm_qty()):
         seg = idaapi.getnseg(n)
         if seg:
             yield seg.startEA
@@ -298,7 +298,7 @@ def DecodeInstruction(ea):
                 setattr(self, x, getattr(op, x))
     r = dup(insn)
     r.Operands = []
-    for n in range(0, idaapi.UA_MAXOP):
+    for n in xrange(0, idaapi.UA_MAXOP):
         t = idaapi.get_instruction_operand(insn, n)
         if t.type == idaapi.o_void:
             break
@@ -358,5 +358,73 @@ class _cpu:
     def __setattr__(self, name, value):
         #print "cpu.set(%s)"%name
         return idc.SetRegValue(value, name)
+
+class Strings:
+    """
+    Returns the string list.
+	
+	Example:
+        s = Strings()
+
+        for i in s:
+            print "%x: len=%d type=%d -> '%s'" % (i.ea, i.length, i.type, str(i))
+
+    """
+    class StringItem:
+        """
+        Class representing each string item.
+        The attributes are:
+        ea - string ea
+        type - string type (ASCSTR_xxxxx)
+        str() - returns the actual string
+        """
+        def __init__(self, si):
+            self.ea     = si.ea
+            self.type   = si.type
+            self.length = si.length
+        def __str__(self):
+            return idc.GetString(self.ea, self.length, self.type)
+
+    STR_C       = 0x0001 # C-style ASCII string
+    STR_PASCAL  = 0x0002 # Pascal-style ASCII string (length byte)
+    STR_LEN2    = 0x0004 # Pascal-style, length is 2 bytes
+    STR_UNICODE = 0x0008 # Unicode string
+    STR_LEN4    = 0x0010 # Pascal-style, length is 4 bytes
+    STR_ULEN2   = 0x0020 # Pascal-style Unicode, length is 2 bytes
+    STR_ULEN4   = 0x0040 # Pascal-style Unicode, length is 4 bytes
+
+    def clear_cache():
+        """Clears the strings list cache"""
+        self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
+    
+    def __init__(self, default_setup=True):
+        if default_setup:
+            self.setup()
+        self._si  = idaapi.string_info_t()
+
+    def refresh(self, ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA):
+        """Refreshes the strings list"""
+        idaapi.refresh_strlist(ea1, ea2)
+        self.size = idaapi.get_strlist_qty()
+
+    def setup(self, strtypes=STR_C, minlen=5, only_7bit=True, ignore_instructions=False, ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA, display_only_existing_strings=False):
+        t = idaapi.strwinsetup_t()
+        t.strtypes = strtypes
+        t.minlen = minlen
+        t.only_7bit = only_7bit
+        t.ea1 = ea1
+        t.ea2 = ea2
+        t.display_only_existing_strings = display_only_existing_strings
+        idaapi.set_strlist_options(t)
+        # automatically refreshes
+        self.refresh()
+
+    def __getitem__(self, index):
+        """Returns string items"""
+        if index >= self.size:
+            raise StopIteration
+        if idaapi.get_strlist_item(index, self._si):
+            return Strings.StringItem(self._si)
+        return None
 
 cpu = _cpu()

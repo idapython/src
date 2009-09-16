@@ -2,7 +2,7 @@
 #------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net> 
+# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
 #
 # All rights reserved.
 #
@@ -70,6 +70,8 @@ BINDIST_MANIFEST = [
     "examples/ex1_idautils.py",
     "examples/hotkey.py",
     "examples/structure.py",
+    "examples/ex_gdl_qflow_chart.py",
+    "examples/ex_strings.py",
 ]
 
 # List files for the source distribution (appended to binary list)
@@ -220,10 +222,10 @@ class MSVCBuilder(BuilderBase):
         self.linker = "link"
         self.source_extension = ".cpp"
         self.object_extension = ".obj"
-        
+
     def compiler_in_string(self, filename):
         return "/c %s" % filename
-    
+
     def compiler_out_string(self, filename):
         return "/Fo%s" % filename
 
@@ -244,7 +246,7 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
     # Also make a ZIP archive of the build
     zippath = distrootdir + ".zip"
     zip = zipfile.ZipFile(zippath, nukeold and "w" or "a", zipfile.ZIP_DEFLATED)
-    
+
     # Copy files, one by one
     for f in manifest:
         if type(f) == types.TupleType:
@@ -259,11 +261,11 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
             if srcdir == "":
                 dstdir = distrootdir
             else:
-                dstdir = distrootdir + os.sep + srcdir 
+                dstdir = distrootdir + os.sep + srcdir
 
         if not os.path.exists(dstdir):
             os.makedirs(dstdir)
-            
+
         dstfilepath = dstdir + os.sep + srcfilename
         shutil.copyfile(srcfilepath, dstfilepath)
         zip.write(dstfilepath)
@@ -348,7 +350,7 @@ def build_binary_package(ea64, nukeold):
         system = "Windows"
         platform_string = "win32"
         plugin_name = ea64 and "python.p64" or "python.plw"
-    
+
     if system == "Linux":
         platform_string = "linux"
         plugin_name = ea64 and "python.plx64" or "python.plx"
@@ -357,10 +359,10 @@ def build_binary_package(ea64, nukeold):
         platform_string = "macosx"
         plugin_name = ea64 and "python.pmc64" or "python.pmc"
 
-    BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR, 
-                                                             VERSION_MINOR, 
-                                                             VERSION_PATCH, 
-                                                             IDA_MAJOR_VERSION, 
+    BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR,
+                                                             VERSION_MINOR,
+                                                             VERSION_PATCH,
+                                                             IDA_MAJOR_VERSION,
                                                              IDA_MINOR_VERSION,
                                                              PYTHON_MAJOR_VERSION,
                                                              PYTHON_MINOR_VERSION,
@@ -378,9 +380,9 @@ def build_binary_package(ea64, nukeold):
 
 def build_source_package():
     """ Build a directory and a ZIP file with all the sources """
-    SRCDISTDIR = "idapython-%d.%d.%d" % (VERSION_MAJOR, 
-                                         VERSION_MINOR, 
-                                         VERSION_PATCH) 
+    SRCDISTDIR = "idapython-%d.%d.%d" % (VERSION_MAJOR,
+                                         VERSION_MINOR,
+                                         VERSION_PATCH)
     # Build the source distribution
     srcmanifest = []
     srcmanifest.extend(BINDIST_MANIFEST)
@@ -391,7 +393,7 @@ def build_source_package():
 
 if __name__ == "__main__":
     # Do 64-bit build?
-    ea64 = '--ea64' in sys.argv    
+    ea64 = '--ea64' in sys.argv
     build_binary_package(ea64=False, nukeold=True)
     if ea64:
         build_binary_package(ea64=True, nukeold=False)

@@ -3741,7 +3741,7 @@ def LoadFile(filepath, pos, ea, size):
     else:
         return 0
 
-def loadfile(filepath, pos, ea, size): LoadFile(filepath, pos, ea, size)
+def loadfile(filepath, pos, ea, size): return LoadFile(filepath, pos, ea, size)
 
 
 def SaveFile(filepath, pos, ea, size):
@@ -3764,7 +3764,7 @@ def SaveFile(filepath, pos, ea, size):
     else:
         return 0
 
-def savefile(filepath, pos, ea, size): SaveFile(filepath, pos, ea, size)
+def savefile(filepath, pos, ea, size): return SaveFile(filepath, pos, ea, size)
 
 
 def fgetc(handle):
@@ -7460,12 +7460,12 @@ def OpStroff(ea,n,strid):   return OpStroffEx(ea,n,strid,0)
 def OpEnum(ea,n,enumid):    return OpEnumEx(ea,n,enumid,0)
 def DelConst(constid, v, mask): return DelConstEx(constid, v, 0, mask)
 def GetConst(constid, v, mask): return GetConstEx(constid, v, 0, mask)
-def AnalyseArea(sEA, eEA):       AnalyzeArea(sEA,eEA)
+def AnalyseArea(sEA, eEA):       return AnalyzeArea(sEA,eEA)
 
 def MakeStruct(ea,name):         return MakeStructEx(ea, -1, name)
 def Name(ea):               return NameEx(BADADDR, ea)
 def GetTrueName(ea):        return GetTrueNameEx(BADADDR, ea)
-def MakeName(ea, name):           MakeNameEx(ea,name,SN_CHECK)
+def MakeName(ea, name):           return MakeNameEx(ea,name,SN_CHECK)
 
 #def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
 #def GetFrameLvarSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRSIZE)
