@@ -72,6 +72,7 @@ BINDIST_MANIFEST = [
     "examples/structure.py",
     "examples/ex_gdl_qflow_chart.py",
     "examples/ex_strings.py",
+    "examples/ex_debug_names.py"
 ]
 
 # List files for the source distribution (appended to binary list)

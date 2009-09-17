@@ -11,6 +11,7 @@
 %ignore get_struct_operand;
 %ignore set_debug_names;
 %ignore get_debug_name;
+%ignore get_debug_names;
 %ignore nameVa;
 
 // Unexported & kernel-only
@@ -29,6 +30,27 @@
 %ignore is_noret_name;
 %ignore is_exit_name;
 %ignore dummy_name_ea;
+
+%rename (get_debug_names) py_get_debug_names;
+%inline %{
+PyObject *py_get_debug_names(ea_t ea1, ea_t ea2)
+{
+  // Get debug names
+  ea_name_vec_t names;
+  get_debug_names(ea1, ea2, names);
+  PyObject *dict = Py_BuildValue("{}");
+  if (dict == NULL)
+    return NULL;
+
+  for (ea_name_vec_t::iterator it=names.begin();it!=names.end();++it)
+  {
+    PyDict_SetItem(dict,
+      PyInt_FromSize_t(it->ea),
+      PyString_FromString(it->name.c_str()));
+  }
+  return dict;
+}
+%}
 
 %include "name.hpp"
 
