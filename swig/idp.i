@@ -279,7 +279,7 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
     }
 }
 
-// Assemble an instruction (display a warning if an error is found)
+// Assemble an instruction into the database (display a warning if an error is found)
 // args:
 //  ea_t ea -  linear address of instruction
 //  ea_t cs -  cs of instruction
@@ -290,7 +290,7 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
 {
     int inslen;
-    char buf[256]; // FIXME: Shouldn't be longer than this... is there a MAX_INSTR_LENGTH anywhere?
+    char buf[MAXSTR];
 
     if (ph.notify != NULL)
     {
@@ -302,5 +302,25 @@ inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *lin
 	}
     }
     return 0;
+}
+
+// Assemble an instruction to a buffer (display a warning if an error is found)
+// args:
+//  ea_t ea -  linear address of instruction
+//  ea_t cs -  cs of instruction
+//  ea_t ip -  ip of instruction
+//  bool use32 - is 32bit segment?
+//  const char *line - line to assemble
+// returns: 1: success, 0: failure 
+inline const PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+{
+    int inslen;
+    char buf[MAXSTR];
+    if (ph.notify != NULL &&
+        (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
+    {
+        return PyString_FromStringAndSize(buf, inslen);
+    }
+    Py_RETURN_NONE;
 }
 %}

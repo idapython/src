@@ -13,6 +13,7 @@ idautils.py - High level utility functions for IDA
 """
 import idaapi
 import idc
+import types
 
 def refs(ea, funcfirst, funcnext):
     """
@@ -426,5 +427,46 @@ class Strings:
         if idaapi.get_strlist_item(index, self._si):
             return Strings.StringItem(self._si)
         return None
+
+
+def _Assemble(ea, line):
+    """
+    Please refer to Assemble() - INTERNAL USE ONLY
+    """
+    if type(line) == types.StringType:
+        lines = [line]
+    else:
+        lines = line
+    ret = []
+    for line in lines:
+        seg = idaapi.getseg(ea)
+        if not seg:
+            return (False, "No segment at ea")
+        ip  = ea - (idaapi.ask_selector(seg.sel) << 4)
+        buf = idaapi.AssembleLine(ea, seg.sel, ip, seg.bitness, line)
+        if not buf:
+          return (False, "Assembler failed: " + line)
+        ea += len(buf)
+        ret.append(buf)
+    
+    if len(ret) == 1:
+        ret = ret[0]
+    return (True, ret)
+
+
+def Assemble(ea, line):
+    """
+    Assembles one or more lines (does not display an message dialogs)
+    If line is a list then this function will attempt to assemble all the lines
+    This function will turn on batch mode temporarily so that no messages are displayed on the screen
+
+    @param ea:       start address
+    @return: (False, "Error message") or (True, asm_buf) or (True, [asm_buf1, asm_buf2, asm_buf3])
+    """
+    old_batch = idc.Batch(1)
+    ret = _Assemble(ea, line)
+    idc.Batch(old_batch)
+    return ret
+
 
 cpu = _cpu()
