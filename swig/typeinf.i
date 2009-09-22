@@ -159,7 +159,7 @@ til_t * load_til(const char *tildir, const char *name)
 }
 %}
 
-%rename (load_til_header_wrap) load_til_header_wrap;
+%rename (load_til_header) load_til_header_wrap;
 %inline %{
 til_t * load_til_header_wrap(const char *tildir, const char *name)
 {
