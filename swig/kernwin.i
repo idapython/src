@@ -3,6 +3,7 @@
 %ignore close_form;
 %ignore vaskstr;
 %ignore vasktext;
+%ignore add_menu_item;
 %ignore vwarning;
 %ignore vinfo;
 %ignore vnomem;
@@ -33,9 +34,9 @@
 %rename (_askseg) askseg;
 
 %inline %{
-void refresh_lists(void) 
-{ 
-  callui(ui_list); 
+void refresh_lists(void)
+{
+  callui(ui_list);
 }
 %}
 
@@ -77,28 +78,28 @@ bool idaapi py_menu_item_callback(void *userdata)
 {
     PyObject *func, *args, *result;
     bool ret = 0;
-   
+
     // userdata is a tuple of ( func, args )
     // func and args are borrowed references from userdata
     func = PyTuple_GET_ITEM(userdata, 0);
     args = PyTuple_GET_ITEM(userdata, 1);
-   
+
     // call the python function
     result = PyEval_CallObject(func, args);
-   
+
     // we cannot raise an exception in the callback, just print it.
     if (!result) {
         PyErr_Print();
         return 0;
     }
-   
+
     // if the function returned a non-false value, then return 1 to ida,
     // overwise return 0
     if (PyObject_IsTrue(result)) {
         ret = 1;
     }
     Py_DECREF(result);
-   
+
     return ret;
 }
 %}
@@ -114,11 +115,11 @@ bool wrap_add_menu_item (
     PyObject *args) {
     // FIXME: probably should keep track of this data, and destroy it when the menu item is removed
     PyObject *cb_data;
-   
+
     if (args == Py_None) {
         Py_DECREF(Py_None);
         args = PyTuple_New( 0 );
-        if (!args) 
+        if (!args)
             return 0;
     }
 
@@ -222,7 +223,7 @@ uint32 choose_choose(void *self,
         &choose_enter,
         NULL, /* destroy */
         NULL, /* popup_names */
-        NULL  /* get_icon */ 
+        NULL  /* get_icon */
 	);
 }
 %}
@@ -249,7 +250,7 @@ class Choose:
 		# that the class will never be collected, unless refhack is set to None explicitly.
 		if (flags & 1) == 0:
 			self.refhack = self
-	
+
 	def sizer(self):
 		"""
 		Callback: sizer - returns the length of the list
@@ -284,7 +285,7 @@ class Choose:
 
 	def get_icon(self, n):
 		pass
-	
+
 	def choose(self):
 		"""
 		choose - Display the choose dialogue
