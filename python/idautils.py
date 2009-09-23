@@ -244,16 +244,16 @@ def GetDataList(ea, count, itemsize=1):
     """
     Get data list - INTERNAL USE ONLY
     """
-    getdata = None
-
     if itemsize == 1:
         getdata = idaapi.get_byte
-    if itemsize == 2:
+    elif itemsize == 2:
         getdata = idaapi.get_word
-    if itemsize == 4:
+    elif itemsize == 4:
         getdata = idaapi.get_long
-
-    assert getdata, "Invalid data size! Must be 1, 2 or 4"
+    elif itemsize == 8:
+        getdata = idaapi.get_qword
+    else:
+        raise ValueError, "Invalid data size! Must be 1, 2, 4 or 8"
 
     for curea in xrange(ea, ea+itemsize*count, itemsize):
         yield getdata(curea)
