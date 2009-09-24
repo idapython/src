@@ -196,16 +196,17 @@ uint32 choose_choose(void *self,
 	int width)
 {
     PyObject *pytitle;
-
-    char deftitle[] = "Choose";
-    char *title = NULL;
-
+    const char *title;
     if ((pytitle = PyObject_GetAttrString((PyObject *)self, "title")))
     {
         title = PyString_AsString(pytitle);
     }
-
-    return choose(
+    else
+    {
+        title = "Choose";
+        pytitle = NULL;
+    }
+    int r = choose(
         flags,
         x0, y0,
         x1, y1,
@@ -213,7 +214,7 @@ uint32 choose_choose(void *self,
         width,
         &choose_sizer,
         &choose_getl,
-        title ? title : deftitle,
+        title,
         1,
         1,
         NULL, /* del */
@@ -224,7 +225,9 @@ uint32 choose_choose(void *self,
         NULL, /* destroy */
         NULL, /* popup_names */
         NULL  /* get_icon */
-	);
+	  );
+    Py_XDECREF(pytitle);
+    return r;
 }
 %}
 
