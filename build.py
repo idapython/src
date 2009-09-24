@@ -72,6 +72,8 @@ BINDIST_MANIFEST = [
     "examples/structure.py",
     "examples/ex_gdl_qflow_chart.py",
     "examples/ex_strings.py",
+    "examples/ex_func_chooser.py",
+    "examples/ex_choose2.py",
     "examples/ex_debug_names.py"
 ]
 

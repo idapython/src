@@ -2,7 +2,7 @@
 #------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net> 
+# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
 #
 # All rights reserved.
 #
@@ -37,7 +37,7 @@ def addscriptpath(script):
         if pathitem == scriptpath:
             pathfound = 1
             break
-    
+
     if pathfound == 0:
         sys.path.append(scriptpath)
 
@@ -124,7 +124,7 @@ print_banner()
 #-----------------------------------------------------------
 # Import all the required modules
 #-----------------------------------------------------------
-from idaapi import Choose, get_user_idadir, cvar
+from idaapi import Choose, get_user_idadir, cvar, Choose2
 from idc import *
 from idautils import *
 import idaapi
@@ -147,7 +147,7 @@ class ScriptBox(Choose):
             return None
 
         n = self.choose()
-    
+
         if n > 0:
             return self.list[n-1]
         else:
@@ -166,7 +166,7 @@ scriptbox = ScriptBox()
 #        watchdog.activate(10) # Use 10-second timeout
 #
 # Note: The watchdog only works for code running inside
-#       functions, not in global/module namespace.         
+#       functions, not in global/module namespace.
 #-------------------------------------------------------------
 class WatchDog():
     """
