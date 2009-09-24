@@ -255,8 +255,11 @@ def GetDataList(ea, count, itemsize=1):
     else:
         raise ValueError, "Invalid data size! Must be 1, 2, 4 or 8"
 
-    for curea in xrange(ea, ea+itemsize*count, itemsize):
+    endea = ea + itemsize * count
+    curea = ea
+    while curea < endea:
         yield getdata(curea)
+        curea += itemsize
 
 
 def FuncItems(start):
