@@ -1,0 +1,38 @@
+from idaapi import GraphViewer
+
+class MyGraph(GraphViewer):
+    def __init__(self, funcname, result):
+        GraphViewer.__init__(self, "call graph of " + funcname)
+        self.funcname = funcname
+        self.result = result
+
+    def OnRefresh(self):
+        self.Clear()
+        id = self.AddNode(self.funcname)
+        for x in self.result.keys():
+            callee = self.AddNode(x)
+            self.AddEdge(id, callee)
+
+        return True
+
+    def OnGetText(self, node_id):
+        return str(self[node_id])
+
+def main():
+    f = idaapi.get_func(here())
+    if not f:
+        print "Must be in a function"
+        return
+    # Iterate through all function instructions and take only call instructions
+    result = {}
+    for x in [x for x in FuncItems(f.startEA) if idaapi.is_call_insn(x)]:
+        for xref in XrefsFrom(x, idaapi.XREF_FAR): 
+            if not xref.iscode: continue
+            t = GetFunctionName(xref.to)
+            if not t:
+                t = hex(xref.to)
+            result[t] = True
+    g = MyGraph(GetFunctionName(f.startEA), result)
+    g.Show()
+
+main()

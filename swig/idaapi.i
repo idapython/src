@@ -9,6 +9,10 @@
 #ifdef HAVE_SSIZE_T
 #define _SSIZE_T_DEFINED 1
 #endif
+#if defined(__NT__) && !defined(_WINDOWS_)
+  #define _WINDOWS_ // kernwin.hpp needs it to declare create_tform()
+  typedef void *HWND; // we don't need to include windows.h for just this definition
+#endif
 #include "ida.hpp"
 #include "idp.hpp"
 #include "allins.hpp"
@@ -41,6 +45,9 @@
 #include "typeinf.hpp"
 #include "ua.hpp"
 #include "xref.hpp"
+#ifdef __NT__
+  #include "graph.hpp"
+#endif
 %}
 
 // Do not create separate wrappers for default arguments
@@ -147,6 +154,9 @@ idainfo *get_inf_structure(void)
 %include "typeinf.i"
 %include "ua.i"
 %include "xref.i"
+#ifdef __NT__
+  %include "graph.i"
+#endif
 
 %inline {
     void set_script_timeout(int timeout);

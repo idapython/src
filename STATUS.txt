@@ -30,7 +30,7 @@ fpro.h        - EXCLUDED
 frame.hpp     - COMPLETE
 funcs.hpp     - COMPLETE (necessary SWIGs, minor FIXME)
 gdl.hpp       - EXCLUDED
-graph.hpp     - EXCLUDED
+graph.hpp     - INCOMPLETE
 help.h        - EXCLUDED
 ida.hpp       - COMPLETE
 idd.hpp       - COMPLETE (necessary SWIGs)

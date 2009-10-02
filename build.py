@@ -74,7 +74,8 @@ BINDIST_MANIFEST = [
     "examples/ex_strings.py",
     "examples/ex_func_chooser.py",
     "examples/ex_choose2.py",
-    "examples/ex_debug_names.py"
+    "examples/ex_debug_names.py",
+    "examples/ex_graph.py"
 ]
 
 # List files for the source distribution (appended to binary list)
@@ -120,6 +121,7 @@ SRCDIST_MANIFEST = [
     "swig/typeinf.i",
     "swig/ua.i",
     "swig/xref.i",
+    "swig/graph.i",
     "tools/gendocs.py",
 ]
 
@@ -277,6 +279,7 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
 
 
 def build_plugin(platform, idasdkdir, plugin_name, ea64):
+    global SWIG_OPTIONS
     """ Build the plugin from the SWIG wrapper and plugin main source """
     # Path to the IDA SDK headers
     ida_include_directory = idasdkdir + os.sep + "include"
@@ -292,16 +295,17 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         ida_lib = ""
         extra_link_parameters = ""
     # Platform-specific settings for the Windows build
-    if platform == "win32":
+    elif platform == "win32":
         builder = MSVCBuilder()
         platform_macros = [ "__NT__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "libs"
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = os.path.join(idasdkdir, ea64 and "libvc.w64" or "libvc.w32")
         ida_lib = "ida.lib"
+        SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
     # Platform-specific settings for the Mac OS X build
-    if platform == "macosx":
+    elif platform == "macosx":
         builder = GCCBuilder()
         builder.linker_parameters = "-dynamiclib"
         platform_macros = [ "__MAC__" ]
