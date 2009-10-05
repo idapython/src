@@ -171,6 +171,10 @@ def XrefsTo(ea, flags=0):
         while xref.next_to():
             yield _copy_xref(xref)
 
+def Threads():
+    """Returns all thread IDs"""
+    for i in xrange(0, idc.GetThreadQty()):
+        yield idc.GetThreadId(i)
 
 def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     """
