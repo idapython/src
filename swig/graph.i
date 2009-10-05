@@ -1,5 +1,5 @@
 %{
-
+//<code(py_graph)>
 #ifndef __PY_IDA_GRAPH__
 #define __PY_IDA_GRAPH__
 
@@ -175,7 +175,7 @@ private:
 
     // Mark that we refreshed already
     refresh_needed = false;
-    
+
     // Clear cached nodes
     node_cache.clear();
 
@@ -249,14 +249,14 @@ private:
     {
       PyObject *py_str   = PySequence_GetItem(result, 0);
       PyObject *py_color = PySequence_GetItem(result, 1);
-     
+
       if (py_str == NULL || !PyString_Check(py_str) || (s = PyString_AsString(py_str)) == NULL)
         s = "";
-      if (py_color != NULL && !PyInt_Check(py_color))
-        cl = bgcolor_t(PyInt_AsLong(py_color));
+      if (py_color != NULL && PyNumber_Check(py_color))
+        cl = bgcolor_t(PyLong_AsUnsignedLong(py_color));
 
       c = node_cache.add(node, s, cl);
-      
+
       Py_XDECREF(py_str);
       Py_XDECREF(py_color);
     }
@@ -357,14 +357,14 @@ private:
     Py_DECREF(result);
     return 0;
   }
-  
+
   // a graph viewer got focus
   void on_gotfocus(graph_viewer_t * /*gv*/)
   {
     PyObject *result = PyObject_CallMethod(self, S_ON_ACTIVATE, NULL);
     Py_XDECREF(result);
   }
-  
+
   // a graph viewer lost focus
   void on_lostfocus(graph_viewer_t *gv)
   {
@@ -421,7 +421,7 @@ private:
       else
         ret = 1; // ignore click
       break;
-    // 
+    //
     case grcode_dblclicked:
       if (cb_flags & GR_HAVE_DBL_CLICKED)
       {
@@ -491,7 +491,7 @@ private:
     if (!PyObject_HasAttrString(object, attr))
       return NULL;
     return PyObject_GetAttrString(object, attr);
-  } 
+  }
 
   void unbind()
   {
@@ -572,10 +572,10 @@ private:
     {
       const char *name;
       int have;
-    } callbacks[] = 
+    } callbacks[] =
     {
       {S_ON_REFRESH,       0}, // 0 = mandatory callback
-      {S_ON_GETTEXT,       0}, 
+      {S_ON_GETTEXT,       0},
       {S_M_EDGES,         -1}, // -1 = mandatory attributes
       {S_M_NODES,         -1},
       {S_ON_HINT,          GR_HAVE_USER_HINT},
@@ -655,7 +655,7 @@ private:
       refresh_needed = true;
       self = NULL;
     }
-    
+
     static void SelectNode(PyObject *self, int nid)
     {
       py_graph_t *_this = extract_this(self);
@@ -696,7 +696,7 @@ private:
         qstring title;
         if (!extract_title(self, &title))
           return NULL;
-        
+
         // Form already created? try to get associated py_graph instance
         // so that we reuse it
         ret = tform_pyg.get(find_tform(title.c_str()));
@@ -776,10 +776,11 @@ void pyg_select_node(PyObject *self, int nid)
 #undef S_M_TITLE
 
 #endif
-
+//</code(py_graph)>
 %}
 
 %pythoncode %{
+#<pycode(py_graph)>
 class GraphViewer:
     """This class wraps the user graphing facility provided by the graph.hpp file"""
     def __init__(self, title, close_open = False):
@@ -928,14 +929,16 @@ class GraphViewer:
 #        Triggered when a menu command is selected through the menu or its hotkey
 #        """
 #        print "command:", cmd_id
-
+#</pycode(py_graph)>
 %}
 
 %inline %{
+//<inline(py_graph)>
 void pyg_refresh(PyObject *self);
 void pyg_close(PyObject *self);
+
 Py_ssize_t pyg_add_command(PyObject *self, const char *title, const char *hotkey);
 void pyg_select_node(PyObject *self, int nid);
 bool pyg_show(PyObject *self);
-
+//</inline(py_graph)>
 %}
