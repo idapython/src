@@ -106,6 +106,16 @@ bool idaapi py_menu_item_callback(void *userdata)
 
 %rename (add_menu_item) wrap_add_menu_item;
 %inline %{
+
+//<inline(py_choose2)>
+PyObject *choose2_find(const char *title);
+int choose2_add_command(PyObject *self, const char *caption, int flags, int menu_index, int icon);
+void choose2_refresh(PyObject *self);
+void choose2_close(PyObject *self);
+int choose2_show(PyObject *self);
+void choose2_activate(PyObject *self);
+//</inline(py_choose2)>
+
 bool wrap_add_menu_item (
     const char *menupath,
     const char *name,
@@ -140,15 +150,12 @@ uint32 choose_choose(PyObject *self,
     int x0,int y0,
     int x1,int y1,
     int width);
-
-PyObject *choose2_find(const char *title);
-int choose2_add_command(PyObject *self, const char *caption, int flags=0, int menu_index=-1, int icon=-1);
-void choose2_refresh(PyObject *self);
-void choose2_close(PyObject *self);
-int choose2_show(PyObject *self);
-void choose2_activate(PyObject *self);
-
 %{
+
+//<code(py_choose2)>
+#ifndef __PY_CHOOSE2__
+#define __PY_CHOOSE2__
+#include "Python.h"
 
 //-------------------------------------------------------------------------
 // Chooser2 wrapper class
@@ -770,6 +777,8 @@ PyObject *choose2_find(const char *title)
 // End of Chooser2 wrapper class
 //-------------------------------------------------------------------------
 
+#endif
+//</code(py_choose2)>
 uint32 idaapi choose_sizer(void *self)
 {
     PyObject *pyres;
@@ -924,7 +933,7 @@ class Choose:
 		"""
 		return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
 
-
+#<pycode(py_choose2)>
 class Choose2:
     """Choose2 wrapper class"""
 
@@ -1033,5 +1042,5 @@ class Choose2:
 #    def OnGetLineAttr(self, n):
 #        # return list [color, flags] or None; check chooser_item_attrs_t
 #        pass
-
+#</pycode(py_choose2)>
 %}
