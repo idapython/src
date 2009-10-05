@@ -5,12 +5,31 @@ typedef struct
     ushort    fval[6];  // 12: floating point value in the internal representation (see ieee.h)
 } regval_t;
 
-%immutable dbg;
+%ignore dbg;
+%ignore get_manual_regions;
+%rename (get_manual_regions) py_get_manual_regions;
+%ignore set_manual_regions;
 %include "dbg.hpp"
 
 %feature("director") DBG_Hooks;
 
+%{
+//<code(py_dbg)>
+PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
+//</code(py_dbg)>
+%}
+
 %inline %{
+
+//<inline(py_dbg)>
+PyObject *py_get_manual_regions()
+{
+  meminfo_vec_t areas;
+  get_manual_regions(&areas);
+  return meminfo_vec_t_to_py(areas);
+}
+//</inline(py_dbg)>
+
 int idaapi DBG_Callback(void *ud, int notification_code, va_list va);
 class DBG_Hooks 
 {
