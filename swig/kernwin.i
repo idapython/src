@@ -108,7 +108,9 @@ bool idaapi py_menu_item_callback(void *userdata)
 %inline %{
 
 //<inline(py_choose2)>
+#ifdef CH_ATTRS
 PyObject *choose2_find(const char *title);
+#endif
 int choose2_add_command(PyObject *self, const char *caption, int flags, int menu_index, int icon);
 void choose2_refresh(PyObject *self);
 void choose2_close(PyObject *self);
@@ -442,12 +444,12 @@ public:
     menu_cb_idx = 0;
     self = NULL;
   }
-
+#ifdef CH_ATTRS
   static py_choose2_t *find_chooser(const char *title)
   {
     return (py_choose2_t *) get_chooser_obj(title);
   }
-
+#endif
   void close()
   {
     close_chooser(title.c_str());
@@ -765,6 +767,7 @@ int choose2_add_command(PyObject *self, const char *caption, int flags=0, int me
 }
 
 //------------------------------------------------------------------------
+#ifdef CH_ATTRS
 PyObject *choose2_find(const char *title)
 {
   py_choose2_t *c2 = py_choose2_t::find_chooser(title);
@@ -772,7 +775,7 @@ PyObject *choose2_find(const char *title)
     return NULL;
   return c2->get_self();
 }
-
+#endif
 //-------------------------------------------------------------------------
 // End of Chooser2 wrapper class
 //-------------------------------------------------------------------------
