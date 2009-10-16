@@ -23,8 +23,11 @@ from distutils import sysconfig
 VERBOSE = True
 IDA_MAJOR_VERSION = 5
 IDA_MINOR_VERSION = 4
-IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
-#IDA_SDK = ".." + os.sep + ".."
+if os.environ.has_key('IDA'):
+    IDA_SDK = os.environ['IDA']
+else:
+    IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
+
 # End of user configurable options
 
 # IDAPython version
@@ -75,7 +78,8 @@ BINDIST_MANIFEST = [
     "examples/ex_func_chooser.py",
     "examples/ex_choose2.py",
     "examples/ex_debug_names.py",
-    "examples/ex_graph.py"
+    "examples/ex_graph.py",
+    "examples/ex_dbg.py"
 ]
 
 # List files for the source distribution (appended to binary list)
