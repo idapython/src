@@ -125,7 +125,7 @@ def XrefTypeName(typecode):
 
 def _copy_xref(xref):
     """ Make a private copy of the xref class to preserve its contents """
-    class _xref:
+    class _xref(object):
         pass
 
     xr = _xref()
@@ -300,7 +300,7 @@ def DecodeInstruction(ea):
     insn = idaapi.get_current_instruction()
     if not insn:
         return None
-    class dup:
+    class dup(object):
         def __init__(self, op):
             for x in dir(op):
                 if x.startswith("__") and x.endswith("__"):
@@ -359,7 +359,7 @@ def GetInputFileMD5():
     return idc.GetInputMD5()
 
 
-class _cpu:
+class _cpu(object):
     "Simple wrapper around GetRegValue/SetRegValue"
     def __getattr__(self, name):
         #print "cpu.get(%s)"%name
@@ -369,7 +369,7 @@ class _cpu:
         #print "cpu.set(%s)"%name
         return idc.SetRegValue(value, name)
 
-class Strings:
+class Strings(object):
     """
     Returns the string list.
 	
@@ -380,7 +380,7 @@ class Strings:
             print "%x: len=%d type=%d -> '%s'" % (i.ea, i.length, i.type, str(i))
 
     """
-    class StringItem:
+    class StringItem(object):
         """
         Class representing each string item.
         The attributes are:
@@ -411,6 +411,7 @@ class Strings:
         if default_setup:
             self.setup()
         self._si  = idaapi.string_info_t()
+        self.size = 0
 
     def refresh(self, ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA):
         """Refreshes the strings list"""
