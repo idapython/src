@@ -246,28 +246,6 @@ def Segments():
             yield seg.startEA
 
 
-def GetDataList(ea, count, itemsize=1):
-    """
-    Get data list - INTERNAL USE ONLY
-    """
-    if itemsize == 1:
-        getdata = idaapi.get_byte
-    elif itemsize == 2:
-        getdata = idaapi.get_word
-    elif itemsize == 4:
-        getdata = idaapi.get_long
-    elif itemsize == 8:
-        getdata = idaapi.get_qword
-    else:
-        raise ValueError, "Invalid data size! Must be 1, 2, 4 or 8"
-
-    endea = ea + itemsize * count
-    curea = ea
-    while curea < endea:
-        yield getdata(curea)
-        curea += itemsize
-
-
 def FuncItems(start):
     """
     Get a list of function items
@@ -316,6 +294,28 @@ def DecodeInstruction(ea):
     return r
 
 
+def GetDataList(ea, count, itemsize=1):
+    """
+    Get data list - INTERNAL USE ONLY
+    """
+    if itemsize == 1:
+        getdata = idaapi.get_byte
+    elif itemsize == 2:
+        getdata = idaapi.get_word
+    elif itemsize == 4:
+        getdata = idaapi.get_long
+    elif itemsize == 8:
+        getdata = idaapi.get_qword
+    else:
+        raise ValueError, "Invalid data size! Must be 1, 2, 4 or 8"
+
+    endea = ea + itemsize * count
+    curea = ea
+    while curea < endea:
+        yield getdata(curea)
+        curea += itemsize
+
+
 def PutDataList(ea, datalist, itemsize=1):
     """
     Put data list - INTERNAL USE ONLY
@@ -358,16 +358,6 @@ def GetInputFileMD5():
     """
     return idc.GetInputMD5()
 
-
-class _cpu(object):
-    "Simple wrapper around GetRegValue/SetRegValue"
-    def __getattr__(self, name):
-        #print "cpu.get(%s)"%name
-        return idc.GetRegValue(name)
-
-    def __setattr__(self, name, value):
-        #print "cpu.set(%s)"%name
-        return idc.SetRegValue(value, name)
 
 class Strings(object):
     """
@@ -418,7 +408,8 @@ class Strings(object):
         idaapi.refresh_strlist(ea1, ea2)
         self.size = idaapi.get_strlist_qty()
 
-    def setup(self, strtypes=STR_C, minlen=5, only_7bit=True, ignore_instructions=False, ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA, display_only_existing_strings=False):
+    def setup(self, strtypes=STR_C, minlen=5, only_7bit=True, ignore_instructions=False,
+              ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA, display_only_existing_strings=False):
         t = idaapi.strwinsetup_t()
         t.strtypes = strtypes
         t.minlen = minlen
@@ -478,5 +469,15 @@ def Assemble(ea, line):
     idc.Batch(old_batch)
     return ret
 
+
+class _cpu(object):
+    "Simple wrapper around GetRegValue/SetRegValue"
+    def __getattr__(self, name):
+        #print "cpu.get(%s)"%name
+        return idc.GetRegValue(name)
+
+    def __setattr__(self, name, value):
+        #print "cpu.set(%s)"%name
+        return idc.SetRegValue(value, name)
 
 cpu = _cpu()
