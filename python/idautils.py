@@ -401,7 +401,7 @@ class Strings:
     STR_ULEN2   = 0x0020 # Pascal-style Unicode, length is 2 bytes
     STR_ULEN4   = 0x0040 # Pascal-style Unicode, length is 4 bytes
 
-    def clear_cache():
+    def clear_cache(self):
         """Clears the strings list cache"""
         self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
     
