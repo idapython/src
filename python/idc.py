@@ -1471,7 +1471,7 @@ def SetRegEx(ea, reg, value, tag):
 
            See also SetReg() compatibility macro.
     """
-    if _REGMAP.has_key(reg):
+    if reg in _REGMAP:
         return idaapi.splitSRarea1(ea, _REGMAP[reg], value, tag)
     else:
         return False
@@ -1889,7 +1889,7 @@ def GetReg(ea, reg):
            so to get paragraph pointed by the segment register you need to
            call AskSelector() function.
     """
-    if _REGMAP.has_key(reg):
+    if reg in _REGMAP:
         return idaapi.getSR(ea, _REGMAP[reg]) & 0xFFFF
     else:
         return False
@@ -3340,7 +3340,7 @@ def SetSegDefReg(ea, reg, value):
     """
     seg = idaapi.getseg(ea)
 
-    if seg and _REGMAP.has_key(reg):
+    if seg and reg in _REGMAP:
         return idaapi.SetDefaultRegisterValue(seg, _REGMAP[reg], value)
     else:
         return False
