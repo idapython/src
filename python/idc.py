@@ -6213,6 +6213,7 @@ PT_PAK4 =   0x0030  # #pragma pack(4)
 PT_PAK8 =   0x0040  # #pragma pack(8)
 PT_PAK16 =  0x0050  # #pragma pack(16)
 
+
 def GetMaxLocalType():
     """
     Get number of local types + 1
@@ -6235,6 +6236,7 @@ def SetLocalType(ordinal, input, flags):
     @return: slot number or 0 if error
     """
     return idaapi.idc_set_local_type(ordinal, input, flags)
+
 
 def GetLocalType(ordinal, flags):
     """
@@ -7048,14 +7050,14 @@ def SetRegValue(value, name):
     """
     rv = idaapi.regval_t()
     if type(value)==types.StringType:
-      value = int(value)
+        value = int(value)
     elif type(value)!=types.IntType:
-      print "SetRegValue: value must be integer!"
-      return BADADDR
+        print "SetRegValue: value must be integer!"
+        return BADADDR
 
     if value<0:
-      #ival_set cannot handle negative numbers
-      value &= 0xFFFFFFFF
+        #ival_set cannot handle negative numbers
+        value &= 0xFFFFFFFF
 
     rv.ival = value
     return idaapi.set_reg_val(name, rv)
