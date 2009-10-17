@@ -171,10 +171,12 @@ def XrefsTo(ea, flags=0):
         while xref.next_to():
             yield _copy_xref(xref)
 
+
 def Threads():
     """Returns all thread IDs"""
     for i in xrange(0, idc.GetThreadQty()):
         yield idc.GetThreadId(i)
+
 
 def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     """
@@ -452,7 +454,7 @@ def _Assemble(ea, line):
         ip  = ea - (idaapi.ask_selector(seg.sel) << 4)
         buf = idaapi.AssembleLine(ea, seg.sel, ip, seg.bitness, line)
         if not buf:
-          return (False, "Assembler failed: " + line)
+            return (False, "Assembler failed: " + line)
         ea += len(buf)
         ret.append(buf)
     
