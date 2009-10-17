@@ -6615,7 +6615,7 @@ def RunTo(ea):
 
     @return: success
     """
-    return idaapi.run_to()
+    return idaapi.run_to(ea)
 
 
 def StepUntilRet():
@@ -6945,7 +6945,7 @@ def GetExceptionQty():
     """
     Get number of defined exception codes
     """
-    return iddapi.get_exception_qty()
+    return idaapi.get_exception_qty()
 
 
 def GetExceptionCode(idx):
