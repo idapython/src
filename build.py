@@ -352,8 +352,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
                          extra_link_parameters)
     assert res == 0, "Failed to link the plugin binary"
 
-
-def build_binary_package(ea64, nukeold):
+def detect_platform(ea64):
     # Detect the platform
     system = platform.system()
 
@@ -362,14 +361,21 @@ def build_binary_package(ea64, nukeold):
         platform_string = "win32"
         plugin_name = ea64 and "python.p64" or "python.plw"
 
-    if system == "Linux":
+    elif system == "Linux":
         platform_string = "linux"
         plugin_name = ea64 and "python.plx64" or "python.plx"
 
-    if system == "Darwin":
+    elif system == "Darwin":
         platform_string = "macosx"
         plugin_name = ea64 and "python.pmc64" or "python.pmc"
+    else:
+        print "Unknown platform!"
+        sys.exit(-1)
 
+    return (system, platform_string, plugin_name)
+
+def build_binary_package(ea64, nukeold):
+    system, platform_string, plugin_name = detect_platform(ea64)
     BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR,
                                                              VERSION_MINOR,
                                                              VERSION_PATCH,
@@ -401,11 +407,13 @@ def build_source_package():
     srcmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py"])
     build_distribution(srcmanifest, SRCDISTDIR, ea64=False, nukeold=True)
 
-
-if __name__ == "__main__":
+def main():
     # Do 64-bit build?
     ea64 = '--ea64' in sys.argv
     build_binary_package(ea64=False, nukeold=True)
     if ea64:
         build_binary_package(ea64=True, nukeold=False)
     build_source_package()
+
+if __name__ == "__main__":
+    main()
