@@ -266,7 +266,7 @@ def FuncItems(start):
 
 def DecodeInstruction(ea):
     """
-    Decodes an instruction and returns a insn_t like class
+    Decodes an instruction and returns an insn_t like class
     
     @param ea: address to decode
 
@@ -278,19 +278,30 @@ def DecodeInstruction(ea):
     insn = idaapi.get_current_instruction()
     if not insn:
         return None
-    class dup(object):
+
+    class _insn(object):
+        def __getitem__(self, index):
+            if index > len(self.Operands):
+                raise StopIteration
+            return self.Operands[index]
+
+    class _op(_reg_dtyp_t):
         def __init__(self, op):
-            for x in dir(op):
-                if x.startswith("__") and x.endswith("__"):
-                    continue
-                setattr(self, x, getattr(op, x))
-    r = dup(insn)
-    r.Operands = []
+            _copy_obj(op, self)
+            _reg_dtyp_t.__init__(self, op.reg, op.dtyp)
+        def is_reg(self, r):
+            """Checks if the operand is the given processor register"""
+            return self.type == idaapi.o_reg and self == r
+        def has_reg(self, r):
+            """Checks if the operand accesses the given processor register"""
+            return self.reg == r.reg
+    r = _copy_obj(insn, _insn())
+    r.Operands = [] # to hold the operands
     for n in xrange(0, idaapi.UA_MAXOP):
         t = idaapi.get_instruction_operand(insn, n)
         if t.type == idaapi.o_void:
             break
-        r.Operands.append(dup(t))
+        r.Operands.append(_op(t))
     return r
 
 
@@ -469,6 +480,50 @@ def Assemble(ea, line):
     idc.Batch(old_batch)
     return ret
 
+def _copy_obj(src, dest):
+    """
+    Copy non private/non callable attributes from a class instance to another
+    @param src: Source class to copy from
+    @param dest: If it is a string then it designates the new class type that will be created and copied to.
+                 Otherwise dest should be an instance of another class
+    @return: A new instance or "dest"
+    """
+    if type(dest) == types.StringType:
+        dest = new.classobj(dest, (), {})
+    for x in dir(src):
+        if x.startswith("__") and x.endswith("__"):
+            continue
+        t = getattr(src, x)
+        if callable(t):
+            continue
+        setattr(dest, x, t)
+    return dest
+
+class _reg_dtyp_t(object):
+    """
+    INTERNAL
+    This class describes a register's number and dtyp.
+    The equal operator is overloaded so that two instances can be tested for equality
+    """
+    def __init__(self, reg, dtyp):
+        self.reg  = reg
+        self.dtyp = dtyp
+
+    def __eq__(self, other):
+        return (self.reg == other.reg) and (self.dtyp == other.dtyp)
+
+class _procregs(object):
+    """Utility class allowing the users to identify registers in a decoded instruction"""
+    def __getattr__(self, attr):
+        ri = idaapi.reg_info_t()
+        if not idaapi.parse_reg_name(attr, ri):
+            raise AttributeError()
+        r = _reg_dtyp_t(ri.reg, ord(idaapi.get_dtyp_by_size(ri.size)))
+        self.__dict__[attr] = r
+        return r
+
+    def __setattr__(self, attr, value):
+        raise AttributeError(attr)
 
 class _cpu(object):
     "Simple wrapper around GetRegValue/SetRegValue"
@@ -481,3 +536,4 @@ class _cpu(object):
         return idc.SetRegValue(value, name)
 
 cpu = _cpu()
+procregs = _procregs()
