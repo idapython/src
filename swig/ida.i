@@ -1,9 +1,9 @@
 // Ignore kernel-only symbols
 %ignore dual_text_options_t;
-%ignore init;
-%ignore retrieve;
-%ignore read;
-%ignore write;
+%ignore idainfo::init;
+%ignore idainfo::retrieve;
+%ignore idainfo::read;
+%ignore idainfo::write;
 
 %ignore setflag(uchar &where,uchar bit,int value);
 %ignore setflag(ushort &where,ushort bit,int value);
