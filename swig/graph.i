@@ -1,7 +1,5 @@
 %{
 //<code(py_graph)>
-#ifndef __PY_IDA_GRAPH__
-#define __PY_IDA_GRAPH__
 
 #define GR_HAVE_USER_HINT         0x00000001
 #define GR_HAVE_CLICKED           0x00000002
@@ -775,7 +773,6 @@ void pyg_select_node(PyObject *self, int nid)
 #undef S_M_THIS
 #undef S_M_TITLE
 
-#endif
 //</code(py_graph)>
 %}
 

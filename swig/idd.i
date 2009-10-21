@@ -10,8 +10,6 @@
 
 %{
 //<code(py_idd)>
-#ifndef __PYDBG__
-#define __PYDBG__
 
 #ifndef PYUL_DEFINED
 #define PYUL_DEFINED
@@ -153,7 +151,6 @@ PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
-#endif
 //</code(py_idd)>
 %}
 

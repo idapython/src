@@ -155,8 +155,6 @@ uint32 choose_choose(PyObject *self,
 %{
 
 //<code(py_choose2)>
-#ifndef __PY_CHOOSE2__
-#define __PY_CHOOSE2__
 #include "Python.h"
 
 //-------------------------------------------------------------------------
@@ -780,7 +778,6 @@ PyObject *choose2_find(const char *title)
 // End of Chooser2 wrapper class
 //-------------------------------------------------------------------------
 
-#endif
 //</code(py_choose2)>
 uint32 idaapi choose_sizer(void *self)
 {
