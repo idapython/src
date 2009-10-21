@@ -1,5 +1,6 @@
 // TODO: These could be wrapped
 %ignore enumerate_files;
+%rename (enumerate_files) py_enumerate_files;
 %ignore enumerate_system_files;
 %ignore ioport_bit_t;
 %ignore ioport_bits_t;
@@ -40,6 +41,20 @@
 %ignore exename;
 
 %include "diskio.hpp"
+
+%{
+//<code(py_diskio)>
+int idaapi py_enumerate_files_cb(const char *file, void *ud)
+{
+  PyObject *py_file = PyString_FromString(file);
+  PyObject *py_ret  = PyObject_CallFunctionObjArgs((PyObject *)ud, py_file, NULL);
+  int r = (py_ret == 0 || !PyNumber_Check(py_ret)) ? 1 /* stop enumeration on failure */ : PyInt_AsLong(py_ret);
+  Py_XDECREF(py_file);
+  Py_XDECREF(py_ret);
+  return r;
+}
+//</code(py_diskio)>
+%}
 
 %inline %{
 //<inline(py_diskio)>
@@ -280,5 +295,31 @@ public:
     return Py_BuildValue("c", ch);
   }
 };
+
+
+PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback)
+{
+  do 
+  {
+    if (!PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback))
+      break;
+    const char *_path = PyString_AsString(path);
+    const char *_fname = PyString_AsString(fname);
+    if (_path == NULL || _fname == NULL)
+      break;
+    char answer[MAXSTR];
+    answer[0] = '\0';
+    int r = enumerate_files(answer, sizeof(answer), _path, _fname, py_enumerate_files_cb, callback);
+    return Py_BuildValue("(is)", r, answer);
+  } while (false);
+  Py_RETURN_NONE;  
+}
 //</inline(py_diskio)>
+%}
+
+%pythoncode %{
+#<pycode(py_diskio)>
+def enumerate_system_files(subdir, fname, callback):
+    return enumerate_files(idadir(subdir), fname, callback)
+#</pycode(py_diskio)>
 %}
