@@ -41,3 +41,244 @@
 
 %include "diskio.hpp"
 
+%inline %{
+//<inline(py_diskio)>
+class loader_input_t
+{
+private:
+  linput_t *li;
+  int own;
+  qstring fn;
+  enum
+  {
+    OWN_NONE    = 0, // li not created yet
+    OWN_CREATE  = 1, // Owns li because we created it
+    OWN_FROM_LI = 2, // No ownership we borrowed the li from another class
+    OWN_FROM_FP = 3, // We got an li instance from an fp instance, we have to unmake_linput() on Close
+  };
+
+  //--------------------------------------------------------------------------
+  void assign(const loader_input_t &rhs)
+  {
+    fn = rhs.fn;
+    li = rhs.li;
+    own = OWN_FROM_LI;
+  }
+public:
+  //--------------------------------------------------------------------------
+  loader_input_t(const loader_input_t &rhs)
+  {
+    assign(rhs);
+  }
+
+  //--------------------------------------------------------------------------
+  loader_input_t()
+  {
+    li = NULL;
+    own = OWN_NONE;
+    fn.qclear();
+  }
+
+  //--------------------------------------------------------------------------
+  void close()
+  {
+    if (li == NULL)
+      return;
+
+    if (own == OWN_CREATE)
+      close_linput(li);
+    else if (own == OWN_FROM_FP)
+      unmake_linput(li);
+
+    li = NULL;
+  }
+
+  //--------------------------------------------------------------------------
+  ~loader_input_t()
+  {
+    close();
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *open(const char *filename, bool remote = false)
+  {
+    close();
+    li = open_linput(filename, remote);
+    if (li == NULL)
+      Py_RETURN_FALSE;
+
+    // Save file name
+    fn = filename;
+    own = OWN_CREATE;
+    Py_RETURN_TRUE;
+  }
+
+  //--------------------------------------------------------------------------
+  void set_linput(linput_t *linput)
+  {
+    close();
+    own = OWN_FROM_LI;
+    li = linput;
+    fn.sprnt("<linput_t * %p>", linput);
+  }
+
+  //--------------------------------------------------------------------------
+  static loader_input_t *from_linput(linput_t *linput)
+  {
+    loader_input_t *l = new loader_input_t();
+    l->set_linput(linput);
+    return l;
+  }
+
+  //--------------------------------------------------------------------------
+  static loader_input_t *from_fp(FILE *fp)
+  {
+    linput_t *fp_li = make_linput(fp);
+    if (fp_li == NULL)
+      return NULL;
+
+    loader_input_t *l = new loader_input_t();
+    l->own = OWN_FROM_FP;
+    l->fn.sprnt("<FILE * %p>", fp);
+    l->li = fp_li;
+    return l;
+  }
+
+  //--------------------------------------------------------------------------
+  linput_t *get_linput()
+  {
+    return li;
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *open_memory(ea_t start, asize_t size = 0)
+  {
+    linput_t *l = create_memory_linput(start, size);
+    if (l == NULL)
+      Py_RETURN_FALSE;
+    close();
+    li = l;
+    fn = "<memory>";
+    own = OWN_CREATE;
+    Py_RETURN_TRUE;
+  }
+
+  //--------------------------------------------------------------------------
+  int32 seek(int32 pos, int whence = SEEK_SET)
+  {
+    return qlseek(li, pos, whence);
+  }
+
+  //--------------------------------------------------------------------------
+  int32 tell()
+  {
+    return qltell(li);
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *getz(size_t sz, int32 fpos = -1)
+  {
+    do
+    {
+      char *buf = (char *) malloc(sz + 5);
+      if (buf == NULL)
+        break;
+      qlgetz(li, fpos, buf, sz);
+      PyObject *ret = PyString_FromString(buf);
+      free(buf);
+      return ret;
+    } while (false);
+    Py_RETURN_NONE;
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *gets(size_t len)
+  {
+    do
+    {
+      char *buf = (char *) malloc(len + 5);
+      if (buf == NULL)
+        break;
+      if (qlgets(buf, len, li) == NULL)
+      {
+        free(buf);
+        break;
+      }
+      PyObject *ret = PyString_FromString(buf);
+      free(buf);
+      return ret;
+    } while (false);
+    Py_RETURN_NONE;
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *read(size_t size)
+  {
+    do
+    {
+      char *buf = (char *) malloc(size + 5);
+      if (buf == NULL)
+        break;
+      ssize_t r = qlread(li, buf, size);
+      if (r == -1)
+      {
+        free(buf);
+        break;
+      }
+      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      free(buf);
+      return ret;
+    } while (false);
+    Py_RETURN_NONE;
+  }
+
+  //--------------------------------------------------------------------------
+  bool opened()
+  {
+    return li != NULL;
+  }
+  
+  //--------------------------------------------------------------------------
+  PyObject *readbytes(size_t size, bool big_endian)
+  {
+    do
+    {
+      char *buf = (char *) malloc(size + 5);
+      if (buf == NULL)
+        break;
+      int r = lreadbytes(li, buf, size, big_endian);
+      if (r == -1)
+      {
+        free(buf);
+        break;
+      }
+      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      free(buf);
+      return ret;
+    } while (false);
+    Py_RETURN_NONE;
+  }
+
+  //--------------------------------------------------------------------------
+  int32 size()
+  {
+    return qlsize(li);
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *filename()
+  {
+    return PyString_FromString(fn.c_str());
+  }
+
+  //--------------------------------------------------------------------------
+  PyObject *get_char()
+  {
+    int ch = qlgetc(li);
+    if (ch == EOF)
+      Py_RETURN_NONE;
+    return Py_BuildValue("c", ch);
+  }
+};
+//</inline(py_diskio)>
+%}
