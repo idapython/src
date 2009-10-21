@@ -45,6 +45,8 @@
 #include "typeinf.hpp"
 #include "ua.hpp"
 #include "xref.hpp"
+#include "fpro.h"
+#include <map>
 #ifdef __NT__
   #include "graph.hpp"
 #endif
@@ -157,6 +159,7 @@ idainfo *get_inf_structure(void)
 #ifdef __NT__
   %include "graph.i"
 #endif
+%include "fpro.i"
 
 %inline {
     void set_script_timeout(int timeout);
