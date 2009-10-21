@@ -1,6 +1,5 @@
 %{
 //<code(py_graph)>
-
 #define GR_HAVE_USER_HINT         0x00000001
 #define GR_HAVE_CLICKED           0x00000002
 #define GR_HAVE_DBL_CLICKED       0x00000004
@@ -23,8 +22,6 @@
 #define S_M_NODES                 "_nodes"
 #define S_M_THIS                  "_this"
 #define S_M_TITLE                 "_title"
-
-#include <map>
 
 class py_graph_t
 {
@@ -772,7 +769,6 @@ void pyg_select_node(PyObject *self, int nid)
 #undef S_M_NODES
 #undef S_M_THIS
 #undef S_M_TITLE
-
 //</code(py_graph)>
 %}
 

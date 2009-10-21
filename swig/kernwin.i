@@ -155,12 +155,6 @@ uint32 choose_choose(PyObject *self,
 %{
 
 //<code(py_choose2)>
-#include "Python.h"
-
-//-------------------------------------------------------------------------
-// Chooser2 wrapper class
-//-------------------------------------------------------------------------
-#include <map>
 
 //------------------------------------------------------------------------
 static PyObject *PyObject_TryGetAttrString(PyObject *object, const char *attr)
@@ -774,10 +768,6 @@ PyObject *choose2_find(const char *title)
   return c2->get_self();
 }
 #endif
-//-------------------------------------------------------------------------
-// End of Chooser2 wrapper class
-//-------------------------------------------------------------------------
-
 //</code(py_choose2)>
 uint32 idaapi choose_sizer(void *self)
 {
