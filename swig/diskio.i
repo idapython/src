@@ -146,6 +146,17 @@ public:
   }
 
   //--------------------------------------------------------------------------
+  // This method can be used to pass a linput_t* from C code
+  static loader_input_t *from_cobject(PyObject *pycobject)
+  {
+    if (!PyCObject_Check(pycobject))
+      return NULL;
+    loader_input_t *l = new loader_input_t();
+    l->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+    return l;
+  }
+
+  //--------------------------------------------------------------------------
   static loader_input_t *from_fp(FILE *fp)
   {
     linput_t *fp_li = make_linput(fp);

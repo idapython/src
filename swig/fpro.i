@@ -76,6 +76,13 @@ public:
   }
 
   //--------------------------------------------------------------------------
+  // This method can be used to pass a FILE* from C code
+  static qfile_t *from_cobject(PyObject *pycobject)
+  {
+    return PyCObject_Check(pycobject) ? from_fp((FILE *)PyCObject_AsVoidPtr(pycobject)) : NULL;
+  }
+
+  //--------------------------------------------------------------------------
   static qfile_t *tmpfile()
   {
     return from_fp(qtmpfile());
@@ -162,7 +169,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int write(PyObject *py_buf, bool big_endian)
+  int writebytes(PyObject *py_buf, bool big_endian)
   {
     int    sz = PyString_GET_SIZE(py_buf);
     void *buf = (void *)PyString_AS_STRING(py_buf);
