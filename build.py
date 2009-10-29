@@ -126,6 +126,7 @@ SRCDIST_MANIFEST = [
     "swig/ua.i",
     "swig/xref.i",
     "swig/graph.i",
+    "swig/fpro.i",
     "tools/gendocs.py",
 ]
 
@@ -324,6 +325,9 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     # Enable EA64 for the compiler if necessary
     if ea64:
         platform_macros.append("__EA64__")
+
+    if '--early-load' in sys.argv:
+        platform_macros.append("PLUGINFIX")
 
     # Build the wrapper from the interface files
     ea64flag = ea64 and "-D__EA64__" or ""

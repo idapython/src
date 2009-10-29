@@ -560,13 +560,57 @@ void enable_python_cli(bool enable)
 }
 #endif
 
+/* Install python menu items */
+static void install_python_menus()
+{
+  /* Add menu items for all the functions */
+  /* Different paths are used for the GUI version */
+  add_menu_item("File/IDC command...", "P~y~thon command...",
+    "Alt-8", SETMENU_APP,
+    (menu_item_callback_t *)IDAPython_Menu_Callback,
+    (void *)IDAPYTHON_RUNSTATEMENT);
+
+  /* Add Load Python file menu item*/
+  bool result = add_menu_item("File/Load file/IDC file...", "P~y~thon file...",
+    "Alt-9", SETMENU_APP,
+    (menu_item_callback_t *)IDAPython_Menu_Callback,
+    (void *)IDAPYTHON_RUNFILE);
+  if (!result)
+    add_menu_item("File/IDC command...", "P~y~thon file...",
+    "Alt-9", SETMENU_APP,
+    (menu_item_callback_t *)IDAPython_Menu_Callback,
+    (void *)IDAPYTHON_RUNFILE);
+
+  /* Add View Python Scripts menu item*/
+  result = add_menu_item("View/Open subviews/Show strings", "Python S~c~ripts",
+    "Alt-7", SETMENU_APP,
+    (menu_item_callback_t *)IDAPython_Menu_Callback,
+    (void *)IDAPYTHON_SCRIPTBOX);
+  if (!result)
+    add_menu_item("View/Open subviews/Problems", "Python S~c~ripts",
+    "Alt-7", SETMENU_APP,
+    (menu_item_callback_t *)IDAPython_Menu_Callback,
+    (void *)IDAPYTHON_SCRIPTBOX);
+}
+
+/* we install the menu later because the text version crashes if
+add_menu_item is called too early */
+static int idaapi menu_installer_cb(void *, int code, va_list)
+{
+  if ( code != ui_ready_to_run )
+    return 0;
+
+  install_python_menus();
+  unhook_from_notification_point(HT_UI, menu_installer_cb, NULL);
+  return 0;
+}
+
 /* Initialize the Python environment */
 bool IDAPython_Init(void)
 {
     char *options;
     char tmp[MAXSTR+64];
-    char *initpath;
-    bool result = 1;
+    bool result = true;
 
     /* Already initialized? */
     if (initialized == 1)
@@ -634,35 +678,11 @@ bool IDAPython_Init(void)
     if (options)
         IDAPython_RunScript(options);
 
-    /* Add menu items for all the functions */
-    /* Different paths are used for the GUI version */
-    add_menu_item("File/IDC command...", "P~y~thon command...",
-                  "Alt-8", SETMENU_APP,
-                  (menu_item_callback_t *)IDAPython_Menu_Callback,
-                  (void *)IDAPYTHON_RUNSTATEMENT);
-
-    /* Add Load Python file menu item*/
-    result = add_menu_item("File/Load file/IDC file...", "P~y~thon file...",
-                           "Alt-9", SETMENU_APP,
-                           (menu_item_callback_t *)IDAPython_Menu_Callback,
-                           (void *)IDAPYTHON_RUNFILE);
-    if (!result)
-        add_menu_item("File/IDC command...", "P~y~thon file...",
-                      "Alt-9", SETMENU_APP,
-                      (menu_item_callback_t *)IDAPython_Menu_Callback,
-                      (void *)IDAPYTHON_RUNFILE);
-
-    /* Add View Python Scripts menu item*/
-    result = add_menu_item("View/Open subviews/Show strings", "Python S~c~ripts",
-                           "Alt-7", SETMENU_APP,
-                           (menu_item_callback_t *)IDAPython_Menu_Callback,
-                           (void *)IDAPYTHON_SCRIPTBOX);
-    if (!result)
-        add_menu_item("View/Open subviews/Problems", "Python S~c~ripts",
-                      "Alt-7", SETMENU_APP,
-                      (menu_item_callback_t *)IDAPython_Menu_Callback,
-                      (void *)IDAPYTHON_SCRIPTBOX);
-
+#ifdef PLUGINFIX
+    hook_to_notification_point(HT_UI, menu_installer_cb, NULL);
+#else
+    install_python_menus();
+#endif
     /* Register a RunPythonStatement() function for IDC */
     set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
 
@@ -679,6 +699,9 @@ bool IDAPython_Init(void)
 /* Cleaning up Python */
 void IDAPython_Term(void)
 {
+#ifdef PLUGINFIX
+    unhook_from_notification_point(HT_UI, menu_installer_cb, NULL);
+#endif
     /* Remove the menu items before termination */
     del_menu_item("File/Load file/Python file...");
     del_menu_item("File/Python file...");
@@ -767,7 +790,11 @@ extern "C"
 {
     plugin_t PLUGIN = {
         IDP_INTERFACE_VERSION,
+#ifdef PLUGINFIX
+        PLUGIN_FIX,    // plugin flags
+#else
         0,             // plugin flags
+#endif
         init,          // initialize
         term,          // terminate. this pointer may be NULL.
         run,           // invoke plugin

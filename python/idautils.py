@@ -178,7 +178,7 @@ def Threads():
         yield idc.GetThreadId(i)
 
 
-def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
+def Heads(start=None, end=None):
     """
     Get a list of heads (instructions or data)
 
@@ -187,6 +187,9 @@ def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
 
     @return: list of heads between start and end
     """
+    if not start: start = idaapi.cvar.inf.minEA
+    if not end:   end = idaapi.cvar.inf.maxEA
+
     ea = start
     if not idc.isHead(idc.GetFlags(ea)):
         ea = idaapi.next_head(ea, end)
@@ -195,7 +198,7 @@ def Heads(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
         ea = idaapi.next_head(ea, end)
 
 
-def Functions(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
+def Functions(start=None, end=None):
     """
     Get a list of functions
 
@@ -209,6 +212,9 @@ def Functions(start=idaapi.cvar.inf.minEA, end=idaapi.cvar.inf.maxEA):
     in multiple segments will be reported multiple times, once in each segment
     as they are listed.
     """
+    if not start: start = idaapi.cvar.inf.minEA
+    if not end:   end = idaapi.cvar.inf.maxEA
+
     func = idaapi.get_func(start)
     if not func:
         func = idaapi.get_next_func(start)
@@ -414,13 +420,17 @@ class Strings(object):
         self._si  = idaapi.string_info_t()
         self.size = 0
 
-    def refresh(self, ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA):
+    def refresh(self, ea1=None, ea2=None):
         """Refreshes the strings list"""
+        if not ea1: ea1 = idaapi.cvar.inf.minEA
+        if not ea2: ea2 = idaapi.cvar.inf.maxEA
         idaapi.refresh_strlist(ea1, ea2)
         self.size = idaapi.get_strlist_qty()
 
     def setup(self, strtypes=STR_C, minlen=5, only_7bit=True, ignore_instructions=False,
-              ea1=idaapi.cvar.inf.minEA, ea2=idaapi.cvar.inf.maxEA, display_only_existing_strings=False):
+              ea1=None, ea2=None, display_only_existing_strings=False):
+        if not ea1: ea1 = idaapi.cvar.inf.minEA
+        if not ea2: ea2 = idaapi.cvar.inf.maxEA
         t = idaapi.strwinsetup_t()
         t.strtypes = strtypes
         t.minlen = minlen
