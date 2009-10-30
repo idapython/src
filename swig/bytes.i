@@ -73,4 +73,46 @@
 %clear(const void *buf, size_t size);
 %clear(void *buf, ssize_t size);
 %clear(typeinfo_t *);
+
+%rename (nextthat) py_nextthat;
+%rename (prevthat) py_prevthat;
  
+%{
+//<code(py_bytes)>
+//------------------------------------------------------------------------
+static bool idaapi py_testf_cb(flags_t flags, void *ud)
+{
+  PyObject *py_flags = PyLong_FromLong(flags);
+  PyObject *result = PyObject_CallFunctionObjArgs((PyObject *) ud, py_flags, NULL);
+  bool ret = result != NULL && result == Py_True;
+  Py_XDECREF(result);
+  Py_XDECREF(py_flags);
+  return ret;
+}
+
+//------------------------------------------------------------------------
+// Wraps the (next|prev)that()
+ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
+{
+  if (!PyCallable_Check(py_callable))
+    return BADADDR;
+//  ea_t (ida_export *np_that_t)(ea_t, ea_t, testf_t *, void *ud);
+//  np_that_t = ;
+  return (next ? nextthat : prevthat)(ea, bound, py_testf_cb, py_callable);
+}
+//</code(py_bytes)>
+%}
+
+%inline %{
+//<inline(py_bytes)>
+ea_t py_nextthat(ea_t ea, ea_t maxea, PyObject *callable)
+{
+  return py_npthat(ea, maxea, callable, true);
+}
+
+ea_t py_prevthat(ea_t ea, ea_t minea, PyObject *callable)
+{
+  return py_npthat(ea, minea, callable, false);
+}
+//</inline(py_bytes)>
+%}
