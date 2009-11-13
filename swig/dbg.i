@@ -22,11 +22,22 @@ PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 %inline %{
 
 //<inline(py_dbg)>
+//-------------------------------------------------------------------------
 PyObject *py_get_manual_regions()
 {
   meminfo_vec_t areas;
   get_manual_regions(&areas);
   return meminfo_vec_t_to_py(areas);
+}
+
+//-------------------------------------------------------------------------
+PyObject *refresh_debugger_memory()
+{
+  invalidate_dbgmem_config();
+  invalidate_dbgmem_contents(BADADDR, BADADDR);
+  if ( dbg != NULL && dbg->stopped_at_debug_event != NULL )
+    dbg->stopped_at_debug_event(true);
+  Py_RETURN_NONE;
 }
 //</inline(py_dbg)>
 
