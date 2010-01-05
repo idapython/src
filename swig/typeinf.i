@@ -10,6 +10,10 @@
 %ignore get_de;
 %ignore skip_ptr_type_header;
 %ignore skip_array_type_header;
+%ignore unpack_object_from_idb;
+%ignore unpack_object_from_bv;
+%ignore pack_object_to_idb;
+%ignore pack_object_to_bv;
 %ignore typend;
 %ignore typlen;
 %ignore typncpy;
@@ -133,22 +137,230 @@
 %ignore build_anon_type_name;
 %ignore type_names;
 %ignore get_compiler_id;
-
+%ignore reloc_info_t;
+%ignore relobj_t;
+%ignore regobj_t;
 %ignore build_func_type;
 
 %include "typeinf.hpp"
 
+%{
+//<code(py_typeinf)>
+//-------------------------------------------------------------------------
+// Utility function to convert a python object to an IDC object
+// and sets a python exception on failure.
+static bool convert_pyobj_to_idc_exc(PyObject *py_obj, idc_value_t *idc_obj)
+{
+  int sn = 0;
+  if (pyvar_to_idcvar(py_obj, idc_obj, &sn) <= 0)
+  {
+    PyErr_SetString(PyExc_ValueError, "Could not convert Python object to IDC object!");
+    return false;
+  }
+  return true;
+}
+//</code(py_typeinf)>
+%}
 // Custom wrappers
 
 %rename (load_til) load_til_wrap;
+%rename (get_type_size0) py_get_type_size0;
+%rename (unpack_object_from_idb) py_unpack_object_from_idb;
+%rename (unpack_object_from_bv) py_unpack_object_from_bv;
+%rename (pack_object_to_idb) py_pack_object_to_idb;
+%rename (pack_object_to_bv) py_pack_object_to_bv;
 %inline %{
+//<inline(py_typeinf)>
+//-------------------------------------------------------------------------
+PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
+{
+  qtype fields, type;
+  qstring name;
+  bool ok = parse_decl(ti, decl, &name, &type, &fields, flags);
+  if (!ok)
+    Py_RETURN_NONE;
+  return Py_BuildValue("(sss)", 
+    name.c_str(),
+    (char *)type.c_str(),
+    (char *)fields.c_str());
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_type_size0(const til_t *ti, PyObject *tp)
+{
+  if (!PyString_Check(tp))
+  {
+    PyErr_SetString(PyExc_ValueError, "String expected!");
+    return NULL;
+  }
+  size_t sz = get_type_size0(ti, (type_t *)PyString_AsString(tp));
+  if (sz == BADSIZE)
+    Py_RETURN_NONE;
+  return PyInt_FromLong(sz);
+}
+
+//-------------------------------------------------------------------------
+// Read a typed idc object from the database
+PyObject *py_unpack_object_from_idb(
+  til_t *ti,
+  PyObject *py_type,
+  PyObject *py_fields,
+  ea_t ea,
+  int pio_flags)
+{
+  if (!PyString_Check(py_type) && !PyString_Check(py_fields))
+  {
+    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
+    return NULL;
+  }
+
+  // Unpack
+  type_t *type   = (type_t *) PyString_AsString(py_type);
+  p_list *fields = (p_list *) PyString_AsString(py_fields);
+  idc_value_t idc_obj;
+  error_t err = unpack_object_from_idb(&idc_obj, ti, type, fields, ea, NULL, pio_flags);
+
+  // Unpacking failed?
+  if (err != eOk)
+    return Py_BuildValue("(ii)", 0, err);
+
+  // Convert
+  PyObject *py_ret(NULL);
+  err = idcvar_to_pyvar(idc_obj, &py_ret);
+  // Conversion failed?
+  if (err != CIP_OK)
+    return Py_BuildValue("(ii)", 0, err);
+  return Py_BuildValue("(iO)", 1, py_ret);
+}
+
+//-------------------------------------------------------------------------
+// Read a typed idc object from the byte vector
+PyObject *py_unpack_object_from_bv(
+  til_t *ti,
+  PyObject *py_type,
+  PyObject *py_fields,
+  PyObject *py_bytes,
+  int pio_flags)
+{
+  if (!PyString_Check(py_type) && !PyString_Check(py_fields) && !PyString_Check(py_bytes))
+  {
+    PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
+    return NULL;
+  }
+
+  // Get type strings
+  type_t *type   = (type_t *) PyString_AsString(py_type);
+  p_list *fields = (p_list *) PyString_AsString(py_fields);
+
+  // Make a byte vector
+  bytevec_t bytes;
+  bytes.resize(PyString_Size(py_bytes));
+  memcpy(bytes.begin(), PyString_AsString(py_bytes), bytes.size());
+
+  idc_value_t idc_obj;
+  error_t err = unpack_object_from_bv(&idc_obj, ti, type, fields, bytes, pio_flags);
+
+  // Unpacking failed?
+  if (err != eOk)
+    return Py_BuildValue("(ii)", 0, err);
+
+  // Convert
+  PyObject *py_ret(NULL);
+  err = idcvar_to_pyvar(idc_obj, &py_ret);
+  // Conversion failed?
+  if (err != CIP_OK)
+    return Py_BuildValue("(ii)", 0, err);
+  return Py_BuildValue("(iO)", 1, py_ret);
+}
+
+//-------------------------------------------------------------------------
+// Write a typed idc object to the database
+// Raises an exception if wrong parameters were passed or conversion fails
+// Returns the error_t returned by idasdk.pack_object_to_idb
+PyObject *py_pack_object_to_idb(
+  PyObject *py_obj,
+  til_t *ti,
+  PyObject *py_type,
+  PyObject *py_fields,
+  ea_t ea,
+  int pio_flags)
+{
+  if (!PyString_Check(py_type) && !PyString_Check(py_fields))
+  {
+    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
+    return NULL;
+  }
+
+  // Convert Python object to IDC object
+  idc_value_t idc_obj;
+  if (!convert_pyobj_to_idc_exc(py_obj, &idc_obj))
+    return NULL;
+
+  // Get type strings
+  type_t *type   = (type_t *) PyString_AsString(py_type);
+  p_list *fields = (p_list *) PyString_AsString(py_fields);
+
+  // Pack
+  error_t err = pack_object_to_idb(&idc_obj, ti, type, fields, ea, pio_flags);
+  return PyInt_FromLong(err);
+}
+
+//-------------------------------------------------------------------------
+// Returns a tuple(Boolean, PackedBuffer or Error Code)
+PyObject *py_pack_object_to_bv(
+  PyObject *py_obj,
+  til_t *ti,
+  PyObject *py_type,
+  PyObject *py_fields,
+  ea_t base_ea,
+  int pio_flags=0)
+{
+  if (!PyString_Check(py_type) && !PyString_Check(py_fields))
+  {
+    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
+    return NULL;
+  }
+
+  // Convert Python object to IDC object
+  idc_value_t idc_obj;
+  if (!convert_pyobj_to_idc_exc(py_obj, &idc_obj))
+    return NULL;
+
+  // Get type strings
+  type_t *type   = (type_t *) PyString_AsString(py_type);
+  p_list *fields = (p_list *) PyString_AsString(py_fields);
+
+  // Pack
+  relobj_t bytes;
+  error_t err = pack_object_to_bv(
+    &idc_obj, 
+    ti, 
+    type, 
+    fields, 
+    &bytes, 
+    NULL, 
+    pio_flags);
+  do 
+  {
+    if (err != eOk)
+      break;
+    if (!bytes.relocate(base_ea, inf.mf))
+    {
+      err = -1;
+      break;
+    }
+    return Py_BuildValue("(is#)", 1, bytes.begin(), bytes.size());
+  } while (false);
+  return Py_BuildValue("(ii)", 0, err);
+}
+//</inline(py_typeinf)>
 til_t * load_til(const char *tildir, const char *name)
 {
     char errbuf[4096];
     til_t *res;
-	
+
     res = load_til(tildir, name, errbuf, sizeof(errbuf));
-	
+
     if (!res)
     {
         PyErr_SetString(PyExc_RuntimeError, errbuf);
@@ -165,9 +377,9 @@ til_t * load_til_header_wrap(const char *tildir, const char *name)
 {
     char errbuf[4096];
     til_t *res;
-	
+
     res = load_til_header(tildir, name, errbuf, sizeof(errbuf));;
-	
+
     if (!res)
     {
         PyErr_SetString(PyExc_RuntimeError, errbuf);
@@ -196,7 +408,7 @@ char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
 {
     type_t type[MAXSTR];
     p_list fnames[MAXSTR];
- 
+
     if (get_ti(ea, type, sizeof(type), fnames, sizeof(fnames)))
     {
         int code = print_type_to_one_line(buf, bufsize, idati, type,
@@ -211,7 +423,7 @@ char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
 {
     type_t type[MAXSTR];
     p_list fnames[MAXSTR];
- 
+
     if (guess_type(ea, type, sizeof(type), fnames, sizeof(fnames)))
     {
         int code = print_type_to_one_line(buf, bufsize, idati, type,
@@ -234,7 +446,7 @@ int idc_set_local_type(int ordinal, const char *dcl, int flags)
         qstring name;
         qtype type;
         qtype fields;
-      
+
         if (!parse_decl(idati, dcl, &name, &type, &fields, flags))
             return 0;
 

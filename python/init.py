@@ -113,18 +113,12 @@ sys.stdout = sys.stderr = MyStdOut()
 sys.argv = [ "" ]
 
 # Have to make sure Python finds our modules
-if _idaapi.idainfo_is_64bit(_idaapi.cvar.inf):
-    pythonDir = "python64"
-else:
-    pythonDir = "python"
-sys.path.append(_idaapi.idadir(pythonDir))
-
-print_banner()
+sys.path.append(_idaapi.idadir("python"))
 
 #-----------------------------------------------------------
 # Import all the required modules
 #-----------------------------------------------------------
-from idaapi import Choose, get_user_idadir, cvar, Choose2
+from idaapi import Choose, get_user_idadir, cvar, Choose2, Appcall
 from idc import *
 from idautils import *
 import idaapi

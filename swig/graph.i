@@ -481,12 +481,6 @@ private:
     //grcode_user_draw,           // render node of a user-defined graph
     return ret;
   }
-  static PyObject *PyObject_TryGetAttrString(PyObject *object, const char *attr)
-  {
-    if (!PyObject_HasAttrString(object, attr))
-      return NULL;
-    return PyObject_GetAttrString(object, attr);
-  }
 
   void unbind()
   {
@@ -494,7 +488,9 @@ private:
       return;
 
     // Unbind this object from the python object
-    PyObject_SetAttrString(self, S_M_THIS, PyCObject_FromVoidPtr(NULL, NULL));
+    PyObject *py_cobj = PyCObject_FromVoidPtr(NULL, NULL);
+    PyObject_SetAttrString(self, S_M_THIS, py_cobj);
+    Py_DECREF(py_cobj);
     Py_XDECREF(self);
     self = NULL;
   }
@@ -600,10 +596,15 @@ private:
       Py_XDECREF(attr);
     }
 
-    // Bind py_graph_t to python object
+
+    // Keep a reference
     this->self = self;
     Py_INCREF(self);
-    PyObject_SetAttrString(self, S_M_THIS, PyCObject_FromVoidPtr(this, NULL));
+
+    // Bind py_graph_t to python object
+    PyObject *py_cobj = PyCObject_FromVoidPtr(this, NULL);
+    PyObject_SetAttrString(self, S_M_THIS, py_cobj);
+    Py_DECREF(py_cobj);
 
     // Create form
     HWND hwnd = NULL;

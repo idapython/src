@@ -2,6 +2,8 @@
 %ignore funcset_t;
 %ignore extlang_t;
 %ignore extlang;
+%ignore extlangs_t;
+%ignore extlangs;
 %ignore register_extlang;
 %ignore IDCFuncs;
 %ignore set_idc_func;
@@ -28,6 +30,8 @@
 %ignore find_builtin_idc_func;
 %ignore idc_lx;
 %ignore idc_vars;
+%ignore idc_resolve_label;
+%ignore idc_resolver_ea;
 
 %cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
 
@@ -65,7 +69,7 @@ bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errb
     return !calc_idc_expr(where, line, rv, errbuf, errbufsize);
 }
 %}
-        
+
 %ignore CompileLine(const char *line, char *errbuf, size_t errbufsize, uval_t (idaapi*_getname)(const char *name)=NULL);
 
 %rename (CompileLine) CompileLine_wrap;

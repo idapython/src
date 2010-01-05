@@ -27,6 +27,7 @@
 %ignore qlfile;
 %ignore make_linput;
 %ignore unmake_linput;
+%ignore create_remote_linput;
 
 // FIXME: These should be wrapped for completeness
 %ignore eread;
@@ -44,6 +45,7 @@
 
 %{
 //<code(py_diskio)>
+//--------------------------------------------------------------------------
 int idaapi py_enumerate_files_cb(const char *file, void *ud)
 {
   PyObject *py_file = PyString_FromString(file);
@@ -73,25 +75,42 @@ private:
   };
 
   //--------------------------------------------------------------------------
+  void _from_cobject(PyObject *pycobject)
+  {
+    this->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+  }
+
+  //--------------------------------------------------------------------------
   void assign(const loader_input_t &rhs)
   {
     fn = rhs.fn;
     li = rhs.li;
     own = OWN_FROM_LI;
   }
-public:
+
   //--------------------------------------------------------------------------
   loader_input_t(const loader_input_t &rhs)
   {
     assign(rhs);
   }
-
+public:
+  // Special attribute that tells the pyvar_to_idcvar how to convert this
+  // class from and to IDC. The value of this variable must be set to two
+  int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t()
+  loader_input_t(PyObject *pycobject = NULL)
   {
-    li = NULL;
-    own = OWN_NONE;
-    fn.qclear();
+    __idc_cvt_id__ = 2; // Opaque object
+    if (pycobject != NULL && PyCObject_Check(pycobject))
+    {
+      _from_cobject(pycobject);
+    }
+    else
+    {
+      li = NULL;
+      own = OWN_NONE;
+      fn.qclear();
+    }
   }
 
   //--------------------------------------------------------------------------
@@ -152,7 +171,7 @@ public:
     if (!PyCObject_Check(pycobject))
       return NULL;
     loader_input_t *l = new loader_input_t();
-    l->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+    l->_from_cobject(pycobject);
     return l;
   }
 
@@ -286,6 +305,12 @@ public:
   }
 
   //--------------------------------------------------------------------------
+  int file2base(int32 pos, ea_t ea1, ea_t ea2, int patchable)
+  {
+    return ::file2base(li, pos, ea1, ea2, patchable);
+  }
+
+  //--------------------------------------------------------------------------
   int32 size()
   {
     return qlsize(li);
@@ -308,6 +333,7 @@ public:
 };
 
 
+//--------------------------------------------------------------------------
 PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback)
 {
   do 

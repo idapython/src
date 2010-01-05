@@ -4,6 +4,9 @@
 %ignore idainfo::retrieve;
 %ignore idainfo::read;
 %ignore idainfo::write;
+%ignore idainfo::align_short_demnames;
+%ignore idainfo::align_strtype;
+%ignore idainfo::align_long_demnames;
 
 %ignore setflag(uchar &where,uchar bit,int value);
 %ignore setflag(ushort &where,ushort bit,int value);

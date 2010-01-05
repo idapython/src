@@ -438,10 +438,12 @@ def Eval(expr):
     if err:
         return "IDC_FAILURE: "+err
     else:
-        if rv.vtype == '\x01':   # string
+        if rv.vtype == '\x01':   # VT_STR
             return rv.str
         elif rv.vtype == '\x02': # long
             return rv.num
+        elif rv.vtype == '\x07': # VT_STR2
+            return rv.c_str()
         else:
             raise NotImplementedError, "Eval() supports only expressions returning strings or longs"
 
@@ -6165,6 +6167,13 @@ def GetType(ea):
     """
     return idaapi.idc_get_type(ea)
 
+def SizeOf(typestr):
+    """
+    Returns the size of the type. It is equivalent to IDC's sizeof().
+    Use name, tp, fld = idc.ParseType() ; Sizeof(fld) to retrieve the size
+    @return: -1 if typestring is not valid otherwise the size of the type
+    """
+    return idaapi.get_type_size0(idaapi.cvar.idati, typestr)
 
 def GuessType(ea):
     """
@@ -6191,6 +6200,16 @@ def SetType(ea, newtype):
     """
     return idaapi.apply_cdecl(ea, newtype)
 
+def ParseType(inputtype, flags):
+    """
+    Parse type declaration
+
+    @param inputtype: file name or C declarations (depending on the flags)
+    @param flags: combination of PT_... constants or 0
+
+    @return: None on failure or (name, type, fields) tuple
+    """
+    return idaapi.idc_parse_decl(idaapi.cvar.idati, inputtype, flags)
 
 def ParseTypes(inputtype, flags):
     """

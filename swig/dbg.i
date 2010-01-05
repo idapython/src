@@ -10,7 +10,7 @@ typedef struct
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
 %include "dbg.hpp"
-
+%ignore DBG_Callback;
 %feature("director") DBG_Hooks;
 
 %{
@@ -250,7 +250,7 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
             return 0;
         }
     }
-    catch (Swig::DirectorException &e) 
+    catch (Swig::DirectorException &) 
     { 
         msg("Exception in IDP Hook function:\n"); 
         if (PyErr_Occurred())

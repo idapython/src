@@ -22,7 +22,7 @@ from distutils import sysconfig
 # Start of user configurable options
 VERBOSE = True
 IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 5
+IDA_MINOR_VERSION = 6
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
 else:
@@ -32,8 +32,8 @@ else:
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 2
-VERSION_PATCH  = 90
+VERSION_MINOR  = 3
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -296,7 +296,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__LINUX__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "lib"
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = os.path.join(idasdkdir, ea64 and "libgcc64.lnx" or "libgcc32.lnx")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "gcc64.lnx" or "gcc32.lnx")
         ida_lib = ""
         extra_link_parameters = ""
     # Platform-specific settings for the Windows build
@@ -305,7 +305,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__NT__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "libs"
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = os.path.join(idasdkdir, ea64 and "libvc.w64" or "libvc.w32")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "vc.w64" or "vc.w32")
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
@@ -316,7 +316,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__MAC__" ]
         python_libpath = "."
         python_library = "-framework Python"
-        ida_libpath = os.path.join(idasdkdir, ea64 and "libgcc64.mac" or "libgcc32.mac")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "gcc64.mac64" or "gcc32.mac")
         ida_lib = ea64 and "-lida64" or "-lida"
         extra_link_parameters = ""
 
@@ -326,7 +326,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     if ea64:
         platform_macros.append("__EA64__")
 
-    if '--early-load' in sys.argv:
+    if not '--no-early-load' in sys.argv:
         platform_macros.append("PLUGINFIX")
 
     # Build the wrapper from the interface files
@@ -394,7 +394,7 @@ def build_binary_package(ea64, nukeold):
     binmanifest = []
     if nukeold:
         binmanifest.extend(BINDIST_MANIFEST)
-    binmanifest.extend([(x, ea64 and "python64" or "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
+    binmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
     binmanifest.append((plugin_name, "plugins"))
     build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
 

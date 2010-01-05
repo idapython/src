@@ -157,14 +157,6 @@ uint32 choose_choose(PyObject *self,
 //<code(py_choose2)>
 
 //------------------------------------------------------------------------
-static PyObject *PyObject_TryGetAttrString(PyObject *object, const char *attr)
-{
-  if (!PyObject_HasAttrString(object, attr))
-    return NULL;
-  return PyObject_GetAttrString(object, attr);
-}
-
-//------------------------------------------------------------------------
 // Some defines
 #define POPUP_NAMES_COUNT 4
 #define MAX_CHOOSER_MENU_COMMANDS 10

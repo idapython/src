@@ -48,15 +48,20 @@ extern "C"
 
 #define IDAPYTHON_DATA_STATEMENT 0
 
-#ifdef __EA64__
-#define PYTHON_DIR_NAME "python64"
-#else
 #define PYTHON_DIR_NAME "python"
-#endif
 
 void init_idaapi(void);
 void idaapi run(int arg);
 static int initialized = 0;
+//--------------------------------------------------------------------------
+// Some utility functions from pywraps / idaapi
+int idcvar_to_pyvar(const idc_value_t &idc_var, PyObject **py_var);
+int pyvar_to_idcvar(PyObject *py_var, idc_value_t *idc_var, int *gvar_sn = NULL);
+PyObject *PyObject_TryGetAttrString(PyObject *py_var, const char *attr);
+bool PyGetError(qstring *out = NULL);
+bool init_pywraps();
+void deinit_pywraps();
+//--------------------------------------------------------------------------
 
 /* This is a simple tracing code for debugging purposes. */
 /* It might evolve into a tracing facility for user scripts. */
@@ -141,34 +146,99 @@ void end_execution()
 #endif
 }
 
+/* Return a formatted error or just print it to the console */
+static void handle_python_error(char *errbuf, size_t errbufsize)
+{
+  PyObject *result;
+  PyObject *ptype, *pvalue, *ptraceback;
+
+  if ( errbufsize > 0 )
+    errbuf[0] = '\0';
+
+  if (PyErr_Occurred())
+  {
+    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    result = PyObject_Repr(pvalue);
+    if (result)
+    {
+      qsnprintf(errbuf, errbufsize, "ERROR: %s", PyString_AsString(result));
+      PyErr_Clear();
+      Py_XDECREF(ptype);
+      Py_XDECREF(pvalue);
+      Py_XDECREF(ptraceback);
+    }
+    else
+      PyErr_Print();
+  }
+}
+
+/* helper function to get globals for the __main__ module */
+PyObject *GetMainGlobals()
+{
+    PyObject *module = PyImport_AddModule("__main__");
+    if (module == NULL)
+        return NULL;
+
+    return PyModule_GetDict(module);
+}
+
 /* Simple Python statement runner function for IDC */
-static const char idc_runpythonstatement_args[] = { VT_STR, 0 };
+static const char idc_runpythonstatement_args[] = { VT_STR2, 0 };
 static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res)
 {
-    begin_execution();
-    res->num = PyRun_SimpleString(argv[0].str);
-    end_execution();
+    PyObject *globals = GetMainGlobals();
+    if (globals == NULL)
+    {
+      res->set_string("internal error");
+    }
+    else
+    {
+      PyErr_Clear();
+      begin_execution();
+      PyObject *result = PyRun_String(argv[0].c_str(), Py_file_input, globals, globals );
+      end_execution();
+      Py_XDECREF(result);
+      if ( result == NULL || PyErr_Occurred() )
+      {
+        char errbuf[MAXSTR];
+        handle_python_error(errbuf, sizeof(errbuf));
+        *res = idc_value_t(errbuf);
+        if ( errbuf[0] == '\0' )
+          res->set_string("internal error");
+        else
+          res->set_string(errbuf);
+      }
+      else
+      {
+        // success
+        res->set_long(0);
+      }
+    }
     return eOk;
 }
 
 /* QuickFix for the FILE* incompatibility problem */
 int ExecFile(const char *FileName)
 {
-    PyObject* PyFileObject = PyFile_FromString((char*)FileName, "r");
+    PyObject *PyFileObject = PyFile_FromString((char*)FileName, "r");
 
-    if (!PyFileObject)
+    PyObject *globals = GetMainGlobals();
+    if (globals == NULL)
         return 0;
 
-    if (PyRun_SimpleFile(PyFile_AsFile(PyFileObject), FileName) == 0)
+    PyErr_Clear();
+    PyObject *result = PyRun_File(PyFile_AsFile(PyFileObject), FileName, Py_file_input, globals, globals);
+
+    Py_XDECREF(PyFileObject);
+    Py_XDECREF(result);
+    if ( result == NULL || PyErr_Occurred() )
     {
-        Py_DECREF(PyFileObject);
-        return 1;
+      if ( !PyErr_Occurred() )
+        PyErr_Print();
+      return 0;
     }
-    else
-    {
-        Py_DECREF(PyFileObject);
-        return 0;
-    }
+
+    return 1;
 }
 
 /* Check for the presence of a file in IDADIR/python */
@@ -188,11 +258,11 @@ bool CheckFile(char *filename)
 
 /* Execute the Python script from the plugin */
 /* Default hotkey: Alt-9 */
-void IDAPython_RunScript(char *script)
+void IDAPython_RunScript(const char *script)
 {
     char statement[MAXSTR+32];
     char slashpath[MAXSTR+1];
-    char *scriptpath;
+    const char *scriptpath;
 
     int i;
 
@@ -255,15 +325,13 @@ void IDAPython_RunStatement(void)
 /* Default hotkey: Alt-7 */
 void IDAPython_ScriptBox(void)
 {
-    PyObject *module;
     PyObject *dict;
     PyObject *scriptbox;
     PyObject *pystr;
 
     /* Get globals() */
-    /* These two should never fail */
-    module = PyImport_AddModule("__main__");
-    dict = PyModule_GetDict(module);
+    /* This should never fail */
+    dict = GetMainGlobals();
 
     scriptbox = PyDict_GetItemString(dict, "scriptbox");
 
@@ -296,37 +364,52 @@ void IDAPython_ScriptBox(void)
 
 bool idaapi IDAPython_Menu_Callback(void *ud)
 {
-    run((int)ud);
+    run((size_t)ud);
     return true;
 }
 
-/* Return a formatted error or just print it to the console */
-static void handle_python_error(char *errbuf, size_t errbufsize)
+
+//--------------------------------------------------------------------------
+// This function parses a name into two different components (if it applies).
+// The first mode of operation:
+// split_mod_attr_name("modname.attrname", mod_buf, attr_buf)
+// It splits the full name into two parts.
+//
+// The second mode of operation:
+// split_mod_attr_name("c:\libs\x.py", file_name_buf, NULL)
+//
+static bool parse_py_modname(
+  const char *full_name,
+  char *modname,
+  char *attrname, size_t sz)
 {
-    PyObject *result;
-    PyObject *ptype, *pvalue, *ptraceback;
-
-    if ( errbufsize > 0 )
-        errbuf[0] = '\0';
-
-    if (PyErr_Occurred())
+  if (attrname == NULL)
+  {
+    // take the filename.ext part
+    qstrncpy(modname, qbasename(full_name), sz);
+    // take the filename part only
+    qsplitfile(modname, NULL, NULL);
+    return true;
+  }
+  else
+  {
+    const char *p = strchr(full_name, '.');
+    if (p == NULL)
     {
-        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-        result = PyObject_Repr(pvalue);
-        if (result)
-        {
-            qsnprintf(errbuf, errbufsize, "ERROR: %s", PyString_AsString(result));
-            PyErr_Clear();
-            Py_XDECREF(ptype);
-            Py_XDECREF(pvalue);
-            Py_XDECREF(ptraceback);
-        }
-        else
-            PyErr_Print();
+      qstrncpy(modname, "idaapi", sz);
+      qstrncpy(attrname, full_name, sz);
     }
+    else
+    {
+      qstrncpy(modname, full_name, p - full_name + 1);
+      qstrncpy(attrname, p + 1, sz);
+    }
+    return p != NULL;
+  }
 }
 
-/* Convert return value from Python to IDC or report about an error */
+/* Convert return value from Python to IDC or report about an error. */
+/* This function also decrements the reference "result" (python variable) */
 static bool return_python_result(idc_value_t *rv,
                                  PyObject *result,
                                  char *errbuf,
@@ -340,48 +423,24 @@ static bool return_python_result(idc_value_t *rv,
         handle_python_error(errbuf, errbufsize);
         return false;
     }
-
-    if (PyInt_Check(result))
+    bool ok = true;
+    if (pyvar_to_idcvar(result, rv) <= 0)
     {
-        rv->num = PyInt_AsLong(result);
-        rv->vtype = VT_LONG;
-        Py_XDECREF(result);
-        return true;
+        qsnprintf(errbuf, errbufsize, "ERROR: bad return value");
+        ok = false;
     }
-
-    if (PyString_Check(result))
-    {
-        rv->str = (char *)qalloc(PyString_Size(result)+1);
-        if (!rv->str)
-            return false;
-        qstrncpy(rv->str, PyString_AsString(result), MAXSTR);
-        rv->vtype = VT_STR;
-        Py_XDECREF(result);
-        return true;
-    }
-
-    if (PyFloat_Check(result))
-    {
-        double dresult = PyFloat_AsDouble(result);
-        ieee_realcvt((void *)&dresult, rv->e, 3);
-        rv->vtype = VT_FLOAT;
-        Py_XDECREF(result);
-        return true;
-    }
-
-    qsnprintf(errbuf, errbufsize, "ERROR: bad return value");
-    return false;
+    Py_XDECREF(result);
+    return ok;
 }
 
 /* Compile callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_compile(const char *name,
-				      ea_t /*current_ea*/,
-				      const char *expr,
-				      char *errbuf,
-				      size_t errbufsize)
+              ea_t /*current_ea*/,
+              const char *expr,
+              char *errbuf,
+              size_t errbufsize)
 {
-    PyObject *main = PyImport_AddModule("__main__");  QASSERT(main != NULL);
-    PyObject *globals = PyModule_GetDict(main);       QASSERT(globals != NULL);
+    PyObject *globals = GetMainGlobals();       QASSERT(globals != NULL);
 
     PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
     if (code == NULL)
@@ -413,76 +472,210 @@ bool idaapi IDAPython_extlang_compile(const char *name,
 
 /* Run callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_run(const char *name,
-				  int nargs,
-				  const idc_value_t args[],
-				  idc_value_t *result,
-				  char *errbuf,
-				  size_t errbufsize)
+          int nargs,
+          const idc_value_t args[],
+          idc_value_t *result,
+          char *errbuf,
+          size_t errbufsize)
 {
     // convert arguments to python
     qvector<PyObject *> pargs;
+    qvector<bool> do_decref;
 
-    for (int i=0; i<nargs; i++)
+    bool ok = true;
+
+    PyObject *module(NULL);
+    char modname[MAXSTR] = {0};
+    char funcname[MAXSTR] = {0};
+    bool imported_module = parse_py_modname(name, modname, funcname, MAXSTR);
+    do
     {
-        double dresult;
-        PyObject *pa;
-        switch (args[i].vtype)
+        for (int i=0; i<nargs; i++)
         {
-        case VT_LONG:
-            pa = PyInt_FromLong(args[i].num);
-            break;
-        case VT_STR:
-            pa = PyString_FromString(args[i].str);
-            break;
-        case VT_FLOAT:
-            ieee_realcvt(&dresult, (ushort *)args[i].e, 013);
-            pa = PyFloat_FromDouble(dresult);
-            break;
-        default:
-            qsnprintf(errbuf, errbufsize, "arg#%d has wrong type %d", i, args[i].vtype);
-            return false;
+            PyObject *py_obj(NULL);
+            int cvt = idcvar_to_pyvar(args[i], &py_obj);
+            if (cvt <= 0)
+            {
+              qsnprintf(errbuf, errbufsize, "arg#%d has wrong type %d", i, args[i].vtype);
+              ok = false;
+              break;
+            }
+            pargs.push_back(py_obj);
+			// do not decrement reference of opaque objects
+            do_decref.push_back(cvt == 1);
         }
-        pargs.push_back(pa);
-    }
+        if (!ok)
+          break;
 
-    PyObject *main = PyImport_AddModule("__main__");  QASSERT(main != NULL);
-    PyObject *globals = PyModule_GetDict(main);       QASSERT(globals != NULL);
-    PyObject *func = PyDict_GetItemString(globals, name);
+        if (imported_module)
+        {
+          module = PyImport_ImportModule(modname);
+        }
+        else
+        {
+          module = PyImport_AddModule("__main__");  QASSERT(module != NULL);
+        }
+        PyObject *globals = PyModule_GetDict(module); QASSERT(globals != NULL);
+        PyObject *func    = PyDict_GetItemString(globals, funcname);
 
-    if (func == NULL)
-    {
-        qsnprintf(errbuf, errbufsize, "undefined function %s", name);
-        return false;
-    }
+        if (func == NULL)
+        {
+            qsnprintf(errbuf, errbufsize, "undefined function %s", name);
+            ok = false;
+            break;
+        }
 
-    PyCodeObject *code = (PyCodeObject *)PyFunction_GetCode(func);
-    PyObject *pres = PyEval_EvalCodeEx(code, globals, NULL, &pargs[0], nargs,
-                                       NULL, 0, NULL, 0, NULL);
+        PyCodeObject *code = (PyCodeObject *)PyFunction_GetCode(func);
+        PyObject *pres = PyEval_EvalCodeEx(code, globals, NULL, &pargs[0], nargs,
+                                           NULL, 0, NULL, 0, NULL);
+
+        ok = return_python_result(result, pres, errbuf, errbufsize);
+    } while (false);
 
     // free argument objects
-    for  (int i=0; i<nargs; i++)
-        Py_XDECREF(pargs[i]);
+    for (int i=0; i<nargs; i++)
+    {
+      if (do_decref[i])
+        Py_DECREF(pargs[i]);
+    }
 
-    return return_python_result(result, pres, errbuf, errbufsize);
+    if (imported_module)
+      Py_XDECREF(module);
+    return ok;
 }
 
-
 /* Compile callback for Python external language evaluator */
-bool idaapi IDAPython_extlang_compile_file(const char *name,
-				           char *errbuf,
-				           size_t errbufsize)
+bool idaapi IDAPython_extlang_compile_file(const char *script_path,
+                   char *errbuf,
+                   size_t errbufsize)
 {
-    PyObject *main = PyImport_AddModule("__main__");  QASSERT(main != NULL);
-    PyObject *globals = PyModule_GetDict(main);       QASSERT(globals != NULL);
+    PyObject *globals = GetMainGlobals();       QASSERT(globals != NULL);
 
-    if (!ExecFile(name))
+    if (!ExecFile(script_path))
     {
         handle_python_error(errbuf, errbufsize);
         return false;
     }
 
+    char modname[MAXSTR] = {0};
+    parse_py_modname(script_path, modname, NULL, sizeof(modname));
+    // import the module using its absolute path
+    qstring s;
+    s.sprnt(
+      "import imp\n"
+      "imp.load_source('%s', r'%s')", modname, script_path);
+    PyRun_SimpleString(s.c_str());
+
     return true;
 }
+
+/* Create an object instance */
+bool idaapi IDAPython_extlang_create_object(
+  const char *name,       // in: object class name
+  int nargs,              // in: number of input arguments
+  const idc_value_t args[], // in: input arguments
+  idc_value_t *result,    // out: created object or exception
+  char *errbuf,           // out: error message if evaluation fails
+  size_t errbufsize)     // in: size of the error buffer
+{
+  PyObject *py_mod(NULL), *py_cls(NULL), *py_args(NULL);
+  bool ok = false;
+  do
+  {
+    // Parse the object name (to get the module and class name)
+    char modname[MAXSTR] = {0};
+    char clsname[MAXSTR] = {0};
+    parse_py_modname(name, modname, clsname, MAXSTR);
+
+    // Get a reference to the module
+    py_mod = PyImport_ImportModule(modname);
+    if (py_mod == NULL)
+    {
+      qsnprintf(errbuf, errbufsize, "Could not import module %s!", modname);
+      break;
+    }
+    // Get the class reference
+    py_cls = PyObject_GetAttrString(py_mod, clsname);
+    if (py_cls == NULL)
+    {
+      qsnprintf(errbuf, errbufsize, "Could not find class %s!", clsname);
+      break;
+    }
+
+    // Create a tupple
+    py_args = PyTuple_New(nargs);
+    if (py_args == NULL)
+      break;
+
+    // Store all the converted arguments in the tupple
+    ok = true;
+    for (int i=0;i<nargs;i++)
+    {
+      PyObject *arg(NULL);
+      // Convert the argument
+      int cvt = idcvar_to_pyvar(args[i], &arg);
+      if (cvt <= 0)
+      {
+        qsnprintf(errbuf, errbufsize, "Failed while converting argument #%d", i);
+        ok = false;
+        break;
+      }
+      // Opaque object?
+      if (cvt == 2)
+      {
+        // Increment reference for opaque objects.
+        // A tupple will steal references of its set items,
+        // and for an opaque object we want it to still exist
+        // even if the tuple is gone.
+        Py_INCREF(arg);
+      }
+      // Save it
+      // Steals the reference and that means we are no longer responsible
+      // for reference management of the items.
+      PyTuple_SetItem(py_args, i, arg);
+    }
+
+    // Error during conversion?
+    if (!ok)
+      break;
+    ok = false;
+
+    // Call the constructor
+    PyObject *py_res = PyObject_Call(py_cls, py_args, NULL);
+
+    // Call failed?
+    if (py_res == NULL)
+    {
+      // Try to get a meaningful error string
+      qstring s;
+      if (!PyGetError(&s))
+      {
+        qsnprintf(errbuf, errbufsize, "Calling the constructor failed!");
+      }
+      else
+      {
+        qstrncpy(errbuf, s.c_str(), errbufsize);
+      }
+      break;
+    }
+    int r = pyvar_to_idcvar(py_res, result);
+    ok = r > 0;
+    // decrement reference only if not an opaque object
+    if (r == 1)
+      Py_DECREF(py_res);
+  } while (false);
+
+  Py_XDECREF(py_mod);
+  Py_XDECREF(py_cls);
+
+  // Free the arguments tuple
+  if (py_args != NULL)
+    Py_DECREF(py_args);
+
+  return ok;
+}
+
+// Returns: success
 
 /* Calculator callback for Python external language evaluator */
 bool idaapi IDAPython_extlang_calcexpr(ea_t /*current_ea*/,
@@ -492,18 +685,16 @@ bool idaapi IDAPython_extlang_calcexpr(ea_t /*current_ea*/,
                                        size_t errbufsize)
 {
     PyObject *result;
-    PyObject *module = PyImport_AddModule("__main__");
 
-    if (module == NULL)
+    PyObject *globals = GetMainGlobals();
+    if (globals == NULL)
         return false;
 
-    PyObject *globals = PyModule_GetDict(module);
-
-    begin_execution();
+  begin_execution();
     result = PyRun_String(expr, Py_eval_input, globals, globals);
-    end_execution();
+  end_execution();
 
-    VarFree(rv);
+    rv->clear();
 
     return return_python_result(rv, result, errbuf, errbufsize);
 }
@@ -517,25 +708,52 @@ extlang_t extlang_python =
     IDAPython_extlang_run,
     IDAPython_extlang_calcexpr,
     IDAPython_extlang_compile_file,
-    "py"
+    "py",
+    IDAPython_extlang_create_object
 };
 
 void enable_extlang_python(bool enable)
 {
+#if IDA_SDK_VERSION < 560
+#define SELECT_EXTLANG register_extlang
+#else
+#define SELECT_EXTLANG select_extlang
+#endif
     if (enable)
-        register_extlang(&extlang_python);
+        SELECT_EXTLANG(&extlang_python);
     else
-        register_extlang(NULL);
+        SELECT_EXTLANG(NULL);
+#undef SELECT_EXTLANG
 }
 
 #if IDA_SDK_VERSION >= 540
 /* Execute a line in the Python CLI */
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
-    begin_execution();
-    PyRun_SimpleString(line);
-    end_execution();
-    return true;
+  const char *first_line = strrchr(line, '\n');
+  if (first_line == NULL)
+    first_line = line;
+  else
+    first_line += 1;
+
+  // skip empty lines
+  if (first_line[0] != '\0')
+  {
+    // take a copy of the line so we r-trim it
+    char *tline = qstrdup(first_line);
+    trim(tline);
+    // line ends with ":" or begins with a space character?
+    bool more = tline[qstrlen(tline)-1] == ':' || isspace(first_line[0]);
+    qfree(tline);
+
+    if ( more )
+      return false;
+  }
+  begin_execution();
+  PyRun_SimpleString(line);
+  end_execution();
+
+  return true;
 }
 
 cli_t cli_python =
@@ -559,6 +777,12 @@ void enable_python_cli(bool enable)
         remove_command_interpreter(&cli_python);
 }
 #endif
+
+/* Prints the IDAPython copyright banner */
+void print_banner()
+{
+  PyRun_SimpleString("print_banner()");
+}
 
 /* Install python menu items */
 static void install_python_menus()
@@ -593,22 +817,65 @@ static void install_python_menus()
     (void *)IDAPYTHON_SCRIPTBOX);
 }
 
+enum script_run_when {
+  run_on_db_open = 0,  // run script after opening database (default)
+  run_on_ui_ready = 1, // run script when UI is ready
+  run_on_init = 2,     // run script immediately on plugin load (shortly after IDA starts)
+};
+
+static int g_run_when = -1;
+static char g_run_script[QMAXPATH];
+
+/* Parse plugin options */
+void parse_options()
+{
+    const char *options = get_plugin_options("IDAPython");
+    if ( options == NULL )
+        return;
+    const char *p = strchr(options, ';');
+    if ( p == NULL )
+    {
+        g_run_when = run_on_db_open;
+        qstrncpy(g_run_script, options, sizeof(g_run_script));
+    }
+    else
+    {
+        g_run_when = atoi(options);
+        qstrncpy(g_run_script, p+1, sizeof(g_run_script));
+    }
+}
+
 /* we install the menu later because the text version crashes if
 add_menu_item is called too early */
 static int idaapi menu_installer_cb(void *, int code, va_list)
 {
-  if ( code != ui_ready_to_run )
-    return 0;
+  const char *script;
+  int when;
 
-  install_python_menus();
-  unhook_from_notification_point(HT_UI, menu_installer_cb, NULL);
+  switch ( code )
+  {
+    case ui_ready_to_run:
+      print_banner();
+      install_python_menus();
+
+      if ( g_run_when == run_on_ui_ready )
+          IDAPython_RunScript(g_run_script);
+      break;
+
+    case ui_database_inited:
+      if ( g_run_when == run_on_db_open )
+          IDAPython_RunScript(g_run_script);
+      break;
+
+    default:
+      break;
+  }
   return 0;
 }
 
 /* Initialize the Python environment */
 bool IDAPython_Init(void)
 {
-    char *options;
     char tmp[MAXSTR+64];
     bool result = true;
 
@@ -631,9 +898,9 @@ bool IDAPython_Init(void)
     qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so",
               PY_MAJOR_VERSION,
               PY_MINOR_VERSION);
-    if (!dlopen(tmp, RTLD_NOLOAD | RTLD_GLOBAL))
+    if (!dlopen(tmp, RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY))
     {
-        warning("IDAPython: dlopen(%s) failed", tmp);
+        warning("IDAPython: %s", dlerror());
         return false;
     }
 #endif
@@ -648,7 +915,6 @@ bool IDAPython_Init(void)
 
     /* Init the SWIG wrapper */
     init_idaapi();
-
     /* Set IDAPYTHON_VERSION in Python */
     qsnprintf(tmp, sizeof(tmp), "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)", \
               VER_MAJOR,
@@ -656,16 +922,24 @@ bool IDAPython_Init(void)
               VER_PATCH,
               VER_STATUS,
               VER_SERIAL);
-    begin_execution();
+  begin_execution();
     PyRun_SimpleString(tmp);
-    end_execution();
+  end_execution();
 
     /* Pull in the Python side of init */
     qmakepath(tmp, MAXSTR, idadir(PYTHON_DIR_NAME), "init.py", NULL);
     if (!ExecFile(tmp))
     {
-        warning("IDAPython: error executing init.py");
+        handle_python_error(tmp, sizeof(tmp));
+        warning("IDAPython: error executing init.py:\n%s", tmp);
         return false;
+    }
+
+    /* Init pywraps (hand made/custom wrapper) */
+    if (!init_pywraps())
+    {
+      warning("IDAPython: init_pywraps() failed!");
+      return false;
     }
 
 #ifdef ENABLE_PYTHON_PROFILING
@@ -674,14 +948,15 @@ bool IDAPython_Init(void)
 
     /* Batch-mode operation: */
     /* A script specified on the command line is run */
-    options = (char *)get_plugin_options("IDAPython");
-    if (options)
-        IDAPython_RunScript(options);
+    parse_options();
+    if ( g_run_when == run_on_init )
+        IDAPython_RunScript(g_run_script);
 
 #ifdef PLUGINFIX
     hook_to_notification_point(HT_UI, menu_installer_cb, NULL);
 #else
     install_python_menus();
+    print_banner();
 #endif
     /* Register a RunPythonStatement() function for IDC */
     set_idc_func("RunPythonStatement", idc_runpythonstatement, idc_runpythonstatement_args);
@@ -689,6 +964,10 @@ bool IDAPython_Init(void)
 #if IDA_SDK_VERSION >= 540
     /* Enable the CLI by default */
     enable_python_cli(true);
+#endif
+
+#if IDA_SDK_VERSION >= 560
+    install_extlang(&extlang_python);
 #endif
 
     initialized = 1;
@@ -714,8 +993,14 @@ void IDAPython_Term(void)
 #endif
 
     /* Remove the extlang */
+#if IDA_SDK_VERSION >= 560
+    remove_extlang(&extlang_python);
+#else
     register_extlang(NULL);
+#endif
 
+    /* De-init pywraps */
+    deinit_pywraps();
     /* Shut the interpreter down */
     Py_Finalize();
 

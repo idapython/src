@@ -13,6 +13,7 @@
 
 // TODO: These could be wrapped if needed
 %ignore load_info_t;
+%ignore add_plugin_option;
 %ignore build_loaders_list;
 %ignore free_loaders_list;
 %ignore get_loader_name_from_dll;

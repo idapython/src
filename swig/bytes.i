@@ -22,8 +22,8 @@
 %ignore clrFlbits;
 %ignore get_8bit;
 %ignore get_ascii_char;
-%ignore del_typeinfo;
-%ignore del_operand_typeinfo;
+%ignore del_opinfo;
+%ignore del_one_opinfo;
 %ignore doCode;
 %ignore get_repeatable_cmt;
 %ignore get_any_indented_cmt;
@@ -72,11 +72,11 @@
 
 %clear(const void *buf, size_t size);
 %clear(void *buf, ssize_t size);
-%clear(typeinfo_t *);
+%clear(opinfo_t *);
 
 %rename (nextthat) py_nextthat;
 %rename (prevthat) py_prevthat;
- 
+
 %{
 //<code(py_bytes)>
 //------------------------------------------------------------------------

@@ -7,13 +7,29 @@ private:
   bool own;
   qstring fn;
 
+  //--------------------------------------------------------------------------
   void assign(const qfile_t &rhs)
   {
     fn = rhs.fn;
     fp = rhs.fp;
     own = false;
   }
+  //--------------------------------------------------------------------------
+  bool _from_fp(FILE *fp)
+  {
+    if (fp == NULL)
+      return false;
+    own = false;
+    fn.sprnt("<FILE * %p>", fp);
+    fp = fp;
+    return true;
+  }
+  inline void _from_cobject(PyObject *pycobject)
+  {
+    _from_fp((FILE *)PyCObject_AsVoidPtr(pycobject));
+  }
 public:
+  int __idc_cvt_id__;
   //--------------------------------------------------------------------------
   qfile_t(const qfile_t &rhs)
   {
@@ -21,11 +37,14 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  qfile_t()
+  qfile_t(PyObject *pycobject = NULL)
   {
     fp = NULL;
     own = true;
     fn.qclear();
+    __idc_cvt_id__ = 2; // Opaque object
+    if (pycobject != NULL && PyCObject_Check(pycobject))
+      _from_cobject(pycobject);
   }
 
   //--------------------------------------------------------------------------

@@ -9,8 +9,8 @@ REQUIREMENTS
 
 [Tested versions are in brackets]
 
- - IDA and IDA SDK [5.4]
-   http://www.datarescue.com/idabase/
+ - IDA and IDA SDK [5.6]
+   http://www.hex-rays.com/idapro/
 
  - Python [2.5.1, 2.6.1]
    http://www.python.org/
@@ -38,26 +38,26 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
 1, Unpack the IDAPython source and IDA Pro SDK into the following
    directory structure:
 
-   swigsdk-versions/5.4/  - version 5.4 of the IDA Pro SDK
+   swigsdk-versions/5.6/  - version 5.4 of the IDA Pro SDK
    idapython/                     - IDAPython source code
 
-2, Patch the SDK using GNU Patch with one of patches from patches/ directory.
-   You will have to use the -P option depending on which directory you
-   patch from. This step is not required if there is no SDK patch.
-
-3, On Mac OS X copy libida.dylib from the IDA install directory to
-   swigsdk-versions/5.4/libgcc32.mac/
+2, On Mac OS X copy libida.dylib from the IDA install directory to
+   swigsdk-versions/5.6/lib/gcc32.mac/
     and libida64.dylib to
-   swigsdk-versions/5.4/libgcc64.mac/
+   swigsdk-versions/5.6/lib/gcc64.mac/
 
-4, Build the plugin
+3, Build the plugin
 
    python build.py
 
    It is possible to build the plugin for different Python versions by
-   running build.py with the corresponding Python binary.  The option
-   --ea64 builds the 64-bit version as well.
+   running build.py with the corresponding Python binary.
+   
+   Some build options:
+     --ea64: builds the 64-bit version
+     --no-early-load: builds the IDAPython plugin w/o PLUGIN_FIX plugin flag 
+     (This flag disables the ability to write file loaders in IDAPython)
 
-5, Install the components as described in README.txt
+4, Install the components as described in README.txt
 
 See build.py for build details and possible tweaks.

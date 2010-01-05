@@ -50,7 +50,7 @@
 %ignore processor_t::gen_stkvar_def;
 %ignore processor_t::u_outspec;
 %ignore processor_t::is_align_insn;
-
+%ignore IDB_Callback;
 %ignore processor_t::idp_notify;
 %ignore processor_t::notify;
 %ignore processor_t::set_idp_options;
@@ -113,7 +113,7 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
     class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
     ea_t ea, ea2;
     bool repeatable_cmt;
-    type_t *type;
+    /*type_t *type;*/
     /*  p_list *fnames; */
     int n;
     enum_t id;
@@ -269,7 +269,7 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
             return proxy->segm_moved(ea, ea2, size);
         }
     }
-    catch (Swig::DirectorException &e) 
+    catch (Swig::DirectorException &) 
     { 
         msg("Exception in IDP Hook function:\n"); 
         if (PyErr_Occurred())

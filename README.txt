@@ -61,6 +61,15 @@ Start IDA with the following command line options:
 If you want fully unattended execution mode, make sure your script
 exits with a qexit() call.
 
+By default scripts run after the database is opened. Extended option
+format is:
+
+  -OIDAPython:[N;]script.py
+
+Where N can be:
+  0: run script after opening database (default)
+  1: run script when UI is ready
+  2: run script immediately on plugin load (shortly after IDA starts and before processor modules and loaders)
 
 User init file:
 
@@ -71,7 +80,7 @@ ${HOME}/.idapro/
 
 or 
 
-C:\Documents and Settings\%USER%\Application Data\Hex-Rays\IDA Pro
+%AppData%\Hex-Rays\IDA Pro
 
 The user init file is read and executed at the end of the init process.
 

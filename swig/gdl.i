@@ -35,6 +35,7 @@
 }
 
 %pythoncode %{
+#<pycode(py_gdl)>
 # -----------------------------------------------------------------------
 class BasicBlock:
     def __init__(self, id, bb, f):
@@ -96,5 +97,5 @@ class FlowChart:
         if index >= self.size:
             raise StopIteration
         return BasicBlock(index, self._q[index], self)
-
+#</pycode(py_gdl)>
 %}
