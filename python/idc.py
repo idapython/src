@@ -1449,15 +1449,6 @@ def SetFlags(ea, flags):
     """
     return idaapi.setFlags(ea, flags)
 
-_REGMAP = {
-    'es' : idaapi.R_es,
-    'cs' : idaapi.R_cs,
-    'ss' : idaapi.R_ss,
-    'ds' : idaapi.R_ds,
-    'fs' : idaapi.R_fs,
-    'gs' : idaapi.R_gs
-}
-
 def SetRegEx(ea, reg, value, tag):
     """
     Set value of a segment register.
@@ -1473,8 +1464,9 @@ def SetRegEx(ea, reg, value, tag):
 
            See also SetReg() compatibility macro.
     """
-    if reg in _REGMAP:
-        return idaapi.splitSRarea1(ea, _REGMAP[reg], value, tag)
+    reg = idaapi.str2reg(reg);
+    if reg >= 0:
+        return idaapi.splitSRarea1(ea, reg, value, tag)
     else:
         return False
 
@@ -1885,17 +1877,17 @@ def GetReg(ea, reg):
     @param ea: linear address
     @param reg: name of segment register
 
-    @return: the value of the segment register or 0xFFFF on error
+    @return: the value of the segment register or -1 on error
 
     @note: The segment registers in 32bit program usually contain selectors,
            so to get paragraph pointed by the segment register you need to
            call AskSelector() function.
     """
-    if reg in _REGMAP:
-        return idaapi.getSR(ea, _REGMAP[reg]) & 0xFFFF
+    reg = idaapi.str2reg(reg);
+    if reg >= 0:
+        return idaapi.getSR(ea, reg)
     else:
-        return False
-
+        return -1
 
 def NextAddr(ea):
     """
@@ -3342,8 +3334,9 @@ def SetSegDefReg(ea, reg, value):
     """
     seg = idaapi.getseg(ea)
 
-    if seg and reg in _REGMAP:
-        return idaapi.SetDefaultRegisterValue(seg, _REGMAP[reg], value)
+    reg = idaapi.str2reg(reg);
+    if seg and reg >= 0:
+        return idaapi.SetDefaultRegisterValue(seg, reg, value)
     else:
         return False
 
@@ -5110,7 +5103,7 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0,
 
     """
     if isOff0(flag):
-        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes, 
+        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes,
                                                                                target, tdelta, reftype))
     else:
         return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes))
@@ -5189,7 +5182,7 @@ def SetMemberType(sid, member_offset, flag, typeid, nitems, target=-1, tdelta=0,
     @return: !=0 - ok.
     """
     if isOff0(flag):
-        return Eval('SetMemberType(%d, %d, %d, %d, %d, %d, %d, %d);' % (sid, member_offset, flag, typeid, nitems, 
+        return Eval('SetMemberType(%d, %d, %d, %d, %d, %d, %d, %d);' % (sid, member_offset, flag, typeid, nitems,
                                                                               target, tdelta, reftype))
     else:
         return Eval('SetMemberType(%d, %d, %d, %d, %d);' % (sid, member_offset, flag, typeid, nitems))
@@ -6441,7 +6434,7 @@ def AttachProcess(pid, event_id):
                 will interactively ask the user for the process to attach to.
     @param event_id: reserved, must be -1
 
-    @return: 
+    @return:
              - -2: impossible to find a compatible process
              - -1: impossible to attach to the given process (process died, privilege
                needed, not supported by the debugger plugin, ...)
