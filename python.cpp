@@ -53,6 +53,7 @@ extern "C"
 void init_idaapi(void);
 void idaapi run(int arg);
 static int initialized = 0;
+static bool menu_installed = false;
 //--------------------------------------------------------------------------
 // Some utility functions from pywraps / idaapi
 int idcvar_to_pyvar(const idc_value_t &idc_var, PyObject **py_var);
@@ -787,6 +788,9 @@ void print_banner()
 /* Install python menu items */
 static void install_python_menus()
 {
+  if (menu_installed)
+    return;
+
   /* Add menu items for all the functions */
   /* Different paths are used for the GUI version */
   add_menu_item("File/IDC command...", "P~y~thon command...",
@@ -815,9 +819,12 @@ static void install_python_menus()
     "Alt-7", SETMENU_APP,
     (menu_item_callback_t *)IDAPython_Menu_Callback,
     (void *)IDAPYTHON_SCRIPTBOX);
+
+  menu_installed = true;
 }
 
-enum script_run_when {
+enum script_run_when 
+{
   run_on_db_open = 0,  // run script after opening database (default)
   run_on_ui_ready = 1, // run script when UI is ready
   run_on_init = 2,     // run script immediately on plugin load (shortly after IDA starts)
@@ -986,7 +993,7 @@ void IDAPython_Term(void)
     del_menu_item("File/Python file...");
     del_menu_item("File/Python command...");
     del_menu_item("View/Open subviews/Python Scripts");
-
+    menu_installed = false;
 #if IDA_SDK_VERSION >= 540
     /* Remove the CLI */
     enable_python_cli(false);
