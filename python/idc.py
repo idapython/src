@@ -676,7 +676,7 @@ def MakeArray(ea, nitems):
         flags = idaapi.FF_BYTE
 
     if idaapi.isStruct(flags):
-        ti = idaapi.typeinfo_t()
+        ti = idaapi.opinfo_t()
         assert idaapi.get_typeinfo(ea, 0, flags, ti), "get_typeinfo() failed"
         itemsize = idaapi.get_data_elsize(ea, flags, ti)
         tid = ti.tid
@@ -2287,7 +2287,7 @@ def GetStringType(ea):
 
     @return: One of ASCSTR_... constants
     """
-    ti = idaapi.typeinfo_t()
+    ti = idaapi.opinfo_t()
 
     if idaapi.get_typeinfo(ea, 0, GetFlags(ea), ti):
         return ti.strtype
@@ -2373,8 +2373,14 @@ def ChangeConfig(directive):
 def GetLongPrm (offset):
     """
     """
-    return _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)
-
+    val = _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)
+    if offset == INF_PROCNAME:
+        # procName is a character array
+        # strip it at the terminating zero
+        idx = val.find('\0')
+        if idx != -1:
+          val = val[:idx]
+    return val
 
 def GetShortPrm(offset):
     return GetLongPrm(offset)
@@ -2387,6 +2393,8 @@ def GetCharPrm (offset):
 def SetLongPrm (offset, value):
     """
     """
+    if offset == INF_PROCNAME:
+        raise NotImplementedError, "Please use idaapi.set_processor_type() to change processor"
     return _IDC_SetAttr(idaapi.cvar.inf, _INFMAP, offset, value)
 
 
@@ -2709,7 +2717,7 @@ if __EA64__:
 
 _INFMAP = {
 INF_VERSION     : (False, 'version'),      # short;   Version of database
-INF_PROCNAME    : (False, 'procname'),     # char[8]; Name of current processor
+INF_PROCNAME    : (False, 'procName'),     # char[8]; Name of current processor
 INF_LFLAGS      : (False, 'lflags'),       # char;    IDP-dependent flags
 INF_DEMNAMES    : (False, 'demnames'),     # char;    display demangled names as:
 INF_FILETYPE    : (False, 'filetype'),     # short;   type of input file (see ida.hpp)
