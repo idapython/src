@@ -344,18 +344,7 @@ void IDAPython_ScriptBox(void)
 
     pystr = PyObject_CallMethod(scriptbox, "run", "");
 
-    if (pystr)
-    {
-        /* If the return value is string use it as path */
-        if (PyObject_TypeCheck(pystr, &PyString_Type))
-        {
-            begin_execution();
-            ExecFile(PyString_AsString(pystr));
-            end_execution();
-        }
-        Py_DECREF(pystr);
-    }
-    else
+    if (!pystr)
     {
         /* Print the exception info */
         if (PyErr_Occurred())

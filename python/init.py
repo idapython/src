@@ -143,9 +143,7 @@ class ScriptBox(Choose):
         n = self.choose()
 
         if n > 0:
-            return self.list[n-1]
-        else:
-            return None
+            runscript(self.list[n-1])
 
     def addscript(self, scriptpath):
         self.list.append(scriptpath)
