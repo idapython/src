@@ -55,7 +55,11 @@ def runscript(script):
     """
     addscriptpath(script)
     watchdog.reset()
+    # Save the argv, path, I/O and base modules for later cleanup
     argv = sys.argv
+    path = sys.path
+    stdio = [sys.stdin, sys.stdout, sys.stderr]
+    basemodules = sys.modules.copy()
     sys.argv = [ script ]
     # Adjust the __file__ path in the globals we pass to the script
     g = globals()
@@ -66,8 +70,15 @@ def runscript(script):
     except:
         raise
     finally:
+        # Restore the globals to the state before the script was run
         g['__file__'] = old__file__
-
+        sys.argv = argv
+        sys.path = path
+        sys.stdin, sys.stdout, sys.stderr = stdio
+        # Clean up the modules loaded by the script
+        for module in sys.modules.keys():
+            if not module in basemodules:
+                del(sys.modules[module])
 
 def print_banner():
     version1 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
