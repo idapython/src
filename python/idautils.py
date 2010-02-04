@@ -219,8 +219,9 @@ def Functions(start=None, end=None):
     if not func:
         func = idaapi.get_next_func(start)
     while func and func.startEA < end:
-        yield func.startEA
-        func = idaapi.get_next_func(func.startEA)
+        startea = func.startEA
+        yield startea
+        func = idaapi.get_next_func(startea)
 
 
 def Chunks(start):
