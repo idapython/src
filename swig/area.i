@@ -39,7 +39,6 @@
 %ignore areacb_t::find_next_gap;
 
 %ignore areacb_t::move_areas;
-
 %ignore areacb_t::for_all_areas;
 
 %include "area.hpp"

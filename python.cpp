@@ -59,9 +59,11 @@ static bool menu_installed = false;
 int idcvar_to_pyvar(const idc_value_t &idc_var, PyObject **py_var);
 int pyvar_to_idcvar(PyObject *py_var, idc_value_t *idc_var, int *gvar_sn = NULL);
 PyObject *PyObject_TryGetAttrString(PyObject *py_var, const char *attr);
+PyObject *PyImport_TryImportModule(const char *name);
 bool PyGetError(qstring *out = NULL);
 bool init_pywraps();
 void deinit_pywraps();
+static const char S_MAIN[] = "__main__";
 //--------------------------------------------------------------------------
 
 /* This is a simple tracing code for debugging purposes. */
@@ -176,7 +178,7 @@ static void handle_python_error(char *errbuf, size_t errbufsize)
 /* helper function to get globals for the __main__ module */
 PyObject *GetMainGlobals()
 {
-    PyObject *module = PyImport_AddModule("__main__");
+    PyObject *module = PyImport_AddModule(S_MAIN);
     if (module == NULL)
         return NULL;
 
@@ -361,41 +363,28 @@ bool idaapi IDAPython_Menu_Callback(void *ud)
 
 //--------------------------------------------------------------------------
 // This function parses a name into two different components (if it applies).
-// The first mode of operation:
-// split_mod_attr_name("modname.attrname", mod_buf, attr_buf)
+// Example:
+// parse_py_modname("modname.attrname", mod_buf, attr_buf)
 // It splits the full name into two parts.
-//
-// The second mode of operation:
-// split_mod_attr_name("c:\libs\x.py", file_name_buf, NULL)
-//
 static bool parse_py_modname(
   const char *full_name,
   char *modname,
-  char *attrname, size_t sz)
+  char *attrname, 
+  size_t sz,
+  const char *defmod = "idaapi")
 {
-  if (attrname == NULL)
+  const char *p = strchr(full_name, '.');
+  if (p == NULL)
   {
-    // take the filename.ext part
-    qstrncpy(modname, qbasename(full_name), sz);
-    // take the filename part only
-    qsplitfile(modname, NULL, NULL);
-    return true;
+    qstrncpy(modname, defmod, sz);
+    qstrncpy(attrname, full_name, sz);
   }
   else
   {
-    const char *p = strchr(full_name, '.');
-    if (p == NULL)
-    {
-      qstrncpy(modname, "idaapi", sz);
-      qstrncpy(attrname, full_name, sz);
-    }
-    else
-    {
-      qstrncpy(modname, full_name, p - full_name + 1);
-      qstrncpy(attrname, p + 1, sz);
-    }
-    return p != NULL;
+    qstrncpy(modname, full_name, p - full_name + 1);
+    qstrncpy(attrname, p + 1, sz);
   }
+  return p != NULL;
 }
 
 /* Convert return value from Python to IDC or report about an error. */
@@ -503,7 +492,7 @@ bool idaapi IDAPython_extlang_run(const char *name,
         }
         else
         {
-          module = PyImport_AddModule("__main__");  QASSERT(module != NULL);
+          module = PyImport_AddModule(S_MAIN);  QASSERT(module != NULL);
         }
         PyObject *globals = PyModule_GetDict(module); QASSERT(globals != NULL);
         PyObject *func    = PyDict_GetItemString(globals, funcname);
@@ -548,7 +537,11 @@ bool idaapi IDAPython_extlang_compile_file(const char *script_path,
     }
 
     char modname[MAXSTR] = {0};
-    parse_py_modname(script_path, modname, NULL, sizeof(modname));
+    // take the filename.ext part
+    qstrncpy(modname, qbasename(script_path), sizeof(modname));
+    // take the filename part only
+    qsplitfile(modname, NULL, NULL);
+
     // import the module using its absolute path
     qstring s;
     s.sprnt(
@@ -578,14 +571,14 @@ bool idaapi IDAPython_extlang_create_object(
     parse_py_modname(name, modname, clsname, MAXSTR);
 
     // Get a reference to the module
-    py_mod = PyImport_ImportModule(modname);
+    py_mod = PyImport_TryImportModule(modname);
     if (py_mod == NULL)
     {
       qsnprintf(errbuf, errbufsize, "Could not import module %s!", modname);
       break;
     }
     // Get the class reference
-    py_cls = PyObject_GetAttrString(py_mod, clsname);
+    py_cls = PyObject_TryGetAttrString(py_mod, clsname);
     if (py_cls == NULL)
     {
       qsnprintf(errbuf, errbufsize, "Could not find class %s!", clsname);
@@ -845,9 +838,6 @@ void parse_options()
 add_menu_item is called too early */
 static int idaapi menu_installer_cb(void *, int code, va_list)
 {
-  const char *script;
-  int when;
-
   switch ( code )
   {
     case ui_ready_to_run:

@@ -30,13 +30,13 @@ def CodeRefsTo(ea, flow):
     Get a list of code references to 'ea'
 
     @param ea:   Target address
-    @param flow: Follow normal code flow or not 
+    @param flow: Follow normal code flow or not
     @type  flow: Boolean (0/1, False/True)
 
     @return: list of references (may be empty list)
 
     Example::
-    
+
         for ref in CodeRefsTo(ScreenEA(), 1):
             print ref
     """
@@ -51,13 +51,13 @@ def CodeRefsFrom(ea, flow):
     Get a list of code references from 'ea'
 
     @param ea:   Target address
-    @param flow: Follow normal code flow or not 
+    @param flow: Follow normal code flow or not
     @type  flow: Boolean (0/1, False/True)
 
     @return: list of references (may be empty list)
 
     Example::
-    
+
         for ref in CodeRefsFrom(ScreenEA(), 1):
             print ref
     """
@@ -76,7 +76,7 @@ def DataRefsTo(ea):
     @return: list of references (may be empty list)
 
     Example::
-    
+
         for ref in DataRefsTo(ScreenEA(), 1):
             print ref
     """
@@ -92,7 +92,7 @@ def DataRefsFrom(ea):
     @return: list of references (may be empty list)
 
     Example::
-    
+
         for ref in DataRefsFrom(ScreenEA(), 1):
             print ref
     """
@@ -135,9 +135,9 @@ def _copy_xref(xref):
 
 
 def XrefsFrom(ea, flags=0):
-    """ 
+    """
     Return all references from address 'ea'
-    
+
     @param ea: Reference address
     @param flags: any of idaapi.XREF_* flags
 
@@ -156,7 +156,7 @@ def XrefsFrom(ea, flags=0):
 def XrefsTo(ea, flags=0):
     """
     Return all references to address 'ea'
-    
+
     @param ea: Reference address
     @param flags: any of idaapi.XREF_* flags
 
@@ -229,7 +229,7 @@ def Chunks(start):
     Get a list of function chunks
 
     @param start: address of the function
-       
+
     @return: list of funcion chunks (tuples of the form (start_ea, end_ea))
              belonging to the function
     """
@@ -274,7 +274,7 @@ def FuncItems(start):
 def DecodeInstruction(ea):
     """
     Decodes an instruction and returns an insn_t like class
-    
+
     @param ea: address to decode
 
     @return: None or an insn_t like structure
@@ -380,7 +380,7 @@ def GetInputFileMD5():
 class Strings(object):
     """
     Returns the string list.
-	
+
 	Example:
         s = Strings()
 
@@ -414,7 +414,7 @@ class Strings(object):
     def clear_cache(self):
         """Clears the strings list cache"""
         self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
-    
+
     def __init__(self, default_setup=True):
         if default_setup:
             self.setup()
@@ -471,7 +471,7 @@ def _Assemble(ea, line):
             return (False, "Assembler failed: " + line)
         ea += len(buf)
         ret.append(buf)
-    
+
     if len(ret) == 1:
         ret = ret[0]
     return (True, ret)

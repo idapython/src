@@ -189,6 +189,18 @@ PyObject *PyObject_TryGetAttrString(PyObject *py_var, const char *attr)
   return PyObject_GetAttrString(py_var, attr);
 }
 
+//------------------------------------------------------------------------
+// Tries to import a module and clears the exception on failure
+PyObject *PyImport_TryImportModule(const char *name)
+{
+  PyObject *result = PyImport_ImportModule(name);
+  if (result != NULL)
+    return result;
+  if (PyErr_Occurred())
+    PyErr_Clear();
+  return NULL;
+}
+
 //-------------------------------------------------------------------------
 // Converts a Python number into an IDC value (32 or 64bits)
 // The function will first try to convert the number into a 32bit value
