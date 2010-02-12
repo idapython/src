@@ -334,7 +334,7 @@ int pyvar_to_idcvar(
     return 1;
   // String
   else if (PyString_Check(py_var))
-    idc_var->_set_string(PyString_AsString(py_var), PyString_Size(py_var)+1);
+    idc_var->_set_string(PyString_AsString(py_var), PyString_Size(py_var));
   // Float
   else if (PyBool_Check(py_var))
     idc_var->set_long(py_var == Py_True ? 1 : 0);
