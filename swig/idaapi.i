@@ -72,7 +72,7 @@ static const char S_PY_IDAAPI_MODNAME[]   = "idaapi";
 #else
 static const char S_PY_IDAAPI_MODNAME[]   = "__main__";
 #endif
-                                           
+
 #define PY_CLSID_CVT_INT64                       0
 #define PY_CLSID_APPCALL_SKEL_OBJ                1
 #define PY_CLSID_CVT_BYREF                       2
@@ -88,10 +88,15 @@ static PyObject *py_cvt_helper_module = NULL;
 static bool pywraps_initialized = false;
 
 //------------------------------------------------------------------------
-idc_class_t *py_idc_cvt_opaque_t = NULL;
+idc_class_t *get_py_idc_cvt_opaque()
+{
+  return find_idc_class(S_PY_IDC_OPAQUE_T);
+}
+
+//------------------------------------------------------------------------
 static const char py_idc_cvt_helper_dtor_args[] = { VT_OBJ, 0 };
 static error_t idaapi py_idc_opaque_dtor(
-  idc_value_t *argv, 
+  idc_value_t *argv,
   idc_value_t *res)
 {
   // Get the value from the object
@@ -122,24 +127,23 @@ bool init_pywraps()
       return false;
   }
 
-  if (py_idc_cvt_opaque_t == NULL)
+  if (get_py_idc_cvt_opaque() == NULL)
   {
     // Add the class
-    py_idc_cvt_opaque_t = add_idc_class(S_PY_IDC_OPAQUE_T);
-    if (py_idc_cvt_opaque_t == NULL)
+    idc_class_t *idc_cvt_opaque = add_idc_class(S_PY_IDC_OPAQUE_T);
+    if (idc_cvt_opaque == NULL)
       return false;
 
     // Form the dtor name
     char dtor_name[MAXSTR];
-    qstrncpy(dtor_name, S_PY_IDC_OPAQUE_T, sizeof(dtor_name));
-    qstrncat(dtor_name, ".dtor", sizeof(dtor_name));
+    qsnprintf(dtor_name, sizeof(dtor_name), "%s.dtor", S_PY_IDC_OPAQUE_T);
 
     // register the dtor function
     if (!set_idc_func(dtor_name, py_idc_opaque_dtor, py_idc_cvt_helper_dtor_args))
       return false;
 
     // Link the dtor function to the class
-    set_idc_dtor(py_idc_cvt_opaque_t, dtor_name);
+    set_idc_dtor(idc_cvt_opaque, dtor_name);
   }
   pywraps_initialized = true;
   return true;
@@ -165,9 +169,9 @@ static PyObject *get_idaapi_class_reference(const int class_id)
     return NULL;
 
   // Some class names. The array is parallel with the PY_CLSID_xxx consts
-  static const char *class_names[]= 
+  static const char *class_names[]=
   {
-    "PyIdc_cvt_int64__", 
+    "PyIdc_cvt_int64__",
     "Appcall_object__",
     "PyIdc_cvt_refclass__"
   };
@@ -295,7 +299,7 @@ static int get_pyidc_cvt_type(PyObject *py_var)
 static bool create_py_idc_opaque_obj(PyObject *py_var, idc_value_t *idc_var)
 {
   // Create an IDC object of this special helper class
-  if (VarObject(idc_var, py_idc_cvt_opaque_t) != eOk)
+  if (VarObject(idc_var, get_py_idc_cvt_opaque()) != eOk)
     return false;
 
   // Store the CVT id
