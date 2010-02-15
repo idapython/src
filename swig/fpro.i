@@ -21,7 +21,7 @@ private:
       return false;
     own = false;
     fn.sprnt("<FILE * %p>", fp);
-    fp = fp;
+    this->fp = fp;
     return true;
   }
   inline void _from_cobject(PyObject *pycobject)
@@ -198,9 +198,9 @@ public:
   //--------------------------------------------------------------------------
   int write(PyObject *py_buf)
   {
-    size_t sz = PyString_GET_SIZE(py_buf);
-    void *buf = (void *)PyString_AS_STRING(py_buf);
-    return qfwrite(fp, buf, sz);
+    if (!PyString_Check(py_buf))
+      return 0;
+    return qfwrite(fp, (void *)PyString_AS_STRING(py_buf), PyString_GET_SIZE(py_buf));
   }
 
   //--------------------------------------------------------------------------
