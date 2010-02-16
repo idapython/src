@@ -98,19 +98,10 @@ public:
   // class from and to IDC. The value of this variable must be set to two
   int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t(PyObject *pycobject = NULL)
+  loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(2)
   {
-    __idc_cvt_id__ = 2; // Opaque object
     if (pycobject != NULL && PyCObject_Check(pycobject))
-    {
       _from_cobject(pycobject);
-    }
-    else
-    {
-      li = NULL;
-      own = OWN_NONE;
-      fn.qclear();
-    }
   }
 
   //--------------------------------------------------------------------------
@@ -123,7 +114,7 @@ public:
       close_linput(li);
     else if (own == OWN_FROM_FP)
       unmake_linput(li);
-
+    own = OWN_NONE;
     li = NULL;
   }
 
