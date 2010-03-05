@@ -1751,11 +1751,7 @@ def GetFloat(ea):
 
     @return: float
     """
-    tmp = chr(idaapi.get_byte(ea)) + \
-          chr(idaapi.get_byte(ea+1)) + \
-          chr(idaapi.get_byte(ea+2)) + \
-          chr(idaapi.get_byte(ea+3))
-
+    tmp = idaapi.get_many_bytes(ea, 4)
     return struct.unpack("f", tmp)[0]
 
 
@@ -1767,15 +1763,7 @@ def GetDouble(ea):
 
     @return: double
     """
-    tmp = chr(idaapi.get_byte(ea)) + \
-          chr(idaapi.get_byte(ea+1)) + \
-          chr(idaapi.get_byte(ea+2)) + \
-          chr(idaapi.get_byte(ea+3)) + \
-          chr(idaapi.get_byte(ea+4)) + \
-          chr(idaapi.get_byte(ea+5)) + \
-          chr(idaapi.get_byte(ea+6)) + \
-          chr(idaapi.get_byte(ea+7))
-
+    tmp = idaapi.get_many_bytes(ea, 8)
     return struct.unpack("d", tmp)[0]
 
 
