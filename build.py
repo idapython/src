@@ -33,7 +33,7 @@ else:
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 3
-VERSION_PATCH  = 0
+VERSION_PATCH  = 2
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
