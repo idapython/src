@@ -38,7 +38,7 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
 1, Unpack the IDAPython source and IDA Pro SDK into the following
    directory structure:
 
-   swigsdk-versions/5.6/  - version 5.4 of the IDA Pro SDK
+   swigsdk-versions/5.6/          - version 5.6 of the IDA Pro SDK
    idapython/                     - IDAPython source code
 
 2, On Mac OS X copy libida.dylib from the IDA install directory to

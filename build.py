@@ -79,7 +79,8 @@ BINDIST_MANIFEST = [
     "examples/ex_choose2.py",
     "examples/ex_debug_names.py",
     "examples/ex_graph.py",
-    "examples/ex_dbg.py"
+    "examples/ex_dbg.py",
+    "examples/ex_imports.py"
 ]
 
 # List files for the source distribution (appended to binary list)
