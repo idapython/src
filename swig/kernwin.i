@@ -163,29 +163,6 @@ uint32 choose_choose(PyObject *self,
 #define thisobj ((py_choose2_t *) obj)
 #define thisdecl py_choose2_t *_this = thisobj
 #define MENU_COMMAND_CB(id) static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) { return thisobj->on_command(id, int(n)); }
-#define DECL_MENU_COMMAND_CB(id) s_menu_command_##id
-#define S_ON_EDIT_LINE       "OnEditLine"
-#define S_ON_INSERT_LINE     "OnInsertLine"
-#define S_ON_GET_LINE        "OnGetLine"
-#define S_ON_DELETE_LINE     "OnDeleteLine"
-#define S_ON_REFRESH         "OnRefresh"
-#define S_ON_SELECT_LINE     "OnSelectLine"
-#define S_ON_COMMAND         "OnCommand"
-#define S_ON_GET_ICON        "OnGetIcon"
-#ifdef CH_ATTRS
-  #define S_ON_GET_LINE_ATTR   "OnGetLineAttr"
-#endif
-#define S_ON_GET_SIZE        "OnGetSize"
-#define S_ON_CLOSE           "OnClose"
-#define CHOOSE2_HAVE_DEL      0x0001
-#define CHOOSE2_HAVE_INS      0x0002
-#define CHOOSE2_HAVE_UPDATE   0x0004
-#define CHOOSE2_HAVE_EDIT     0x0008
-#define CHOOSE2_HAVE_ENTER    0x0010
-#define CHOOSE2_HAVE_GETICON  0x0020
-#define CHOOSE2_HAVE_GETATTR  0x0040
-#define CHOOSE2_HAVE_COMMAND  0x0080
-#define CHOOSE2_HAVE_ONCLOSE  0x0100
 
 //------------------------------------------------------------------------
 // Helper functions
@@ -217,6 +194,18 @@ void choose2_del_instance(PyObject *self)
 class py_choose2_t
 {
 private:
+  enum 
+  { 
+    CHOOSE2_HAVE_DEL =    0x0001,
+    CHOOSE2_HAVE_INS =    0x0002,
+    CHOOSE2_HAVE_UPDATE = 0x0004,
+    CHOOSE2_HAVE_EDIT =   0x0008,
+    CHOOSE2_HAVE_ENTER =  0x0010,
+    CHOOSE2_HAVE_GETICON = 0x0020,
+    CHOOSE2_HAVE_GETATTR = 0x0040,
+    CHOOSE2_HAVE_COMMAND = 0x0080,
+    CHOOSE2_HAVE_ONCLOSE = 0x0100
+  };
   int flags;
   int cb_flags;
   qstring title;
@@ -233,7 +222,6 @@ private:
   //------------------------------------------------------------------------
   // Static methods to dispatch to member functions
   //------------------------------------------------------------------------
-#ifdef CH_ATTRS
   static int idaapi ui_cb(void *obj, int notification_code, va_list va)
   {
     if ( notification_code != ui_get_chooser_item_attrs )
@@ -244,7 +232,6 @@ private:
     thisobj->on_get_line_attr(n, attr);
     return 1;
   }
-#endif
   static uint32 idaapi s_sizer(void *obj)
   {
     return (uint32)thisobj->on_get_size();
@@ -300,7 +287,7 @@ private:
       line_arr[i][0] = '\0';
 
     // Call Python
-    PyObject *list = PyObject_CallMethod(self, S_ON_GET_LINE, "l", lineno - 1);
+    PyObject *list = PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1);
     if (list == NULL)
       return;
     for (int i=ncols-1;i>=0;i--)
@@ -317,7 +304,7 @@ private:
 
   size_t on_get_size()
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_GET_SIZE, NULL);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL);
     if (pyres == NULL)
       return 0;
     size_t res = PyInt_AsLong(pyres);
@@ -332,7 +319,7 @@ private:
       unhook_from_notification_point(HT_UI, ui_cb, this);
 #endif
     // Call Python
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_CLOSE, NULL);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
     Py_XDECREF(pyres);
     Py_XDECREF(self);
 
@@ -346,7 +333,7 @@ private:
 
   int on_delete_line(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_DELETE_LINE, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_DELETE_LINE, "i", lineno - 1);
     if (pyres == NULL)
       return lineno;
     size_t res = PyInt_AsLong(pyres);
@@ -356,7 +343,7 @@ private:
 
   int on_refresh(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_REFRESH, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_REFRESH, "i", lineno - 1);
     if (pyres == NULL)
       return lineno;
     size_t res = PyInt_AsLong(pyres);
@@ -366,25 +353,25 @@ private:
 
   void on_insert_line()
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_INSERT_LINE, NULL);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL);
     Py_XDECREF(pyres);
   }
 
   void on_select_line(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_SELECT_LINE, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_SELECT_LINE, "i", lineno - 1);
     Py_XDECREF(pyres);
   }
 
   void on_edit_line(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_EDIT_LINE, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_EDIT_LINE, "i", lineno - 1);
     Py_XDECREF(pyres);
   }
 
   int on_command(int cmd_id, int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_COMMAND, "ll", lineno - 1, cmd_id);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_COMMAND, "ii", lineno - 1, cmd_id);
     if (pyres==NULL)
       return lineno;
     size_t res = PyInt_AsLong(pyres);
@@ -394,15 +381,14 @@ private:
 
   int on_get_icon(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_GET_ICON, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_ICON, "i", lineno - 1);
     size_t res = PyInt_AsLong(pyres);
     Py_XDECREF(pyres);
     return res;
   }
-#ifdef CH_ATTRS
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
-    PyObject *pyres = PyObject_CallMethod(self, S_ON_GET_LINE_ATTR, "l", lineno - 1);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1);
     if (pyres == NULL)
       return;
 
@@ -416,7 +402,6 @@ private:
     }
     Py_XDECREF(pyres);
   }
-#endif
 public:
   //------------------------------------------------------------------------
   // Public methods
@@ -428,12 +413,10 @@ public:
     menu_cb_idx = 0;
     self = NULL;
   }
-#ifdef CH_ATTRS
   static py_choose2_t *find_chooser(const char *title)
   {
     return (py_choose2_t *) get_chooser_obj(title);
   }
-#endif
   void close()
   {
     close_chooser(title.c_str());
@@ -459,13 +442,11 @@ public:
     int x1 = -1, int y1 = -1, int x2 = -1, int y2 = -1)
   {
     flags = fl;
-#ifdef CH_ATTRS
     if ( (flags & CH_ATTRS) != 0 )
     {
       if ( !hook_to_notification_point(HT_UI, ui_cb, this) )
         flags &= ~CH_ATTRS;
     }
-#endif
     this->title = title;
     return ::choose2(
       flags,
@@ -595,9 +576,7 @@ public:
       {S_ON_REFRESH,       CHOOSE2_HAVE_UPDATE},
       {S_ON_SELECT_LINE,   CHOOSE2_HAVE_ENTER},
       {S_ON_COMMAND,       CHOOSE2_HAVE_COMMAND},
-#ifdef CH_ATTRS
       {S_ON_GET_LINE_ATTR, CHOOSE2_HAVE_GETATTR},
-#endif
       {S_ON_GET_ICON,      CHOOSE2_HAVE_GETICON}
     };
     cb_flags = 0;
@@ -631,11 +610,10 @@ public:
     }
     Py_XDECREF(attr);
 
-#ifdef CH_ATTRS
     // Adjust flags (if needed)
     if ( (cb_flags & CHOOSE2_HAVE_GETATTR) != 0 )
       flags |= CH_ATTRS;
-#endif
+
     // Increase object reference
     Py_INCREF(self);
     this->self = self;
@@ -666,6 +644,7 @@ public:
 
 //------------------------------------------------------------------------
 // Initialize the callback pointers
+#define DECL_MENU_COMMAND_CB(id) s_menu_command_##id
 chooser_cb_t *py_choose2_t::menu_cbs[MAX_CHOOSER_MENU_COMMANDS] =
 {
   DECL_MENU_COMMAND_CB(0),  DECL_MENU_COMMAND_CB(1),
@@ -674,33 +653,13 @@ chooser_cb_t *py_choose2_t::menu_cbs[MAX_CHOOSER_MENU_COMMANDS] =
   DECL_MENU_COMMAND_CB(6),  DECL_MENU_COMMAND_CB(7),
   DECL_MENU_COMMAND_CB(8),  DECL_MENU_COMMAND_CB(9)
 };
+#undef DECL_MENU_COMMAND_CB
 
 #undef POPUP_NAMES_COUNT
 #undef MAX_CHOOSER_MENU_COMMANDS
 #undef thisobj
 #undef thisdecl
 #undef MENU_COMMAND_CB
-#undef DECL_MENU_COMMAND_CB
-#undef S_ON_EDIT_LINE
-#undef S_ON_INSERT_LINE
-#undef S_ON_GET_LINE
-#undef S_ON_DELETE_LINE
-#undef S_ON_REFRESH
-#undef S_ON_SELECT_LINE
-#undef S_ON_COMMAND
-#undef S_ON_GET_ICON
-#undef S_ON_GET_LINE_ATTR
-#undef S_ON_GET_SIZE
-#undef S_ON_CLOSE
-#undef CHOOSE2_HAVE_DEL
-#undef CHOOSE2_HAVE_INS
-#undef CHOOSE2_HAVE_UPDATE
-#undef CHOOSE2_HAVE_EDIT
-#undef CHOOSE2_HAVE_ENTER
-#undef CHOOSE2_HAVE_GETICON
-#undef CHOOSE2_HAVE_GETATTR
-#undef CHOOSE2_HAVE_COMMAND
-#undef CHOOSE2_HAVE_ONCLOSE
 
 //------------------------------------------------------------------------
 int choose2_show(PyObject *self)

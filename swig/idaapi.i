@@ -55,45 +55,82 @@
 
 //<code(py_idaapi)>
 
-#ifndef PYUL_DEFINED
-#define PYUL_DEFINED
-  typedef unsigned PY_LONG_LONG pyul_t;
+#include "pywraps.hpp"
+
+//------------------------------------------------------------------------
+// String constants used
+static const char PY_IDC_CLASS_NAME[]        = "py_idc_object_class";
+static const char PY_IDC_GLOBAL_VAR_FMT[]    = "__py_cvt_gvar_%d";
+static const char PY_IDCCVT_ID_ATTR[]        = "__idc_cvt_id__";
+static const char PY_IDCCVT_VALUE_ATTR[]     = "__idc_cvt_value__";
+static const char S_PY_IDC_OPAQUE_T[]        = "py_idc_cvt_helper_t";
+static const char S_PROPS[]                  = "props";
+static const char S_NAME[]                   = "name";
+static const char S_ASM_KEYWORD[]            = "asm_keyword";
+static const char S_MENU_NAME[]              = "menu_name";
+static const char S_HOTKEY[]                 = "hotkey";
+static const char S_VALUE_SIZE[]             = "value_size";
+static const char S_MAY_CREATE_AT[]          = "may_create_at";
+static const char S_CALC_ITEM_SIZE[]         = "calc_item_size";
+static const char S_ID[]                     = "id";
+static const char S_PRINTF[]                 = "printf";
+static const char S_TEXT_WIDTH[]             = "text_width";
+static const char S_SCAN[]                   = "scan";
+static const char S_ANALYZE[]                = "analyze";
+static const char S_CBSIZE[]                 = "cbsize";
+static const char S_ON_CLICK[]               = "OnClick";
+static const char S_ON_CLOSE[]               = "OnClose";
+static const char S_ON_DBL_CLICK[]           = "OnDblClick";
+static const char S_ON_CURSOR_POS_CHANGED[]  = "OnCursorPosChanged";
+static const char S_ON_KEYDOWN[]             = "OnKeydown";
+static const char S_ON_POPUP[]               = "OnPopup";
+static const char S_ON_HINT[]                = "OnHint";
+static const char S_ON_POPUP_MENU[]          = "OnPopupMenu";
+static const char S_ON_EDIT_LINE[]           = "OnEditLine";
+static const char S_ON_INSERT_LINE[]         = "OnInsertLine";
+static const char S_ON_GET_LINE[]            = "OnGetLine";
+static const char S_ON_DELETE_LINE[]         = "OnDeleteLine";
+static const char S_ON_REFRESH[]             = "OnRefresh";
+static const char S_ON_SELECT_LINE[]         = "OnSelectLine";
+static const char S_ON_COMMAND[]             = "OnCommand";
+static const char S_ON_GET_ICON[]            = "OnGetIcon";
+static const char S_ON_GET_LINE_ATTR[]       = "OnGetLineAttr";
+static const char S_ON_GET_SIZE[]            = "OnGetSize";
+static const char S_ON_GETTEXT[]             = "OnGetText";
+static const char S_ON_ACTIVATE[]            = "OnActivate";
+static const char S_ON_DEACTIVATE[]          = "OnDeactivate";
+static const char S_ON_SELECT[]              = "OnSelect";
+static const char S_M_EDGES[]                = "_edges";
+static const char S_M_NODES[]                = "_nodes";
+static const char S_M_THIS[]                 = "_this";
+static const char S_M_TITLE[]                = "_title";
+
+#ifdef __PYWRAPS__
+static const char S_PY_IDAAPI_MODNAME[]      = "__main__";
+#else
+static const char S_PY_IDAAPI_MODNAME[]      = "idaapi";
 #endif
 
 //------------------------------------------------------------------------
-static const char PY_IDC_CLASS_NAME[]     = "py_idc_object_class";
-static const char PY_IDC_GLOBAL_VAR_FMT[] = "__py_cvt_gvar_%d";
-static const char PY_IDCCVT_ID_ATTR[]     = "__idc_cvt_id__";
-static const char PY_IDCCVT_VALUE_ATTR[]  = "__idc_cvt_value__";
-static const char S_PY_IDC_OPAQUE_T[]     = "py_idc_cvt_helper_t";
-
-#ifndef __PYWRAPS__
-static const char S_PY_IDAAPI_MODNAME[]   = "idaapi";
-#else
-static const char S_PY_IDAAPI_MODNAME[]   = "__main__";
-#endif
-
+// Constants used by get_idaapi_class_reference()
 #define PY_CLSID_CVT_INT64                       0
 #define PY_CLSID_APPCALL_SKEL_OBJ                1
 #define PY_CLSID_CVT_BYREF                       2
 #define PY_CLSID_LAST                            3
 
 //------------------------------------------------------------------------
-// PyIdc conversion object ids
-#define PY_ICID_INT64                            0
-#define PY_ICID_BYREF                            1
-#define PY_ICID_OPAQUE                           2
-
 static PyObject *py_cvt_helper_module = NULL;
 static bool pywraps_initialized = false;
 
 //------------------------------------------------------------------------
-idc_class_t *get_py_idc_cvt_opaque()
+static idc_class_t *get_py_idc_cvt_opaque()
 {
   return find_idc_class(S_PY_IDC_OPAQUE_T);
 }
 
 //------------------------------------------------------------------------
+// IDC Opaque object destructor: when the IDC object dies we kill the 
+// opaque Python object along with it
 static const char py_idc_cvt_helper_dtor_args[] = { VT_OBJ, 0 };
 static error_t idaapi py_idc_opaque_dtor(
   idc_value_t *argv,
@@ -122,7 +159,7 @@ bool init_pywraps()
   if (py_cvt_helper_module == NULL)
   {
     // Take a reference to the module so we can create the needed class instances
-    py_cvt_helper_module = PyImport_ImportModule(S_PY_IDAAPI_MODNAME);
+    py_cvt_helper_module = PyImport_TryImportModule(S_PY_IDAAPI_MODNAME);
     if (py_cvt_helper_module == NULL)
       return false;
   }
@@ -175,7 +212,6 @@ static PyObject *get_idaapi_class_reference(const int class_id)
     "Appcall_object__",
     "PyIdc_cvt_refclass__"
   };
-
   return PyObject_GetAttrString(py_cvt_helper_module, class_names[class_id]);
 }
 
@@ -209,7 +245,7 @@ PyObject *PyImport_TryImportModule(const char *name)
 // converted to a VT_INT64 or not. For example: 2**32-1 = 0xffffffff which
 // can fit in a C long but Python creates a PyLong object for it.
 // And because of that we are confused as to whether to convert to 32 or 64
-bool PyGetNumber(PyObject *py_var, idc_value_t *idc_var)
+bool PyGetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 {
   if (!(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)))
     return false;
@@ -233,6 +269,49 @@ bool PyGetNumber(PyObject *py_var, idc_value_t *idc_var)
   PyErr_Clear();
   idc_var->set_int64(PyLong_AsLongLong(py_var));
   return true;
+}
+
+//-------------------------------------------------------------------------
+// Parses a Python object as a long or long long
+bool PyGetNumber(PyObject *py_var, uint64 *num, bool *is_64)
+{
+  if (!(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)))
+    return false;
+
+  // Can we convert to C long?
+  long l = PyInt_AsLong(py_var);
+  if (!PyErr_Occurred())
+  {
+    if (num != NULL)
+      *num = uint64(l);
+    if (is_64 != NULL)
+      *is_64 = false;
+    return true;
+  }
+  // Clear last error
+  PyErr_Clear();
+  // Can be fit into a C unsigned long?
+  unsigned long ul = PyLong_AsUnsignedLong(py_var);
+  if (!PyErr_Occurred())
+  {
+    if (num != NULL)
+      *num = uint64(ul);
+    if (is_64 != NULL)
+      *is_64 = false;
+    return true;
+  }
+  PyErr_Clear();
+  PY_LONG_LONG ll = PyLong_AsLongLong(py_var);
+  if (!PyErr_Occurred())
+  {
+    if (num != NULL)
+      *num = uint64(ll);
+    if (is_64 != NULL)
+      *is_64 = true;
+    return true;
+  }
+  PyErr_Clear();
+  return false;
 }
 
 //-------------------------------------------------------------------------
@@ -271,16 +350,27 @@ bool PyObjectToString(PyObject *obj, qstring *out)
 //--------------------------------------------------------------------------
 // Checks if a Python error occured and fills the out parameter with the
 // exception string
-bool PyGetError(qstring *out = NULL)
+bool PyGetError(qstring *out)
 {
   PyObject *py_err;
-  if ( (py_err = PyErr_Occurred()) == NULL)
+  if ((py_err = PyErr_Occurred()) == NULL)
     return false;
 
   PyObject *err_type, *err_value, *err_traceback;
   PyErr_Fetch(&err_type, &err_value, &err_traceback);
   if ( out != NULL )
     PyObjectToString(err_value, out);
+  return true;
+}
+
+//-------------------------------------------------------------------------
+// A loud version of PyGetError() which gets the error and displays it
+bool PyShowErr(const char *cb_name)
+{
+  static qstring err_str;
+  if (!PyGetError(&err_str))
+    return false;
+  warning("IDAPython: Error while calling Python callback <%s>:\n%s", cb_name, err_str.c_str());
   return true;
 }
 
@@ -328,22 +418,19 @@ static bool create_py_idc_opaque_obj(PyObject *py_var, idc_value_t *idc_var)
 
 //-------------------------------------------------------------------------
 // Converts a Python variable into an IDC variable
-// This function returns:
-// 0 - failure
-// 1 - success
-// 2 - success but do not decrement the reference of the py_var (used by opaque values)
+// This function returns on one CIP_XXXX
 int pyvar_to_idcvar(
   PyObject *py_var,
   idc_value_t *idc_var,
-  int *gvar_sn = NULL)
+  int *gvar_sn)
 {
   PyObject *attr;
   // None / NULL
   if (py_var == NULL || py_var == Py_None)
     idc_var->set_long(0);
   // Numbers?
-  else if (PyGetNumber(py_var, idc_var))
-    return 1;
+  else if (PyGetNumberAsIDC(py_var, idc_var))
+    return CIP_OK;
   // String
   else if (PyString_Check(py_var))
     idc_var->_set_string(PyString_AsString(py_var), PyString_Size(py_var));
@@ -360,6 +447,7 @@ int pyvar_to_idcvar(
   // void*
   else if (PyCObject_Check(py_var))
     idc_var->set_pvoid(PyCObject_AsVoidPtr(py_var));
+  // Is it a Python list?
   else if (PyList_CheckExact(py_var) || PyIsSequenceType(py_var))
   {
     // Create the object
@@ -379,7 +467,7 @@ int pyvar_to_idcvar(
 
       // Convert the item into an IDC variable
       idc_value_t v;
-      ok = pyvar_to_idcvar(py_item, &v, gvar_sn) > 0;
+      ok = pyvar_to_idcvar(py_item, &v, gvar_sn) >= CIP_OK;
       if (ok)
       {
         // Form the attribute name
@@ -397,7 +485,7 @@ int pyvar_to_idcvar(
       if (!ok)
         break;
     }
-    return ok ? 1 : 0;
+    return ok ? CIP_OK : CIP_FAILED;
   }
   // Dictionary: we convert to an IDC object
   else if (PyDict_Check(py_var))
@@ -426,7 +514,7 @@ int pyvar_to_idcvar(
 
       // Convert the attribute into an IDC value
       idc_value_t v;
-      ok = pyvar_to_idcvar(val, &v, gvar_sn) > 0;
+      ok = pyvar_to_idcvar(val, &v, gvar_sn) >= CIP_OK;
       if (ok)
       {
         // Store the attribute
@@ -439,7 +527,15 @@ int pyvar_to_idcvar(
     }
     // Decrement attribute reference
     Py_DECREF(py_items);
-    return ok ? 1 : 0;
+    return ok ? CIP_OK : CIP_FAILED;
+  }
+  // Possible function?
+  else if (PyCallable_Check(py_var))
+  {
+    idc_var->clear();
+    idc_var->vtype = VT_FUNC;
+    idc_var->funcidx = -1; // Does not apply
+    return CIP_OK;
   }
   // Objects:
   // - pyidc_cvt objects: int64, byref, opaque
@@ -460,7 +556,7 @@ int pyvar_to_idcvar(
         return false;
       idc_var->set_int64(PyLong_AsLongLong(attr));
       Py_DECREF(attr);
-      return 1;
+      return CIP_OK;
     //
     // BYREF
     //
@@ -468,19 +564,19 @@ int pyvar_to_idcvar(
       {
         // BYREF always require this parameter
         if (gvar_sn == NULL)
-          return 0;
+          return CIP_FAILED;
 
         // Get the value attribute
         attr = PyObject_TryGetAttrString(py_var, PY_IDCCVT_VALUE_ATTR);
         if (attr == NULL)
-          return 0;
+          return CIP_FAILED;
 
         // Create a global variable
         char buf[MAXSTR];
         qsnprintf(buf, sizeof(buf), PY_IDC_GLOBAL_VAR_FMT, *gvar_sn);
         idc_value_t *gvar = add_idc_gvar(buf);
         // Convert the python value into the IDC global variable
-        bool ok = pyvar_to_idcvar(attr, gvar, gvar_sn) > 0;
+        bool ok = pyvar_to_idcvar(attr, gvar, gvar_sn) >= CIP_OK;
         if (ok)
         {
           (*gvar_sn)++;
@@ -488,7 +584,7 @@ int pyvar_to_idcvar(
           VarRef(idc_var, gvar);
         }
         Py_DECREF(attr);
-        return ok ? 1 : 0;
+        return ok ? CIP_OK : CIP_FAILED;
       }
     //
     // OPAQUE
@@ -496,8 +592,8 @@ int pyvar_to_idcvar(
     case PY_ICID_OPAQUE:
       {
         if (!create_py_idc_opaque_obj(py_var, idc_var))
-          return 0;
-        return 2; // do not decrement the reference
+          return CIP_FAILED;
+        return CIP_OK_NODECREF;
       }
     //
     // Other objects
@@ -509,7 +605,7 @@ int pyvar_to_idcvar(
       if (py_dir == NULL || !PyList_Check(py_dir) || size == 0)
       {
         Py_XDECREF(py_dir);
-        return 0;
+        return CIP_FAILED;
       }
       // Create the IDC object
       VarObject(idc_var);
@@ -532,10 +628,10 @@ int pyvar_to_idcvar(
         attr = PyObject_GetAttrString(py_var, field_name);
         if (attr == NULL
           // Convert the attribute into an IDC value
-          || pyvar_to_idcvar(attr, &v, gvar_sn) <= 0)
+          || pyvar_to_idcvar(attr, &v, gvar_sn) < CIP_OK)
         {
           Py_XDECREF(attr);
-          return 0;
+          return CIP_FAILED;
         }
         // Store the attribute
         VarSetAttr(idc_var, field_name, &v);
@@ -544,18 +640,14 @@ int pyvar_to_idcvar(
       }
     }
   }
-  return 1;
+  return CIP_OK;
 }
 
 //-------------------------------------------------------------------------
 // Converts an IDC variable to a Python variable
 // If py_var points to an existing object then the object will be updated
 // If py_var points to an existing immutable object then ZERO is returned
-// Return codes:
-#define CIP_FAILED      -1 // Conversion error
-#define CIP_IMMUTABLE    0 // Immutable object passed. Will not update the object but no error occured
-#define CIP_OK           1 // Success
-#define CIP_OK_NODECREF  2 // Success but do not decrement its reference
+// Returns one of CIP_xxxx. Check pywraps.hpp
 int idcvar_to_pyvar(
   const idc_value_t &idc_var,
   PyObject **py_var)
@@ -588,9 +680,11 @@ int idcvar_to_pyvar(
       Py_DECREF(py_cls);
       break;
     }
+#if !defined(NO_OBSOLETE_FUNCS) || defined(__EXPR_SRC)
   case VT_STR:
     *py_var = PyString_FromString(idc_var.str);
     break;
+#endif
   case VT_STR2:
     if (*py_var == NULL)
     {
@@ -736,7 +830,7 @@ int idcvar_to_pyvar(
 %}
 
 // Do not create separate wrappers for default arguments
-%feature("compactdefaultargs"); 
+%feature("compactdefaultargs");
 
 #ifdef __EA64__
 #ifdef __GNUC__
@@ -783,7 +877,7 @@ typedef int error_t;
 %binary_output_or_none(void *buf, size_t bufsize);
 %binary_output_with_size(void *buf, size_t *bufsize);
 
-// Accept single Python string for const void * + size input arguments 
+// Accept single Python string for const void * + size input arguments
 // For example: put_many_bytes() and patch_many_bytes()
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
@@ -858,7 +952,7 @@ idainfo *get_inf_structure(void)
 
 %pythoncode %{
 #<pycode(py_idaapi)>
-
+import struct
 # -----------------------------------------------------------------------
 # Seek constants
 SEEK_SET = 0 # from the file start
@@ -970,6 +1064,52 @@ def as_uint32(v):
 # -----------------------------------------------------------------------
 def as_int32(v):
     return -((~v & 0xffffffff)+1)
+
+# -----------------------------------------------------------------------
+def as_signed(v, nbits = 32):
+    return -(( ~v & ((1 << nbits)-1) ) + 1) if v & (1 << nbits-1) else v
+
+# ----------------------------------------------------------------------
+# Copy bits from a value
+def copy_bits(b, s, e=-1):
+    # end-bit not specified? use start bit (thus extract one bit)
+    if e == -1:
+        e = s
+    # swap start and end if start > end
+    if s > e:
+        e, s = s, e
+
+    mask = 0
+    for i in xrange(s, e+1):
+        mask |= 1 << i
+
+    return (b & mask) >> s
+
+# ----------------------------------------------------------------------
+struct_unpack_table = {
+  1: ('b', 'B'),
+  2: ('h', 'H'),
+  4: ('l', 'L'),
+  8: ('q', 'Q')
+}
+
+# ----------------------------------------------------------------------
+def struct_unpack(value, signed = False, offs = 0):
+    """
+    Unpack a value given its length and offset using struct.unpack_from().
+    This function will know how to unpack the given value by using the lookup table 'struct_unpack_table'
+    """
+    # Supported length?
+    n = len(value)
+    if not n in struct_unpack_table:
+        return None
+    # Conver to number
+    signed = 1 if signed else 0
+
+    # Unpack
+    return struct.unpack_from(struct_unpack_table[n][signed], value, offs)[0]
+
+
 
 #</pycode(py_idaapi)>
 
