@@ -41,4 +41,10 @@
 %ignore areacb_t::move_areas;
 %ignore areacb_t::for_all_areas;
 
+%ignore areaset_t::count;
+%ignore areaset_t::lower_bound;
+%ignore areaset_t::upper_bound;
+%ignore areaset_t::move_chunk;
+%ignore areaset_t::check_move_args;
+
 %include "area.hpp"

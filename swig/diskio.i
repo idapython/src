@@ -50,7 +50,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
 {
   PyObject *py_file = PyString_FromString(file);
   PyObject *py_ret  = PyObject_CallFunctionObjArgs((PyObject *)ud, py_file, NULL);
-  int r = (py_ret == 0 || !PyNumber_Check(py_ret)) ? 1 /* stop enumeration on failure */ : PyInt_AsLong(py_ret);
+  int r = (py_ret == NULL || !PyNumber_Check(py_ret)) ? 1 /* stop enumeration on failure */ : PyInt_AsLong(py_ret);
   Py_XDECREF(py_file);
   Py_XDECREF(py_ret);
   return r;
@@ -98,7 +98,7 @@ public:
   // class from and to IDC. The value of this variable must be set to two
   int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(2)
+  loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
     if (pycobject != NULL && PyCObject_Check(pycobject))
       _from_cobject(pycobject);
@@ -114,8 +114,9 @@ public:
       close_linput(li);
     else if (own == OWN_FROM_FP)
       unmake_linput(li);
-    own = OWN_NONE;
+
     li = NULL;
+    own = OWN_NONE;
   }
 
   //--------------------------------------------------------------------------

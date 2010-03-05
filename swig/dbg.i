@@ -110,153 +110,155 @@ public:
 
 int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
 {
-    class DBG_Hooks *proxy = (class DBG_Hooks *)ud;
+  class DBG_Hooks *proxy = (class DBG_Hooks *)ud;
 
-    debug_event_t *event;
-    thid_t tid;
-    int *warn;
-    ea_t ip;
-    ui_notification_t failed_command;
-    dbg_notification_t failed_dbg_notification;
-    ea_t breakpoint_ea;
+  debug_event_t *event;
+  thid_t tid;
+  int *warn;
+  ea_t ip;
+  ui_notification_t failed_command;
+  dbg_notification_t failed_dbg_notification;
+  ea_t breakpoint_ea;
 
-    try {
-        switch (notification_code)
-        {
-        case dbg_process_start:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_process_start(event->pid,
-                                     event->tid,
-                                     event->ea,
-                                     event->modinfo.name,
-                                     event->modinfo.base,
-                                     event->modinfo.size);
-            return 0;
-        case dbg_process_exit:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_process_exit(event->pid,
-                                    event->tid,
-                                    event->ea,
-                                    event->exit_code);
-            return 0;
+  try {
+    switch (notification_code)
+    {
+    case dbg_process_start:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_process_start(event->pid,
+        event->tid,
+        event->ea,
+        event->modinfo.name,
+        event->modinfo.base,
+        event->modinfo.size);
+      return 0;
+    case dbg_process_exit:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_process_exit(event->pid,
+        event->tid,
+        event->ea,
+        event->exit_code);
+      return 0;
 
-        case dbg_process_attach:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_process_attach(event->pid,
-                                      event->tid,
-                                      event->ea,
-                                      event->modinfo.name,
-                                      event->modinfo.base,
-                                      event->modinfo.size);
-            return 0;
+    case dbg_process_attach:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_process_attach(event->pid,
+        event->tid,
+        event->ea,
+        event->modinfo.name,
+        event->modinfo.base,
+        event->modinfo.size);
+      return 0;
 
-        case dbg_process_detach:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_process_detach(event->pid,
-                                      event->tid,
-                                      event->ea);
-            return 0;
+    case dbg_process_detach:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_process_detach(event->pid,
+        event->tid,
+        event->ea);
+      return 0;
 
-        case dbg_thread_start:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_thread_start(event->pid,
-                                    event->tid,
-                                    event->ea);
-            return 0;
+    case dbg_thread_start:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_thread_start(event->pid,
+        event->tid,
+        event->ea);
+      return 0;
 
-        case dbg_thread_exit:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_thread_exit(event->pid,
-                                   event->tid,
-                                   event->ea,
-                                   event->exit_code);
-            return 0;
+    case dbg_thread_exit:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_thread_exit(event->pid,
+        event->tid,
+        event->ea,
+        event->exit_code);
+      return 0;
 
-        case dbg_library_load:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_library_load(event->pid,
-                                    event->tid,
-                                    event->ea,
-                                    event->modinfo.name,
-                                    event->modinfo.base,
-                                    event->modinfo.size);
-            return 0;
+    case dbg_library_load:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_library_load(event->pid,
+        event->tid,
+        event->ea,
+        event->modinfo.name,
+        event->modinfo.base,
+        event->modinfo.size);
+      return 0;
 
-        case dbg_library_unload:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_library_unload(event->pid,
-                                      event->tid,
-                                      event->ea,
-                                      event->info);
-            return 0;
+    case dbg_library_unload:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_library_unload(event->pid,
+        event->tid,
+        event->ea,
+        event->info);
+      return 0;
 
-        case dbg_information:
-            event = va_arg(va, debug_event_t *);
-            proxy->dbg_information(event->pid,
-                                   event->tid,
-                                   event->ea,
-                                   event->info);
-            return 0;
+    case dbg_information:
+      event = va_arg(va, debug_event_t *);
+      proxy->dbg_information(event->pid,
+        event->tid,
+        event->ea,
+        event->info);
+      return 0;
 
-        case dbg_exception:
-            event = va_arg(va, debug_event_t *);
-            warn = va_arg(va, int *);
-            *warn = proxy->dbg_exception(event->pid,
-                                         event->tid,
-                                         event->ea,
-                                         event->exc.code,
-                                         event->exc.can_cont,
-                                         event->exc.ea,
-                                         event->exc.info);
-            return 0;
+    case dbg_exception:
+      event = va_arg(va, debug_event_t *);
+      warn = va_arg(va, int *);
+      *warn = proxy->dbg_exception(event->pid,
+        event->tid,
+        event->ea,
+        event->exc.code,
+        event->exc.can_cont,
+        event->exc.ea,
+        event->exc.info);
+      return 0;
 
-        case dbg_suspend_process:
-            proxy->dbg_suspend_process();
-            return 0;
+    case dbg_suspend_process:
+      proxy->dbg_suspend_process();
+      return 0;
 
-        case dbg_bpt:
-            tid = va_arg(va, thid_t);
-            breakpoint_ea = va_arg(va, ea_t);
-            warn = va_arg(va, int *);
-            *warn = proxy->dbg_bpt(tid, breakpoint_ea);
-            return 0;
+    case dbg_bpt:
+      tid = va_arg(va, thid_t);
+      breakpoint_ea = va_arg(va, ea_t);
+      warn = va_arg(va, int *);
+      *warn = proxy->dbg_bpt(tid, breakpoint_ea);
+      return 0;
 
-        case dbg_trace:
-            tid = va_arg(va, thid_t);
-            ip = va_arg(va, ea_t);
-            return proxy->dbg_bpt(tid, ip);
+    case dbg_trace:
+      tid = va_arg(va, thid_t);
+      ip = va_arg(va, ea_t);
+      return proxy->dbg_bpt(tid, ip);
 
-        case dbg_request_error:
-            failed_command = (ui_notification_t)va_arg(va, int);
-            failed_dbg_notification = (dbg_notification_t)va_arg(va, int);
-            proxy->dbg_request_error(failed_command, failed_dbg_notification);
-            return 0;
+    case dbg_request_error:
+      failed_command = (ui_notification_t)va_arg(va, int);
+      failed_dbg_notification = (dbg_notification_t)va_arg(va, int);
+      proxy->dbg_request_error(failed_command, failed_dbg_notification);
+      return 0;
 
-        case dbg_step_into:
-            proxy->dbg_step_into();
-            return 0;
+    case dbg_step_into:
+      proxy->dbg_step_into();
+      return 0;
 
-        case dbg_step_over:
-            proxy->dbg_step_over();
-            return 0;
+    case dbg_step_over:
+      proxy->dbg_step_over();
+      return 0;
 
-        case dbg_run_to:
-            tid = va_arg(va, thid_t);
-            proxy->dbg_run_to(tid);
-            return 0;
+    case dbg_run_to:
+      tid = va_arg(va, thid_t);
+      proxy->dbg_run_to(tid);
+      return 0;
 
-        case dbg_step_until_ret:
-            proxy->dbg_step_until_ret();
-            return 0;
-        }
+    case dbg_step_until_ret:
+      proxy->dbg_step_until_ret();
+      return 0;
     }
-    catch (Swig::DirectorException &) 
-    { 
-        msg("Exception in IDP Hook function:\n"); 
-        if (PyErr_Occurred())
-        {
-            PyErr_Print();
-        }
+  }
+  catch (Swig::DirectorException &) 
+  { 
+    msg("Exception in IDP Hook function:\n"); 
+    if (PyErr_Occurred())
+    {
+      PyErr_Print();
     }
+  }
+  return 0;
 }
+
 %}

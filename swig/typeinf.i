@@ -152,7 +152,7 @@
 static bool convert_pyobj_to_idc_exc(PyObject *py_obj, idc_value_t *idc_obj)
 {
   int sn = 0;
-  if (pyvar_to_idcvar(py_obj, idc_obj, &sn) <= 0)
+  if (pyvar_to_idcvar(py_obj, idc_obj, &sn) < CIP_OK)
   {
     PyErr_SetString(PyExc_ValueError, "Could not convert Python object to IDC object!");
     return false;
@@ -401,36 +401,34 @@ int idc_parse_types(const char *input, int flags)
     if ((flags & 1) != 0)
         hti |= HTI_FIL;
 
-    return parse_types2(input, (flags & 2) == 0 ? msg : NULL, hti);
+    return parse_decls(idati, input, (flags & 2) == 0 ? msg : NULL, hti);
 }
 
 char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
 {
-    type_t type[MAXSTR];
-    p_list fnames[MAXSTR];
+    qtype type, fnames;
 
-    if (get_ti(ea, type, sizeof(type), fnames, sizeof(fnames)))
+    if (get_tinfo(ea, &type, &fnames))
     {
-        int code = print_type_to_one_line(buf, bufsize, idati, type,
-                                          NULL, NULL, fnames);
+        int code = print_type_to_one_line(buf, bufsize, idati, type.c_str(),
+                                          NULL, NULL, fnames.c_str());
         if (code == T_NORMAL)
             return buf;
-    }                                                              \
+    }
     return NULL;
 }
 
 char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
 {
-    type_t type[MAXSTR];
-    p_list fnames[MAXSTR];
+    qtype type, fnames;
 
-    if (guess_type(ea, type, sizeof(type), fnames, sizeof(fnames)))
+    if (guess_tinfo(ea, &type, &fnames))
     {
-        int code = print_type_to_one_line(buf, bufsize, idati, type,
-                                          NULL, NULL, fnames);
+        int code = print_type_to_one_line(buf, bufsize, idati, type.c_str(),
+                                          NULL, NULL, fnames.c_str());
         if (code == T_NORMAL)
             return buf;
-    }                                                              \
+    }
     return NULL;
 }
 

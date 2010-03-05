@@ -7,6 +7,7 @@
 %ignore IDPOPT_NUM;
 %ignore IDPOPT_BIT;
 %ignore IDPOPT_FLT;
+%ignore IDPOPT_I64;
 %ignore IDPOPT_OK;
 %ignore IDPOPT_BADKEY;
 %ignore IDPOPT_BADTYPE;
@@ -110,173 +111,174 @@ public:
 
 int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 {
-    class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
-    ea_t ea, ea2;
-    bool repeatable_cmt;
-    /*type_t *type;*/
-    /*  p_list *fnames; */
-    int n;
-    enum_t id;
-    const_t cid;
-    tid_t struc_id;
-    struc_t *sptr;
-    member_t *mptr;
-    tid_t member_id;
-    func_t *pfn;
-    func_t *tail;
-    segment_t *seg;
-    asize_t size;
+  class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
+  ea_t ea, ea2;
+  bool repeatable_cmt;
+  /*type_t *type;*/
+  /*  p_list *fnames; */
+  int n;
+  enum_t id;
+  const_t cid;
+  tid_t struc_id;
+  struc_t *sptr;
+  member_t *mptr;
+  tid_t member_id;
+  func_t *pfn;
+  func_t *tail;
+  segment_t *seg;
+  asize_t size;
 
-    try {
-        switch (notification_code)
-        {
-        case idb_event::byte_patched:
-            ea = va_arg(va, ea_t);
-            return proxy->byte_patched(ea);
+  try {
+    switch (notification_code)
+    {
+    case idb_event::byte_patched:
+      ea = va_arg(va, ea_t);
+      return proxy->byte_patched(ea);
 
-        case idb_event::cmt_changed:
-            ea = va_arg(va, ea_t);
-            repeatable_cmt = va_arg(va, int);
-            return proxy->cmt_changed(ea, repeatable_cmt);
+    case idb_event::cmt_changed:
+      ea = va_arg(va, ea_t);
+      repeatable_cmt = va_arg(va, int);
+      return proxy->cmt_changed(ea, repeatable_cmt);
 #if 0
-        case idb_event::ti_changed:
-            ea = va_arg(va, ea_t);
-            type = va_arg(va, type_t *);
-            fnames = va_arg(va, fnames);
-            return proxy->ti_changed(ea, type, fnames);
+    case idb_event::ti_changed:
+      ea = va_arg(va, ea_t);
+      type = va_arg(va, type_t *);
+      fnames = va_arg(va, fnames);
+      return proxy->ti_changed(ea, type, fnames);
 
-        case idb_event::op_ti_changed:
-            ea = va_arg(va, ea_t);
-            n = va_arg(va, int);
-            type = va_arg(va, type_t *);
-            fnames = va_arg(va, fnames);
-            return proxy->op_ti_changed(ea, n, type, fnames);
+    case idb_event::op_ti_changed:
+      ea = va_arg(va, ea_t);
+      n = va_arg(va, int);
+      type = va_arg(va, type_t *);
+      fnames = va_arg(va, fnames);
+      return proxy->op_ti_changed(ea, n, type, fnames);
 #endif
-        case idb_event::op_type_changed:
-            ea = va_arg(va, ea_t);
-            n = va_arg(va, int);
-            return proxy->op_type_changed(ea, n);
+    case idb_event::op_type_changed:
+      ea = va_arg(va, ea_t);
+      n = va_arg(va, int);
+      return proxy->op_type_changed(ea, n);
 
-        case idb_event::enum_created:
-            id = va_arg(va, enum_t);
-            return proxy->enum_created(id);
+    case idb_event::enum_created:
+      id = va_arg(va, enum_t);
+      return proxy->enum_created(id);
 
-        case idb_event::enum_deleted:
-            id = va_arg(va, enum_t);
-            return proxy->enum_deleted(id);
+    case idb_event::enum_deleted:
+      id = va_arg(va, enum_t);
+      return proxy->enum_deleted(id);
 
-        case idb_event::enum_bf_changed:
-            id = va_arg(va, enum_t);
-            return proxy->enum_bf_changed(id);
+    case idb_event::enum_bf_changed:
+      id = va_arg(va, enum_t);
+      return proxy->enum_bf_changed(id);
 
-        case idb_event::enum_cmt_changed:
-            id = va_arg(va, enum_t);
-            return proxy->enum_cmt_changed(id);
+    case idb_event::enum_cmt_changed:
+      id = va_arg(va, enum_t);
+      return proxy->enum_cmt_changed(id);
 
-        case idb_event::enum_const_created:
-            id = va_arg(va, enum_t);
-            cid = va_arg(va, const_t);
-            return proxy->enum_const_created(id, cid);
+    case idb_event::enum_const_created:
+      id = va_arg(va, enum_t);
+      cid = va_arg(va, const_t);
+      return proxy->enum_const_created(id, cid);
 
-        case idb_event::enum_const_deleted:
-            id = va_arg(va, enum_t);
-            cid = va_arg(va, const_t);
-            return proxy->enum_const_deleted(id, cid);
+    case idb_event::enum_const_deleted:
+      id = va_arg(va, enum_t);
+      cid = va_arg(va, const_t);
+      return proxy->enum_const_deleted(id, cid);
 
-        case idb_event::struc_created:
-            struc_id = va_arg(va, tid_t);
-            return proxy->struc_created(struc_id);
+    case idb_event::struc_created:
+      struc_id = va_arg(va, tid_t);
+      return proxy->struc_created(struc_id);
 
-        case idb_event::struc_deleted:
-            struc_id = va_arg(va, tid_t);
-            return proxy->struc_deleted(struc_id);
+    case idb_event::struc_deleted:
+      struc_id = va_arg(va, tid_t);
+      return proxy->struc_deleted(struc_id);
 
-        case idb_event::struc_renamed:
-            sptr = va_arg(va, struc_t *);
-            return proxy->struc_renamed(sptr);
+    case idb_event::struc_renamed:
+      sptr = va_arg(va, struc_t *);
+      return proxy->struc_renamed(sptr);
 
-        case idb_event::struc_expanded:
-            sptr = va_arg(va, struc_t *);
-            return proxy->struc_expanded(sptr);
+    case idb_event::struc_expanded:
+      sptr = va_arg(va, struc_t *);
+      return proxy->struc_expanded(sptr);
 
-        case idb_event::struc_cmt_changed:
-            struc_id = va_arg(va, tid_t);
-            return proxy->struc_cmt_changed(struc_id);
+    case idb_event::struc_cmt_changed:
+      struc_id = va_arg(va, tid_t);
+      return proxy->struc_cmt_changed(struc_id);
 
-        case idb_event::struc_member_created:
-            sptr = va_arg(va, struc_t *);
-            mptr = va_arg(va, member_t *);
-            return proxy->struc_member_created(sptr, mptr);
+    case idb_event::struc_member_created:
+      sptr = va_arg(va, struc_t *);
+      mptr = va_arg(va, member_t *);
+      return proxy->struc_member_created(sptr, mptr);
 
-        case idb_event::struc_member_deleted:
-            sptr = va_arg(va, struc_t *);
-            member_id = va_arg(va, tid_t);
-            return proxy->struc_member_deleted(sptr, member_id);
+    case idb_event::struc_member_deleted:
+      sptr = va_arg(va, struc_t *);
+      member_id = va_arg(va, tid_t);
+      return proxy->struc_member_deleted(sptr, member_id);
 
-        case idb_event::struc_member_renamed:
-            sptr = va_arg(va, struc_t *);
-            mptr = va_arg(va, member_t *);
-            return proxy->struc_member_renamed(sptr, mptr);
+    case idb_event::struc_member_renamed:
+      sptr = va_arg(va, struc_t *);
+      mptr = va_arg(va, member_t *);
+      return proxy->struc_member_renamed(sptr, mptr);
 
-        case idb_event::struc_member_changed:
-            sptr = va_arg(va, struc_t *);
-            mptr = va_arg(va, member_t *);
-            return proxy->struc_member_changed(sptr, mptr);
+    case idb_event::struc_member_changed:
+      sptr = va_arg(va, struc_t *);
+      mptr = va_arg(va, member_t *);
+      return proxy->struc_member_changed(sptr, mptr);
 
-        case idb_event::thunk_func_created:
-            pfn = va_arg(va, func_t *);
-            return proxy->thunk_func_created(pfn);
+    case idb_event::thunk_func_created:
+      pfn = va_arg(va, func_t *);
+      return proxy->thunk_func_created(pfn);
 
-        case idb_event::func_tail_appended:
-            pfn = va_arg(va, func_t *);
-            tail = va_arg(va, func_t *);
-            return proxy->func_tail_appended(pfn, tail);
+    case idb_event::func_tail_appended:
+      pfn = va_arg(va, func_t *);
+      tail = va_arg(va, func_t *);
+      return proxy->func_tail_appended(pfn, tail);
 
-        case idb_event::func_tail_removed:
-            pfn = va_arg(va, func_t *);
-            ea = va_arg(va, ea_t);
-            return proxy->func_tail_removed(pfn, ea);
+    case idb_event::func_tail_removed:
+      pfn = va_arg(va, func_t *);
+      ea = va_arg(va, ea_t);
+      return proxy->func_tail_removed(pfn, ea);
 
-        case idb_event::tail_owner_changed:
-            tail = va_arg(va, func_t *);
-            ea = va_arg(va, ea_t);
-            return proxy->tail_owner_changed(tail, ea);
+    case idb_event::tail_owner_changed:
+      tail = va_arg(va, func_t *);
+      ea = va_arg(va, ea_t);
+      return proxy->tail_owner_changed(tail, ea);
 
-        case idb_event::func_noret_changed:
-            pfn = va_arg(va, func_t *);
-            return proxy->func_noret_changed(pfn);
+    case idb_event::func_noret_changed:
+      pfn = va_arg(va, func_t *);
+      return proxy->func_noret_changed(pfn);
 
-        case idb_event::segm_added:
-            seg = va_arg(va, segment_t *);
-            return proxy->segm_added(seg);
+    case idb_event::segm_added:
+      seg = va_arg(va, segment_t *);
+      return proxy->segm_added(seg);
 
-        case idb_event::segm_deleted:
-            ea = va_arg(va, ea_t);
-            return proxy->segm_deleted(ea);
+    case idb_event::segm_deleted:
+      ea = va_arg(va, ea_t);
+      return proxy->segm_deleted(ea);
 
-        case idb_event::segm_start_changed:
-            seg = va_arg(va, segment_t *);
-            return proxy->segm_start_changed(seg);
+    case idb_event::segm_start_changed:
+      seg = va_arg(va, segment_t *);
+      return proxy->segm_start_changed(seg);
 
-        case idb_event::segm_end_changed:
-            seg = va_arg(va, segment_t *);
-            return proxy->segm_end_changed(seg);
+    case idb_event::segm_end_changed:
+      seg = va_arg(va, segment_t *);
+      return proxy->segm_end_changed(seg);
 
-        case idb_event::segm_moved:
-            ea = va_arg(va, ea_t);
-            ea2 = va_arg(va, ea_t);
-            size = va_arg(va, asize_t);
-            return proxy->segm_moved(ea, ea2, size);
-        }
+    case idb_event::segm_moved:
+      ea = va_arg(va, ea_t);
+      ea2 = va_arg(va, ea_t);
+      size = va_arg(va, asize_t);
+      return proxy->segm_moved(ea, ea2, size);
     }
-    catch (Swig::DirectorException &) 
-    { 
-        msg("Exception in IDP Hook function:\n"); 
-        if (PyErr_Occurred())
-	{
-            PyErr_Print();
-	}
+  }
+  catch (Swig::DirectorException &) 
+  { 
+    msg("Exception in IDP Hook function:\n"); 
+    if (PyErr_Occurred())
+    {
+      PyErr_Print();
     }
+  }
+  return 0;
 }
 
 // Assemble an instruction into the database (display a warning if an error is found)

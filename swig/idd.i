@@ -30,7 +30,7 @@ PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
     const memory_info_t &mi = *it;
     // startEA endEA name sclass sbase bitness perm
     PyList_SetItem(py_list, i,
-      Py_BuildValue("(KKssKii)",
+      Py_BuildValue("("PY_FMT64 PY_FMT64 "ss" PY_FMT64 "II)",
         pyul_t(mi.startEA),
         pyul_t(mi.endEA),
         mi.name.c_str(),
@@ -110,7 +110,7 @@ PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
   int sreg_value = PyInt_AsLong(py_sreg_value);
   if (dbg->thread_get_sreg_base(tid, sreg_value, &answer) != 1)
     Py_RETURN_NONE;
-  return Py_BuildValue("K", pyul_t(answer));
+  return Py_BuildValue(PY_FMT64, pyul_t(answer));
 }
 
 //-------------------------------------------------------------------------
@@ -185,7 +185,7 @@ PyObject *py_appcall(
       msg("obj[%d]->%s\n", int(i), s.c_str());
     }
     // Convert it
-    if (pyvar_to_idcvar(py_item, &idc_args[i], &sn) <= 0)
+    if (pyvar_to_idcvar(py_item, &idc_args[i], &sn) < CIP_OK)
     {
       ok = false;
       break;

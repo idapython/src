@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#------------------------------------------------------------
+# -----------------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
 # Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
@@ -8,9 +8,9 @@
 #
 # For detailed copyright information see the file COPYING in
 # the root of the distribution archive.
-#------------------------------------------------------------
+# -----------------------------------------------------------------------
 # init.py - Essential init routines
-#------------------------------------------------------------
+# -----------------------------------------------------------------------
 import os
 import sys
 import time
@@ -21,7 +21,7 @@ import _idaapi
 # __EA64__ is set if IDA is running in 64-bit mode
 __EA64__ = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
 
-
+# -----------------------------------------------------------------------
 def addscriptpath(script):
     """
     Add the path part of the scriptfile to the system path to
@@ -45,7 +45,7 @@ def addscriptpath(script):
     if not script in scriptbox.list:
         scriptbox.list.insert(0, script)
 
-
+# ------------------------------------------------------------
 def runscript(script):
     """
     Run the specified script after adding its directory path to
@@ -80,28 +80,24 @@ def runscript(script):
             if not module in basemodules:
                 del(sys.modules[module])
 
+# -----------------------------------------------------------------------
 def print_banner():
-    version1 = "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info
-    version2 = "Copyright (c) 1990-2009 Python Software Foundation - http://www.python.org/"
-    if __EA64__:
-        version3 = "IDAPython 64-bit"
-    else:
-        version3 = "IDAPython"
-    version3 += " version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION
-    version4 = "Copyright (c) 2004-2009 Gergely Erdelyi - http://d-dome.net/idapython/"
-    linelen  = max(len(version1), len(version2), len(version3), len(version4))
+    banner = [
+      "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info,
+      "Copyright (c) 1990-2009 Python Software Foundation - http://www.python.org/",
+      "",
+      "IDAPython" + (" 64-bit" if __EA64__ else "") + " version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION,
+      "Copyright (c) 2004-2009 Gergely Erdelyi - http://d-dome.net/idapython/"
+    ]
+    sepline = '-' * max([len(s) for s in banner])
 
-    print '-' * linelen
-    print version1
-    print version2
-    print
-    print version3
-    print version4
-    print '-' * linelen
+    print sepline
+    print "\n".join(banner)
+    print sepline
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 # Take over the standard text outputs
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 class MyStdOut:
     """
     Dummy file-like class that receives stout and stderr
@@ -109,6 +105,7 @@ class MyStdOut:
     def write(self, text):
         # Swap out the unprintable characters
         text = text.decode('ascii', 'replace').encode('ascii', 'replace')
+        # Print to IDA message window
         _idaapi.msg(text.replace("%", "%%"))
 
     def flush(self):
@@ -121,22 +118,22 @@ class MyStdOut:
 sys.stdout = sys.stderr = MyStdOut()
 
 # Assign a default sys.argv
-sys.argv = [ "" ]
+sys.argv = [""]
 
 # Have to make sure Python finds our modules
 sys.path.append(_idaapi.idadir("python"))
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 # Import all the required modules
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 from idaapi import Choose, get_user_idadir, cvar, Choose2, Appcall
 from idc import *
 from idautils import *
 import idaapi
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 # Build up the ScriptBox tool
-#-----------------------------------------------------------
+# -----------------------------------------------------------------------
 class ScriptBox(Choose):
     def __init__(self, list=None):
         if list:
@@ -161,7 +158,7 @@ class ScriptBox(Choose):
 
 scriptbox = ScriptBox()
 
-#-------------------------------------------------------------
+# -----------------------------------------------------------------------
 # Watchdog to catch runaway scripts after a specified timeout
 #
 # Usage:
@@ -170,7 +167,7 @@ scriptbox = ScriptBox()
 #
 # Note: The watchdog only works for code running inside
 #       functions, not in global/module namespace.
-#-------------------------------------------------------------
+# -----------------------------------------------------------------------
 class WatchDog():
     """
     Python tracer-based watchdog class
@@ -217,11 +214,14 @@ class WatchDog():
 
 watchdog = WatchDog(10)
 
+# -----------------------------------------------------------------------
 # Load the users personal init file
 userrc = get_user_idadir() + os.sep + "idapythonrc.py"
 
+# -----------------------------------------------------------------------
 if os.path.exists(userrc):
     runscript(userrc)
+
     # Remove the user script from the history
     del scriptbox.list[0]
 

@@ -42,7 +42,7 @@ public:
     fp = NULL;
     own = true;
     fn.qclear();
-    __idc_cvt_id__ = 2; // Opaque object
+    __idc_cvt_id__ = PY_ICID_OPAQUE;
     if (pycobject != NULL && PyCObject_Check(pycobject))
       _from_cobject(pycobject);
   }
@@ -61,6 +61,7 @@ public:
     if (own)
       qfclose(fp);
     fp = NULL;
+    own = true;
   }
 
   //--------------------------------------------------------------------------

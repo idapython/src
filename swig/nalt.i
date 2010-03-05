@@ -33,6 +33,7 @@ static int idaapi py_import_enum_cb(
   Py_DECREF(py_ea);
   Py_DECREF(py_name);
   Py_DECREF(py_ord);
+  Py_XDECREF(py_result);
   return r;
 }
 //</code(py_nalt)>

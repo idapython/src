@@ -1,31 +1,19 @@
 %{
 //<code(py_graph)>
-#define GR_HAVE_USER_HINT         0x00000001
-#define GR_HAVE_CLICKED           0x00000002
-#define GR_HAVE_DBL_CLICKED       0x00000004
-#define GR_HAVE_GOTFOCUS          0x00000008
-#define GR_HAVE_LOSTFOCUS         0x00000010
-#define GR_HAVE_CHANGED_CURRENT   0x00000020
-#define GR_HAVE_CLOSE             0x00000040
-#define GR_HAVE_COMMAND           0x00000080
-#define S_ON_COMMAND              "OnCommand"
-#define S_ON_REFRESH              "OnRefresh"
-#define S_ON_HINT                 "OnHint"
-#define S_ON_GETTEXT              "OnGetText"
-#define S_ON_CLOSE                "OnClose"
-#define S_ON_CLICK                "OnClick"
-#define S_ON_DBL_CLICK            "OnDblClick"
-#define S_ON_ACTIVATE             "OnActivate"
-#define S_ON_DEACTIVATE           "OnDeactivate"
-#define S_ON_SELECT               "OnSelect"
-#define S_M_EDGES                 "_edges"
-#define S_M_NODES                 "_nodes"
-#define S_M_THIS                  "_this"
-#define S_M_TITLE                 "_title"
-
 class py_graph_t
 {
 private:
+  enum
+  {
+    GR_HAVE_USER_HINT       = 0x00000001,
+    GR_HAVE_CLICKED         = 0x00000002,
+    GR_HAVE_DBL_CLICKED     = 0x00000004,
+    GR_HAVE_GOTFOCUS        = 0x00000008,
+    GR_HAVE_LOSTFOCUS       = 0x00000010,
+    GR_HAVE_CHANGED_CURRENT = 0x00000020,
+    GR_HAVE_CLOSE           = 0x00000040,
+    GR_HAVE_COMMAND         = 0x00000080
+  };
   struct nodetext_cache_t
   {
     qstring text;
@@ -126,7 +114,7 @@ private:
   void on_command(Py_ssize_t id)
   {
     // Check return value to OnRefresh() call
-    PyObject *ret = PyObject_CallMethod(self, S_ON_COMMAND, "n", id);
+    PyObject *ret = PyObject_CallMethod(self, (char *)S_ON_COMMAND, "n", id);
     Py_XDECREF(ret);
   }
 
@@ -139,7 +127,7 @@ private:
       return;
 
     // Check return value to OnRefresh() call
-    PyObject *ret = PyObject_CallMethod(self, S_ON_REFRESH, NULL);
+    PyObject *ret = PyObject_CallMethod(self, (char *)S_ON_REFRESH, NULL);
     if (ret == NULL || !PyBool_Check(ret) || ret != Py_True)
     {
       Py_XDECREF(ret);
@@ -224,7 +212,7 @@ private:
     }
 
     // Not cached, call Python
-    PyObject *result = PyObject_CallMethod(self, S_ON_GETTEXT, "l", node);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_GETTEXT, "i", node);
     if (result == NULL)
       return false;
 
@@ -274,7 +262,7 @@ private:
     if (mousenode == -1)
       return 0;
 
-    PyObject *result = PyObject_CallMethod(self, S_ON_HINT, "l", mousenode);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_HINT, "i", mousenode);
     bool ok = result != NULL && PyString_Check(result);
     if (!ok)
     {
@@ -293,7 +281,7 @@ private:
     {
       if (cb_flags & GR_HAVE_CLOSE)
       {
-        PyObject *result = PyObject_CallMethod(self, S_ON_CLOSE, NULL);
+        PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
         Py_XDECREF(result);
       }
       unbind();
@@ -322,7 +310,7 @@ private:
     if (item2->n == -1)
       return 1;
 
-    PyObject *result = PyObject_CallMethod(self, S_ON_CLICK, "l", item2->n);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLICK, "i", item2->n);
     if (result == NULL || !PyBool_Check(result) || result != Py_True)
     {
       Py_XDECREF(result);
@@ -343,7 +331,7 @@ private:
     //selection_item_t *s = va_arg(va, selection_item_t *);
     if (item == NULL || !item->is_node)
       return 1;
-    PyObject *result = PyObject_CallMethod(self, S_ON_DBL_CLICK, "l", item->node);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_DBL_CLICK, "i", item->node);
     if (result == NULL || !PyBool_Check(result) || result != Py_True)
     {
       Py_XDECREF(result);
@@ -356,14 +344,14 @@ private:
   // a graph viewer got focus
   void on_gotfocus(graph_viewer_t * /*gv*/)
   {
-    PyObject *result = PyObject_CallMethod(self, S_ON_ACTIVATE, NULL);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_ACTIVATE, NULL);
     Py_XDECREF(result);
   }
 
   // a graph viewer lost focus
   void on_lostfocus(graph_viewer_t *gv)
   {
-    PyObject *result = PyObject_CallMethod(self, S_ON_DEACTIVATE, NULL);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_DEACTIVATE, NULL);
     Py_XDECREF(result);
   }
 
@@ -378,8 +366,8 @@ private:
     //msg("%x: current node becomes %d\n", v, curnode);
     if (curnode < 0)
       return 0;
-    PyObject *result = PyObject_CallMethod(self, S_ON_SELECT, "l", curnode);
-    bool allow = (result != NULL && PyBool_Check(result) && result == Py_True);
+    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_SELECT, "i", curnode);
+    bool allow = (result != NULL && PyObject_IsTrue(result));
     Py_XDECREF(result);
     return allow ? 0 : 1;
   }
@@ -747,29 +735,6 @@ void pyg_select_node(PyObject *self, int nid)
 {
   py_graph_t::SelectNode(self, nid);
 }
-
-#undef GR_HAVE_USER_HINT
-#undef GR_HAVE_CLICKED
-#undef GR_HAVE_DBL_CLICKED
-#undef GR_HAVE_GOTFOCUS
-#undef GR_HAVE_LOSTFOCUS
-#undef GR_HAVE_CHANGED_CURRENT
-#undef GR_HAVE_CLOSE
-#undef GR_HAVE_COMMAND
-#undef S_ON_COMMAND
-#undef S_ON_REFRESH
-#undef S_ON_HINT
-#undef S_ON_GETTEXT
-#undef S_ON_CLOSE
-#undef S_ON_CLICK
-#undef S_ON_DBL_CLICK
-#undef S_ON_ACTIVATE
-#undef S_ON_DEACTIVATE
-#undef S_ON_SELECT
-#undef S_M_EDGES
-#undef S_M_NODES
-#undef S_M_THIS
-#undef S_M_TITLE
 //</code(py_graph)>
 %}
 

@@ -81,7 +81,9 @@
 
 %ignore netnode::altadjust;
 
-// Renaming one version of hashset() otherwise SWIG will not be able to activate the other one 
+%ignore netnode::operator nodeidx_t;
+
+// Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, char tag=htag);
 
 %include "netnode.hpp"
