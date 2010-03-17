@@ -20,13 +20,22 @@
 // param: user parameter passed to enum_import_names()
 // return: 1-ok, 0-stop enumeration
 static int idaapi py_import_enum_cb(
-  ea_t ea, 
-  const char *name, 
-  uval_t ord, 
+  ea_t ea,
+  const char *name,
+  uval_t ord,
   void *param)
 {
   PyObject *py_ea = Py_BuildValue(PY_FMT64, pyul_t(ea));
-  PyObject *py_name = PyString_FromString(name);
+  PyObject *py_name;
+  if ( name == NULL )
+  {
+    py_name = Py_None;
+    Py_INCREF(Py_None);
+  }
+  else
+  {
+    py_name = PyString_FromString(name);
+  }
   PyObject *py_ord = Py_BuildValue(PY_FMT64, pyul_t(ord));
   PyObject *py_result = PyObject_CallFunctionObjArgs((PyObject *)param, py_ea, py_name, py_ord, NULL);
   int r = py_result != NULL && PyObject_IsTrue(py_result) ? 1 : 0;

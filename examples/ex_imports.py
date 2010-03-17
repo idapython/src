@@ -5,7 +5,10 @@
 import idaapi
 
 def imp_cb(ea, name, ord):
-    print "%08x: %s (ord#%d)" % (ea, name, ord)
+    if not name:
+        print "%08x: ord#%d" % (ea, ord)
+    else:
+        print "%08x: %s (ord#%d)" % (ea, name, ord)
     # True -> Continue enumeration
     # False -> Stop enumeration
     return True
