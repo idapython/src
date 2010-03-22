@@ -451,6 +451,13 @@ class Strings(object):
             return Strings.StringItem(self._si)
         return None
 
+def GetRegisterList():
+    """Returns the register list"""
+    return idaapi.ph_get_regnames()
+
+def GetInstructionList():
+    """Returns the instruction list of the current processor module"""
+    return [i[0] for i in idaapi.ph_get_instruc() if i[0]]
 
 def _Assemble(ea, line):
     """

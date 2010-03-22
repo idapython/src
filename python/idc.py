@@ -805,7 +805,7 @@ def MakePackReal(ea):
 
     @return: 1-ok, 0-failure
     """
-    return idaapi.doPackReal(ea, idaapi.cvar.ph.tbyte_size)
+    return idaapi.doPackReal(ea, idaapi.ph_get_tbyte_size())
 
 
 def MakeTbyte(ea):
@@ -816,7 +816,7 @@ def MakeTbyte(ea):
 
     @return: 1-ok, 0-failure
     """
-    return idaapi.doTbyt(ea, idaapi.cvar.ph.tbyte_size)
+    return idaapi.doTbyt(ea, idaapi.ph_get_tbyte_size())
 
 
 def MakeStructEx(ea, size, strname):
@@ -2352,13 +2352,13 @@ def ChangeConfig(directive):
     @note: If the directives are erroneous, a fatal error will be generated.
            The changes will be effective only for the current session.
     """
-    return Eval('ChangeConfig("%s")'%directive)
+    return Eval('ChangeConfig("%s")' % directive)
 
 
 # The following functions allow you to set/get common parameters.
 # Please note that not all parameters can be set directly.
 
-def GetLongPrm (offset):
+def GetLongPrm(offset):
     """
     """
     val = _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)

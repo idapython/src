@@ -2,6 +2,9 @@
 %ignore WorkReg; 
 %ignore AbstractRegister;
 %ignore rginfo;
+%ignore insn_t::get_canon_mnem;
+%ignore insn_t::get_canon_feature;
+%ignore insn_t::is_canon_insn;
 %ignore bytes_t;
 %ignore IDPOPT_STR;
 %ignore IDPOPT_NUM;
@@ -14,7 +17,6 @@
 %ignore IDPOPT_BADVALUE;
 %ignore set_options_t;
 %ignore read_user_config_file;
-%ignore instruc_t;
 
 %ignore s_preline;
 %ignore ca_operation_t;
@@ -25,42 +27,15 @@
 %ignore asm_t::func_header;
 %ignore asm_t::func_footer;
 %ignore asm_t::get_type_name;
-%ignore processor_t::notify;
-%ignore processor_t::header;
-%ignore processor_t::footer;
-%ignore processor_t::segstart;
-%ignore processor_t::segend;
-%ignore processor_t::assumes;
-%ignore processor_t::u_ana;
-%ignore processor_t::u_emu;
-%ignore processor_t::u_out;
-%ignore processor_t::u_outop;
-%ignore processor_t::d_out;
-%ignore processor_t::cmp_opnd;
-%ignore processor_t::can_have_type;
-%ignore processor_t::getreg;
-%ignore processor_t::is_far_jump;
-%ignore processor_t::translate;
-%ignore processor_t::realcvt;
-%ignore processor_t::is_switch;
-%ignore processor_t::gen_map_file;
-%ignore processor_t::extract_address;
-%ignore processor_t::is_sp_based;
-%ignore processor_t::create_func_frame;
-%ignore processor_t::get_frame_retsize;
-%ignore processor_t::gen_stkvar_def;
-%ignore processor_t::u_outspec;
-%ignore processor_t::is_align_insn;
+%ignore instruc_t;
+%ignore processor_t;
+%ignore ph;
 %ignore IDB_Callback;
-%ignore processor_t::idp_notify;
-%ignore processor_t::notify;
-%ignore processor_t::set_idp_options;
 
 %ignore free_processor_module;
 %ignore read_config_file;
 
 %ignore gen_idb_event;
-
 
 %include "idp.hpp"
 
@@ -306,6 +281,10 @@ inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *lin
     return 0;
 }
 
+//<inline(py_idp)>
+//-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
 // Assemble an instruction to a buffer (display a warning if an error is found)
 // args:
 //  ea_t ea -  linear address of instruction
@@ -314,15 +293,47 @@ inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *lin
 //  bool use32 - is 32bit segment?
 //  const char *line - line to assemble
 // returns: 1: success, 0: failure 
-inline const PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
 {
-    int inslen;
-    char buf[MAXSTR];
-    if (ph.notify != NULL &&
-        (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
-    {
-        return PyString_FromStringAndSize(buf, inslen);
-    }
-    Py_RETURN_NONE;
+  int inslen;
+  char buf[MAXSTR];
+  if (ph.notify != NULL &&
+    (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
+  {
+    return PyString_FromStringAndSize(buf, inslen);
+  }
+  Py_RETURN_NONE;
 }
+
+//-------------------------------------------------------------------------
+static size_t ph_get_tbyte_size()
+{
+  return ph.tbyte_size;
+}
+
+//-------------------------------------------------------------------------
+static PyObject *ph_get_instruc()
+{
+  Py_ssize_t i = 0;
+  PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
+  for ( instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
+        p != end;
+        ++p )
+  {
+    PyTuple_SetItem(py_result, i++, Py_BuildValue("(sI)", p->name, p->feature));
+  }
+  return py_result;
+}
+
+//-------------------------------------------------------------------------
+static PyObject *ph_get_regnames()
+{
+  Py_ssize_t i = 0;
+  PyObject *py_result = PyList_New(ph.regsNum);
+  for ( Py_ssize_t i=0; i<ph.regsNum; i++ )
+    PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
+  return py_result;
+}
+
+//</inline(py_idp)>
 %}
