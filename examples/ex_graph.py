@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------
+# This is an example illustrating how to use the graphing functionality in Python
+# (c) Hex-Rays
+#
 from idaapi import GraphViewer
 
 class MyGraph(GraphViewer):
@@ -26,7 +30,7 @@ def main():
     # Iterate through all function instructions and take only call instructions
     result = {}
     for x in [x for x in FuncItems(f.startEA) if idaapi.is_call_insn(x)]:
-        for xref in XrefsFrom(x, idaapi.XREF_FAR): 
+        for xref in XrefsFrom(x, idaapi.XREF_FAR):
             if not xref.iscode: continue
             t = GetFunctionName(xref.to)
             if not t:

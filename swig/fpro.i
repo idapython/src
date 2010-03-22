@@ -17,7 +17,7 @@ private:
   //--------------------------------------------------------------------------
   bool _from_fp(FILE *fp)
   {
-    if (fp == NULL)
+    if ( fp == NULL )
       return false;
     own = false;
     fn.sprnt("<FILE * %p>", fp);
@@ -43,7 +43,7 @@ public:
     own = true;
     fn.qclear();
     __idc_cvt_id__ = PY_ICID_OPAQUE;
-    if (pycobject != NULL && PyCObject_Check(pycobject))
+    if ( pycobject != NULL && PyCObject_Check(pycobject) )
       _from_cobject(pycobject);
   }
 
@@ -56,9 +56,9 @@ public:
   //--------------------------------------------------------------------------
   void close()
   {
-    if (fp == NULL)
+    if ( fp == NULL )
       return;
-    if (own)
+    if ( own )
       qfclose(fp);
     fp = NULL;
     own = true;
@@ -75,7 +75,7 @@ public:
   {
     close();
     fp = qfopen(filename, mode);
-    if (fp == NULL)
+    if ( fp == NULL )
       Py_RETURN_FALSE;
     // Save file name
     fn = filename;
@@ -86,7 +86,7 @@ public:
   //--------------------------------------------------------------------------
   static qfile_t *from_fp(FILE *fp)
   {
-    if (fp == NULL)
+    if ( fp == NULL )
       return NULL;
     qfile_t *qf = new qfile_t();
     qf->own = false;
@@ -132,10 +132,10 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
       int r = freadbytes(fp, buf, size, big_endian);
-      if (r != 0)
+      if ( r != 0 )
       {
         free(buf);
         break;
@@ -143,7 +143,7 @@ public:
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -153,10 +153,10 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
       int r = qfread(fp, buf, size);
-      if (r <= 0)
+      if ( r <= 0 )
       {
         free(buf);
         break;
@@ -164,7 +164,7 @@ public:
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -174,9 +174,9 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
-      if (qfgets(buf, size, fp) == NULL)
+      if ( qfgets(buf, size, fp) == NULL )
       {
         free(buf);
         break;
@@ -184,7 +184,7 @@ public:
       PyObject *ret = PyString_FromString(buf);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -199,7 +199,7 @@ public:
   //--------------------------------------------------------------------------
   int write(PyObject *py_buf)
   {
-    if (!PyString_Check(py_buf))
+    if ( !PyString_Check(py_buf) )
       return 0;
     return qfwrite(fp, (void *)PyString_AS_STRING(py_buf), PyString_GET_SIZE(py_buf));
   }
@@ -235,7 +235,7 @@ public:
   PyObject *get_char()
   {
     int ch = qfgetc(fp);
-    if (ch == EOF)
+    if ( ch == EOF )
       Py_RETURN_NONE;
     return Py_BuildValue("c", ch);
   }

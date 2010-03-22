@@ -100,19 +100,19 @@ public:
   //--------------------------------------------------------------------------
   loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
-    if (pycobject != NULL && PyCObject_Check(pycobject))
+    if ( pycobject != NULL && PyCObject_Check(pycobject) )
       _from_cobject(pycobject);
   }
 
   //--------------------------------------------------------------------------
   void close()
   {
-    if (li == NULL)
+    if ( li == NULL )
       return;
 
-    if (own == OWN_CREATE)
+    if ( own == OWN_CREATE )
       close_linput(li);
-    else if (own == OWN_FROM_FP)
+    else if ( own == OWN_FROM_FP )
       unmake_linput(li);
 
     li = NULL;
@@ -130,7 +130,7 @@ public:
   {
     close();
     li = open_linput(filename, remote);
-    if (li == NULL)
+    if ( li == NULL )
       Py_RETURN_FALSE;
 
     // Save file name
@@ -160,7 +160,7 @@ public:
   // This method can be used to pass a linput_t* from C code
   static loader_input_t *from_cobject(PyObject *pycobject)
   {
-    if (!PyCObject_Check(pycobject))
+    if ( !PyCObject_Check(pycobject) )
       return NULL;
     loader_input_t *l = new loader_input_t();
     l->_from_cobject(pycobject);
@@ -171,7 +171,7 @@ public:
   static loader_input_t *from_fp(FILE *fp)
   {
     linput_t *fp_li = make_linput(fp);
-    if (fp_li == NULL)
+    if ( fp_li == NULL )
       return NULL;
 
     loader_input_t *l = new loader_input_t();
@@ -191,7 +191,7 @@ public:
   PyObject *open_memory(ea_t start, asize_t size = 0)
   {
     linput_t *l = create_memory_linput(start, size);
-    if (l == NULL)
+    if ( l == NULL )
       Py_RETURN_FALSE;
     close();
     li = l;
@@ -218,13 +218,13 @@ public:
     do
     {
       char *buf = (char *) malloc(sz + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
       qlgetz(li, fpos, buf, sz);
       PyObject *ret = PyString_FromString(buf);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -234,9 +234,9 @@ public:
     do
     {
       char *buf = (char *) malloc(len + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
-      if (qlgets(buf, len, li) == NULL)
+      if ( qlgets(buf, len, li) == NULL )
       {
         free(buf);
         break;
@@ -244,7 +244,7 @@ public:
       PyObject *ret = PyString_FromString(buf);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -254,10 +254,10 @@ public:
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
       ssize_t r = qlread(li, buf, size);
-      if (r == -1)
+      if ( r == -1 )
       {
         free(buf);
         break;
@@ -265,7 +265,7 @@ public:
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -274,17 +274,17 @@ public:
   {
     return li != NULL;
   }
-  
+
   //--------------------------------------------------------------------------
   PyObject *readbytes(size_t size, bool big_endian)
   {
     do
     {
       char *buf = (char *) malloc(size + 5);
-      if (buf == NULL)
+      if ( buf == NULL )
         break;
       int r = lreadbytes(li, buf, size, big_endian);
-      if (r == -1)
+      if ( r == -1 )
       {
         free(buf);
         break;
@@ -292,7 +292,7 @@ public:
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
-    } while (false);
+    } while ( false );
     Py_RETURN_NONE;
   }
 
@@ -318,7 +318,7 @@ public:
   PyObject *get_char()
   {
     int ch = qlgetc(li);
-    if (ch == EOF)
+    if ( ch == EOF )
       Py_RETURN_NONE;
     return Py_BuildValue("c", ch);
   }
@@ -328,20 +328,20 @@ public:
 //--------------------------------------------------------------------------
 PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback)
 {
-  do 
+  do
   {
-    if (!PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback))
+    if ( !PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback) )
       break;
     const char *_path = PyString_AsString(path);
     const char *_fname = PyString_AsString(fname);
-    if (_path == NULL || _fname == NULL)
+    if ( _path == NULL || _fname == NULL )
       break;
     char answer[MAXSTR];
     answer[0] = '\0';
     int r = enumerate_files(answer, sizeof(answer), _path, _fname, py_enumerate_files_cb, callback);
     return Py_BuildValue("(is)", r, answer);
-  } while (false);
-  Py_RETURN_NONE;  
+  } while ( false );
+  Py_RETURN_NONE;
 }
 //</inline(py_diskio)>
 %}
