@@ -80,6 +80,7 @@ BINDIST_MANIFEST = [
     "examples/ex_debug_names.py",
     "examples/ex_graph.py",
     "examples/ex_dbg.py",
+    "examples/ex_custview.py",
     "examples/ex_imports.py"
 ]
 
@@ -171,7 +172,7 @@ class BuilderBase:
                                   self.linker_out_string(outfile))
 
         for objectfile in objects:
-            cmdstring = "%s %s" % (cmdstring, objectfile + self.object_extension) 
+            cmdstring = "%s %s" % (cmdstring, objectfile + self.object_extension)
         for libpath in libpaths:
             cmdstring = "%s %s%s" % (cmdstring, self.libpath_delimiter, libpath)
         for library in libraries:
@@ -192,7 +193,7 @@ class BuilderBase:
                 macrostring += '%s%s ' % (argument_delimiter, item)
 
         return macrostring
-    
+
 
 class GCCBuilder(BuilderBase):
     """ Generic GCC compiler class """
