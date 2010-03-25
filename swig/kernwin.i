@@ -75,11 +75,11 @@ def askseg(defval, format):
 
 %{
 
-//<code(py_custview)>
+//<code(py_custviewer)>
 
 //---------------------------------------------------------------------------
-// Base class for all custview place_t providers
-class custview_data_t
+// Base class for all custviewer place_t providers
+class custviewer_data_t
 {
 public:
   virtual void    *get_ud() = 0;
@@ -88,7 +88,7 @@ public:
 };
 
 //---------------------------------------------------------------------------
-class cvdata_simpleline_t: public custview_data_t
+class cvdata_simpleline_t: public custviewer_data_t
 {
 private:
   strvec_t lines;
@@ -192,13 +192,13 @@ public:
 };
 
 //---------------------------------------------------------------------------
-class customview_t
+class customviewer_t
 {
 protected:
   qstring _title;
   TForm *_form;
   TCustomControl *_cv;
-  custview_data_t *_data;
+  custviewer_data_t *_data;
   int _features;
   enum
   {
@@ -214,9 +214,9 @@ private:
   struct pyw_popupctx_t
   {
     size_t menu_id;
-    customview_t *cv;
+    customviewer_t *cv;
     pyw_popupctx_t(): menu_id(0), cv(NULL) { }
-    pyw_popupctx_t(size_t mid, customview_t *v): menu_id(mid), cv(v) { }
+    pyw_popupctx_t(size_t mid, customviewer_t *v): menu_id(mid), cv(v) { }
   };
   typedef std::map<unsigned int, pyw_popupctx_t> pyw_popupmap_t;
   static pyw_popupmap_t _global_popup_map;
@@ -226,7 +226,7 @@ private:
 
   static bool idaapi s_popup_cb(void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_popup();
   }
 
@@ -241,38 +241,38 @@ private:
 
   static bool idaapi s_cv_keydown(TCustomControl * /*cv*/, int vk_key, int shift, void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_keydown(vk_key, shift);
   }
   // The popup menu is being constructed
   static void idaapi s_cv_popup(TCustomControl * /*cv*/, void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     _this->on_popup();
   }
   // The user clicked
   static bool idaapi s_cv_click(TCustomControl *cv, int shift, void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_click(shift);
   }
   // The user double clicked
   static bool idaapi s_cv_dblclick(TCustomControl * /*cv*/, int shift, void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_dblclick(shift);
   }
   // Cursor position has been changed
   static void idaapi s_cv_curpos(TCustomControl * /*cv*/, void *ud)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     _this->on_curpos_changed();
   }
 
   //--------------------------------------------------------------------------
   static int idaapi s_ui_cb(void *ud, int code, va_list va)
   {
-    customview_t *_this = (customview_t *)ud;
+    customviewer_t *_this = (customviewer_t *)ud;
     switch ( code )
     {
     case ui_get_custom_viewer_hint:
@@ -331,12 +331,12 @@ public:
     _form = NULL;
   }
 
-  customview_t()
+  customviewer_t()
   {
     init_vars();
   }
 
-  ~customview_t()
+  ~customviewer_t()
   {
   }
 
@@ -387,6 +387,38 @@ public:
   }
 
   //--------------------------------------------------------------------------
+  bool get_current_word(bool mouse, qstring &word)
+  {
+    // query the cursor position
+    int x, y;
+    if ( get_place(mouse, &x, &y) == NULL )
+      return false;
+
+    // query the line at the cursor
+    const char *line = get_current_line(mouse, true);
+    if ( line == NULL )
+      return false;
+
+    if ( x >= (int)strlen(line) )
+      return false;
+
+    // find the beginning of the word
+    const char *ptr = line + x;
+    while ( ptr > line && !isspace(ptr[-1]) )
+      ptr--;
+
+    // find the end of the word
+    const char *begin = ptr;
+    ptr = line + x;
+    while ( !isspace(*ptr) && *ptr != '\0' )
+      ptr++;
+
+    word.qclear();
+    word.append(begin, ptr-begin);
+    return true;
+  }
+
+  //--------------------------------------------------------------------------
   const char *get_current_line(bool mouse, bool notags)
   {
     const char *r = get_custom_viewer_curline(_cv, mouse);
@@ -434,7 +466,7 @@ public:
   {
     size_t menu_id = _global_popup_id + 1;
     // Overlap / already exists?
-    if (_cv == NULL || // No custview?
+    if (_cv == NULL || // No custviewer?
         menu_id == 0 || // Overlap?
         _global_popup_map.find(menu_id) != _global_popup_map.end()) // Already exists?
     {
@@ -452,7 +484,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  bool create(const char *title, int features, custview_data_t *data)
+  bool create(const char *title, int features, custviewer_data_t *data)
   {
     // Already created? (in the instance)
     if ( _form != NULL )
@@ -516,10 +548,10 @@ public:
   }
 };
 
-customview_t::pyw_popupmap_t customview_t::_global_popup_map;
-size_t customview_t::_global_popup_id = 0;
+customviewer_t::pyw_popupmap_t customviewer_t::_global_popup_map;
+size_t customviewer_t::_global_popup_id = 0;
 //---------------------------------------------------------------------------
-class py_simplecustview_t: public customview_t
+class py_simplecustview_t: public customviewer_t
 {
 private:
   cvdata_simpleline_t data;
@@ -735,7 +767,7 @@ public:
 
   bool jumpto(size_t ln, int x, int y)
   {
-    return customview_t::jumpto(&simpleline_place_t(ln), x, y);
+    return customviewer_t::jumpto(&simpleline_place_t(ln), x, y);
   }
 
   // Initializes and links the Python object to this class
@@ -788,7 +820,7 @@ public:
       if ( !init(py_last_link, _title.c_str()) )
         return false;
     }
-    return customview_t::show();
+    return customviewer_t::show();
   }
 
   bool get_selection(size_t *x1, size_t *y1, size_t *x2, size_t *y2)
@@ -828,7 +860,7 @@ public:
     return py_this;
   }
 };
-//</code(py_custview)>
+//</code(py_custviewer)>
 
 bool idaapi py_menu_item_callback(void *userdata)
 {
@@ -862,10 +894,10 @@ bool idaapi py_menu_item_callback(void *userdata)
 
 %rename (add_menu_item) wrap_add_menu_item;
 %inline %{
-//<inline(py_custview)>
+//<inline(py_custviewer)>
 
 //
-// Pywraps Simple Custom View functions
+// Pywraps Simple Custom Viewer functions
 //
 PyObject *pyscv_init(PyObject *py_link, const char *title)
 {
@@ -1022,6 +1054,18 @@ PyObject *pyscv_get_selection(PyObject *py_this)
   return _this->py_get_selection();
 }
 
+PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
+{
+  DECL_THIS;
+  if ( _this != NULL )
+  {
+    qstring word;
+    if ( _this->get_current_word(mouse, word) )
+      return PyString_FromString(word.c_str());
+  }
+  Py_RETURN_NONE;
+}
+
 // Edits an existing line
 bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 {
@@ -1029,7 +1073,7 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
   return _this == NULL ? false : _this->edit_line(nline, py_sl);
 }
 #undef DECL_THIS
-//</inline(py_custview)>
+//</inline(py_custviewer)>
 
 //<inline(py_choose2)>
 #ifdef CH_ATTRS
@@ -1798,8 +1842,8 @@ class Choose:
 		"""
 		return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
 
-#<pycode(py_custview)>
-class simplecustview_t(object):
+#<pycode(py_custviewer)>
+class simplecustviewer_t(object):
 
     def __init__(self):
         self.this = None
@@ -1875,11 +1919,17 @@ class simplecustview_t(object):
         return _idaapi.pyscv_add_line(self.this, self.make_sl_arg(line, fgcolor, bgcolor))
 
     def InsertLine(self, lineno, line, fgcolor=None, bgcolor=None):
-        """Inserts a line in the given position"""
+        """
+        Inserts a line in the given position
+        @return Boolean
+        """
         return _idaapi.pyscv_insert_line(self.this, lineno, self.make_sl_arg(line, fgcolor, bgcolor))
 
     def EditLine(self, lineno, line, fgcolor=None, bgcolor=None):
-        """Edits an existing line"""
+        """
+        Edits an existing line.
+        @return Boolean
+        """
         return _idaapi.pyscv_edit_line(self.this, lineno, self.make_sl_arg(line, fgcolor, bgcolor))
 
     def PatchLine(self, lineno, offs, value):
@@ -1887,10 +1937,28 @@ class simplecustview_t(object):
         return _idaapi.pyscv_patch_line(self.this, lineno, offs, value)
 
     def DelLine(self, lineno):
+        """
+        Deletes an existing line
+        @return Boolean
+        """
         return _idaapi.pyscv_del_line(self.this, lineno)
 
     def GetLine(self, lineno):
+        """
+        Returns a line
+        @param lineno: The line number
+        @return:
+            Returns a tuple (colored_line, fgcolor, bgcolor) or None
+        """
         return _idaapi.pyscv_get_line(self.this, lineno)
+
+    def GetCurrentWord(self, mouse = 0):
+        """
+        Returns the current word
+        @param mouse: Use mouse position or cursor position
+        @return: None if failed or a String containing the current word at mouse or cursor
+        """
+        return _idaapi.pyscv_get_current_word(self.this, mouse)
 
     def GetCurrentLine(self, mouse = 0, notags = 0):
         """
@@ -2008,7 +2076,7 @@ class simplecustview_t(object):
 #        print "OnPopupMenu, menu_id=" % menu_id
 #        return True
 
-#</pycode(py_custview)>
+#</pycode(py_custviewer)>
 
 #<pycode(py_choose2)>
 class Choose2:

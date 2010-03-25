@@ -4,22 +4,26 @@
 #
 import idaapi
 import idc
-from idaapi import simplecustview_t
-#<pycode(py_custviewex1)>
+from idaapi import simplecustviewer_t
+#<pycode(py_custviewerex1)>
 
 # -----------------------------------------------------------------------
-class mycv_t(simplecustview_t):
+class mycv_t(simplecustviewer_t):
     def Create(self, sn=None):
         # Form the title
         title = "Simple custom view test"
         if sn:
             title += " %d" % sn
+
         # Create the customview
-        if not simplecustview_t.Create(self, title):
+        if not simplecustviewer_t.Create(self, title):
             return False
-        id = self.AddPopupMenu("Hello")
+        self.menu_hello = self.AddPopupMenu("Hello")
+        self.menu_world = self.AddPopupMenu("World")
+
         for i in xrange(0, 100):
             self.AddLine("Line %d" % i)
+
         return True
 
     def OnClick(self, shift):
@@ -37,7 +41,9 @@ class mycv_t(simplecustview_t):
         @param shift: Shift flag
         @return Boolean. True if you handled the event
         """
-        print "OnDblClick, shift=%d" % shift
+        word = self.GetCurrentWord()
+        if not word: word = "<None>"
+        print "OnDblClick, shift=%d, current word=%s" % (shift, word)
         return True
 
     def OnCursorPosChanged(self):
@@ -67,14 +73,17 @@ class mycv_t(simplecustview_t):
             self.Close()
         elif vkey == 46:
             n = self.GetLineNo()
-            self.DelLine(n)
-            self.Refresh()
-            print "Deleted line %d" % n
+            if n is not None:
+                self.DelLine(n)
+                self.Refresh()
+                print "Deleted line %d" % n
         # Goto?
         elif vkey == ord('G'):
-            v = idc.AskLong(self.GetLineNo(), "Where to go?")
-            if v:
-                self.Jump(v, 0, 5)
+            n = self.GetLineNo()
+            if n is not None:
+                v = idc.AskLong(self.GetLineNo(), "Where to go?")
+                if v:
+                    self.Jump(v, 0, 5)
         elif vkey == ord('R'):
             print "refreshing...."
             self.Refresh()
@@ -128,10 +137,17 @@ class mycv_t(simplecustview_t):
     def OnPopupMenu(self, menu_id):
         """
         A context (or popup) menu item was executed.
-        @param menu_id: ID previously registered with add_popup_menu()
+        @param menu_id: ID previously registered with AddPopupMenu()
         @return: Boolean
         """
         print "OnPopupMenu, menu_id=%d" % menu_id
+        if menu_id == self.menu_hello:
+            print "Hello"
+        elif menu_id == self.menu_world:
+            print "World"
+        else:
+            # Unhandled
+            return False
         return True
 
 # -----------------------------------------------------------------------
@@ -156,11 +172,13 @@ if not mycv:
     del mycv
 
 def make_many(n):
+    L = []
     for i in xrange(1, n+1):
-        t = mycv_t()
-        if not t.Create(i):
+        v = mycv_t()
+        if not v.Create(i):
             break
-        t.Show()
-    return i
+        v.Show()
+        L.append(v)
+    return L
 
-#</pycode(py_custviewex1)>
+#</pycode(py_custviewerex1)>
