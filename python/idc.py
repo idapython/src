@@ -3892,7 +3892,8 @@ def SetFunctionAttr(ea, attr, value):
     """
     func = idaapi.get_func(ea)
 
-    if func and _IDC_SetAttr(func, _FUNCATTRMAP, attr, value):
+    if func:
+        _IDC_SetAttr(func, _FUNCATTRMAP, attr, value)
         return idaapi.update_func(func)
 
 
@@ -5231,7 +5232,8 @@ def SetFchunkAttr(ea, attr, value):
     """
     if attr in [ FUNCATTR_START, FUNCATTR_END, FUNCATTR_OWNER ]:
         chunk = idaapi.get_fchunk(ea)
-        if chunk and _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value):
+        if chunk:
+            _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value)
             return idaapi.update_func(chunk)
 
 
