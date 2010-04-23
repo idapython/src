@@ -4,9 +4,7 @@
 %ignore loader_t::save_file;
 %ignore loader_t::move_segm;
 %ignore loader_t::init_loader_options;
-%ignore plugin_t::init;
-%ignore plugin_t::term;
-%ignore plugin_t::run;
+%ignore plugin_t;
 
 %ignore vloader_failure;
 %ignore loader_failure;
@@ -112,19 +110,86 @@
 %ignore get_ids_filename;
 %ignore is_embedded_dbfile_ext;
 
-// mem2base() has a custom wrapper
 %ignore mem2base;
+%rename (mem2base) py_mem2base;
+%ignore load_plugin;
+%rename (load_plugin) py_load_plugin;
+%ignore run_plugin;
+%rename (run_plugin) py_run_plugin;
 
 %include "loader.hpp"
 
-// Custom wrapper for mem2base()
-%rename (mem2base) mem2base_wrap;
-%apply (char *STRING, int LENGTH) { (char *buf, int len) };
 %inline %{
-int mem2base_wrap(char *buf, int len, ea_t ea, long fpos)
+//<inline(py_loader)>
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def mem2base(mem, ea, fpos):
+    """
+    Load database from the memory.
+    @param mem: the buffer
+    @param ea: start linear addresses
+    @param fpos: position in the input file the data is taken from.
+                 if == -1, then no file position correspond to the data.
+    @return:
+        - Returns zero if the passed buffer was not a string
+        - Otherwise 1 is returned
+    """
+    pass
+#</pydoc>
+*/
+static int py_mem2base(PyObject *py_mem, ea_t ea, long fpos = -1)
 {
-    return mem2base((void *)buf, ea, ea+len, fpos);
+  Py_ssize_t len;
+  char *buf;
+  if ( PyString_AsStringAndSize(py_mem, &buf, &len) == -1 )
+    return 0;
+  return mem2base((void *)buf, ea, ea+len, fpos);
 }
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def load_plugin(name):
+    """
+    Loads a plugin
+    @return:
+        - None if plugin could not be loaded
+        - An opaque object representing the loaded plugin
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_load_plugin(const char *name)
+{
+  plugin_t *r = load_plugin(name);
+  if ( r == NULL )
+    Py_RETURN_NONE;
+  return PyCObject_FromVoidPtr(r, NULL);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def run_plugin(plg):
+    """
+    Runs a plugin
+    @param plg: A plugin object (returned by load_plugin())
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static bool py_run_plugin(PyObject *plg, int arg)
+{
+  if ( !PyCObject_Check(plg) )
+    return false;
+  return run_plugin((plugin_t *)PyCObject_AsVoidPtr(plg), arg);
+}
+
+//</inline(py_loader)>
+
 %}
 
 
