@@ -2120,15 +2120,15 @@ class Choose2:
             self.flags &= ~Choose2.CH_MODAL
         return _idaapi.choose2_show(self)
 
-    def Activate():
+    def Activate(self):
         """Activates a visible chooser"""
         return _idaapi.choose2_activate(self)
 
-    def Refresh():
+    def Refresh(self):
         """Causes the refresh callback to trigger"""
         return _idaapi.choose2_refresh(self)
 
-    def Close():
+    def Close(self):
         """Closes the chooser"""
         return _idaapi.choose2_close(self)
 
