@@ -194,7 +194,7 @@ PyObject *py_get_type_size0(const til_t *ti, PyObject *tp)
     return NULL;
   }
   size_t sz = get_type_size0(ti, (type_t *)PyString_AsString(tp));
-  if (sz == BADSIZE)
+  if ( sz == BADSIZE )
     Py_RETURN_NONE;
   return PyInt_FromLong(sz);
 }
@@ -208,7 +208,7 @@ PyObject *py_unpack_object_from_idb(
   ea_t ea,
   int pio_flags)
 {
-  if (!PyString_Check(py_type) && !PyString_Check(py_fields))
+  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -221,16 +221,18 @@ PyObject *py_unpack_object_from_idb(
   error_t err = unpack_object_from_idb(&idc_obj, ti, type, fields, ea, NULL, pio_flags);
 
   // Unpacking failed?
-  if (err != eOk)
+  if ( err != eOk )
     return Py_BuildValue("(ii)", 0, err);
 
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
   // Conversion failed?
-  if (err != CIP_OK)
+  if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
-  return Py_BuildValue("(iO)", 1, py_ret);
+  PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
+  Py_DECREF(py_ret);
+  return py_result;
 }
 
 //-------------------------------------------------------------------------
@@ -242,7 +244,7 @@ PyObject *py_unpack_object_from_bv(
   PyObject *py_bytes,
   int pio_flags)
 {
-  if (!PyString_Check(py_type) && !PyString_Check(py_fields) && !PyString_Check(py_bytes))
+  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) && !PyString_Check(py_bytes) )
   {
     PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
     return NULL;
@@ -261,16 +263,18 @@ PyObject *py_unpack_object_from_bv(
   error_t err = unpack_object_from_bv(&idc_obj, ti, type, fields, bytes, pio_flags);
 
   // Unpacking failed?
-  if (err != eOk)
+  if ( err != eOk )
     return Py_BuildValue("(ii)", 0, err);
 
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
   // Conversion failed?
-  if (err != CIP_OK)
+  if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
-  return Py_BuildValue("(iO)", 1, py_ret);
+  PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
+  Py_DECREF(py_ret);
+  return py_result;
 }
 
 //-------------------------------------------------------------------------
