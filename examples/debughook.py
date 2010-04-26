@@ -4,7 +4,7 @@
 # This script start the executable and steps through the first five
 # instructions. Each instruction is disassembled after execution.
 #
-# Author: Gergely Erdelyi <dyce@d-dome.net>
+# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 from idaapi import *
 

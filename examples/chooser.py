@@ -3,7 +3,7 @@
 #
 # This script demonstrates the usage of the class-based chooser.
 #
-# Author: Gergely Erdelyi <dyce@d-dome.net>
+# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 from idaapi import Choose
 

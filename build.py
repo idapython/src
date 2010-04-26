@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-#------------------------------------------------------------
+#---------------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
+# Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #
 # All rights reserved.
 #
 # For detailed copyright information see the file COPYING in
 # the root of the distribution archive.
-#------------------------------------------------------------
+#---------------------------------------------------------------------
 # build.py - Custom build script
-#------------------------------------------------------------
+#---------------------------------------------------------------------
 import os
 import platform
 import shutil

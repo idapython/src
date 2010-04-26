@@ -4,7 +4,7 @@
 # This script demonstrates how to create structures and populate them
 # with members of different types.
 #
-# Author: Gergely Erdelyi <dyce@d-dome.net>
+# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 from idaapi import stroffflag, offflag
 

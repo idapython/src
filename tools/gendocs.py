@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # gendoc.py: Generate an API cross-reference for IDAPython
 #------------------------------------------------------------
-__author__ = "Gergely Erdelyi <dyce@d-dome.net>"
+__author__ = "Gergely Erdelyi <gergely.erdelyi@d-dome.net>"
 
 import epydoc.cli
 

@@ -3,7 +3,7 @@
 #
 # This script demonstrates the usage of background colours.
 #
-# Author: Gergely Erdelyi <dyce@d-dome.net>
+# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 
 # Set the colour of the current segment to BLUE

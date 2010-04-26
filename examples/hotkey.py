@@ -4,7 +4,7 @@
 # Note: Hotkeys only work with the GUI version of IDA and not in
 #       text mode.
 #
-# Author: Gergely Erdelyi <dyce@d-dome.net>
+# Author: Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #---------------------------------------------------------------------
 import idaapi
 

@@ -2,7 +2,7 @@
 # -----------------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2009 Gergely Erdelyi <dyce@d-dome.net>
+# Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #
 # All rights reserved.
 #
@@ -84,10 +84,10 @@ def runscript(script):
 def print_banner():
     banner = [
       "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info,
-      "Copyright (c) 1990-2009 Python Software Foundation - http://www.python.org/",
+      "Copyright (c) 1990-2010 Python Software Foundation - http://www.python.org/",
       "",
       "IDAPython" + (" 64-bit" if __EA64__ else "") + " version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION,
-      "Copyright (c) 2004-2009 Gergely Erdelyi - http://d-dome.net/idapython/"
+      "Copyright (c) 2004-2010 Gergely Erdelyi - http://code.google.com/p/idapython/"
     ]
     sepline = '-' * max([len(s) for s in banner])
 
