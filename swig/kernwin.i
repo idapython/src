@@ -76,7 +76,7 @@ def askseg(defval, format):
 %{
 
 //<code(py_custviewer)>
-
+#ifdef __NT__
 //---------------------------------------------------------------------------
 // Base class for all custviewer place_t providers
 class custviewer_data_t
@@ -860,6 +860,7 @@ public:
     return py_this;
   }
 };
+#endif
 //</code(py_custviewer)>
 
 bool idaapi py_menu_item_callback(void *userdata)
@@ -895,7 +896,7 @@ bool idaapi py_menu_item_callback(void *userdata)
 %rename (add_menu_item) wrap_add_menu_item;
 %inline %{
 //<inline(py_custviewer)>
-
+#ifdef __NT__
 //
 // Pywraps Simple Custom Viewer functions
 //
@@ -1073,6 +1074,7 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
   return _this == NULL ? false : _this->edit_line(nline, py_sl);
 }
 #undef DECL_THIS
+#endif
 //</inline(py_custviewer)>
 
 //<inline(py_choose2)>
