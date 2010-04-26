@@ -2252,7 +2252,7 @@ def AltOp(ea, n):
     return idaapi.get_forced_operand(ea, n)
 
 
-def GetString(ea, length = -1, strtype = ASCSTR_C):
+def GetString(ea, length = -1, strtype = idaapi.ASCSTR_TERMCHR):
     """
     Get string contents
     @param ea: linear address
