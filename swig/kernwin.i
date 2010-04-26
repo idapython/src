@@ -1843,7 +1843,10 @@ class Choose:
 		choose - Display the choose dialogue
 		"""
 		return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
+%}
 
+#ifdef __NT__
+%pythoncode %{
 #<pycode(py_custviewer)>
 class simplecustviewer_t(object):
 
@@ -2077,9 +2080,11 @@ class simplecustviewer_t(object):
 #        """
 #        print "OnPopupMenu, menu_id=" % menu_id
 #        return True
-
+%}
+#endif // __NT__
 #</pycode(py_custviewer)>
 
+%pythoncode %{
 #<pycode(py_choose2)>
 class Choose2:
     """Choose2 wrapper class"""
