@@ -423,7 +423,7 @@ private:
       break;
     //
     case grcode_lostfocus:
-      if (cb_flags & GR_HAVE_GOTFOCUS)
+      if (cb_flags & GR_HAVE_LOSTFOCUS)
         on_lostfocus(va_arg(va, graph_viewer_t *));
       ret = 0;
       break;
