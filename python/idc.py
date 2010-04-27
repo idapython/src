@@ -3878,6 +3878,7 @@ def GetFunctionAttr(ea, attr):
 
     if func:
         return _IDC_GetAttr(func, _FUNCATTRMAP, attr)
+    return BADADDR
 
 
 def SetFunctionAttr(ea, attr, value):
@@ -3895,6 +3896,7 @@ def SetFunctionAttr(ea, attr, value):
     if func:
         _IDC_SetAttr(func, _FUNCATTRMAP, attr, value)
         return idaapi.update_func(func)
+    return 0
 
 
 FUNCATTR_START   =  0     # function start address
@@ -5235,6 +5237,7 @@ def SetFchunkAttr(ea, attr, value):
         if chunk:
             _IDC_SetAttr(chunk, _FUNCATTRMAP, attr, value)
             return idaapi.update_func(chunk)
+    return 0
 
 
 def GetFchunkReferer(ea, idx):
