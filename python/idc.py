@@ -6659,8 +6659,18 @@ def GetDebuggerEvent(wfne, timeout):
     return idaapi.wait_for_next_event(wfne, timeout)
 
 
-def ResumeProcess(): return GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
+def ResumeProcess():
+    return GetDebuggerEvent(WFNE_CONT|WFNE_NOWAIT, 0)
 
+def SendDbgCommand(cmd):
+    """Sends a command to the debugger module and returns the output string.
+    An exception will be raised if the debugger is not running or the current debugger does not export
+    the 'SendDbgCommand' IDC command.
+    """
+    s = Eval('SendDbgCommand("%s");' % cmd)
+    if s.startswith("IDC_FAILURE"):
+        raise Exception, "Debugger command is available only when the debugger is active!"
+    return s
 
 # wfne flag is combination of the following:
 WFNE_ANY    = 0x0001 # return the first event (even if it doesn't suspend the process)
