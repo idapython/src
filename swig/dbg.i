@@ -15,7 +15,7 @@ typedef struct
 
 %{
 //<code(py_dbg)>
-PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
+static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 //</code(py_dbg)>
 %}
 
@@ -23,7 +23,7 @@ PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 
 //<inline(py_dbg)>
 //-------------------------------------------------------------------------
-PyObject *py_get_manual_regions()
+static PyObject *py_get_manual_regions()
 {
   meminfo_vec_t areas;
   get_manual_regions(&areas);
@@ -31,7 +31,7 @@ PyObject *py_get_manual_regions()
 }
 
 //-------------------------------------------------------------------------
-PyObject *refresh_debugger_memory()
+static PyObject *refresh_debugger_memory()
 {
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, BADADDR);
@@ -42,7 +42,7 @@ PyObject *refresh_debugger_memory()
 //</inline(py_dbg)>
 
 int idaapi DBG_Callback(void *ud, int notification_code, va_list va);
-class DBG_Hooks 
+class DBG_Hooks
 {
 public:
     virtual ~DBG_Hooks() {};
@@ -72,8 +72,8 @@ public:
     virtual void dbg_thread_start(pid_t pid,
                                   thid_t tid,
                                   ea_t ea) { };
-    virtual void dbg_thread_exit(pid_t pid, 
-                                 thid_t tid, 
+    virtual void dbg_thread_exit(pid_t pid,
+                                 thid_t tid,
                                  ea_t ea,
                                  int exit_code) { };
     virtual void dbg_library_load(pid_t pid,
@@ -100,7 +100,7 @@ public:
     virtual void dbg_suspend_process(void) { };
     virtual int dbg_bpt(thid_t tid, ea_t breakpoint_ea) { return 0; };
     virtual int dbg_trace(thid_t tid, ea_t ip) { return 0; };
-    virtual void dbg_request_error(ui_notification_t failed_command, 
+    virtual void dbg_request_error(ui_notification_t failed_command,
                                    dbg_notification_t failed_dbg_notification) { };
     virtual void dbg_step_into(void) { };
     virtual void dbg_step_over(void) { };
@@ -250,9 +250,9 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
       return 0;
     }
   }
-  catch (Swig::DirectorException &) 
-  { 
-    msg("Exception in IDP Hook function:\n"); 
+  catch (Swig::DirectorException &)
+  {
+    msg("Exception in IDP Hook function:\n");
     if (PyErr_Occurred())
     {
       PyErr_Print();

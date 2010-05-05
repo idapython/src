@@ -12,7 +12,7 @@
 //<code(py_idd)>
 
 //-------------------------------------------------------------------------
-bool dbg_can_query()
+static bool dbg_can_query()
 {
   // Reject the request only if no debugger is set
   // or the debugger cannot be queried while not in suspended state
@@ -20,12 +20,12 @@ bool dbg_can_query()
 }
 
 //-------------------------------------------------------------------------
-PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
+static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
 {
   PyObject *py_list = PyList_New(areas.size());
   meminfo_vec_t::const_iterator it, it_end(areas.end());
   Py_ssize_t i = 0;
-  for (it=areas.begin();it!=it_end;++it, ++i)
+  for ( it=areas.begin(); it!=it_end; ++it, ++i )
   {
     const memory_info_t &mi = *it;
     // startEA endEA name sclass sbase bitness perm
@@ -162,7 +162,7 @@ PyObject *py_appcall(
   PyObject *py_fields,
   PyObject *arg_list)
 {
-  if (!PyList_Check(arg_list))
+  if ( !PyList_Check(arg_list) )
     return NULL;
 
   const char *type   = py_type == Py_None ? NULL : PyString_AS_STRING(py_type);
@@ -174,7 +174,7 @@ PyObject *py_appcall(
   Py_ssize_t nargs = PyList_Size(arg_list);
   idc_args.resize(nargs);
   bool ok = true;
-  for (Py_ssize_t i=0;i<nargs;i++)
+  for ( Py_ssize_t i=0; i<nargs; i++ )
   {
     // Get argument
     PyObject *py_item = PyList_GetItem(arg_list, i);
@@ -185,7 +185,7 @@ PyObject *py_appcall(
       msg("obj[%d]->%s\n", int(i), s.c_str());
     }
     // Convert it
-    if (pyvar_to_idcvar(py_item, &idc_args[i], &sn) < CIP_OK)
+    if ( pyvar_to_idcvar(py_item, &idc_args[i], &sn) < CIP_OK )
     {
       ok = false;
       break;
@@ -193,7 +193,7 @@ PyObject *py_appcall(
   }
 
   // Set exception message
-  if (!ok)
+  if ( !ok )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed to convert Python values to IDC values");
     return NULL;
@@ -300,7 +300,14 @@ PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz);
 PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value);
 PyObject *dbg_get_registers();
 PyObject *dbg_get_memory_info();
-bool dbg_can_query();
+static PyObject *dbg_get_name()
+{
+  if ( dbg == NULL )
+    Py_RETURN_NONE;
+  return PyString_FromString(dbg->name);
+}
+
+static bool dbg_can_query();
 PyObject *py_appcall(
   ea_t func_ea,
   thid_t tid,
