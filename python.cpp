@@ -169,6 +169,7 @@ static void handle_python_error(char *errbuf, size_t errbufsize)
       Py_XDECREF(ptype);
       Py_XDECREF(pvalue);
       Py_XDECREF(ptraceback);
+      Py_DECREF(result);
     }
     else
       PyErr_Print();
@@ -369,7 +370,7 @@ bool idaapi IDAPython_Menu_Callback(void *ud)
 static bool parse_py_modname(
   const char *full_name,
   char *modname,
-  char *attrname, 
+  char *attrname,
   size_t sz,
   const char *defmod = "idaapi")
 {
@@ -805,7 +806,7 @@ static void install_python_menus()
   menu_installed = true;
 }
 
-enum script_run_when 
+enum script_run_when
 {
   run_on_db_open = 0,  // run script after opening database (default)
   run_on_ui_ready = 1, // run script when UI is ready
