@@ -554,4 +554,15 @@ class _cpu(object):
         return idc.SetRegValue(value, name)
 
 cpu = _cpu()
+"""This is a special class instance used to access the registers as if they were attributes of this object.
+For example to access the EAX register:
+    print "%x" % cpu.Eax
+"""
+
 procregs = _procregs()
+"""This object is used to access the processor registers. It is useful when decoding instructions and you want to see which instruction is which.
+For example:
+    x = idautils.DecodeInstruction(here())
+    if x[0] == procregs.Esp:
+        print "This operand is the register ESP
+"""

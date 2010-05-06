@@ -22,7 +22,26 @@ class MyGraph(GraphViewer):
     def OnGetText(self, node_id):
         return str(self[node_id])
 
-def main():
+    def OnCommand(self, cmd_id):
+        """
+        Triggered when a menu command is selected through the menu or its hotkey
+        @return: None
+        """
+        if self.cmd_close == cmd_id:
+            self.Close()
+            return
+
+        print "command:", cmd_id
+
+    def Show(self):
+        if not GraphViewer.Show(self):
+            return False
+        self.cmd_close = self.AddCommand("Close", "F2")
+        if self.cmd_close == 0:
+            print "Failed to add popup menu item!"
+        return True
+
+def show_graph():
     f = idaapi.get_func(here())
     if not f:
         print "Must be in a function"
@@ -37,6 +56,11 @@ def main():
                 t = hex(xref.to)
             result[t] = True
     g = MyGraph(GetFunctionName(f.startEA), result)
-    g.Show()
+    if g.Show():
+        return g
+    else:
+        return None
 
-main()
+g = show_graph()
+if g:
+    print "Graph created and displayed!"

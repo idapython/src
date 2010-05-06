@@ -128,7 +128,7 @@ private:
 
     // Check return value to OnRefresh() call
     PyObject *ret = PyObject_CallMethod(self, (char *)S_ON_REFRESH, NULL);
-    if (ret == NULL || !PyBool_Check(ret) || ret != Py_True)
+    if ( ret == NULL || !PyObject_IsTrue(ret) )
     {
       Py_XDECREF(ret);
       return;
@@ -311,7 +311,7 @@ private:
       return 1;
 
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLICK, "i", item2->n);
-    if (result == NULL || !PyBool_Check(result) || result != Py_True)
+    if ( result == NULL || !PyObject_IsTrue(result) )
     {
       Py_XDECREF(result);
       return 1;
@@ -332,7 +332,7 @@ private:
     if (item == NULL || !item->is_node)
       return 1;
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_DBL_CLICK, "i", item->node);
-    if (result == NULL || !PyBool_Check(result) || result != Py_True)
+    if ( result == NULL || !PyObject_IsTrue(result) )
     {
       Py_XDECREF(result);
       return 1;
@@ -361,9 +361,6 @@ private:
     // in:  graph_viewer_t *gv
     //      int curnode
     // out: 0-ok, 1-forbid to change the current node
-    //graph_viewer_t *v = va_arg(va, graph_viewer_t *);
-    //int curnode       = va_argi(va, int);
-    //msg("%x: current node becomes %d\n", v, curnode);
     if (curnode < 0)
       return 0;
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_SELECT, "i", curnode);
@@ -427,10 +424,12 @@ private:
         on_lostfocus(va_arg(va, graph_viewer_t *));
       ret = 0;
       break;
+    //
     case grcode_user_refresh:
       on_user_refresh(va_arg(va, mutable_graph_t *));
       ret = 1;
       break;
+    //
     case grcode_user_hint:
       if (cb_flags & GR_HAVE_USER_HINT)
       {
@@ -446,6 +445,7 @@ private:
         ret = 0;
       }
       break;
+    //
     case grcode_changed_current:
       if (cb_flags & GR_HAVE_CHANGED_CURRENT)
       {
@@ -456,6 +456,7 @@ private:
       else
         ret = 0; // allow selection change
       break;
+    //
     default:
       ret = 0;
       break;
@@ -511,20 +512,10 @@ private:
     place_t *old_pl = get_custom_viewer_place(gv, false, &x, &y);
     if ( old_pl != NULL )
     {
-#ifdef __BORLANDC__
       user_graph_place_t *new_pl = (user_graph_place_t *) old_pl->clone();
-#else
-      // although this works, it may not work in the future
-      user_graph_place_t *new_pl = (user_graph_place_t *) qalloc(sizeof(user_graph_place_t));
-      memcpy(new_pl, old_pl, sizeof(user_graph_place_t));
-#endif
       new_pl->node = nid;
       jumpto(gv, new_pl, x, y);
-#ifdef __BORLANDC__
       delete new_pl;
-#else
-      qfree(new_pl);
-#endif
     }
   }
 
@@ -726,9 +717,9 @@ void pyg_close(PyObject *self)
   py_graph_t::Close(self);
 }
 
-Py_ssize_t pyg_add_command(PyObject *self, const char *title, const char *hotkey)
+PyObject *pyg_add_command(PyObject *self, const char *title, const char *hotkey)
 {
-  return py_graph_t::AddCommand(self, title, hotkey);
+  return Py_BuildValue("n", py_graph_t::AddCommand(self, title, hotkey));
 }
 
 void pyg_select_node(PyObject *self, int nid)
@@ -811,10 +802,10 @@ class GraphViewer:
 
     def AddCommand(self, title, hotkey):
         """
-        Adds a menu command to the graph.
+        Adds a menu command to the graph. Call this command after the graph is shown (with Show()).
         Once a command is added, a command id is returned. The commands are handled inside the OnCommand() handler
 
-        @return: 0 or the command id
+        @return: 0 on failure or the command id
         """
         return _idaapi.pyg_add_command(self, title, hotkey)
 
@@ -822,6 +813,7 @@ class GraphViewer:
         """
         Event called when the graph is refreshed or first created.
         From this event you are supposed to create nodes and edges.
+        This callback is mandatory.
         @note: ***It is important to clear previous nodes before adding nodes.***
         @return: Returning true tells the graph viewer to use the items. Otherwise old items will be used.
         """
@@ -830,13 +822,18 @@ class GraphViewer:
         return True
 
 #    def OnActivate(self):
-#        """Triggered when the graph window gets the focus"""
+#        """
+#        Triggered when the graph window gets the focus
+#        @return: None
+#        """
 #        print "Activated...."
-
+#
 #    def OnDeactivate(self):
-#        """Triggered when the graph window loses the focus"""
+#        """Triggered when the graph window loses the focus
+#        @return: None
+#        """
 #        print "Deactivated...."
-
+#
 #    def OnSelect(self, node_id):
 #        """
 #        Triggered when a node is being selected
@@ -862,11 +859,13 @@ class GraphViewer:
 #        @return: None if no hint is avail or a string designating the hint
 #        """
 #        return "hint for " + str(node_id)
-
+#
 #    def OnClose(self):
-#        """Triggered when the graph viewer window is being closed"""
+#        """Triggered when the graph viewer window is being closed
+#        @return: None
+#        """
 #        print "Closing......."
-
+#
 #    def OnClick(self, node_id):
 #        """
 #        Triggered when a node is clicked
@@ -874,18 +873,19 @@ class GraphViewer:
 #        """
 #        print "clicked on", self[node_id]
 #        return True
-
+#
 #    def OnDblClick(self, node_id):
 #        """
 #        Triggerd when a node is double-clicked.
-#        @note: check OnClick() event
+#        @return: False to ignore the click and True otherwise
 #        """
 #        print "dblclicked on", self[node_id]
 #        return True
-
+#
 #    def OnCommand(self, cmd_id):
 #        """
 #        Triggered when a menu command is selected through the menu or its hotkey
+#        @return: None
 #        """
 #        print "command:", cmd_id
 #</pycode(py_graph)>
@@ -896,7 +896,7 @@ class GraphViewer:
 void pyg_refresh(PyObject *self);
 void pyg_close(PyObject *self);
 
-Py_ssize_t pyg_add_command(PyObject *self, const char *title, const char *hotkey);
+PyObject *pyg_add_command(PyObject *self, const char *title, const char *hotkey);
 void pyg_select_node(PyObject *self, int nid);
 bool pyg_show(PyObject *self);
 //</inline(py_graph)>
