@@ -2837,7 +2837,7 @@ def AskStr(defval, prompt):
 
     @return: the entered string or 0.
     """
-    return idaapi.askstr(idaapi.HIST_IDENT, defval, prompt)
+    return idaapi.askstr(0, defval, prompt)
 
 
 def AskFile(forsave, mask, prompt):

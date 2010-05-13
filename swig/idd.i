@@ -16,7 +16,7 @@ static bool dbg_can_query()
 {
   // Reject the request only if no debugger is set
   // or the debugger cannot be queried while not in suspended state
-  return !(dbg == NULL || (!dbg->may_disturb() && get_process_state() != DSTATE_SUSP));
+  return !(dbg == NULL || (!dbg->may_disturb() && get_process_state() > DSTATE_SUSP));
 }
 
 //-------------------------------------------------------------------------
