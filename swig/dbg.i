@@ -100,8 +100,8 @@ public:
     virtual void dbg_suspend_process(void) { };
     virtual int dbg_bpt(thid_t tid, ea_t breakpoint_ea) { return 0; };
     virtual int dbg_trace(thid_t tid, ea_t ip) { return 0; };
-    virtual void dbg_request_error(ui_notification_t failed_command,
-                                   dbg_notification_t failed_dbg_notification) { };
+    virtual void dbg_request_error(int failed_command,
+                                   int failed_dbg_notification) { };
     virtual void dbg_step_into(void) { };
     virtual void dbg_step_over(void) { };
     virtual void dbg_run_to(thid_t tid) { };
@@ -116,8 +116,6 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
   thid_t tid;
   int *warn;
   ea_t ip;
-  ui_notification_t failed_command;
-  dbg_notification_t failed_dbg_notification;
   ea_t breakpoint_ea;
 
   try {
@@ -227,11 +225,12 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
       return proxy->dbg_bpt(tid, ip);
 
     case dbg_request_error:
-      failed_command = (ui_notification_t)va_arg(va, int);
-      failed_dbg_notification = (dbg_notification_t)va_arg(va, int);
+    {
+      int failed_command = (int)va_arg(va, ui_notification_t);
+      int failed_dbg_notification = (int)va_arg(va, dbg_notification_t);
       proxy->dbg_request_error(failed_command, failed_dbg_notification);
       return 0;
-
+    }
     case dbg_step_into:
       proxy->dbg_step_into();
       return 0;

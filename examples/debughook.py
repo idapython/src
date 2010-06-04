@@ -24,6 +24,11 @@ class MyDbgHook(DBG_Hooks):
 
     def dbg_bpt(self, tid, ea):
         print "Break point at 0x%x pid=%d" % (ea, tid)
+        # return values:
+        #   -1 - to display a breakpoint warning dialog
+        #        if the process is suspended.
+        #    0 - to never display a breakpoint warning dialog.
+        #    1 - to always display a breakpoint warning dialog.
         return 0
 
     def dbg_trace(self, tid, ea):
