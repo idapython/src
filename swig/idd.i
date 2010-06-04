@@ -116,20 +116,18 @@ PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
 //-------------------------------------------------------------------------
 PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
 {
-  if (!dbg_can_query() || !PyNumber_Check(py_ea) || !PyNumber_Check(py_sz))
+  uint64 ea, sz;
+  if ( !dbg_can_query() || !PyGetNumber(py_ea, &ea) || !PyGetNumber(py_sz, &sz) )
     Py_RETURN_NONE;
 
-  ea_t ea = ea_t(PyInt_AsSsize_t(py_ea));
-  size_t sz = ea_t(PyInt_AsSsize_t(py_sz));
-
-  char *buf = new char[sz];
-  if (buf == NULL)
+  char *buf = new char[size_t(sz)];
+  if ( buf == NULL )
     Py_RETURN_NONE;
 
   PyObject *ret;
-  if (dbg->read_memory(ea_t(ea), buf, sz) == sz)
+  if ( (size_t)dbg->read_memory(ea_t(ea), buf, size_t(sz)) == sz )
   {
-    ret = PyString_FromStringAndSize(buf, sz);
+    ret = PyString_FromStringAndSize(buf, (Py_ssize_t)sz);
   }
   else
   {
@@ -143,13 +141,13 @@ PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
 //-------------------------------------------------------------------------
 PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
 {
-  if (!dbg_can_query() || !PyString_Check(py_buf) || !PyNumber_Check(py_ea))
+  uint64 ea;
+  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyGetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
-  ea_t ea = ea_t(PyInt_AsSsize_t(py_ea));
   size_t sz = PyString_GET_SIZE(py_buf);
   void *buf = (void *)PyString_AS_STRING(py_buf);
-  if (dbg->write_memory(ea, buf, sz) != sz)
+  if ( dbg->write_memory(ea_t(ea), buf, sz) != sz )
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
