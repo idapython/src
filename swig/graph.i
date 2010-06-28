@@ -1,3 +1,4 @@
+#ifdef __NT__
 %{
 //<code(py_graph)>
 class py_graph_t
@@ -28,7 +29,7 @@ private:
     nodetext_cache_t *get(int node_id)
     {
       iterator it = find(node_id);
-      if (it == end())
+      if ( it == end() )
         return NULL;
       return &it->second;
     }
@@ -56,22 +57,26 @@ private:
   private:
     Py_ssize_t uid;
   public:
+    
     cmdid_map_t()
     {
       uid = 1; // we start by one and keep zero for error id
     }
+    
     void add(py_graph_t *pyg)
     {
       (*this)[uid] = pyg;
       ++uid;
     }
+    
     const Py_ssize_t id() const { return uid; }
+    
     void clear(py_graph_t *pyg)
     {
       iterator e = end();
       for (iterator it=begin();it!=end();)
       {
-        if (it->second == pyg)
+        if ( it->second == pyg )
         {
           iterator temp = it++;
           erase(temp);
@@ -106,7 +111,7 @@ private:
   {
     Py_ssize_t id = (Py_ssize_t)ud;
     py_graph_t *_this = cmdid_pyg.get(id);
-    if (_this != NULL)
+    if ( _this != NULL )
       _this->on_command(id);
     return true;
   }
@@ -123,7 +128,7 @@ private:
   // the nodes and edges. The nodes and edges are retrieved and passed to IDA
   void on_user_refresh(mutable_graph_t *g)
   {
-    if (!refresh_needed)
+    if ( !refresh_needed )
       return;
 
     // Check return value to OnRefresh() call
@@ -136,7 +141,7 @@ private:
 
     // Refer to the nodes
     PyObject *nodes = PyObject_TryGetAttrString(self, S_M_NODES);
-    if (ret == NULL || !PyList_Check(nodes))
+    if ( ret == NULL || !PyList_Check(nodes) )
     {
       Py_XDECREF(nodes);
       return;
@@ -144,7 +149,7 @@ private:
 
     // Refer to the edges
     PyObject *edges = PyObject_TryGetAttrString(self, S_M_EDGES);
-    if (ret == NULL || !PyList_Check(nodes))
+    if ( ret == NULL || !PyList_Check(nodes) )
     {
       Py_DECREF(nodes);
       Py_XDECREF(edges);
@@ -163,32 +168,32 @@ private:
     node_cache.clear();
 
     // Get the edges
-    for (int i=(int)PyList_Size(edges)-1;i>=0;i--)
+    for ( int i=(int)PyList_Size(edges)-1; i>=0; i-- )
     {
       // Each list item is a sequence (id1, id2)
       PyObject *item = PyList_GetItem(edges, i);
-      if (!PySequence_Check(item))
+      if ( !PySequence_Check(item) )
         continue;
 
       // Get and validate each of the two elements in the sequence
       int edge_ids[2];
       int j;
-      for (j=0;j<qnumber(edge_ids);j++)
+      for ( j=0; j<qnumber(edge_ids); j++ )
       {
         PyObject *id = PySequence_GetItem(item, j);
-        if (id == NULL || !PyInt_Check(id))
+        if ( id == NULL || !PyInt_Check(id) )
         {
           Py_XDECREF(id);
           break;
         }
         int v = int(PyInt_AS_LONG(id));
         Py_DECREF(id);
-        if (v > max_nodes)
+        if ( v > max_nodes )
           break;
         edge_ids[j] = v;
       }
       // Incomplete?
-      if (j != qnumber(edge_ids))
+      if ( j != qnumber(edge_ids) )
         break;
       // Add the edge
       g->add_edge(edge_ids[0], edge_ids[1], NULL);
@@ -203,39 +208,39 @@ private:
   {
     // If already cached then return the value
     nodetext_cache_t *c = node_cache.get(node);
-    if (c != NULL)
+    if ( c != NULL )
     {
       *str = c->text.c_str();
-      if (bg_color != NULL)
+      if ( bg_color != NULL )
         *bg_color = c->bgcolor;
       return true;
     }
 
     // Not cached, call Python
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_GETTEXT, "i", node);
-    if (result == NULL)
+    if ( result == NULL )
       return false;
 
     bgcolor_t cl = bg_color == NULL ? DEFCOLOR : *bg_color;
     const char *s;
 
     // User returned a string?
-    if (PyString_Check(result))
+    if ( PyString_Check(result) )
     {
       s = PyString_AsString(result);
-      if (s == NULL)
+      if ( s == NULL )
         s = "";
       c = node_cache.add(node, s, cl);
     }
     // User returned a sequence of text and bgcolor
-    else if (PySequence_Check(result) && PySequence_Size(result) == 2)
+    else if ( PySequence_Check(result) && PySequence_Size(result) == 2 )
     {
       PyObject *py_str   = PySequence_GetItem(result, 0);
       PyObject *py_color = PySequence_GetItem(result, 1);
 
-      if (py_str == NULL || !PyString_Check(py_str) || (s = PyString_AsString(py_str)) == NULL)
+      if ( py_str == NULL || !PyString_Check(py_str) || (s = PyString_AsString(py_str)) == NULL )
         s = "";
-      if (py_color != NULL && PyNumber_Check(py_color))
+      if ( py_color != NULL && PyNumber_Check(py_color) )
         cl = bgcolor_t(PyLong_AsUnsignedLong(py_color));
 
       c = node_cache.add(node, s, cl);
@@ -246,7 +251,7 @@ private:
     Py_DECREF(result);
 
     *str = c->text.c_str();
-    if (bg_color != NULL)
+    if ( bg_color != NULL )
       *bg_color = c->bgcolor;
     return true;
   }
@@ -259,12 +264,12 @@ private:
     // out: 0-use default hint, 1-use proposed hint
 
     // We dispatch hints over nodes only
-    if (mousenode == -1)
+    if ( mousenode == -1 )
       return 0;
 
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_HINT, "i", mousenode);
     bool ok = result != NULL && PyString_Check(result);
-    if (!ok)
+    if ( !ok )
     {
       Py_XDECREF(result);
       return 0;
@@ -277,9 +282,9 @@ private:
   // graph is being destroyed
   void on_destroy(mutable_graph_t * /*g*/ = NULL)
   {
-    if (self != NULL)
+    if ( self != NULL )
     {
-      if (cb_flags & GR_HAVE_CLOSE)
+      if ( cb_flags & GR_HAVE_CLOSE )
       {
         PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
         Py_XDECREF(result);
@@ -287,7 +292,7 @@ private:
       unbind();
     }
     // Remove the TForm from list
-    if (form != NULL)
+    if ( form != NULL )
       tform_pyg.erase(form);
     // remove all associated commands from the list
     cmdid_pyg.clear(this);
@@ -307,7 +312,7 @@ private:
     // current_item1, current_item2 point to the same thing
     // item2 has more information.
     // see also: kernwin.hpp, custom_viewer_click_t
-    if (item2->n == -1)
+    if ( item2->n == -1 )
       return 1;
 
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLICK, "i", item2->n);
@@ -321,6 +326,7 @@ private:
 
     return 0;
   }
+
   // a graph node has been double clicked
   int on_dblclicked(graph_viewer_t * /*gv*/, selection_item_t *item)
   {
@@ -329,7 +335,7 @@ private:
     // out: 0-ok, 1-ignore click
     //graph_viewer_t *v   = va_arg(va, graph_viewer_t *);
     //selection_item_t *s = va_arg(va, selection_item_t *);
-    if (item == NULL || !item->is_node)
+    if ( item == NULL || !item->is_node )
       return 1;
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_DBL_CLICK, "i", item->node);
     if ( result == NULL || !PyObject_IsTrue(result) )
@@ -361,7 +367,7 @@ private:
     // in:  graph_viewer_t *gv
     //      int curnode
     // out: 0-ok, 1-forbid to change the current node
-    if (curnode < 0)
+    if ( curnode < 0 )
       return 0;
     PyObject *result = PyObject_CallMethod(self, (char *)S_ON_SELECT, "i", curnode);
     bool allow = (result != NULL && PyObject_IsTrue(result));
@@ -372,7 +378,7 @@ private:
   int gr_callback(int code, va_list va)
   {
     int ret;
-    switch (code)
+    switch ( code )
     {
     //
     case grcode_user_text:
@@ -391,7 +397,7 @@ private:
       break;
     //
     case grcode_clicked:
-      if (cb_flags & GR_HAVE_CLICKED)
+      if ( cb_flags & GR_HAVE_CLICKED )
       {
         graph_viewer_t *gv     = va_arg(va, graph_viewer_t *);
         selection_item_t *item = va_arg(va, selection_item_t *);
@@ -403,7 +409,7 @@ private:
       break;
     //
     case grcode_dblclicked:
-      if (cb_flags & GR_HAVE_DBL_CLICKED)
+      if ( cb_flags & GR_HAVE_DBL_CLICKED )
       {
         graph_viewer_t *gv     = va_arg(va, graph_viewer_t *);
         selection_item_t *item = va_arg(va, selection_item_t *);
@@ -414,13 +420,13 @@ private:
       break;
     //
     case grcode_gotfocus:
-      if (cb_flags & GR_HAVE_GOTFOCUS)
+      if ( cb_flags & GR_HAVE_GOTFOCUS )
         on_gotfocus(va_arg(va, graph_viewer_t *));
       ret = 0;
       break;
     //
     case grcode_lostfocus:
-      if (cb_flags & GR_HAVE_LOSTFOCUS)
+      if ( cb_flags & GR_HAVE_LOSTFOCUS )
         on_lostfocus(va_arg(va, graph_viewer_t *));
       ret = 0;
       break;
@@ -431,7 +437,7 @@ private:
       break;
     //
     case grcode_user_hint:
-      if (cb_flags & GR_HAVE_USER_HINT)
+      if ( cb_flags & GR_HAVE_USER_HINT )
       {
         mutable_graph_t *g = va_arg(va, mutable_graph_t *);
         int mousenode      = va_arg(va, int);
@@ -447,10 +453,10 @@ private:
       break;
     //
     case grcode_changed_current:
-      if (cb_flags & GR_HAVE_CHANGED_CURRENT)
+      if ( cb_flags & GR_HAVE_CHANGED_CURRENT )
       {
         graph_viewer_t *gv = va_arg(va, graph_viewer_t *);
-        int       cur_node = va_arg(va, int);
+        int cur_node = va_arg(va, int);
         ret = on_changed_current(gv, cur_node);
       }
       else
@@ -473,7 +479,7 @@ private:
 
   void unbind()
   {
-    if (self == NULL)
+    if ( self == NULL )
       return;
 
     // Unbind this object from the python object
@@ -493,7 +499,7 @@ private:
   {
     // Try to extract "this" from the python object
     PyObject *py_this = PyObject_TryGetAttrString(self, S_M_THIS);
-    if (py_this == NULL || !PyCObject_Check(py_this))
+    if ( py_this == NULL || !PyCObject_Check(py_this) )
     {
       Py_XDECREF(py_this);
       return NULL;
@@ -558,19 +564,19 @@ private:
       {S_ON_DEACTIVATE,    GR_HAVE_LOSTFOCUS}
     };
     cb_flags = 0;
-    for (int i=0;i<qnumber(callbacks);i++)
+    for ( int i=0; i<qnumber(callbacks); i++ )
     {
       PyObject *attr = PyObject_TryGetAttrString(self, callbacks[i].name);
       int have = callbacks[i].have;
       // Mandatory fields not present?
-      if ((attr == NULL && have <= 0)
+      if ( (attr == NULL && have <= 0 )
         // Mandatory callback fields present but not callable?
         || (attr != NULL && have >= 0 && PyCallable_Check(attr) == 0))
       {
         Py_XDECREF(attr);
         return -1;
       }
-      if (have > 0 && attr != NULL)
+      if ( have > 0 && attr != NULL )
         cb_flags |= have;
       Py_XDECREF(attr);
     }
@@ -592,14 +598,14 @@ private:
     // Link "form" and "py_graph"
     tform_pyg.add(form, this);
 
-    if (hwnd != NULL)
+    if ( hwnd != NULL )
     {
       // get a unique graph id
       netnode id;
       id.create();
       gv = create_graph_viewer(form, id, s_callback, this, 0);
       open_tform(form, FORM_MDI|FORM_TAB|FORM_MENU);
-      if (gv != NULL)
+      if ( gv != NULL )
         viewer_fit_window(gv);
     }
     else
@@ -616,7 +622,7 @@ private:
       return 0;
     Py_ssize_t cmd_id = cmdid_pyg.id();
     bool ok = viewer_add_menu_item(gv, title, s_menucb, (void *)cmd_id, hotkey, 0);
-    if (!ok)
+    if ( !ok )
       return 0;
     cmdid_pyg.add(this);
     return cmd_id;
@@ -634,7 +640,7 @@ private:
     static void SelectNode(PyObject *self, int nid)
     {
       py_graph_t *_this = extract_this(self);
-      if (_this == NULL || _this->form == NULL)
+      if ( _this == NULL || _this->form == NULL )
         return;
       _this->jump_to_node(0);
     }
@@ -642,7 +648,7 @@ private:
     static Py_ssize_t AddCommand(PyObject *self, const char *title, const char *hotkey)
     {
       py_graph_t *_this = extract_this(self);
-      if (_this == NULL || _this->form == NULL)
+      if ( _this == NULL || _this->form == NULL )
         return 0;
       return _this->add_command(title, hotkey);
     }
@@ -650,7 +656,7 @@ private:
     static void Close(PyObject *self)
     {
       py_graph_t *_this = extract_this(self);
-      if (_this == NULL || _this->form == NULL)
+      if ( _this == NULL || _this->form == NULL )
         return;
       close_tform(_this->form, 0);
     }
@@ -658,7 +664,7 @@ private:
     static void Refresh(PyObject *self)
     {
       py_graph_t *_this = extract_this(self);
-      if (_this == NULL)
+      if ( _this == NULL )
         return;
       _this->refresh();
     }
@@ -666,10 +672,10 @@ private:
     static py_graph_t *Show(PyObject *self)
     {
       py_graph_t *ret = extract_this(self);
-      if (ret == NULL)
+      if ( ret == NULL )
       {
         qstring title;
-        if (!extract_title(self, &title))
+        if ( !extract_title(self, &title) )
           return NULL;
 
         // Form already created? try to get associated py_graph instance
@@ -677,7 +683,7 @@ private:
         ret = tform_pyg.get(find_tform(title.c_str()));
 
         // Instance not found? create a new one
-        if (ret == NULL)
+        if ( ret == NULL )
           ret = new py_graph_t();
         else
         {
@@ -685,7 +691,7 @@ private:
           ret->unbind();
           ret->refresh_needed = true;
         }
-        if (ret->create(self, title.c_str()) < 0)
+        if ( ret->create(self, title.c_str()) < 0 )
         {
           delete ret;
           ret = NULL;
@@ -728,7 +734,22 @@ void pyg_select_node(PyObject *self, int nid)
 }
 //</code(py_graph)>
 %}
+#endif
 
+#ifdef __NT__
+%inline %{
+//<inline(py_graph)>
+void pyg_refresh(PyObject *self);
+void pyg_close(PyObject *self);
+
+PyObject *pyg_add_command(PyObject *self, const char *title, const char *hotkey);
+void pyg_select_node(PyObject *self, int nid);
+bool pyg_show(PyObject *self);
+//</inline(py_graph)>
+%}
+#endif
+
+#ifdef __NT__
 %pythoncode %{
 #<pycode(py_graph)>
 class GraphViewer:
@@ -814,13 +835,26 @@ class GraphViewer:
         Event called when the graph is refreshed or first created.
         From this event you are supposed to create nodes and edges.
         This callback is mandatory.
+
         @note: ***It is important to clear previous nodes before adding nodes.***
-        @return: Returning true tells the graph viewer to use the items. Otherwise old items will be used.
+        @return: Returning True tells the graph viewer to use the items. Otherwise old items will be used.
         """
         self.Clear()
 
         return True
-
+#<pydoc>
+#    def OnGetText(self, node_id):
+#        """
+#        Triggered when the graph viewer wants the text and color for a given node.
+#        This callback is triggered one time for a given node (the value will be cached and used later without calling Python).
+#        When you call refresh then again this callback will be called for each node.
+#
+#        This callback is mandatory.
+#
+#        @return: Return a string to describe the node text or return a tuple (node_text, node_color) to describe both text and color
+#        """
+#        return str(self[node_id])
+#
 #    def OnActivate(self):
 #        """
 #        Triggered when the graph window gets the focus
@@ -841,17 +875,7 @@ class GraphViewer:
 #        """
 #        # allow selection change
 #        return True
-
-#    def OnGetText(self, node_id):
-#        """
-#        Triggered when the graph viewer wants the text and color for a given node.
-#        This callback is triggered one time for a given node (the value will be cached and used later without calling Python).
-#        When you call refresh then again this callback will be called for each node.
 #
-#        @return: Return a string to describe the node text or return a tuple (node_text, node_color) to describe both text and color
-#        """
-#        return str(self[node_id])
-
 #    def OnHint(self, node_id):
 #        """
 #        Triggered when the graph viewer wants to retrieve hint text associated with a given node
@@ -869,7 +893,7 @@ class GraphViewer:
 #    def OnClick(self, node_id):
 #        """
 #        Triggered when a node is clicked
-#        @return: False to ignore the click and true otherwise
+#        @return: False to ignore the click and True otherwise
 #        """
 #        print "clicked on", self[node_id]
 #        return True
@@ -888,16 +912,7 @@ class GraphViewer:
 #        @return: None
 #        """
 #        print "command:", cmd_id
+#</pydoc>
 #</pycode(py_graph)>
 %}
-
-%inline %{
-//<inline(py_graph)>
-void pyg_refresh(PyObject *self);
-void pyg_close(PyObject *self);
-
-PyObject *pyg_add_command(PyObject *self, const char *title, const char *hotkey);
-void pyg_select_node(PyObject *self, int nid);
-bool pyg_show(PyObject *self);
-//</inline(py_graph)>
-%}
+#endif

@@ -2,6 +2,7 @@
 %ignore memory_info_t;
 %ignore register_info_t;
 %ignore appcall;
+%ignore gdecode_t;
 %apply unsigned char { char dtyp };
 
 %include "idd.hpp"
@@ -16,7 +17,7 @@ static bool dbg_can_query()
 {
   // Reject the request only if no debugger is set
   // or the debugger cannot be queried while not in suspended state
-  return !(dbg == NULL || (!dbg->may_disturb() && get_process_state() > DSTATE_SUSP));
+  return dbg != NULL && (dbg->may_disturb() || get_process_state() < DSTATE_NOTASK);
 }
 
 //-------------------------------------------------------------------------
@@ -40,116 +41,6 @@ static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
         (unsigned int)mi.perm));
   }
   return py_list;
-}
-
-//-------------------------------------------------------------------------
-PyObject *dbg_get_memory_info()
-{
-  if (!dbg_can_query())
-    Py_RETURN_NONE;
-
-  // Invalidate memory
-  invalidate_dbgmem_config();
-  invalidate_dbgmem_contents(BADADDR, BADADDR);
-
-  meminfo_vec_t areas;
-  dbg->get_memory_info(areas);
-  return meminfo_vec_t_to_py(areas);
-}
-
-//-------------------------------------------------------------------------
-PyObject *dbg_get_registers()
-{
-  if (dbg == NULL)
-    Py_RETURN_NONE;
-
-  PyObject *py_list = PyList_New(dbg->registers_size);
-
-  for (int i=0;i<dbg->registers_size;i++)
-  {
-    register_info_t &ri = dbg->registers[i];
-    PyObject *py_bits;
-
-    // Does this register have bit strings?
-    if (ri.bit_strings != NULL)
-    {
-      int nbits = (int)b2a_width((int)get_dtyp_size(ri.dtyp), 0) * 4;
-      py_bits = PyList_New(nbits);
-      for (int i=0;i<nbits;i++)
-      {
-        const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, PyString_FromString(s == NULL ? "" : s));
-      }
-    }
-    else
-    {
-      Py_INCREF(Py_None);
-      py_bits = Py_None;
-    }
-
-    // name flags class dtyp bit_strings bit_strings_default_mask
-    PyList_SetItem(py_list, i,
-      Py_BuildValue("(sIIINI)",
-        ri.name,
-        ri.flags,
-        (unsigned int)ri.register_class,
-        (unsigned int)ri.dtyp,
-        py_bits,
-        (unsigned int)ri.bit_strings_default));
-  }
-  return py_list;
-}
-
-//-------------------------------------------------------------------------
-PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
-{
-  if (!dbg_can_query() || !PyInt_Check(py_tid) || !PyInt_Check(py_sreg_value))
-    Py_RETURN_NONE;
-  ea_t answer;
-  thid_t tid = PyInt_AsLong(py_tid);
-  int sreg_value = PyInt_AsLong(py_sreg_value);
-  if (dbg->thread_get_sreg_base(tid, sreg_value, &answer) != 1)
-    Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, pyul_t(answer));
-}
-
-//-------------------------------------------------------------------------
-PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
-{
-  uint64 ea, sz;
-  if ( !dbg_can_query() || !PyGetNumber(py_ea, &ea) || !PyGetNumber(py_sz, &sz) )
-    Py_RETURN_NONE;
-
-  char *buf = new char[size_t(sz)];
-  if ( buf == NULL )
-    Py_RETURN_NONE;
-
-  PyObject *ret;
-  if ( (size_t)dbg->read_memory(ea_t(ea), buf, size_t(sz)) == sz )
-  {
-    ret = PyString_FromStringAndSize(buf, (Py_ssize_t)sz);
-  }
-  else
-  {
-    Py_INCREF(Py_None);
-    ret = Py_None;
-  }
-  delete [] buf;
-  return ret;
-}
-
-//-------------------------------------------------------------------------
-PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
-{
-  uint64 ea;
-  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyGetNumber(py_ea, &ea) )
-    Py_RETURN_NONE;
-
-  size_t sz = PyString_GET_SIZE(py_buf);
-  void *buf = (void *)PyString_AS_STRING(py_buf);
-  if ( dbg->write_memory(ea_t(ea), buf, sz) != sz )
-    Py_RETURN_FALSE;
-  Py_RETURN_TRUE;
 }
 
 //-------------------------------------------------------------------------
@@ -202,7 +93,7 @@ PyObject *py_appcall(
     msg("input variables:\n"
         "----------------\n");
     qstring s;
-    for (Py_ssize_t i=0;i<nargs;i++)
+    for ( Py_ssize_t i=0; i<nargs; i++ )
     {
       VarPrint(&s, &idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
@@ -220,10 +111,10 @@ PyObject *py_appcall(
     idc_args.begin(),
     &idc_result);
 
-  if (ret != eOk)
+  if ( ret != eOk )
   {
     // An exception was thrown?
-    if (ret == eExecThrow)
+    if ( ret == eExecThrow )
     {
       // Convert the result (which is a debug_event) into a Python object
       PyObject *py_appcall_exc(NULL);
@@ -247,7 +138,7 @@ PyObject *py_appcall(
     msg("return variables:\n"
         "-----------------\n");
     qstring s;
-    for (Py_ssize_t i=0;i<nargs;i++)
+    for ( Py_ssize_t i=0; i<nargs; i++ )
     {
       VarPrint(&s, &idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
@@ -255,13 +146,13 @@ PyObject *py_appcall(
     }
   }
   // Convert IDC values back to Python values
-  for (Py_ssize_t i=0;i<nargs;i++)
+  for ( Py_ssize_t i=0; i<nargs; i++ )
   {
     // Get argument
     PyObject *py_item = PyList_GetItem(arg_list, i);
     // We convert arguments but fail only on fatal errors
     // (we ignore failure because of immutable objects)
-    if (idcvar_to_pyvar(idc_args[i], &py_item) == CIP_FAILED)
+    if ( idcvar_to_pyvar(idc_args[i], &py_item) == CIP_FAILED )
     {
       PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC values to Python values");
       return NULL;
@@ -269,7 +160,7 @@ PyObject *py_appcall(
   }
   // Convert the result from IDC back to Python
   PyObject *py_result(NULL);
-  if (idcvar_to_pyvar(idc_result, &py_result) <= CIP_IMMUTABLE)
+  if ( idcvar_to_pyvar(idc_result, &py_result) <= CIP_IMMUTABLE )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
     return NULL;
@@ -293,11 +184,165 @@ PyObject *py_appcall(
 %inline %{
 
 //<inline(py_idd)>
-PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf);
-PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz);
-PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value);
-PyObject *dbg_get_registers();
-PyObject *dbg_get_memory_info();
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_get_registers():
+    """
+    This function returns the register definition from the currently loaded debugger.
+    Basically, it returns an array of structure similar to to idd.hpp / register_info_t
+    @return:
+        None if no debugger is loaded
+        tuple(name, flags, class, dtyp, bit_strings, bit_strings_default_mask)
+        The bit_strings can be a tuple of strings or None (if the register does not have bit_strings)
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *dbg_get_registers()
+{
+  if ( dbg == NULL )
+    Py_RETURN_NONE;
+
+  PyObject *py_list = PyList_New(dbg->registers_size);
+
+  for ( int i=0; i<dbg->registers_size; i++ )
+  {
+    register_info_t &ri = dbg->registers[i];
+    PyObject *py_bits;
+
+    // Does this register have bit strings?
+    if ( ri.bit_strings != NULL )
+    {
+      int nbits = (int)b2a_width((int)get_dtyp_size(ri.dtyp), 0) * 4;
+      py_bits = PyList_New(nbits);
+      for ( int i=0; i<nbits; i++ )
+      {
+        const char *s = ri.bit_strings[i];
+        PyList_SetItem(py_bits, i, PyString_FromString(s == NULL ? "" : s));
+      }
+    }
+    else
+    {
+      Py_INCREF(Py_None);
+      py_bits = Py_None;
+    }
+
+    // name, flags, class, dtyp, bit_strings, bit_strings_default_mask
+    PyList_SetItem(py_list, i,
+      Py_BuildValue("(sIIINI)",
+        ri.name,
+        ri.flags,
+        (unsigned int)ri.register_class,
+        (unsigned int)ri.dtyp,
+        py_bits,
+        (unsigned int)ri.bit_strings_default));
+  }
+  return py_list;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_get_thread_sreg_base(tid, sreg_value):
+    """
+    Returns the segment register base value
+    @param tid: thread id
+    @param sreg_value: segment register (selector) value
+    @return:
+        - The base as an 'ea'
+        - Or None on failure
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
+{
+  if ( !dbg_can_query() || !PyInt_Check(py_tid) || !PyInt_Check(py_sreg_value) )
+    Py_RETURN_NONE;
+  ea_t answer;
+  thid_t tid = PyInt_AsLong(py_tid);
+  int sreg_value = PyInt_AsLong(py_sreg_value);
+  if ( dbg->thread_get_sreg_base(tid, sreg_value, &answer) != 1 )
+    Py_RETURN_NONE;
+  return Py_BuildValue(PY_FMT64, pyul_t(answer));
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_read_memory(ea, sz):
+    """
+    Reads from the debugee's memory at the specified ea
+    @return:
+        - The read buffer (as a string)
+        - Or None on failure
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
+{
+  uint64 ea, sz;
+  if ( !dbg_can_query() || !PyGetNumber(py_ea, &ea) || !PyGetNumber(py_sz, &sz) )
+    Py_RETURN_NONE;
+
+  // Create a Python string
+  PyObject *ret = PyString_FromStringAndSize(NULL, Py_ssize_t(sz));
+  if ( ret == NULL )
+    Py_RETURN_NONE;
+
+  // Get the internal buffer
+  Py_ssize_t len;
+  char *buf;
+  PyString_AsStringAndSize(ret, &buf, &len);
+
+  if ( (size_t)dbg->read_memory(ea_t(ea), buf, size_t(sz)) != sz )
+  {
+    // Release the string on failure
+    Py_DECREF(ret);
+    // Return None on failure
+    Py_RETURN_NONE;
+  }
+  return ret;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_write_memory(ea, buffer):
+    """
+    Writes a buffer to the debugee's memory
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
+{
+  uint64 ea;
+  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyGetNumber(py_ea, &ea) )
+    Py_RETURN_NONE;
+
+  size_t sz = PyString_GET_SIZE(py_buf);
+  void *buf = (void *)PyString_AS_STRING(py_buf);
+  if ( dbg->write_memory(ea_t(ea), buf, sz) != sz )
+    Py_RETURN_FALSE;
+  Py_RETURN_TRUE;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_get_name():
+    """
+    This function returns the current debugger's name.
+    @return: Debugger name or None if no debugger is active
+    """
+    pass
+#</pydoc>
+*/
 static PyObject *dbg_get_name()
 {
   if ( dbg == NULL )
@@ -305,6 +350,47 @@ static PyObject *dbg_get_name()
   return PyString_FromString(dbg->name);
 }
 
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_get_memory_info():
+    """
+    This function returns the memory configuration of a debugged process.
+    @return:
+        None if no debugger is active
+        tuple(startEA, endEA, name, sclass, sbase, bitness, perm)
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *dbg_get_memory_info()
+{
+  if ( !dbg_can_query() )
+    Py_RETURN_NONE;
+
+  // Invalidate memory
+  invalidate_dbgmem_config();
+  invalidate_dbgmem_contents(BADADDR, BADADDR);
+
+  meminfo_vec_t areas;
+  dbg->get_memory_info(areas);
+  return meminfo_vec_t_to_py(areas);
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def dbg_can_query():
+    """
+    This function can be used to check if the debugger can be queried:
+      - debugger is loaded
+      - process is suspended
+      - process is not suspended but can take requests
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
 static bool dbg_can_query();
 PyObject *py_appcall(
   ea_t func_ea,
@@ -368,15 +454,16 @@ bool can_exc_continue(const debug_event_t* ev)
 import types
 
 # -----------------------------------------------------------------------
-# This class is used with |Appcall.array() method
 class Appcall_array__(object):
+    """This class is used with Appcall.array() method"""
     def __init__(self, tp):
         self.__type = tp
 
     def pack(self, L):
+        """Packs a list or tuple into a byref buffer"""
         t = type(L)
         if not (t == types.ListType or t == types.TupleType):
-            raise ValueError, "Either a list or a type must be passed"
+            raise ValueError, "Either a list or a tuple must be passed"
         self.__size = len(L)
         if self.__size == 1:
             self.__typedobj = Appcall__.typedobj(self.__type + ";")
@@ -390,6 +477,7 @@ class Appcall_array__(object):
             return None
 
     def try_to_convert_to_list(self, obj):
+        """Is this object a list? We check for the existance of attribute zero and attribute self.size-1"""
         if not (hasattr(obj, "0") and hasattr(obj, str(self.__size-1))):
             return obj
         # at this point, we are sure we have an "idc list"
@@ -397,6 +485,7 @@ class Appcall_array__(object):
         return [getattr(obj, str(x)) for x in xrange(0, self.__size)]
 
     def unpack(self, buf, as_list=True):
+        """Unpacks an array back into a list or an object"""
         # take the value from the special ref object
         if isinstance(buf, PyIdc_cvt_refclass__):
             buf = buf.value
@@ -412,15 +501,6 @@ class Appcall_array__(object):
             return obj
         return self.try_to_convert_to_list(obj)
 
-# -----------------------------------------------------------------------
-# This class is used with the obj() method
-class Appcall_object__(object):
-    """Helper class used to initialize empty objects"""
-    def __init__(self, **kwds):
-        self.__dict__ = kwds
-
-    def __getitem__(self, idx):
-        return getattr(self, idx)
 
 # -----------------------------------------------------------------------
 # Wrapper class for the appcall()
@@ -444,13 +524,29 @@ class Appcall_callable__(object):
         self.__type   = tp
         self.__fields = fld
         self.__options = None # Appcall options
+        self.__timeout = None # Appcall timeout
+
+    def __get_timeout(self):
+        return self.__timeout
+    def __set_timeout(self, v):
+        self.__timeout = v
+    timeout = property(__get_timeout, __set_timeout)
+    """An Appcall instance can change its timeout value with this attribute"""
 
     def __get_options(self):
         return self.__options if self.__options != None else Appcall__.get_appcall_options()
+
     def __set_options(self, v):
+        if self.timeout:
+            # If timeout value is set, then put the timeout flag and encode the timeout value
+            v |= Appcall__.APPCALL_TIMEOUT | (self.timeout << 16)
+        else:
+            # Timeout is not set, then clear the timeout flag
+            v &= ~Appcall__.APPCALL_TIMEOUT
         self.__options = v
-    """Sets the Appcall options locally to this Appcall instance"""
+
     options = property(__get_options, __set_options)
+    """Sets the Appcall options locally to this Appcall instance"""
 
     def __call__(self, *args):
         """Make object callable. We redirect execution to idaapi.appcall()"""
@@ -475,7 +571,7 @@ class Appcall_callable__(object):
                arg_list)
         except Exception, e:
             e_obj = e
-        
+
         # Restore appcall options
         Appcall__.set_appcall_options(old_opt)
 
@@ -488,8 +584,9 @@ class Appcall_callable__(object):
         return self.__ea
     def __set_ea(self, val):
         self.__ea = val
-    """Returns or sets the EA associated with this object"""
+
     ea = property(__get_ea, __set_ea)
+    """Returns or sets the EA associated with this object"""
 
     def __get_size(self):
         if self.__type == None:
@@ -498,18 +595,20 @@ class Appcall_callable__(object):
         if not r:
             return -1
         return r
-    """Returns the size of the type"""
+
     size = property(__get_size)
+    """Returns the size of the type"""
 
     def __get_type(self):
         return self.__type
-    """Returns the typestring"""
+
     type = property(__get_type)
+    """Returns the typestring"""
 
     def __get_fields(self):
         return self.__fields
-    """Returns the typestring"""
     fields = property(__get_fields)
+    """Returns the field names"""
 
     def retrieve(self, src=None, flags=0):
         """
@@ -531,8 +630,9 @@ class Appcall_callable__(object):
         """
         Packs an object into a given ea if provided or into a string if no address was passed.
 
-        @return: - If packing to a string then a Tuple(Boolean, packed_string or error code)
-                 - If packing to the database then a return code is returned (0 is success)
+        @return:
+            - If packing to a string then a Tuple(Boolean, packed_string or error code)
+            - If packing to the database then a return code is returned (0 is success)
         """
 
         # no ea passed? thus pack to a string
@@ -543,6 +643,8 @@ class Appcall_callable__(object):
 
 # -----------------------------------------------------------------------
 class Appcall_consts__(object):
+    """Helper class used by Appcall.Consts attribute
+    It is used to retrieve constants via attribute access"""
     def __init__(self, default=0):
         self.__default = default
 
@@ -551,26 +653,34 @@ class Appcall_consts__(object):
 
 # -----------------------------------------------------------------------
 class Appcall__(object):
+    APPCALL_MANUAL = 0x1
     """
     Only set up the appcall, do not run it.
     you should call CleanupAppcall() when finished
     """
-    APPCALL_MANUAL = 0x1
+
+    APPCALL_DEBEV  = 0x2
     """
     Return debug event information
     If this bit is set, exceptions during appcall
     will generate idc exceptions with full
     information about the exception
     """
-    APPCALL_DEBEV  = 0x2
+
+    APPCALL_TIMEOUT = 0x4
+    """
+    Appcall with timeout
+    The timeout value in milliseconds is specified
+    in the high 2 bytes of the 'options' argument:
+    If timed out, errbuf will contain "timeout".
+    """
 
     def __init__(self):
         self.__consts = Appcall_consts__()
-
     def __get_consts(self):
         return self.__consts
-    """Use Appcall.Consts.CONST_NAME to access constants"""
     Consts = property(__get_consts)
+    """Use Appcall.Consts.CONST_NAME to access constants"""
 
     @staticmethod
     def __name_or_ea(name_or_ea):
@@ -591,7 +701,7 @@ class Appcall__(object):
 
     @staticmethod
     def proto(name_or_ea, prototype, flags = None):
-        """Allows you to instantiate an appcall with the desired prototype"""
+        """Allows you to instantiate an appcall (callable object) with the desired prototype"""
 
         # resolve and raise exception on error
         ea = Appcall__.__name_or_ea(name_or_ea)
@@ -605,7 +715,7 @@ class Appcall__(object):
         return Appcall_callable__(ea, result[1], result[2])
 
     def __getattr__(self, name_or_ea):
-        """Allows you to call functions as if they were member functions"""
+        """Allows you to call functions as if they were member functions (by returning a callable object)"""
         # resolve and raise exception on error
         ea = self.__name_or_ea(name_or_ea)
         if ea == _idaapi.BADADDR:
@@ -663,7 +773,7 @@ class Appcall__(object):
     @staticmethod
     def obj(**kwds):
         """Returns an empty object or objects with attributes as passed via its keywords arguments"""
-        return Appcall_object__(**kwds)
+        return object_t(**kwds)
 
     @staticmethod
     def cstr(val):
@@ -695,12 +805,14 @@ class Appcall__(object):
 
     @staticmethod
     def set_appcall_options(opt):
+        """Method to change the Appcall options globally (not per Appcall)"""
         old_opt = Appcall__.get_appcall_options()
         _idaapi.cvar.inf.appcall_options = opt
         return old_opt
 
     @staticmethod
     def get_appcall_options():
+        """Return the global Appcall options"""
         return _idaapi.cvar.inf.appcall_options
 
     @staticmethod

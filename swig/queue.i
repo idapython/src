@@ -10,10 +10,8 @@
 %ignore queue_del;
 
 %ignore mark_rollback;
+%ignore get_rollback_type;
 %ignore mark_ida_decision;
 %ignore unmark_ida_decision;
-
-%ignore had_rolled_back;
-%ignore ever_rolled_back;
 
 %include "queue.hpp"

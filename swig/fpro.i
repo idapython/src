@@ -1,5 +1,79 @@
 %inline %{
 //<inline(py_qfile)>
+/*
+#<pydoc>
+class qfile_t(pyidc_opaque_object_t):
+    """A helper class to work with FILE related functions."""
+    def __init__(self):
+        pass
+
+    def close(self):
+        """Closes the file"""
+        pass
+
+    def open(self, filename, mode):
+        """Opens a file
+        @param filename: the file name
+        @param mode: The mode string, ala fopen() style
+        @return: Boolean
+        """
+        pass
+
+    def set_linput(self, linput):
+        """Links the current loader_input_t instance to a linput_t instance"""
+        pass
+
+    @staticmethod
+    def tmpfile():
+        """A static method to construct an instance using a temporary file"""
+        pass
+
+    def seek(self, pos, whence = SEEK_SET):
+        """Set input source position
+        @return: the new position (not 0 as fseek!)
+        """
+        pass
+
+    def tell(self):
+        """Returns the current position"""
+        pass
+
+    def gets(self, len):
+        """Reads a line from the input file. Returns the read line or None"""
+        pass
+
+    def read(self, size):
+        """Reads from the file. Returns the buffer or None"""
+        pass
+
+    def write(self, buf):
+        """Writes to the file. Returns 0 or the number of bytes written"""
+        pass
+
+    def readbytes(self, size, big_endian):
+        """Similar to read() but it respect the endianness"""
+        pass
+
+    def writebytes(self, size, big_endian):
+        """Similar to write() but it respect the endianness"""
+        pass
+
+    def flush(self):
+        pass
+
+    def get_char(self):
+        """Reads a single character from the file. Returns None if EOF or the read character"""
+        pass
+
+    def put_char(self):
+        """Writes a single character to the file"""
+        pass
+
+    def opened(self):
+        """Checks if the file is opened or not"""
+        pass
+#</pydoc>
+*/
 class qfile_t
 {
 private:
@@ -71,16 +145,16 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *open(const char *filename, const char *mode)
+  bool open(const char *filename, const char *mode)
   {
     close();
     fp = qfopen(filename, mode);
     if ( fp == NULL )
-      Py_RETURN_FALSE;
+      return false;
     // Save file name
     fn = filename;
     own = true;
-    Py_RETURN_TRUE;
+    return true;
   }
 
   //--------------------------------------------------------------------------

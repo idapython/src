@@ -39,6 +39,8 @@
 %ignore netnode_suplast_idx8;
 %ignore netnode_supprev_idx8;
 %ignore netnode_supdel_all;
+%ignore netnode_supdel_range;
+%ignore netnode_supdel_range_idx8;
 %ignore netnode_hashval;
 %ignore netnode_hashstr;
 %ignore netnode_hashval_long;

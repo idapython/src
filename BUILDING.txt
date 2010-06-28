@@ -52,11 +52,8 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
 
    It is possible to build the plugin for different Python versions by
    running build.py with the corresponding Python binary.
-   
-   Some build options:
-     --ea64: builds the 64-bit version
-     --no-early-load: builds the IDAPython plugin w/o PLUGIN_FIX plugin flag 
-     (This flag disables the ability to write file loaders in IDAPython)
+
+   Run 'build.py --help' for more information.
 
 4, Install the components as described in README.txt
 

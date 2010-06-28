@@ -34,6 +34,12 @@
 %clear(char *optlibs);
 
 %inline %{
+/*
+#<pydoc>
+def get_fchunk_referer(ea, idx):
+    pass
+#</pydoc>
+*/
 ea_t get_fchunk_referer(ea_t ea, size_t idx)
 {
     func_t *pfn = get_fchunk(ea);

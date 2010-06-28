@@ -56,6 +56,7 @@
 %ignore align_down_to_stack;
 %ignore align_up_to_stack;
 %ignore remove_spaces;
+%ignore bgcolors;
 
 %include "lines.hpp"
 
@@ -67,10 +68,22 @@
 %rename (tag_advance) py_tag_advance;
 %rename (generate_disassembly) py_generate_disassembly;
 
-%inline 
-{
+%inline %{
 //<inline(py_lines)>
 //-------------------------------------------------------------------------
+/*
+#<pydoc>
+def tag_remove(colstr):
+    """
+    Remove color escape sequences from a string
+    @param colstr: the colored string with embedded tags
+    @return: 
+        None on failure
+        or a new string w/o the tags
+    """
+    pass
+#</pydoc>
+*/
 PyObject *py_tag_remove(const char *instr)
 {
   size_t sz = strlen(instr);
@@ -119,7 +132,28 @@ int py_tag_advance(const char *line, int cnt)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_generate_disassembly(ea_t ea, int max_lines, bool as_stack, bool notags)
+/*
+#<pydoc>
+def generate_disassembly(ea, max_lines, as_stack, notags):
+    """
+    Generate disassembly lines (many lines) and put them into a buffer
+    
+    @param ea: address to generate disassembly for
+    @param max_lines: how many lines max to generate
+    @param as_stack: Display undefined items as 2/4/8 bytes
+    @return: 
+        - None on failure
+        - tuple(most_important_line_number, tuple(lines)) : Returns a tuple containing 
+          the most important line number and a tuple of generated lines
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_generate_disassembly(
+  ea_t ea, 
+  int max_lines, 
+  bool as_stack, 
+  bool notags)
 {
   if ( max_lines <= 0 )
     Py_RETURN_NONE;
@@ -150,7 +184,7 @@ PyObject *py_generate_disassembly(ea_t ea, int max_lines, bool as_stack, bool no
 }
 //</inline(py_lines)>
 
-}
+%}
 
 %pythoncode %{
 #<pycode(py_lines)>
@@ -178,7 +212,12 @@ def requires_color_esc(c):
     t = ord(c[0])
     return c >= COLOR_ON and c <= COLOR_INV
 
-def COLSTR(str,tag):
+def COLSTR(str, tag):
+    """
+    Utility function to create a colored line
+    @param str: The string
+    @param tag: Color tag constant. One of SCOLOR_XXXX
+    """
     return SCOLOR_ON + tag + str + SCOLOR_OFF + tag
 
 #</pycode(py_lines)>

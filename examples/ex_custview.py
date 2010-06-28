@@ -15,7 +15,7 @@ class mycv_t(simplecustviewer_t):
         if sn:
             title += " %d" % sn
 
-        # Create the customview
+        # Create the customviewer
         if not simplecustviewer_t.Create(self, title):
             return False
         self.menu_hello = self.AddPopupMenu("Hello")
@@ -23,6 +23,8 @@ class mycv_t(simplecustviewer_t):
 
         for i in xrange(0, 100):
             self.AddLine("Line %d" % i)
+
+#        self.Jump(0)
 
         return True
 
@@ -71,6 +73,7 @@ class mycv_t(simplecustviewer_t):
         # ESCAPE?
         if vkey == 27:
             self.Close()
+        # VK_DELETE
         elif vkey == 46:
             n = self.GetLineNo()
             if n is not None:
@@ -129,10 +132,10 @@ class mycv_t(simplecustviewer_t):
         Hint requested for the given line number.
         @param lineno: The line number (zero based)
         @return:
-            - string: a string containing the hint
+            - tuple(number of important lines, hint string)
             - None: if no hint available
         """
-        return "OnHint, line=%d" % lineno
+        return (1, "OnHint, line=%d" % lineno)
 
     def OnPopupMenu(self, menu_id):
         """

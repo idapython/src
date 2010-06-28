@@ -237,7 +237,6 @@ NEF_NAME   = idaapi.NEF_NAME   # Rename entries
 NEF_MAN    = idaapi.NEF_MAN    # Manual load
 NEF_FILL   = idaapi.NEF_FILL   # Fill segment gaps
 NEF_IMPS   = idaapi.NEF_IMPS   # Create imports section
-NEF_TIGHT  = idaapi.NEF_TIGHT  # Don't align segments (OMF)
 NEF_FIRST  = idaapi.NEF_FIRST  # This is the first file loaded
 NEF_CODE   = idaapi.NEF_CODE   # for load_binary_file:
 NEF_RELOAD = idaapi.NEF_RELOAD # reload the file at the same place:
@@ -677,7 +676,7 @@ def MakeArray(ea, nitems):
 
     if idaapi.isStruct(flags):
         ti = idaapi.opinfo_t()
-        assert idaapi.get_typeinfo(ea, 0, flags, ti), "get_typeinfo() failed"
+        assert idaapi.get_opinfo(ea, 0, flags, ti), "get_opinfo() failed"
         itemsize = idaapi.get_data_elsize(ea, flags, ti)
         tid = ti.tid
     else:
@@ -1695,6 +1694,53 @@ def Byte(ea):
     return idaapi.get_byte(ea)
 
 
+def __DbgValue(ea, len):
+    if len not in idaapi.__struct_unpack_table:
+        return None
+    r = idaapi.dbg_read_memory(ea, len)
+    return None if r is None else struct.unpack((">" if idaapi.cvar.inf.mf else "<") + idaapi.__struct_unpack_table[len][1], r)[0]
+
+
+def DbgByte(ea):
+    """
+    Get value of program byte using the debugger memory
+
+    @param ea: linear address
+    @return: The value or None on failure.
+    """
+    return __DbgValue(ea, 1)
+
+
+def DbgWord(ea):
+    """
+    Get value of program word using the debugger memory
+
+    @param ea: linear address
+    @return: The value or None on failure.
+    """
+    return __DbgValue(ea, 2)
+
+
+def DbgDword(ea):
+    """
+    Get value of program double-word using the debugger memory
+
+    @param ea: linear address
+    @return: The value or None on failure.
+    """
+    return __DbgValue(ea, 4)
+
+
+def DbgQword(ea):
+    """
+    Get value of program quadro-word using the debugger memory
+
+    @param ea: linear address
+    @return: The value or None on failure.
+    """
+    return __DbgValue(ea, 8)
+
+
 def GetOriginalByte(ea):
     """
     Get original value of program byte
@@ -2082,7 +2128,7 @@ def GetOpnd(ea, n):
 
     @return: the current text representation of operand
     """
-    res = idaapi.ua_outop(ea, n)
+    res = idaapi.ua_outop2(ea, n)
 
     if not res:
         return ""
@@ -2102,60 +2148,48 @@ def GetOpType(ea, n):
     @return: any of o_* constants or -1 on error
     """
     inslen = idaapi.decode_insn(ea)
+    return -1 if inslen == 0 else idaapi.cmd.Operands[n].type
 
-    if inslen == 0:
-        return -1
 
-    insn = idaapi.get_current_instruction()
-
-    if not insn:
-        return -1
-
-    op = idaapi.get_instruction_operand(insn, n)
-
-    if not op:
-        return -1
-
-    return op.type
-
-o_void  =      0  # No Operand                           ----------
-o_reg  =       1  # General Register (al,ax,es,ds...)    reg
-o_mem  =       2  # Direct Memory Reference  (DATA)      addr
-o_phrase  =    3  # Memory Ref [Base Reg + Index Reg]    phrase
-o_displ  =     4  # Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
-o_imm  =       5  # Immediate Value                      value
-o_far  =       6  # Immediate Far Address  (CODE)        addr
-o_near  =      7  # Immediate Near Address (CODE)        addr
-o_idpspec0  =  8  # IDP specific type
-o_idpspec1  =  9  # IDP specific type
-o_idpspec2  = 10  # IDP specific type
-o_idpspec3  = 11  # IDP specific type
-o_idpspec4  = 12  # IDP specific type
-o_idpspec5  = 13  # IDP specific type
+o_void     =  idaapi.o_void      #  No Operand                           ----------
+o_reg      =  idaapi.o_reg       #  General Register (al,ax,es,ds...)    reg
+o_mem      =  idaapi.o_mem       #  Direct Memory Reference  (DATA)      addr
+o_phrase   =  idaapi.o_phrase    #  Memory Ref [Base Reg + Index Reg]    phrase
+o_displ    =  idaapi.o_displ     #  Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
+o_imm      =  idaapi.o_imm       #  Immediate Value                      value
+o_far      =  idaapi.o_far       #  Immediate Far Address  (CODE)        addr
+o_near     =  idaapi.o_near      #  Immediate Near Address (CODE)        addr
+o_idpspec0 =  idaapi.o_idpspec0  #  IDP specific type
+o_idpspec1 =  idaapi.o_idpspec1  #  IDP specific type
+o_idpspec2 = idaapi.o_idpspec2  #  IDP specific type
+o_idpspec3 = idaapi.o_idpspec3  #  IDP specific type
+o_idpspec4 = idaapi.o_idpspec4  #  IDP specific type
+o_idpspec5 = idaapi.o_idpspec5  #  IDP specific type
+o_last     = idaapi.o_last      #  first unused type
 
 # x86
-o_trreg  =       o_idpspec0      # trace register
-o_dbreg  =       o_idpspec1      # debug register
-o_crreg  =       o_idpspec2      # control register
-o_fpreg  =       o_idpspec3      # floating point register
-o_mmxreg  =      o_idpspec4      # mmx register
-o_xmmreg  =      o_idpspec5      # xmm register
+o_trreg  =       idaapi.o_idpspec0      # trace register
+o_dbreg  =       idaapi.o_idpspec1      # debug register
+o_crreg  =       idaapi.o_idpspec2      # control register
+o_fpreg  =       idaapi.o_idpspec3      # floating point register
+o_mmxreg  =      idaapi.o_idpspec4      # mmx register
+o_xmmreg  =      idaapi.o_idpspec5      # xmm register
 
 # arm
-o_reglist  =     o_idpspec1      # Register list (for LDM/STM)
-o_creglist  =    o_idpspec2      # Coprocessor register list (for CDP)
-o_creg  =        o_idpspec3      # Coprocessor register (for LDC/STC)
-o_fpreg  =       o_idpspec4      # Floating point register
-o_fpreglist  =   o_idpspec5      # Floating point register list
-o_text  =        (o_idpspec5+1)  # Arbitrary text stored in the operand
+o_reglist  =     idaapi.o_idpspec1      # Register list (for LDM/STM)
+o_creglist  =    idaapi.o_idpspec2      # Coprocessor register list (for CDP)
+o_creg  =        idaapi.o_idpspec3      # Coprocessor register (for LDC/STC)
+o_fpreg  =       idaapi.o_idpspec4      # Floating point register
+o_fpreglist  =   idaapi.o_idpspec5      # Floating point register list
+o_text  =        (idaapi.o_idpspec5+1)  # Arbitrary text stored in the operand
 
 # ppc
-o_spr  =         o_idpspec0      # Special purpose register
-o_twofpr  =      o_idpspec1      # Two FPRs
-o_shmbme  =      o_idpspec2      # SH & MB & ME
-o_crf  =         o_idpspec3      # crfield      x.reg
-o_crb  =         o_idpspec4      # crbit        x.reg
-o_dcr  =         o_idpspec5      # Device control register
+o_spr  =         idaapi.o_idpspec0      # Special purpose register
+o_twofpr  =      idaapi.o_idpspec1      # Two FPRs
+o_shmbme  =      idaapi.o_idpspec2      # SH & MB & ME
+o_crf  =         idaapi.o_idpspec3      # crfield      x.reg
+o_crb  =         idaapi.o_idpspec4      # crbit        x.reg
+o_dcr  =         idaapi.o_idpspec5      # Device control register
 
 def GetOperandValue(ea, n):
     """
@@ -2177,12 +2211,7 @@ def GetOperandValue(ea, n):
     inslen = idaapi.decode_insn(ea)
     if inslen == 0:
         return -1
-
-    insn = idaapi.get_current_instruction()
-    if not insn:
-        return -1
-
-    op = idaapi.get_instruction_operand(insn, n)
+    op = idaapi.cmd.Operands[n]
     if not op:
         return -1
 
@@ -2251,8 +2280,16 @@ def AltOp(ea, n):
     """
     return idaapi.get_forced_operand(ea, n)
 
+ASCSTR_C       = idaapi.ASCSTR_TERMCHR # C-style ASCII string
+ASCSTR_PASCAL  = idaapi.ASCSTR_PASCAL  # Pascal-style ASCII string (length byte)
+ASCSTR_LEN2    = idaapi.ASCSTR_LEN2    # Pascal-style, length is 2 bytes
+ASCSTR_UNICODE = idaapi.ASCSTR_UNICODE # Unicode string
+ASCSTR_LEN4    = idaapi.ASCSTR_LEN4    # Pascal-style, length is 4 bytes
+ASCSTR_ULEN2   = idaapi.ASCSTR_ULEN2   # Pascal-style Unicode, length is 2 bytes
+ASCSTR_ULEN4   = idaapi.ASCSTR_ULEN4   # Pascal-style Unicode, length is 4 bytes
+ASCSTR_LAST    = idaapi.ASCSTR_LAST    # Last string type
 
-def GetString(ea, length = -1, strtype = idaapi.ASCSTR_TERMCHR):
+def GetString(ea, length = -1, strtype = ASCSTR_C):
     """
     Get string contents
     @param ea: linear address
@@ -2277,20 +2314,10 @@ def GetStringType(ea):
     """
     ti = idaapi.opinfo_t()
 
-    if idaapi.get_typeinfo(ea, 0, GetFlags(ea), ti):
+    if idaapi.get_opinfo(ea, 0, GetFlags(ea), ti):
         return ti.strtype
     else:
         return None
-
-ASCSTR_C       = idaapi.ASCSTR_TERMCHR # C-style ASCII string
-ASCSTR_PASCAL  = idaapi.ASCSTR_PASCAL  # Pascal-style ASCII string (length byte)
-ASCSTR_LEN2    = idaapi.ASCSTR_LEN2    # Pascal-style, length is 2 bytes
-ASCSTR_UNICODE = idaapi.ASCSTR_UNICODE # Unicode string
-ASCSTR_LEN4    = idaapi.ASCSTR_LEN4    # Pascal-style, length is 4 bytes
-ASCSTR_ULEN2   = idaapi.ASCSTR_ULEN2   # Pascal-style Unicode, length is 2 bytes
-ASCSTR_ULEN4   = idaapi.ASCSTR_ULEN4   # Pascal-style Unicode, length is 4 bytes
-ASCSTR_LAST    = idaapi.ASCSTR_LAST    # Last string type
-
 
 #      The following functions search for the specified byte
 #          ea - address to start from
@@ -3876,9 +3903,7 @@ def GetFunctionAttr(ea, attr):
     """
     func = idaapi.get_func(ea)
 
-    if func:
-        return _IDC_GetAttr(func, _FUNCATTRMAP, attr)
-    return BADADDR
+    return _IDC_GetAttr(func, _FUNCATTRMAP, attr) if func else BADADDR
 
 
 def SetFunctionAttr(ea, attr, value):
@@ -3960,7 +3985,7 @@ def GetFunctionFlags(ea):
 FUNC_NORET    = idaapi.FUNC_NORET    # function doesn't return
 FUNC_FAR      = idaapi.FUNC_FAR      # far function
 FUNC_LIB      = idaapi.FUNC_LIB      # library function
-FUNC_STATIC   = idaapi.FUNC_STATIC   # static function
+FUNC_STATICDEF= idaapi.FUNC_STATICDEF# static function
 FUNC_FRAME    = idaapi.FUNC_FRAME    # function uses frame pointer (BP)
 FUNC_USERFAR  = idaapi.FUNC_USERFAR  # user has specified far-ness
                                      # of the function
@@ -5514,7 +5539,7 @@ def GetConstByName(name):
 
     @return: ID of constant or -1
     """
-    return idaapi.get_const_by_name(name)
+    return idaapi.get_enum_member_by_name(name)
 
 
 def GetConstValue(const_id):
@@ -5525,7 +5550,7 @@ def GetConstValue(const_id):
 
     @return: value of constant or 0
     """
-    return idaapi.get_const_value(const_id)
+    return idaapi.get_enum_member_value(const_id)
 
 
 def GetConstBmask(const_id):
@@ -5537,7 +5562,7 @@ def GetConstBmask(const_id):
     @return: bitmask of constant or 0
              ordinary enums have bitmask = -1
     """
-    return idaapi.get_const_bmask(const_id)
+    return idaapi.get_enum_member_bmask(const_id)
 
 
 def GetConstEnum(const_id):
@@ -5549,7 +5574,7 @@ def GetConstEnum(const_id):
     @return: id of enum the constant belongs to.
              -1 if const_id is bad.
     """
-    return idaapi.get_const_enum(const_id)
+    return idaapi.get_enum_member_enum(const_id)
 
 
 def GetConstEx(enum_id, value, serial, bmask):
@@ -5565,7 +5590,7 @@ def GetConstEx(enum_id, value, serial, bmask):
 
     @return: id of constant or -1 if error
     """
-    return idaapi.get_const(enum_id, value, serial, bmask)
+    return idaapi.get_enum_member(enum_id, value, serial, bmask)
 
 
 def GetFirstBmask(enum_id):
@@ -5685,7 +5710,7 @@ def GetFirstConst(enum_id, bmask):
     @return: value of constant or -1 no constants are defined
              All constants are sorted by their values as unsigned longs.
     """
-    return idaapi.get_first_const(enum_id, bmask)
+    return idaapi.get_first_enum_member(enum_id, bmask)
 
 
 def GetLastConst(enum_id, bmask):
@@ -5699,7 +5724,7 @@ def GetLastConst(enum_id, bmask):
              All constants are sorted by their values
              as unsigned longs.
     """
-    return idaapi.get_last_const(enum_id, bmask)
+    return idaapi.get_last_enum_member(enum_id, bmask)
 
 
 def GetNextConst(enum_id, value, bmask):
@@ -5714,7 +5739,7 @@ def GetNextConst(enum_id, value, bmask):
              value. -1 no such constants exist.
              All constants are sorted by their values as unsigned longs.
     """
-    return idaapi.get_next_const(enum_id, value, bmask)
+    return idaapi.get_next_enum_member(enum_id, value, bmask)
 
 
 def GetPrevConst(enum_id, value, bmask):
@@ -5730,7 +5755,7 @@ def GetPrevConst(enum_id, value, bmask):
         value. -1 no such constants exist.
         All constants are sorted by their values as unsigned longs.
     """
-    return idaapi.get_prev_const(enum_id, value, bmask)
+    return idaapi.get_prev_enum_member(enum_id, value, bmask)
 
 
 def GetConstName(const_id):
@@ -5741,7 +5766,7 @@ def GetConstName(const_id):
 
     Returns: name of constant
     """
-    name = idaapi.get_const_name(const_id)
+    name = idaapi.get_enum_member_name(const_id)
 
     if not name:
         return ""
@@ -5758,7 +5783,7 @@ def GetConstCmt(const_id, repeatable):
 
     @return: comment string
     """
-    cmt = idaapi.get_const_cmt(const_id, repeatable)
+    cmt = idaapi.get_enum_member_cmt(const_id, repeatable)
 
     if not cmt:
         return ""
@@ -5910,16 +5935,16 @@ def AddConstEx(enum_id, name, value, bmask):
         ordinary enums accept only -1 as a bitmask
         all bits set in value should be set in bmask too
 
-    @return: 0-ok, otherwise error code (one of CONST_ERROR_*)
+    @return: 0-ok, otherwise error code (one of ENUM_MEMBER_ERROR_*)
     """
-    return idaapi.add_const(enum_id, name, value, bmask)
+    return idaapi.add_enum_member(enum_id, name, value, bmask)
 
 
-CONST_ERROR_NAME  = idaapi.CONST_ERROR_NAME  # already have member with this name (bad name)
-CONST_ERROR_VALUE = idaapi.CONST_ERROR_VALUE # already have member with this value
-CONST_ERROR_ENUM  = idaapi.CONST_ERROR_ENUM  # bad enum id
-CONST_ERROR_MASK  = idaapi.CONST_ERROR_MASK  # bad bmask
-CONST_ERROR_ILLV  = idaapi.CONST_ERROR_ILLV  # bad bmask and value combination (~bmask & value != 0)
+ENUM_MEMBER_ERROR_NAME  = idaapi.ENUM_MEMBER_ERROR_NAME  # already have member with this name (bad name)
+ENUM_MEMBER_ERROR_VALUE = idaapi.ENUM_MEMBER_ERROR_VALUE # already have member with this value
+ENUM_MEMBER_ERROR_ENUM  = idaapi.ENUM_MEMBER_ERROR_ENUM  # bad enum id
+ENUM_MEMBER_ERROR_MASK  = idaapi.ENUM_MEMBER_ERROR_MASK  # bad bmask
+ENUM_MEMBER_ERROR_ILLV  = idaapi.ENUM_MEMBER_ERROR_ILLV  # bad bmask and value combination (~bmask & value != 0)
 
 
 def DelConstEx(enum_id, value, serial, bmask):
@@ -5935,7 +5960,7 @@ def DelConstEx(enum_id, value, serial, bmask):
 
     @return: 1-ok, 0-failed
     """
-    return idaapi.del_const(enum_id, value, serial, bmask)
+    return idaapi.del_enum_member(enum_id, value, serial, bmask)
 
 
 def SetConstName(const_id, name):
@@ -5947,7 +5972,7 @@ def SetConstName(const_id, name):
 
     @return: 1-ok, 0-failed
     """
-    return idaapi.set_const_name(const_id, name)
+    return idaapi.set_enum_member_name(const_id, name)
 
 
 def SetConstCmt(const_id, cmt, repeatable):
@@ -5962,7 +5987,7 @@ def SetConstCmt(const_id, cmt, repeatable):
 
     @return: 1-ok, 0-failed
     """
-    return idaapi.set_const_cmt(const_id, cmt, repeatable)
+    return idaapi.set_enum_member_cmt(const_id, cmt, repeatable)
 
 #----------------------------------------------------------------------------
 #                         A R R A Y S  I N  I D C
@@ -6116,19 +6141,14 @@ def DelLineNumber(ea):
 #                T Y P E  L I B R A R I E S
 #----------------------------------------------------------------------------
 
-def LoadTil(name, tildir=None):
+def LoadTil(name):
     """
     Load a type library
 
     @param name: name of type library.
-    @param tildir: drectory to load the TIL from (defaults to "til/pc")
-
     @return: 1-ok, 0-failed.
     """
-    if not tildir:
-        tildir = "til" + os.sep + "pc"
-
-    til = idaapi.load_til(tildir, name)
+    til = idaapi.add_til2(name, idaapi.ADDTIL_DEFAULT)
 
     if til:
         return 1
@@ -6192,7 +6212,7 @@ def SetType(ea, newtype):
 
     @return: 1-ok, 0-failed.
     """
-    return idaapi.apply_cdecl(ea, newtype)
+    return idaapi.apply_cdecl2(idaapi.cvar.idati, ea, newtype)
 
 def ParseType(inputtype, flags):
     """
@@ -7140,19 +7160,11 @@ def GetBptAttr(ea, bptattr):
         return -1
 
 
-BPTATTR_EA    =  0   # starting address of the breakpoint
-BPTATTR_SIZE  =  4   # size of the breakpoint (undefined for software breakpoint)
-BPTATTR_TYPE  =  8   # type of the breakpoint
-BPTATTR_COUNT = 12   # number of times this breakpoint is hit before stopping
-BPTATTR_FLAGS = 16   # Breakpoint attributes:
-BPTATTR_COND  = 20   # Breakpoint condition NOTE: the return value is a string in this case
+BPTATTR_EA    =  1   # starting address of the breakpoint
+BPTATTR_SIZE  =  2   # size of the breakpoint (undefined for software breakpoint)
 
-if __EA64__:
-    BPTATTR_SIZE  = 8
-    BPTATTR_TYPE  = 16
-    BPTATTR_COUNT = 20
-    BPTATTR_FLAGS = 24
-    BPTATTR_COND  = 28
+# type of the breakpoint
+BPTATTR_TYPE  =  3
 
 # Breakpoint types:
 BPT_EXEC    = 0    # Hardware: Execute instruction
@@ -7160,8 +7172,14 @@ BPT_WRITE   = 1    # Hardware: Write access
 BPT_RDWR    = 3    # Hardware: Read/write access
 BPT_SOFT    = 4    # Software breakpoint
 
+BPTATTR_COUNT =  4
+BPTATTR_FLAGS =  5
 BPT_BRK        = 0x01  # the debugger stops on this breakpoint
 BPT_TRACE      = 0x02  # the debugger adds trace information when this breakpoint is reached
+BPT_UPDMEM     = 0x04  # update memory contents before evaluating bpt condition
+BPT_UPDSEG     = 0x08  # update memory config before evaluating bpt condition
+
+BPTATTR_COND  =  6   # Breakpoint condition. NOTE: the return value is a string in this case
 
 
 def SetBptAttr(address, bptattr, value):
@@ -7526,5 +7544,8 @@ def isEnabled(ea): return (PrevAddr(ea+1)==ea)
 SEGDEL_PERM   = 0x0001 # permanently, i.e. disable addresses
 SEGDEL_KEEP   = 0x0002 # keep information (code & data, etc)
 SEGDEL_SILENT = 0x0004 # be silent
+
+ARGV = []
+"""The command line arguments passed to IDA via the -S switch."""
 
 # END OF IDC COMPATIBILY CODE

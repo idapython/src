@@ -5,7 +5,7 @@
 %ignore term_enums;
 %ignore set_enum_flag;
 %ignore sync_from_enum;;
-%ignore del_all_consts;
+%ignore del_all_enum_members;
 %ignore get_selected_enum;
 %ignore add_selected_enum;
 %ignore unmark_selected_enums;

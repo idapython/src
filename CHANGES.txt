@@ -1,5 +1,17 @@
-Please see http://code.google.com/p/idapython/source/list for a
-detailed list of changes.
+Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
+
+Changes from version 1.3.0 to 1.4.0
+------------------------------------
+- IDA Pro 5.7 support
+- idaapi.cvar.cmd is now accessible via idapi.cmd instead
+- Python statement (Alt-8) is now 16kb long
+- Dropped script box and File/Python file. IDA has this functionality now.
+- Refactored the code
+- It is possible to turn off script timeout
+- All scripts are executed via 'IDAPython_ExecScript' (check idaapi.i)
+- Added '--doc' switch to "build.py" script
+- Documented all manually wrapped functions (check 'pywraps' module in the docs)
+- Lots of cleanups and fixes
 
 Changes from version 1.2.0 to 1.3.0
 ------------------------------------
@@ -98,7 +110,7 @@ Changes from version 0.5.0 to 0.6.0
   - Most Find*, Ask* and Seg* are now wrapped
   - Fixed broken NextAddr(), PrevAddr(), MakeFunction() and MakeName()
 - Fixes to the makefile
-- Cleanups for the idaapi wrapper 
+- Cleanups for the idaapi wrapper
 - Bunch of misc small cleanups and fixes
 - For more details see CHANGES-SWIG.txt and CHANGES-Plugin.txt
 

@@ -9,6 +9,8 @@
 %ignore has_jump_or_flow_xref;
 %ignore has_call_xref;
 %ignore destroy_switch_info;
+%ignore create_switch_xrefs;
+%ignore create_switch_table;
 
 // These functions should not be called directly (according to docs)
 %ignore xrefblk_t_first_from;

@@ -17,12 +17,15 @@ import shutil
 import sys
 import types
 import zipfile
+import glob
 from distutils import sysconfig
 
 # Start of user configurable options
 VERBOSE = True
+
 IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 6
+IDA_MINOR_VERSION = 7
+
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
 else:
@@ -32,8 +35,8 @@ else:
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 3
-VERSION_PATCH  = 2
+VERSION_MINOR  = 4
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -43,7 +46,7 @@ PYTHON_MINOR_VERSION = int(platform.python_version()[2])
 PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 
 # Swig command-line parameters
-SWIG_OPTIONS = '-modern -python -c++ -w451 -shadow -D__GNUC__'
+SWIG_OPTIONS = '-modern -python -c++ -w451 -shadow -D__GNUC__ -DNO_OBSOLETE_FUNCS'
 
 # Common macros for all compilations
 COMMON_MACROS = [
@@ -75,6 +78,7 @@ BINDIST_MANIFEST = [
     "examples/structure.py",
     "examples/ex_gdl_qflow_chart.py",
     "examples/ex_strings.py",
+    "examples/ex_add_menu_item.py",
     "examples/ex_func_chooser.py",
     "examples/ex_choose2.py",
     "examples/ex_debug_names.py",
@@ -162,7 +166,8 @@ class BuilderBase:
                                            includestring,
                                            macrostring)
 
-        if VERBOSE: print cmdstring
+        if VERBOSE:
+            print cmdstring
         return os.system(cmdstring)
 
     def link(self, objects, outfile, libpaths=[], libraries=[], extra_parameters=None):
@@ -413,7 +418,73 @@ def build_source_package():
     srcmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py"])
     build_distribution(srcmanifest, SRCDISTDIR, ea64=False, nukeold=True)
 
+def gen_docs(z = False):
+        print "Generating documentation....."
+        old_dir = os.getcwd()
+        try:
+            curdir = os.getcwd() + os.sep
+            docdir = 'idapython-reference-%d.%d.%d' % (VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+            sys.path.append(curdir + 'python')
+            sys.path.append(curdir + 'tools')
+            sys.path.append(curdir + 'docs')
+            import epydoc.cli
+            import swigdocs
+            os.chdir('docs')
+            PYWRAPS_FN = 'pywraps'
+            swigdocs.gen_docs(outfn = PYWRAPS_FN + '.py')
+            epydoc.cli.optparse.sys.argv = [ 'epydoc',
+                                             '--no-sourcecode',
+                                             '-u', 'http://code.google.com/p/idapython/',
+                                             '--navlink', '<a href="http://www.hex-rays.com/idapro/idapython_docs/">IDAPython Reference</a>',
+                                             '--no-private',
+                                             '--simple-term',
+                                             '-o', docdir,
+                                             '--html',
+                                             'idc', 'idautils', PYWRAPS_FN, 'idaapi']
+            # Generate the documentation
+            epydoc.cli.cli()
+
+            print "Documentation generated!"
+
+            # Clean temp files
+            for f in [PYWRAPS_FN + '.py', PYWRAPS_FN + '.pyc']:
+                if os.path.exists(f):
+                  os.unlink(f)
+
+            if z:
+                z = docdir + '-doc.zip'
+                zip = zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED)
+                for fn in glob.glob(docdir + os.sep + '*'):
+                    zip.write(fn)
+                zip.close()
+                print "Documentation compressed to", z
+        except Exception, e:
+            print 'Failed to generate documentation:', e
+        finally:
+            os.chdir(old_dir)
+        return
+
+def usage():
+    print """IDAPython build script.
+
+Available switches:
+  --doc:
+    Generate documentation into the 'docs' directory
+  --zip:
+    Used with '--doc' switch. It will compress the generated documentation
+  --ea64:
+    Builds also the 64bit version of the plugin
+  --no-early-load:
+    The plugin will be compiled as normal plugin
+    This switch disables processor, plugin and loader scripts
+"""
+
 def main():
+    if '--help' in sys.argv:
+        return usage()
+    elif '--doc' in sys.argv:
+        return gen_docs(z = '--zip' in sys.argv)
+
     # Do 64-bit build?
     ea64 = '--ea64' in sys.argv
     build_binary_package(ea64=False, nukeold=True)

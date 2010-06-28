@@ -72,12 +72,14 @@
 %ignore save_fileregions;
 %ignore add_fileregion;
 %ignore move_fileregions;
+%ignore del_fileregions;
 %ignore local_gen_idc_file;
 %ignore print_all_places;
 %ignore save_text_line;
 %ignore print_all_structs;
 %ignore print_all_enums;
 %ignore enum_processor_modules;
+%ignore enum_plugins;
 %ignore database_id0;
 %ignore is_database_ext;
 %ignore ida_database_memory;

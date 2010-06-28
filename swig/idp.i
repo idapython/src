@@ -31,6 +31,7 @@
 %ignore processor_t;
 %ignore ph;
 %ignore IDB_Callback;
+%ignore IDP_Callback;
 
 %ignore free_processor_module;
 %ignore read_config_file;
@@ -38,9 +39,8 @@
 %ignore gen_idb_event;
 
 %include "idp.hpp"
-
 %feature("director") IDB_Hooks;
-
+%feature("director") IDP_Hooks;
 %inline %{
 int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
 class IDB_Hooks 
@@ -61,8 +61,8 @@ public:
     virtual int enum_bf_changed(enum_t id) { return 0; };
     virtual int enum_renamed(enum_t id) { return 0; };
     virtual int enum_cmt_changed(enum_t id) { return 0; };
-    virtual int enum_const_created(enum_t id, const_t cid) { return 0; };
-    virtual int enum_const_deleted(enum_t id, const_t cid) { return 0; };
+    virtual int enum_member_created(enum_t id, const_t cid) { return 0; };
+    virtual int enum_member_deleted(enum_t id, const_t cid) { return 0; };
     virtual int struc_created(tid_t struc_id) { return 0; };
     virtual int struc_deleted(tid_t struc_id) { return 0; };
     virtual int struc_renamed(struc_t *sptr) { return 0; };
@@ -84,6 +84,277 @@ public:
     virtual int segm_moved(ea_t from, ea_t to, asize_t size) { return 0; };
 };
 
+// Assemble an instruction into the database (display a warning if an error is found)
+// args:
+//  ea_t ea -  linear address of instruction
+//  ea_t cs -  cs of instruction
+//  ea_t ip -  ip of instruction
+//  bool use32 - is 32bit segment?
+//  const char *line - line to assemble
+// returns: 1: success, 0: failure 
+inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+{
+    int inslen;
+    char buf[MAXSTR];
+
+    if (ph.notify != NULL)
+    {
+        inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
+        if (inslen > 0)
+	{
+            patch_many_bytes(ea, buf, inslen);
+            return 1;
+	}
+    }
+    return 0;
+}
+
+//<inline(py_idp)>
+//-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def AssembleLine(ea, cs, ip, use32, line):
+    """
+    Assemble an instruction to a buffer (display a warning if an error is found)
+    
+    @param ea: linear address of instruction
+    @param cs:  cs of instruction
+    @param ip:  ip of instruction
+    @param use32: is 32bit segment
+    @param line: line to assemble
+    @return:
+        - None on failure
+        - or a string containing the assembled instruction
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+{
+  int inslen;
+  char buf[MAXSTR];
+  if (ph.notify != NULL &&
+    (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
+  {
+    return PyString_FromStringAndSize(buf, inslen);
+  }
+  Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_tbyte_size():
+    """
+    Returns the 'ph.tbyte_size' field as defined in he processor module
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_tbyte_size()
+{
+  return ph.tbyte_size;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_id():
+    """
+    Returns the 'ph.id' field
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_id()
+{
+  return ph.id;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_instruc():
+    """
+    Returns a list of tuples (instruction_name, instruction_feature) containing the
+    instructions list as defined in he processor module
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *ph_get_instruc()
+{
+  Py_ssize_t i = 0;
+  PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
+  for ( instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
+        p != end;
+        ++p )
+  {
+    PyTuple_SetItem(py_result, i++, Py_BuildValue("(sI)", p->name, p->feature));
+  }
+  return py_result;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_regnames():
+    """
+    Returns the list of register names as defined in the processor module
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *ph_get_regnames()
+{
+  Py_ssize_t i = 0;
+  PyObject *py_result = PyList_New(ph.regsNum);
+  for ( Py_ssize_t i=0; i<ph.regsNum; i++ )
+    PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
+  return py_result;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+class IDP_Hooks(object):
+    def custom_ana(self):
+        """
+        Analyzes and decodes an instruction at idaapi.cmd.ea
+           - cmd.itype must be set >= idaapi.CUSTOM_CMD_ITYPE
+           - cmd.size must be set to the instruction length
+
+       @return: Boolean
+            - False if the instruction is not recognized
+            - True if the instruction was decoded. idaapi.cmd should be filled in that case.
+        """
+        pass
+
+    def custom_out(self):
+        """
+        Outputs the instruction defined in idaapi.cmd
+
+        @return: Boolean (whether this instruction can be outputted or not)
+        """
+        pass
+
+    def custom_emu(self):
+        """
+        Emulate instruction, create cross-references, plan to analyze
+        subsequent instructions, modify flags etc. Upon entrance to this function
+        all information about the instruction is in 'cmd' structure.
+
+        @return: Boolean (whether this instruction has been emulated or not)
+        """
+        pass
+
+    def custom_outop(self, op):
+        """
+        Notification to generate operand text.
+        If False was returned, then the standard operand output function will be called.
+
+        The output buffer is inited with init_output_buffer()
+        and this notification may use out_...() functions to form the operand text
+
+        @return: Boolean (whether the operand has been outputted or not)
+        """
+
+    def custom_mnem(self):
+        """
+        Prints the mnemonic of the instruction defined in idaapi.cmd
+
+        @return:
+            - None: No mnemonic. IDA will use the default mnemonic value if present
+            - String: The desired mnemonic string
+        """
+
+    def is_sane_insn(self, no_crefs):
+       """
+       is the instruction sane for the current file type?
+       @param no_crefs:
+             - 1: the instruction has no code refs to it.
+                  ida just tries to convert unexplored bytes
+                  to an instruction (but there is no other
+                  reason to convert them into an instruction)
+             - 0: the instruction is created because
+                  of some coderef, user request or another
+                  weighty reason.
+            @return: 1-ok, <=0-no, the instruction isn't likely to appear in the program
+       """
+       pass
+
+    def is_sane_insn(self, no_crefs):
+       """
+       can a function start here?
+       @param state: autoanalysis phase
+             0: creating functions
+             1: creating chunks
+       
+       @return: integer (probability 0..100)
+       """
+       pass
+#</pydoc>
+*/
+int idaapi IDP_Callback(void *ud, int notification_code, va_list va);
+class IDP_Hooks 
+{
+public:
+  virtual ~IDP_Hooks() 
+  {
+  }
+
+  bool hook() 
+  { 
+    return hook_to_notification_point(HT_IDP, IDP_Callback, this); 
+  }
+
+  bool unhook() 
+  { 
+    return unhook_from_notification_point(HT_IDP, IDP_Callback, this); 
+  }
+
+  virtual bool custom_ana() 
+  { 
+    return false; 
+  }
+
+  virtual bool custom_out() 
+  { 
+    return false; 
+  }
+  
+  virtual bool custom_emu()
+  { 
+    return false; 
+  }
+  
+  virtual bool custom_outop(PyObject *py_op) 
+  { 
+    return false; 
+  }
+  
+  virtual PyObject *custom_mnem() 
+  { 
+    return NULL; 
+  }
+
+  virtual int is_sane_insn(int no_crefs)
+  {
+    return 0;
+  }
+
+  virtual int may_be_func(int state)
+  {
+    return 0;
+  }
+};
+
+//</inline(py_idp)>
+%}
+
+%{
 int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 {
   class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
@@ -149,15 +420,15 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
       id = va_arg(va, enum_t);
       return proxy->enum_cmt_changed(id);
 
-    case idb_event::enum_const_created:
+    case idb_event::enum_member_created:
       id = va_arg(va, enum_t);
       cid = va_arg(va, const_t);
-      return proxy->enum_const_created(id, cid);
+      return proxy->enum_member_created(id, cid);
 
-    case idb_event::enum_const_deleted:
+    case idb_event::enum_member_deleted:
       id = va_arg(va, enum_t);
       cid = va_arg(va, const_t);
-      return proxy->enum_const_deleted(id, cid);
+      return proxy->enum_member_deleted(id, cid);
 
     case idb_event::struc_created:
       struc_id = va_arg(va, tid_t);
@@ -256,84 +527,86 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
   return 0;
 }
 
-// Assemble an instruction into the database (display a warning if an error is found)
-// args:
-//  ea_t ea -  linear address of instruction
-//  ea_t cs -  cs of instruction
-//  ea_t ip -  ip of instruction
-//  bool use32 - is 32bit segment?
-//  const char *line - line to assemble
-// returns: 1: success, 0: failure 
-inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+//<code(py_idp)>
+//-------------------------------------------------------------------------
+int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
 {
-    int inslen;
-    char buf[MAXSTR];
-
-    if (ph.notify != NULL)
+  IDP_Hooks *proxy = (IDP_Hooks *)ud;
+  int ret;
+  try 
+  {
+    switch ( notification_code )
     {
-        inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
-        if (inslen > 0)
-	{
-            patch_many_bytes(ea, buf, inslen);
-            return 1;
-	}
+    default:
+      ret = 0;
+      break;
+
+    case processor_t::custom_ana:
+      ret = proxy->custom_ana() ? 1 + cmd.size : 0;
+      break;
+
+    case processor_t::custom_out:
+      ret = proxy->custom_out() ? 2 : 0;
+      break;
+
+    case processor_t::custom_emu:
+      ret = proxy->custom_emu() ? 2 : 0;
+      break;
+
+    case processor_t::custom_outop:
+      {
+        op_t *op = va_arg(va, op_t *);
+        PyObject *py_obj = create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op);
+        if ( py_obj == NULL )
+          break;
+        ret = proxy->custom_outop(py_obj) ? 2 : 0;
+        Py_XDECREF(py_obj);
+        break;
+      }
+
+    case processor_t::custom_mnem:
+      {
+        PyObject *py_ret = proxy->custom_mnem();
+        if ( py_ret != NULL && PyString_Check(py_ret) )
+        {
+          char *outbuffer = va_arg(va, char *);
+          size_t bufsize  = va_arg(va, size_t);
+
+          qstrncpy(outbuffer, PyString_AS_STRING(py_ret), bufsize);
+          ret = 2;
+        }
+        else
+        {
+          ret = 0;
+        }
+        Py_XDECREF(py_ret);
+        break;
+      }
+    
+    case processor_t::is_sane_insn:
+      {
+        int no_crefs = va_arg(va, int);
+        ret = proxy->is_sane_insn(no_crefs);
+        break;
+      }
+
+    case processor_t::may_be_func:
+      {
+        int state = va_arg(va, int);
+        ret = proxy->may_be_func(state);
+        break;
+      }
     }
-    return 0;
-}
-
-//<inline(py_idp)>
-//-------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------
-// Assemble an instruction to a buffer (display a warning if an error is found)
-// args:
-//  ea_t ea -  linear address of instruction
-//  ea_t cs -  cs of instruction
-//  ea_t ip -  ip of instruction
-//  bool use32 - is 32bit segment?
-//  const char *line - line to assemble
-// returns: 1: success, 0: failure 
-static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
-{
-  int inslen;
-  char buf[MAXSTR];
-  if (ph.notify != NULL &&
-    (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
-  {
-    return PyString_FromStringAndSize(buf, inslen);
   }
-  Py_RETURN_NONE;
-}
-
-//-------------------------------------------------------------------------
-static size_t ph_get_tbyte_size()
-{
-  return ph.tbyte_size;
-}
-
-//-------------------------------------------------------------------------
-static PyObject *ph_get_instruc()
-{
-  Py_ssize_t i = 0;
-  PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
-  for ( instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
-        p != end;
-        ++p )
-  {
-    PyTuple_SetItem(py_result, i++, Py_BuildValue("(sI)", p->name, p->feature));
+  catch (Swig::DirectorException &) 
+  { 
+    msg("Exception in IDP Hook function:\n"); 
+    if ( PyErr_Occurred() )
+      PyErr_Print();
   }
-  return py_result;
+  return ret;
 }
 
 //-------------------------------------------------------------------------
-static PyObject *ph_get_regnames()
-{
-  Py_ssize_t i = 0;
-  PyObject *py_result = PyList_New(ph.regsNum);
-  for ( Py_ssize_t i=0; i<ph.regsNum; i++ )
-    PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
-  return py_result;
-}
-
-//</inline(py_idp)>
+//</code(py_idp)>
 %}

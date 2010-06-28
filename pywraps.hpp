@@ -7,16 +7,24 @@
   #define PYUL_DEFINED
   #ifdef __EA64__
     typedef unsigned PY_LONG_LONG pyul_t;
+    typedef PY_LONG_LONG pyl_t;
   #else
     typedef unsigned long pyul_t;
+    typedef long pyl_t;
   #endif
 #endif
 
 #ifdef __EA64__
-  #define PY_FMT64 "K"
+  #define PY_FMT64  "K"
+  #define PY_SFMT64 "L"
 #else
-  #define PY_FMT64 "k"
+  #define PY_FMT64  "k"
+  #define PY_SFMT64 "l"
 #endif
+
+#define S_IDAAPI_MODNAME                         "idaapi"
+#define S_IDC_MODNAME                            "idc"
+#define S_IDAAPI_EXECSCRIPT                      "IDAPython_ExecScript"
 
 // Vector of PyObject*
 typedef qvector<PyObject *> ppyobject_vec_t;
@@ -28,6 +36,19 @@ typedef qvector<PyObject *> ppyobject_vec_t;
 #define PY_ICID_OPAQUE                           2
 
 //------------------------------------------------------------------------
+// Constants used with the notify_when()
+#define NW_OPENIDB          0x0001
+#define NW_OPENIDB_SLOT     0
+#define NW_CLOSEIDB         0x0002
+#define NW_CLOSEIDB_SLOT    1
+#define NW_INITIDA          0x0004
+#define NW_INITIDA_SLOT     2
+#define NW_TERMIDA          0x0008
+#define NW_TERMIDA_SLOT     3
+#define NW_REMOVE           0x0010 // Uninstall flag
+#define NW_EVENTSCNT        4 // Count of notify_when codes
+
+//------------------------------------------------------------------------
 // Constants used by the pyvar_to_idcvar and idcvar_to_pyvar functions
 #define CIP_FAILED      -1 // Conversion error
 #define CIP_IMMUTABLE    0 // Immutable object passed. Will not update the object but no error occured
@@ -36,6 +57,8 @@ typedef qvector<PyObject *> ppyobject_vec_t;
 
 //------------------------------------------------------------------------
 // All the exported functions from PyWraps are forward declared here
+insn_t *insn_t_get_clink(PyObject *self);
+op_t *op_t_get_clink(PyObject *self);
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
 PyObject *PyImport_TryImportModule(const char *name);
@@ -58,12 +81,22 @@ bool PyGetError(qstring *out = NULL);
 // If an error occured (it calls PyGetError) it displays it and return TRUE
 bool PyShowErr(const char *cb_name);
 
+// Utility function to create a class instance whose constructor takes zero arguments
+PyObject *create_idaapi_class_instance0(const char *clsname);
+
+// Utility function to create linked class instances
+PyObject *create_idaapi_linked_class_instance(const char *clsname, void *lnk);
+
 // [De]Initializes PyWraps
 bool init_pywraps();
 void deinit_pywraps();
 
 // Returns the string representation of a PyObject
 bool PyObjectToString(PyObject *obj, qstring *out);
+
+// Utility function to convert a python object to an IDC object
+// and sets a python exception on failure.
+bool convert_pyobj_to_idc_exc(PyObject *py_obj, idc_value_t *idc_obj);
 
 // Converts Python variable to IDC variable
 // gvar_sn is used in case the Python object was a created from a call to idcvar_to_pyvar and the IDC object was a VT_REF
@@ -78,5 +111,18 @@ int idcvar_to_pyvar(
   const idc_value_t &idc_var,
   PyObject **py_var);
 
+// Walks a Python list or Sequence and calls the callback
+Py_ssize_t pyvar_walk_list(
+  PyObject *py_list, 
+  int (idaapi *cb)(PyObject *py_item, Py_ssize_t index, void *ud) = NULL,
+  void *ud = NULL);
+
+// Returns a reference to a class
+PyObject *get_idaapi_attr(const char *attr);
+
+// notify_when()
+bool pywraps_nw_term();
+bool pywraps_nw_notify(int slot, ...);
+bool pywraps_nw_init();
 
 #endif

@@ -2,6 +2,7 @@
 %ignore createSRarea;
 %ignore killSRareas;
 %ignore delSRarea;
+%ignore splitSRarea;
 %ignore SRareaStart;
 %ignore SRareaEnd;
 %ignore repairSRarea;

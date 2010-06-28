@@ -3,6 +3,8 @@
 %ignore gdl_graph_t::gen_gdl;
 %ignore gdl_graph_t::path;
 %ignore gdl_graph_t::path_exists;
+%ignore gdl_graph_t::gen_dot;
+
 %ignore intmap_t::dstr;
 %ignore intmap_t::print;
 %ignore intseq_t::add_block;
@@ -20,6 +22,7 @@
 %ignore node_set_t::sub;
 %ignore qflow_chart_t::blocks;
 %ignore flow_chart_t;
+%ignore default_graph_format;
 %ignore setup_graph_subsystem;
 %ignore qbasic_block_t::succ;
 %ignore qbasic_block_t::pred;
@@ -38,6 +41,7 @@
 #<pycode(py_gdl)>
 # -----------------------------------------------------------------------
 class BasicBlock:
+    """Basic block class. It is returned by the Flowchart class"""
     def __init__(self, id, bb, f):
         self._f = f
         self.id = id
@@ -68,7 +72,8 @@ class BasicBlock:
 # -----------------------------------------------------------------------
 class FlowChart:
     """
-    Flowchart class used to determine basic blocks
+    Flowchart class used to determine basic blocks.
+    Check ex_gdl_qflow_chart.py for sample usage.
     """
     def __init__(self, f=None, bounds=None, flags=0):
         """

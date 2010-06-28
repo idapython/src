@@ -7,6 +7,9 @@ typedef struct
 
 %ignore dbg;
 %ignore get_manual_regions;
+%ignore source_file_t;
+%ignore source_item_t;
+%ignore srcinfo_provider_t;
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
 %include "dbg.hpp"
@@ -22,7 +25,18 @@ static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 %inline %{
 
 //<inline(py_dbg)>
+
 //-------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_manual_regions():
+    """
+    Returns the manual memory regions
+    @return: list(startEA, endEA, name, sclass, sbase, bitness, perm)
+    """
+    pass
+#</pydoc>
+*/
 static PyObject *py_get_manual_regions()
 {
   meminfo_vec_t areas;
@@ -31,12 +45,24 @@ static PyObject *py_get_manual_regions()
 }
 
 //-------------------------------------------------------------------------
+/*
+#<pydoc>
+def refresh_debugger_memory():
+    """
+    Refreshes the debugger memory
+    @return: Nothing
+    """
+    pass
+#</pydoc>
+*/
 static PyObject *refresh_debugger_memory()
 {
   invalidate_dbgmem_config();
-  invalidate_dbgmem_contents(BADADDR, BADADDR);
+  invalidate_dbgmem_contents(BADADDR, 0);
   if ( dbg != NULL && dbg->stopped_at_debug_event != NULL )
     dbg->stopped_at_debug_event(true);
+  isEnabled(0);
+
   Py_RETURN_NONE;
 }
 //</inline(py_dbg)>
@@ -226,8 +252,8 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
 
     case dbg_request_error:
     {
-      int failed_command = (int)va_arg(va, ui_notification_t);
-      int failed_dbg_notification = (int)va_arg(va, dbg_notification_t);
+      int failed_command = (int)va_argi(va, ui_notification_t);
+      int failed_dbg_notification = (int)va_argi(va, dbg_notification_t);
       proxy->dbg_request_error(failed_command, failed_dbg_notification);
       return 0;
     }

@@ -60,6 +60,96 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
 
 %inline %{
 //<inline(py_diskio)>
+/*
+#<pydoc>
+class loader_input_t(pyidc_opaque_object_t):
+    """A helper class to work with linput_t related functions.
+    This class is also used by file loaders scripts.
+    """
+    def __init__(self):
+        pass
+
+    def close(self):
+        """Closes the file"""
+        pass
+
+    def open(self, filename, remote = False):
+        """Opens a file (or a remote file)
+        @return: Boolean
+        """
+        pass
+
+    def set_linput(self, linput):
+        """Links the current loader_input_t instance to a linput_t instance"""
+        pass
+
+    @staticmethod
+    def from_fp(fp):
+        """A static method to construct an instance from a FILE*"""
+        pass
+
+    def open_memory(self, start, size):
+        """Create a linput for process memory (By internally calling idaapi.create_memory_linput())
+        This linput will use dbg->read_memory() to read data
+        @param start: starting address of the input
+        @param size: size of the memory area to represent as linput
+                    if unknown, may be passed as 0
+        """
+        pass
+
+    def seek(self, pos, whence = SEEK_SET):
+        """Set input source position
+        @return: the new position (not 0 as fseek!)
+        """
+        pass
+
+    def tell(self):
+        """Returns the current position"""
+        pass
+
+    def getz(self, sz, fpos = -1):
+        """Returns a zero terminated string at the given position
+        @param sz: maximum size of the string
+        @param fpos: if != -1 then seek will be performed before reading
+        @return: The string or None on failure.
+        """
+        pass
+
+    def gets(self, len):
+        """Reads a line from the input file. Returns the read line or None"""
+        pass
+
+    def read(self, size):
+        """Reads from the file. Returns the buffer or None"""
+        pass
+
+    def readbytes(self, size, big_endian):
+        """Similar to read() but it respect the endianness"""
+        pass
+
+    def file2base(self, pos, ea1, ea2, patchable):
+        """
+        Load portion of file into the database
+        This function will include (ea1..ea2) into the addressing space of the
+        program (make it enabled)
+        @param li: pointer ot input source
+        @param pos: position in the file
+        @param (ea1..ea2): range of destination linear addresses
+        @param patchable: should the kernel remember correspondance of
+                          file offsets to linear addresses.
+        @return: 1-ok,0-read error, a warning is displayed
+        """
+        pass
+
+    def get_char(self):
+        """Reads a single character from the file. Returns None if EOF or the read character"""
+        pass
+
+    def opened(self):
+        """Checks if the file is opened or not"""
+        pass
+#</pydoc>
+*/
 class loader_input_t
 {
 private:
@@ -126,17 +216,17 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *open(const char *filename, bool remote = false)
+  bool open(const char *filename, bool remote = false)
   {
     close();
     li = open_linput(filename, remote);
     if ( li == NULL )
-      Py_RETURN_FALSE;
+      return false;
 
     // Save file name
     fn = filename;
     own = OWN_CREATE;
-    Py_RETURN_TRUE;
+    return true;
   }
 
   //--------------------------------------------------------------------------
@@ -188,16 +278,16 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *open_memory(ea_t start, asize_t size = 0)
+  bool open_memory(ea_t start, asize_t size = 0)
   {
     linput_t *l = create_memory_linput(start, size);
     if ( l == NULL )
-      Py_RETURN_FALSE;
+      return false;
     close();
     li = l;
     fn = "<memory>";
     own = OWN_CREATE;
-    Py_RETURN_TRUE;
+    return true;
   }
 
   //--------------------------------------------------------------------------
@@ -326,6 +416,23 @@ public:
 
 
 //--------------------------------------------------------------------------
+/*
+#<pydoc>
+def enumerate_files(path, fname, callback):
+    """
+    Enumerate files in the specified directory while the callback returns 0.
+    @param path: directory to enumerate files in
+    @param fname: mask of file names to enumerate
+    @param callback: a callable object that takes the filename as
+                     its first argument and it returns 0 to continue
+                     enumeration or non-zero to stop enumeration.
+    @return: 
+        None in case of script errors
+        tuple(code, fname) : If the callback returns non-zero
+    """
+    pass
+#</pydoc>
+*/
 PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback)
 {
   do
@@ -349,6 +456,7 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
 %pythoncode %{
 #<pycode(py_diskio)>
 def enumerate_system_files(subdir, fname, callback):
+    """Similar to enumerate_files() however it searches inside IDA directory or its subdirectories"""
     return enumerate_files(idadir(subdir), fname, callback)
 #</pycode(py_diskio)>
 %}

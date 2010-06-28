@@ -276,40 +276,13 @@ def DecodeInstruction(ea):
     Decodes an instruction and returns an insn_t like class
 
     @param ea: address to decode
-
-    @return: None or an insn_t like structure
+    @return: None or a new insn_t instance
     """
     inslen = idaapi.decode_insn(ea)
     if inslen == 0:
         return None
-    insn = idaapi.get_current_instruction()
-    if not insn:
-        return None
 
-    class _insn(object):
-        def __getitem__(self, index):
-            if index > len(self.Operands):
-                raise StopIteration
-            return self.Operands[index]
-
-    class _op(_reg_dtyp_t):
-        def __init__(self, op):
-            _copy_obj(op, self)
-            _reg_dtyp_t.__init__(self, op.reg, op.dtyp)
-        def is_reg(self, r):
-            """Checks if the operand is the given processor register"""
-            return self.type == idaapi.o_reg and self == r
-        def has_reg(self, r):
-            """Checks if the operand accesses the given processor register"""
-            return self.reg == r.reg
-    r = _copy_obj(insn, _insn())
-    r.Operands = [] # to hold the operands
-    for n in xrange(0, idaapi.UA_MAXOP):
-        t = idaapi.get_instruction_operand(insn, n)
-        if t.type == idaapi.o_void:
-            break
-        r.Operands.append(_op(t))
-    return r
+    return idaapi.cmd.copy()
 
 
 def GetDataList(ea, count, itemsize=1):
@@ -498,7 +471,7 @@ def Assemble(ea, line):
     idc.Batch(old_batch)
     return ret
 
-def _copy_obj(src, dest):
+def _copy_obj(src, dest, skip_list = None):
     """
     Copy non private/non callable attributes from a class instance to another
     @param src: Source class to copy from
@@ -507,11 +480,17 @@ def _copy_obj(src, dest):
     @return: A new instance or "dest"
     """
     if type(dest) == types.StringType:
+        # instantiate a new destination class of the specified type name?
         dest = new.classobj(dest, (), {})
     for x in dir(src):
+        # skip special and private fields
         if x.startswith("__") and x.endswith("__"):
             continue
+        # skip items in the skip list
+        if skip_list and x in skip_list:
+            continue
         t = getattr(src, x)
+        # skip callable
         if callable(t):
             continue
         setattr(dest, x, t)
