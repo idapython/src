@@ -47,6 +47,22 @@ static PyObject *py_get_manual_regions()
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
+def dbg_is_loaded():
+    """
+    Checks if a debugger is loaded
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static bool dbg_is_loaded()
+{
+  return dbg != NULL;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
 def refresh_debugger_memory():
     """
     Refreshes the debugger memory
