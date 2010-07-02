@@ -5244,7 +5244,8 @@ def GetFchunkAttr(ea, attr):
 
     @return: desired attribute or -1
     """
-    return Eval("GetFchunkAttr(0x%x, %d);" % (ea, attr))
+    func = idaapi.get_fchunk(ea)
+    return _IDC_GetAttr(func, _FUNCATTRMAP, attr) if func else BADADDR
 
 
 def SetFchunkAttr(ea, attr, value):
