@@ -450,7 +450,7 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
 
   // Failure at this point means the script was interrupted
   qstring err;
-  if ( PyGetError(&err) || py_ret == NULL )
+  if ( PyW_GetError(&err) || py_ret == NULL )
   {
     PyErr_Clear();
     if ( err.empty() )
@@ -695,7 +695,7 @@ bool idaapi IDAPython_extlang_create_object(
     parse_py_modname(name, modname, clsname, MAXSTR);
 
     // Get a reference to the module
-    py_mod = PyImport_TryImportModule(modname);
+    py_mod = PyW_TryImportModule(modname);
     if ( py_mod == NULL )
     {
       qsnprintf(errbuf, errbufsize, "Could not import module '%s'!", modname);
@@ -703,7 +703,7 @@ bool idaapi IDAPython_extlang_create_object(
     }
 
     // Get the class reference
-    py_cls = PyObject_TryGetAttrString(py_mod, clsname);
+    py_cls = PyW_TryGetAttrString(py_mod, clsname);
     if ( py_cls == NULL )
     {
       qsnprintf(errbuf, errbufsize, "Could not find class type '%s'!", clsname);
@@ -742,7 +742,7 @@ bool idaapi IDAPython_extlang_get_attr(
   do
   {
     // Get a reference to the module
-    py_mod = PyImport_TryImportModule(S_MAIN);
+    py_mod = PyW_TryImportModule(S_MAIN);
     if ( py_mod == NULL )
       break;
 
@@ -753,7 +753,7 @@ bool idaapi IDAPython_extlang_get_attr(
     {
       // (1) Get attribute from main module
       if ( obj->vtype == VT_STR2 )
-        py_obj = PyObject_TryGetAttrString(py_mod, obj->c_str());
+        py_obj = PyW_TryGetAttrString(py_mod, obj->c_str());
       // (2) see if opaque object
       else
       {
@@ -779,7 +779,7 @@ bool idaapi IDAPython_extlang_get_attr(
       // then work with main module
       py_obj = py_mod;
     }
-    PyObject *py_attr = PyObject_TryGetAttrString(py_obj, attr);
+    PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr);
     // No attribute?
     if ( py_attr == NULL )
     {
@@ -832,7 +832,7 @@ bool idaapi IDAPython_extlang_set_attr(
   do
   {
     // Get a reference to the module
-    py_mod = PyImport_TryImportModule(S_MAIN);
+    py_mod = PyW_TryImportModule(S_MAIN);
     if ( py_mod == NULL )
       break;
 
@@ -840,7 +840,7 @@ bool idaapi IDAPython_extlang_set_attr(
     {
       // Get the attribute reference (from just a name)
       if ( obj->vtype == VT_STR2 )
-        py_obj = PyObject_TryGetAttrString(py_mod, obj->c_str());
+        py_obj = PyW_TryGetAttrString(py_mod, obj->c_str());
       else
       {
         int cvt = idcvar_to_pyvar(*obj, &py_obj);
@@ -937,7 +937,7 @@ bool idaapi IDAPython_extlang_call_method(
       break;
     }
 
-    py_method = PyObject_TryGetAttrString(py_obj, method_name);
+    py_method = PyW_TryGetAttrString(py_obj, method_name);
     if ( py_method == NULL || !PyCallable_Check(py_method) )
     {
       qsnprintf(errbuf, errbufsize, "The input object does not have a callable method called '%s'", method_name);
@@ -1114,7 +1114,7 @@ void convert_idc_args()
   }
 
   // Get reference to the IDC module (it is imported by init.py)
-  PyObject *py_mod = PyImport_TryImportModule(S_IDC_MODNAME);
+  PyObject *py_mod = PyW_TryImportModule(S_IDC_MODNAME);
   if ( py_mod != NULL )
     PyObject_SetAttrString(py_mod, S_IDC_ARGS_VARNAME, py_args);
 

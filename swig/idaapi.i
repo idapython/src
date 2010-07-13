@@ -91,9 +91,11 @@ static const char S_PY_IDCCVT_VALUE_ATTR[]   = "__idc_cvt_value__";
 static const char S_PY_IDC_OPAQUE_T[]        = "py_idc_cvt_helper_t";
 static const char S_PROPS[]                  = "props";
 static const char S_NAME[]                   = "name";
+static const char S_TITLE[]                  = "title";
 static const char S_ASM_KEYWORD[]            = "asm_keyword";
 static const char S_MENU_NAME[]              = "menu_name";
 static const char S_HOTKEY[]                 = "hotkey";
+static const char S_FLAGS[]                  = "flags";
 static const char S_VALUE_SIZE[]             = "value_size";
 static const char S_MAY_CREATE_AT[]          = "may_create_at";
 static const char S_CALC_ITEM_SIZE[]         = "calc_item_size";
@@ -108,6 +110,7 @@ static const char S_ON_CLOSE[]               = "OnClose";
 static const char S_ON_DBL_CLICK[]           = "OnDblClick";
 static const char S_ON_CURSOR_POS_CHANGED[]  = "OnCursorPosChanged";
 static const char S_ON_KEYDOWN[]             = "OnKeydown";
+static const char S_ON_COMPLETE_LINE[]       = "OnCompleteLine";
 static const char S_ON_POPUP[]               = "OnPopup";
 static const char S_ON_HINT[]                = "OnHint";
 static const char S_ON_POPUP_MENU[]          = "OnPopupMenu";
@@ -116,6 +119,7 @@ static const char S_ON_INSERT_LINE[]         = "OnInsertLine";
 static const char S_ON_GET_LINE[]            = "OnGetLine";
 static const char S_ON_DELETE_LINE[]         = "OnDeleteLine";
 static const char S_ON_REFRESH[]             = "OnRefresh";
+static const char S_ON_EXECUTE_LINE[]        = "OnExecuteLine";
 static const char S_ON_SELECT_LINE[]         = "OnSelectLine";
 static const char S_ON_COMMAND[]             = "OnCommand";
 static const char S_ON_GET_ICON[]            = "OnGetIcon";
@@ -199,7 +203,7 @@ bool init_pywraps()
   if ( py_cvt_helper_module == NULL )
   {
     // Take a reference to the module so we can create the needed class instances
-    py_cvt_helper_module = PyImport_TryImportModule(S_PY_IDAAPI_MODNAME);
+    py_cvt_helper_module = PyW_TryImportModule(S_PY_IDAAPI_MODNAME);
     if ( py_cvt_helper_module == NULL )
       return false;
   }
@@ -246,7 +250,7 @@ PyObject *create_idaapi_class_instance0(const char *clsname)
     return NULL;
   PyObject *py_obj = PyObject_CallFunctionObjArgs(py_cls, NULL);
   Py_DECREF(py_cls);
-  if ( PyGetError() || py_obj == NULL )
+  if ( PyW_GetError() || py_obj == NULL )
   {
     Py_XDECREF(py_obj);
     Py_RETURN_NONE;
@@ -267,7 +271,7 @@ PyObject *create_idaapi_linked_class_instance(const char *clsname, void *lnk)
   Py_DECREF(py_cls);
   Py_DECREF(py_lnk);
 
-  if ( PyGetError() || py_obj == NULL )
+  if ( PyW_GetError() || py_obj == NULL )
   {
     Py_XDECREF(py_obj);
     py_obj = NULL;
@@ -298,21 +302,41 @@ static PyObject *get_idaapi_attr(const int class_id)
 // Gets a class reference by name
 PyObject *get_idaapi_attr(const char *attrname)
 {
-  return PyObject_TryGetAttrString(py_cvt_helper_module, attrname);
+  return PyW_TryGetAttrString(py_cvt_helper_module, attrname);
 }
+
+//------------------------------------------------------------------------
+// Returns a qstring from an object attribute
+bool PyW_GetStringAttr(
+    PyObject *py_obj, 
+    const char *attr_name, 
+    qstring *str)
+{
+  PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr_name);
+  if ( py_attr == NULL )
+    return false;
+
+  bool ok = PyString_Check(py_attr) != 0;
+  if ( ok )
+    *str = PyString_AsString(py_attr);
+
+  Py_DECREF(py_attr);
+  return ok;
+}
+
 //------------------------------------------------------------------------
 // Returns an attribute or NULL
 // No errors will be set if the attribute did not exist
-PyObject *PyObject_TryGetAttrString(PyObject *py_var, const char *attr)
+PyObject *PyW_TryGetAttrString(PyObject *py_obj, const char *attr)
 {
-  if ( !PyObject_HasAttrString(py_var, attr) )
+  if ( !PyObject_HasAttrString(py_obj, attr) )
     return NULL;
-  return PyObject_GetAttrString(py_var, attr);
+  return PyObject_GetAttrString(py_obj, attr);
 }
 
 //------------------------------------------------------------------------
 // Tries to import a module and clears the exception on failure
-PyObject *PyImport_TryImportModule(const char *name)
+PyObject *PyW_TryImportModule(const char *name)
 {
   PyObject *result = PyImport_ImportModule(name);
   if ( result != NULL )
@@ -330,7 +354,7 @@ PyObject *PyImport_TryImportModule(const char *name)
 // converted to a VT_INT64 or not. For example: 2**32-1 = 0xffffffff which
 // can fit in a C long but Python creates a PyLong object for it.
 // And because of that we are confused as to whether to convert to 32 or 64
-bool PyGetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
+bool PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 {
   if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
     return false;
@@ -358,7 +382,7 @@ bool PyGetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 
 //-------------------------------------------------------------------------
 // Parses a Python object as a long or long long
-bool PyGetNumber(PyObject *py_var, uint64 *num, bool *is_64)
+bool PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
 {
   if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
     return false;
@@ -401,7 +425,7 @@ bool PyGetNumber(PyObject *py_var, uint64 *num, bool *is_64)
 
 //-------------------------------------------------------------------------
 // Checks if a given object is of sequence type
-bool PyIsSequenceType(PyObject *obj)
+bool PyW_IsSequenceType(PyObject *obj)
 {
   if ( !PySequence_Check(obj) )
     return false;
@@ -416,7 +440,7 @@ bool PyIsSequenceType(PyObject *obj)
 
 //-------------------------------------------------------------------------
 // Returns the string representation of an object
-bool PyObjectToString(PyObject *obj, qstring *out)
+bool PyW_ObjectToString(PyObject *obj, qstring *out)
 {
   PyObject *py_str = PyObject_Str(obj);
   if ( py_str != NULL )
@@ -435,7 +459,7 @@ bool PyObjectToString(PyObject *obj, qstring *out)
 //--------------------------------------------------------------------------
 // Checks if a Python error occured and fills the out parameter with the
 // exception string
-bool PyGetError(qstring *out)
+bool PyW_GetError(qstring *out)
 {
   if ( !PyErr_Occurred() )
     return false;
@@ -443,16 +467,16 @@ bool PyGetError(qstring *out)
   PyObject *err_type, *err_value, *err_traceback;
   PyErr_Fetch(&err_type, &err_value, &err_traceback);
   if ( out != NULL )
-    PyObjectToString(err_value, out);
+    PyW_ObjectToString(err_value, out);
   return true;
 }
 
 //-------------------------------------------------------------------------
 // A loud version of PyGetError() which gets the error and displays it
-bool PyShowErr(const char *cb_name)
+bool PyW_ShowErr(const char *cb_name)
 {
   static qstring err_str;
-  if ( !PyGetError(&err_str) )
+  if ( !PyW_GetError(&err_str) )
     return false;
   warning("IDAPython: Error while calling Python callback <%s>:\n%s", cb_name, err_str.c_str());
   return true;
@@ -466,7 +490,7 @@ bool PyShowErr(const char *cb_name)
 static int get_pyidc_cvt_type(PyObject *py_var)
 {
   // Check if this our special by reference object
-  PyObject *attr = PyObject_TryGetAttrString(py_var, S_PY_IDCCVT_ID_ATTR);
+  PyObject *attr = PyW_TryGetAttrString(py_var, S_PY_IDCCVT_ID_ATTR);
   if ( attr == NULL )
     return -1;
   if ( !(PyInt_Check(attr) || PyLong_Check(attr)) )
@@ -506,7 +530,7 @@ Py_ssize_t pyvar_walk_list(
   int (idaapi *cb)(PyObject *py_item, Py_ssize_t index, void *ud),
   void *ud)
 {
-  if ( !PyList_CheckExact(py_list) && !PyIsSequenceType(py_list) )
+  if ( !PyList_CheckExact(py_list) && !PyW_IsSequenceType(py_list) )
     return CIP_FAILED;
 
   bool is_seq = !PyList_CheckExact(py_list);
@@ -547,7 +571,7 @@ int pyvar_to_idcvar(
   if ( py_var == NULL || py_var == Py_None )
     idc_var->set_long(0);
   // Numbers?
-  else if ( PyGetNumberAsIDC(py_var, idc_var) )
+  else if ( PyW_GetNumberAsIDC(py_var, idc_var) )
     return CIP_OK;
   // String
   else if ( PyString_Check(py_var) )
@@ -566,7 +590,7 @@ int pyvar_to_idcvar(
   else if ( PyCObject_Check(py_var) )
     idc_var->set_pvoid(PyCObject_AsVoidPtr(py_var));
   // Is it a Python list?
-  else if ( PyList_CheckExact(py_var) || PyIsSequenceType(py_var) )
+  else if ( PyList_CheckExact(py_var) || PyW_IsSequenceType(py_var) )
   {
     // Create the object
     VarObject(idc_var);
@@ -590,7 +614,7 @@ int pyvar_to_idcvar(
       {
         // Form the attribute name
         PyObject *py_int = PyInt_FromSsize_t(i);
-        ok = PyObjectToString(py_int, &attr_name);
+        ok = PyW_ObjectToString(py_int, &attr_name);
         if ( !ok )
           break;
         Py_DECREF(py_int);
@@ -628,7 +652,7 @@ int pyvar_to_idcvar(
       PyObject *val  = PySequence_GetItem(py_item, 1);
 
       // Get key's string representation
-      PyObjectToString(key, &key_name);
+      PyW_ObjectToString(key, &key_name);
 
       // Convert the attribute into an IDC value
       idc_value_t v;
@@ -669,7 +693,7 @@ int pyvar_to_idcvar(
     //
     case PY_ICID_INT64:
       // Get the value attribute
-      attr = PyObject_TryGetAttrString(py_var, S_PY_IDCCVT_VALUE_ATTR);
+      attr = PyW_TryGetAttrString(py_var, S_PY_IDCCVT_VALUE_ATTR);
       if ( attr == NULL )
         return false;
       idc_var->set_int64(PyLong_AsLongLong(attr));
@@ -685,7 +709,7 @@ int pyvar_to_idcvar(
           return CIP_FAILED;
 
         // Get the value attribute
-        attr = PyObject_TryGetAttrString(py_var, S_PY_IDCCVT_VALUE_ATTR);
+        attr = PyW_TryGetAttrString(py_var, S_PY_IDCCVT_VALUE_ATTR);
         if ( attr == NULL )
           return CIP_FAILED;
 
@@ -796,7 +820,7 @@ int idcvar_to_pyvar(
         return CIP_FAILED;
       *py_var = PyObject_CallFunctionObjArgs(py_cls, PyLong_FromLongLong(idc_var.i64), NULL);
       Py_DECREF(py_cls);
-      if ( PyGetError() || *py_var == NULL )
+      if ( PyW_GetError() || *py_var == NULL )
         return CIP_FAILED;
       break;
     }
@@ -845,7 +869,7 @@ int idcvar_to_pyvar(
         // Create a byref object with None value. We populate it later
         *py_var = PyObject_CallFunctionObjArgs(py_cls, Py_None, NULL);
         Py_DECREF(py_cls);
-        if ( PyGetError() || *py_var == NULL )
+        if ( PyW_GetError() || *py_var == NULL )
           return CIP_FAILED;
       }
       int t = *py_var == NULL ? -1 : get_pyidc_cvt_type(*py_var);
@@ -859,7 +883,7 @@ int idcvar_to_pyvar(
         return CIP_FAILED;
 
       // Can we recycle the object?
-      PyObject *new_py_val = PyObject_TryGetAttrString(*py_var, S_PY_IDCCVT_VALUE_ATTR);
+      PyObject *new_py_val = PyW_TryGetAttrString(*py_var, S_PY_IDCCVT_VALUE_ATTR);
       if ( new_py_val != NULL )
       {
         // Recycle
@@ -902,7 +926,7 @@ int idcvar_to_pyvar(
           return CIP_FAILED;
         obj = PyObject_CallFunctionObjArgs(py_cls, NULL);
         Py_DECREF(py_cls);
-        if ( PyGetError() || obj == NULL )
+        if ( PyW_GetError() || obj == NULL )
           return CIP_FAILED;
       }
       else
@@ -1130,7 +1154,7 @@ public:
         break;
       }
       Py_DECREF(py_code);
-      if ( PyGetError(&err) || py_result == NULL )
+      if ( PyW_GetError(&err) || py_result == NULL )
       {
         warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
         ok = false;
@@ -1269,17 +1293,17 @@ class pycvt_t
     attr_t &val)
   {
     PyObject *py_attr;
-    if ( (py_attr = PyObject_TryGetAttrString(py_obj, attrname)) == NULL )
+    if ( (py_attr = PyW_TryGetAttrString(py_obj, attrname)) == NULL )
       return FT_NOT_FOUND;
 
     int cvt = FT_OK;
     if ( ft == FT_STR || ft == FT_CHAR && PyString_Check(py_attr) )
       val.str = PyString_AsString(py_attr);
-    else if ( (ft > FT_FIRST_NUM && ft < FT_LAST_NUM) && PyGetNumber(py_attr, &val.u64) )
+    else if ( (ft > FT_FIRST_NUM && ft < FT_LAST_NUM) && PyW_GetNumber(py_attr, &val.u64) )
       ; // nothing to be done
     // A string array?
     else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || FT_CHRARR_STATIC ) 
-      && (PyList_CheckExact(py_attr) || PyIsSequenceType(py_attr)) )
+      && (PyList_CheckExact(py_attr) || PyW_IsSequenceType(py_attr)) )
     {
       // Return a reference to the attribute
       val.py_obj = py_attr;
@@ -1338,7 +1362,7 @@ class pycvt_t
     void *ud)
   {
     uint64 val;
-    if ( !PyGetNumber(py_item, &val) )
+    if ( !PyW_GetNumber(py_item, &val) )
       return CIP_FAILED;
     uint64vec_t *vec = (uint64vec_t *)ud;
     vec->push_back(val);

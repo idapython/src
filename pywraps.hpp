@@ -61,25 +61,31 @@ insn_t *insn_t_get_clink(PyObject *self);
 op_t *op_t_get_clink(PyObject *self);
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
-PyObject *PyImport_TryImportModule(const char *name);
+PyObject *PyW_TryImportModule(const char *name);
 
 // Tries to get an attribute and swallows the exception if it fails and returns NULL
-PyObject *PyObject_TryGetAttrString(PyObject *py_var, const char *attr);
+PyObject *PyW_TryGetAttrString(PyObject *py_var, const char *attr);
 
 // Converts a Python number (LONGLONG or normal integer) to an IDC variable (VT_LONG or VT_INT64)
-bool PyGetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
+bool PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
+
+// Returns a qstring from a Python attribute string
+bool PyW_GetStringAttr(
+    PyObject *py_obj, 
+    const char *attr_name, 
+    qstring *str);
 
 // Converts a Python number to an uint64 and indicates whether the number was a long number
-bool PyGetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
+bool PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
 
 // Checks if an Python object can be treated like a sequence
-bool PyIsSequenceType(PyObject *obj);
+bool PyW_IsSequenceType(PyObject *obj);
 
 // Returns an error string from the last exception (and clears it)
-bool PyGetError(qstring *out = NULL);
+bool PyW_GetError(qstring *out = NULL);
 
 // If an error occured (it calls PyGetError) it displays it and return TRUE
-bool PyShowErr(const char *cb_name);
+bool PyW_ShowErr(const char *cb_name);
 
 // Utility function to create a class instance whose constructor takes zero arguments
 PyObject *create_idaapi_class_instance0(const char *clsname);
@@ -92,7 +98,7 @@ bool init_pywraps();
 void deinit_pywraps();
 
 // Returns the string representation of a PyObject
-bool PyObjectToString(PyObject *obj, qstring *out);
+bool PyW_ObjectToString(PyObject *obj, qstring *out);
 
 // Utility function to convert a python object to an IDC object
 // and sets a python exception on failure.

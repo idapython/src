@@ -140,7 +140,7 @@ private:
     }
 
     // Refer to the nodes
-    PyObject *nodes = PyObject_TryGetAttrString(self, S_M_NODES);
+    PyObject *nodes = PyW_TryGetAttrString(self, S_M_NODES);
     if ( ret == NULL || !PyList_Check(nodes) )
     {
       Py_XDECREF(nodes);
@@ -148,8 +148,8 @@ private:
     }
 
     // Refer to the edges
-    PyObject *edges = PyObject_TryGetAttrString(self, S_M_EDGES);
-    if ( ret == NULL || !PyList_Check(nodes) )
+    PyObject *edges = PyW_TryGetAttrString(self, S_M_EDGES);
+    if ( ret == NULL || !PyList_Check(edges) )
     {
       Py_DECREF(nodes);
       Py_XDECREF(edges);
@@ -498,7 +498,7 @@ private:
   static py_graph_t *extract_this(PyObject *self)
   {
     // Try to extract "this" from the python object
-    PyObject *py_this = PyObject_TryGetAttrString(self, S_M_THIS);
+    PyObject *py_this = PyW_TryGetAttrString(self, S_M_THIS);
     if ( py_this == NULL || !PyCObject_Check(py_this) )
     {
       Py_XDECREF(py_this);
@@ -531,16 +531,6 @@ private:
     refresh_viewer(gv);
   }
 
-  static bool extract_title(PyObject *self, qstring *title)
-  {
-    PyObject *py_title = PyObject_TryGetAttrString(self, S_M_TITLE);
-    if ( py_title == NULL )
-      return false;
-    *title = PyString_AsString(py_title);
-    Py_DECREF(py_title);
-    return true;
-  }
-
   int create(PyObject *self, const char *title)
   {
     // check what callbacks we have
@@ -566,7 +556,7 @@ private:
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
     {
-      PyObject *attr = PyObject_TryGetAttrString(self, callbacks[i].name);
+      PyObject *attr = PyW_TryGetAttrString(self, callbacks[i].name);
       int have = callbacks[i].have;
       // Mandatory fields not present?
       if ( (attr == NULL && have <= 0 )
@@ -672,10 +662,12 @@ private:
     static py_graph_t *Show(PyObject *self)
     {
       py_graph_t *ret = extract_this(self);
+
+      // New instance?
       if ( ret == NULL )
       {
         qstring title;
-        if ( !extract_title(self, &title) )
+        if ( !PyW_GetStringAttr(self, S_M_TITLE, &title) )
           return NULL;
 
         // Form already created? try to get associated py_graph instance

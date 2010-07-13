@@ -370,7 +370,7 @@ static void switch_info_ex_t_set_defjump(PyObject *self, PyObject *value)
   switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
   if ( link == NULL )
     return;
-  uint64 v(0); PyGetNumber(value, &v);
+  uint64 v(0); PyW_GetNumber(value, &v);
   link->defjump = (pyul_t)v;
 }
 
@@ -386,7 +386,7 @@ static void switch_info_ex_t_set_jumps(PyObject *self, PyObject *value)
   switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
   if ( link == NULL )
     return;
-  uint64 v(0); PyGetNumber(value, &v);
+  uint64 v(0); PyW_GetNumber(value, &v);
   link->jumps = (pyul_t)v;
 }
 
@@ -403,7 +403,7 @@ static void switch_info_ex_t_set_elbase(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->elbase = (pyul_t)v;
 }
 
@@ -420,7 +420,7 @@ static void switch_info_ex_t_set_startea(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->startea = (pyul_t)v;
 }
 
@@ -437,7 +437,7 @@ static void switch_info_ex_t_set_custom(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->custom = (pyul_t)v;
 }
 
@@ -454,7 +454,7 @@ static void switch_info_ex_t_set_ind_lowcase(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->ind_lowcase = (pyul_t)v;
 }
 
@@ -471,7 +471,7 @@ static void switch_info_ex_t_set_values_lowcase(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->values = (pyul_t)v;
 }
 

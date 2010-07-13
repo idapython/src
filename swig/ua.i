@@ -143,7 +143,7 @@ PyObject *py_get_stkvar(PyObject *py_op, PyObject *py_v)
 {
   op_t *op = op_t_get_clink(py_op);
   uint64 v;
-  if ( op == NULL || !PyGetNumber(py_v, &v) )
+  if ( op == NULL || !PyW_GetNumber(py_v, &v) )
     Py_RETURN_NONE;
 
   sval_t actval;
@@ -176,7 +176,7 @@ bool py_add_stkvar3(PyObject *py_op, PyObject *py_v, int flags)
 {
   op_t *op = op_t_get_clink(py_op);
   uint64 v;
-  return ( op == NULL || !PyGetNumber(py_v, &v) || !add_stkvar3(*op, sval_t(v), flags)) ? false : true;
+  return ( op == NULL || !PyW_GetNumber(py_v, &v) || !add_stkvar3(*op, sval_t(v), flags)) ? false : true;
 }
 
 //-------------------------------------------------------------------------
@@ -217,7 +217,7 @@ bool py_apply_type_to_stkarg(
 {
   uint64 v;
   op_t *op = op_t_get_clink(py_op);
-  if ( op == NULL || !PyGetNumber(py_uv, &v) || !PyString_Check(py_type))
+  if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type))
     return false;
   else
     return apply_type_to_stkarg(*op, uval_t(v), (type_t *) PyString_AsString(py_type), name);
@@ -322,7 +322,7 @@ bool py_out_name_expr(
   op_t *op = op_t_get_clink(py_op);
   uint64 v(0);
   adiff_t off;
-  if ( PyGetNumber(py_off, &v) )
+  if ( PyW_GetNumber(py_off, &v) )
     off = adiff_t(v);
   else
     off = BADADDR;
@@ -450,7 +450,7 @@ static void insn_t_set_cs(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->cs = ea_t(v);
 }
 
@@ -468,7 +468,7 @@ static void insn_t_set_ip(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->ip = ea_t(v);
 }
 
@@ -486,7 +486,7 @@ static void insn_t_set_ea(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->ea = ea_t(v);
 }
 
@@ -728,7 +728,7 @@ static void op_t_set_addr(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->addr = ea_t(v);
 }
 
@@ -746,7 +746,7 @@ static void op_t_set_specval(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   uint64 v(0);
-  PyGetNumber(value, &v);
+  PyW_GetNumber(value, &v);
   link->specval = ea_t(v);
 }
 

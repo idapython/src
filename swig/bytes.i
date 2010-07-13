@@ -120,7 +120,7 @@ static ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
 class py_custom_data_type_t
 {
   data_type_t dt;
-  qstring name, menu_name, hotkey, asm_keyword;
+  qstring dt_name, dt_menu_name, dt_hotkey, dt_asm_keyword;
   int dtid; // The data format id
   PyObject *py_self; // Associated Python object
 
@@ -132,7 +132,7 @@ class py_custom_data_type_t
   {
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
     PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_MAY_CREATE_AT, PY_FMT64 PY_FMT64, pyul_t(ea), pyul_t(nbytes));
-    PyShowErr(S_MAY_CREATE_AT);
+    PyW_ShowErr(S_MAY_CREATE_AT);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -150,16 +150,20 @@ class py_custom_data_type_t
     // this callback is required only for varsize datatypes
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
     PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_CALC_ITEM_SIZE, PY_FMT64 PY_FMT64, pyul_t(ea), pyul_t(maxsize));
-    if ( PyShowErr(S_CALC_ITEM_SIZE) || py_result == NULL )
+    if ( PyW_ShowErr(S_CALC_ITEM_SIZE) || py_result == NULL )
       return 0;
     uint64 num = 0;
-    PyGetNumber(py_result, &num);
+    PyW_GetNumber(py_result, &num);
     Py_XDECREF(py_result);
     return asize_t(num);
   }
 
 public:
-  const char *get_name() const { return name.c_str(); }
+  const char *get_name() const 
+  { 
+    return dt_name.c_str(); 
+  }
+  
   py_custom_data_type_t()
   {
     dtid = -1;
@@ -175,64 +179,47 @@ public:
     memset(&dt, 0, sizeof(dt));
     dt.cbsize = sizeof(dt);
     dt.ud = this;
+
     PyObject *py_attr = NULL;
     do
     {
       // name
-      py_attr = PyObject_TryGetAttrString(py_obj, S_NAME);
-      if ( py_attr == NULL || !PyString_Check(py_attr) )
+      if ( !PyW_GetStringAttr(py_obj, S_NAME, &dt_name) )
         break;
-      name = PyString_AsString(py_attr);
-      dt.name = name.c_str();
-      Py_DECREF(py_attr);
+      dt.name = dt_name.c_str();
+
+      // menu_name (optional)
+      if ( PyW_GetStringAttr(py_obj, S_MENU_NAME, &dt_menu_name) )
+        dt.menu_name = dt_menu_name.c_str();
+
+      // asm_keyword (optional)
+      if ( PyW_GetStringAttr(py_obj, S_ASM_KEYWORD, &dt_asm_keyword) )
+        dt.asm_keyword = dt_asm_keyword.c_str();
+
+      // hotkey (optional)
+      if ( PyW_GetStringAttr(py_obj, S_HOTKEY, &dt_hotkey) )
+        dt.hotkey = dt_hotkey.c_str();
 
       // value_size
-      py_attr = PyObject_TryGetAttrString(py_obj, S_VALUE_SIZE);
-      if ( py_attr != NULL )
+      py_attr = PyW_TryGetAttrString(py_obj, S_VALUE_SIZE);
+      if ( py_attr != NULL && PyInt_Check(py_attr) )
         dt.value_size = PyInt_AsLong(py_attr);
       Py_XDECREF(py_attr);
 
       // props
-      py_attr = PyObject_TryGetAttrString(py_obj, S_PROPS);
-      if ( py_attr != NULL )
+      py_attr = PyW_TryGetAttrString(py_obj, S_PROPS);
+      if ( py_attr != NULL && PyInt_Check(py_attr) )
         dt.props = PyInt_AsLong(py_attr);
       Py_XDECREF(py_attr);
 
-      // menu_name
-      py_attr = PyObject_TryGetAttrString(py_obj, S_MENU_NAME);
-      if ( py_attr != NULL && PyString_Check(py_attr) )
-      {
-        menu_name = PyString_AsString(py_attr);
-        dt.menu_name = menu_name.c_str();
-      }
-      Py_XDECREF(py_attr);
-
-      // asm_keyword
-      py_attr = PyObject_TryGetAttrString(py_obj, S_ASM_KEYWORD);
-      if ( py_attr != NULL && PyString_Check(py_attr) )
-      {
-        asm_keyword = PyString_AsString(py_attr);
-        dt.asm_keyword = asm_keyword.c_str();
-      }
-      Py_XDECREF(py_attr);
-
-      // hotkey
-      py_attr = PyObject_TryGetAttrString(py_obj, S_HOTKEY);
-      if ( py_attr != NULL && PyString_Check(py_attr) )
-      {
-        hotkey = PyString_AsString(py_attr);
-        dt.hotkey = hotkey.c_str();
-      }
-      Py_XDECREF(py_attr);
-
       // may_create_at
-      py_attr = PyObject_TryGetAttrString(py_obj, S_MAY_CREATE_AT);
+      py_attr = PyW_TryGetAttrString(py_obj, S_MAY_CREATE_AT);
       if ( py_attr != NULL && PyCallable_Check(py_attr) )
         dt.may_create_at = s_may_create_at;
       Py_XDECREF(py_attr);
 
       // calc_item_size
-      py_attr = PyObject_TryGetAttrString(py_obj, S_CALC_ITEM_SIZE);
+      py_attr = PyW_TryGetAttrString(py_obj, S_CALC_ITEM_SIZE);
       if ( py_attr != NULL && PyCallable_Check(py_attr) )
         dt.calc_item_size = s_calc_item_size;
       Py_XDECREF(py_attr);
@@ -256,6 +243,7 @@ public:
       // Done with attribute
       py_attr = NULL;
     } while ( false );
+
     Py_XDECREF(py_attr);
     return dtid;
   }
@@ -290,7 +278,7 @@ private:
   data_format_t df;
   int dfid;
   PyObject *py_self;
-  qstring name, menu_name, hotkey;
+  qstring df_name, df_menu_name, df_hotkey;
 
   static bool idaapi s_print(       // convert to colored string
     void *ud,                       // user-defined data
@@ -319,7 +307,7 @@ private:
     Py_DECREF(py_value);
 
     // Error while calling the function?
-    if ( PyShowErr(S_PRINTF) || py_result == NULL )
+    if ( PyW_ShowErr(S_PRINTF) || py_result == NULL )
       return false;
 
     bool ok = false;
@@ -356,7 +344,7 @@ private:
       operand_num);
 
     // Error while calling the function?
-    if ( PyShowErr(S_SCAN) || py_result == NULL)
+    if ( PyW_ShowErr(S_SCAN) || py_result == NULL)
       return false;
 
     bool ok = false;
@@ -414,7 +402,7 @@ private:
   {
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
     PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_ANALYZE, PY_FMT64 "i", pyul_t(current_ea),operand_num);
-    PyShowErr(S_ANALYZE);
+    PyW_ShowErr(S_ANALYZE);
     Py_XDECREF(py_result);
   }
 public:
@@ -424,7 +412,7 @@ public:
     py_self = NULL;
   }
 
-  const char *get_name() const { return name.c_str(); }
+  const char *get_name() const { return df_name.c_str(); }
 
   int register_df(int dtid, PyObject *py_obj)
   {
@@ -436,66 +424,54 @@ public:
     df.cbsize = sizeof(df);
     df.ud = this;
     PyObject *py_attr = NULL;
+
     do
     {
       // name
-      py_attr = PyObject_TryGetAttrString(py_obj, S_NAME);
-      if ( py_attr == NULL || !PyString_Check(py_attr) )
+      if ( !PyW_GetStringAttr(py_obj, S_NAME, &df_name) )
         break;
-      name = PyString_AsString(py_attr);
-      df.name = name.c_str();
-      Py_DECREF(py_attr);
+      df.name = df_name.c_str();
 
-      // menu_name
-      py_attr = PyObject_TryGetAttrString(py_obj, S_MENU_NAME);
-      if ( py_attr != NULL && PyString_Check(py_attr) )
-      {
-        menu_name = PyString_AsString(py_attr);
-        df.menu_name = menu_name.c_str();
-      }
-      Py_XDECREF(py_attr);
+      // menu_name (optional)
+      if ( PyW_GetStringAttr(py_obj, S_MENU_NAME, &df_menu_name) )
+        df.menu_name = df_menu_name.c_str();
 
       // props
-      py_attr = PyObject_TryGetAttrString(py_obj, S_PROPS);
-      if ( py_attr != NULL )
+      py_attr = PyW_TryGetAttrString(py_obj, S_PROPS);
+      if ( py_attr != NULL && PyInt_Check(py_attr) )
         df.props = PyInt_AsLong(py_attr);
       Py_XDECREF(py_attr);
 
       // hotkey
-      py_attr = PyObject_TryGetAttrString(py_obj, S_HOTKEY);
-      if ( py_attr != NULL && PyString_Check(py_attr) )
-      {
-        hotkey = PyString_AsString(py_attr);
-        df.hotkey = hotkey.c_str();
-      }
-      Py_XDECREF(py_attr);
+      if ( PyW_GetStringAttr(py_obj, S_HOTKEY, &df_hotkey) )
+        df.hotkey = df_hotkey.c_str();
 
       // value_size
-      py_attr = PyObject_TryGetAttrString(py_obj, S_VALUE_SIZE);
-      if ( py_attr != NULL )
+      py_attr = PyW_TryGetAttrString(py_obj, S_VALUE_SIZE);
+      if ( py_attr != NULL && PyInt_Check(py_attr) )
         df.value_size = PyInt_AsLong(py_attr);
       Py_XDECREF(py_attr);
 
       // text_width
-      py_attr = PyObject_TryGetAttrString(py_obj, S_TEXT_WIDTH);
-      if ( py_attr != NULL )
+      py_attr = PyW_TryGetAttrString(py_obj, S_TEXT_WIDTH);
+      if ( py_attr != NULL && PyInt_Check(py_attr) )
         df.text_width = PyInt_AsLong(py_attr);
       Py_XDECREF(py_attr);
 
       // print cb
-      py_attr = PyObject_TryGetAttrString(py_obj, S_PRINTF);
+      py_attr = PyW_TryGetAttrString(py_obj, S_PRINTF);
       if ( py_attr != NULL && PyCallable_Check(py_attr) )
         df.print = s_print;
       Py_XDECREF(py_attr);
 
       // scan cb
-      py_attr = PyObject_TryGetAttrString(py_obj, S_SCAN);
+      py_attr = PyW_TryGetAttrString(py_obj, S_SCAN);
       if ( py_attr != NULL && PyCallable_Check(py_attr) )
         df.scan = s_scan;
       Py_XDECREF(py_attr);
 
       // analyze cb
-      py_attr = PyObject_TryGetAttrString(py_obj, S_ANALYZE);
+      py_attr = PyW_TryGetAttrString(py_obj, S_ANALYZE);
       if ( py_attr != NULL && PyCallable_Check(py_attr) )
         df.analyze = s_analyze;
       Py_XDECREF(py_attr);
@@ -517,6 +493,7 @@ public:
       Py_DECREF(py_attr);
       py_attr = NULL;
     } while ( false );
+
     Py_XDECREF(py_attr);
     return dfid;
   }

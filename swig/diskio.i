@@ -439,10 +439,12 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
   {
     if ( !PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback) )
       break;
+
     const char *_path = PyString_AsString(path);
     const char *_fname = PyString_AsString(fname);
     if ( _path == NULL || _fname == NULL )
       break;
+
     char answer[MAXSTR];
     answer[0] = '\0';
     int r = enumerate_files(answer, sizeof(answer), _path, _fname, py_enumerate_files_cb, callback);

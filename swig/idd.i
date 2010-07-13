@@ -2,6 +2,7 @@
 %ignore memory_info_t;
 %ignore register_info_t;
 %ignore appcall;
+%ignore idd_opinfo_t;
 %ignore gdecode_t;
 %apply unsigned char { char dtyp };
 
@@ -70,7 +71,7 @@ PyObject *py_appcall(
     if ( (debug & IDA_DEBUG_APPCALL) != 0 )
     {
       qstring s;
-      PyObjectToString(py_item, &s);
+      PyW_ObjectToString(py_item, &s);
       msg("obj[%d]->%s\n", int(i), s.c_str());
     }
     // Convert it
@@ -285,7 +286,7 @@ def dbg_read_memory(ea, sz):
 static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
 {
   uint64 ea, sz;
-  if ( !dbg_can_query() || !PyGetNumber(py_ea, &ea) || !PyGetNumber(py_sz, &sz) )
+  if ( !dbg_can_query() || !PyW_GetNumber(py_ea, &ea) || !PyW_GetNumber(py_sz, &sz) )
     Py_RETURN_NONE;
 
   // Create a Python string
@@ -322,7 +323,7 @@ def dbg_write_memory(ea, buffer):
 static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
 {
   uint64 ea;
-  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyGetNumber(py_ea, &ea) )
+  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
 
   size_t sz = PyString_GET_SIZE(py_buf);
@@ -385,7 +386,9 @@ def dbg_can_query():
     This function can be used to check if the debugger can be queried:
       - debugger is loaded
       - process is suspended
-      - process is not suspended but can take requests
+      - process is not suspended but can take requests. In this case some requests like
+        memory read/write, bpt management succeed and register querying will fail.
+        Check if idaapi.get_process_state() < 0 to tell if the process is suspended
     @return: Boolean
     """
     pass

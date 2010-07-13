@@ -164,7 +164,7 @@ int py_execute_sync(PyObject *py_callable, int reqf)
 //------------------------------------------------------------------------
 // Some defines
 #define POPUP_NAMES_COUNT 4
-#define MAX_CHOOSER_MENU_COMMANDS 10
+#define MAX_CHOOSER_MENU_COMMANDS 12
 #define thisobj ((py_choose2_t *) obj)
 #define thisdecl py_choose2_t *_this = thisobj
 #define MENU_COMMAND_CB(id) static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) { return thisobj->on_command(id, int(n)); }
@@ -222,6 +222,7 @@ private:
   MENU_COMMAND_CB(4)   MENU_COMMAND_CB(5)
   MENU_COMMAND_CB(6)   MENU_COMMAND_CB(7)
   MENU_COMMAND_CB(8)   MENU_COMMAND_CB(9)
+  MENU_COMMAND_CB(10)  MENU_COMMAND_CB(11)
   static chooser_cb_t *menu_cbs[MAX_CHOOSER_MENU_COMMANDS];
   int menu_cb_idx;
   //------------------------------------------------------------------------
@@ -334,7 +335,7 @@ private:
     // delete this instance if none modal
     if ( (flags & CH_MODAL) == 0 )
       delete this;
-}
+  }
 
   int on_delete_line(int lineno)
   {
@@ -391,6 +392,7 @@ private:
     Py_XDECREF(pyres);
     return res;
   }
+
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
     PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1);
@@ -407,6 +409,7 @@ private:
     }
     Py_XDECREF(pyres);
   }
+
 public:
   //------------------------------------------------------------------------
   // Public methods
@@ -418,14 +421,17 @@ public:
     menu_cb_idx = 0;
     self = NULL;
   }
+
   static py_choose2_t *find_chooser(const char *title)
   {
     return (py_choose2_t *) get_chooser_obj(title);
   }
+
   void close()
   {
     close_chooser(title.c_str());
   }
+
   bool activate()
   {
     TForm *frm = find_tform(title.c_str());
@@ -477,29 +483,30 @@ public:
   {
     if ( menu_cb_idx >= MAX_CHOOSER_MENU_COMMANDS )
       return -1;
+
     bool ret = add_chooser_command(title.c_str(), caption, menu_cbs[menu_cb_idx], menu_index, icon, flags);
     if ( !ret )
       return -1;
+
     return menu_cb_idx++;
   }
 
   int show(PyObject *self)
   {
     PyObject *attr;
-    // get title
-    if ( (attr = PyObject_TryGetAttrString(self, "title")) == NULL )
+    // get flags
+    if ( (attr = PyW_TryGetAttrString(self, S_FLAGS)) == NULL )
       return -1;
-    qstring title = PyString_AsString(attr);
+    int flags = PyInt_Check(attr) != 0 ? PyInt_AsLong(attr) : 0;
     Py_DECREF(attr);
 
-    // get flags
-    if ( (attr = PyObject_TryGetAttrString(self, "flags")) == NULL )
+  qstring title;
+    // get the title
+    if ( !PyW_GetStringAttr(self, S_TITLE, &title) )
       return -1;
-    int flags = PyInt_AsLong(attr);
-    Py_DECREF(attr);
 
     // get columns
-    if ( (attr = PyObject_TryGetAttrString(self, "cols")) == NULL )
+    if ( (attr = PyW_TryGetAttrString(self, "cols")) == NULL )
       return -1;
 
     // get col count
@@ -535,7 +542,7 @@ public:
 
     // get *deflt
     int deflt = -1;
-    if ( (attr = PyObject_TryGetAttrString(self, "deflt")) != NULL )
+    if ( (attr = PyW_TryGetAttrString(self, "deflt")) != NULL )
     {
       deflt = PyInt_AsLong(attr);
       Py_DECREF(attr);
@@ -543,7 +550,7 @@ public:
 
     // get *icon
     int icon = -1;
-    if ( (attr = PyObject_TryGetAttrString(self, "icon")) != NULL )
+    if ( (attr = PyW_TryGetAttrString(self, "icon")) != NULL )
     {
       icon = PyInt_AsLong(attr);
       Py_DECREF(attr);
@@ -554,7 +561,7 @@ public:
     static const char *pt_attrs[qnumber(pts)] = {"x1", "y1", "x2", "y2"};
     for ( int i=0; i<qnumber(pts); i++ )
     {
-      if ( (attr = PyObject_TryGetAttrString(self, pt_attrs[i])) == NULL )
+      if ( (attr = PyW_TryGetAttrString(self, pt_attrs[i])) == NULL )
       {
         pts[i] = -1;
       }
@@ -587,22 +594,24 @@ public:
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
     {
-      if ( (attr = PyObject_TryGetAttrString(self, callbacks[i].name) ) == NULL ||
-        PyCallable_Check(attr) == 0)
+      bool have_cb = (attr = PyW_TryGetAttrString(self, callbacks[i].name)) != NULL && PyCallable_Check(attr) != 0;
+      Py_XDECREF(attr);
+
+      if ( have_cb )
       {
-        Py_XDECREF(attr);
+        cb_flags |= callbacks[i].have;
+      }
+      else
+      {
         // Mandatory field?
         if ( callbacks[i].have == 0 )
           return -1;
       }
-      else
-      {
-        cb_flags |= callbacks[i].have;
-      }
     }
+
     // get *popup names
     const char **popup_names = NULL;
-    if ( ((attr = PyObject_TryGetAttrString(self, "popup_names")) != NULL)
+    if ( ((attr = PyW_TryGetAttrString(self, "popup_names")) != NULL)
       && PyList_Check(attr)
       && PyList_Size(attr) == POPUP_NAMES_COUNT )
     {
@@ -624,13 +633,25 @@ public:
     this->self = self;
 
     // Create chooser
-    int r = this->choose2(flags, ncols, &widths[0], title.c_str(), deflt, popup_names, icon, pts[0], pts[1], pts[2], pts[3]);
+    int r = this->choose2(
+      flags,
+      ncols,
+      &widths[0],
+      title.c_str(),
+      deflt,
+      popup_names,
+      icon,
+      pts[0],
+      pts[1],
+      pts[2],
+      pts[3]);
 
     // Clear temporary popup_names
     if ( popup_names != NULL )
     {
       for ( int i=0; i<POPUP_NAMES_COUNT; i++ )
         qfree((void *)popup_names[i]);
+
       delete [] popup_names;
     }
 
@@ -640,7 +661,12 @@ public:
 
     return r;
   }
-  PyObject *get_self() { return self; }
+
+  inline PyObject *get_self()
+  {
+    return self;
+  }
+
   void refresh()
   {
     refresh_chooser(title.c_str());
@@ -656,7 +682,8 @@ chooser_cb_t *py_choose2_t::menu_cbs[MAX_CHOOSER_MENU_COMMANDS] =
   DECL_MENU_COMMAND_CB(2),  DECL_MENU_COMMAND_CB(3),
   DECL_MENU_COMMAND_CB(4),  DECL_MENU_COMMAND_CB(5),
   DECL_MENU_COMMAND_CB(6),  DECL_MENU_COMMAND_CB(7),
-  DECL_MENU_COMMAND_CB(8),  DECL_MENU_COMMAND_CB(9)
+  DECL_MENU_COMMAND_CB(8),  DECL_MENU_COMMAND_CB(9),
+  DECL_MENU_COMMAND_CB(10), DECL_MENU_COMMAND_CB(11)
 };
 #undef DECL_MENU_COMMAND_CB
 
@@ -1271,6 +1298,7 @@ private:
     Py_ssize_t sz;
     if ( !PyTuple_Check(py) || (sz = PyTuple_Size(py)) <= 0 )
       return false;
+
     PyObject *py_val = PyTuple_GetItem(py, 0);
     if ( !PyString_Check(py_val) )
       return false;
@@ -1290,7 +1318,7 @@ private:
   virtual bool on_click(int shift)
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift);
-    PyShowErr(S_ON_CLICK);
+    PyW_ShowErr(S_ON_CLICK);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1301,7 +1329,7 @@ private:
   virtual bool on_dblclick(int shift)
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift);
-    PyShowErr(S_ON_DBL_CLICK);
+    PyW_ShowErr(S_ON_DBL_CLICK);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1312,7 +1340,7 @@ private:
   virtual void on_curpos_changed()
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL);
-    PyShowErr(S_ON_CURSOR_POS_CHANGED);
+    PyW_ShowErr(S_ON_CURSOR_POS_CHANGED);
     Py_XDECREF(py_result);
   }
 
@@ -1324,7 +1352,7 @@ private:
     if ( (features & HAVE_CLOSE) != 0 && py_self != NULL )
     {
       PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL);
-      PyShowErr(S_ON_CLOSE);
+      PyW_ShowErr(S_ON_CLOSE);
       Py_XDECREF(py_result);
 
       // Cleanup
@@ -1338,7 +1366,7 @@ private:
   virtual bool on_keydown(int vk_key, int shift)
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_KEYDOWN, "ii", vk_key, shift);
-    PyShowErr(S_ON_KEYDOWN);
+    PyW_ShowErr(S_ON_KEYDOWN);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1349,7 +1377,7 @@ private:
   virtual bool on_popup()
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_POPUP, NULL);
-    PyShowErr(S_ON_POPUP);
+    PyW_ShowErr(S_ON_POPUP);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1361,7 +1389,7 @@ private:
   {
     size_t ln = data.to_lineno(place);
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_HINT, PY_FMT64, pyul_t(ln));
-    PyShowErr(S_ON_HINT);
+    PyW_ShowErr(S_ON_HINT);
     bool ok = py_result != NULL && PyTuple_Check(py_result) && PyTuple_Size(py_result) == 2;
     if ( ok )
     {
@@ -1382,7 +1410,7 @@ private:
   virtual bool on_popup_menu(size_t menu_id)
   {
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_POPUP_MENU, PY_FMT64, pyul_t(menu_id));
-    PyShowErr(S_ON_POPUP_MENU);
+    PyW_ShowErr(S_ON_POPUP_MENU);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1785,7 +1813,7 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 #undef DECL_THIS
 //</inline(py_custviewer)>
 %}
-#endif
+#endif // __NT__
 
 %inline %{
 uint32 idaapi choose_sizer(void *self)
@@ -1836,10 +1864,10 @@ void idaapi choose_enter(void *self, uint32 n)
 }
 
 uint32 choose_choose(void *self,
-	int flags,
-	int x0,int y0,
-	int x1,int y1,
-	int width)
+  int flags,
+  int x0,int y0,
+  int x1,int y1,
+  int width)
 {
     PyObject *pytitle;
     const char *title;
@@ -1871,7 +1899,7 @@ uint32 choose_choose(void *self,
         NULL, /* destroy */
         NULL, /* popup_names */
         NULL  /* get_icon */
-	  );
+    );
     Py_XDECREF(pytitle);
     return r;
 }
@@ -1980,11 +2008,11 @@ def add_menu_item(menupath, name, hotkey, flags, callback, args):
     @param name: name of the menu item (~x~ is used to denote Alt-x hot letter)
     @param hotkey: hotkey for the menu item (may be empty)
     @param flags: one of SETMENU_... consts
-    @callback: function which gets called when the user selects the menu item.
+    @param callback: function which gets called when the user selects the menu item.
                The function callback is of the form:
                def callback(*args):
                   pass
-    @param: args: tuple containing the arguments
+    @param args: tuple containing the arguments
 
     @return: None or a menu context (to be used by del_menu_item())
     """
@@ -1999,23 +2027,50 @@ static PyObject *py_add_menu_item(
   PyObject *pyfunc,
   PyObject *args)
 {
-  if ( !PyTuple_Check(args) )
+  bool no_args;
+  
+  if ( args == Py_None )
+  {
+    no_args = true;
+    args = PyTuple_New(0);
+    if ( args == NULL )
+      return NULL;
+  }
+  else if ( !PyTuple_Check(args) )
   {
     PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
     return NULL;
   }
+  else
+  {
+    no_args = false;
+  }
 
+  // Form a tuple holding the function to be called and its arguments
   PyObject *cb_data = Py_BuildValue("(OO)", pyfunc, args);
+
+  // If we created an empty tuple, then we must free it
+  if ( no_args )
+    Py_DECREF(args);
+
+  // Add the menu item
   bool b = add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
+  
   if ( !b )
   {
     Py_XDECREF(cb_data);
     Py_RETURN_NONE;
   }
+  // Create a context (for the delete_menu_item())
   py_add_del_menu_item_ctx *ctx = new py_add_del_menu_item_ctx();
+
+  // Form the complete menu path
   ctx->menupath = menupath;
   ctx->menupath.append(name);
+  // Save callback data
   ctx->cb_data = cb_data;
+
+  // Return context to user
   return PyCObject_FromVoidPtr(ctx, NULL);
 }
 
@@ -2074,67 +2129,67 @@ uint32 choose_choose(PyObject *self,
 %pythoncode %{
 
 class Choose:
-	"""
-	Choose - class for choose() with callbacks
-	"""
-	def __init__(self, list, title, flags=0):
-		self.list = list
-		self.title = title
+  """
+  Choose - class for choose() with callbacks
+  """
+  def __init__(self, list, title, flags=0):
+    self.list = list
+    self.title = title
 
-		self.flags = flags
-		self.x0 = -1
-		self.x1 = -1
-		self.y0 = -1
-		self.y1 = -1
+    self.flags = flags
+    self.x0 = -1
+    self.x1 = -1
+    self.y0 = -1
+    self.y1 = -1
 
-		self.width = -1
+    self.width = -1
 
-		# HACK: Add a circular reference for non-modal choosers. This prevents the GC
-		# from collecting the class object the callbacks need. Unfortunately this means
-		# that the class will never be collected, unless refhack is set to None explicitly.
-		if (flags & 1) == 0:
-			self.refhack = self
+    # HACK: Add a circular reference for non-modal choosers. This prevents the GC
+    # from collecting the class object the callbacks need. Unfortunately this means
+    # that the class will never be collected, unless refhack is set to None explicitly.
+    if (flags & 1) == 0:
+      self.refhack = self
 
-	def sizer(self):
-		"""
-		Callback: sizer - returns the length of the list
-		"""
-		return len(self.list)
+  def sizer(self):
+    """
+    Callback: sizer - returns the length of the list
+    """
+    return len(self.list)
 
-	def getl(self, n):
-		"""
-		Callback: getl - get one item from the list
-		"""
-		if n == 0:
-		   return self.title
-		if n <= self.sizer():
-			return str(self.list[n-1])
-		else:
-			return "<Empty>"
+  def getl(self, n):
+    """
+    Callback: getl - get one item from the list
+    """
+    if n == 0:
+       return self.title
+    if n <= self.sizer():
+      return str(self.list[n-1])
+    else:
+      return "<Empty>"
 
-	def ins(self):
-		pass
+  def ins(self):
+    pass
 
-	def update(self, n):
-		pass
+  def update(self, n):
+    pass
 
-	def edit(self, n):
-		pass
+  def edit(self, n):
+    pass
 
-	def enter(self, n):
-		print "enter(%d) called" % n
+  def enter(self, n):
+    print "enter(%d) called" % n
 
-	def destroy(self):
-		pass
+  def destroy(self):
+    pass
 
-	def get_icon(self, n):
-		pass
+  def get_icon(self, n):
+    pass
 
-	def choose(self):
-		"""
-		choose - Display the choose dialogue
-		"""
-		return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
+  def choose(self):
+    """
+    choose - Display the choose dialogue
+    """
+    return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
 
 #<pycode(py_kernwin)>
 DP_LEFT           = 0x0001

@@ -2334,6 +2334,7 @@ def FindImmediate   (ea, flag, value): return idaapi.find_imm(ea, flag, value)
 SEARCH_UP       = idaapi.SEARCH_UP       # search backward
 SEARCH_DOWN     = idaapi.SEARCH_DOWN     # search forward
 SEARCH_NEXT     = idaapi.SEARCH_NEXT     # start the search at the next/prev item
+                                         # useful only for FindText() and FindBinary()
 SEARCH_CASE     = idaapi.SEARCH_CASE     # search case-sensitive
                                          # (only for bin&txt search)
 SEARCH_REGEX    = idaapi.SEARCH_REGEX    # enable regular expressions (only for text)

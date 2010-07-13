@@ -193,9 +193,11 @@ PyObject *py_get_type_size0(const til_t *ti, PyObject *tp)
     PyErr_SetString(PyExc_ValueError, "String expected!");
     return NULL;
   }
+
   size_t sz = get_type_size0(ti, (type_t *)PyString_AsString(tp));
   if ( sz == BADSIZE )
     Py_RETURN_NONE;
+
   return PyInt_FromLong(sz);
 }
 
