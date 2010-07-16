@@ -40,15 +40,26 @@ class IDAPythonStdOut:
         return False
 
 # -----------------------------------------------------------------------
+def runscript(script):
+    """
+    Executes a script.
+    This function is present for backward compatiblity. Please use idaapi.IDAPython_ExecScript() instead
+
+    @param script: script path
+
+    @return: Error string or None on success
+    """
+
+    import idaapi
+    return idaapi.IDAPython_ExecScript(script, globals())
+
+# -----------------------------------------------------------------------
 def print_banner():
     banner = [
-      "Python interpreter version %d.%d.%d %s (serial %d)" % sys.version_info,
-      "Copyright (c) 1990-2010 Python Software Foundation - http://www.python.org/",
-      "",
-      "IDAPython" + (" 64-bit" if __EA64__ else "") + " version %d.%d.%d %s (serial %d)" % IDAPYTHON_VERSION,
-      "Copyright (c) 2004-2010 Gergely Erdelyi - http://code.google.com/p/idapython/"
+      "Python %d.%d.%d %s (serial %d) (c) 1990-2010 Python Software Foundation" % sys.version_info,
+      "IDAPython" + (" 64-bit" if __EA64__ else "") + " v%d.%d.%d %s (serial %d) (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
     ]
-    sepline = '-' * max([len(s) for s in banner])
+    sepline = '-' * (max([len(s) for s in banner])+1)
 
     print sepline
     print "\n".join(banner)

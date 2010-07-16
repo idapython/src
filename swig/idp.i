@@ -146,21 +146,6 @@ static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def ph_get_tbyte_size():
-    """
-    Returns the 'ph.tbyte_size' field as defined in he processor module
-    """
-    pass
-#</pydoc>
-*/
-static size_t ph_get_tbyte_size()
-{
-  return ph.tbyte_size;
-}
-
-//-------------------------------------------------------------------------
-/*
-#<pydoc>
 def ph_get_id():
     """
     Returns the 'ph.id' field
@@ -171,6 +156,216 @@ def ph_get_id():
 static size_t ph_get_id()
 {
   return ph.id;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_version():
+    """
+    Returns the 'ph.version'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_version()
+{
+  return ph.version;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_flag():
+    """
+    Returns the 'ph.flag'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_flag()
+{
+  return ph.flag;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_cnbits():
+    """
+    Returns the 'ph.cnbits'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_cnbits()
+{
+  return ph.cnbits;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_dnbits():
+    """
+    Returns the 'ph.dnbits'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_dnbits()
+{
+  return ph.dnbits;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_regFirstSreg():
+    """
+    Returns the 'ph.regFirstSreg'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_regFirstSreg()
+{
+  return ph.regFirstSreg;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_regLastSreg():
+    """
+    Returns the 'ph.regLastSreg'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_regLastSreg()
+{
+  return ph.regLastSreg;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_segreg_size():
+    """
+    Returns the 'ph.segreg_size'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_segreg_size()
+{
+  return ph.segreg_size;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_regCodeSreg():
+    """
+    Returns the 'ph.regCodeSreg'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_regCodeSreg()
+{
+  return ph.regCodeSreg;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_regDataSreg():
+    """
+    Returns the 'ph.regDataSreg'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_regDataSreg()
+{
+  return ph.regDataSreg;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_high_fixup_bits():
+    """
+    Returns the 'ph.high_fixup_bits'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_high_fixup_bits()
+{
+  return ph.high_fixup_bits;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_icode_return():
+    """
+    Returns the 'ph.icode_return'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_icode_return()
+{
+  return ph.icode_return;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_instruc_start():
+    """
+    Returns the 'ph.instruc_start'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_instruc_start()
+{
+  return ph.instruc_start;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_instruc_end():
+    """
+    Returns the 'ph.instruc_end'
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_instruc_end()
+{
+  return ph.instruc_end;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def ph_get_tbyte_size():
+    """
+    Returns the 'ph.tbyte_size' field as defined in he processor module
+    """
+    pass
+#</pydoc>
+*/
+static size_t ph_get_tbyte_size()
+{
+  return ph.tbyte_size;
 }
 
 //-------------------------------------------------------------------------

@@ -1919,6 +1919,7 @@ def IDAPython_ExecScript(script, g):
         execfile(script, g)
     except Exception, e:
         PY_COMPILE_ERR = str(e) + "\n" + traceback.format_exc()
+        print PY_COMPILE_ERR
     finally:
         # Restore the globals to the state before the script was run
         g['__file__'] = old__file__
@@ -2132,7 +2133,5 @@ static bool notify_when(int when, PyObject *py_callable)
 %include "typeinf.i"
 %include "ua.i"
 %include "xref.i"
-#ifdef __NT__
-  %include "graph.i"
-#endif
+%include "graph.i"
 %include "fpro.i"

@@ -726,7 +726,7 @@ void pyg_select_node(PyObject *self, int nid)
 }
 //</code(py_graph)>
 %}
-#endif
+#endif // __NT__
 
 #ifdef __NT__
 %inline %{
@@ -739,9 +739,8 @@ void pyg_select_node(PyObject *self, int nid);
 bool pyg_show(PyObject *self);
 //</inline(py_graph)>
 %}
-#endif
+#endif // __NT__
 
-#ifdef __NT__
 %pythoncode %{
 #<pycode(py_graph)>
 class GraphViewer:
@@ -907,4 +906,4 @@ class GraphViewer:
 #</pydoc>
 #</pycode(py_graph)>
 %}
-#endif
+

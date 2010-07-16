@@ -1347,5 +1347,28 @@ class processor_t(pyidc_opaque_object_t):
         """This function returns cmd.auxpref value"""
         return self.cmd.auxpref
 
+
+# ----------------------------------------------------------------------
+class __ph(object):
+    id = property(lambda self: ph_get_id())
+    cnbits = property(lambda self: ph_get_cnbits())
+    dnbits = property(lambda self: ph_get_dnbits())
+    flag = property(lambda self: ph_get_flag())
+    high_fixup_bits = property(lambda self: ph_get_high_fixup_bits())
+    icode_return = property(lambda self: ph_get_icode_return())
+    instruc = property(lambda self: ph_get_instruc())
+    instruc_end = property(lambda self: ph_get_instruc_end())
+    instruc_start = property(lambda self: ph_get_instruc_start())
+    regCodeSreg = property(lambda self: ph_get_regCodeSreg())
+    regDataSreg = property(lambda self: ph_get_regDataSreg())
+    regFirstSreg = property(lambda self: ph_get_regFirstSreg())
+    regLastSreg = property(lambda self: ph_get_regLastSreg())
+    regnames = property(lambda self: ph_get_regnames())
+    segreg_size = property(lambda self: ph_get_segreg_size())
+    tbyte_size = property(lambda self: ph_get_tbyte_size())
+    version = property(lambda self: ph_get_version())
+
+ph = __ph()
+
 #</pycode(py_ua)>
 %}

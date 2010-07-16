@@ -1,0 +1,13 @@
+The IDAPython Team:
+
+* Gergely Erdelyi - http://d-dome.net/idapython/
+
+    Original IDAPython author.
+
+* Hex-Rays - http://www.hex-rays.com/
+
+    Hex-Rays joined the project in September 2009 and started contributing.
+
+* Ero Carrera - http://dkbza.org/
+
+    Project contributor
