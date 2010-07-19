@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------
 // IDAPython - Python plugin for Interactive Disassembler Pro
 //
-// Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
+// Copyright (c) The IDAPython Team <idapython@googlegroups.com>
 //
 // All rights reserved.
 //
@@ -1022,6 +1022,35 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
 }
 
 //-------------------------------------------------------------------------
+bool idaapi IDAPYthon_cli_complete_line(
+    qstring *completion,
+    const char *prefix,
+    int n,
+    const char *line,
+    int x)
+{
+  PyObject *py_complete = get_idaapi_attr(S_IDAAPI_COMPLETION);
+  if ( py_complete == NULL )
+    return false;
+
+  PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x);
+  
+  Py_DECREF(py_complete);
+  
+  // Swallow the error
+  PyW_GetError(completion);
+
+  bool ok = py_ret != NULL && PyString_Check(py_ret) != 0;
+  
+  if ( ok )
+    *completion = PyString_AS_STRING(py_ret);
+
+  Py_XDECREF(py_ret);
+  
+  return ok;
+}
+
+//-------------------------------------------------------------------------
 static const cli_t cli_python =
 {
     sizeof(cli_t),
@@ -1030,7 +1059,7 @@ static const cli_t cli_python =
     "Python - IDAPython plugin",
     "Enter any Python expression",
     IDAPython_cli_execute_line,
-    NULL,
+    IDAPYthon_cli_complete_line,
     NULL
 };
 

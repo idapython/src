@@ -25,6 +25,7 @@
 #define S_IDAAPI_MODNAME                         "idaapi"
 #define S_IDC_MODNAME                            "idc"
 #define S_IDAAPI_EXECSCRIPT                      "IDAPython_ExecScript"
+#define S_IDAAPI_COMPLETION                      "IDAPython_Completion"
 
 // Vector of PyObject*
 typedef qvector<PyObject *> ppyobject_vec_t;

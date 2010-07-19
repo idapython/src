@@ -1635,10 +1635,13 @@ typedef int error_t;
 
 %pythoncode %{
 #<pycode(py_idaapi)>
+
 import struct
 import traceback
 import os
 import sys
+import __builtin__
+
 # -----------------------------------------------------------------------
 
 # Seek constants
@@ -1934,6 +1937,56 @@ def IDAPython_ExecScript(script, g):
                 del sys.modules[module]
 
     return PY_COMPILE_ERR
+
+# ----------------------------------------------------------------------
+class __IDAPython_Completion_Util(object):
+    """Internal utility class for auto-completion support"""
+    def __init__(self):
+        self.n = 0
+        self.completion = None
+
+    @staticmethod
+    def parse_identifier(line, prefix, prefix_start):
+        """Parse a line and extracts"""
+        id_start = prefix_start
+        while id_start > 0:
+            ch = line[id_start]
+            if not ch.isalpha() and ch != '.' and ch != '_':
+                id_start += 1
+                break
+            id_start -= 1
+
+        return line[id_start:prefix_start + len(prefix)]
+
+    @staticmethod
+    def get_completion(id, prefix):
+        try:
+            parts = id.split('.')
+            m = sys.modules['__main__']
+            c = len(parts)
+            for i in xrange(0, c-1):
+                m = getattr(m, parts[i])
+        except Exception, e:
+            return None
+        else:
+            # search in the module
+            completion = [x for x in dir(m) if x.startswith(prefix)]
+
+            # no completion found? looking from the global scope? then try the builtins
+            if not completion and c == 1:
+                completion = [x for x in dir(__builtin__) if x.startswith(prefix)]
+
+            return completion if len(completion) else None
+
+    def __call__(self, prefix, n, line, prefix_start):
+        if n == 0:
+            self.n = n
+            id = self.parse_identifier(line, prefix, prefix_start)
+            self.completion = self.get_completion(id, prefix)
+        return None if self.completion is None or n >= len(self.completion) else self.completion[n]
+
+
+IDAPython_Completion = __IDAPython_Completion_Util()
 
 
 

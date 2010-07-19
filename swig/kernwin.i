@@ -2715,7 +2715,7 @@ class cli_t(pyidc_opaque_object_t):
 #
 #        This callback is optional.
 #
-#        @param prefix: Line prefix at x (string)
+#        @param prefix: Line prefix at prefix_start (string)
 #        @param n: completion number (int)
 #        @param line: the current line (string)
 #        @param prefix_start: the index where PREFIX starts in LINE (int)
