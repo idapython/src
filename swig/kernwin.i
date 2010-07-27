@@ -2862,9 +2862,9 @@ class simplecustviewer_t(object):
         return _idaapi.pyscv_get_pos(self.__this, mouse)
 
     def GetLineNo(self, mouse = 0):
-        """Calls GetPos() and returns the current line number only or None on failure"""
+        """Calls GetPos() and returns the current line number or -1 on failure"""
         r = self.GetPos(mouse)
-        return None if not r else r[0]
+        return -1 if not r else r[0]
 
     def Jump(self, lineno, x=0, y=0):
         return _idaapi.pyscv_jumpto(self.__this, lineno, x, y)

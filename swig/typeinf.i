@@ -116,6 +116,8 @@
 
 %ignore apply_type_to_stkarg;
 %rename (apply_type_to_stkarg) py_apply_type_to_stkarg;
+%ignore print_type;
+%rename (print_type) py_print_type;
 
 %ignore use_regarg_type_cb;
 %ignore set_op_type_t;
@@ -199,6 +201,31 @@ PyObject *py_get_type_size0(const til_t *ti, PyObject *tp)
     Py_RETURN_NONE;
 
   return PyInt_FromLong(sz);
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def print_type(ea, on_line):
+    """
+    Returns the type of an item
+    @return:
+        - None on failure
+        - The type string with a semicolon. Can be used directly with idc.SetType()
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_print_type(ea_t ea, bool one_line)
+{
+  char buf[MAXSTR];
+  if ( print_type(ea, buf, sizeof(buf), one_line) )
+  {
+    qstrncat(buf, ";", sizeof(buf));
+    return PyString_FromString(buf);
+  }
+  else
+    Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------

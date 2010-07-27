@@ -14,6 +14,7 @@ idautils.py - High level utility functions for IDA
 import idaapi
 import idc
 import types
+import os
 
 def refs(ea, funcfirst, funcnext):
     """
@@ -240,6 +241,26 @@ def Chunks(start):
         yield (chunk.startEA, chunk.endEA)
         status = func_iter.next()
 
+def Modules():
+    """
+    Returns a list of module objects with name,size,base and the rebase_to attributes
+    """
+    mod = idaapi.module_info_t()
+    result = idaapi.get_first_module(mod)
+    while result:
+        yield idaapi.object_t(name=mod.name, size=mod.size, base=mod.base, rebase_to=mod.rebase_to)
+        result = idaapi.get_next_module(mod)
+
+def Names():
+    """
+    Returns a list of names
+
+    @return: tuple(ea, name)
+    """
+    for i in xrange(idaapi.get_nlist_size()):
+        ea   = idaapi.get_nlist_ea(i)
+        name = idaapi.get_nlist_name(i)
+        yield (ea, name)
 
 def Segments():
     """
@@ -424,14 +445,26 @@ class Strings(object):
             return Strings.StringItem(self._si)
         return None
 
+# -----------------------------------------------------------------------
 def GetRegisterList():
     """Returns the register list"""
     return idaapi.ph_get_regnames()
 
+# -----------------------------------------------------------------------
+def GetIdbDir():
+    """
+    Get IDB directory
+
+    This function returns directory path of the current IDB database
+    """
+    return os.path.dirname(idaapi.cvar.database_idb) + os.sep
+
+# -----------------------------------------------------------------------
 def GetInstructionList():
     """Returns the instruction list of the current processor module"""
     return [i[0] for i in idaapi.ph_get_instruc() if i[0]]
 
+# -----------------------------------------------------------------------
 def _Assemble(ea, line):
     """
     Please refer to Assemble() - INTERNAL USE ONLY
@@ -496,6 +529,7 @@ def _copy_obj(src, dest, skip_list = None):
         setattr(dest, x, t)
     return dest
 
+# -----------------------------------------------------------------------
 class _reg_dtyp_t(object):
     """
     INTERNAL
@@ -509,6 +543,7 @@ class _reg_dtyp_t(object):
     def __eq__(self, other):
         return (self.reg == other.reg) and (self.dtyp == other.dtyp)
 
+# -----------------------------------------------------------------------
 class _procregs(object):
     """Utility class allowing the users to identify registers in a decoded instruction"""
     def __getattr__(self, attr):
@@ -522,6 +557,7 @@ class _procregs(object):
     def __setattr__(self, attr, value):
         raise AttributeError(attr)
 
+# -----------------------------------------------------------------------
 class _cpu(object):
     "Simple wrapper around GetRegValue/SetRegValue"
     def __getattr__(self, name):
@@ -532,6 +568,37 @@ class _cpu(object):
         #print "cpu.set(%s)"%name
         return idc.SetRegValue(value, name)
 
+# -----------------------------------------------------------------------
+class peutils_t(object):
+    """
+    PE utility class. Retrieves PE information from the database.
+
+    Constants from pe.h
+    """
+    PE_NODE = "$ PE header" # netnode name for PE header
+    PE_ALT_DBG_FPOS   = idaapi.BADADDR & -1 #  altval() -> translated fpos of debuginfo
+    PE_ALT_IMAGEBASE  = idaapi.BADADDR & -2 #  altval() -> loading address (usually pe.imagebase)
+    PE_ALT_PEHDR_OFF  = idaapi.BADADDR & -3 #  altval() -> offset of PE header
+    PE_ALT_NEFLAGS    = idaapi.BADADDR & -4 #  altval() -> neflags
+    PE_ALT_TDS_LOADED = idaapi.BADADDR & -5 #  altval() -> tds already loaded(1) or invalid(-1)
+    PE_ALT_PSXDLL     = idaapi.BADADDR & -6 #  altval() -> if POSIX(x86) imports from PSXDLL netnode
+
+    def __init__(self):
+        self.__penode = idaapi.netnode()
+        self.__penode.create(peutils_t.PE_NODE)
+
+    imagebase = property(
+        lambda self: self.__penode.altval(peutils_t.PE_ALT_IMAGEBASE)
+      )
+
+    header = property(
+        lambda self: self.__penode.altval(peutils_t.PE_ALT_PEHDR_OFF)
+      )
+
+    def __str__(self):
+        return "peutils_t(imagebase=%s, header=%s)" % (hex(self.imagebase), hex(self.header))
+
+# -----------------------------------------------------------------------
 cpu = _cpu()
 """This is a special class instance used to access the registers as if they were attributes of this object.
 For example to access the EAX register:

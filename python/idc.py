@@ -3817,7 +3817,7 @@ def writestr(handle, s):
 #                           F U N C T I O N S
 # ----------------------------------------------------------------------------
 
-def MakeFunction(start, end):
+def MakeFunction(start, end = idaapi.BADADDR):
     """
     Create a function
 
@@ -7094,13 +7094,13 @@ def SetRegValue(value, name):
            A register name in the left side of an assignment will do too.
     """
     rv = idaapi.regval_t()
-    if type(value)==types.StringType:
-        value = int(value)
-    elif type(value)!=types.IntType:
+    if type(value) == types.StringType:
+        value = int(value, 16)
+    elif type(value) != types.IntType and type(value) != types.LongType:
         print "SetRegValue: value must be integer!"
         return BADADDR
 
-    if value<0:
+    if value < 0:
         #ival_set cannot handle negative numbers
         value &= 0xFFFFFFFF
 
@@ -7249,7 +7249,8 @@ def AddBptEx(ea, size, bpttype):
     return idaapi.add_bpt(ea, size, bpttype)
 
 
-def AddBpt(ea): return AddBptEx(ea, 0, BPT_SOFT)
+def AddBpt(ea):
+    return AddBptEx(ea, 0, BPT_SOFT)
 
 
 def DelBpt(ea):
@@ -7499,17 +7500,17 @@ def WriteExe(filepath):
     return GenerateFile(OFILE_EXE, filepath, 0, BADADDR, 0)
 
 def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value,-1)
-def AddStruc(index,name):   return AddStrucEx(index,name,0)
-def AddUnion(index,name):   return AddStrucEx(index,name,1)
-def OpStroff(ea,n,strid):   return OpStroffEx(ea,n,strid,0)
-def OpEnum(ea,n,enumid):    return OpEnumEx(ea,n,enumid,0)
-def DelConst(constid, v, mask): return DelConstEx(constid, v, 0, mask)
-def GetConst(constid, v, mask): return GetConstEx(constid, v, 0, mask)
-def AnalyseArea(sEA, eEA):       return AnalyzeArea(sEA,eEA)
+def AddStruc(index,name):         return AddStrucEx(index,name,0)
+def AddUnion(index,name):         return AddStrucEx(index,name,1)
+def OpStroff(ea,n,strid):         return OpStroffEx(ea,n,strid,0)
+def OpEnum(ea,n,enumid):          return OpEnumEx(ea,n,enumid,0)
+def DelConst(constid, v, mask):   return DelConstEx(constid, v, 0, mask)
+def GetConst(constid, v, mask):   return GetConstEx(constid, v, 0, mask)
+def AnalyseArea(sEA, eEA):        return AnalyzeArea(sEA,eEA)
 
-def MakeStruct(ea,name):         return MakeStructEx(ea, -1, name)
-def Name(ea):               return NameEx(BADADDR, ea)
-def GetTrueName(ea):        return GetTrueNameEx(BADADDR, ea)
+def MakeStruct(ea,name):          return MakeStructEx(ea, -1, name)
+def Name(ea):                     return NameEx(BADADDR, ea)
+def GetTrueName(ea):              return GetTrueNameEx(BADADDR, ea)
 def MakeName(ea, name):           return MakeNameEx(ea,name,SN_CHECK)
 
 #def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
@@ -7533,6 +7534,8 @@ def SegDefReg(ea, reg, value):                   return SetSegDefReg(ea, reg, va
 
 
 def Comment(ea):                return GetCommentEx(ea, 0)
+"""Returns the non-repeatable comment or None"""
+
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
 
 def SetReg(ea, reg, value): return SetRegEx(ea, reg, value, SR_user)

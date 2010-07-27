@@ -293,7 +293,7 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
   }
   catch (Swig::DirectorException &)
   {
-    msg("Exception in IDP Hook function:\n");
+    msg("Exception in DBG Hook function:\n");
     if (PyErr_Occurred())
     {
       PyErr_Print();
