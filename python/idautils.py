@@ -385,47 +385,74 @@ class Strings(object):
     class StringItem(object):
         """
         Class representing each string item.
-        The attributes are:
-        ea - string ea
-        type - string type (ASCSTR_xxxxx)
-        str() - returns the actual string
         """
         def __init__(self, si):
             self.ea     = si.ea
+            """String ea"""
             self.type   = si.type
+            """string type (ASCSTR_xxxxx)"""
             self.length = si.length
+            """string length"""
+
         def __str__(self):
             return idc.GetString(self.ea, self.length, self.type)
 
-    STR_C       = 0x0001 # C-style ASCII string
-    STR_PASCAL  = 0x0002 # Pascal-style ASCII string (length byte)
-    STR_LEN2    = 0x0004 # Pascal-style, length is 2 bytes
-    STR_UNICODE = 0x0008 # Unicode string
-    STR_LEN4    = 0x0010 # Pascal-style, length is 4 bytes
-    STR_ULEN2   = 0x0020 # Pascal-style Unicode, length is 2 bytes
-    STR_ULEN4   = 0x0040 # Pascal-style Unicode, length is 4 bytes
+    STR_C       = 0x0001
+    """C-style ASCII string"""
+    STR_PASCAL  = 0x0002
+    """Pascal-style ASCII string (length byte)"""
+    STR_LEN2    = 0x0004
+    """Pascal-style, length is 2 bytes"""
+    STR_UNICODE = 0x0008
+    """Unicode string"""
+    STR_LEN4    = 0x0010
+    """Pascal-style, length is 4 bytes"""
+    STR_ULEN2   = 0x0020
+    """Pascal-style Unicode, length is 2 bytes"""
+    STR_ULEN4   = 0x0040
+    """Pascal-style Unicode, length is 4 bytes"""
 
     def clear_cache(self):
         """Clears the strings list cache"""
         self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
 
-    def __init__(self, default_setup=True):
+    def __init__(self, default_setup = True):
+        """
+        Initializes the Strings enumeration helper class
+
+        @param default_setup: Set to True to use default setup (C strings, min len 5, ...)
+        """
+        self.size = 0
         if default_setup:
             self.setup()
+
         self._si  = idaapi.string_info_t()
-        self.size = 0
 
     def refresh(self, ea1=None, ea2=None):
         """Refreshes the strings list"""
-        if not ea1: ea1 = idaapi.cvar.inf.minEA
-        if not ea2: ea2 = idaapi.cvar.inf.maxEA
+        if ea1 is None:
+            ea1 = idaapi.cvar.inf.minEA
+        if ea2 is None:
+            ea2 = idaapi.cvar.inf.maxEA
+
         idaapi.refresh_strlist(ea1, ea2)
         self.size = idaapi.get_strlist_qty()
 
-    def setup(self, strtypes=STR_C, minlen=5, only_7bit=True, ignore_instructions=False,
-              ea1=None, ea2=None, display_only_existing_strings=False):
-        if not ea1: ea1 = idaapi.cvar.inf.minEA
-        if not ea2: ea2 = idaapi.cvar.inf.maxEA
+    def setup(self,
+              strtypes = STR_C,
+              minlen = 5,
+              only_7bit = True,
+              ignore_instructions = False,
+              ea1 = None,
+              ea2 = None,
+              display_only_existing_strings = False):
+
+        if ea1 is None:
+            ea1 = idaapi.cvar.inf.minEA
+
+        if ea2 is None:
+            ea2 = idaapi.cvar.inf.maxEA
+
         t = idaapi.strwinsetup_t()
         t.strtypes = strtypes
         t.minlen = minlen
@@ -434,15 +461,18 @@ class Strings(object):
         t.ea2 = ea2
         t.display_only_existing_strings = display_only_existing_strings
         idaapi.set_strlist_options(t)
-        # automatically refreshes
+
+        # Automatically refreshes
         self.refresh()
 
     def __getitem__(self, index):
-        """Returns string items"""
+        """Returns a string item or None"""
         if index >= self.size:
             raise StopIteration
+
         if idaapi.get_strlist_item(index, self._si):
             return Strings.StringItem(self._si)
+
         return None
 
 # -----------------------------------------------------------------------
