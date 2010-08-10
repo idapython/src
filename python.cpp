@@ -23,6 +23,9 @@
 #ifdef __LINUX__
 #include <dlfcn.h>
 #endif
+#ifdef __MAC__
+#include <mach-o/dyld.h>
+#endif
 #include <ida.hpp>
 #include <idp.hpp>
 #include <ieee.h>
@@ -1034,19 +1037,19 @@ bool idaapi IDAPYthon_cli_complete_line(
     return false;
 
   PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x);
-  
+
   Py_DECREF(py_complete);
-  
+
   // Swallow the error
   PyW_GetError(completion);
 
   bool ok = py_ret != NULL && PyString_Check(py_ret) != 0;
-  
+
   if ( ok )
     *completion = PyString_AS_STRING(py_ret);
 
   Py_XDECREF(py_ret);
-  
+
   return ok;
 }
 
@@ -1205,6 +1208,28 @@ bool IDAPython_Init(void)
   {
     warning("IDAPython: %s", dlerror());
     return false;
+  }
+#endif
+
+#ifdef __MAC__
+  // We should set python home to the module's path, otherwise it can pick up stray modules from $PATH
+  NSModule pythonModule = NSModuleForSymbol(NSLookupAndBindSymbol("_Py_Initialize"));
+  // Use dylib functions to find out where the framework was loaded from
+  const char *buf = (char *)NSLibraryNameForModule(pythonModule);
+  if ( buf != NULL )
+  {
+    // The path will be something like:
+    // /System/Library/Frameworks/Python.framework/Versions/2.5/Python
+    // We need to strip the last part
+    // use static buffer because Py_SetPythonHome() just stores a pointer
+    static char pyhomepath[MAXSTR];
+    qstrncpy(pyhomepath, buf, MAXSTR);
+    char * lastslash = strrchr(pyhomepath, '/');
+    if ( lastslash != NULL )
+    {
+      *lastslash = 0;
+      Py_SetPythonHome(pyhomepath);
+    }
   }
 #endif
 
