@@ -56,7 +56,7 @@ def runscript(script):
 # -----------------------------------------------------------------------
 def print_banner():
     banner = [
-      "Python %d.%d.%d %s (serial %d) (c) 1990-2010 Python Software Foundation" % sys.version_info,
+      "Python %s " % sys.version,
       "IDAPython" + (" 64-bit" if __EA64__ else "") + " v%d.%d.%d %s (serial %d) (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
     ]
     sepline = '-' * (max([len(s) for s in banner])+1)

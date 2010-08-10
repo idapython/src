@@ -55,6 +55,12 @@ static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
 static const char S_HOTKEY_RUNSTATEMENT[] =      "Alt-8";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
+#ifdef PLUGINFIX
+  #define PLUGIN_FLAGS PLUGIN_FIX
+#else
+  #define PLUGIN_FLAGS 0
+#endif
+
 //-------------------------------------------------------------------------
 // Types
 
@@ -1389,11 +1395,7 @@ void idaapi run(int arg)
 plugin_t PLUGIN =
 {
   IDP_INTERFACE_VERSION,
-#ifdef PLUGINFIX
-  PLUGIN_FIX,    // plugin flags
-#else
-  0,             // plugin flags
-#endif
+  PLUGIN_FLAGS | PLUGIN_HIDE, // plugin flags
   init,          // initialize
   term,          // terminate. this pointer may be NULL.
   run,           // invoke plugin
