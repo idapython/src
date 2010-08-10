@@ -6170,7 +6170,7 @@ def Til2Idb(idx, type_name):
 
     @return: BADNODE-failed, otherwise the type id (structure id or enum id)
     """
-    return idaapi.til2idb(idx, type_name)
+    return idaapi.import_type(idaapi.cvar.idati, idx, type_name)
 
 
 def GetType(ea):
