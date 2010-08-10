@@ -2,12 +2,22 @@ The IDAPython Team:
 
 * Gergely Erdelyi - http://d-dome.net/idapython/
 
-    Original IDAPython author.
+    Original IDAPython author - The IDAPython Guy -
 
-* Hex-Rays - http://www.hex-rays.com/
+
+* Hex-Rays - http://www.hex-rays.com/ - <support@hex-rays.com>
 
     Hex-Rays joined the project in September 2009 and started contributing.
+    It is primarily maintained by Elias Bachaalany.
+
 
 * Ero Carrera - http://dkbza.org/
 
     Project contributor
+
+
+* Special thanks to the following people for their contribution, suggestions and bug fixes:
+
+    Igor Skochinsky
+    Sebastian Muniz
+    cbwhiz
