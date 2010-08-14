@@ -3986,7 +3986,7 @@ def GetFunctionFlags(ea):
 FUNC_NORET    = idaapi.FUNC_NORET    # function doesn't return
 FUNC_FAR      = idaapi.FUNC_FAR      # far function
 FUNC_LIB      = idaapi.FUNC_LIB      # library function
-FUNC_STATICDEF= idaapi.FUNC_STATICDEF# static function
+FUNC_STATIC   = idaapi.FUNC_STATICDEF# static function
 FUNC_FRAME    = idaapi.FUNC_FRAME    # function uses frame pointer (BP)
 FUNC_USERFAR  = idaapi.FUNC_USERFAR  # user has specified far-ness
                                      # of the function
