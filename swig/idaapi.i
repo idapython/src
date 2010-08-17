@@ -3,6 +3,7 @@
 #pragma SWIG nowarn=302
 // and others...
 #pragma SWIG nowarn=312
+#pragma SWIG nowarn=325
 #pragma SWIG nowarn=314
 #pragma SWIG nowarn=362
 #pragma SWIG nowarn=383
@@ -1156,6 +1157,7 @@ public:
       Py_DECREF(py_code);
       if ( PyW_GetError(&err) || py_result == NULL )
       {
+        PyErr_Clear();
         warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
         ok = false;
       }
@@ -1193,9 +1195,11 @@ bool pywraps_nw_init()
 {
   if ( g_nw != NULL )
     return true;
+
   g_nw = new pywraps_notify_when_t();
   if ( g_nw->init() )
     return true;
+
   // Things went bad, undo!
   delete g_nw;
   g_nw = NULL;
@@ -1207,10 +1211,12 @@ bool pywraps_nw_notify(int slot, ...)
 {
   if ( g_nw == NULL )
     return false;
+
   va_list va;
   va_start(va, slot);
   bool ok = g_nw->notify_va(slot, va);
   va_end(va);
+
   return ok;
 }
 
@@ -1220,9 +1226,11 @@ bool pywraps_nw_term()
 {
   if ( g_nw == NULL )
     return true;
+  
   // If could not deinitialize then return w/o stopping nw
   if ( !g_nw->deinit() )
     return false;
+  
   // Cleanup
   delete g_nw;
   g_nw = NULL;
@@ -1944,6 +1952,7 @@ class __IDAPython_Completion_Util(object):
     def __init__(self):
         self.n = 0
         self.completion = None
+        self.lastmodule = None
 
     @staticmethod
     def parse_identifier(line, prefix, prefix_start):
@@ -1959,32 +1968,53 @@ class __IDAPython_Completion_Util(object):
         return line[id_start:prefix_start + len(prefix)]
 
     @staticmethod
+    def dir_of(m, prefix):
+        return [x for x in dir(m) if x.startswith(prefix)]
+
+    @staticmethod
     def get_completion(id, prefix):
         try:
-            parts = id.split('.')
             m = sys.modules['__main__']
+
+            parts = id.split('.')
             c = len(parts)
+
             for i in xrange(0, c-1):
                 m = getattr(m, parts[i])
         except Exception, e:
-            return None
+            return (None, None)
         else:
             # search in the module
-            completion = [x for x in dir(m) if x.startswith(prefix)]
+            completion = __IDAPython_Completion_Util.dir_of(m, prefix)
 
             # no completion found? looking from the global scope? then try the builtins
             if not completion and c == 1:
-                completion = [x for x in dir(__builtin__) if x.startswith(prefix)]
+                completion = __IDAPython_Completion_Util.dir_of(__builtin__, prefix)
 
-            return completion if len(completion) else None
+            return (m, completion) if completion else (None, None)
 
     def __call__(self, prefix, n, line, prefix_start):
         if n == 0:
             self.n = n
             id = self.parse_identifier(line, prefix, prefix_start)
-            self.completion = self.get_completion(id, prefix)
-        return None if self.completion is None or n >= len(self.completion) else self.completion[n]
+            self.lastmodule, self.completion = self.get_completion(id, prefix)
 
+        if self.completion is None or n >= len(self.completion):
+            return None
+
+        s = self.completion[n]
+        try:
+            attr = getattr(self.lastmodule, s)
+            # is it callable?
+            if callable(attr):
+                return s + "("
+            # is it iterable?
+            elif isinstance(attr, basestring) or getattr(attr, '__iter__', False):
+                return s + "["
+        except:
+            pass
+
+        return s
 
 IDAPython_Completion = __IDAPython_Completion_Util()
 
