@@ -214,7 +214,8 @@ static PyObject *dbg_get_registers()
     PyObject *py_bits;
 
     // Does this register have bit strings?
-    if ( ri.bit_strings != NULL )
+    // (Make sure it does not use custom formats because bit_string would be the format name)
+    if ( ri.bit_strings != NULL && (ri.flags & REGISTER_CUSTFMT) == 0 )
     {
       int nbits = (int)b2a_width((int)get_dtyp_size(ri.dtyp), 0) * 4;
       py_bits = PyList_New(nbits);
