@@ -1680,6 +1680,25 @@ def IdbByte(ea):
     return idaapi.get_db_byte(ea)
 
 
+def GetManyBytes(ea, size, use_dbg = False):
+    """
+    Return the specified number of bytes of the program
+    
+    @param ea: linear address
+    
+    @param size: size of buffer in normal 8-bit bytes
+    
+    @param use_dbg: if True, use debugger memory, otherwise just the database
+
+    @return: None on failure
+             otherwise a string containing the read bytes
+    """
+    if use_dbg:
+        return idaapi.dbg_read_memory(ea, size)
+    else:
+        return idaapi.get_many_bytes(ea, size)
+
+
 def Byte(ea):
     """
     Get value of program byte
@@ -1995,6 +2014,18 @@ def PrevNotTail(ea):
     @return: BADADDR - no (more) not-tail addresses
     """
     return idaapi.prev_not_tail(ea)
+
+
+def ItemHead(ea):
+    """
+    Get starting address of the item (instruction or data)
+
+    @param ea: linear address
+
+    @return: the starting address of the item
+             if the current address is unexplored, returns 'ea'
+    """
+    return idaapi.get_item_head(ea)
 
 
 def ItemEnd(ea):
@@ -6759,7 +6790,7 @@ def GetProcessState():
     """
     return idaapi.get_process_state()
 
-DSTATE_SUSP_FOR_EVENT  = -2 # process is currently suspended to react to a debug event
+DSTATE_SUSP_FOR_EVENT  = -2 # process is currently suspended to react to a debug event (not used)
 DSTATE_SUSP            = -1 # process is suspended
 DSTATE_NOTASK          =  0 # no process is currently debugged
 DSTATE_RUN             =  1 # process is running
