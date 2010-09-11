@@ -1207,7 +1207,7 @@ bool IDAPython_Init(void)
   char tmp[MAXSTR+64];
 #ifdef __LINUX__
   // Export symbols from libpython to resolve imported module deps
-  qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so",
+  qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so.1",
     PY_MAJOR_VERSION,
     PY_MINOR_VERSION);
   if ( !dlopen(tmp, RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY) )
@@ -1259,6 +1259,10 @@ bool IDAPython_Init(void)
     VER_SERIAL);
   PyRun_SimpleString(tmp);
 
+  // Install extlang. Needs to be done before running init.py
+  // in case it's calling idaapi.enable_extlang_python(1)
+  install_extlang(&extlang_python);
+
   // Execute init.py (for Python side initialization)
   qmakepath(tmp, MAXSTR, g_idapython_dir, "init.py", NULL);
   if ( !PyRunFile(tmp) )
@@ -1298,9 +1302,6 @@ bool IDAPython_Init(void)
 
   // Enable the CLI by default
   enable_python_cli(true);
-
-  // Install extlang
-  install_extlang(&extlang_python);
 
   g_initialized = true;
   pywraps_nw_notify(NW_INITIDA_SLOT);
