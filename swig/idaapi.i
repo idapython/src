@@ -34,10 +34,12 @@
 #ifdef HAVE_SSIZE_T
 #define _SSIZE_T_DEFINED 1
 #endif
+
 #if defined(__NT__) && !defined(_WINDOWS_)
   #define _WINDOWS_ // kernwin.hpp needs it to declare create_tform()
   typedef void *HWND; // we don't need to include windows.h for just this definition
 #endif
+
 #include "ida.hpp"
 #include "idp.hpp"
 #include "allins.hpp"
@@ -1971,8 +1973,8 @@ class __IDAPython_Completion_Util(object):
     def dir_of(m, prefix):
         return [x for x in dir(m) if x.startswith(prefix)]
 
-    @staticmethod
-    def get_completion(id, prefix):
+    @classmethod
+    def get_completion(cls, id, prefix):
         try:
             m = sys.modules['__main__']
 
@@ -1985,11 +1987,11 @@ class __IDAPython_Completion_Util(object):
             return (None, None)
         else:
             # search in the module
-            completion = __IDAPython_Completion_Util.dir_of(m, prefix)
+            completion = cls.dir_of(m, prefix)
 
             # no completion found? looking from the global scope? then try the builtins
             if not completion and c == 1:
-                completion = __IDAPython_Completion_Util.dir_of(__builtin__, prefix)
+                completion = cls.dir_of(__builtin__, prefix)
 
             return (m, completion) if completion else (None, None)
 
