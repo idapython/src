@@ -532,8 +532,10 @@ class Appcall_callable__(object):
 
     def __get_timeout(self):
         return self.__timeout
+
     def __set_timeout(self, v):
         self.__timeout = v
+
     timeout = property(__get_timeout, __set_timeout)
     """An Appcall instance can change its timeout value with this attribute"""
 
@@ -547,6 +549,7 @@ class Appcall_callable__(object):
         else:
             # Timeout is not set, then clear the timeout flag
             v &= ~Appcall__.APPCALL_TIMEOUT
+
         self.__options = v
 
     options = property(__get_options, __set_options)
@@ -554,11 +557,11 @@ class Appcall_callable__(object):
 
     def __call__(self, *args):
         """Make object callable. We redirect execution to idaapi.appcall()"""
-        if self.ea == None:
+        if self.ea is None:
             raise ValueError, "Object not callable!"
 
-        # unpack arguments and convert to a list
-        arg_list = [x for x in args]
+        # convert arguments to a list
+        arg_list = list(args)
 
         # Save appcall options and set new global options
         old_opt = Appcall__.get_appcall_options()
@@ -582,10 +585,12 @@ class Appcall_callable__(object):
         # Return or re-raise exception
         if e_obj:
             raise Exception, e_obj
+
         return r
 
     def __get_ea(self):
         return self.__ea
+
     def __set_ea(self, val):
         self.__ea = val
 
@@ -611,6 +616,7 @@ class Appcall_callable__(object):
 
     def __get_fields(self):
         return self.__fields
+
     fields = property(__get_fields)
     """Returns the field names"""
 
@@ -633,17 +639,30 @@ class Appcall_callable__(object):
     def store(self, obj, dest_ea=None, base_ea=0, flags=0):
         """
         Packs an object into a given ea if provided or into a string if no address was passed.
-
+        @param obj: The object to pack
+        @param dest_ea: If packing to idb this will be the store location
+        @param base_ea: If packing to a buffer, this will be the base that will be used to relocate the pointers
+        
         @return:
             - If packing to a string then a Tuple(Boolean, packed_string or error code)
             - If packing to the database then a return code is returned (0 is success)
         """
 
         # no ea passed? thus pack to a string
-        if not dest_ea:
-            return _idaapi.pack_object_to_bv(obj, _idaapi.cvar.idati, self.type, self.fields, base_ea, flags)
+        if dest_ea is None:
+            return _idaapi.pack_object_to_bv(obj,
+                                             _idaapi.cvar.idati,
+                                             self.type,
+                                             self.fields,
+                                             base_ea,
+                                             flags)
         else:
-            return _idaapi.pack_object_to_idb(obj, _idaapi.cvar.idati, self.type, self.fields, dest_ea, flags)
+            return _idaapi.pack_object_to_idb(obj,
+                                              _idaapi.cvar.idati,
+                                              self.type,
+                                              self.fields,
+                                              dest_ea,
+                                              flags)
 
 # -----------------------------------------------------------------------
 class Appcall_consts__(object):
@@ -688,9 +707,12 @@ class Appcall__(object):
 
     @staticmethod
     def __name_or_ea(name_or_ea):
-        """Function that accepts a name or an ea and checks if the address is enabled.
+        """
+        Function that accepts a name or an ea and checks if the address is enabled.
         If a name is passed then idaapi.get_name_ea() is applied to retrieve the name
-        @return: Returns the resolved EA or raises an exception if the address is not enabled
+        @return:
+            - Returns the resolved EA or
+            - Raises an exception if the address is not enabled
         """
 
         # a string? try to resolve it
@@ -705,16 +727,26 @@ class Appcall__(object):
 
     @staticmethod
     def proto(name_or_ea, prototype, flags = None):
-        """Allows you to instantiate an appcall (callable object) with the desired prototype"""
+        """
+        Allows you to instantiate an appcall (callable object) with the desired prototype
+        @param name_or_ea: The name of the function (will be resolved with LocByName())
+        @param prototype:
+        @return:
+            - On failure it raises an exception if the prototype could not be parsed
+              or the address is not resolvable
+            - Returns a callbable Appcall instance with the given prototypes and flags
+        """
 
         # resolve and raise exception on error
         ea = Appcall__.__name_or_ea(name_or_ea)
         # parse the type
         if not flags:
             flags = 1 | 2 | 4 # PT_SIL | PT_NDC | PT_TYP
+
         result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, prototype, flags)
         if not result:
             raise ValueError, "Could not parse type: " + prototype
+
         # Return the callable method with type info
         return Appcall_callable__(ea, result[1], result[2])
 
@@ -798,7 +830,7 @@ class Appcall__(object):
         Parses a type string and returns an appcall object.
         One can then use retrieve() member method
         @param ea: Optional parameter that later can be used to retrieve the type
-        @return: Appcall object
+        @return: Appcall object or raises ValueError exception
         """
         # parse the type
         result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
