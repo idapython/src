@@ -380,13 +380,13 @@ PyObject *py_pack_object_to_idb(
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def pack_object_to_bv(obj, ti, tp, fields, ea, pio_flags = 0):
+def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
     """
     Packs a typed object to a string
     @param ti: Type info. 'idaapi.cvar.idati' can be passed.
     @param tp: type string
     @param fields: type fields
-    @param ea: ea to be used while packing
+    @param base_ea: base ea used to relocate the pointers in the packed object
     @param pio_flags: flags used while unpacking
     @return: 
         tuple(0, err_code) on failure

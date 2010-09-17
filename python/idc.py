@@ -1683,11 +1683,11 @@ def IdbByte(ea):
 def GetManyBytes(ea, size, use_dbg = False):
     """
     Return the specified number of bytes of the program
-    
+
     @param ea: linear address
-    
+
     @param size: size of buffer in normal 8-bit bytes
-    
+
     @param use_dbg: if True, use debugger memory, otherwise just the database
 
     @return: None on failure
@@ -2894,7 +2894,7 @@ def AskStr(defval, prompt):
              in the dialog box.
     @param prompt: the prompt to display in the dialog box
 
-    @return: the entered string or 0.
+    @return: the entered string or None.
     """
     return idaapi.askstr(0, defval, prompt)
 
@@ -2907,7 +2907,7 @@ def AskFile(forsave, mask, prompt):
     @param mask: the input file mask as "*.*" or the default file name.
     @param prompt: the prompt to display in the dialog box
 
-    @return: the selected file or 0.
+    @return: the selected file or None.
     """
     return idaapi.askfile_c(forsave, mask, prompt)
 
@@ -2959,7 +2959,7 @@ def AskIdent(defval, prompt):
              the dialog box.
     @param prompt: the prompt to display in the dialog box
 
-    @return: the entered identifier or 0.
+    @return: the entered identifier or None.
     """
     return idaapi.askident(defval, prompt)
 
@@ -6622,7 +6622,7 @@ def GetModuleName(base):
 
     @param base: the base address of the module
 
-    @return: required info or 0
+    @return: required info or None
     """
     for module in _get_modules():
         if module.base == base:

@@ -129,7 +129,7 @@ def create_switch_xrefs(insn_ea, si):
     will call it for switch tables
 
     Note: Custom switch information are not supported yet.
-	
+        
     @param insn_ea: address of the 'indirect jump' instruction
     @param si: switch information
 
@@ -157,7 +157,7 @@ idaman bool ida_export py_create_switch_xrefs(
 def create_switch_table(insn_ea, si):
     """
     Create switch table from the switch information
-	
+        
     @param insn_ea: address of the 'indirect jump' instruction
     @param si: switch information
 
@@ -173,7 +173,7 @@ idaman bool ida_export py_create_switch_table(
   switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
   if ( swi == NULL )
     return false;
-	
+        
   create_switch_table(insn_ea, swi);
   return true;
 }

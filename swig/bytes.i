@@ -605,7 +605,7 @@ static ea_t py_prevthat(ea_t ea, ea_t minea, PyObject *callable)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def get_many_bytes(ea):
+def get_many_bytes(ea, size):
     """
     Get the specified number of bytes of the program into the buffer.
     @param ea: program address
