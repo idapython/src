@@ -1635,7 +1635,8 @@ def GetIdbPath():
 
     This function returns full path of the current IDB database
     """
-    return idaapi.cvar.database_idb
+    idb_path = idaapi.cvar.database_idb + '\x00'
+    return idb_path[ : idb_path.find('\x00') ]
 
 
 def GetInputMD5():
