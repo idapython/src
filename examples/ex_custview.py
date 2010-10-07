@@ -32,7 +32,7 @@ class mycv_t(simplecustviewer_t):
         """
         User clicked in the view
         @param shift: Shift flag
-        @return Boolean. True if you handled the event
+        @return: Boolean. True if you handled the event
         """
         print "OnClick, shift=%d" % shift
         return True
@@ -41,7 +41,7 @@ class mycv_t(simplecustviewer_t):
         """
         User dbl-clicked in the view
         @param shift: Shift flag
-        @return Boolean. True if you handled the event
+        @return: Boolean. True if you handled the event
         """
         word = self.GetCurrentWord()
         if not word: word = "<None>"
@@ -51,14 +51,14 @@ class mycv_t(simplecustviewer_t):
     def OnCursorPosChanged(self):
         """
         Cursor position changed.
-        @return Nothing
+        @return: Nothing
         """
         print "OnCurposChanged"
 
     def OnClose(self):
         """
         The view is closing. Use this event to cleanup.
-        @return Nothing
+        @return: Nothing
         """
         print "OnClose " + self.title
 
@@ -67,7 +67,7 @@ class mycv_t(simplecustviewer_t):
         User pressed a key
         @param vkey: Virtual key code
         @param shift: Shift flag
-        @return Boolean. True if you handled the event
+        @return: Boolean. True if you handled the event
         """
         print "OnKeydown, vk=%d shift=%d" % (vkey, shift)
         # ESCAPE?
@@ -123,7 +123,7 @@ class mycv_t(simplecustviewer_t):
     def OnPopup(self):
         """
         Context menu popup is about to be shown. Create items dynamically if you wish
-        @return Boolean. True if you handled the event
+        @return: Boolean. True if you handled the event
         """
         print "OnPopup"
 

@@ -466,8 +466,8 @@ def SaveBase(idbname, flags=0):
                     file will be used.
     @param flags: DBFL_BAK or 0
     """
-    if len(idbname)==0:
-        idbname = idaapi.cvar.database_idb
+    if len(idbname) == 0:
+        idbname = GetIdbPath()
     saveflags = idaapi.cvar.database_flags
     if flags & DBFL_BAK:
         idaapi.cvar.database_flags |= DBFL_BAK
@@ -1635,8 +1635,7 @@ def GetIdbPath():
 
     This function returns full path of the current IDB database
     """
-    idb_path = idaapi.cvar.database_idb + '\x00'
-    return idb_path[ : idb_path.find('\x00') ]
+    return idaapi.as_cstr(idaapi.cvar.database_idb)
 
 
 def GetInputMD5():

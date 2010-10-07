@@ -88,6 +88,7 @@ BINDIST_MANIFEST = [
     "examples/ex_graph.py",
     "examples/ex_dbg.py",
     "examples/ex_custview.py",
+    "examples/ex_prefix_plugin.py",
     "examples/ex_imports.py"
 ]
 

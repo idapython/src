@@ -1,5 +1,11 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
+Changes from version 1.4.1 to 1.4.2
+------------------------------------
+- Added command completion
+- Added necessary changes so it compiles with Python 2.7
+- Wrapped set_user_defined_prefix()
+
 Changes from version 1.4.0 to 1.4.1
 ------------------------------------
 - Added cli_t

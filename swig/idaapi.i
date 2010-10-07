@@ -1828,11 +1828,9 @@ def as_cstr(val):
     """
     if isinstance(val, PyIdc_cvt_refclass__):
         val = val.value
-    n = val.find('\0')
-    if n == -1:
-        return val
-    else:
-        return val[:n]
+        
+    n = val.find('\x00')
+    return val if n == -1 else val[:n]
 
 # -----------------------------------------------------------------------
 def as_unicode(s):

@@ -2805,14 +2805,14 @@ class simplecustviewer_t(object):
     def InsertLine(self, lineno, line, fgcolor=None, bgcolor=None):
         """
         Inserts a line in the given position
-        @return Boolean
+        @return: Boolean
         """
         return _idaapi.pyscv_insert_line(self.__this, lineno, self.__make_sl_arg(line, fgcolor, bgcolor))
 
     def EditLine(self, lineno, line, fgcolor=None, bgcolor=None):
         """
         Edits an existing line.
-        @return Boolean
+        @return: Boolean
         """
         return _idaapi.pyscv_edit_line(self.__this, lineno, self.__make_sl_arg(line, fgcolor, bgcolor))
 
@@ -2823,7 +2823,7 @@ class simplecustviewer_t(object):
     def DelLine(self, lineno):
         """
         Deletes an existing line
-        @return Boolean
+        @return: Boolean
         """
         return _idaapi.pyscv_del_line(self.__this, lineno)
 

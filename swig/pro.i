@@ -7,6 +7,23 @@
 %ignore incrementer_t;
 %ignore reloc_info_t; // swig under mac chokes on this
 
+%ignore qmutex_create;
+%ignore qmutex_free;
+%ignore qmutex_lock;
+%ignore qmutex_t;
+%ignore qmutex_unlock;
+%ignore qsem_create;
+%ignore qsem_free;
+%ignore qsem_post;
+%ignore qsem_wait;
+%ignore qsemaphore_t;
+%ignore qthread_cb_t;
+%ignore qthread_create;
+%ignore qthread_free;
+%ignore qthread_join;
+%ignore qthread_kill;
+%ignore qthread_self;
+%ignore qthread_t;
 %ignore qstrlen;
 %ignore qstrcmp;
 %ignore qstrstr;
