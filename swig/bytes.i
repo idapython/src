@@ -48,6 +48,9 @@
 %ignore shuffle_tribytes;
 %ignore set_enum_id;
 %ignore validate_tofs;
+%ignore set_flags_nomark;
+%ignore set_flbits_nomark;
+%ignore clr_flbits_nomark;
 %ignore ida_vpagesize;
 %ignore ida_vpages;
 %ignore ida_npagesize;

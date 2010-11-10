@@ -76,9 +76,7 @@
 #include "err.h"
 #include "fpro.h"
 #include <map>
-#ifdef __NT__
-  #include "graph.hpp"
-#endif
+#include "graph.hpp"
 
 //<code(py_idaapi)>
 
@@ -114,6 +112,7 @@ static const char S_ON_DBL_CLICK[]           = "OnDblClick";
 static const char S_ON_CURSOR_POS_CHANGED[]  = "OnCursorPosChanged";
 static const char S_ON_KEYDOWN[]             = "OnKeydown";
 static const char S_ON_COMPLETE_LINE[]       = "OnCompleteLine";
+static const char S_ON_CREATE[]              = "OnCreate";
 static const char S_ON_POPUP[]               = "OnPopup";
 static const char S_ON_HINT[]                = "OnHint";
 static const char S_ON_POPUP_MENU[]          = "OnPopupMenu";

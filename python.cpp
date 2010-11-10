@@ -52,7 +52,7 @@
 static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
 static const char S_MAIN[] =                     "__main__";
 static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
-static const char S_HOTKEY_RUNSTATEMENT[] =      "Alt-8";
+static const char S_HOTKEY_RUNSTATEMENT[] =      "Ctrl-F3";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
 #ifdef PLUGINFIX
@@ -320,12 +320,48 @@ static void handle_python_error(char *errbuf, size_t errbufsize)
 //------------------------------------------------------------------------
 // Helper function to get globals for the __main__ module
 // Note: The references are borrowed. No need to free them.
-PyObject *GetMainGlobals()
+static PyObject *GetMainGlobals()
 {
   PyObject *module = PyImport_AddModule(S_MAIN);
   if ( module == NULL )
       return NULL;
   return PyModule_GetDict(module);
+}
+
+//------------------------------------------------------------------------
+static void PythonEvalOrExec(const char *str, const char *filename = "<string>")
+{
+  // Compile as an expression
+  PyCompilerFlags cf = {0};
+  PyObject *py_code = Py_CompileStringFlags(str, filename, Py_eval_input, &cf);
+  if ( py_code == NULL || PyErr_Occurred() )
+  {
+    // Not an expression?
+    PyErr_Clear();
+
+    // Run as a string
+    PyRun_SimpleString(str);
+    return;
+  }
+
+  PyObject *py_globals = GetMainGlobals();
+  PyObject *py_result = PyEval_EvalCode(
+    (PyCodeObject *) py_code, 
+    py_globals,
+    py_globals);
+
+  Py_DECREF(py_code);
+
+  if ( py_result == NULL || PyErr_Occurred() )
+  {
+    PyErr_Print();
+    return;
+  }
+  qstring result_str;
+  if ( py_result != Py_None && PyW_ObjectToString(py_result, &result_str) )
+    msg("%s\n", result_str.c_str());
+
+  Py_DECREF(py_result);
 }
 
 //------------------------------------------------------------------------
@@ -654,11 +690,14 @@ bool idaapi IDAPython_extlang_run(
       ok = false;
       break;
     }
+
     PyCodeObject *code = (PyCodeObject *) PyFunction_GetCode(func);
     PyObject *pres = PyEval_EvalCodeEx(
                         code,
-                        globals, NULL, &pargs[0], nargs,
+                        globals, NULL, 
+                        &pargs[0], nargs,
                         NULL, 0, NULL, 0, NULL);
+    
     ok = return_python_result(result, pres, errbuf, errbufsize);
   } while ( false );
 
@@ -666,6 +705,7 @@ bool idaapi IDAPython_extlang_run(
 
   if ( imported_module )
     Py_XDECREF(module);
+  
   return ok;
 }
 
@@ -1002,29 +1042,27 @@ void enable_extlang_python(bool enable)
 // Execute a line in the Python CLI
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
-  const char *first_line = strrchr(line, '\n');
-  if ( first_line == NULL )
-    first_line = line;
+  // do not process empty lines
+  if ( line[0] == '\0' )
+    return true;
+
+  const char *last_line = strrchr(line, '\n');
+  if ( last_line == NULL )
+    last_line = line;
   else
-    first_line += 1;
+    last_line += 1;
 
   // skip empty lines
-  if ( first_line[0] != '\0' )
+  if ( last_line[0] != '\0' )
   {
-    // take a copy of the line so we r-trim it
-    char *tline = qstrdup(first_line);
-    trim(tline);
-
     // line ends with ":" or begins with a space character?
-    bool more = tline[qstrlen(tline)-1] == ':' || isspace(first_line[0]);
-    qfree(tline);
-
+    bool more = last_line[qstrlen(last_line)-1] == ':' || isspace(last_line[0]);
     if ( more )
       return false;
   }
 
   begin_execution();
-  PyRun_SimpleString(line);
+  PythonEvalOrExec(line);
   end_execution();
 
   return true;

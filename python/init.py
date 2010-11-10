@@ -2,7 +2,7 @@
 # -----------------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler Pro
 #
-# Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
+# Copyright (c) The IDAPython Team <idapython@googlegroups.com>
 #
 # All rights reserved.
 #

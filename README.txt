@@ -16,7 +16,7 @@ AVAILABILITY
 ------------
 
 Latest stable versions of IDAPython are available from
-  http://www.d-dome.net/idapython/
+  http://code.google.com/p/idapython/downloads/list
 
 Development builds are available from
   http://code.google.com/p/idapython/
@@ -26,7 +26,7 @@ RESOURCES
 ---------
 
 The full function cross-reference is readable online at
-  http://www.d-dome.net/idapython/reference/
+  http://www.hex-rays.com/idapro/idapython_docs/
 
 Bugs and enhancement requests should be submitted to
   http://code.google.com/p/idapython/issues/list
@@ -38,25 +38,29 @@ Mailing list for the project is hosted by Google Groups at
 INSTALLATION FROM BINARIES
 --------------------------
 
-1, Install Python 2.5 or 2.6 from http://www.python.org/
-2, Copy the python and python64 directories to the IDA install directory
+1. Install Python 2.5 or 2.6 from http://www.python.org/
+2. Copy the python and python64 directories to the IDA install directory
 3. Copy the plugins to the %IDADIR%\plugins\
 
 
 USAGE
 -----
 
-The plugin has three hotkeys: 
-
- - Run script (Alt-9)
- - Execute Python statement(s) (Alt-8)
- - Run previously executed script again (Alt-7)
+ - Run script: File / Script file (Alt-F7)
+ - Execute Python statement(s) (Ctrl-F3)
+ - Run previously executed script again: View / Recent Scripts (Alt+F9)
 
 Batch mode execution:
 
 Start IDA with the following command line options:
 
  -A -OIDAPython:yourscript.py file_to_work_on
+or
+-Syourscript.py
+or
+-S"yourscript.py arg1 arg2 arg3"
+
+(Please see http://www.hexblog.com/?p=128)
 
 If you want fully unattended execution mode, make sure your script
 exits with a qexit() call.
@@ -74,11 +78,11 @@ Where N can be:
 User init file:
 
 You can place your custom settings to a file called 'idapythonrc.py'
-that should be placed to 
+that should be placed to
 
 ${HOME}/.idapro/
 
-or 
+or
 
 %AppData%\Hex-Rays\IDA Pro
 

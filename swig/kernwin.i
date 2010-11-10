@@ -16,11 +16,25 @@
 %ignore askfile_cv;
 %ignore askyn_cv;
 %ignore askyn_v;
+%ignore add_custom_viewer_popup_item;
+%ignore create_custom_viewer;
+%ignore destroy_custom_viewer;
+%ignore destroy_custom_viewerdestroy_custom_viewer;
+%ignore get_custom_viewer_place;
+%ignore set_custom_viewer_popup_menu;
+%ignore set_custom_viewer_handler;
+%ignore set_custom_viewer_range;
+%ignore is_idaview;
+%ignore refresh_custom_viewer;
+%ignore set_custom_viewer_handlers;
 // Ignore these string functions. There are trivial replacements in Python.
 %ignore addblanks;
 %ignore trim;
 %ignore skipSpaces;
 %ignore stristr;
+
+%ignore get_highlighted_identifier;
+%rename (get_highlighted_identifier) py_get_highlighted_identifier;
 
 // CLI
 %ignore cli_t;
@@ -119,49 +133,6 @@ bool idaapi py_menu_item_callback(void *userdata)
   return ret;
 }
 
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def set_dock_pos(src, dest, orient, left = 0, top = 0, right = 0, bottom = 0)
-    """
-    Sets the dock orientation of a window relatively to another window.
-
-    @param src: Source docking control
-    @param dest: Destination docking control
-    @param orient: One of DOR_XXXX constants
-    @param left, top, right, bottom: These parameter if DOR_FLOATING is used, or if you want to specify the width of docked windows
-    @return: Boolean
-
-    Example:
-        set_dock_pos('Structures', 'Enums', DOR_RIGHT) <- docks the Structures window to the right of Enums window
-    """
-    pass
-#</pydoc>
-*/
-
-//------------------------------------------------------------------------
-/*
-int py_execute_sync(PyObject *py_callable, int reqf)
-{
-  if ( !PyCallable_Check(py_callable) )
-    return -1;
-
-  struct py_exec_request_t: exec_request_t
-  {
-    PyObject *py_callable;
-    virtual int idaapi execute(void)
-    {
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
-      Py_XDECREF(py_result);
-      return r;
-    }
-    py_exec_request_t(PyObject *pyc): py_callable(pyc) { }
-  };
-  py_exec_request_t req(py_callable);
-  return execute_sync(req, reqf);
-}
-*/
 
 
 
@@ -753,11 +724,125 @@ PyObject *choose2_find(const char *title)
     return NULL;
   return c2->get_self();
 }
+
+
+class plgform_t
+{
+private:
+  PyObject *py_obj;
+  TForm *form;
+
+  static int idaapi s_callback(void *ud, int notification_code, va_list va)
+  {
+    plgform_t *_this = (plgform_t *)ud;
+    if ( notification_code == ui_tform_visible )
+    {
+      TForm *form = va_arg(va, TForm *);
+      if ( form == _this->form )
+      {
+        PyObject *py_result = PyObject_CallMethod(
+          _this->py_obj,
+          (char *)S_ON_CREATE, "O", 
+          PyCObject_FromVoidPtr(form, NULL));
+        
+        PyW_ShowErr(S_ON_CREATE);
+        Py_XDECREF(py_result);
+      }
+    }
+    else if ( notification_code == ui_tform_invisible )
+    {
+      TForm *form = va_arg(va, TForm *);
+      if ( form == _this->form )
+      {
+        PyObject *py_result = PyObject_CallMethod(
+          _this->py_obj,
+          (char *)S_ON_CLOSE, "O", 
+          PyCObject_FromVoidPtr(form, NULL));
+        
+        PyW_ShowErr(S_ON_CLOSE);
+        Py_XDECREF(py_result);
+
+        _this->unhook();
+      }
+    }
+    return 0;
+  }
+
+  void unhook()
+  {
+    unhook_from_notification_point(HT_UI, s_callback, this);
+    form = NULL;
+    
+    // Call DECREF at last, since it may trigger __del__
+    Py_XDECREF(py_obj);
+  }
+
+public:
+  plgform_t(): py_obj(NULL), form(NULL)
+  {
+  }
+
+  bool show(
+    PyObject *obj,
+    const char *caption, 
+    int options)
+  {
+    // Already displayed?
+    TForm *f = find_tform(caption);
+    if ( f != NULL )
+    {
+      // Our form?
+      if ( f == form )
+      {
+        // Switch to it
+        switchto_tform(form, true);
+        return true;
+      }
+      // Fail to create
+      return false;
+    }
+    // Create a form
+    form = create_tform(caption, NULL);
+    if ( form == NULL )
+      return false;
+  
+    if ( !hook_to_notification_point(HT_UI, s_callback, this) )
+    {
+      form = NULL;
+      return false;
+    }
+
+    py_obj = obj;
+    Py_INCREF(obj);
+
+    if ( is_idaq() )
+      options |= FORM_QWIDGET;
+
+    this->form = form;
+    open_tform(form, options);
+    return true;
+  }
+
+  void close(int options = 0)
+  {
+    if ( form != NULL )
+      close_tform(form, options);
+  }
+
+  static PyObject *__new__()
+  {
+    return PyCObject_FromVoidPtr(new plgform_t(), __del__);
+  }
+  
+  static void __del__(void *obj)
+  {
+    delete (plgform_t *)obj;
+  }
+};
 //</code(py_kernwin)>
 
 %}
 
-#ifdef __NT__
 %{
 //<code(py_cli)>
 //--------------------------------------------------------------------------
@@ -778,7 +863,7 @@ struct py_cli_cbs_t
     qstring *line,
     int *p_x,
     int *p_sellen,
-    uint16 *vk_key,
+    int *vk_key,
     int shift);
 };
 
@@ -796,7 +881,7 @@ private:
   static const py_cli_cbs_t py_cli_cbs[MAX_PY_CLI];
   //--------------------------------------------------------------------------
 #define IMPL_PY_CLI_CB(CBN) \
-  static bool idaapi s_keydown##CBN(qstring *line, int *p_x, int *p_sellen, uint16 *vk_key, int shift) \
+  static bool idaapi s_keydown##CBN(qstring *line, int *p_x, int *p_sellen, int *vk_key, int shift) \
   { \
     return py_clis[CBN]->on_keydown(line, p_x, p_sellen, vk_key, shift); \
   } \
@@ -843,7 +928,7 @@ private:
     qstring *line,
     int *p_x,
     int *p_sellen,
-    uint16 *vk_key,
+    int *vk_key,
     int shift)
   {
     PyObject *result = PyObject_CallMethod(
@@ -1875,9 +1960,7 @@ public:
 
 //</code(py_custviewer)>
 %}
-#endif
 
-#ifdef __NT__
 %inline %{
 //<inline(py_cli)>
 static int py_install_command_interpreter(PyObject *py_obj)
@@ -2085,7 +2168,6 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 #undef DECL_THIS
 //</inline(py_custviewer)>
 %}
-#endif // __NT__
 
 %inline %{
 uint32 idaapi choose_sizer(void *self)
@@ -2179,7 +2261,28 @@ uint32 choose_choose(void *self,
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
 
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_highlighted_identifier(flags = 0):
+    """
+    Returns the currently highlighted identifier
 
+    @param flags: reserved (pass 0)
+    @return: None or the highlighted identifier
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_get_highlighted_identifier(int flags = 0)
+{
+  char buf[MAXSTR];
+  bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
+  if ( !ok )
+    Py_RETURN_NONE;
+  else
+    return PyString_FromString(buf);
+}
 
 //------------------------------------------------------------------------
 /*
@@ -2374,8 +2477,62 @@ def py_execute_sync(callable, reqf)
     """
     pass
 #</pyd0c>
+//------------------------------------------------------------------------
+static int py_execute_sync(PyObject *py_callable, int reqf)
+{
+  if ( !PyCallable_Check(py_callable) )
+    return -1;
+
+  struct py_exec_request_t: exec_request_t
+  {
+    PyObject *py_callable;
+    virtual int idaapi execute(void)
+    {
+      PyGILState_STATE state = PyGILState_Ensure();
+      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
+      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
+      Py_XDECREF(py_result);
+      PyGILState_Release(state);
+      return r;
+    }
+    py_exec_request_t(PyObject *pyc): py_callable(pyc) 
+    { 
+    }
+  };
+  py_exec_request_t req(py_callable);
+  return execute_sync(req, reqf);
+}
 */
-//int py_execute_sync(PyObject *py_callable, int reqf);
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def set_dock_pos(src, dest, orient, left = 0, top = 0, right = 0, bottom = 0):
+    """
+    Sets the dock orientation of a window relatively to another window.
+
+    @param src: Source docking control
+    @param dest: Destination docking control
+    @param orient: One of DOR_XXXX constants
+    @param left, top, right, bottom: These parameter if DOR_FLOATING is used, or if you want to specify the width of docked windows
+    @return: Boolean
+
+    Example:
+        set_dock_pos('Structures', 'Enums', DOR_RIGHT) <- docks the Structures window to the right of Enums window
+    """
+    pass
+#</pydoc>
+*/
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def is_idaq():
+    """
+    Returns True or False depending if IDAPython is hosted by IDAQ
+    """
+#</pydoc>
+*/
 
 
 
@@ -2385,6 +2542,32 @@ void choose2_refresh(PyObject *self);
 void choose2_close(PyObject *self);
 int choose2_show(PyObject *self);
 void choose2_activate(PyObject *self);
+
+
+#define DECL_PLGFORM plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+static PyObject *plgform_new()
+{
+  return plgform_t::__new__();
+}
+
+static bool plgform_show(
+  PyObject *py_link,
+  PyObject *py_obj, 
+  const char *caption, 
+  int options = FORM_MDI|FORM_TAB|FORM_MENU|FORM_RESTORE)
+{
+  DECL_PLGFORM;
+  return plgform->show(py_obj, caption, options);
+}
+
+static void plgform_close(
+  PyObject *py_link,
+  int options)
+{
+  DECL_PLGFORM;
+  plgform->close(options);
+}
+#undef DECL_PLGFORM
 //</inline(py_kernwin)>
 %}
 
@@ -2617,6 +2800,107 @@ class Choose2(object):
 #        """Return list [bgcolor, flags=CHITEM_XXXX] or None; check chooser_item_attrs_t"""
 #        return [0x0, CHITEM_BOLD]
 #</pydoc>
+
+
+class PluginForm(object):
+    """
+    PluginForm class.
+
+    This form can be used to host additional controls. Please check the PyQt example.
+    """
+
+    FORM_MDI      = 0x01
+    """start by default as MDI"""
+    FORM_TAB      = 0x02
+    """attached by default to a tab"""
+    FORM_RESTORE  = 0x04
+    """restore state from desktop config"""
+    FORM_ONTOP    = 0x08
+    """form should be "ontop"""
+    FORM_MENU     = 0x10
+    """form must be listed in the windows menu (automatically set for all plugins)"""
+    FORM_CENTERED = 0x20
+    """form will be centered on the screen"""
+    FORM_PERSIST  = 0x40
+    """form will persist until explicitly closed with Close()"""
+
+
+    def __init__(self):
+        """
+        """
+        self.__clink__ = _idaapi.plgform_new()
+
+
+
+    def Show(self, caption, options = 0):
+        """
+		Creates the form if not was not created or brings to front if it was already created
+		
+        @param caption: The form caption
+        @param options: One of PluginForm.FORM_ constants
+        """
+        options |= PluginForm.FORM_MDI|PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
+        return _idaapi.plgform_show(self.__clink__, self, caption, options)
+
+
+    @staticmethod
+    def FormToPyQtWidget(form, ctx = sys.modules['__main__']):
+        """
+        Use this method to convert a TForm* to a QWidget to be used by PyQt
+
+        @param ctx: Context. Reference to a module that already imported SIP and QtGui modules
+        """
+        return ctx.sip.wrapinstance(ctx.sip.voidptr(form).__int__(), ctx.QtGui.QWidget)
+
+
+    @staticmethod
+    def FormToPySideWidget(form, ctx = sys.modules['__main__']):
+        """
+        Use this method to convert a TForm* to a QWidget to be used by PySide
+
+        @param ctx: Context. Reference to a module that already imported QtGui module
+        """
+        return ctx.QtGui.QWidget.FromCObject(form)
+
+
+    def OnCreate(self, form):
+        """
+        This event is called when the plugin form is created.
+        The programmer should populate the form when this event is triggered.
+
+        @return: None
+        """
+        pass
+
+
+    def OnClose(self, form):
+        """
+        Called when the plugin form is closed
+
+        @return: None
+        """
+        pass
+
+
+    def Close(self, options):
+        """
+        Closes the form.
+
+        @param options: Close options (FORM_SAVE, FORM_NO_CONTEXT, ...)
+
+        @return: None
+        """
+        return _idaapi.plgform_close(self.__clink__)
+
+    FORM_SAVE           = 0x1
+    """save state in desktop config"""
+
+    FORM_NO_CONTEXT     = 0x2
+    """don't change the current context (useful for toolbars)"""
+
+    FORM_DONT_SAVE_SIZE = 0x4
+    """don't save size of the window"""
+
 #</pycode(py_kernwin)>
 %}
 

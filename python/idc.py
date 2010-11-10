@@ -7530,7 +7530,7 @@ def WriteTxt(filepath, ea1, ea2):
 def WriteExe(filepath):
     return GenerateFile(OFILE_EXE, filepath, 0, BADADDR, 0)
 
-def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value,-1)
+def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value, idaapi.BADADDR)
 def AddStruc(index,name):         return AddStrucEx(index,name,0)
 def AddUnion(index,name):         return AddStrucEx(index,name,1)
 def OpStroff(ea,n,strid):         return OpStroffEx(ea,n,strid,0)

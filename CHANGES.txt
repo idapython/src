@@ -1,5 +1,14 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
+Changes from version 1.4.2 to 1.4.3
+------------------------------------
+- IDA 6.0 support
+- Python CLI now prints expression evaluation result (no need to use print())
+- Changed Alt-8 to Ctrl-F3 (because it conflicts with window switching key Alt+n)
+- Added get_highlighted_identifier()
+- Added PluginForm class to allow UI development with either PyQt4 or PySide
+- Added idautils.Entries() to enum entrypoints
+
 Changes from version 1.4.1 to 1.4.2
 ------------------------------------
 - Added command completion
@@ -126,5 +135,4 @@ Changes from version 0.5.0 to 0.6.0
 - Cleanups for the idaapi wrapper
 - Bunch of misc small cleanups and fixes
 - For more details see CHANGES-SWIG.txt and CHANGES-Plugin.txt
-
 

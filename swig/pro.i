@@ -37,6 +37,8 @@
 %ignore wchar2char;
 %ignore u2cstr;
 %ignore c2ustr;
+%ignore base64_encode;
+%ignore base64_decode;
 %ignore utf8_unicode;
 %ignore win_utf2idb;
 %ignore char2oem;

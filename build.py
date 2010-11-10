@@ -23,8 +23,8 @@ from distutils import sysconfig
 # Start of user configurable options
 VERBOSE = True
 
-IDA_MAJOR_VERSION = 5
-IDA_MINOR_VERSION = 7
+IDA_MAJOR_VERSION = 6
+IDA_MINOR_VERSION = 0
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -36,7 +36,7 @@ else:
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 4
-VERSION_PATCH  = 2
+VERSION_PATCH  = 3
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -89,6 +89,8 @@ BINDIST_MANIFEST = [
     "examples/ex_dbg.py",
     "examples/ex_custview.py",
     "examples/ex_prefix_plugin.py",
+    "examples/ex_pyside.py",
+    "examples/ex_pyqt.py",
     "examples/ex_imports.py"
 ]
 

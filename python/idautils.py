@@ -16,6 +16,7 @@ import idc
 import types
 import os
 
+
 def refs(ea, funcfirst, funcnext):
     """
     Generic reference collector - INTERNAL USE ONLY.
@@ -241,6 +242,7 @@ def Chunks(start):
         yield (chunk.startEA, chunk.endEA)
         status = func_iter.next()
 
+
 def Modules():
     """
     Returns a list of module objects with name,size,base and the rebase_to attributes
@@ -251,16 +253,18 @@ def Modules():
         yield idaapi.object_t(name=mod.name, size=mod.size, base=mod.base, rebase_to=mod.rebase_to)
         result = idaapi.get_next_module(mod)
 
+
 def Names():
     """
     Returns a list of names
 
-    @return: tuple(ea, name)
+    @return: List of tuples (ea, name)
     """
     for i in xrange(idaapi.get_nlist_size()):
         ea   = idaapi.get_nlist_ea(i)
         name = idaapi.get_nlist_name(i)
         yield (ea, name)
+
 
 def Segments():
     """
@@ -272,6 +276,20 @@ def Segments():
         seg = idaapi.getnseg(n)
         if seg:
             yield seg.startEA
+
+
+def Entries():
+    """
+    Returns a list of entry points
+
+    @return: List of tuples (index, ordinal, ea, name)
+    """
+    n = idaapi.get_entry_qty()
+    for i in xrange(0, n):
+        ordinal = idaapi.get_entry_ordinal(i)
+        ea      = idaapi.get_entry(ordinal)
+        name    = idaapi.get_entry_name(ordinal)
+        yield (i, ordinal, ea, name)
 
 
 def FuncItems(start):
@@ -476,11 +494,6 @@ class Strings(object):
         return None
 
 # -----------------------------------------------------------------------
-def GetRegisterList():
-    """Returns the register list"""
-    return idaapi.ph_get_regnames()
-
-# -----------------------------------------------------------------------
 def GetIdbDir():
     """
     Get IDB directory
@@ -488,6 +501,11 @@ def GetIdbDir():
     This function returns directory path of the current IDB database
     """
     return os.path.dirname(idaapi.cvar.database_idb) + os.sep
+
+# -----------------------------------------------------------------------
+def GetRegisterList():
+    """Returns the register list"""
+    return idaapi.ph_get_regnames()
 
 # -----------------------------------------------------------------------
 def GetInstructionList():

@@ -1,4 +1,27 @@
-#ifdef __NT__
+%ignore mutable_graph_t;
+%ignore graph_visitor_t;
+%ignore abstract_graph_t;
+
+%{
+#ifdef __GNUC__
+// for some reason GCC insists on putting the vtable into the object file,
+// even though we only use mutable_graph_t by pointer
+// so we define these methods here to make the linker happy
+
+edge_info_t *idaapi mutable_graph_t::get_edge(edge_t e) { INTERR(); };
+mutable_graph_t *idaapi mutable_graph_t::clone(void) const  { INTERR(); };
+bool idaapi mutable_graph_t::redo_layout(void)  { INTERR(); };
+void idaapi mutable_graph_t::resize(int n)  { INTERR(); };
+int  idaapi mutable_graph_t::add_node(const rect_t *r)  { INTERR(); };
+ssize_t idaapi mutable_graph_t::del_node(int n)  { INTERR(); };
+bool idaapi mutable_graph_t::add_edge(int i, int j, const edge_info_t *ei)  { INTERR(); };
+bool idaapi mutable_graph_t::del_edge(int i, int j) { INTERR(); };
+bool idaapi mutable_graph_t::replace_edge(int i, int j, int x, int y) { INTERR(); };
+bool idaapi mutable_graph_t::refresh(void) { INTERR(); };
+bool idaapi mutable_graph_t::set_nrect(int n, const rect_t &r) { INTERR(); };
+#endif
+%}
+
 %{
 //<code(py_graph)>
 class py_graph_t
@@ -726,9 +749,7 @@ void pyg_select_node(PyObject *self, int nid)
 }
 //</code(py_graph)>
 %}
-#endif // __NT__
 
-#ifdef __NT__
 %inline %{
 //<inline(py_graph)>
 void pyg_refresh(PyObject *self);
@@ -739,7 +760,6 @@ void pyg_select_node(PyObject *self, int nid);
 bool pyg_show(PyObject *self);
 //</inline(py_graph)>
 %}
-#endif // __NT__
 
 %pythoncode %{
 #<pycode(py_graph)>
