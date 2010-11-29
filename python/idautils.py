@@ -79,7 +79,7 @@ def DataRefsTo(ea):
 
     Example::
 
-        for ref in DataRefsTo(ScreenEA(), 1):
+        for ref in DataRefsTo(ScreenEA()):
             print ref
     """
     return refs(ea, idaapi.get_first_dref_to, idaapi.get_next_dref_to)
@@ -95,7 +95,7 @@ def DataRefsFrom(ea):
 
     Example::
 
-        for ref in DataRefsFrom(ScreenEA(), 1):
+        for ref in DataRefsFrom(ScreenEA()):
             print ref
     """
     return refs(ea, idaapi.get_first_dref_from, idaapi.get_next_dref_from)
