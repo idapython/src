@@ -4113,7 +4113,7 @@ def ChooseFunction(title):
     @return: -1 - user refused to select a function
              otherwise returns the selected function start address
     """
-    return idaapi.choose_func(title)
+    return idaapi.choose_func(title, idaapi.BADADDR)
 
 
 def GetFuncOffset(ea):

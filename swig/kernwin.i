@@ -8,6 +8,16 @@
 %ignore del_menu_item;
 %rename (del_menu_item) py_del_menu_item;
 %ignore vwarning;
+
+%ignore msg;
+%rename (msg) py_msg;
+
+%ignore warning;
+%rename (warning) py_warning;
+
+%ignore error;
+%rename (error) py_error;
+
 %ignore vinfo;
 %ignore vnomem;
 %ignore vmsg;
@@ -61,6 +71,21 @@
 %rename (_askseg) askseg;
 
 %inline %{
+int py_msg(const char *format)
+{
+  return msg("%s", format);
+}
+
+void py_warning(const char *format)
+{
+  warning("%s", format);
+}
+
+void py_error(const char *format)
+{
+  error("%s", format);
+}
+
 void refresh_lists(void)
 {
   callui(ui_list);

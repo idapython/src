@@ -388,7 +388,7 @@ def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
     @param fields: type fields
     @param base_ea: base ea used to relocate the pointers in the packed object
     @param pio_flags: flags used while unpacking
-    @return: 
+    @return:
         tuple(0, err_code) on failure
         tuple(1, packed_buf) on success
     """
