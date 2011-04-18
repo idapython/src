@@ -1,7 +1,9 @@
 // Ignore the va_list functions
 %ignore AskUsingForm_cv;
+%ignore AskUsingForm_c;
 %ignore close_form;
 %ignore vaskstr;
+%ignore load_custom_icon;
 %ignore vasktext;
 %ignore add_menu_item;
 %rename (add_menu_item) py_add_menu_item;
@@ -19,6 +21,7 @@
 %rename (error) py_error;
 
 %ignore vinfo;
+%ignore UI_Callback;
 %ignore vnomem;
 %ignore vmsg;
 %ignore show_wait_box_v;
@@ -57,9 +60,10 @@
 
 %rename (asktext) py_asktext;
 %rename (str2ea)  py_str2ea;
+%rename (process_ui_action) py_process_ui_action;
 %ignore execute_sync;
 %ignore exec_request_t;
-%rename (execute_sync) py_execute_sync;
+
 
 // Make askaddr(), askseg(), and asklong() return a
 // tuple: (result, value)
@@ -70,6 +74,7 @@
 %apply unsigned long *INOUT { sel_t  *sel };
 %rename (_askseg) askseg;
 
+%feature("director") UI_Hooks;
 %inline %{
 int py_msg(const char *format)
 {
@@ -92,48 +97,644 @@ void refresh_lists(void)
 }
 %}
 
-%pythoncode %{
-def asklong(defval, format):
-    res, val = _idaapi._asklong(defval, format)
-
-    if res == 1:
-        return val
-    else:
-        return None
-
-def askaddr(defval, format):
-    res, ea = _idaapi._askaddr(defval, format)
-
-    if res == 1:
-        return ea
-    else:
-        return None
-
-def askseg(defval, format):
-    res, sel = _idaapi._askseg(defval, format)
-
-    if res == 1:
-        return sel
-    else:
-        return None
-
-%}
-
 # This is for get_cursor()
 %apply int *OUTPUT {int *x, int *y};
 
 # This is for read_selection()
 %apply unsigned long *OUTPUT { ea_t *ea1, ea_t *ea2 };
 
-%{
-//<code(py_kernwin)>
+%inline %{
+//<inline(py_kernwin)>
+//------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-struct py_add_del_menu_item_ctx
+/*
+#<pydoc>
+def get_highlighted_identifier(flags = 0):
+    """
+    Returns the currently highlighted identifier
+
+    @param flags: reserved (pass 0)
+    @return: None or the highlighted identifier
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_get_highlighted_identifier(int flags = 0)
 {
-  qstring menupath;
-  PyObject *cb_data;
+  char buf[MAXSTR];
+  bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
+  if ( !ok )
+    Py_RETURN_NONE;
+  else
+    return PyString_FromString(buf);
+}
+
+//------------------------------------------------------------------------
+static int py_load_custom_icon_fn(const char *filename)
+{
+  return load_custom_icon(filename);
+}
+
+//------------------------------------------------------------------------
+static int py_load_custom_icon_data(PyObject *data, const char *format)
+{
+  Py_ssize_t len;
+  char *s;
+  if ( PyString_AsStringAndSize(data, &s, &len) == -1 )
+    return 0;
+  else
+    return load_custom_icon(s, len, format);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def free_custom_icon(icon_id):
+    """
+    Frees an icon loaded with load_custom_icon()
+    """
+    pass
+#</pydoc>
+*/
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def asktext(max_text, defval, prompt):
+    """
+    Asks for a long text
+
+    @param max_text: Maximum text length
+    @param defval: The default value
+    @param prompt: The prompt value
+    @return: None or the entered string
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
+{
+  if ( max_text <= 0 )
+    Py_RETURN_NONE;
+
+  char *buf = new char[max_text];
+  if ( buf == NULL )
+    Py_RETURN_NONE;
+
+  PyObject *py_ret;
+  if ( asktext(size_t(max_text), buf, defval, prompt) != NULL )
+  {
+    py_ret = PyString_FromString(buf);
+  }
+  else
+  {
+    py_ret = Py_None;
+    Py_INCREF(py_ret);
+  }
+  delete [] buf;
+  return py_ret;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def str2ea(addr):
+    """
+    Converts a string express to EA. The expression evaluator may be called as well.
+
+    @return: BADADDR or address value
+    """
+    pass
+#</pydoc>
+*/
+ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
+{
+  ea_t ea;
+  bool ok = str2ea(str, &ea, screenEA);
+  return ok ? ea : BADADDR;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def process_ui_action(name, flags):
+    """
+    Invokes an IDA Pro UI action by name
+
+    @param name:  action name
+    @param flags: Reserved. Must be zero
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static bool py_process_ui_action(const char *name, int flags)
+{
+  return process_ui_action(name, flags, NULL);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def del_menu_item(menu_ctx):
+    """
+    Deletes a menu item previously added with add_menu_item()
+
+    @param menu_ctx: value returned by add_menu_item()
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static bool py_del_menu_item(PyObject *py_ctx)
+{
+  if ( !PyCObject_Check(py_ctx) )
+    return false;
+
+  py_add_del_menu_item_ctx *ctx = (py_add_del_menu_item_ctx *)PyCObject_AsVoidPtr(py_ctx);
+
+  bool ok = del_menu_item(ctx->menupath.c_str());
+
+  if ( ok )
+  {
+    Py_DECREF(ctx->cb_data);
+    delete ctx;
+  }
+
+  return ok;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def add_menu_item(menupath, name, hotkey, flags, callback, args):
+    """
+    Adds a menu item
+
+    @param menupath: path to the menu item after or before which the insertion will take place
+    @param name: name of the menu item (~x~ is used to denote Alt-x hot letter)
+    @param hotkey: hotkey for the menu item (may be empty)
+    @param flags: one of SETMENU_... consts
+    @param callback: function which gets called when the user selects the menu item.
+               The function callback is of the form:
+               def callback(*args):
+                  pass
+    @param args: tuple containing the arguments
+
+    @return: None or a menu context (to be used by del_menu_item())
+    """
+    pass
+#</pydoc>
+*/
+bool idaapi py_menu_item_callback(void *userdata);
+static PyObject *py_add_menu_item(
+  const char *menupath,
+  const char *name,
+  const char *hotkey,
+  int flags,
+  PyObject *pyfunc,
+  PyObject *args)
+{
+  bool no_args;
+
+  if ( args == Py_None )
+  {
+    no_args = true;
+    args = PyTuple_New(0);
+    if ( args == NULL )
+      return NULL;
+  }
+  else if ( !PyTuple_Check(args) )
+  {
+    PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
+    return NULL;
+  }
+  else
+  {
+    no_args = false;
+  }
+
+  // Form a tuple holding the function to be called and its arguments
+  PyObject *cb_data = Py_BuildValue("(OO)", pyfunc, args);
+
+  // If we created an empty tuple, then we must free it
+  if ( no_args )
+    Py_DECREF(args);
+
+  // Add the menu item
+  bool b = add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
+
+  if ( !b )
+  {
+    Py_XDECREF(cb_data);
+    Py_RETURN_NONE;
+  }
+  // Create a context (for the delete_menu_item())
+  py_add_del_menu_item_ctx *ctx = new py_add_del_menu_item_ctx();
+
+  // Form the complete menu path
+  ctx->menupath = menupath;
+  ctx->menupath.append(name);
+  // Save callback data
+  ctx->cb_data = cb_data;
+
+  // Return context to user
+  return PyCObject_FromVoidPtr(ctx, NULL);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def set_dock_pos(src, dest, orient, left = 0, top = 0, right = 0, bottom = 0):
+    """
+    Sets the dock orientation of a window relatively to another window.
+
+    @param src: Source docking control
+    @param dest: Destination docking control
+    @param orient: One of DOR_XXXX constants
+    @param left, top, right, bottom: These parameter if DOR_FLOATING is used, or if you want to specify the width of docked windows
+    @return: Boolean
+
+    Example:
+        set_dock_pos('Structures', 'Enums', DOR_RIGHT) <- docks the Structures window to the right of Enums window
+    """
+    pass
+#</pydoc>
+*/
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def is_idaq():
+    """
+    Returns True or False depending if IDAPython is hosted by IDAQ
+    """
+#</pydoc>
+*/
+
+//---------------------------------------------------------------------------
+// UI hooks
+//---------------------------------------------------------------------------
+int idaapi UI_Callback(void *ud, int notification_code, va_list va);
+/*
+#<pydoc>
+class UI_Hooks(object):
+    def hook(self):
+        """
+        Creates an UI hook
+
+        @return: Boolean true on success
+        """
+        pass
+
+    def unhook(self):
+        """
+        Removes the UI hook
+        @return: Boolean true on success
+        """
+        pass
+
+    def preprocess(self, name):
+        """
+        IDA ui is about to handle a user command
+
+        @param name: ui command name
+                     (these names can be looked up in ida[tg]ui.cfg)
+        @return: 0-ok, nonzero - a plugin has handled the command
+        """
+
+    def postprocess(self):
+        """
+        An ida ui command has been handled
+
+        @return: Ignored
+        """
+
+#</pydoc>
+*/
+class UI_Hooks
+{
+public:
+  virtual ~UI_Hooks()
+  {
+  }
+
+  bool hook()
+  {
+    return hook_to_notification_point(HT_UI, UI_Callback, this);
+  }
+
+  bool unhook()
+  {
+    return unhook_from_notification_point(HT_UI, UI_Callback, this);
+  }
+
+  virtual int preprocess(const char *name)
+  {
+    return 0;
+  }
+
+  virtual void postprocess()
+  {
+  }
 };
+
+
+//---------------------------------------------------------------------------
+uint32 idaapi choose_sizer(void *self)
+{
+  PyObject *pyres;
+  uint32 res;
+
+  PYW_GIL_ENSURE;
+  pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
+  PYW_GIL_RELEASE;
+
+  res = PyInt_AsLong(pyres);
+  Py_DECREF(pyres);
+  return res;
+}
+
+//---------------------------------------------------------------------------
+char *idaapi choose_getl(void *self, uint32 n, char *buf)
+{
+  PYW_GIL_ENSURE;
+  PyObject *pyres = PyObject_CallMethod(
+    (PyObject *)self, 
+    "getl", 
+    "l", 
+    n);
+  PYW_GIL_RELEASE;
+
+  const char *res;
+  if (pyres == NULL || (res = PyString_AsString(pyres)) == NULL )
+    qstrncpy(buf, "<Empty>", MAXSTR);
+  else
+    qstrncpy(buf, res, MAXSTR);
+  
+  Py_XDECREF(pyres);
+  return buf;
+}
+
+//---------------------------------------------------------------------------
+void idaapi choose_enter(void *self, uint32 n)
+{
+  PYW_GIL_ENSURE;
+  Py_XDECREF(PyObject_CallMethod((PyObject *)self, "enter", "l", n));
+  PYW_GIL_RELEASE;
+}
+
+//---------------------------------------------------------------------------
+uint32 choose_choose(
+    void *self,
+    int flags,
+    int x0,int y0,
+    int x1,int y1,
+    int width)
+{
+  PyObject *pytitle = PyObject_GetAttrString((PyObject *)self, "title");
+  const char *title = pytitle != NULL ? PyString_AsString(pytitle) : "Choose";
+
+  int r = choose(
+    flags,
+    x0, y0,
+    x1, y1,
+    self,
+    width,
+    choose_sizer,
+    choose_getl,
+    title,
+    1,
+    1,
+    NULL, /* del */
+    NULL, /* inst */
+    NULL, /* update */
+    NULL, /* edit */
+    choose_enter,
+    NULL, /* destroy */
+    NULL, /* popup_names */
+    NULL);/* get_icon */
+  Py_XDECREF(pytitle);
+  return r;
+}
+
+
+PyObject *choose2_find(const char *title);
+int choose2_add_command(PyObject *self, const char *caption, int flags, int menu_index, int icon);
+void choose2_refresh(PyObject *self);
+void choose2_close(PyObject *self);
+int choose2_create(PyObject *self, bool embedded);
+void choose2_activate(PyObject *self);
+PyObject *choose2_get_embedded(PyObject *self);
+PyObject *choose2_get_embedded_selection(PyObject *self);
+
+
+#define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
+
+//---------------------------------------------------------------------------
+static bool formchgcbfa_enable_field(size_t p_fa, int fid, bool enable)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->enable_field(fid, enable);
+}
+
+//---------------------------------------------------------------------------
+static bool formchgcbfa_show_field(size_t p_fa, int fid, bool show)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->show_field(fid, show);
+}
+
+//---------------------------------------------------------------------------
+static bool formchgcbfa_move_field(
+    size_t p_fa, 
+    int fid, 
+    int x, 
+    int y, 
+    int w, 
+    int h)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->move_field(fid, x, y, w, h);
+}
+
+//---------------------------------------------------------------------------
+static int formchgcbfa_get_focused_field(size_t p_fa)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->get_focused_field();
+}
+
+//---------------------------------------------------------------------------
+static bool formchgcbfa_set_focused_field(size_t p_fa, int fid)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->set_focused_field(fid);
+}
+
+//---------------------------------------------------------------------------
+static void formchgcbfa_refresh_field(size_t p_fa, int fid)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->refresh_field(fid);
+}
+
+//---------------------------------------------------------------------------
+static void formchgcbfa_set_field_value(
+    size_t p_fa, 
+    int fid, 
+    int ft,
+    PyObject *py_val,
+    size_t sz)
+{
+  DECLARE_FORM_ACTIONS;
+  return fa->refresh_field(fid);
+}
+
+//---------------------------------------------------------------------------
+static PyObject *formchgcbfa_get_field_value(
+    size_t p_fa, 
+    int fid, 
+    int ft,
+    size_t sz)
+{
+  DECLARE_FORM_ACTIONS;
+  switch ( ft )
+  {
+    // button - uint32
+  case 4:
+    {
+      uint32 val;
+      if ( fa->get_field_value(fid, &val) )
+        return PyLong_FromUnsignedLong(val);
+      break;
+    }
+    // ushort
+  case 2:
+    {
+      ushort val;
+      if ( fa->get_field_value(fid, &val) )
+        return PyLong_FromUnsignedLong(val);
+      break;
+    }
+    // string label
+  case 1:
+    {
+      char val[MAXSTR];
+      if ( fa->get_field_value(fid, val) )
+        return PyString_FromString(val);
+      break;
+    }
+    // string input
+  case 3:
+    {
+      qstring val;
+      val.resize(sz + 1);
+      if ( fa->get_field_value(fid, val.begin()) )
+        return PyString_FromString(val.begin());
+      break;
+    }
+  case 5:
+    {
+      intvec_t intvec;
+      // Returned as 1-base
+      if (fa->get_field_value(fid, &intvec))
+      {
+        // Make 0-based
+        for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+          (*it)--;
+
+        return PyW_IntVecToPyList(intvec);
+      }
+    }
+  }
+  Py_RETURN_NONE;
+}
+
+//---------------------------------------------------------------------------
+static bool formchgcbfa_set_field_value(
+  size_t p_fa, 
+  int fid, 
+  int ft,
+  PyObject *py_val)
+{
+  DECLARE_FORM_ACTIONS;
+
+  switch ( ft )
+  {
+    // button - uint32
+  case 4:
+    {
+      uint32 val = PyLong_AsUnsignedLong(py_val);
+      return fa->set_field_value(fid, &val);
+    }
+    // ushort
+  case 2:
+    {
+      ushort val = PyLong_AsUnsignedLong(py_val) & 0xffff;
+      return fa->set_field_value(fid, &val);
+    }
+    // strings
+  case 3:
+  case 1:
+      return fa->set_field_value(fid, PyString_AsString(py_val));
+    // intvec_t
+  case 5:
+    {
+      intvec_t intvec;
+      // Passed as 0-based
+      PyW_PyListToIntVec(py_val, intvec);
+      
+      // Make 1-based
+      for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+        (*it)++;
+
+      bool ok = fa->set_field_value(fid, &intvec);
+      return ok;
+    }
+    // unknown
+  default:
+    return false;
+  }
+}
+
+#undef DECLARE_FORM_ACTIONS
+//</inline(py_kernwin)>
+%}
+
+%{
+//<code(py_kernwin)>
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+int idaapi UI_Callback(void *ud, int notification_code, va_list va)
+{
+  UI_Hooks *proxy = (UI_Hooks *)ud;
+  int ret = 0;
+  try
+  {
+    switch (notification_code)
+    {
+    case ui_preprocess:
+      {
+        const char *name = va_arg(va, const char *);
+        return proxy->preprocess(name);
+      }
+
+    case ui_postprocess:
+      proxy->postprocess();
+      break;
+    }
+  }
+  catch (Swig::DirectorException &)
+  {
+    msg("Exception in UI Hook function:\n");
+    if ( PyErr_Occurred() )
+      PyErr_Print();
+  }
+  return ret;
+}
 
 //------------------------------------------------------------------------
 bool idaapi py_menu_item_callback(void *userdata)
@@ -143,11 +744,13 @@ bool idaapi py_menu_item_callback(void *userdata)
   PyObject *func = PyTuple_GET_ITEM(userdata, 0);
   PyObject *args = PyTuple_GET_ITEM(userdata, 1);
 
-  // call the python function
+  // Call the python function
+  PYW_GIL_ENSURE;
   PyObject *result = PyEval_CallObject(func, args);
+  PYW_GIL_RELEASE;
 
-  // we cannot raise an exception in the callback, just print it.
-  if ( result == NULL ) 
+  // We cannot raise an exception in the callback, just print it.
+  if ( result == NULL )
   {
     PyErr_Print();
     return false;
@@ -160,14 +763,17 @@ bool idaapi py_menu_item_callback(void *userdata)
 
 
 
-
 //------------------------------------------------------------------------
 // Some defines
 #define POPUP_NAMES_COUNT 4
-#define MAX_CHOOSER_MENU_COMMANDS 12
+#define MAX_CHOOSER_MENU_COMMANDS 20
 #define thisobj ((py_choose2_t *) obj)
 #define thisdecl py_choose2_t *_this = thisobj
-#define MENU_COMMAND_CB(id) static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) { return thisobj->on_command(id, int(n)); }
+#define MENU_COMMAND_CB(id) \
+  static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) \
+  { \
+    return thisobj->on_command(id, int(n)); \
+  }
 
 //------------------------------------------------------------------------
 // Helper functions
@@ -178,9 +784,7 @@ static pychoose2_to_choose2_map_t choosers;
 py_choose2_t *choose2_find_instance(PyObject *self)
 {
   pychoose2_to_choose2_map_t::iterator it = choosers.find(self);
-  if ( it == choosers.end() )
-    return NULL;
-  return it->second;
+  return it == choosers.end() ? NULL : it->second;
 }
 
 void choose2_add_instance(PyObject *self, py_choose2_t *c2)
@@ -201,88 +805,171 @@ class py_choose2_t
 private:
   enum
   {
-    CHOOSE2_HAVE_DEL =    0x0001,
-    CHOOSE2_HAVE_INS =    0x0002,
-    CHOOSE2_HAVE_UPDATE = 0x0004,
-    CHOOSE2_HAVE_EDIT =   0x0008,
-    CHOOSE2_HAVE_ENTER =  0x0010,
-    CHOOSE2_HAVE_GETICON = 0x0020,
-    CHOOSE2_HAVE_GETATTR = 0x0040,
-    CHOOSE2_HAVE_COMMAND = 0x0080,
-    CHOOSE2_HAVE_ONCLOSE = 0x0100
+    CHOOSE2_HAVE_DEL       = 0x0001,
+    CHOOSE2_HAVE_INS       = 0x0002,
+    CHOOSE2_HAVE_UPDATE    = 0x0004,
+    CHOOSE2_HAVE_EDIT      = 0x0008,
+    CHOOSE2_HAVE_ENTER     = 0x0010,
+    CHOOSE2_HAVE_GETICON   = 0x0020,
+    CHOOSE2_HAVE_GETATTR   = 0x0040,
+    CHOOSE2_HAVE_COMMAND   = 0x0080,
+    CHOOSE2_HAVE_ONCLOSE   = 0x0100,
+    CHOOSE2_HAVE_SELECT    = 0x0200,
+    CHOOSE2_HAVE_REFRESHED = 0x0400,
   };
+  // Chooser flags
   int flags;
-  int cb_flags;
+
+  // Callback flags (to tell which callback exists and which not)
+  // One of CHOOSE2_HAVE_xxxx
+  unsigned int cb_flags;
+  chooser_info_t *embedded;
+  intvec_t embedded_sel;
+
+  // Menu callback index (in the menu_cbs array)
+  int menu_cb_idx;
+
+  // Chooser title
   qstring title;
+
+  // Column widths
+  intvec_t widths;
+
+  // Python object link
   PyObject *self;
+  // Chooser columns
   qstrvec_t cols;
-  // the number of declarations should follow the MAX_CHOOSER_MENU_COMMANDS value
+  const char **popup_names;
+  bool ui_cb_hooked;
+
+  // The number of declarations should follow the MAX_CHOOSER_MENU_COMMANDS value
   MENU_COMMAND_CB(0)   MENU_COMMAND_CB(1)
   MENU_COMMAND_CB(2)   MENU_COMMAND_CB(3)
   MENU_COMMAND_CB(4)   MENU_COMMAND_CB(5)
   MENU_COMMAND_CB(6)   MENU_COMMAND_CB(7)
   MENU_COMMAND_CB(8)   MENU_COMMAND_CB(9)
   MENU_COMMAND_CB(10)  MENU_COMMAND_CB(11)
+  MENU_COMMAND_CB(12)  MENU_COMMAND_CB(13)
+  MENU_COMMAND_CB(14)  MENU_COMMAND_CB(15)
+  MENU_COMMAND_CB(16)  MENU_COMMAND_CB(17)
+  MENU_COMMAND_CB(18)  MENU_COMMAND_CB(19)
   static chooser_cb_t *menu_cbs[MAX_CHOOSER_MENU_COMMANDS];
-  int menu_cb_idx;
+
   //------------------------------------------------------------------------
   // Static methods to dispatch to member functions
   //------------------------------------------------------------------------
   static int idaapi ui_cb(void *obj, int notification_code, va_list va)
   {
+    // UI callback to handle chooser items with attributes
     if ( notification_code != ui_get_chooser_item_attrs )
       return 0;
+
     va_arg(va, void *);
     int n = int(va_arg(va, uint32));
     chooser_item_attrs_t *attr = va_arg(va, chooser_item_attrs_t *);
     thisobj->on_get_line_attr(n, attr);
     return 1;
   }
+
+  static void idaapi s_select(void *obj, const intvec_t &sel)
+  {
+    thisobj->on_select(sel);
+  }
+
+  static void idaapi s_refreshed(void *obj)
+  {
+    thisobj->on_refreshed();
+  }
+
   static uint32 idaapi s_sizer(void *obj)
   {
     return (uint32)thisobj->on_get_size();
   }
+
   static void idaapi s_getl(void *obj, uint32 n, char * const *arrptr)
   {
     thisobj->on_get_line(int(n), arrptr);
   }
+
   static uint32 idaapi s_del(void *obj, uint32 n)
   {
     return uint32(thisobj->on_delete_line(int(n)));
   }
+
   static void idaapi s_ins(void *obj)
   {
     thisobj->on_insert_line();
   }
+
   static uint32 idaapi s_update(void *obj, uint32 n)
   {
     return uint32(thisobj->on_refresh(int(n)));
   }
+
   static void idaapi s_edit(void *obj, uint32 n)
   {
     thisobj->on_edit_line(int(n));
   }
+
   static void idaapi s_enter(void * obj, uint32 n)
   {
-    thisobj->on_select_line(int(n));
+    thisobj->on_enter(int(n));
   }
+
   static int idaapi s_get_icon(void *obj, uint32 n)
   {
     return thisobj->on_get_icon(int(n));
   }
+
   static void idaapi s_destroy(void *obj)
   {
     thisobj->on_close();
   }
-private:
+
   //------------------------------------------------------------------------
   // Member functions corresponding to each chooser2() callback
   //------------------------------------------------------------------------
+  void clear_popup_names()
+  {
+    if ( popup_names == NULL )
+      return;
+
+    for ( int i=0; i<POPUP_NAMES_COUNT; i++ )
+      qfree((void *)popup_names[i]);
+
+    delete [] popup_names;
+    popup_names = NULL;
+  }
+
+  void install_hooks(bool install)
+  {
+    if ( install )
+    {
+      if ( (flags & CH_ATTRS) != 0 )
+      {
+        if ( !hook_to_notification_point(HT_UI, ui_cb, this) )
+          flags &= ~CH_ATTRS;
+        else
+          ui_cb_hooked = true;
+      }
+    }
+    else
+    {
+      if ( (flags & CH_ATTRS) != 0 )
+      {
+        unhook_from_notification_point(HT_UI, ui_cb, this);
+        ui_cb_hooked = false;
+      }
+    }
+  }
+
   void on_get_line(int lineno, char * const *line_arr)
   {
+    // Get headers?
     if ( lineno == 0 )
     {
-      for ( size_t i=0; i<cols.size(); i++ )
+      // Copy the pre-parsed columns
+      for ( size_t i=0; i < cols.size(); i++ )
         qstrncpy(line_arr[i], cols[i].c_str(), MAXSTR);
       return;
     }
@@ -293,14 +980,19 @@ private:
       line_arr[i][0] = '\0';
 
     // Call Python
+    PYW_GIL_ENSURE;
     PyObject *list = PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1);
+    PYW_GIL_RELEASE;
     if ( list == NULL )
       return;
+
+    // Go over the List returned by Python and convert to C strings
     for ( int i=ncols-1; i>=0; i-- )
     {
       PyObject *item = PyList_GetItem(list, Py_ssize_t(i));
       if ( item == NULL )
         continue;
+
       const char *str = PyString_AsString(item);
       if ( str != NULL )
         qstrncpy(line_arr[i], str, MAXSTR);
@@ -310,38 +1002,61 @@ private:
 
   size_t on_get_size()
   {
+    PYW_GIL_ENSURE;
     PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL);
+    PYW_GIL_RELEASE;
     if ( pyres == NULL )
       return 0;
+
     size_t res = PyInt_AsLong(pyres);
     Py_DECREF(pyres);
     return res;
   }
 
+  void on_refreshed()
+  {
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL);
+    PYW_GIL_RELEASE;
+    Py_XDECREF(pyres);
+  }
+
+  void on_select(const intvec_t &intvec)
+  {
+    PYW_GIL_ENSURE;
+    PyObject *py_list = PyW_IntVecToPyList(intvec);
+    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list);
+    PYW_GIL_RELEASE;
+    Py_XDECREF(pyres);
+    Py_XDECREF(py_list);
+  }
+
   void on_close()
   {
-#ifdef CH_ATTRS
-    if ( (flags & CH_ATTRS) != 0 )
-      unhook_from_notification_point(HT_UI, ui_cb, this);
-#endif
     // Call Python
+    PYW_GIL_ENSURE;
     PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
+    PYW_GIL_RELEASE;
     Py_XDECREF(pyres);
-    Py_XDECREF(self);
 
-    // Remove from list
-    choose2_del_instance(self);
-
-    // delete this instance if none modal
-    if ( (flags & CH_MODAL) == 0 )
+    // Delete this instance if none modal and not embedded
+    if ( !is_modal() && get_embedded() == NULL )
       delete this;
   }
 
   int on_delete_line(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_DELETE_LINE, "i", lineno - 1);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+        self,
+        (char *)S_ON_DELETE_LINE,
+        "i",
+        lineno - 1);
+    PYW_GIL_RELEASE;
+
     if ( pyres == NULL )
       return lineno;
+
     size_t res = PyInt_AsLong(pyres);
     Py_DECREF(pyres);
     return res + 1;
@@ -349,9 +1064,16 @@ private:
 
   int on_refresh(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_REFRESH, "i", lineno - 1);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+        self,
+        (char *)S_ON_REFRESH,
+        "i",
+        lineno - 1);
+    PYW_GIL_RELEASE;
     if ( pyres == NULL )
       return lineno;
+
     size_t res = PyInt_AsLong(pyres);
     Py_DECREF(pyres);
     return res + 1;
@@ -359,27 +1081,50 @@ private:
 
   void on_insert_line()
   {
+    PYW_GIL_ENSURE;
     PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL);
+    PYW_GIL_RELEASE;
     Py_XDECREF(pyres);
   }
 
-  void on_select_line(int lineno)
+  void on_enter(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_SELECT_LINE, "i", lineno - 1);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+        self,
+        (char *)S_ON_SELECT_LINE,
+        "i",
+        lineno - 1);
+    PYW_GIL_RELEASE;
     Py_XDECREF(pyres);
   }
 
   void on_edit_line(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_EDIT_LINE, "i", lineno - 1);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+      self,
+      (char *)S_ON_EDIT_LINE,
+      "i",
+      lineno - 1);
+    PYW_GIL_RELEASE;
     Py_XDECREF(pyres);
   }
 
   int on_command(int cmd_id, int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_COMMAND, "ii", lineno - 1, cmd_id);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+          self,
+          (char *)S_ON_COMMAND,
+          "ii",
+          lineno - 1,
+          cmd_id);
+    PYW_GIL_RELEASE;
+
     if ( pyres==NULL )
       return lineno;
+
     size_t res = PyInt_AsLong(pyres);
     Py_XDECREF(pyres);
     return res;
@@ -387,7 +1132,14 @@ private:
 
   int on_get_icon(int lineno)
   {
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_ICON, "i", lineno - 1);
+    PYW_GIL_ENSURE;
+    PyObject *pyres = PyObject_CallMethod(
+        self,
+        (char *)S_ON_GET_ICON,
+        "i",
+        lineno - 1);
+    PYW_GIL_RELEASE;
+
     size_t res = PyInt_AsLong(pyres);
     Py_XDECREF(pyres);
     return res;
@@ -395,7 +1147,10 @@ private:
 
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
+    PYW_GIL_ENSURE;
     PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1);
+    PYW_GIL_RELEASE;
+
     if ( pyres == NULL )
       return;
 
@@ -414,12 +1169,23 @@ public:
   //------------------------------------------------------------------------
   // Public methods
   //------------------------------------------------------------------------
-  py_choose2_t()
+  py_choose2_t(): flags(0), cb_flags(0),
+                  embedded(NULL), menu_cb_idx(0),
+                  self(NULL), popup_names(NULL), ui_cb_hooked(false)
   {
-    flags = 0;
-    cb_flags = 0;
-    menu_cb_idx = 0;
-    self = NULL;
+  }
+
+  ~py_choose2_t()
+  {
+    // Remove from list
+    choose2_del_instance(self);
+
+    // Uninstall hooks
+    install_hooks(false);
+
+    delete embedded;
+    Py_XDECREF(self);
+    clear_popup_names();
   }
 
   static py_choose2_t *find_chooser(const char *title)
@@ -429,6 +1195,7 @@ public:
 
   void close()
   {
+    // Will trigger on_close()
     close_chooser(title.c_str());
   }
 
@@ -437,83 +1204,106 @@ public:
     TForm *frm = find_tform(title.c_str());
     if ( frm == NULL )
       return false;
+
     switchto_tform(frm, true);
     return true;
   }
 
-  int choose2(
-    int fl,
-    int ncols,
-    const int *widths,
-    const char *title,
-    int deflt = -1,
-    // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh"
-    const char * const *popup_names = NULL,
-    int icon = -1,
-    int x1 = -1, int y1 = -1, int x2 = -1, int y2 = -1)
-  {
-    flags = fl;
-    if ( (flags & CH_ATTRS) != 0 )
-    {
-      if ( !hook_to_notification_point(HT_UI, ui_cb, this) )
-        flags &= ~CH_ATTRS;
-    }
-    this->title = title;
-    return ::choose2(
-      flags,
-      x1, y1, x2, y2,
-      this,
-      ncols, widths,
-      s_sizer,
-      s_getl,
-      title,
-      icon,
-      deflt,
-      cb_flags & CHOOSE2_HAVE_DEL    ? s_del     : NULL,
-      cb_flags & CHOOSE2_HAVE_INS    ? s_ins     : NULL,
-      cb_flags & CHOOSE2_HAVE_UPDATE ? s_update  : NULL,
-      cb_flags & CHOOSE2_HAVE_EDIT   ? s_edit    : NULL,
-      cb_flags & CHOOSE2_HAVE_ENTER  ? s_enter   : NULL,
-      s_destroy,
-      popup_names,
-      cb_flags & CHOOSE2_HAVE_GETICON ? s_get_icon : NULL);
-  }
-
-  int add_command(const char *caption, int flags=0, int menu_index=-1, int icon=-1)
+  int add_command(
+    const char *caption,
+    int flags=0,
+    int menu_index=-1,
+    int icon=-1)
   {
     if ( menu_cb_idx >= MAX_CHOOSER_MENU_COMMANDS )
       return -1;
 
-    bool ret = add_chooser_command(title.c_str(), caption, menu_cbs[menu_cb_idx], menu_index, icon, flags);
-    if ( !ret )
+    // For embedded chooser, the "caption" will be overloaded to encode
+    // the AskUsingForm's title, caption and embedded chooser id
+    // Title:EmbeddedChooserID:Caption
+    char title_buf[MAXSTR];
+    const char *ptitle;
+
+    // Embedded chooser?
+    if ( get_embedded() != NULL )
+    {
+      static const char delimiter[] = ":";
+      char temp[MAXSTR];
+      qstrncpy(temp, caption, sizeof(temp));
+
+      char *p = strtok(temp, delimiter);
+      if ( p == NULL )
+        return -1;
+
+      // Copy the title
+      char title_str[MAXSTR];
+      qstrncpy(title_str, p, sizeof(title_str));
+
+      // Copy the echooser ID
+      p = strtok(NULL, delimiter);
+      if ( p == NULL )
+        return -1;
+
+      char id_str[10];
+      qstrncpy(id_str, p, sizeof(id_str));
+
+      // Form the new title of the form: "AskUsingFormTitle:EchooserId"
+      qsnprintf(title_buf, sizeof(title_buf), "%s:%s", title_str, id_str);
+
+      // Adjust the title
+      ptitle = title_buf;
+      
+      // Adjust the caption
+      p = strtok(NULL, delimiter);
+      caption += (p - temp);
+    }
+    else
+    {
+      ptitle = title.c_str();
+    }
+
+    if ( !add_chooser_command(
+      ptitle,
+      caption, 
+      menu_cbs[menu_cb_idx],
+      menu_index,
+      icon,
+      flags))
+    {
       return -1;
+    }
 
     return menu_cb_idx++;
   }
 
-  int show(PyObject *self)
+  // Create a chooser.
+  // If it detects the "embedded" attribute, then it will create a chooser_info_t structure
+  // Otherwise the chooser window is created and displayed
+  int create(PyObject *self)
   {
     PyObject *attr;
-    // get flags
-    if ( (attr = PyW_TryGetAttrString(self, S_FLAGS)) == NULL )
+
+    // Get flags
+    attr = PyW_TryGetAttrString(self, S_FLAGS);
+    if ( attr == NULL )
       return -1;
-    int flags = PyInt_Check(attr) != 0 ? PyInt_AsLong(attr) : 0;
+
+    flags = PyInt_Check(attr) != 0 ? PyInt_AsLong(attr) : 0;
     Py_DECREF(attr);
 
-  qstring title;
-    // get the title
+    // Get the title
     if ( !PyW_GetStringAttr(self, S_TITLE, &title) )
       return -1;
 
-    // get columns
-    if ( (attr = PyW_TryGetAttrString(self, "cols")) == NULL )
+    // Get columns
+    attr = PyW_TryGetAttrString(self, "cols");
+    if ( attr == NULL )
       return -1;
 
-    // get col count
-    int ncols = PyList_Size(attr);
+    // Get col count
+    int ncols = int(PyList_Size(attr));
 
-    // get cols caption and widthes
-    intvec_t widths;
+    // Get cols caption and widthes
     cols.qclear();
     for ( int i=0; i<ncols; i++ )
     {
@@ -522,16 +1312,13 @@ public:
       PyObject *v = PyList_GetItem(list, 0);
 
       // Extract string
-      const char *str;
-      if ( v != NULL )
-        str = PyString_AsString(v);
-      else
-        str = "";
+      const char *str = v == NULL ? "" : PyString_AsString(v);
       cols.push_back(str);
 
       // Extract width
       int width;
       v = PyList_GetItem(list, 1);
+      // No width? Guess width from column title
       if ( v == NULL )
         width = strlen(str);
       else
@@ -540,15 +1327,16 @@ public:
     }
     Py_DECREF(attr);
 
-    // get *deflt
+    // Get *deflt
     int deflt = -1;
-    if ( (attr = PyW_TryGetAttrString(self, "deflt")) != NULL )
+    attr = PyW_TryGetAttrString(self, "deflt");
+    if ( attr != NULL )
     {
       deflt = PyInt_AsLong(attr);
       Py_DECREF(attr);
     }
 
-    // get *icon
+    // Get *icon
     int icon = -1;
     if ( (attr = PyW_TryGetAttrString(self, "icon")) != NULL )
     {
@@ -556,10 +1344,10 @@ public:
       Py_DECREF(attr);
     }
 
-    // get *x1,y1,x2,y2
+    // Get *x1,y1,x2,y2
     int pts[4];
     static const char *pt_attrs[qnumber(pts)] = {"x1", "y1", "x2", "y2"};
-    for ( int i=0; i<qnumber(pts); i++ )
+    for ( size_t i=0; i < qnumber(pts); i++ )
     {
       if ( (attr = PyW_TryGetAttrString(self, pt_attrs[i])) == NULL )
       {
@@ -572,29 +1360,32 @@ public:
       }
     }
 
-    // check what callbacks we have
+    // Check what callbacks we have
     static const struct
     {
       const char *name;
-      int have;
+      unsigned int have; // 0 = mandatory callback
     } callbacks[] =
     {
-      {S_ON_GET_SIZE,      0}, // 0 = mandatory callback
+      {S_ON_GET_SIZE,      0},
       {S_ON_GET_LINE,      0},
       {S_ON_CLOSE,         0},
-      {S_ON_EDIT_LINE,     CHOOSE2_HAVE_EDIT},
-      {S_ON_INSERT_LINE,   CHOOSE2_HAVE_INS},
-      {S_ON_DELETE_LINE,   CHOOSE2_HAVE_DEL},
-      {S_ON_REFRESH,       CHOOSE2_HAVE_UPDATE},
-      {S_ON_SELECT_LINE,   CHOOSE2_HAVE_ENTER},
-      {S_ON_COMMAND,       CHOOSE2_HAVE_COMMAND},
-      {S_ON_GET_LINE_ATTR, CHOOSE2_HAVE_GETATTR},
-      {S_ON_GET_ICON,      CHOOSE2_HAVE_GETICON}
+      {S_ON_EDIT_LINE,        CHOOSE2_HAVE_EDIT},
+      {S_ON_INSERT_LINE,      CHOOSE2_HAVE_INS},
+      {S_ON_DELETE_LINE,      CHOOSE2_HAVE_DEL},
+      {S_ON_REFRESH,          CHOOSE2_HAVE_UPDATE}, // update()
+      {S_ON_SELECT_LINE,      CHOOSE2_HAVE_ENTER}, // enter()
+      {S_ON_COMMAND,          CHOOSE2_HAVE_COMMAND},
+      {S_ON_GET_LINE_ATTR,    CHOOSE2_HAVE_GETATTR},
+      {S_ON_GET_ICON,         CHOOSE2_HAVE_GETICON},
+      {S_ON_SELECTION_CHANGE, CHOOSE2_HAVE_SELECT},
+      {S_ON_REFRESHED,        CHOOSE2_HAVE_REFRESHED},
     };
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
     {
-      bool have_cb = (attr = PyW_TryGetAttrString(self, callbacks[i].name)) != NULL && PyCallable_Check(attr) != 0;
+      attr = attr = PyW_TryGetAttrString(self, callbacks[i].name);
+      bool have_cb = attr != NULL && PyCallable_Check(attr) != 0;
       Py_XDECREF(attr);
 
       if ( have_cb )
@@ -609,9 +1400,10 @@ public:
       }
     }
 
-    // get *popup names
-    const char **popup_names = NULL;
-    if ( ((attr = PyW_TryGetAttrString(self, "popup_names")) != NULL)
+    // Get *popup names
+    // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh"
+    attr = PyW_TryGetAttrString(self, S_POPUP_NAMES);
+    if ( (attr != NULL)
       && PyList_Check(attr)
       && PyList_Size(attr) == POPUP_NAMES_COUNT )
     {
@@ -632,32 +1424,85 @@ public:
     Py_INCREF(self);
     this->self = self;
 
-    // Create chooser
-    int r = this->choose2(
-      flags,
-      ncols,
-      &widths[0],
-      title.c_str(),
-      deflt,
-      popup_names,
-      icon,
-      pts[0],
-      pts[1],
-      pts[2],
-      pts[3]);
+    // Hook to notification point (to handle chooser item attributes)
+    install_hooks(true);
 
-    // Clear temporary popup_names
-    if ( popup_names != NULL )
+    // Check if *embedded
+    attr = PyW_TryGetAttrString(self, S_EMBEDDED);
+    if ( attr != NULL && PyObject_IsTrue(attr) == 1 )
     {
-      for ( int i=0; i<POPUP_NAMES_COUNT; i++ )
-        qfree((void *)popup_names[i]);
-
-      delete [] popup_names;
+      // Create an embedded chooser structure
+      embedded               = new chooser_info_t();
+      embedded->obj          = this;
+      embedded->cb           = sizeof(chooser_info_t);
+      embedded->title        = title.c_str();
+      embedded->columns      = ncols;
+      embedded->deflt        = deflt;
+      embedded->flags        = flags;
+      embedded->width        = pts[0]; // Take x1
+      embedded->height       = pts[1]; // Take y1
+      embedded->icon         = icon;
+      embedded->popup_names  = popup_names;
+      embedded->widths       = widths.begin();
+      embedded->destroyer    = s_destroy;
+      embedded->getl         = s_getl;
+      embedded->sizer        = s_sizer;
+      embedded->del          = (cb_flags & CHOOSE2_HAVE_DEL) != 0     ? s_del      : NULL;
+      embedded->edit         = (cb_flags & CHOOSE2_HAVE_EDIT) != 0    ? s_edit     : NULL;
+      embedded->enter        = (cb_flags & CHOOSE2_HAVE_ENTER) != 0   ? s_enter    : NULL;
+      embedded->get_icon     = (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL;
+      embedded->ins          = (cb_flags & CHOOSE2_HAVE_INS) != 0     ? s_ins      : NULL;
+      embedded->update       = (cb_flags & CHOOSE2_HAVE_UPDATE) != 0  ? s_update   : NULL;
+      // Fill callbacks that are only present in idaq
+      if ( is_idaq() )
+      {
+        embedded->select     = (cb_flags & CHOOSE2_HAVE_SELECT)   != 0 ? s_select    : NULL;
+        embedded->refresh    = (cb_flags & CHOOSE2_HAVE_REFRESHED)!= 0 ? s_refreshed : NULL;
+      }
+      else
+      {
+        embedded->select       = NULL;
+        embedded->refresh      = NULL;
+      }
     }
+    Py_XDECREF(attr);
 
-    // Modal chooser return the index of the selected item
-    if ( (flags & CH_MODAL) != 0 )
-      r--;
+    // Create the chooser (if not embedded)
+    int r;
+    if ( embedded == NULL )
+    {
+      r = ::choose2(
+        flags,
+        pts[0], pts[1], pts[2], pts[3],
+        this,
+        ncols,
+        &widths[0],
+        s_sizer,
+        s_getl,
+        title.c_str(),
+        icon,
+        deflt,
+        (cb_flags & CHOOSE2_HAVE_DEL)    != 0 ? s_del     : NULL,
+        (cb_flags & CHOOSE2_HAVE_INS)    != 0 ? s_ins     : NULL,
+        (cb_flags & CHOOSE2_HAVE_UPDATE) != 0 ? s_update  : NULL,
+        (cb_flags & CHOOSE2_HAVE_EDIT)   != 0 ? s_edit    : NULL,
+        (cb_flags & CHOOSE2_HAVE_ENTER)  != 0 ? s_enter   : NULL,
+        s_destroy,
+        popup_names,
+        (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL);
+
+      clear_popup_names();
+
+      // Modal chooser return the index of the selected item
+      if ( is_modal() )
+        r--;
+    }
+    // Embedded chooser?
+    else
+    {
+      // Return success
+      r = 1;
+    }
 
     return r;
   }
@@ -671,6 +1516,21 @@ public:
   {
     refresh_chooser(title.c_str());
   }
+
+  bool is_modal()
+  {
+    return (flags & CH_MODAL) != 0;
+  }
+
+  intvec_t *get_sel_vec()
+  {
+    return &embedded_sel;
+  }
+
+  chooser_info_t *get_embedded() const
+  {
+    return embedded;
+  }
 };
 
 //------------------------------------------------------------------------
@@ -683,7 +1543,11 @@ chooser_cb_t *py_choose2_t::menu_cbs[MAX_CHOOSER_MENU_COMMANDS] =
   DECL_MENU_COMMAND_CB(4),  DECL_MENU_COMMAND_CB(5),
   DECL_MENU_COMMAND_CB(6),  DECL_MENU_COMMAND_CB(7),
   DECL_MENU_COMMAND_CB(8),  DECL_MENU_COMMAND_CB(9),
-  DECL_MENU_COMMAND_CB(10), DECL_MENU_COMMAND_CB(11)
+  DECL_MENU_COMMAND_CB(10), DECL_MENU_COMMAND_CB(11),
+  DECL_MENU_COMMAND_CB(12), DECL_MENU_COMMAND_CB(13),
+  DECL_MENU_COMMAND_CB(14), DECL_MENU_COMMAND_CB(15),
+  DECL_MENU_COMMAND_CB(16), DECL_MENU_COMMAND_CB(17),
+  DECL_MENU_COMMAND_CB(18), DECL_MENU_COMMAND_CB(19)
 };
 #undef DECL_MENU_COMMAND_CB
 
@@ -694,25 +1558,55 @@ chooser_cb_t *py_choose2_t::menu_cbs[MAX_CHOOSER_MENU_COMMANDS] =
 #undef MENU_COMMAND_CB
 
 //------------------------------------------------------------------------
-int choose2_show(PyObject *self)
+int choose2_create(PyObject *self, bool embedded)
 {
-  py_choose2_t *c2 = choose2_find_instance(self);
+  py_choose2_t *c2;
+
+  c2 = choose2_find_instance(self);
   if ( c2 != NULL )
   {
-    c2->activate();
+    if ( !embedded )
+      c2->activate();
     return 1;
   }
+
   c2 = new py_choose2_t();
+
   choose2_add_instance(self, c2);
-  return c2->show(self);
+
+  int r = c2->create(self);
+  // Non embedded chooser? Return immediately
+  if ( !embedded )
+    return r;
+
+  // Embedded chooser was not created?
+  if ( c2->get_embedded() == NULL || r != 1 )
+  {
+    delete c2;
+    r = 0;
+  }
+  return r;
 }
 
 //------------------------------------------------------------------------
 void choose2_close(PyObject *self)
 {
   py_choose2_t *c2 = choose2_find_instance(self);
-  if ( c2 != NULL )
+  if ( c2 == NULL )
+    return;
+
+  // Modal or embedded chooser?
+  if ( c2->get_embedded() != NULL || c2->is_modal() )
+  {
+    // Then simply delete the instance
+    delete c2;
+  }
+  else
+  {
+    // Close the chooser.
+    // In turn this will lead to the deletion of the object
     c2->close();
+  }
 }
 
 //------------------------------------------------------------------------
@@ -732,7 +1626,45 @@ void choose2_activate(PyObject *self)
 }
 
 //------------------------------------------------------------------------
-int choose2_add_command(PyObject *self, const char *caption, int flags=0, int menu_index=-1, int icon=-1)
+PyObject *choose2_get_embedded_selection(PyObject *self)
+{
+  py_choose2_t *c2 = choose2_find_instance(self);
+  chooser_info_t *embedded;
+
+  if ( c2 == NULL || (embedded = c2->get_embedded()) == NULL )
+    Py_RETURN_NONE;
+
+  // Returned as 1-based
+  intvec_t &intvec = *c2->get_sel_vec();
+
+  // Make 0-based
+  for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+    (*it)--;
+
+  return PyW_IntVecToPyList(intvec);
+}
+
+//------------------------------------------------------------------------
+PyObject *choose2_get_embedded(PyObject *self)
+{
+  py_choose2_t *c2 = choose2_find_instance(self);
+  chooser_info_t *embedded;
+
+  if ( c2 == NULL || (embedded = c2->get_embedded()) == NULL )
+    Py_RETURN_NONE;
+  else
+    return Py_BuildValue("(KK)",
+                         PY_ULONG_LONG(embedded),
+                         PY_ULONG_LONG(c2->get_sel_vec()));
+}
+
+//------------------------------------------------------------------------
+int choose2_add_command(
+    PyObject *self,
+    const char *caption,
+    int flags=0,
+    int menu_index=-1,
+    int icon=-1)
 {
   py_choose2_t *c2 = choose2_find_instance(self);
   if ( c2 != NULL )
@@ -745,125 +1677,14 @@ int choose2_add_command(PyObject *self, const char *caption, int flags=0, int me
 PyObject *choose2_find(const char *title)
 {
   py_choose2_t *c2 = py_choose2_t::find_chooser(title);
-  if ( c2 == NULL )
-    return NULL;
-  return c2->get_self();
+  return c2 == NULL ? NULL : c2->get_self();
 }
 
 
-class plgform_t
+static size_t py_get_AskUsingForm()
 {
-private:
-  PyObject *py_obj;
-  TForm *form;
-
-  static int idaapi s_callback(void *ud, int notification_code, va_list va)
-  {
-    plgform_t *_this = (plgform_t *)ud;
-    if ( notification_code == ui_tform_visible )
-    {
-      TForm *form = va_arg(va, TForm *);
-      if ( form == _this->form )
-      {
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CREATE, "O", 
-          PyCObject_FromVoidPtr(form, NULL));
-        
-        PyW_ShowErr(S_ON_CREATE);
-        Py_XDECREF(py_result);
-      }
-    }
-    else if ( notification_code == ui_tform_invisible )
-    {
-      TForm *form = va_arg(va, TForm *);
-      if ( form == _this->form )
-      {
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CLOSE, "O", 
-          PyCObject_FromVoidPtr(form, NULL));
-        
-        PyW_ShowErr(S_ON_CLOSE);
-        Py_XDECREF(py_result);
-
-        _this->unhook();
-      }
-    }
-    return 0;
-  }
-
-  void unhook()
-  {
-    unhook_from_notification_point(HT_UI, s_callback, this);
-    form = NULL;
-    
-    // Call DECREF at last, since it may trigger __del__
-    Py_XDECREF(py_obj);
-  }
-
-public:
-  plgform_t(): py_obj(NULL), form(NULL)
-  {
-  }
-
-  bool show(
-    PyObject *obj,
-    const char *caption, 
-    int options)
-  {
-    // Already displayed?
-    TForm *f = find_tform(caption);
-    if ( f != NULL )
-    {
-      // Our form?
-      if ( f == form )
-      {
-        // Switch to it
-        switchto_tform(form, true);
-        return true;
-      }
-      // Fail to create
-      return false;
-    }
-    // Create a form
-    form = create_tform(caption, NULL);
-    if ( form == NULL )
-      return false;
-  
-    if ( !hook_to_notification_point(HT_UI, s_callback, this) )
-    {
-      form = NULL;
-      return false;
-    }
-
-    py_obj = obj;
-    Py_INCREF(obj);
-
-    if ( is_idaq() )
-      options |= FORM_QWIDGET;
-
-    this->form = form;
-    open_tform(form, options);
-    return true;
-  }
-
-  void close(int options = 0)
-  {
-    if ( form != NULL )
-      close_tform(form, options);
-  }
-
-  static PyObject *__new__()
-  {
-    return PyCObject_FromVoidPtr(new plgform_t(), __del__);
-  }
-  
-  static void __del__(void *obj)
-  {
-    delete (plgform_t *)obj;
-  }
-};
+  return (size_t)AskUsingForm_c;
+}
 //</code(py_kernwin)>
 
 %}
@@ -930,9 +1751,16 @@ private:
   // Returns: true-executed line, false-ask for more lines
   bool on_execute_line(const char *line)
   {
-    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_EXECUTE_LINE, "s", line);
+    PYW_GIL_ENSURE;
+    PyObject *result = PyObject_CallMethod(
+        self, 
+        (char *)S_ON_EXECUTE_LINE, 
+        "s", 
+        line);
+    PYW_GIL_RELEASE;
+    
     bool ok = result != NULL && PyObject_IsTrue(result);
-    PyW_ShowErr(S_ON_EXECUTE_LINE);
+    PyW_ShowCbErr(S_ON_EXECUTE_LINE);
     Py_XDECREF(result);
     return ok;
   }
@@ -956,6 +1784,7 @@ private:
     int *vk_key,
     int shift)
   {
+    PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
       self, 
       (char *)S_ON_KEYDOWN, 
@@ -965,10 +1794,11 @@ private:
       *p_sellen,
       *vk_key,
       shift);
+    PYW_GIL_RELEASE;
 
     bool ok = result != NULL && PyTuple_Check(result);
 
-    PyW_ShowErr(S_ON_KEYDOWN);
+    PyW_ShowCbErr(S_ON_KEYDOWN);
 
     if ( ok )
     {
@@ -1005,9 +1835,19 @@ private:
     const char *line,
     int x)
   {
-    PyObject *result = PyObject_CallMethod(self, (char *)S_ON_COMPLETE_LINE, "sisi", prefix, n, line, x);
+    PYW_GIL_ENSURE;
+    PyObject *result = PyObject_CallMethod(
+        self, 
+        (char *)S_ON_COMPLETE_LINE, 
+        "sisi", 
+        prefix, 
+        n, 
+        line, 
+        x);
+    PYW_GIL_RELEASE;
+    
     bool ok = result != NULL && PyString_Check(result);
-    PyW_ShowErr(S_ON_COMPLETE_LINE);
+    PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
       *completion = PyString_AsString(result);
 
@@ -1125,6 +1965,164 @@ const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 #undef DECL_PY_CLI_CB
 //</code(py_cli)>
 
+//<code(py_plgform)>
+//---------------------------------------------------------------------------
+class plgform_t
+{
+private:
+  PyObject *py_obj;
+  TForm *form;
+
+  static int idaapi s_callback(void *ud, int notification_code, va_list va)
+  {
+    plgform_t *_this = (plgform_t *)ud;
+    if ( notification_code == ui_tform_visible )
+    {
+      TForm *form = va_arg(va, TForm *);
+      if ( form == _this->form )
+      {
+        // Qt: QWidget*
+        // G: HWND
+        // We wrap and pass as a CObject in the hope that a Python UI framework
+        // can unwrap a CObject and get the hwnd/widget back
+        PYW_GIL_ENSURE;
+        PyObject *py_result = PyObject_CallMethod(
+          _this->py_obj,
+          (char *)S_ON_CREATE, "O", 
+          PyCObject_FromVoidPtr(form, NULL));
+        PYW_GIL_RELEASE;
+        
+        PyW_ShowCbErr(S_ON_CREATE);
+        Py_XDECREF(py_result);
+      }
+    }
+    else if ( notification_code == ui_tform_invisible )
+    {
+      TForm *form = va_arg(va, TForm *);
+      if ( form == _this->form )
+      {
+        PYW_GIL_ENSURE;
+        PyObject *py_result = PyObject_CallMethod(
+          _this->py_obj,
+          (char *)S_ON_CLOSE, "O", 
+          PyCObject_FromVoidPtr(form, NULL));
+        PYW_GIL_RELEASE;
+        
+        PyW_ShowCbErr(S_ON_CLOSE);
+        Py_XDECREF(py_result);
+
+        _this->unhook();
+      }
+    }
+    return 0;
+  }
+
+  void unhook()
+  {
+    unhook_from_notification_point(HT_UI, s_callback, this);
+    form = NULL;
+    
+    // Call DECREF at last, since it may trigger __del__
+    Py_XDECREF(py_obj);
+  }
+
+public:
+  plgform_t(): py_obj(NULL), form(NULL)
+  {
+  }
+
+  bool show(
+    PyObject *obj,
+    const char *caption, 
+    int options)
+  {
+    // Already displayed?
+    TForm *f = find_tform(caption);
+    if ( f != NULL )
+    {
+      // Our form?
+      if ( f == form )
+      {
+        // Switch to it
+        switchto_tform(form, true);
+        return true;
+      }
+      // Fail to create
+      return false;
+    }
+
+    // Create a form
+    form = create_tform(caption, NULL);
+    if ( form == NULL )
+      return false;
+  
+    if ( !hook_to_notification_point(HT_UI, s_callback, this) )
+    {
+      form = NULL;
+      return false;
+    }
+
+    py_obj = obj;
+    Py_INCREF(obj);
+
+    if ( is_idaq() )
+      options |= FORM_QWIDGET;
+
+    this->form = form;
+    open_tform(form, options);
+    return true;
+  }
+
+  void close(int options = 0)
+  {
+    if ( form != NULL )
+      close_tform(form, options);
+  }
+
+  static PyObject *create()
+  {
+    return PyCObject_FromVoidPtr(new plgform_t(), destroy);
+  }
+  
+  static void destroy(void *obj)
+  {
+    delete (plgform_t *)obj;
+  }
+};
+//</code(py_plgform)>
+%}
+
+%inline %{
+//<inline(py_plgform)>
+//---------------------------------------------------------------------------
+#define DECL_PLGFORM plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+static PyObject *plgform_new()
+{
+  return plgform_t::create();
+}
+
+static bool plgform_show(
+  PyObject *py_link,
+  PyObject *py_obj, 
+  const char *caption, 
+  int options = FORM_MDI|FORM_TAB|FORM_MENU|FORM_RESTORE)
+{
+  DECL_PLGFORM;
+  return plgform->show(py_obj, caption, options);
+}
+
+static void plgform_close(
+  PyObject *py_link,
+  int options)
+{
+  DECL_PLGFORM;
+  plgform->close(options);
+}
+#undef DECL_PLGFORM
+//</inline(py_plgform)>
+%}
+
+%{
 //<code(py_custviewer)>
 //---------------------------------------------------------------------------
 // Base class for all custviewer place_t providers
@@ -1143,27 +2141,27 @@ private:
   strvec_t lines;
   simpleline_place_t pl_min, pl_max;
 public:
-  
+
   void *get_ud()
   {
     return &lines;
   }
-  
+
   place_t *get_min()
   {
     return &pl_min;
   }
-  
+
   place_t *get_max()
   {
     return &pl_max;
   }
-  
+
   strvec_t &get_lines()
   {
     return lines;
   }
-  
+
   void set_minmax(size_t start=0, size_t end=size_t(-1))
   {
     if ( start == 0 && end == size_t(-1) )
@@ -1178,7 +2176,7 @@ public:
       pl_max.n = end;
     }
   }
-  
+
   bool set_line(size_t nline, simpleline_t &sl)
   {
     if ( nline >= lines.size() )
@@ -1186,7 +2184,7 @@ public:
     lines[nline] = sl;
     return true;
   }
-  
+
   bool del_line(size_t nline)
   {
     if ( nline >= lines.size() )
@@ -1194,17 +2192,17 @@ public:
     lines.erase(lines.begin()+nline);
     return true;
   }
-  
+
   void add_line(simpleline_t &line)
   {
     lines.push_back(line);
   }
-  
+
   void add_line(const char *str)
   {
     lines.push_back(simpleline_t(str));
   }
-  
+
   bool insert_line(size_t nline, simpleline_t &line)
   {
     if ( nline >= lines.size() )
@@ -1212,7 +2210,7 @@ public:
     lines.insert(lines.begin()+nline, line);
     return true;
   }
-  
+
   bool patch_line(size_t nline, size_t offs, int value)
   {
     if ( nline >= lines.size() )
@@ -1221,12 +2219,12 @@ public:
     L[offs] = (uchar) value & 0xFF;
     return true;
   }
-  
+
   const size_t to_lineno(place_t *pl) const
   {
     return ((simpleline_place_t *)pl)->n;
   }
-  
+
   bool curline(place_t *pl, size_t *n)
   {
     if ( pl == NULL )
@@ -1235,22 +2233,22 @@ public:
     *n = to_lineno(pl);
     return true;
   }
-  
+
   simpleline_t *get_line(size_t nline)
   {
     return nline >= lines.size() ? NULL : &lines[nline];
   }
-  
+
   simpleline_t *get_line(place_t *pl)
   {
     return pl == NULL ? NULL : get_line(((simpleline_place_t *)pl)->n);
   }
-  
+
   const size_t count() const
   {
     return lines.size();
   }
-  
+
   void clear_lines()
   {
     lines.clear();
@@ -1303,10 +2301,15 @@ private:
     cvw_popupmap_t::iterator it = _global_popup_map.find(mid);
     if ( it == _global_popup_map.end() )
       return false;
+  
     return it->second.cv->on_popup_menu(it->second.menu_id);
   }
 
-  static bool idaapi s_cv_keydown(TCustomControl * /*cv*/, int vk_key, int shift, void *ud)
+  static bool idaapi s_cv_keydown(
+      TCustomControl * /*cv*/,
+      int vk_key, 
+      int shift, 
+      void *ud)
   {
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_keydown(vk_key, shift);
@@ -1352,7 +2355,10 @@ private:
         place_t *place         = va_arg(va, place_t *);
         int *important_lines   = va_arg(va, int *);
         qstring &hint          = *va_arg(va, qstring *);
-        return ((_this->_features & HAVE_HINT) == 0 || place == NULL || _this->_cv != viewer) ? 0 : (_this->on_hint(place, important_lines, hint) ? 1 : 0);
+        if ( (_this->_features & HAVE_HINT) == 0 || place == NULL || _this->_cv != viewer )
+          return 0;
+        else
+          return _this->on_hint(place, important_lines, hint) ? 1 : 0;
       }
 
     case ui_tform_invisible:
@@ -1492,13 +2498,13 @@ public:
 
     // find the beginning of the word
     const char *ptr = line + x;
-    while ( ptr > line && !isspace(ptr[-1]) )
+    while ( ptr > line && !qisspace(ptr[-1]) )
       ptr--;
 
     // find the end of the word
     const char *begin = ptr;
     ptr = line + x;
-    while ( !isspace(*ptr) && *ptr != '\0' )
+    while ( !qisspace(*ptr) && *ptr != '\0' )
       ptr++;
 
     word.qclear();
@@ -1634,14 +2640,11 @@ public:
   //--------------------------------------------------------------------------
   bool show()
   {
-    // closed already?
+    // Closed already?
     if ( _form == NULL )
       return false;
 
     open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE);
-    int x, y;
-    get_place(false, &x, &y);
-    msg("curplace after open: %d %d\n", x, y);
     return true;
   }
 };
@@ -1672,6 +2675,7 @@ private:
     PyObject *py_val = PyTuple_GetItem(py, 0);
     if ( !PyString_Check(py_val) )
       return false;
+
     sl.line = PyString_AsString(py_val);
 
     if ( (sz > 1) && (py_val = PyTuple_GetItem(py, 1)) && PyLong_Check(py_val)  )
@@ -1679,6 +2683,7 @@ private:
 
     if ( (sz > 2) && (py_val = PyTuple_GetItem(py, 2)) && PyLong_Check(py_val)  )
       sl.bgcolor = PyLong_AsUnsignedLong(py_val);
+
     return true;
   }
 
@@ -1687,8 +2692,10 @@ private:
   //
   virtual bool on_click(int shift)
   {
+    PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift);
-    PyW_ShowErr(S_ON_CLICK);
+    PYW_GIL_RELEASE;
+    PyW_ShowCbErr(S_ON_CLICK);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1698,8 +2705,10 @@ private:
   // OnDblClick
   virtual bool on_dblclick(int shift)
   {
+    PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift);
-    PyW_ShowErr(S_ON_DBL_CLICK);
+    PYW_GIL_RELEASE;
+    PyW_ShowCbErr(S_ON_DBL_CLICK);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1709,8 +2718,10 @@ private:
   // OnCurorPositionChanged
   virtual void on_curpos_changed()
   {
+    PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL);
-    PyW_ShowErr(S_ON_CURSOR_POS_CHANGED);
+    PYW_GIL_RELEASE;
+    PyW_ShowCbErr(S_ON_CURSOR_POS_CHANGED);
     Py_XDECREF(py_result);
   }
 
@@ -1721,8 +2732,11 @@ private:
     // Call the close method if it is there and the object is still bound
     if ( (features & HAVE_CLOSE) != 0 && py_self != NULL )
     {
+      PYW_GIL_ENSURE;
       PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL);
-      PyW_ShowErr(S_ON_CLOSE);
+      PYW_GIL_RELEASE;
+      
+      PyW_ShowCbErr(S_ON_CLOSE);
       Py_XDECREF(py_result);
 
       // Cleanup
@@ -1735,8 +2749,16 @@ private:
   // OnKeyDown
   virtual bool on_keydown(int vk_key, int shift)
   {
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_KEYDOWN, "ii", vk_key, shift);
-    PyW_ShowErr(S_ON_KEYDOWN);
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        py_self, 
+        (char *)S_ON_KEYDOWN, 
+        "ii", 
+        vk_key, 
+        shift);
+    PYW_GIL_RELEASE;
+
+    PyW_ShowCbErr(S_ON_KEYDOWN);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1746,8 +2768,14 @@ private:
 // OnPopupShow
   virtual bool on_popup()
   {
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_POPUP, NULL);
-    PyW_ShowErr(S_ON_POPUP);
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        py_self, 
+        (char *)S_ON_POPUP, 
+        NULL);
+    PYW_GIL_RELEASE;
+    
+    PyW_ShowCbErr(S_ON_POPUP);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1758,8 +2786,15 @@ private:
   virtual bool on_hint(place_t *place, int *important_lines, qstring &hint)
   {
     size_t ln = data.to_lineno(place);
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_HINT, PY_FMT64, pyul_t(ln));
-    PyW_ShowErr(S_ON_HINT);
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        py_self, 
+        (char *)S_ON_HINT, 
+        PY_FMT64, 
+        pyul_t(ln));
+    PYW_GIL_RELEASE;
+    
+    PyW_ShowCbErr(S_ON_HINT);
     bool ok = py_result != NULL && PyTuple_Check(py_result) && PyTuple_Size(py_result) == 2;
     if ( ok )
     {
@@ -1769,6 +2804,7 @@ private:
 
       if ( important_lines != NULL )
         *important_lines = PyInt_AsLong(py_nlines);
+      
       hint = PyString_AsString(py_hint);
     }
     Py_XDECREF(py_result);
@@ -1779,8 +2815,15 @@ private:
   // OnPopupMenuClick
   virtual bool on_popup_menu(size_t menu_id)
   {
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_POPUP_MENU, PY_FMT64, pyul_t(menu_id));
-    PyW_ShowErr(S_ON_POPUP_MENU);
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        py_self, 
+        (char *)S_ON_POPUP_MENU, 
+        PY_FMT64, 
+        pyul_t(menu_id));
+    PYW_GIL_RELEASE;
+
+    PyW_ShowCbErr(S_ON_POPUP_MENU);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -1809,6 +2852,7 @@ public:
     simpleline_t sl;
     if ( !py_to_simpleline(py_sl, sl) )
       return false;
+
     return data.set_line(nline, sl);
   }
 
@@ -1928,6 +2972,7 @@ public:
     // Return a reference to the C++ instance (only once)
     if ( py_this == NULL )
       py_this = PyCObject_FromVoidPtr(this, NULL);
+  
     return true;
   }
 
@@ -1972,6 +3017,7 @@ public:
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_FMT64 PY_FMT64 PY_FMT64 PY_FMT64 ")", pyul_t(x1), pyul_t(y1), pyul_t(x2), pyul_t(y2));
   }
+
   static py_simplecustview_t *get_this(PyObject *py_this)
   {
     return PyCObject_Check(py_this) ? (py_simplecustview_t *) PyCObject_AsVoidPtr(py_this) : NULL;
@@ -2194,408 +3240,6 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 //</inline(py_custviewer)>
 %}
 
-%inline %{
-uint32 idaapi choose_sizer(void *self)
-{
-    PyObject *pyres;
-    uint32 res;
-
-    pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
-    res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res;
-}
-
-char * idaapi choose_getl(void *self, uint32 n, char *buf)
-{
-    PyObject *pyres;
-    char *res;
-
-    pyres = PyObject_CallMethod((PyObject *)self, "getl", "l", n);
-
-    if (!pyres)
-    {
-        strcpy(buf, "<Empty>");
-        return buf;
-    }
-
-    res = PyString_AsString(pyres);
-
-    if (res)
-    {
-        strncpy(buf, res, MAXSTR);
-        res = buf;
-    }
-    else
-    {
-        strcpy(buf, "<Empty>");
-        res = buf;
-    }
-
-    Py_DECREF(pyres);
-    return res;
-}
-
-void idaapi choose_enter(void *self, uint32 n)
-{
-    PyObject_CallMethod((PyObject *)self, "enter", "l", n);
-    return;
-}
-
-uint32 choose_choose(void *self,
-  int flags,
-  int x0,int y0,
-  int x1,int y1,
-  int width)
-{
-    PyObject *pytitle;
-    const char *title;
-    if ((pytitle = PyObject_GetAttrString((PyObject *)self, "title")))
-    {
-        title = PyString_AsString(pytitle);
-    }
-    else
-    {
-        title = "Choose";
-        pytitle = NULL;
-    }
-    int r = choose(
-        flags,
-        x0, y0,
-        x1, y1,
-        self,
-        width,
-        &choose_sizer,
-        &choose_getl,
-        title,
-        1,
-        1,
-        NULL, /* del */
-        NULL, /* inst */
-        NULL, /* update */
-        NULL, /* edit */
-        &choose_enter,
-        NULL, /* destroy */
-        NULL, /* popup_names */
-        NULL  /* get_icon */
-    );
-    Py_XDECREF(pytitle);
-    return r;
-}
-
-//<inline(py_kernwin)>
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_highlighted_identifier(flags = 0):
-    """
-    Returns the currently highlighted identifier
-
-    @param flags: reserved (pass 0)
-    @return: None or the highlighted identifier
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_get_highlighted_identifier(int flags = 0)
-{
-  char buf[MAXSTR];
-  bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
-  if ( !ok )
-    Py_RETURN_NONE;
-  else
-    return PyString_FromString(buf);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def asktext(max_text, defval, prompt):
-    """
-    Asks for a long text
-
-    @param max_text: Maximum text length
-    @param defval: The default value
-    @param prompt: The prompt value
-    @return: None or the entered string
-    """
-    pass
-#</pydoc>
-*/
-PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
-{
-  if ( max_text <= 0 )
-    Py_RETURN_NONE;
-
-  char *buf = new char[max_text];
-  if ( buf == NULL )
-    Py_RETURN_NONE;
-
-  PyObject *py_ret;
-  if ( asktext(size_t(max_text), buf, defval, prompt) != NULL )
-  {
-    py_ret = PyString_FromString(buf);
-  }
-  else
-  {
-    py_ret = Py_None;
-    Py_INCREF(py_ret);
-  }
-  delete [] buf;
-  return py_ret;
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def str2ea(addr):
-    """
-    Converts a string express to EA. The expression evaluator may be called as well.
-    
-    @return: BADADDR or address value
-    """
-    pass
-#</pydoc>
-*/
-ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
-{
-  ea_t ea;
-  bool ok = str2ea(str, &ea, screenEA);
-  return ok ? ea : BADADDR;
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def del_menu_item(menu_ctx):
-    """
-    Deletes a menu item previously added with add_menu_item()
-    
-    @param menu_ctx: value returned by add_menu_item()
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
-static bool py_del_menu_item(PyObject *py_ctx)
-{
-  if ( !PyCObject_Check(py_ctx) )
-    return false;
-
-  py_add_del_menu_item_ctx *ctx = (py_add_del_menu_item_ctx *)PyCObject_AsVoidPtr(py_ctx);
-
-  bool ok = del_menu_item(ctx->menupath.c_str());
-
-  if ( ok )
-  {
-    Py_DECREF(ctx->cb_data);
-    delete ctx;
-  }
-
-  return ok;
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def add_menu_item(menupath, name, hotkey, flags, callback, args):
-    """
-    Adds a menu item
-    
-    @param menupath: path to the menu item after or before which the insertion will take place
-    @param name: name of the menu item (~x~ is used to denote Alt-x hot letter)
-    @param hotkey: hotkey for the menu item (may be empty)
-    @param flags: one of SETMENU_... consts
-    @param callback: function which gets called when the user selects the menu item.
-               The function callback is of the form:
-               def callback(*args):
-                  pass
-    @param args: tuple containing the arguments
-
-    @return: None or a menu context (to be used by del_menu_item())
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_add_menu_item(
-  const char *menupath,
-  const char *name,
-  const char *hotkey,
-  int flags,
-  PyObject *pyfunc,
-  PyObject *args)
-{
-  bool no_args;
-  
-  if ( args == Py_None )
-  {
-    no_args = true;
-    args = PyTuple_New(0);
-    if ( args == NULL )
-      return NULL;
-  }
-  else if ( !PyTuple_Check(args) )
-  {
-    PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
-    return NULL;
-  }
-  else
-  {
-    no_args = false;
-  }
-
-  // Form a tuple holding the function to be called and its arguments
-  PyObject *cb_data = Py_BuildValue("(OO)", pyfunc, args);
-
-  // If we created an empty tuple, then we must free it
-  if ( no_args )
-    Py_DECREF(args);
-
-  // Add the menu item
-  bool b = add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
-  
-  if ( !b )
-  {
-    Py_XDECREF(cb_data);
-    Py_RETURN_NONE;
-  }
-  // Create a context (for the delete_menu_item())
-  py_add_del_menu_item_ctx *ctx = new py_add_del_menu_item_ctx();
-
-  // Form the complete menu path
-  ctx->menupath = menupath;
-  ctx->menupath.append(name);
-  // Save callback data
-  ctx->cb_data = cb_data;
-
-  // Return context to user
-  return PyCObject_FromVoidPtr(ctx, NULL);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pyd0c>
-
-MFF_FAST = 0x0000
-"""execute code as soon as possible
-this mode is ok call ui related functions
-that do not query the database."""
-
-MFF_READ = 0x0001
-"""execute code only when ida is idle and it is safe to query the database.
-this mode is recommended only for code that does not modify the database.
-(nb: ida may be in the middle of executing another user request, for example it may be waiting for him to enter values into a modal dialog box)"""
-
-MFF_WRITE = 0x0002
-"""execute code only when ida is idle and it is safe to modify the database. in particular, this flag will suspend execution if there is
-a modal dialog box on the screen this mode can be used to call any ida api function. MFF_WRITE implies MFF_READ"""
-
-def py_execute_sync(callable, reqf)
-    """
-    Converts a string express to EA. The expression evaluator may be called as well.
-
-    @param callable: A python callable object
-    @param reqf: one of MFF_ flags
-    @return: BADADDR or address value
-    """
-    pass
-#</pyd0c>
-//------------------------------------------------------------------------
-static int py_execute_sync(PyObject *py_callable, int reqf)
-{
-  if ( !PyCallable_Check(py_callable) )
-    return -1;
-
-  struct py_exec_request_t: exec_request_t
-  {
-    PyObject *py_callable;
-    virtual int idaapi execute(void)
-    {
-      PyGILState_STATE state = PyGILState_Ensure();
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
-      Py_XDECREF(py_result);
-      PyGILState_Release(state);
-      return r;
-    }
-    py_exec_request_t(PyObject *pyc): py_callable(pyc) 
-    { 
-    }
-  };
-  py_exec_request_t req(py_callable);
-  return execute_sync(req, reqf);
-}
-*/
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def set_dock_pos(src, dest, orient, left = 0, top = 0, right = 0, bottom = 0):
-    """
-    Sets the dock orientation of a window relatively to another window.
-
-    @param src: Source docking control
-    @param dest: Destination docking control
-    @param orient: One of DOR_XXXX constants
-    @param left, top, right, bottom: These parameter if DOR_FLOATING is used, or if you want to specify the width of docked windows
-    @return: Boolean
-
-    Example:
-        set_dock_pos('Structures', 'Enums', DOR_RIGHT) <- docks the Structures window to the right of Enums window
-    """
-    pass
-#</pydoc>
-*/
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def is_idaq():
-    """
-    Returns True or False depending if IDAPython is hosted by IDAQ
-    """
-#</pydoc>
-*/
-
-
-
-PyObject *choose2_find(const char *title);
-int choose2_add_command(PyObject *self, const char *caption, int flags, int menu_index, int icon);
-void choose2_refresh(PyObject *self);
-void choose2_close(PyObject *self);
-int choose2_show(PyObject *self);
-void choose2_activate(PyObject *self);
-
-
-#define DECL_PLGFORM plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
-static PyObject *plgform_new()
-{
-  return plgform_t::__new__();
-}
-
-static bool plgform_show(
-  PyObject *py_link,
-  PyObject *py_obj, 
-  const char *caption, 
-  int options = FORM_MDI|FORM_TAB|FORM_MENU|FORM_RESTORE)
-{
-  DECL_PLGFORM;
-  return plgform->show(py_obj, caption, options);
-}
-
-static void plgform_close(
-  PyObject *py_link,
-  int options)
-{
-  DECL_PLGFORM;
-  plgform->close(options);
-}
-#undef DECL_PLGFORM
-//</inline(py_kernwin)>
-%}
-
 %include "kernwin.hpp"
 uint32 choose_choose(PyObject *self,
     int flags,
@@ -2607,69 +3251,6 @@ uint32 choose_choose(PyObject *self,
 
 
 %pythoncode %{
-
-class Choose:
-  """
-  Choose - class for choose() with callbacks
-  """
-  def __init__(self, list, title, flags=0):
-    self.list = list
-    self.title = title
-
-    self.flags = flags
-    self.x0 = -1
-    self.x1 = -1
-    self.y0 = -1
-    self.y1 = -1
-
-    self.width = -1
-
-    # HACK: Add a circular reference for non-modal choosers. This prevents the GC
-    # from collecting the class object the callbacks need. Unfortunately this means
-    # that the class will never be collected, unless refhack is set to None explicitly.
-    if (flags & 1) == 0:
-      self.refhack = self
-
-  def sizer(self):
-    """
-    Callback: sizer - returns the length of the list
-    """
-    return len(self.list)
-
-  def getl(self, n):
-    """
-    Callback: getl - get one item from the list
-    """
-    if n == 0:
-       return self.title
-    if n <= self.sizer():
-      return str(self.list[n-1])
-    else:
-      return "<Empty>"
-
-  def ins(self):
-    pass
-
-  def update(self, n):
-    pass
-
-  def edit(self, n):
-    pass
-
-  def enter(self, n):
-    print "enter(%d) called" % n
-
-  def destroy(self):
-    pass
-
-  def get_icon(self, n):
-    pass
-
-  def choose(self):
-    """
-    choose - Display the choose dialogue
-    """
-    return _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
 
 #<pycode(py_kernwin)>
 DP_LEFT           = 0x0001
@@ -2685,6 +3266,54 @@ DP_BEFORE         = 0x0020
 DP_RAW            = 0x0040
 DP_FLOATING       = 0x0080
 
+# ----------------------------------------------------------------------
+def load_custom_icon(file_name=None, data=None, format=None):
+    """
+    Loads a custom icon and returns an identifier that can be used with other APIs
+
+    If file_name is passed then the other two arguments are ignored.
+
+    @param file_name: The icon file name
+    @param data: The icon data
+    @param format: The icon data format
+
+    @return: Icon id or 0 on failure.
+             Use free_custom_icon() to free it
+    """
+    if file_name is not None:
+       return _idaapi.py_load_custom_icon_fn(file_name)
+    elif not (data is None and format is None):
+       return _idaapi.py_load_custom_icon_data(data, format)
+    else:
+      return 0
+
+# ----------------------------------------------------------------------
+def asklong(defval, format):
+    res, val = _idaapi._asklong(defval, format)
+
+    if res == 1:
+        return val
+    else:
+        return None
+
+# ----------------------------------------------------------------------
+def askaddr(defval, format):
+    res, ea = _idaapi._askaddr(defval, format)
+
+    if res == 1:
+        return ea
+    else:
+        return None
+
+# ----------------------------------------------------------------------
+def askseg(defval, format):
+    res, sel = _idaapi._askseg(defval, format)
+
+    if res == 1:
+        return sel
+    else:
+        return None
+
 
 
 class Choose2(object):
@@ -2695,10 +3324,17 @@ class Choose2(object):
     """
 
     CH_MODAL        = 0x01
+    """Modal chooser"""
+
     CH_MULTI        = 0x02
+    """Allow multi selection"""
+
     CH_MULTI_EDIT   = 0x04
     CH_NOBTNS       = 0x08
     CH_ATTRS        = 0x10
+    CH_NOIDB        = 0x20
+    """use the chooser even without an open database, same as x0=-2"""
+
     CH_BUILTIN_MASK = 0xF80000
 
     # column flags (are specified in the widths array)
@@ -2708,16 +3344,23 @@ class Choose2(object):
     CHCOL_DEC    =  0x00030000
     CHCOL_FORMAT =  0x00070000
 
-    def __init__(self, title, cols, flags=0, popup_names=None, icon=-1, x1=-1, y1=-1, x2=-1, y2=-1, deflt=-1):
-        """Constructs a chooser window.
+
+    def __init__(self, title, cols, flags=0, popup_names=None,
+                 icon=-1, x1=-1, y1=-1, x2=-1, y2=-1, deflt=-1,
+                 embedded=False, width=None, height=None):
+        """
+        Constructs a chooser window.
         @param title: The chooser title
         @param cols: a list of colums; each list item is a list of two items
-            example: [ ["Address", 10 | Choose2.CHCOL_HEX], ["Name", 30 | CHCOL_PLAIN] ]
+            example: [ ["Address", 10 | Choose2.CHCOL_HEX], ["Name", 30 | Choose2.CHCOL_PLAIN] ]
         @param flags: One of CH_XXXX constants
         @param deflt: Default starting item
         @param popup_names: list of new captions to replace this list ["Insert", "Delete", "Edit", "Refresh"]
-        @param icon: Icon index (the icon should exist in ida resources)
+        @param icon: Icon index (the icon should exist in ida resources or an index to a custom loaded icon)
         @param x1, y1, x2, y2: The default location
+        @param embedded: Create as embedded chooser
+        @param width: Embedded chooser width
+        @param height: Embedded chooser height
         """
         self.title = title
         self.flags = flags
@@ -2729,33 +3372,85 @@ class Choose2(object):
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
+        self.embedded = embedded
+        if embedded:
+	        self.x1 = width
+	        self.y1 = height
+
+
+    def Embedded(self):
+        """
+        Creates an embedded chooser (as opposed to Show())
+        @return: Returns 1 on success
+        """
+        return _idaapi.choose2_create(self, True)
+
+
+    def GetEmbSelection(self):
+        """
+        Returns the selection associated with an embedded chooser
+
+        @return:
+            - None if chooser is not embedded
+            - A list with selection indices (0-based)
+        """
+        return _idaapi.choose2_get_embedded_selection(self)
+
 
     def Show(self, modal=False):
-        """Activates or creates a chooser window"""
+        """
+        Activates or creates a chooser window
+        @param modal: Display as modal dialog
+        @return: For modal choosers it will return the selected item index (0-based)
+        """
         if modal:
             self.flags |= Choose2.CH_MODAL
+
+            # Disable the timeout
+            old = idaapi.set_script_timeout(0)
+            n = _idaapi.choose2_create(self, False)
+            idaapi.set_script_timeout(old)
+
+            # Delete the modal chooser instance
+            self.Close()
+
+            return n
         else:
             self.flags &= ~Choose2.CH_MODAL
-        return _idaapi.choose2_show(self)
+            return _idaapi.choose2_create(self, False)
+
 
     def Activate(self):
         """Activates a visible chooser"""
         return _idaapi.choose2_activate(self)
 
+
     def Refresh(self):
         """Causes the refresh callback to trigger"""
         return _idaapi.choose2_refresh(self)
+
 
     def Close(self):
         """Closes the chooser"""
         return _idaapi.choose2_close(self)
 
-    def AddCommand(self, caption, flags = _idaapi.CHOOSER_POPUP_MENU, menu_index=-1,icon = -1):
-        """Adds a new chooser command
+
+    def AddCommand(self,
+                   caption,
+                   flags = _idaapi.CHOOSER_POPUP_MENU,
+                   menu_index = -1,
+                   icon = -1,
+				   emb=None):
+        """
+        Adds a new chooser command
         Save the returned value and later use it in the OnCommand handler
 
         @return: Returns a negative value on failure or the command index
         """
+
+        # Use the 'emb' as a sentinel. It will be passed the correct value from the EmbeddedChooserControl
+        if self.embedded and ((emb is None) or (emb != 2002)):
+            raise RuntimeError("Please add a command through EmbeddedChooserControl.AddCommand()")
         return _idaapi.choose2_add_command(self, caption, flags, menu_index, icon)
 
     #
@@ -2773,6 +3468,7 @@ class Choose2(object):
 #    def OnGetLine(self, n):
 #        """Called when the chooser window requires lines.
 #        This callback is mandatory.
+#        @param n: Line number (0-based)
 #        @return: The user should return a list with ncols elements.
 #            example: a list [col1, col2, col3, ...] describing the n-th line
 #        """
@@ -2788,27 +3484,52 @@ class Choose2(object):
 #    def OnEditLine(self, n):
 #        """
 #        Called when an item is being edited.
-#        @param n: Line number (zero based)
+#        @param n: Line number (0-based)
 #        @return: Nothing
 #        """
 #        pass
 #
 #    def OnInsertLine(self):
-#        """Called when 'Insert' is selected either via the hotkey or popup menu.
+#        """
+#        Called when 'Insert' is selected either via the hotkey or popup menu.
 #        @return: Nothing
 #        """
 #        pass
 #
 #    def OnSelectLine(self, n):
-#        """Called when the line selection changes"""
+#        """
+#        Called when a line is selected and then Ok or double click was pressed
+#        @param n: Line number (0-based)
+#        """
+#        pass
+#
+#    def OnSelectionChange(self, sel_list):
+#        """
+#        Called when the selection changes
+#        @param sel_list: A list of selected item indices
+#        """
 #        pass
 #
 #    def OnDeleteLine(self, n):
-#        """Called when a line is about to be deleted"""
+#        """
+#        Called when a line is about to be deleted
+#        @param n: Line number (0-based)
+#        """
 #        return self.n
 #
 #    def OnRefresh(self, n):
-#        """Called when the 'Refresh' is selected
+#        """
+#        Triggered when the 'Refresh' is called from the popup menu item.
+#
+#        @param n: The currently selected line (0-based) at the time of the refresh call
+#        @return: Return the number of elements
+#        """
+#        return self.n
+#
+#    def OnRefreshed(self):
+#        """
+#        Triggered when a refresh happens (for example due to column sorting)
+#        @param n: Line number (0-based)
 #        @return: Return the number of elements
 #        """
 #        return self.n
@@ -2818,15 +3539,1058 @@ class Choose2(object):
 #        return 0
 #
 #    def OnGetIcon(self, n):
-#        """Return icon number for a given item (or -1 if no icon is avail)"""
+#        """
+#        Return icon number for a given item (or -1 if no icon is avail)
+#        @param n: Line number (0-based)
+#        """
 #        return -1
 #
 #    def OnGetLineAttr(self, n):
-#        """Return list [bgcolor, flags=CHITEM_XXXX] or None; check chooser_item_attrs_t"""
+#        """
+#        Return list [bgcolor, flags=CHITEM_XXXX] or None; check chooser_item_attrs_t
+#        @param n: Line number (0-based)
+#        """
 #        return [0x0, CHITEM_BOLD]
 #</pydoc>
 
 
+#ICON WARNING|QUESTION|INFO|NONE
+#AUTOHIDE NONE|DATABASE|REGISTRY|SESSION
+#HIDECANCEL
+#BUTTON YES|NO|CANCEL "Value"
+#STARTITEM {id:ItemName}
+#HELP / ENDHELP
+try:
+    import types
+    from ctypes import *
+    # On Windows, we use stdcall
+
+    # Callback for buttons
+    # typedef void (idaapi *formcb_t)(TView *fields[], int code);
+
+    _FORMCB_T = WINFUNCTYPE(c_void_p, c_void_p, c_int)
+
+    # Callback for form change
+    # typedef int (idaapi *formchgcb_t)(int field_id, form_actions_t &fa);
+    _FORMCHGCB_T = WINFUNCTYPE(c_int, c_int, c_void_p)
+except:
+    try:
+        _FORMCB_T    = CFUNCTYPE(c_void_p, c_void_p, c_int)
+        _FORMCHGCB_T = CFUNCTYPE(c_int, c_int, c_void_p)
+    except:
+        _FORMCHGCB_T = _FORMCB_T = None
+
+
+# -----------------------------------------------------------------------
+class Form(object):
+
+    FT_ASCII = 'A'
+    """Ascii string - char *"""
+    FT_SEG = 'S'
+    """Segment - sel_t *"""
+    FT_HEX = 'N'
+    """Hex number - uval_t *"""
+    FT_SHEX = 'n'
+    """Signed hex number - sval_t *"""
+    FT_COLOR = 'K'
+    """Color button - bgcolor_t *"""
+    FT_ADDR = '$'
+    """Address - ea_t *"""
+    FT_UINT64 = 'L'
+    """default base uint64 - uint64"""
+    FT_INT64 = 'l'
+    """default base int64 - int64"""
+    FT_RAWHEX = 'M'
+    """Hex number, no 0x prefix - uval_t *"""
+    FT_FILE = 'f'
+    """File browse - char * at least QMAXPATH"""
+    FT_DEC = 'D'
+    """Decimal number - sval_t *"""
+    FT_OCT = 'O'
+    """Octal number, C notation - sval_t *"""
+    FT_BIN = 'Y'
+    """Binary number, 0b prefix - sval_t *"""
+    FT_CHAR = 'H'
+    """Char value -- sval_t *"""
+    FT_IDENT = 'I'
+    """Identifier - char * at least MAXNAMELEN"""
+    FT_BUTTON = 'B'
+    """Button - def handler(code)"""
+    FT_DIR = 'F'
+    """Path to directory - char * at least QMAXPATH"""
+    FT_TYPE = 'T'
+    """Type declaration - char * at least MAXSTR"""
+    _FT_USHORT = '_US'
+    """Unsigned short"""
+    FT_FORMCHG = '%/'
+    """Form change callback - formchgcb_t"""
+    FT_ECHOOSER = 'E'
+    """Embedded chooser - idaapi.Choose2"""
+
+    FT_CHKGRP = 'C'
+    FT_CHKGRP2= 'c'
+    FT_RADGRP = 'R'
+    FT_RADGRP2= 'r'
+
+    @staticmethod
+    def fieldtype_to_ctype(tp, i64 = False):
+        """
+        Factory method returning a ctype class corresponding to the field type string
+        """
+        if tp in (Form.FT_SEG, Form.FT_HEX, Form.FT_RAWHEX, Form.FT_ADDR):
+            return c_ulonglong if i64 else c_ulong
+        elif tp in (Form.FT_SHEX, Form.FT_DEC, Form.FT_OCT, Form.FT_BIN, Form.FT_CHAR):
+            return c_longlong if i64 else c_long
+        elif tp == Form.FT_UINT64:
+            return c_ulonglong
+        elif tp == Form.FT_INT64:
+            return c_longlong
+        elif tp == Form.FT_COLOR:
+            return c_ulong
+        elif tp == Form._FT_USHORT:
+            return c_ushort
+        elif tp in (Form.FT_FORMCHG, Form.FT_ECHOOSER):
+            return c_void_p
+        else:
+            return None
+
+
+    #
+    # Generic argument helper classes
+    #
+    class NumericArgument(object):
+        """
+        Argument representing various integer arguments (ushort, uint32, uint64, etc...)
+        @param tp: One of Form.FT_XXX
+        """
+        DefI64 = False
+        def __init__(self, tp, value):
+            cls = Form.fieldtype_to_ctype(tp, self.DefI64)
+            if cls is None:
+                raise TypeError("Invalid field type: %s" % tp)
+            # Get a pointer type to the ctype type
+            self.arg = pointer(cls(value))
+
+        def __set_value(self, v):
+            self.arg.contents.value = v
+        value = property(lambda self: self.arg.contents.value, __set_value)
+
+
+    class StringArgument(object):
+        """
+        Argument representing a character buffer
+        """
+        def __init__(self, size=None, value=None):
+            if size is None:
+                raise SyntaxError("The string size must be passed")
+
+            if value is None:
+                self.arg = create_string_buffer(size)
+            else:
+                self.arg = create_string_buffer(value, size)
+            self.size = size
+
+        def __set_value(self, v):
+            self.arg.value = v
+        value = property(lambda self: self.arg.value, __set_value)
+
+
+    #
+    # Base control class
+    #
+    class Control(object):
+        def __init__(self):
+            self.id = 0
+            """Automatically assigned control ID"""
+
+            self.arg = None
+            """Control argument value. This could be one element or a list/tuple (for multiple args per control)"""
+
+            self.form = None
+            """Reference to the parent form. It is filled by Form.Add()
+            """
+
+
+        def get_tag(self):
+            """
+            Control tag character. One of Form.FT_XXXX.
+            The form class will expand the {} notation and replace them with the tags
+            """
+            pass
+
+        def get_arg(self):
+            """
+            Control returns the parameter to be pushed on the stack
+            (Of AskUsingForm())
+            """
+            return self.arg
+
+        def free(self):
+            """
+            Free the control
+            """
+            # Release parent form reference
+            self.form = None
+
+
+    #
+    # Label controls
+    #
+    class LabelControl(Control):
+        """
+        Base class for static label control
+        """
+        def __init__(self, tp):
+            Form.Control.__init__(self)
+            self.tp = tp
+
+        def get_tag(self):
+            return '%%%d%s' % (self.id, self.tp)
+
+
+    class StringLabel(LabelControl):
+        """
+        String label control
+        """
+        def __init__(self, value, tp=None, sz=1024):
+            """
+            Type field can be one of:
+            A - ascii string
+            T - type declaration
+            I - ident
+            F - folder
+            f - file
+            X - command
+            """
+            if tp is None:
+                tp = Form.FT_ASCII
+            Form.LabelControl.__init__(self, tp)
+            self.size  = sz
+            self.arg = create_string_buffer(value, sz)
+
+
+    class NumericLabel(LabelControl, NumericArgument):
+        """
+        Numeric label control
+        """
+        def __init__(self, value, tp=None):
+            if tp is None:
+                tp = Form.FT_HEX
+            Form.LabelControl.__init__(self, tp)
+            Form.NumericArgument.__init__(self, tp, value)
+
+
+    #
+    # Group controls
+    #
+    class GroupItemControl(Control):
+        """
+        Base class for group control items
+        """
+        def __init__(self, tag, parent):
+            Form.Control.__init__(self)
+            self.tag = tag
+            self.parent = parent
+            # Item position (filled when form is compiled)
+            self.pos = 0
+
+        def assign_pos(self):
+            self.pos = self.parent.next_child_pos()
+
+        def get_tag(self):
+            return "%s%d" % (self.tag, self.id)
+
+
+    class ChkGroupItemControl(GroupItemControl):
+        """
+        Checkbox group item control
+        """
+        def __init__(self, tag, parent):
+            Form.GroupItemControl.__init__(self, tag, parent)
+
+        def __get_value(self):
+            return (self.parent.value & (1 << self.pos)) != 0
+
+        def __set_value(self, v):
+            pv = self.parent.value
+            if v:
+                pv = pv | (1 << self.pos)
+            else:
+                pv = pv & ~(1 << self.pos)
+
+            self.parent.value = pv
+
+        checked = property(__get_value, __set_value)
+        """Get/Sets checkbox item check status"""
+
+
+    class RadGroupItemControl(GroupItemControl):
+        """
+        Radiobox group item control
+        """
+        def __init__(self, tag, parent):
+            Form.GroupItemControl.__init__(self, tag, parent)
+
+        def __get_value(self):
+            return self.parent.value == self.pos
+
+        def __set_value(self, v):
+            self.parent.value = self.pos
+
+        selected = property(__get_value, __set_value)
+        """Get/Sets radiobox item selection status"""
+
+
+    class GroupControl(Control, NumericArgument):
+        """
+        Base class for group controls
+        """
+        def __init__(self, children_names, tag, value=0):
+            Form.Control.__init__(self)
+            self.children_names = children_names
+            self.tag = tag
+            self._reset()
+            Form.NumericArgument.__init__(self, Form._FT_USHORT, value)
+
+        def _reset(self):
+            self.childpos = 0
+
+        def next_child_pos(self):
+            v = self.childpos
+            self.childpos += 1
+            return v
+
+        def get_tag(self):
+            return "%d" % self.id
+
+
+    class ChkGroupControl(GroupControl):
+        """
+        Checkbox group control class.
+        It holds a set of checkbox controls
+        """
+        ItemClass = None
+        """
+        Group control item factory class instance
+        We need this because later we won't be treating ChkGroupControl or RadGroupControl
+        individually, instead we will be working with GroupControl in general.
+        """
+        def __init__(self, children_names, value=0, secondary=False):
+            # Assign group item factory class
+            if Form.ChkGroupControl.ItemClass is None:
+                Form.ChkGroupControl.ItemClass = Form.ChkGroupItemControl
+
+            Form.GroupControl.__init__(
+                self,
+                children_names,
+                Form.FT_CHKGRP2 if secondary else Form.FT_CHKGRP,
+                value)
+
+
+    class RadGroupControl(GroupControl):
+        """
+        Radiobox group control class.
+        It holds a set of radiobox controls
+        """
+        ItemClass = None
+        def __init__(self, children_names, value=0, secondary=False):
+            """
+            Creates a radiogroup control.
+            @param children_names: A tuple containing group item names
+            @param value: Initial selected radio item
+            @param secondory: Allows rendering one the same line as the previous group control.
+                              Use this if you have another group control on the same line.
+            """
+            # Assign group item factory class
+            if Form.RadGroupControl.ItemClass is None:
+                Form.RadGroupControl.ItemClass = Form.RadGroupItemControl
+
+            Form.GroupControl.__init__(
+                self,
+                children_names,
+                Form.FT_RADGRP2 if secondary else Form.FT_RADGRP,
+                value)
+
+
+    #
+    # Input controls
+    #
+    class InputControl(Control):
+        """
+        Generic form input control.
+        It could be numeric control, string control, directory/file browsing, etc...
+        """
+        def __init__(self, tp, width, swidth, hlp = None):
+            """
+            @param width: Display width
+            @param swidth: String width
+            """
+            Form.Control.__init__(self)
+            self.tp = tp
+            self.width = width
+            self.switdh = swidth
+            self.hlp = hlp
+
+        def get_tag(self):
+            return "%s%d:%s:%s:%s" % (
+                self.tp, self.id,
+                self.width,
+                self.switdh,
+                ":" if self.hlp is None else self.hlp)
+
+
+    class NumericInput(InputControl, NumericArgument):
+        """
+        A composite class serving as a base numeric input control class
+        """
+        def __init__(self, tp=None, value=0, width=50, swidth=10, hlp=None):
+            if tp is None:
+                tp = Form.FT_HEX
+            Form.InputControl.__init__(self, tp, width, swidth, hlp)
+            Form.NumericArgument.__init__(self, self.tp, value)
+
+
+    class ColorInput(NumericInput):
+        """
+        Color button input control
+        """
+        def __init__(self, value = 0):
+            """
+            @param value: Initial color value in RGB
+            """
+            Form.NumericInput.__init__(self, tp=Form.FT_COLOR, value=value)
+
+
+    class StringInput(InputControl, StringArgument):
+        """
+        Base string input control class.
+        This class also constructs a StringArgument
+        """
+        def __init__(self,
+                     tp=None,
+                     width=1024,
+                     swidth=40,
+                     hlp=None,
+                     value=None,
+                     size=None):
+            """
+            @param width: String size. But in some cases it has special meaning. For example in FileInput control.
+                          If you want to define the string buffer size then pass the 'size' argument
+            @param swidth: Control width
+            @param value: Initial value
+            @param size: String size
+            """
+            if tp is None:
+                tp = Form.FT_ASCII
+            if not size:
+                size = width
+            Form.InputControl.__init__(self, tp, width, swidth, hlp)
+            Form.StringArgument.__init__(self, size=size, value=value)
+
+
+    class FileInput(StringInput):
+        """
+        File Open/Save input control
+        """
+        def __init__(self,
+                     width=512,
+                     swidth=80,
+                     save=False, open=False,
+                     hlp=None, value=None):
+
+            if save == open:
+                raise ValueError("Invalid mode. Choose either open or save")
+            if width < 512:
+                raise ValueError("Invalid width. Must be greater than 512.")
+
+            # The width field is overloaded in this control and is used
+            # to denote the type of the FileInput dialog (save or load)
+            # On the other hand it is passed as is to the StringArgument part
+            Form.StringInput.__init__(
+                self,
+                tp=Form.FT_FILE,
+                width="1" if save else "0",
+                swidth=swidth,
+                hlp=hlp,
+                size=width,
+                value=value)
+
+
+    class DirInput(StringInput):
+        """
+        Directory browsing control
+        """
+        def __init__(self,
+                     width=512,
+                     swidth=80,
+                     hlp=None,
+                     value=None):
+
+            if width < 512:
+                raise ValueError("Invalid width. Must be greater than 512.")
+
+            Form.StringInput.__init__(
+                self,
+                tp=Form.FT_DIR,
+                width=width,
+                swidth=swidth,
+                hlp=hlp,
+                size=width,
+                value=value)
+
+
+    class ButtonInput(InputControl):
+        """
+        Button control.
+        A handler along with a 'code' (numeric value) can be associated with the button.
+        This way one handler can handle many buttons based on the button code (or in other terms id or tag)
+        """
+        def __init__(self, handler, code="", swidth="", hlp=None):
+            """
+            @param handler: Button handler. A callback taking one argument which is the code.
+            @param code: A code associated with the button and that is later passed to the handler.
+            """
+            Form.InputControl.__init__(
+                self,
+                Form.FT_BUTTON,
+                code,
+                swidth,
+                hlp)
+            self.arg = _FORMCB_T(lambda view, code, h=handler: h(code))
+
+
+    class FormChangeCb(Control):
+        """
+        Form change handler.
+        This can be thought of like a dialog procedure.
+        Everytime a form action occurs, this handler will be called along with the control id.
+        The programmer can then call various form actions accordingly:
+          - EnableField
+          - ShowField
+          - MoveField
+          - GetFieldValue
+          - etc...
+
+        Special control IDs: -1 (The form is initialized) and -2 (Ok has been clicked)
+
+        """
+        def __init__(self, handler):
+            """
+            Constructs the handler.
+            @param handler: The handler (preferrably a member function of a class derived from the Form class).
+            """
+            Form.Control.__init__(self)
+
+            # Save the handler
+            self.handler = handler
+
+            # Create a callback stub
+            # We use this mechanism to create an intermediate step
+            # where we can create an 'fa' adapter for use by Python
+            self.arg = _FORMCHGCB_T(self.helper_cb)
+
+        def helper_cb(self, fid, p_fa):
+            # Remember the pointer to the forms_action
+            self.form.p_fa = p_fa
+
+            # Call user's handler
+            r = self.handler(fid)
+            return 0 if r is None else r
+
+        def get_tag(self):
+            return Form.FT_FORMCHG
+
+        def free(self):
+            Form.Control.free(self)
+            # Remove reference to the handler
+            # (Normally the handler is a member function in the parent form)
+            self.handler = None
+
+
+    class EmbeddedChooserControl(InputControl):
+        """
+        Embedded chooser control.
+        This control links to a Chooser2 control created with the 'embedded=True'
+        """
+        def __init__(self,
+                     chooser=None,
+                     swidth=40,
+                     hlp=None):
+            """
+            Embedded chooser control
+
+            @param chooser: A chooser2 instance (must be constructed with 'embedded=True')
+            """
+
+            # !! Make sure a chooser instance is passed !!
+            if chooser is None or not isinstance(chooser, Choose2):
+                raise ValueError("Invalid chooser passed.")
+
+            # Create an embedded chooser structure from the Choose2 instance
+            if chooser.Embedded() != 1:
+                raise ValueError("Failed to create embedded chooser instance.")
+
+            # Construct input control
+            Form.InputControl.__init__(self, Form.FT_ECHOOSER, "", swidth)
+
+            # Get a pointer to the chooser_info_t and the selection vector
+            # (These two parameters are the needed arguments for the AskUsingForm())
+            emb, sel = _idaapi.choose2_get_embedded(chooser)
+
+            # Get a pointer to a c_void_p constructed from an address
+            p_embedded = pointer(c_void_p.from_address(emb))
+            p_sel      = pointer(c_void_p.from_address(sel))
+
+            # - Create the embedded chooser info on control creation
+            # - Do not free the embeded chooser because after we get the args
+            #   via Compile() the user can still call Execute() which relies
+            #   on the already computed args
+            self.arg   = (p_embedded, p_sel)
+
+            # Save chooser instance
+            self.chooser = chooser
+
+            # Add a bogus 'size' attribute
+            self.size = 0
+
+
+        value = property(lambda self: self.chooser)
+        """Returns the embedded chooser instance"""
+
+
+        def AddCommand(self,
+                       caption,
+                       flags = _idaapi.CHOOSER_POPUP_MENU,
+                       menu_index = -1,
+                       icon = -1):
+            """
+            Adds a new embedded chooser command
+            Save the returned value and later use it in the OnCommand handler
+
+            @return: Returns a negative value on failure or the command index
+            """
+            if not self.form.title:
+                raise ValueError("Form title is not set!")
+
+            # Encode all information for the AddCommand() in the 'caption' parameter
+            caption = "%s:%d:%s" % (self.form.title, self.id, caption)
+            return self.chooser.AddCommand(caption, flags=flags, menu_index=menu_index, icon=icon, emb=2002)
+
+
+        def free(self):
+            """
+            Frees the embedded chooser data
+            """
+            self.chooser.Close()
+            self.chooser = None
+            Form.Control.free(self)
+
+
+    #
+    # Class methods
+    #
+    def __init__(self, form, controls):
+        """
+        Contruct a Form class.
+        This class wraps around AskUsingForm() and provides an easier / alternative syntax for describing forms.
+        The form control names are wrapped inside the opening and closing curly braces and the control themselves are
+        defined and instantiated via various form controls (subclasses of Form).
+
+        @param form: The form string
+        @param controls: A dictionary containing the control name as a _key_ and control object as _value_
+        """
+        self._reset()
+        self.form = form
+        self.controls = controls
+        self.__args = None
+
+        self.title = None
+        """The Form title. It will be filled when the form is compiled"""
+
+
+    def Free(self):
+        """
+        Frees all resources associated with a compiled form.
+        Make sure you call this function when you finish using the form.
+        """
+        for ctrl in self.__controls.values():
+             ctrl.free()
+        # Reset the controls
+        # (Note that we are not removing the form control attributes, no need)
+        self._reset()
+
+
+    def _reset(self):
+        """
+        Resets the Form class state variables
+        """
+        self.__controls = {}
+        self.__ctrl_id = 1
+
+
+    def __getitem__(self, name):
+        """Returns a control object by name"""
+        return self.__controls[name]
+
+
+    def Add(self, name, ctrl, mkattr = True):
+        """
+        Low level function. Prefer AddControls() to this function.
+        This function adds one control to the form.
+
+        @param name: Control name
+        @param ctrl: Control object
+        @param mkattr: Create control name / control object as a form attribute
+        """
+        # Assign a unique ID
+        ctrl.id = self.__ctrl_id
+        self.__ctrl_id += 1
+
+        # Create attribute with control name
+        if mkattr:
+            setattr(self, name, ctrl)
+
+        # Remember the control
+        self.__controls[name] = ctrl
+
+        # Link the form to the control via its form attribute
+        ctrl.form = self
+
+        # Is it a group? Add each child
+        if isinstance(ctrl, Form.GroupControl):
+            self._AddGroup(ctrl, mkattr)
+
+
+    def FindControlById(self, id):
+        """
+        Finds a control instance given its id
+        """
+        for ctrl in self.__controls.values():
+            if ctrl.id == id:
+                return ctrl
+        return None
+
+
+    @staticmethod
+    def _ParseFormTitle(form):
+        """
+        Parses the form's title from the form text
+        """
+        help_state = 0
+        for i, line in enumerate(form.split("\n")):
+            if line.startswith("STARTITEM ") or line.startswith("BUTTON "):
+                continue
+            # Skip "HELP" and remember state
+            elif help_state == 0 and line == "HELP":
+                help_state = 1 # Mark inside HELP
+                continue
+            elif help_state == 1 and line == "ENDHELP":
+                help_state = 2 # Mark end of HELP
+                continue
+            return line.strip()
+
+        return None
+
+
+    def _AddGroup(self, Group, mkattr=True):
+        """
+        Internal function.
+        This function expands the group item names and creates individual group item controls
+
+        @param Group: The group class (checkbox or radio group class)
+        """
+
+        # Create group item controls for each child
+        for child_name in Group.children_names:
+            self.Add(
+                child_name,
+                # Use the class factory
+                Group.ItemClass(Group.tag, Group),
+                mkattr)
+
+
+    def AddControls(self, controls, mkattr=True):
+        """
+        Adds controls from a dictionary.
+        The dictionary key is the control name and the value is a Form.Control object
+        @param controls: The control dictionary
+        """
+        for name, ctrl in controls.items():
+            # Add the control
+            self.Add(name, ctrl, mkattr)
+
+
+    def CompileEx(self, form):
+        """
+        Low level function.
+        Compiles (parses the form syntax and adds the control) the form string and
+        returns the argument list to be passed the argument list to AskUsingForm().
+
+        The form controls are wrapped inside curly braces: {ControlName}.
+
+        A special operator can be used to return the ID of a given control by its name: {id:ControlName}.
+        This is useful when you use the STARTITEM form keyword to set the initially focused control.
+
+        @param form: Compiles the form and returns the arguments needed to be passed to AskUsingForm()
+        """
+        # First argument is the form string
+        args = [None]
+        ctrlcnt = 1
+
+        # Reset all group control internal flags
+        for ctrl in self.__controls.values():
+            if isinstance(ctrl, Form.GroupControl):
+                ctrl._reset()
+
+        p = 0
+        while True:
+            i1 = form.find("{", p)
+            # No more items?
+            if i1 == -1:
+                break
+
+            # Check if escaped
+            if (i1 != 0) and form[i1-1] == "\\":
+                # Remove escape sequence and restart search
+                form = form[:i1-1] + form[i1:]
+
+                # Skip current marker
+                p = i1
+
+                # Continue search
+                continue
+
+            i2 = form.find("}", i1)
+            if i2 == -1:
+                raise SyntaxError("No matching closing brace '}'")
+
+            # Parse control name
+            ctrlname = form[i1+1:i2]
+            if not ctrlname:
+                raise ValueError("Control %d has an invalid name!" % ctrlcnt)
+
+            # Is it the IDOF operator?
+            if ctrlname.startswith("id:"):
+                idfunc = True
+                # Take actual ctrlname
+                ctrlname = ctrlname[3:]
+            else:
+                idfunc = False
+
+            # Find the control
+            ctrl = self.__controls.get(ctrlname, None)
+            if ctrl is None:
+                raise ValueError("No matching control '%s'" % ctrlname)
+
+            # Replace control name by tag
+            if idfunc:
+                tag = str(ctrl.id)
+            else:
+                tag = ctrl.get_tag()
+            taglen = len(tag)
+            form = form[:i1] + tag + form[i2+1:]
+
+            # Set new position
+            p = i1 + taglen
+
+            # Was it an IDOF() ? No need to push parameters
+            # Just ID substitution is fine
+            if idfunc:
+                continue
+
+
+            # For GroupItem controls, there are no individual arguments
+            # The argument is assigned for the group itself
+            if isinstance(ctrl, Form.GroupItemControl):
+                # GroupItem controls will have their position dynamically set
+                ctrl.assign_pos()
+            else:
+                # Push argument(s)
+                # (Some controls need more than one argument)
+                arg = ctrl.get_arg()
+                if isinstance(arg, (types.ListType, types.TupleType)):
+                    # Push all args
+                    args.extend(arg)
+                else:
+                    # Push one arg
+                    args.append(arg)
+
+            ctrlcnt += 1
+
+        # Patch in the final form string
+        args[0] = form
+
+        self.title = self._ParseFormTitle(form)
+        return args
+
+
+    def Compile(self):
+        """
+        Compiles a form and returns the form object (self) and the argument list.
+        The form object will contain object names corresponding to the form elements
+
+        @return: It will raise an exception on failure. Otherwise the return value is ignored
+        """
+
+        # Reset controls
+        self._reset()
+
+        # Insert controls
+        self.AddControls(self.controls)
+
+        # Compile form and get args
+        self.__args = self.CompileEx(self.form)
+
+        return (self, self.__args)
+
+
+    def Execute(self):
+        """
+        Displays a compiled form.
+        @return: 1 - ok ; 0 - cancel
+        """
+        if self.__args is None:
+            raise SyntaxError("Form is not compiled")
+
+        # Call AskUsingForm()
+        return AskUsingForm(*self.__args)
+
+
+    def EnableField(self, ctrl, enable):
+        """
+        Enable or disable an input field
+        @return: False - no such control
+        """
+        return _idaapi.formchgcbfa_enable_field(self.p_fa, ctrl.id, enable)
+
+
+    def ShowField(self, ctrl, show):
+        """
+        Show or hide an input field
+        @return: False - no such control
+        """
+        return _idaapi.formchgcbfa_show_field(self.p_fa, ctrl.id, show)
+
+
+    def MoveField(self, ctrl, x, y, w, h):
+        """
+        Move/resize an input field
+
+        @return: False - no such fiel
+        """
+        return _idaapi.formchgcbfa_move_field(self.p_fa, ctrl.id, x, y, w, h)
+
+
+    def GetFocusedField(self):
+        """
+        Get currently focused input field.
+        @return: None if no field is selected otherwise the control ID
+        """
+        id = _idaapi.formchgcbfa_get_focused_field(self.p_fa)
+        return self.FindControlById(id)
+
+
+    def SetFocusedField(self, ctrl):
+        """
+        Set currently focused input field
+        @return: False - no such control
+        """
+        return _idaapi.formchgcbfa_set_focused_field(self.p_fa, ctrl.id)
+
+
+    def RefreshField(self, ctrl):
+        """
+        Refresh a field
+        @return: False - no such control
+        """
+        return _idaapi.formchgcbfa_refresh_field(self.p_fa, ctrl.id)
+
+
+    def GetControlValue(self, ctrl):
+        """
+        Returns the control's value depending on its type
+        @param ctrl: Form control instance
+        @return:
+            - number: color button, radio controls
+            - string: file/dir input, string input and string label
+            - int list: for embedded chooser control (0-based indices of selected items)
+            - None: on failure
+        """
+        tid, sz = self.ControlToFieldTypeIdAndSize(ctrl)
+        return _idaapi.formchgcbfa_get_field_value(
+                    self.p_fa,
+                    ctrl.id,
+                    tid,
+                    sz)
+
+
+    def SetControlValue(self, ctrl, value):
+        """
+        Set the control's value depending on its type
+        @param ctrl: Form control instance
+        @param value:
+            - embedded chooser: base a 0-base indices list to select embedded chooser items
+        @return: Boolean true on success
+        """
+        tid, _ = self.ControlToFieldTypeIdAndSize(ctrl)
+        return _idaapi.formchgcbfa_set_field_value(
+                    self.p_fa,
+                    ctrl.id,
+                    tid,
+                    value)
+
+
+    @staticmethod
+    def ControlToFieldTypeIdAndSize(ctrl):
+        """
+        Converts a control object to a tuple containing the field id
+        and the associated buffer size
+        """
+        # Input control depend on the associate buffer size (supplied by the user)
+
+        # Make sure you check instances types taking into account inheritance
+        if isinstance(ctrl, Form.EmbeddedChooserControl):
+            return (5, 0)
+        # Group items or controls
+        elif isinstance(ctrl, (Form.GroupItemControl, Form.GroupControl)):
+            return (2, 0)
+        elif isinstance(ctrl, Form.StringLabel):
+            return (3, min(_idaapi.MAXSTR, ctrl.size))
+        elif isinstance(ctrl, Form.ColorInput):
+            return (4, 0)
+        elif isinstance(ctrl, Form.InputControl):
+            return (1, ctrl.size)
+        else:
+            raise NotImplementedError, "Not yet implemented"
+
+# --------------------------------------------------------------------------
+# Instantiate AskUsingForm function pointer
+try:
+    import ctypes
+    # Setup the numeric argument size
+    Form.NumericArgument.DefI64 = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+    AskUsingForm__ = ctypes.CFUNCTYPE(ctypes.c_long)(_idaapi.py_get_AskUsingForm())
+except:
+    def AskUsingForm__(*args):
+        warning("AskUsingForm() needs ctypes library in order to work")
+        return 0
+
+
+def AskUsingForm(*args):
+    """
+    Calls the AskUsingForm()
+    @param: Compiled Arguments obtain through the Form.Compile() function
+    @return: 1 = ok, 0 = cancel
+    """
+    old = set_script_timeout(0)
+    r = AskUsingForm__(*args)
+    set_script_timeout(old)
+    return r
+
+
+#</pycode(py_kernwin)>
+
+#<pycode(py_plgform)>
 class PluginForm(object):
     """
     PluginForm class.
@@ -2860,7 +4624,7 @@ class PluginForm(object):
     def Show(self, caption, options = 0):
         """
 		Creates the form if not was not created or brings to front if it was already created
-		
+
         @param caption: The form caption
         @param options: One of PluginForm.FORM_ constants
         """
@@ -2926,7 +4690,80 @@ class PluginForm(object):
     FORM_DONT_SAVE_SIZE = 0x4
     """don't save size of the window"""
 
-#</pycode(py_kernwin)>
+#</pycode(py_plgform)>
+
+class Choose:
+  """
+  Choose - class for choose() with callbacks
+  """
+  def __init__(self, list, title, flags=0):
+    self.list = list
+    self.title = title
+
+    self.flags = flags
+    self.x0 = -1
+    self.x1 = -1
+    self.y0 = -1
+    self.y1 = -1
+
+    self.width = -1
+
+    # HACK: Add a circular reference for non-modal choosers. This prevents the GC
+    # from collecting the class object the callbacks need. Unfortunately this means
+    # that the class will never be collected, unless refhack is set to None explicitly.
+    if (flags & Choose2.CH_MODAL) == 0:
+      self.refhack = self
+
+  def sizer(self):
+    """
+    Callback: sizer - returns the length of the list
+    """
+    return len(self.list)
+
+  def getl(self, n):
+    """
+    Callback: getl - get one item from the list
+    """
+    if n == 0:
+       return self.title
+    if n <= self.sizer():
+      return str(self.list[n-1])
+    else:
+      return "<Empty>"
+
+
+  def ins(self):
+    pass
+
+
+  def update(self, n):
+    pass
+
+
+  def edit(self, n):
+    pass
+
+
+  def enter(self, n):
+    print "enter(%d) called" % n
+
+
+  def destroy(self):
+    pass
+
+
+  def get_icon(self, n):
+    pass
+
+
+  def choose(self):
+    """
+    choose - Display the choose dialogue
+    """
+    old = set_script_timeout(0)
+    n = _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
+    set_script_timeout(old)
+    return n
 %}
 
 %pythoncode %{

@@ -89,3 +89,11 @@
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, char tag=htag);
 
 %include "netnode.hpp"
+
+%extend netnode 
+{
+    nodeidx_t index()
+    {
+      return self->operator nodeidx_t();
+    }
+}

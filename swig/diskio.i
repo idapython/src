@@ -49,7 +49,12 @@
 int idaapi py_enumerate_files_cb(const char *file, void *ud)
 {
   PyObject *py_file = PyString_FromString(file);
-  PyObject *py_ret  = PyObject_CallFunctionObjArgs((PyObject *)ud, py_file, NULL);
+  PYW_GIL_ENSURE;
+  PyObject *py_ret  = PyObject_CallFunctionObjArgs(
+    (PyObject *)ud, 
+    py_file, 
+    NULL);
+  PYW_GIL_RELEASE;
   int r = (py_ret == NULL || !PyNumber_Check(py_ret)) ? 1 /* stop enumeration on failure */ : PyInt_AsLong(py_ret);
   Py_XDECREF(py_file);
   Py_XDECREF(py_ret);

@@ -5,6 +5,7 @@
 // Types
 #ifndef PYUL_DEFINED
   #define PYUL_DEFINED
+  typedef unsigned PY_LONG_LONG PY_ULONG_LONG;
   #ifdef __EA64__
     typedef unsigned PY_LONG_LONG pyul_t;
     typedef PY_LONG_LONG pyl_t;
@@ -56,6 +57,31 @@ typedef qvector<PyObject *> ppyobject_vec_t;
 #define CIP_OK           1 // Success
 #define CIP_OK_NODECREF  2 // Success but do not decrement its reference
 
+//---------------------------------------------------------------------------
+class CGilStateAuto
+{
+private:
+  PyGILState_STATE state;
+public:
+  CGilStateAuto()
+  {
+    state = PyGILState_Ensure();
+  }
+
+  ~CGilStateAuto()
+  {
+    PyGILState_Release(state);
+  }
+};
+// Declare a variable to acquire/release the GIL
+#define PYW_GIL_AUTO_ENSURE CGilStateAuto GIL_STATE_AUTO
+
+// Macros to acquire/release GIL in a given scope
+#define PYW_GIL_ENSURE_N(name)  PyGILState_STATE gil_state##name = PyGILState_Ensure()
+#define PYW_GIL_RELEASE_N(name) PyGILState_Release(gil_state##name)
+
+#define PYW_GIL_ENSURE          PYW_GIL_ENSURE_N(_)
+#define PYW_GIL_RELEASE         PYW_GIL_RELEASE_N(_)
 //------------------------------------------------------------------------
 // All the exported functions from PyWraps are forward declared here
 insn_t *insn_t_get_clink(PyObject *self);
@@ -86,7 +112,8 @@ bool PyW_IsSequenceType(PyObject *obj);
 bool PyW_GetError(qstring *out = NULL);
 
 // If an error occured (it calls PyGetError) it displays it and return TRUE
-bool PyW_ShowErr(const char *cb_name);
+// This function is used when calling callbacks
+bool PyW_ShowCbErr(const char *cb_name);
 
 // Utility function to create a class instance whose constructor takes zero arguments
 PyObject *create_idaapi_class_instance0(const char *clsname);
@@ -124,6 +151,12 @@ Py_ssize_t pyvar_walk_list(
   int (idaapi *cb)(PyObject *py_item, Py_ssize_t index, void *ud) = NULL,
   void *ud = NULL);
 
+// Converts an intvec_t to a Python list object
+PyObject *PyW_IntVecToPyList(const intvec_t &intvec);
+
+// Converts an Python list to an intvec
+void PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
+
 // Returns a reference to a class
 PyObject *get_idaapi_attr(const char *attr);
 
@@ -131,5 +164,7 @@ PyObject *get_idaapi_attr(const char *attr);
 bool pywraps_nw_term();
 bool pywraps_nw_notify(int slot, ...);
 bool pywraps_nw_init();
+
+const char *pywraps_check_autoscripts();
 
 #endif

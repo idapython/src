@@ -10,38 +10,39 @@ class MyChoose2(Choose2):
         self.icon = 5
         self.selcount = 0
         self.popup_names = ["Inzert", "Del leet", "Ehdeet", "Ree frech"]
-        print "created", str(self)
+        print("created %s" % str(self))
 
     def OnClose(self):
         print "closed", str(self)
 
     def OnEditLine(self, n):
         self.items[n][1] = self.items[n][1] + "*"
-        print "editing", str(n)
+        print("editing %d" % n)
 
     def OnInsertLine(self):
         self.items.append(self.make_item())
-        print "insert line"
+        print("insert line")
 
     def OnSelectLine(self, n):
         self.selcount += 1
         Warning("[%02d] selectline '%s'" % (self.selcount, n))
 
     def OnGetLine(self, n):
-        print "getline", str(n)
+        print("getline %d" % n)
         return self.items[n]
 
     def OnGetSize(self):
-        print "getsize"
-        return len(self.items)
+        n = len(self.items)
+        print("getsize -> %d" % n)
+        return n
 
     def OnDeleteLine(self, n):
-        print "del ",str(n)
+        print("del %d " % n)
         del self.items[n]
         return n
 
     def OnRefresh(self, n):
-        print "refresh", n
+        print("refresh %d" % n)
         return n
 
     def OnCommand(self, n, cmd_id):
@@ -73,7 +74,7 @@ class MyChoose2(Choose2):
         return r
 
     def OnGetLineAttr(self, n):
-        print "getlineattr", n
+        print("getlineattr %d" % n)
         if n == 1:
             return [0xFF0000, 0]
 
@@ -81,4 +82,3 @@ for i in xrange(1, 5+1):
     c = MyChoose2("choose2 - sample %d" % i, i*2)
     r = c.show()
     print r
-    

@@ -135,7 +135,7 @@
     else
     {
         Py_INCREF(Py_None);
-	resultobj = Py_None;
+  resultobj = Py_None;
     }
 #ifdef __cplusplus
     delete [] (char *)$1;
@@ -148,8 +148,20 @@
  // Check that the argument is a callable Python object
 %typemap(in) PyObject *pyfunc {
     if (!PyCallable_Check($input)) {
-        PyErr_SetString(PyExc_TypeError, "Expecting a callable object");
+        PyErr_SetString(PyExc_TypeError, "Expected a callable object");
         return NULL;
     }
     $1 = $input;
+}
+
+// Convert ea_t
+%typemap(in) ea_t
+{
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected an ea_t type");
+    return NULL;
+  }
+  $1 = ea_t($1_temp);
 }

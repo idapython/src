@@ -27,6 +27,7 @@
 %ignore create_func_eas_array;
 %ignore auto_add_func_tails;
 %ignore read_tails;
+%rename (get_idasgn_desc) py_get_idasgn_desc;
 
 %include "funcs.hpp"
 
@@ -34,18 +35,47 @@
 %clear(char *optlibs);
 
 %inline %{
+//-----------------------------------------------------------------------
 /*
 #<pydoc>
 def get_fchunk_referer(ea, idx):
     pass
 #</pydoc>
 */
-ea_t get_fchunk_referer(ea_t ea, size_t idx)
+static ea_t get_fchunk_referer(ea_t ea, size_t idx)
 {
     func_t *pfn = get_fchunk(ea);
     func_parent_iterator_t dummy(pfn); // read referer info
     if (idx >= pfn->refqty || pfn->referers == NULL)
-        return BADADDR;
-    return pfn->referers[idx];
+      return BADADDR;
+    else
+      return pfn->referers[idx];
 }
+
+//-----------------------------------------------------------------------
+/*
+#<pydoc>
+def get_idasgn_desc(n):
+    """
+    Get information about a signature in the list.
+    It returns both:
+      signame - the name of the signature
+      optlibs - the names of the optional libraries
+
+    @param n: number of signature in the list (0..get_idasgn_qty()-1)
+    @return: None on failure or tuple(signame, optlibs)
+    """
+#</pydoc>
+*/
+static PyObject *ida_export py_get_idasgn_desc(int n)
+{
+  char signame[MAXSTR];
+  char optlibs[MAXSTR];
+
+  if ( get_idasgn_desc(n, signame, sizeof(signame), optlibs, sizeof(optlibs)) == -1 )
+    Py_RETURN_NONE;
+  else
+    return Py_BuildValue("(ss)", signame, optlibs);
+}
+
 %}

@@ -10,8 +10,14 @@ typedef struct
 %ignore source_file_t;
 %ignore source_item_t;
 %ignore srcinfo_provider_t;
+%ignore bpt_location_t::print;
+%ignore bpt_t::set_cond;
+%ignore bpt_t::eval_cond;
+%ignore bpt_t::write;
+%ignore bpt_t::erase;
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
+%ignore inform_idc_about_debthread;
 %include "dbg.hpp"
 %ignore DBG_Callback;
 %feature("director") DBG_Hooks;
@@ -75,8 +81,12 @@ static PyObject *refresh_debugger_memory()
 {
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, 0);
+
+  // Ask the debugger to populate debug names
   if ( dbg != NULL && dbg->stopped_at_debug_event != NULL )
     dbg->stopped_at_debug_event(true);
+
+  // Invalidate the cache
   isEnabled(0);
 
   Py_RETURN_NONE;

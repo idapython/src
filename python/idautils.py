@@ -310,6 +310,37 @@ def FuncItems(start):
         ok = fii.next_code()
 
 
+
+def DecodePrecedingInstruction(ea):
+    """
+    Decode preceding instruction in the execution flow.
+
+    @param ea: address to decode
+    @return: (None or the decode instruction, farref)
+             farref will contain 'true' if followed an xref, false otherwise
+    """
+    prev_addr, farref  = idaapi.decode_preceding_insn(ea)
+    if prev_addr == idaapi.BADADDR:
+        return (None, False)
+    else:
+        return (idaapi.cmd.copy(), farref)
+
+
+
+def DecodePreviousInstruction(ea):
+    """
+    Decodes the previous instruction and returns an insn_t like class
+
+    @param ea: address to decode
+    @return: None or a new insn_t instance
+    """
+    inslen = idaapi.decode_prev_insn(ea)
+    if inslen == 0:
+        return None
+
+    return idaapi.cmd.copy()
+
+
 def DecodeInstruction(ea):
     """
     Decodes an instruction and returns an insn_t like class
@@ -393,7 +424,7 @@ class Strings(object):
     """
     Returns the string list.
 
-	Example:
+    Example:
         s = Strings()
 
         for i in s:
@@ -434,6 +465,7 @@ class Strings(object):
         """Clears the strings list cache"""
         self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
 
+
     def __init__(self, default_setup = True):
         """
         Initializes the Strings enumeration helper class
@@ -446,6 +478,7 @@ class Strings(object):
 
         self._si  = idaapi.string_info_t()
 
+
     def refresh(self, ea1=None, ea2=None):
         """Refreshes the strings list"""
         if ea1 is None:
@@ -455,6 +488,7 @@ class Strings(object):
 
         idaapi.refresh_strlist(ea1, ea2)
         self.size = idaapi.get_strlist_qty()
+
 
     def setup(self,
               strtypes = STR_C,
@@ -483,15 +517,24 @@ class Strings(object):
         # Automatically refreshes
         self.refresh()
 
+
+    def _get_item(self, index):
+        if not idaapi.get_strlist_item(index, self._si):
+            return None
+        else:
+            return Strings.StringItem(self._si)
+
+
+    def __iter__(self):
+        return (self._get_item(index) for index in xrange(0, self.size))
+
+
     def __getitem__(self, index):
         """Returns a string item or None"""
         if index >= self.size:
-            raise StopIteration
-
-        if idaapi.get_strlist_item(index, self._si):
-            return Strings.StringItem(self._si)
-
-        return None
+            raise KeyError
+        else:
+            return self._get_item(index)
 
 # -----------------------------------------------------------------------
 def GetIdbDir():
@@ -645,6 +688,12 @@ class peutils_t(object):
 
     def __str__(self):
         return "peutils_t(imagebase=%s, header=%s)" % (hex(self.imagebase), hex(self.header))
+
+    def header(self):
+        """
+        Returns the complete PE header as an instance of peheader_t (defined in the SDK).
+        """
+        return self.__penode.valobj()
 
 # -----------------------------------------------------------------------
 cpu = _cpu()

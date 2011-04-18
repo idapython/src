@@ -78,7 +78,6 @@
 //<code(py_lines)>
 //------------------------------------------------------------------------
 static PyObject *py_get_user_defined_prefix = NULL;
-static qstring py_get_user_defined_prefix_err;
 static void idaapi s_py_get_user_defined_prefix(
   ea_t ea,
   int lnnum,
@@ -92,12 +91,9 @@ static void idaapi s_py_get_user_defined_prefix(
     PY_FMT64 "iis" PY_FMT64,
     ea, lnnum, indent, line, bufsize);
 
-  if ( PyW_GetError(&py_get_user_defined_prefix_err) || py_ret == NULL )
-  {
-    msg("py_get_user_defined_prefix() error: %s\n", py_get_user_defined_prefix_err.c_str());
-    PyErr_Clear();
-  }
-  else
+  // Error? Display it
+  // No error? Copy the buffer
+  if ( !PyW_ShowCbErr("py_get_user_defined_prefix") )
   {
     Py_ssize_t py_len;
     char *py_str;
@@ -192,6 +188,7 @@ PyObject *py_tag_remove(const char *instr)
   char *buf = new char[sz + 5];
   if ( buf == NULL )
     Py_RETURN_NONE;
+  
   ssize_t r = tag_remove(instr, buf, sz);
   PyObject *res;
   if ( r < 0 )

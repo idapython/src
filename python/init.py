@@ -31,7 +31,7 @@ class IDAPythonStdOut:
         # Swap out the unprintable characters
         text = text.decode('ascii', 'replace').encode('ascii', 'replace')
         # Print to IDA message window
-        _idaapi.msg(text.replace("%", "%%"))
+        _idaapi.msg(text)
 
     def flush(self):
         pass
@@ -61,9 +61,9 @@ def print_banner():
     ]
     sepline = '-' * (max([len(s) for s in banner])+1)
 
-    print sepline
-    print "\n".join(banner)
-    print sepline
+    print(sepline)
+    print("\n".join(banner))
+    print(sepline)
 
 # -----------------------------------------------------------------------
 
@@ -76,9 +76,20 @@ sys.argv = [""]
 # Have to make sure Python finds our modules
 sys.path.append(_idaapi.idadir("python"))
 
+# Remove current directory from the top of the patch search
+if '' in sys.path: # On non Windows, the empty path is added
+    sys.path.remove('')
+
+if os.getcwd() in sys.path:
+    sys.path.remove(os.getcwd())
+
+# ...and add it to the end if needed
+if not IDAPYTHON_REMOVE_CWD_SYS_PATH:
+    sys.path.append(os.getcwd())
+
 # Import all the required modules
-from idaapi import Choose, get_user_idadir, cvar, Choose2, Appcall
-from idc import *
+from idaapi import Choose, get_user_idadir, cvar, Choose2, Appcall, Form
+from idc      import *
 from idautils import *
 import idaapi
 

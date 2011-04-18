@@ -12,6 +12,7 @@
 // TODO: These could be wrapped if needed
 %ignore load_info_t;
 %ignore add_plugin_option;
+%ignore get_plugins_path;
 %ignore build_loaders_list;
 %ignore free_loaders_list;
 %ignore get_loader_name_from_dll;
@@ -147,6 +148,7 @@ static int py_mem2base(PyObject *py_mem, ea_t ea, long fpos = -1)
   char *buf;
   if ( PyString_AsStringAndSize(py_mem, &buf, &len) == -1 )
     return 0;
+
   return mem2base((void *)buf, ea, ea+len, fpos);
 }
 
@@ -168,6 +170,7 @@ static PyObject *py_load_plugin(const char *name)
   plugin_t *r = load_plugin(name);
   if ( r == NULL )
     Py_RETURN_NONE;
+
   return PyCObject_FromVoidPtr(r, NULL);
 }
 
@@ -187,6 +190,7 @@ static bool py_run_plugin(PyObject *plg, int arg)
 {
   if ( !PyCObject_Check(plg) )
     return false;
+
   return run_plugin((plugin_t *)PyCObject_AsVoidPtr(plg), arg);
 }
 

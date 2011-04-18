@@ -25,7 +25,11 @@ static int idaapi py_import_enum_cb(
   uval_t ord,
   void *param)
 {
-  PyObject *py_ea = Py_BuildValue(PY_FMT64, pyul_t(ea));
+  // If no name, try to get the name associated with the 'ea'. It may be coming from IDS
+  char name_buf[MAXSTR];
+  if ( name == NULL )
+    name = get_true_name(BADADDR, ea, name_buf, sizeof(name_buf));
+
   PyObject *py_name;
   if ( name == NULL )
   {
@@ -36,13 +40,25 @@ static int idaapi py_import_enum_cb(
   {
     py_name = PyString_FromString(name);
   }
+
   PyObject *py_ord = Py_BuildValue(PY_FMT64, pyul_t(ord));
-  PyObject *py_result = PyObject_CallFunctionObjArgs((PyObject *)param, py_ea, py_name, py_ord, NULL);
+  PyObject *py_ea = Py_BuildValue(PY_FMT64, pyul_t(ea));
+  PYW_GIL_ENSURE;
+  PyObject *py_result = PyObject_CallFunctionObjArgs(
+      (PyObject *)param, 
+      py_ea, 
+      py_name, 
+      py_ord, 
+      NULL);
+  PYW_GIL_RELEASE;
+
   int r = py_result != NULL && PyObject_IsTrue(py_result) ? 1 : 0;
+
   Py_DECREF(py_ea);
   Py_DECREF(py_name);
   Py_DECREF(py_ord);
   Py_XDECREF(py_result);
+
   return r;
 }
 
@@ -90,6 +106,7 @@ static PyObject *py_get_import_module_name(int mod_index)
   char buf[MAXSTR];
   if ( !get_import_module_name(mod_index, buf, sizeof(buf)) )
     Py_RETURN_NONE;
+  
   return PyString_FromString(buf);
 }
 
@@ -234,6 +251,7 @@ static int py_enum_import_names(int mod_index, PyObject *py_cb)
 {
   if ( !PyCallable_Check(py_cb) )
     return -1;
+  
   return enum_import_names(mod_index, py_import_enum_cb, py_cb);
 }
 
@@ -244,6 +262,7 @@ static PyObject *switch_info_ex_t_create()
   return PyCObject_FromVoidPtr(inst, NULL);
 }
 
+//---------------------------------------------------------------------------
 static bool switch_info_ex_t_destroy(PyObject *py_obj)
 {
   if ( !PyCObject_Check(py_obj) )

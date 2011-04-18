@@ -42,72 +42,6 @@
 %feature("director") IDB_Hooks;
 %feature("director") IDP_Hooks;
 %inline %{
-int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
-class IDB_Hooks 
-{
-public:
-    virtual ~IDB_Hooks() {};
-
-    bool hook() { return hook_to_notification_point(HT_IDB, IDB_Callback, this); }
-    bool unhook() { return unhook_from_notification_point(HT_IDB, IDB_Callback, this); }
-    /* Hook functions to override in Python */
-    virtual int byte_patched(ea_t ea) { return 0; };
-    virtual int cmt_changed(ea_t, bool repeatable_cmt) { return 0; };
-    virtual int ti_changed(ea_t ea, const type_t *type, const p_list *fnames) { msg("ti_changed hook not supported yet\n"); return 0; };
-    virtual int op_ti_changed(ea_t ea, int n, const type_t *type, const p_list *fnames) { msg("op_ti_changed hook not supported yet\n"); return 0; };
-    virtual int op_type_changed(ea_t ea, int n) { return 0; };
-    virtual int enum_created(enum_t id) { return 0; };
-    virtual int enum_deleted(enum_t id) { return 0; };
-    virtual int enum_bf_changed(enum_t id) { return 0; };
-    virtual int enum_renamed(enum_t id) { return 0; };
-    virtual int enum_cmt_changed(enum_t id) { return 0; };
-    virtual int enum_member_created(enum_t id, const_t cid) { return 0; };
-    virtual int enum_member_deleted(enum_t id, const_t cid) { return 0; };
-    virtual int struc_created(tid_t struc_id) { return 0; };
-    virtual int struc_deleted(tid_t struc_id) { return 0; };
-    virtual int struc_renamed(struc_t *sptr) { return 0; };
-    virtual int struc_expanded(struc_t *sptr) { return 0; };
-    virtual int struc_cmt_changed(tid_t struc_id) { return 0; };
-    virtual int struc_member_created(struc_t *sptr, member_t *mptr) { return 0; };
-    virtual int struc_member_deleted(struc_t *sptr, tid_t member_id) { return 0; };
-    virtual int struc_member_renamed(struc_t *sptr, member_t *mptr) { return 0; };
-    virtual int struc_member_changed(struc_t *sptr, member_t *mptr) { return 0; };
-    virtual int thunk_func_created(func_t *pfn) { return 0; };
-    virtual int func_tail_appended(func_t *pfn, func_t *tail) { return 0; };
-    virtual int func_tail_removed(func_t *pfn, ea_t tail_ea) { return 0; };
-    virtual int tail_owner_changed(func_t *tail, ea_t owner_func) { return 0; };
-    virtual int func_noret_changed(func_t *pfn) { return 0; };
-    virtual int segm_added(segment_t *s) { return 0; };
-    virtual int segm_deleted(ea_t startEA) { return 0; };
-    virtual int segm_start_changed(segment_t *s) { return 0; };
-    virtual int segm_end_changed(segment_t *s) { return 0; };
-    virtual int segm_moved(ea_t from, ea_t to, asize_t size) { return 0; };
-};
-
-// Assemble an instruction into the database (display a warning if an error is found)
-// args:
-//  ea_t ea -  linear address of instruction
-//  ea_t cs -  cs of instruction
-//  ea_t ip -  ip of instruction
-//  bool use32 - is 32bit segment?
-//  const char *line - line to assemble
-// returns: 1: success, 0: failure 
-inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
-{
-    int inslen;
-    char buf[MAXSTR];
-
-    if (ph.notify != NULL)
-    {
-        inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
-        if (inslen > 0)
-	{
-            patch_many_bytes(ea, buf, inslen);
-            return 1;
-	}
-    }
-    return 0;
-}
 
 //<inline(py_idp)>
 //-------------------------------------------------------------------------
@@ -117,8 +51,8 @@ inline const int assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *lin
 #<pydoc>
 def AssembleLine(ea, cs, ip, use32, line):
     """
-    Assemble an instruction to a buffer (display a warning if an error is found)
-    
+    Assemble an instruction to a string (display a warning if an error is found)
+
     @param ea: linear address of instruction
     @param cs:  cs of instruction
     @param ip:  ip of instruction
@@ -141,6 +75,39 @@ static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char 
     return PyString_FromStringAndSize(buf, inslen);
   }
   Py_RETURN_NONE;
+}
+
+//---------------------------------------------------------------------------
+/*
+#<pydoc>
+def assemble(ea, cs, ip, use32, line):
+    """
+    Assemble an instruction into the database (display a warning if an error is found)
+    @param ea: linear address of instruction
+    @param cs: cs of instruction
+    @param ip: ip of instruction
+    @param use32: is 32bit segment?
+    @param line: line to assemble
+
+    @return: Boolean. True on success.
+    """
+#</pydoc>
+*/
+bool assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+{
+  int inslen;
+  char buf[MAXSTR];
+
+  if (ph.notify != NULL)
+  {
+    inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
+    if (inslen > 0)
+    {
+      patch_many_bytes(ea, buf, inslen);
+      return true;
+    }
+  }
+  return false;
 }
 
 //-------------------------------------------------------------------------
@@ -408,6 +375,7 @@ static PyObject *ph_get_regnames()
   PyObject *py_result = PyList_New(ph.regsNum);
   for ( Py_ssize_t i=0; i<ph.regsNum; i++ )
     PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
+
   return py_result;
 }
 
@@ -415,6 +383,21 @@ static PyObject *ph_get_regnames()
 /*
 #<pydoc>
 class IDP_Hooks(object):
+    def hook(self):
+        """
+        Creates an IDP hook
+
+        @return: Boolean true on success
+        """
+        pass
+
+    def unhook(self):
+        """
+        Removes the IDP hook
+        @return: Boolean true on success
+        """
+        pass
+
     def custom_ana(self):
         """
         Analyzes and decodes an instruction at idaapi.cmd.ea
@@ -476,63 +459,179 @@ class IDP_Hooks(object):
              - 0: the instruction is created because
                   of some coderef, user request or another
                   weighty reason.
-            @return: 1-ok, <=0-no, the instruction isn't likely to appear in the program
+       @return: 1-ok, <=0-no, the instruction isn't likely to appear in the program
        """
        pass
 
-    def is_sane_insn(self, no_crefs):
+    def may_be_func(self, no_crefs):
        """
-       can a function start here?
+       Can a function start here?
        @param state: autoanalysis phase
              0: creating functions
              1: creating chunks
-       
+
        @return: integer (probability 0..100)
        """
        pass
+
+    def closebase(self):
+       """
+       The database will be closed now
+       """
+       pass
+
+    def savebase(self):
+       """
+       The database is being saved. Processor module should
+       """
+       pass
+
+    def rename(self, ea, new_name):
+       """
+       The kernel is going to rename a byte.
+
+       @param ea: Address
+       @param new_name: The new name
+
+       @return:
+           - If returns value <=0, then the kernel should
+             not rename it. See also the 'renamed' event
+       """
+
+    def renamed(self, ea, new_name, local_name):
+       """
+       The kernel has renamed a byte
+
+       @param ea: Address
+       @param new_name: The new name
+       @param local_name: Is local name
+
+       @return: Ignored
+       """
+
+    def undefine(self, ea):
+       """
+       An item in the database (insn or data) is being deleted
+       @param ea: Address
+       @return:
+           - returns: >0-ok, <=0-the kernel should stop
+           - if the return value is positive:
+              bit0 - ignored
+              bit1 - do not delete srareas at the item end
+       """
+
+    def make_code(self, ea, size):
+       """
+       An instruction is being created
+       @param ea: Address
+       @param size: Instruction size
+       @return: 1-ok, <=0-the kernel should stop
+       """
+
+    def make_code(self, ea, size):
+       """
+       An instruction is being created
+       @param ea: Address
+       @param size: Instruction size
+       @return: 1-ok, <=0-the kernel should stop
+       """
+    
+    def make_data(self, ea, flags, tid, len):
+       """
+       A data item is being created
+       @param ea: Address
+       @param tid: type id
+       @param flags: item flags
+       @param len: data item size
+       @return: 1-ok, <=0-the kernel should stop
+       """
+
+    def load_idasgn(self, short_sig_name):
+       """
+       FLIRT signature have been loaded for normal processing 
+       (not for recognition of startup sequences)
+       @param short_sig_name: signature name
+       @return: Ignored
+       """
+
+    def add_func(self, func):
+       """
+       The kernel has added a function
+       @param func: the func_t instance
+       @return: Ignored
+       """
+
+    def del_func(self, func):
+       """
+       The kernel is about to delete a function
+       @param func: the func_t instance
+       @return: 1-ok,<=0-do not delete
+       """
+
+    def is_call_insn(self, ea, func_name):
+       """
+       Is the instruction a "call"?
+
+       @param ea: instruction address
+       @return: 1-unknown, 0-no, 2-yes
+       """
+
+    def is_ret_insn(self, ea, func_name):
+       """
+       Is the instruction a "return"?
+
+       @param ea: instruction address
+       @param strict: - True: report only ret instructions
+                        False: include instructions like "leave" which begins the function epilog
+       @return: 1-unknown, 0-no, 2-yes
+       """
+
 #</pydoc>
 */
+//---------------------------------------------------------------------------
+// IDP hooks
+//---------------------------------------------------------------------------
 int idaapi IDP_Callback(void *ud, int notification_code, va_list va);
-class IDP_Hooks 
+class IDP_Hooks
 {
 public:
-  virtual ~IDP_Hooks() 
+  virtual ~IDP_Hooks()
   {
   }
 
-  bool hook() 
-  { 
-    return hook_to_notification_point(HT_IDP, IDP_Callback, this); 
+  bool hook()
+  {
+    return hook_to_notification_point(HT_IDP, IDP_Callback, this);
   }
 
-  bool unhook() 
-  { 
-    return unhook_from_notification_point(HT_IDP, IDP_Callback, this); 
+  bool unhook()
+  {
+    return unhook_from_notification_point(HT_IDP, IDP_Callback, this);
   }
 
-  virtual bool custom_ana() 
-  { 
-    return false; 
+  virtual bool custom_ana()
+  {
+    return false;
   }
 
-  virtual bool custom_out() 
-  { 
-    return false; 
+  virtual bool custom_out()
+  {
+    return false;
   }
-  
+
   virtual bool custom_emu()
-  { 
-    return false; 
+  {
+    return false;
   }
-  
-  virtual bool custom_outop(PyObject *py_op) 
-  { 
-    return false; 
+
+  virtual bool custom_outop(PyObject *py_op)
+  {
+    return false;
   }
-  
-  virtual PyObject *custom_mnem() 
-  { 
-    return NULL; 
+
+  virtual PyObject *custom_mnem()
+  {
+    return NULL;
   }
 
   virtual int is_sane_insn(int no_crefs)
@@ -544,12 +643,287 @@ public:
   {
     return 0;
   }
+
+  virtual int closebase()
+  {
+    return 0;
+  }
+
+  virtual void savebase()
+  {
+  }
+
+  virtual int rename(ea_t ea, const char *new_name)
+  {
+    return 0;
+  }
+
+  virtual void renamed(ea_t ea, const char *new_name, bool local_name)
+  {
+  }
+
+  virtual int undefine(ea_t ea)
+  {
+    return 0;
+  }
+
+  virtual int make_code(ea_t ea, asize_t size)
+  {
+    return 0;
+  }
+
+  virtual int make_data(ea_t ea, flags_t flags, tid_t tid, asize_t len)
+  {
+    return 0;
+  }
+
+  virtual void load_idasgn(const char *short_sig_name)
+  {
+  }
+
+  virtual void add_func(func_t *func)
+  {
+  }
+
+  virtual int del_func(func_t *func)
+  {
+    return 0;
+  }
+
+  virtual int is_call_insn(ea_t ea)
+  {
+    return 0;
+  }
+
+  virtual int is_ret_insn(ea_t ea, bool strict)
+  {
+    return 0;
+  }
+
+};
+
+//---------------------------------------------------------------------------
+// IDB hooks
+//---------------------------------------------------------------------------
+int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
+class IDB_Hooks
+{
+public:
+  virtual ~IDB_Hooks() {};
+
+  bool hook()
+  {
+    return hook_to_notification_point(HT_IDB, IDB_Callback, this);
+  }
+  bool unhook()
+  {
+    return unhook_from_notification_point(HT_IDB, IDB_Callback, this);
+  }
+  // Hook functions to override in Python
+  virtual int byte_patched(ea_t ea) { return 0; };
+  virtual int cmt_changed(ea_t, bool repeatable_cmt) { return 0; };
+  virtual int ti_changed(ea_t ea, const type_t *type, const p_list *fnames) { msg("ti_changed hook not supported yet\n"); return 0; };
+  virtual int op_ti_changed(ea_t ea, int n, const type_t *type, const p_list *fnames) { msg("op_ti_changed hook not supported yet\n"); return 0; };
+  virtual int op_type_changed(ea_t ea, int n) { return 0; };
+  virtual int enum_created(enum_t id) { return 0; };
+  virtual int enum_deleted(enum_t id) { return 0; };
+  virtual int enum_bf_changed(enum_t id) { return 0; };
+  virtual int enum_renamed(enum_t id) { return 0; };
+  virtual int enum_cmt_changed(enum_t id) { return 0; };
+  virtual int enum_member_created(enum_t id, const_t cid) { return 0; };
+  virtual int enum_member_deleted(enum_t id, const_t cid) { return 0; };
+  virtual int struc_created(tid_t struc_id) { return 0; };
+  virtual int struc_deleted(tid_t struc_id) { return 0; };
+  virtual int struc_renamed(struc_t *sptr) { return 0; };
+  virtual int struc_expanded(struc_t *sptr) { return 0; };
+  virtual int struc_cmt_changed(tid_t struc_id) { return 0; };
+  virtual int struc_member_created(struc_t *sptr, member_t *mptr) { return 0; };
+  virtual int struc_member_deleted(struc_t *sptr, tid_t member_id) { return 0; };
+  virtual int struc_member_renamed(struc_t *sptr, member_t *mptr) { return 0; };
+  virtual int struc_member_changed(struc_t *sptr, member_t *mptr) { return 0; };
+  virtual int thunk_func_created(func_t *pfn) { return 0; };
+  virtual int func_tail_appended(func_t *pfn, func_t *tail) { return 0; };
+  virtual int func_tail_removed(func_t *pfn, ea_t tail_ea) { return 0; };
+  virtual int tail_owner_changed(func_t *tail, ea_t owner_func) { return 0; };
+  virtual int func_noret_changed(func_t *pfn) { return 0; };
+  virtual int segm_added(segment_t *s) { return 0; };
+  virtual int segm_deleted(ea_t startEA) { return 0; };
+  virtual int segm_start_changed(segment_t *s) { return 0; };
+  virtual int segm_end_changed(segment_t *s) { return 0; };
+  virtual int segm_moved(ea_t from, ea_t to, asize_t size) { return 0; };
 };
 
 //</inline(py_idp)>
 %}
 
 %{
+//<code(py_idp)>
+//-------------------------------------------------------------------------
+int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
+{
+  IDP_Hooks *proxy = (IDP_Hooks *)ud;
+  int ret = 0;
+  try
+  {
+    switch ( notification_code )
+    {
+    case processor_t::custom_ana:
+      ret = proxy->custom_ana() ? 1 + cmd.size : 0;
+      break;
+
+    case processor_t::custom_out:
+      ret = proxy->custom_out() ? 2 : 0;
+      break;
+
+    case processor_t::custom_emu:
+      ret = proxy->custom_emu() ? 2 : 0;
+      break;
+
+    case processor_t::custom_outop:
+      {
+        op_t *op = va_arg(va, op_t *);
+        PyObject *py_obj = create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op);
+        if ( py_obj == NULL )
+          break;
+        ret = proxy->custom_outop(py_obj) ? 2 : 0;
+        Py_XDECREF(py_obj);
+        break;
+      }
+
+    case processor_t::custom_mnem:
+      {
+        PyObject *py_ret = proxy->custom_mnem();
+        if ( py_ret != NULL && PyString_Check(py_ret) )
+        {
+          char *outbuffer = va_arg(va, char *);
+          size_t bufsize  = va_arg(va, size_t);
+
+          qstrncpy(outbuffer, PyString_AS_STRING(py_ret), bufsize);
+          ret = 2;
+        }
+        else
+        {
+          ret = 0;
+        }
+        Py_XDECREF(py_ret);
+        break;
+      }
+
+    case processor_t::is_sane_insn:
+      {
+        int no_crefs = va_arg(va, int);
+        ret = proxy->is_sane_insn(no_crefs);
+        break;
+      }
+
+    case processor_t::may_be_func:
+      {
+        int state = va_arg(va, int);
+        ret = proxy->may_be_func(state);
+        break;
+      }
+
+    case processor_t::closebase:
+      {
+        proxy->closebase();
+        break;
+      }
+
+    case processor_t::savebase:
+      {
+        proxy->savebase();
+        break;
+      }
+
+    case processor_t::rename:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        const char *new_name = va_arg(va, const char *);
+        ret = proxy->rename(ea, new_name);
+        break;
+      }
+
+    case processor_t::renamed:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        const char *new_name = va_arg(va, const char *);
+        bool local_name = va_argi(va, bool);
+        proxy->renamed(ea, new_name, local_name);
+        break;
+      }
+
+    case processor_t::undefine:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        ret = proxy->undefine(ea);
+        break;
+      }
+
+    case processor_t::make_code:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        asize_t size = va_arg(va, asize_t);
+        ret = proxy->make_code(ea, size);
+        break;
+      }
+
+    case processor_t::make_data:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        flags_t flags = va_arg(va, flags_t);
+        tid_t tid = va_arg(va, tid_t);
+        asize_t len = va_arg(va, asize_t);
+        ret = proxy->make_data(ea, flags, tid, len);
+        break;
+      }
+
+    case processor_t::load_idasgn:
+      {
+        const char *short_sig_name = va_arg(va, const char *);
+        proxy->load_idasgn(short_sig_name);
+        break;
+      }
+
+    case processor_t::add_func:
+      {
+        func_t *func = va_arg(va, func_t *);
+        proxy->add_func(func);
+        break;
+      }
+
+    case processor_t::del_func:
+      {
+        func_t *func = va_arg(va, func_t *);
+        ret = proxy->del_func(func);
+        break;
+      }
+
+    case processor_t::is_call_insn:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        ret = proxy->is_call_insn(ea);
+        break;
+      }
+
+    case processor_t::is_ret_insn:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        bool strict = va_argi(va, bool);
+        ret = proxy->is_ret_insn(ea, strict);
+        break;
+      }
+    }
+  }  
+  catch (Swig::DirectorException &)
+  {
+    msg("Exception in IDP Hook function:\n");
+    if ( PyErr_Occurred() )
+      PyErr_Print();
+  }
+  return ret;
+}
+
+//---------------------------------------------------------------------------
 int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 {
   class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
@@ -615,12 +989,20 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
       id = va_arg(va, enum_t);
       return proxy->enum_cmt_changed(id);
 
+#ifdef NO_OBSOLETE_FUNCS
     case idb_event::enum_member_created:
+#else
+    case idb_event::enum_const_created:
+#endif
       id = va_arg(va, enum_t);
       cid = va_arg(va, const_t);
       return proxy->enum_member_created(id, cid);
 
+#ifdef NO_OBSOLETE_FUNCS
     case idb_event::enum_member_deleted:
+#else
+    case idb_event::enum_const_deleted:
+#endif
       id = va_arg(va, enum_t);
       cid = va_arg(va, const_t);
       return proxy->enum_member_deleted(id, cid);
@@ -711,95 +1093,15 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
       return proxy->segm_moved(ea, ea2, size);
     }
   }
-  catch (Swig::DirectorException &) 
-  { 
-    msg("Exception in IDB Hook function:\n"); 
+  catch (Swig::DirectorException &)
+  {
+    msg("Exception in IDB Hook function:\n");
     if (PyErr_Occurred())
     {
       PyErr_Print();
     }
   }
   return 0;
-}
-
-//<code(py_idp)>
-//-------------------------------------------------------------------------
-int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
-{
-  IDP_Hooks *proxy = (IDP_Hooks *)ud;
-  int ret;
-  try 
-  {
-    switch ( notification_code )
-    {
-    default:
-      ret = 0;
-      break;
-
-    case processor_t::custom_ana:
-      ret = proxy->custom_ana() ? 1 + cmd.size : 0;
-      break;
-
-    case processor_t::custom_out:
-      ret = proxy->custom_out() ? 2 : 0;
-      break;
-
-    case processor_t::custom_emu:
-      ret = proxy->custom_emu() ? 2 : 0;
-      break;
-
-    case processor_t::custom_outop:
-      {
-        op_t *op = va_arg(va, op_t *);
-        PyObject *py_obj = create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op);
-        if ( py_obj == NULL )
-          break;
-        ret = proxy->custom_outop(py_obj) ? 2 : 0;
-        Py_XDECREF(py_obj);
-        break;
-      }
-
-    case processor_t::custom_mnem:
-      {
-        PyObject *py_ret = proxy->custom_mnem();
-        if ( py_ret != NULL && PyString_Check(py_ret) )
-        {
-          char *outbuffer = va_arg(va, char *);
-          size_t bufsize  = va_arg(va, size_t);
-
-          qstrncpy(outbuffer, PyString_AS_STRING(py_ret), bufsize);
-          ret = 2;
-        }
-        else
-        {
-          ret = 0;
-        }
-        Py_XDECREF(py_ret);
-        break;
-      }
-    
-    case processor_t::is_sane_insn:
-      {
-        int no_crefs = va_arg(va, int);
-        ret = proxy->is_sane_insn(no_crefs);
-        break;
-      }
-
-    case processor_t::may_be_func:
-      {
-        int state = va_arg(va, int);
-        ret = proxy->may_be_func(state);
-        break;
-      }
-    }
-  }
-  catch (Swig::DirectorException &) 
-  { 
-    msg("Exception in IDP Hook function:\n"); 
-    if ( PyErr_Occurred() )
-      PyErr_Print();
-  }
-  return ret;
 }
 
 //-------------------------------------------------------------------------

@@ -85,7 +85,9 @@ PyObject *py_appcall(
   // Set exception message
   if ( !ok )
   {
-    PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed to convert Python values to IDC values");
+    PyErr_SetString(
+        PyExc_ValueError, 
+        "PyAppCall: Failed to convert Python values to IDC values");
     return NULL;
   }
 
@@ -93,6 +95,7 @@ PyObject *py_appcall(
   {
     msg("input variables:\n"
         "----------------\n");
+
     qstring s;
     for ( Py_ssize_t i=0; i<nargs; i++ )
     {
@@ -101,6 +104,7 @@ PyObject *py_appcall(
       s.qclear();
     }
   }
+
   // Do Appcall
   idc_value_t idc_result;
   error_t ret = appcall(
@@ -146,6 +150,7 @@ PyObject *py_appcall(
       s.qclear();
     }
   }
+
   // Convert IDC values back to Python values
   for ( Py_ssize_t i=0; i<nargs; i++ )
   {
@@ -268,6 +273,7 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
   int sreg_value = PyInt_AsLong(py_sreg_value);
   if ( dbg->thread_get_sreg_base(tid, sreg_value, &answer) != 1 )
     Py_RETURN_NONE;
+  
   return Py_BuildValue(PY_FMT64, pyul_t(answer));
 }
 
@@ -620,6 +626,7 @@ class Appcall_callable__(object):
     fields = property(__get_fields)
     """Returns the field names"""
 
+
     def retrieve(self, src=None, flags=0):
         """
         Unpacks a typed object from the database if an ea is given or from a string if a string was passed
@@ -628,7 +635,7 @@ class Appcall_callable__(object):
         """
 
         # Nothing passed? Take the address and unpack from the database
-        if not src:
+        if src is None:
             src = self.ea
 
         if type(src) == types.StringType:
@@ -642,7 +649,7 @@ class Appcall_callable__(object):
         @param obj: The object to pack
         @param dest_ea: If packing to idb this will be the store location
         @param base_ea: If packing to a buffer, this will be the base that will be used to relocate the pointers
-        
+
         @return:
             - If packing to a string then a Tuple(Boolean, packed_string or error code)
             - If packing to the database then a return code is returned (0 is success)
@@ -740,11 +747,11 @@ class Appcall__(object):
         # resolve and raise exception on error
         ea = Appcall__.__name_or_ea(name_or_ea)
         # parse the type
-        if not flags:
+        if flags is None:
             flags = 1 | 2 | 4 # PT_SIL | PT_NDC | PT_TYP
 
         result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, prototype, flags)
-        if not result:
+        if result is None:
             raise ValueError, "Could not parse type: " + prototype
 
         # Return the callable method with type info
@@ -797,7 +804,7 @@ class Appcall__(object):
         Creates a string buffer. The returned value (r) will be a byref object.
         Use r.value to get the contents and r.size to get the buffer's size
         """
-        if not str:
+        if str is None:
             str = ""
         left = size - len(str)
         if left > 0:
@@ -834,7 +841,7 @@ class Appcall__(object):
         """
         # parse the type
         result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
-        if not result:
+        if result is None:
             raise ValueError, "Could not parse type: " + typestr
         # Return the callable method with type info
         return Appcall_callable__(ea, result[1], result[2])

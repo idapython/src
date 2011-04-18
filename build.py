@@ -24,7 +24,7 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 0
+IDA_MINOR_VERSION = 1
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -35,8 +35,8 @@ else:
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 4
-VERSION_PATCH  = 3
+VERSION_MINOR  = 5
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -68,6 +68,7 @@ BINDIST_MANIFEST = [
     "CHANGES.txt",
     "AUTHORS.txt",
     "STATUS.txt",
+    "python.cfg",
     "docs/notes.txt",
     "examples/chooser.py",
     "examples/colours.py",
@@ -91,6 +92,8 @@ BINDIST_MANIFEST = [
     "examples/ex_prefix_plugin.py",
     "examples/ex_pyside.py",
     "examples/ex_pyqt.py",
+    "examples/ex_askusingform.py",
+    "examples/ex_uihook.py",
     "examples/ex_imports.py"
 ]
 
@@ -100,6 +103,7 @@ SRCDIST_MANIFEST = [
     "python.cpp",
     "basetsd.h",
     "build.py",
+    "python.cfg",
     "swig/allins.i",
     "swig/area.i",
     "swig/auto.i",
@@ -309,7 +313,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__LINUX__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "lib"
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "gcc64.lnx" or "gcc32.lnx")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_linux_gcc_64" or "x86_linux_gcc_32")
         ida_lib = ""
         extra_link_parameters = ""
     # Platform-specific settings for the Windows build
@@ -318,7 +322,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__NT__" ]
         python_libpath = sysconfig.EXEC_PREFIX + os.sep + "libs"
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
-        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "vc.w64" or "vc.w32")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_win_vc_64" or "x86_win_vc_32")
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
@@ -329,7 +333,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         platform_macros = [ "__MAC__" ]
         python_libpath = "."
         python_library = "-framework Python"
-        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "gcc64.mac64" or "gcc32.mac")
+        ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_mac_gcc_64" or "x86_mac_gcc_32")
         ida_lib = ea64 and "-lida64" or "-lida"
         extra_link_parameters = ""
 

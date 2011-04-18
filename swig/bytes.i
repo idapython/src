@@ -101,7 +101,9 @@
 static bool idaapi py_testf_cb(flags_t flags, void *ud)
 {
   PyObject *py_flags = PyLong_FromUnsignedLong(flags);
+  PYW_GIL_ENSURE;
   PyObject *result = PyObject_CallFunctionObjArgs((PyObject *) ud, py_flags, NULL);
+  PYW_GIL_RELEASE;
   bool ret = result != NULL && PyObject_IsTrue(result);
   Py_XDECREF(result);
   Py_XDECREF(py_flags);
@@ -114,7 +116,8 @@ static ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
 {
   if ( !PyCallable_Check(py_callable) )
     return BADADDR;
-  return (next ? nextthat : prevthat)(ea, bound, py_testf_cb, py_callable);
+  else
+    return (next ? nextthat : prevthat)(ea, bound, py_testf_cb, py_callable);
 }
 
 
@@ -134,8 +137,17 @@ class py_custom_data_type_t
     size_t nbytes)                  // size of the future item
   {
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
-    PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_MAY_CREATE_AT, PY_FMT64 PY_FMT64, pyul_t(ea), pyul_t(nbytes));
-    PyW_ShowErr(S_MAY_CREATE_AT);
+    
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        _this->py_self, 
+        (char *)S_MAY_CREATE_AT, 
+        PY_FMT64 PY_FMT64, 
+        pyul_t(ea), 
+        pyul_t(nbytes));
+    PYW_GIL_RELEASE;
+
+    PyW_ShowCbErr(S_MAY_CREATE_AT);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
     return ok;
@@ -152,9 +164,18 @@ class py_custom_data_type_t
     // Returns: 0-no such item can be created/displayed
     // this callback is required only for varsize datatypes
     py_custom_data_type_t *_this = (py_custom_data_type_t *)ud;
-    PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_CALC_ITEM_SIZE, PY_FMT64 PY_FMT64, pyul_t(ea), pyul_t(maxsize));
-    if ( PyW_ShowErr(S_CALC_ITEM_SIZE) || py_result == NULL )
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        _this->py_self, 
+        (char *)S_CALC_ITEM_SIZE, 
+        PY_FMT64 PY_FMT64, 
+        pyul_t(ea), 
+        pyul_t(maxsize));
+    PYW_GIL_RELEASE;
+    
+    if ( PyW_ShowCbErr(S_CALC_ITEM_SIZE) || py_result == NULL )
       return 0;
+    
     uint64 num = 0;
     PyW_GetNumber(py_result, &num);
     Py_XDECREF(py_result);
@@ -162,11 +183,11 @@ class py_custom_data_type_t
   }
 
 public:
-  const char *get_name() const 
-  { 
-    return dt_name.c_str(); 
+  const char *get_name() const
+  {
+    return dt_name.c_str();
   }
-  
+
   py_custom_data_type_t()
   {
     dtid = -1;
@@ -189,6 +210,7 @@ public:
       // name
       if ( !PyW_GetStringAttr(py_obj, S_NAME, &dt_name) )
         break;
+
       dt.name = dt_name.c_str();
 
       // menu_name (optional)
@@ -293,11 +315,14 @@ private:
     int dtid)                       // custom data type id
   {
     // Build a string from the buffer
-    PyObject *py_value = PyString_FromStringAndSize((const char *)value, Py_ssize_t(size));
+    PyObject *py_value = PyString_FromStringAndSize(
+        (const char *)value, 
+        Py_ssize_t(size));
     if ( py_value == NULL )
       return false;
 
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
+    PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
       _this->py_self,
       (char *)S_PRINTF,
@@ -306,11 +331,12 @@ private:
       pyul_t(current_ea),
       operand_num,
       dtid);
+    PYW_GIL_RELEASE;
     // Done with the string
     Py_DECREF(py_value);
 
     // Error while calling the function?
-    if ( PyW_ShowErr(S_PRINTF) || py_result == NULL )
+    if ( PyW_ShowCbErr(S_PRINTF) || py_result == NULL )
       return false;
 
     bool ok = false;
@@ -338,6 +364,7 @@ private:
     qstring *errstr)                // buffer for error message
   {
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
+    PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
       _this->py_self,
       (char *)S_SCAN,
@@ -345,9 +372,10 @@ private:
       input,
       pyul_t(current_ea),
       operand_num);
+    PYW_GIL_RELEASE;
 
     // Error while calling the function?
-    if ( PyW_ShowErr(S_SCAN) || py_result == NULL)
+    if ( PyW_ShowCbErr(S_SCAN) || py_result == NULL)
       return false;
 
     bool ok = false;
@@ -356,6 +384,7 @@ private:
       // We expect a tuple(bool, string|None)
       if ( !PyTuple_Check(py_result) || PyTuple_Size(py_result) != 2 )
         break;
+
       // Borrow references
       PyObject *py_bool = PyTuple_GetItem(py_result, 0);
       PyObject *py_val  = PyTuple_GetItem(py_result, 1);
@@ -404,8 +433,17 @@ private:
     // this callback may be missing.
   {
     py_custom_data_format_t *_this = (py_custom_data_format_t *) ud;
-    PyObject *py_result = PyObject_CallMethod(_this->py_self, (char *)S_ANALYZE, PY_FMT64 "i", pyul_t(current_ea),operand_num);
-    PyW_ShowErr(S_ANALYZE);
+    
+    PYW_GIL_ENSURE;
+    PyObject *py_result = PyObject_CallMethod(
+        _this->py_self, 
+        (char *)S_ANALYZE, 
+        PY_FMT64 "i", 
+        pyul_t(current_ea),
+        operand_num);
+    PYW_GIL_RELEASE;
+    
+    PyW_ShowCbErr(S_ANALYZE);
     Py_XDECREF(py_result);
   }
 public:
@@ -415,7 +453,10 @@ public:
     py_self = NULL;
   }
 
-  const char *get_name() const { return df_name.c_str(); }
+  const char *get_name() const 
+  { 
+    return df_name.c_str(); 
+  }
 
   int register_df(int dtid, PyObject *py_obj)
   {
@@ -491,9 +532,11 @@ public:
       Py_INCREF(py_obj);
       py_self = py_obj;
 
+      // Update the format ID
       py_attr = PyInt_FromLong(dfid);
       PyObject_SetAttrString(py_obj, S_ID, py_attr);
       Py_DECREF(py_attr);
+
       py_attr = NULL;
     } while ( false );
 
@@ -657,7 +700,7 @@ def register_custom_data_type(dt):
     """
     Registers a custom data type.
     @param dt: an instance of the data_type_t class
-    @return: 
+    @return:
         < 0 if failed to register
         > 0 data type id
     """
@@ -726,7 +769,7 @@ def register_custom_data_format(dtid, df):
     Registers a custom data format with a given data type.
     @param dtid: data type id
     @param df: an instance of data_format_t
-    @return: 
+    @return:
         < 0 if failed to register
         > 0 data format id
     """

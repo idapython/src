@@ -64,6 +64,7 @@ PyObject *py_init_output_buffer(size_t size = MAXSTR)
   PyObject *py_str = PyString_FromStringAndSize(NULL, size);
   if ( py_str == NULL )
     Py_RETURN_NONE;
+
   init_output_buffer(PyString_AsString(py_str), size);
   return py_str;
 }
@@ -326,6 +327,7 @@ bool py_out_name_expr(
     off = adiff_t(v);
   else
     off = BADADDR;
+  
   return op == NULL ? false : out_name_expr(*op, ea, off);
 }
 
@@ -449,6 +451,7 @@ static void insn_t_set_cs(PyObject *self, PyObject *value)
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
+  
   uint64 v(0);
   PyW_GetNumber(value, &v);
   link->cs = ea_t(v);
@@ -886,7 +889,7 @@ class op_t(py_clinked_object_t):
 
     def is_reg(self, r):
         """Checks if the register operand is the given processor register"""
-        return self.type == idaapi.o_reg and self == r
+        return self.type == _idaapi.o_reg and self == r
 
     def has_reg(self, r):
         """Checks if the operand accesses the given processor register"""
@@ -1000,15 +1003,24 @@ class insn_t(py_clinked_object_t):
     def _create_clink(self):
         return _idaapi.insn_t_create()
 
+
     def _del_clink(self, lnk):
         return _idaapi.insn_t_destroy(lnk)
+
+
+    def __iter__(self):
+        return (self.Operands[idx] for idx in xrange(0, UA_MAXOP))
+
 
     def __getitem__(self, idx):
         """
         Operands can be accessed directly as indexes
         @return op_t: Returns an operand of type op_t
         """
-        return self.Operands[idx]
+        if idx >= UA_MAXOP:
+            raise KeyError
+        else:
+            return self.Operands[idx]
 
     def is_macro(self):
         return self.flags & INSN_MACRO != 0

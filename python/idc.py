@@ -702,7 +702,7 @@ def MakeStr(ea, endea):
 
     @note: The type of an existing string is returned by GetStringType()
     """
-    return idaapi.make_ascii_string(ea, endea - ea, GetLongPrm(INF_STRTYPE))
+    return idaapi.make_ascii_string(ea, 0 if endea == BADADDR else endea - ea, GetLongPrm(INF_STRTYPE))
 
 
 def MakeData(ea, flags, size, tid):
@@ -1710,7 +1710,7 @@ def Byte(ea):
         might have more 1's.
         To check if a byte has a value, use functions hasValue(GetFlags(ea))
     """
-    return idaapi.get_byte(ea)
+    return idaapi.get_full_byte(ea)
 
 
 def __DbgValue(ea, len):
@@ -1781,7 +1781,7 @@ def Word(ea):
         If the current byte size is different from 8 bits, then the returned value
         might have more 1's.
     """
-    return idaapi.get_word(ea)
+    return idaapi.get_full_word(ea)
 
 
 def Dword(ea):
@@ -1792,7 +1792,7 @@ def Dword(ea):
 
     @return: the value of the double word. If failed returns -1
     """
-    return idaapi.get_long(ea)
+    return idaapi.get_full_long(ea)
 
 
 def Qword(ea):
@@ -1802,10 +1802,8 @@ def Qword(ea):
     @param ea: linear address
 
     @return: the value of the quadro word. If failed, returns -1
-
-    @note: this function is available only in the 64-bit version of IDA Pro
     """
-    raise NotImplementedError, "will be implemented in the 64-bit version"
+    return idaapi.get_qword(ea)
 
 
 def GetFloat(ea):
@@ -1839,7 +1837,7 @@ def LocByName(name):
     @param name: name of program byte
 
     @return: address of the name
-            badaddr - no such name
+             BADADDR - No such name
     """
     return idaapi.get_name_ea(BADADDR, name)
 
@@ -1964,7 +1962,7 @@ def PrevAddr(ea):
     return idaapi.prevaddr(ea)
 
 
-def NextHead(ea, maxea):
+def NextHead(ea, maxea=BADADDR):
     """
     Get next defined item (instruction or data) in the program
 
@@ -1977,7 +1975,7 @@ def NextHead(ea, maxea):
     return idaapi.next_head(ea, maxea)
 
 
-def PrevHead(ea, minea):
+def PrevHead(ea, minea=0):
     """
     Get previous defined item (instruction or data) in the program
 
@@ -2938,6 +2936,17 @@ def AskLong(defval, prompt):
     return idaapi.asklong(defval, prompt)
 
 
+def ProcessUiAction(name, flags=0):
+    """
+    Invokes an IDA Pro UI action by name
+
+    @param name: Command name
+    @param flags: Reserved. Must be zero
+    @return: Boolean
+    """
+    return idaapi.process_ui_action(name, flags)
+
+
 def AskSeg(defval, prompt):
     """
     Ask the user to enter a segment value
@@ -3374,7 +3383,7 @@ def SegByName(segname):
     if not seg:
         return BADADDR
 
-    return seg.startEA
+    return seg.sel
 
 
 def SetSegDefReg(ea, reg, value):
@@ -6258,14 +6267,14 @@ def ParseType(inputtype, flags):
     """
     return idaapi.idc_parse_decl(idaapi.cvar.idati, inputtype, flags)
 
-def ParseTypes(inputtype, flags):
+def ParseTypes(inputtype, flags = 0):
     """
     Parse type declarations
 
     @param inputtype: file name or C declarations (depending on the flags)
     @param flags: combination of PT_... constants or 0
 
-    @return: number of errors
+    @return: number of parsing errors (0 no errors)
     """
     return idaapi.idc_parse_types(inputtype, flags)
 
@@ -6790,7 +6799,6 @@ def GetProcessState():
     """
     return idaapi.get_process_state()
 
-DSTATE_SUSP_FOR_EVENT  = -2 # process is currently suspended to react to a debug event (not used)
 DSTATE_SUSP            = -1 # process is suspended
 DSTATE_NOTASK          =  0 # no process is currently debugged
 DSTATE_RUN             =  1 # process is running
@@ -7109,7 +7117,7 @@ def GetRegValue(name):
     """
     rv = idaapi.regval_t()
     res = idaapi.get_reg_val(name, rv)
-    assert res, "get_reg_val() failed, bogus name perhaps?"
+    assert res, "get_reg_val() failed, bogus register name ('%s') perhaps?" % name
     return rv.ival
 
 
@@ -7207,12 +7215,26 @@ BPT_SOFT    = 4    # Software breakpoint
 
 BPTATTR_COUNT =  4
 BPTATTR_FLAGS =  5
-BPT_BRK        = 0x01  # the debugger stops on this breakpoint
-BPT_TRACE      = 0x02  # the debugger adds trace information when this breakpoint is reached
-BPT_UPDMEM     = 0x04  # update memory contents before evaluating bpt condition
-BPT_UPDSEG     = 0x08  # update memory config before evaluating bpt condition
+BPT_BRK       = 0x01  # the debugger stops on this breakpoint
+BPT_TRACE     = 0x02  # the debugger adds trace information when this breakpoint is reached
+BPT_UPDMEM    = 0x04  # refresh the memory layout and contents before evaluating bpt condition
+BPT_ENABLED   = 0x08  # enabled?
+BPT_LOWCND    = 0x10  # condition is calculated at low level (on the server side)
 
 BPTATTR_COND  =  6   # Breakpoint condition. NOTE: the return value is a string in this case
+
+# Breakpoint location type:
+BPLT_ABS  =  0   # Absolute address. Attributes:
+                 # - locinfo: absolute address
+
+BPLT_REL  =  1   # Module relative address. Attributes:
+                 # - locpath: the module path
+                 # - locinfo: offset from the module base address
+
+BPLT_SYM  =  2   # Symbolic name. The name will be resolved on DLL load/unload
+                 # events and on naming an address. Attributes:
+                 # - locpath: symbol name
+                 # - locinfo: offset from the symbol base address
 
 
 def SetBptAttr(address, bptattr, value):
@@ -7530,19 +7552,47 @@ def WriteTxt(filepath, ea1, ea2):
 def WriteExe(filepath):
     return GenerateFile(OFILE_EXE, filepath, 0, BADADDR, 0)
 
-def AddConst(enum_id,name,value): return AddConstEx(enum_id,name,value, idaapi.BADADDR)
-def AddStruc(index,name):         return AddStrucEx(index,name,0)
-def AddUnion(index,name):         return AddStrucEx(index,name,1)
-def OpStroff(ea,n,strid):         return OpStroffEx(ea,n,strid,0)
-def OpEnum(ea,n,enumid):          return OpEnumEx(ea,n,enumid,0)
-def DelConst(constid, v, mask):   return DelConstEx(constid, v, 0, mask)
-def GetConst(constid, v, mask):   return GetConstEx(constid, v, 0, mask)
-def AnalyseArea(sEA, eEA):        return AnalyzeArea(sEA,eEA)
 
-def MakeStruct(ea,name):          return MakeStructEx(ea, -1, name)
-def Name(ea):                     return NameEx(BADADDR, ea)
-def GetTrueName(ea):              return GetTrueNameEx(BADADDR, ea)
-def MakeName(ea, name):           return MakeNameEx(ea,name,SN_CHECK)
+UTP_STRUCT = idaapi.UTP_STRUCT
+UTP_ENUM   = idaapi.UTP_ENUM
+
+
+def BeginTypeUpdating(utp):
+    """
+    Begin type updating. Use this function if you
+    plan to call AddEnumConst or similar type modification functions
+    many times or from inside a loop
+
+    @param utp: one of UTP_xxxx consts
+    @return: None
+    """
+    return idaapi.begin_type_updating(utp)
+
+
+def EndTypeUpdating(utp):
+    """
+    End type updating. Refreshes the type system
+    at the end of type modification operations
+
+    @param utp: one of idaapi.UTP_xxxx consts
+    @return: None
+    """
+    return idaapi.end_type_updating(utp)
+
+
+def AddConst(enum_id, name,value): return AddConstEx(enum_id, name, value, idaapi.BADADDR)
+def AddStruc(index, name):         return AddStrucEx(index,name, 0)
+def AddUnion(index, name):         return AddStrucEx(index,name, 1)
+def OpStroff(ea, n, strid):        return OpStroffEx(ea,n,strid, 0)
+def OpEnum(ea, n, enumid):         return OpEnumEx(ea,n,enumid, 0)
+def DelConst(constid, v, mask):    return DelConstEx(constid, v, 0, mask)
+def GetConst(constid, v, mask):    return GetConstEx(constid, v, 0, mask)
+def AnalyseArea(sEA, eEA):         return AnalyzeArea(sEA,eEA)
+
+def MakeStruct(ea, name):          return MakeStructEx(ea, -1, name)
+def Name(ea):                      return NameEx(BADADDR, ea)
+def GetTrueName(ea):               return GetTrueNameEx(BADADDR, ea)
+def MakeName(ea, name):            return MakeNameEx(ea,name,SN_CHECK)
 
 #def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
 #def GetFrameLvarSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRSIZE)

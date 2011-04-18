@@ -1,6 +1,9 @@
 import idautils
 
-s = Strings(False)
+s = idautils.Strings(False)
 s.setup(strtypes=Strings.STR_UNICODE | Strings.STR_C)
-for i in s:
-    print "%x: len=%d type=%d -> '%s'" % (i.ea, i.length, i.type, str(i))
+for i, v in enumerate(s):
+    if v is None:
+        print("Failed to retrieve string index %d" % i)
+    else:
+        print("%x: len=%d type=%d index=%d-> '%s'" % (v.ea, v.length, v.type, i, str(v)))

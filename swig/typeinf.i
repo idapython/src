@@ -62,6 +62,9 @@
 %ignore print_type;
 %ignore show_type;
 %ignore show_plist;
+%ignore skip_function_arg_names;
+%ignore perform_funcarg_conversion;
+%ignore get_argloc_info;
 
 %ignore extract_pstr;
 %ignore extract_name;
@@ -167,6 +170,7 @@ PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
   bool ok = parse_decl(ti, decl, &name, &type, &fields, flags);
   if ( !ok )
     Py_RETURN_NONE;
+
   return Py_BuildValue("(sss)",
     name.c_str(),
     (char *)type.c_str(),
@@ -256,7 +260,14 @@ PyObject *py_unpack_object_from_idb(
   type_t *type   = (type_t *) PyString_AsString(py_type);
   p_list *fields = (p_list *) PyString_AsString(py_fields);
   idc_value_t idc_obj;
-  error_t err = unpack_object_from_idb(&idc_obj, ti, type, fields, ea, NULL, pio_flags);
+  error_t err = unpack_object_from_idb(
+      &idc_obj, 
+      ti, 
+      type, 
+      fields, 
+      ea, 
+      NULL, 
+      pio_flags);
 
   // Unpacking failed?
   if ( err != eOk )
@@ -265,9 +276,11 @@ PyObject *py_unpack_object_from_idb(
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
+  
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
+
   PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
   Py_DECREF(py_ret);
   return py_result;
@@ -315,7 +328,13 @@ PyObject *py_unpack_object_from_bv(
   memcpy(bytes.begin(), PyString_AsString(py_bytes), bytes.size());
 
   idc_value_t idc_obj;
-  error_t err = unpack_object_from_bv(&idc_obj, ti, type, fields, bytes, pio_flags);
+  error_t err = unpack_object_from_bv(
+      &idc_obj, 
+      ti, 
+      type, 
+      fields, 
+      bytes, 
+      pio_flags);
 
   // Unpacking failed?
   if ( err != eOk )
@@ -324,9 +343,11 @@ PyObject *py_unpack_object_from_bv(
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
+
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
+
   PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
   Py_DECREF(py_ret);
   return py_result;

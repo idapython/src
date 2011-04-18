@@ -91,6 +91,14 @@ class FlowChart(object):
         self._q.refresh()
 
 
+    def _getitem(self, index):
+        return BasicBlock(index, self._q[index], self)        
+    
+    
+    def __iter__(self):
+        return (self._getitem(index) for index in xrange(0, self.size))
+    
+    
     def __getitem__(self, index):
         """
         Returns a basic block
@@ -98,9 +106,9 @@ class FlowChart(object):
         @return: BasicBlock
         """
         if index >= self.size:
-            raise StopIteration
+            raise KeyError
         else:    
-            return BasicBlock(index, self._q[index], self)
+            return self._getitem(index)
 
 #</pycode(py_gdl)>
 %}

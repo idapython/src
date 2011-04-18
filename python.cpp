@@ -49,10 +49,10 @@
 #define IDAPYTHON_DISABLE_EXTLANG                4
 #define PYTHON_DIR_NAME                          "python"
 #define S_IDAPYTHON                              "IDAPython"
+#define S_INIT_PY                                "init.py"
 static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
 static const char S_MAIN[] =                     "__main__";
 static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
-static const char S_HOTKEY_RUNSTATEMENT[] =      "Ctrl-F3";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
 #ifdef PLUGINFIX
@@ -79,6 +79,7 @@ static bool g_menu_installed = false;
 static int  g_run_when = -1;
 static char g_run_script[QMAXPATH];
 static char g_idapython_dir[QMAXPATH];
+static char g_runstmt_hotkey[30] = "Ctrl-F3";
 
 //-------------------------------------------------------------------------
 // Prototypes and forward declarations
@@ -124,6 +125,9 @@ static bool   box_displayed;  // has the wait box been displayed?
 static time_t start_time;   // the start time of the execution
 static int    script_timeout = 2;
 static bool   g_ui_ready = false;
+static bool   g_alert_auto_scripts = true;
+static bool   g_remove_cwd_sys_path = false;
+
 void end_execution();
 void begin_execution();
 
@@ -133,14 +137,15 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
 {
   if ( wasBreak() )
   {
-    /* User pressed Cancel in the waitbox; send KeyboardInterrupt exception */
+    // User pressed Cancel in the waitbox; send KeyboardInterrupt exception
     PyErr_SetInterrupt();
   }
   else if ( !box_displayed && ++ninsns > 10 )
   {
-    /* We check the timer once every 10 calls */
+    // We check the timer once every 10 calls
     ninsns = 0;
-    if ( script_timeout != 0 && (time(NULL) - start_time > script_timeout) ) /* Timeout elapsed? */
+    // Timeout disabled or elapsed?
+    if ( script_timeout != 0 && (time(NULL) - start_time > script_timeout) )
     {
       box_displayed = true;
       show_wait_box("Running Python script");
@@ -323,13 +328,13 @@ static void handle_python_error(char *errbuf, size_t errbufsize)
 static PyObject *GetMainGlobals()
 {
   PyObject *module = PyImport_AddModule(S_MAIN);
-  if ( module == NULL )
-      return NULL;
-  return PyModule_GetDict(module);
+  return module == NULL ? NULL : PyModule_GetDict(module);
 }
 
 //------------------------------------------------------------------------
-static void PythonEvalOrExec(const char *str, const char *filename = "<string>")
+static void PythonEvalOrExec(
+    const char *str, 
+    const char *filename = "<string>")
 {
   // Compile as an expression
   PyCompilerFlags cf = {0};
@@ -345,11 +350,12 @@ static void PythonEvalOrExec(const char *str, const char *filename = "<string>")
   }
 
   PyObject *py_globals = GetMainGlobals();
+  PYW_GIL_ENSURE;
   PyObject *py_result = PyEval_EvalCode(
-    (PyCodeObject *) py_code, 
+    (PyCodeObject *) py_code,
     py_globals,
     py_globals);
-
+  PYW_GIL_RELEASE;
   Py_DECREF(py_code);
 
   if ( py_result == NULL || PyErr_Occurred() )
@@ -379,7 +385,13 @@ static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res
     PyErr_Clear();
 
     begin_execution();
-    PyObject *result = PyRun_String(argv[0].c_str(), Py_file_input, globals, globals );
+    PYW_GIL_ENSURE;
+    PyObject *result = PyRun_String(
+      argv[0].c_str(),
+      Py_file_input,
+      globals,
+      globals);
+    PYW_GIL_RELEASE;  
     Py_XDECREF(result);
     end_execution();
 
@@ -401,6 +413,45 @@ static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res
   return eOk;
 }
 
+//--------------------------------------------------------------------------
+const char *idaapi set_python_options(
+    const char *keyword,
+    int value_type,
+    const void *value)
+{
+  do
+  {
+    if ( value_type == IDPOPT_STR )
+    {
+      if ( qstrcmp(keyword, "EXEC_STATEMENT_HOTKEY" ) == 0 )
+      {
+        qstrncpy(g_runstmt_hotkey, (const char *)value, sizeof(g_runstmt_hotkey));
+        break;
+      }
+    }
+    else if ( value_type == IDPOPT_NUM )
+    {
+      if ( qstrcmp(keyword, "SCRIPT_TIMEOUT") == 0 )
+      {
+        script_timeout = int(*(uval_t *)value);
+        break;
+      }
+      else if ( qstrcmp(keyword, "ALERT_AUTO_SCRIPTS") == 0 )
+      {
+        g_alert_auto_scripts = *(uval_t *)value != 0;
+        break;
+      }
+      else if ( qstrcmp(keyword, "REMOVE_CWD_SYS_PATH") == 0 )
+      {
+        g_remove_cwd_sys_path = *(uval_t *)value != 0;
+        break;
+      }
+    }
+    return IDPOPT_BADKEY;
+  } while (false);
+  return IDPOPT_OK;
+}
+
 //-------------------------------------------------------------------------
 // Check for the presence of a file in IDADIR/python and complain on error
 bool CheckScriptFiles()
@@ -408,7 +459,7 @@ bool CheckScriptFiles()
   static const char *const script_files[] =
   {
     S_IDC_MODNAME ".py",
-    "init.py",
+    S_INIT_PY,
     "idaapi.py",
     "idautils.py"
   };
@@ -439,9 +490,19 @@ static int PyRunFile(const char *FileName)
     return 0;
   }
   PyErr_Clear();
-  PyObject *result = PyRun_File(PyFile_AsFile(PyFileObject), FileName, Py_file_input, globals, globals);
+
+  PYW_GIL_ENSURE;
+  PyObject *result = PyRun_File(
+        PyFile_AsFile(PyFileObject), 
+        FileName, 
+        Py_file_input, 
+        globals, 
+        globals);
+  PYW_GIL_RELEASE;
+  
   Py_XDECREF(PyFileObject);
   Py_XDECREF(result);
+
   return result != NULL && !PyErr_Occurred();
 }
 
@@ -461,7 +522,7 @@ void IDAPython_RunStatement(void)
   if ( history.getblob(statement, &statement_size, 0, 'A') == NULL )
     statement[0] = '\0';
 
-  if ( asktext(sizeof(statement), statement, statement, "Enter Python expressions") != NULL )
+  if ( asktext(sizeof(statement), statement, statement, "ACCEPT TABS\nEnter Python expressions") != NULL )
   {
     begin_execution();
     PyRun_SimpleString(statement);
@@ -489,7 +550,13 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
   strrpl(script, '\\', '//');
 
   PyObject *py_script = PyString_FromString(script);
-  PyObject *py_ret = PyObject_CallFunctionObjArgs(py_execscript, py_script, GetMainGlobals(), NULL);
+  PYW_GIL_ENSURE;
+  PyObject *py_ret = PyObject_CallFunctionObjArgs(
+    py_execscript,
+    py_script,
+    GetMainGlobals(),
+    NULL);
+  PYW_GIL_RELEASE;
   Py_DECREF(py_script);
   Py_DECREF(py_execscript);
 
@@ -516,7 +583,7 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
   }
   // Cannot be otherwise!
   else
-    INTERR();
+    INTERR(30154);
 
   Py_XDECREF(py_ret);
   return ok;
@@ -527,10 +594,12 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
 static bool RunScript(const char *script)
 {
   begin_execution();
+
   char errbuf[MAXSTR];
   bool ok = IDAPython_ExecFile(script, errbuf, sizeof(errbuf));
   if ( !ok )
     warning("IDAPython: error executing '%s':\n%s", script, errbuf);
+
   end_execution();
   return ok;
 }
@@ -612,7 +681,6 @@ bool idaapi IDAPython_extlang_compile(
   size_t errbufsize)
 {
   PyObject *globals = GetMainGlobals();
-  QASSERT(globals != NULL);
 
   PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
   if ( code == NULL )
@@ -621,11 +689,11 @@ bool idaapi IDAPython_extlang_compile(
     return false;
   }
 
-  // set the desired function name
+  // Set the desired function name
   Py_XDECREF(code->co_name);
   code->co_name = PyString_FromString(name);
 
-  // create a function out of code
+  // Create a function out of code
   PyObject *func = PyFunction_New((PyObject *)code, globals);
 
   if ( func == NULL )
@@ -672,16 +740,18 @@ bool idaapi IDAPython_extlang_run(
 
     if ( imported_module )
     {
+      PYW_GIL_ENSURE;    
       module = PyImport_ImportModule(modname);
+      PYW_GIL_RELEASE;
     }
     else
     {
       module = PyImport_AddModule(S_MAIN);
-      QASSERT(module != NULL);
+      QASSERT(30156, module != NULL);
     }
 
     PyObject *globals = PyModule_GetDict(module);
-    QASSERT(globals != NULL);
+    QASSERT(30157, globals != NULL);
 
     PyObject *func = PyDict_GetItemString(globals, funcname);
     if ( func == NULL )
@@ -692,12 +762,13 @@ bool idaapi IDAPython_extlang_run(
     }
 
     PyCodeObject *code = (PyCodeObject *) PyFunction_GetCode(func);
+    PYW_GIL_ENSURE;
     PyObject *pres = PyEval_EvalCodeEx(
                         code,
-                        globals, NULL, 
+                        globals, NULL,
                         &pargs[0], nargs,
                         NULL, 0, NULL, 0, NULL);
-    
+    PYW_GIL_RELEASE;
     ok = return_python_result(result, pres, errbuf, errbufsize);
   } while ( false );
 
@@ -705,7 +776,7 @@ bool idaapi IDAPython_extlang_run(
 
   if ( imported_module )
     Py_XDECREF(module);
-  
+
   return ok;
 }
 
@@ -766,7 +837,9 @@ bool idaapi IDAPython_extlang_create_object(
     ok = false;
 
     // Call the constructor
+    PYW_GIL_ENSURE;
     PyObject *py_res = PyObject_CallObject(py_cls, pargs.empty() ? NULL : pargs[0]);
+    PYW_GIL_RELEASE;
     ok = return_python_result(result, py_res, errbuf, errbufsize);
   } while ( false );
 
@@ -944,7 +1017,9 @@ bool idaapi IDAPython_extlang_calcexpr(
     return false;
 
   begin_execution();
+  PYW_GIL_ENSURE;
   PyObject *result = PyRun_String(expr, Py_eval_input, globals, globals);
+  PYW_GIL_RELEASE;
   end_execution();
 
   return return_python_result(rv, result, errbuf, errbufsize);
@@ -998,7 +1073,9 @@ bool idaapi IDAPython_extlang_call_method(
     if ( !ok )
       break;
 
+    PYW_GIL_ENSURE;
     PyObject *py_res = PyObject_CallObject(py_method, pargs.empty() ? NULL : pargs[0]);
+    PYW_GIL_RELEASE;
     ok = return_python_result(result, py_res, errbuf, errbufsize);
   } while ( false );
 
@@ -1030,6 +1107,7 @@ extlang_t extlang_python =
     IDAPython_extlang_call_method
 };
 
+//-------------------------------------------------------------------------
 void enable_extlang_python(bool enable)
 {
   if ( enable )
@@ -1042,7 +1120,7 @@ void enable_extlang_python(bool enable)
 // Execute a line in the Python CLI
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
-  // do not process empty lines
+  // Do not process empty lines
   if ( line[0] == '\0' )
     return true;
 
@@ -1052,11 +1130,11 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
   else
     last_line += 1;
 
-  // skip empty lines
+  // Skip empty lines
   if ( last_line[0] != '\0' )
   {
-    // line ends with ":" or begins with a space character?
-    bool more = last_line[qstrlen(last_line)-1] == ':' || isspace(last_line[0]);
+    // Line ends with ":" or begins with a space character?
+    bool more = last_line[qstrlen(last_line)-1] == ':' || qisspace(last_line[0]);
     if ( more )
       return false;
   }
@@ -1080,7 +1158,9 @@ bool idaapi IDAPYthon_cli_complete_line(
   if ( py_complete == NULL )
     return false;
 
+  PYW_GIL_ENSURE;
   PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x);
+  PYW_GIL_RELEASE;
 
   Py_DECREF(py_complete);
 
@@ -1124,7 +1204,9 @@ void enable_python_cli(bool enable)
 // Prints the IDAPython copyright banner
 void py_print_banner()
 {
+  PYW_GIL_ENSURE;
   PyRun_SimpleString("print_banner()");
+  PYW_GIL_RELEASE;
 }
 
 //-------------------------------------------------------------------------
@@ -1136,8 +1218,11 @@ static void install_python_menus()
 
   // Add menu items for all the functions
   // Note: Different paths are used for the GUI version
-  add_menu_item("File/IDC command...", "P~y~thon command...",
-    S_HOTKEY_RUNSTATEMENT, SETMENU_APP,
+  add_menu_item(
+    "File/IDC command...",
+    "P~y~thon command...",
+    g_runstmt_hotkey,
+    SETMENU_APP,
     IDAPython_Menu_Callback,
     (void *)IDAPYTHON_RUNSTATEMENT);
 
@@ -1277,6 +1362,19 @@ bool IDAPython_Init(void)
   }
 #endif
 
+  // Read configuration value
+  read_user_config_file("python.cfg", set_python_options, NULL);
+  if ( g_alert_auto_scripts ) 
+  {
+    const char *autofn = pywraps_check_autoscripts();
+    if ( autofn != NULL 
+      && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
+                    "Do you want to continue loading IDAPython?", autofn) == 0 )
+    {
+      return false;
+    }
+  }
+
   // Start the interpreter
   Py_Initialize();
   if ( !Py_IsInitialized() )
@@ -1285,16 +1383,22 @@ bool IDAPython_Init(void)
     return false;
   }
 
+  // Enable multi-threading support
+  if ( !PyEval_ThreadsInitialized() )
+    PyEval_InitThreads();
+
   // Init the SWIG wrapper
   init_idaapi();
 
   // Set IDAPYTHON_VERSION in Python
-  qsnprintf(tmp, sizeof(tmp), "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)", \
+  qsnprintf(tmp, sizeof(tmp), "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
+    "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
     VER_MAJOR,
     VER_MINOR,
     VER_PATCH,
     VER_STATUS,
-    VER_SERIAL);
+    VER_SERIAL,
+    g_remove_cwd_sys_path ? "True" : "False");
   PyRun_SimpleString(tmp);
 
   // Install extlang. Needs to be done before running init.py
@@ -1302,11 +1406,11 @@ bool IDAPython_Init(void)
   install_extlang(&extlang_python);
 
   // Execute init.py (for Python side initialization)
-  qmakepath(tmp, MAXSTR, g_idapython_dir, "init.py", NULL);
+  qmakepath(tmp, MAXSTR, g_idapython_dir, S_INIT_PY, NULL);
   if ( !PyRunFile(tmp) )
   {
     handle_python_error(tmp, sizeof(tmp));
-    warning("IDAPython: error executing init.py:\n%s", tmp);
+    warning("IDAPython: error executing " S_INIT_PY ":\n%s", tmp);
     return false;
   }
 
@@ -1357,17 +1461,17 @@ void IDAPython_Term(void)
   del_menu_item("File/Python command...");
   g_menu_installed = false;
 
-  // Remove the CLI
-  enable_python_cli(false);
-
-  // Remove the extlang
-  remove_extlang(&extlang_python);
-
   // Notify about IDA closing
   pywraps_nw_notify(NW_TERMIDA_SLOT);
 
   // De-init notify_when
   pywraps_nw_term();
+
+  // Remove the CLI
+  enable_python_cli(false);
+
+  // Remove the extlang
+  remove_extlang(&extlang_python);
 
   // De-init pywraps
   deinit_pywraps();
@@ -1446,5 +1550,5 @@ plugin_t PLUGIN =
   // the preferred short name of the plugin
   S_IDAPYTHON,
   // the preferred hotkey to run the plugin
-  S_HOTKEY_RUNSTATEMENT
+  NULL
 };

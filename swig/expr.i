@@ -35,15 +35,17 @@
 %ignore expr_printf;
 %ignore expr_sprintf;
 %ignore expr_printfer;
-%ignore idaapi init_idc;
-%ignore idaapi term_idc;
-%ignore del_idc_userfuncs;
-%ignore del_idc_userdefs;
+%ignore init_idc;
+%ignore term_idc;
+%ignore create_default_idc_classes;
+%ignore insn_to_idc;
 %ignore find_builtin_idc_func;
+%ignore idc_mutex;
 %ignore idc_lx;
 %ignore idc_vars;
 %ignore idc_resolve_label;
 %ignore idc_resolver_ea;
+%ignore setup_lowcnd_regfuncs;
 
 %cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
 
@@ -83,12 +85,13 @@ bool calc_idc_expr_wrap(ea_t where,const char *line, idc_value_t *rv, char *errb
 %}
 
 %ignore CompileLine(const char *line, char *errbuf, size_t errbufsize, uval_t (idaapi*_getname)(const char *name)=NULL);
+%ignore CompileLineEx;
 
 %rename (CompileLine) CompileLine_wrap;
 %inline %{
 bool CompileLine_wrap(const char *line, char *errbuf, size_t errbufsize)
 {
-    return !CompileLine(line, errbuf, errbufsize);
+    return !CompileLineEx(line, errbuf, errbufsize);
 }
 %}
 

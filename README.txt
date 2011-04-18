@@ -38,10 +38,10 @@ Mailing list for the project is hosted by Google Groups at
 INSTALLATION FROM BINARIES
 --------------------------
 
-1. Install Python 2.5 or 2.6 from http://www.python.org/
-2. Copy the python and python64 directories to the IDA install directory
-3. Copy the plugins to the %IDADIR%\plugins\
-
+1. Install 2.6 or 2.7 from http://www.python.org/
+2. Copy "python" directory to %IDADIR%
+3. Copy "plugins" directory to the %IDADIR%\plugins\
+4. Copy "python.cfg" to %IDADIR%\cfg
 
 USAGE
 -----
@@ -88,3 +88,4 @@ or
 
 The user init file is read and executed at the end of the init process.
 
+Please note that IDAPython can be configured with "python.cfg" file.

@@ -7,14 +7,21 @@
 #
 from idautils import *
 
-# Get current ea
-ea = ScreenEA()
+def main():
+    # Get current ea
+    ea = ScreenEA()
+    if ea == idaapi.BADADDR:
+        print("Could not get get_screen_ea()")
+        return
 
-# Loop from start to end in the current segment
-for funcea in Functions(SegStart(ea), SegEnd(ea)):
-	print "Function %s at 0x%x" % (GetFunctionName(funcea), funcea)
+    # Loop from start to end in the current segment
+    for funcea in Functions(SegStart(ea), SegEnd(ea)):
+        print("Function %s at 0x%x" % (GetFunctionName(funcea), funcea))
 
-	# Find all code references to funcea
-	for ref in CodeRefsTo(funcea, 1):
-		print "  called from %s(0x%x)" % (GetFunctionName(ref), ref)
+        # Find all code references to funcea
+        for ref in CodeRefsTo(funcea, 1):
+            print("  called from %s(0x%x)" % (GetFunctionName(ref), ref))
 
+
+if __name__=='__main__':
+    main()
