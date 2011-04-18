@@ -914,6 +914,7 @@ bool PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
       *is_64 = true;
     return true;
   }
+  PyErr_Clear();
 
   // Try to parse as uint64
   unsigned PY_LONG_LONG ull = PyLong_AsUnsignedLongLong(py_var);
