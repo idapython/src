@@ -700,6 +700,12 @@ static bool formchgcbfa_set_field_value(
 }
 
 #undef DECLARE_FORM_ACTIONS
+
+static size_t py_get_AskUsingForm()
+{
+  return (size_t)AskUsingForm_c;
+}
+
 //</inline(py_kernwin)>
 %}
 
@@ -1681,10 +1687,6 @@ PyObject *choose2_find(const char *title)
 }
 
 
-static size_t py_get_AskUsingForm()
-{
-  return (size_t)AskUsingForm_c;
-}
 //</code(py_kernwin)>
 
 %}
@@ -3409,7 +3411,7 @@ class Choose2(object):
             # Disable the timeout
             old = idaapi.set_script_timeout(0)
             n = _idaapi.choose2_create(self, False)
-            idaapi.set_script_timeout(old)
+            _idaapi.set_script_timeout(old)
 
             # Delete the modal chooser instance
             self.Close()
@@ -3729,7 +3731,7 @@ class Form(object):
             """
             Free the control
             """
-            # Release parent form reference
+            # Release the parent form reference
             self.form = None
 
 
@@ -4201,7 +4203,9 @@ class Form(object):
         """
         self._reset()
         self.form = form
+        """Form string"""
         self.controls = controls
+        """Dictionary of controls"""
         self.__args = None
 
         self.title = None
@@ -4215,6 +4219,7 @@ class Form(object):
         """
         for ctrl in self.__controls.values():
              ctrl.free()
+
         # Reset the controls
         # (Note that we are not removing the form control attributes, no need)
         self._reset()
@@ -4444,12 +4449,21 @@ class Form(object):
         return (self, self.__args)
 
 
+    def Compiled(self):
+        """
+        Checks if the form has already been compiled
+
+        @return: Boolean
+        """
+        return self.__args is not None
+
+
     def Execute(self):
         """
         Displays a compiled form.
         @return: 1 - ok ; 0 - cancel
         """
-        if self.__args is None:
+        if not self.Compiled():
             raise SyntaxError("Form is not compiled")
 
         # Call AskUsingForm()

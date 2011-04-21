@@ -2072,6 +2072,21 @@ def struct_unpack(buffer, signed = False, offs = 0):
     # Unpack
     return struct.unpack_from(__struct_unpack_table[n][signed], buffer, offs)[0]
 
+
+# ------------------------------------------------------------
+def IDAPython_ExecSystem(cmd):
+    """
+    Executes a command with popen().
+    """
+    try:
+        f = os.popen(cmd, "r")
+        s = ''.join(f.readlines())
+        f.close()
+        return s
+    except Exception, e:
+        return str(e)
+
+
 # ------------------------------------------------------------
 def IDAPython_ExecScript(script, g):
     """
@@ -2175,10 +2190,10 @@ class __IDAPython_Completion_Util(object):
         s = self.completion[n]
         try:
             attr = getattr(self.lastmodule, s)
-            # is it callable?
+            # Is it callable?
             if callable(attr):
-                return s + "("
-            # is it iterable?
+                return s + ("" if line.startswith("?") else "(")
+            # Is it iterable?
             elif isinstance(attr, basestring) or getattr(attr, '__iter__', False):
                 return s + "["
         except:

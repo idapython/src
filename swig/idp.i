@@ -65,7 +65,12 @@ def AssembleLine(ea, cs, ip, use32, line):
     pass
 #</pydoc>
 */
-static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+static PyObject *AssembleLine(
+    ea_t ea, 
+    ea_t cs, 
+    ea_t ip, 
+    bool use32, 
+    const char *line)
 {
   int inslen;
   char buf[MAXSTR];
@@ -93,7 +98,12 @@ def assemble(ea, cs, ip, use32, line):
     """
 #</pydoc>
 */
-bool assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *line)
+bool assemble(
+      ea_t ea, 
+      ea_t cs, 
+      ea_t ip, 
+      bool use32, 
+      const char *line)
 {
   int inslen;
   char buf[MAXSTR];
@@ -391,12 +401,14 @@ class IDP_Hooks(object):
         """
         pass
 
+
     def unhook(self):
         """
         Removes the IDP hook
         @return: Boolean true on success
         """
         pass
+
 
     def custom_ana(self):
         """
@@ -410,6 +422,7 @@ class IDP_Hooks(object):
         """
         pass
 
+
     def custom_out(self):
         """
         Outputs the instruction defined in idaapi.cmd
@@ -417,6 +430,7 @@ class IDP_Hooks(object):
         @return: Boolean (whether this instruction can be outputted or not)
         """
         pass
+
 
     def custom_emu(self):
         """
@@ -428,6 +442,7 @@ class IDP_Hooks(object):
         """
         pass
 
+
     def custom_outop(self, op):
         """
         Notification to generate operand text.
@@ -438,6 +453,7 @@ class IDP_Hooks(object):
 
         @return: Boolean (whether the operand has been outputted or not)
         """
+        pass
 
     def custom_mnem(self):
         """
@@ -447,6 +463,8 @@ class IDP_Hooks(object):
             - None: No mnemonic. IDA will use the default mnemonic value if present
             - String: The desired mnemonic string
         """
+        pass
+
 
     def is_sane_insn(self, no_crefs):
        """
@@ -463,6 +481,7 @@ class IDP_Hooks(object):
        """
        pass
 
+
     def may_be_func(self, no_crefs):
        """
        Can a function start here?
@@ -474,17 +493,20 @@ class IDP_Hooks(object):
        """
        pass
 
+
     def closebase(self):
        """
        The database will be closed now
        """
        pass
 
+
     def savebase(self):
        """
        The database is being saved. Processor module should
        """
        pass
+
 
     def rename(self, ea, new_name):
        """
@@ -497,6 +519,8 @@ class IDP_Hooks(object):
            - If returns value <=0, then the kernel should
              not rename it. See also the 'renamed' event
        """
+       pass
+
 
     def renamed(self, ea, new_name, local_name):
        """
@@ -508,6 +532,8 @@ class IDP_Hooks(object):
 
        @return: Ignored
        """
+       pass
+
 
     def undefine(self, ea):
        """
@@ -519,6 +545,8 @@ class IDP_Hooks(object):
               bit0 - ignored
               bit1 - do not delete srareas at the item end
        """
+       pass
+
 
     def make_code(self, ea, size):
        """
@@ -527,6 +555,8 @@ class IDP_Hooks(object):
        @param size: Instruction size
        @return: 1-ok, <=0-the kernel should stop
        """
+       pass
+
 
     def make_code(self, ea, size):
        """
@@ -535,7 +565,9 @@ class IDP_Hooks(object):
        @param size: Instruction size
        @return: 1-ok, <=0-the kernel should stop
        """
-    
+       pass
+
+
     def make_data(self, ea, flags, tid, len):
        """
        A data item is being created
@@ -545,14 +577,18 @@ class IDP_Hooks(object):
        @param len: data item size
        @return: 1-ok, <=0-the kernel should stop
        """
+       pass
+
 
     def load_idasgn(self, short_sig_name):
        """
-       FLIRT signature have been loaded for normal processing 
+       FLIRT signature have been loaded for normal processing
        (not for recognition of startup sequences)
        @param short_sig_name: signature name
        @return: Ignored
        """
+       pass
+
 
     def add_func(self, func):
        """
@@ -560,6 +596,8 @@ class IDP_Hooks(object):
        @param func: the func_t instance
        @return: Ignored
        """
+       pass
+
 
     def del_func(self, func):
        """
@@ -567,6 +605,8 @@ class IDP_Hooks(object):
        @param func: the func_t instance
        @return: 1-ok,<=0-do not delete
        """
+       pass
+
 
     def is_call_insn(self, ea, func_name):
        """
@@ -575,6 +615,8 @@ class IDP_Hooks(object):
        @param ea: instruction address
        @return: 1-unknown, 0-no, 2-yes
        """
+       pass
+
 
     def is_ret_insn(self, ea, func_name):
        """
@@ -585,6 +627,23 @@ class IDP_Hooks(object):
                         False: include instructions like "leave" which begins the function epilog
        @return: 1-unknown, 0-no, 2-yes
        """
+       pass
+
+
+    def assemble(self, ea, cs, ip, use32, line):
+       """
+       Assembles an instruction
+
+       @param ea: linear address of instruction
+       @param cs: cs of instruction
+       @param ip: ip of instruction
+       @param use32: is 32bit segment?
+       @param line: line to assemble
+
+       @return: - None to let the underlying processor module assemble the line
+                - or a string containing the assembled buffer
+       """
+       pass
 
 #</pydoc>
 */
@@ -700,6 +759,15 @@ public:
     return 0;
   }
 
+  virtual PyObject *assemble(
+      ea_t ea,
+      ea_t cs,
+      ea_t ip,
+      bool use32,
+      const char *line)
+  {
+    return NULL;
+  }
 };
 
 //---------------------------------------------------------------------------
@@ -912,8 +980,36 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
         ret = proxy->is_ret_insn(ea, strict);
         break;
       }
+
+    case processor_t::assemble:
+      {
+        ea_t ea     = va_arg(va, ea_t);
+        ea_t cs     = va_arg(va, ea_t);
+        ea_t ip     = va_arg(va, ea_t);
+        bool use32  = va_argi(va, bool);
+        const char *line = va_arg(va, const char *);
+        // Extract user buffer (we hardcode the MAXSTR size limit)
+        uchar *bin = va_arg(va, uchar *);
+        // Call python
+        PyObject *py_buffer = proxy->assemble(ea, cs, ip, use32, line);
+        if ( py_buffer != NULL && PyString_Check(py_buffer) )
+        {
+          char *s;
+          Py_ssize_t len;
+          if ( PyString_AsStringAndSize(py_buffer, &s, &len) != -1 )
+          {
+            if ( len > MAXSTR )
+              len = MAXSTR;
+            memcpy(bin, s, len);
+            ret = len;
+          }
+        }
+        // ret = 0 otherwise
+        Py_XDECREF(py_buffer);
+        break;
+      }
     }
-  }  
+  }
   catch (Swig::DirectorException &)
   {
     msg("Exception in IDP Hook function:\n");

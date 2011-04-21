@@ -1,6 +1,15 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
 
+Changes from version 1.5.0 to 1.5.1
+------------------------------------
+- Introduced the CLI '?' pseudo-command to retrieve doc strings
+- Introduced the CLI '!' pseudo-command to shell execute a command
+- bugfix: High 64 bit addresses were not parsed correctly in IDA64
+- Added IDP/assemble notification event
+- bugfix: AskUsingForm() C function was not wrapped by SWIG
+- NextHead()/PrevHead() have optional 2nd parameter now
+
 Changes from version 1.4.3 to 1.5.0
 ------------------------------------
 - IDA Pro 6.1 support
@@ -17,6 +26,7 @@ Changes from version 1.4.3 to 1.5.0
 - bugfix: processor_t.id constants were incorrect
 - bugfix: get_debug_names() was broken with IDA64
 - Various bugfixes
+- Added Scripts folder containing various IDAPython scripts
 
 Changes from version 1.4.2 to 1.4.3
 ------------------------------------

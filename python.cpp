@@ -1139,6 +1139,24 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
       return false;
   }
 
+  //
+  // Pseudo commands
+  //
+  qstring s;
+  do 
+  {
+    // Help command?
+    if ( line[0] == '?' )
+      s.sprnt("help(%s)", line+1);
+    // Shell command?
+    else if ( line[0] == '!' )
+      s.sprnt("idaapi.IDAPython_ExecSystem(r'%s')", line+1);
+    else
+      break;
+    // Patch the command line pointer
+    line = s.c_str();
+  } while (false);
+
   begin_execution();
   PythonEvalOrExec(line);
   end_execution();

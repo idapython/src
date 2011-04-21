@@ -118,8 +118,8 @@ The end!
     def OnFormChange(self, fid):
         if fid == self.iButton1.id:
             print("Button1 fchg;inv=%s" % self.invert)
-            self.SetFocusedField(self.rNormal.id)
-            self.EnableField(self.rError.id, self.invert)
+            self.SetFocusedField(self.rNormal)
+            self.EnableField(self.rError, self.invert)
             self.invert = not self.invert
         elif fid == self.iButton2.id:
             g1 = self.GetControlValue(self.cGroup1)
@@ -133,6 +133,8 @@ The end!
         else:
             print(">>fid:%d" % fid)
         return 1
+
+
 
 # --------------------------------------------------------------------------
 def stdalone_main():
@@ -165,7 +167,8 @@ def ida_main():
     f.rWarnings.checked = True
     f.rGreen.selected = True
     f.iStr1.value = "Hello"
-
+    f.iFileSave.value = "*.*"
+    f.iFileOpen.value = "*.*"
     # Execute the form
     ok = f.Execute()
     print("r=%d" % ok)
@@ -188,6 +191,7 @@ def ida_main():
             print("No selection")
         else:
             print("Selection: %s" % sel)
+
     # Dispose the form
     f.Free()
 
