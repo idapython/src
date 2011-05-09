@@ -3409,7 +3409,7 @@ class Choose2(object):
             self.flags |= Choose2.CH_MODAL
 
             # Disable the timeout
-            old = idaapi.set_script_timeout(0)
+            old = _idaapi.set_script_timeout(0)
             n = _idaapi.choose2_create(self, False)
             _idaapi.set_script_timeout(old)
 
