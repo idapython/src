@@ -2911,7 +2911,7 @@ def AskAddr(defval, prompt):
     """
     Ask the user to enter an address
 
-    @param defval: the default address value. This value
+    @param defval: a string designating the default address value. This value
              will appear in the dialog box.
     @param prompt: the prompt to display in the dialog box
 
@@ -2924,7 +2924,7 @@ def AskLong(defval, prompt):
     """
     Ask the user to enter a number
 
-    @param defval: the default value. This value
+    @param defval: a number designating the default value. This value
              will appear in the dialog box.
     @param prompt: the prompt to display in the dialog box
 

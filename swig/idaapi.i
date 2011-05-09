@@ -2320,7 +2320,8 @@ idainfo *get_inf_structure(void)
 #<pydoc>
 def set_script_timeout(timeout):
     """
-    Changes the script timeout value. 
+    Changes the script timeout value. The script wait box dialog will be hidden and shown again when the timeout elapses.
+    See also L{disable_script_timeout}.
     @param timeout: This value is in seconds.
                     If this value is set to zero then the script will never timeout.
     @return: returns the old timeout value
@@ -2329,6 +2330,18 @@ def set_script_timeout(timeout):
 #</pydoc>
 */
 int set_script_timeout(int timeout);
+/*
+#<pydoc>
+def disable_script_timeout():
+    """
+    Disables the script timeout and hides the script wait box.
+    Calling L{set_script_timeout} will not have any effects until the script is compiled and executed again
+    @return: None
+    """
+    pass
+#</pydoc>
+*/
+void disable_script_timeout();
 /*
 #<pydoc>
 def enable_extlang_python(enable):

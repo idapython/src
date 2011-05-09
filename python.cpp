@@ -128,8 +128,8 @@ static bool   g_ui_ready = false;
 static bool   g_alert_auto_scripts = true;
 static bool   g_remove_cwd_sys_path = false;
 
-void end_execution();
-void begin_execution();
+static void end_execution();
+static void begin_execution();
 
 //------------------------------------------------------------------------
 // This callback is called on various interpreter events
@@ -159,29 +159,36 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
 }
 
 //------------------------------------------------------------------------
+static void reset_execution_time()
+{
+  start_time = time(NULL);
+  ninsns = 0;
+}
 // Prepare for Python execution
-void begin_execution()
+static void begin_execution()
 {
   if ( !g_ui_ready || script_timeout == 0 )
     return;
 
-  ninsns = 0;
   end_execution();
-  box_displayed = false;
-  start_time = time(NULL);
+  reset_execution_time();
   PyEval_SetTrace(break_check, NULL);
 }
 
 //------------------------------------------------------------------------
 // Called after Python execution finishes
-void end_execution()
+static void hide_script_waitbox()
 {
   if ( box_displayed )
   {
     hide_wait_box();
     box_displayed = false;
   }
+}
 
+static void end_execution()
+{
+  hide_script_waitbox();
 #ifdef ENABLE_PYTHON_PROFILING
   PyEval_SetTrace(tracefunc, NULL);
 #else
@@ -191,15 +198,18 @@ void end_execution()
 
 //-------------------------------------------------------------------------
 // Exported to the Python environment
+void disable_script_timeout()
+{
+  script_timeout = 0;
+    end_execution();
+}
+
 int set_script_timeout(int timeout)
 {
-  if ( timeout == 0 )
-    end_execution();
-
   qswap(timeout, script_timeout);
 
-  if ( script_timeout != 0 )
-    begin_execution();
+  reset_execution_time();
+  hide_script_waitbox();
   return timeout;
 }
 
