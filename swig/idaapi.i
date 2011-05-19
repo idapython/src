@@ -606,7 +606,7 @@ const char *pywraps_check_autoscripts()
 #define STRING2(x) STRING1(x)
   static const char *exts[] = {"py", "pyw", "pyc", "pyo"};
 
-  static const char *fns[] = 
+  static const char *fns[] =
   {
     "swig_runtime_data" STRING2(SWIG_RUNTIME_VERSION),
     "sitecustomize",
@@ -662,7 +662,7 @@ static error_t idaapi py_idc_opaque_dtor(
 
   // Extract the Python object reference
   PyObject *py_obj = (PyObject *)idc_val.pvoid;
-  
+
   // Decrease its reference (and eventually destroy it)
   Py_DECREF(py_obj);
 
@@ -745,7 +745,7 @@ PyObject *create_idaapi_class_instance0(const char *clsname)
 //------------------------------------------------------------------------
 // Utility function to create linked class instances
 PyObject *create_idaapi_linked_class_instance(
-    const char *clsname, 
+    const char *clsname,
     void *lnk)
 {
   PyObject *py_cls = get_idaapi_attr(clsname);
@@ -796,8 +796,8 @@ PyObject *get_idaapi_attr(const char *attrname)
 //------------------------------------------------------------------------
 // Returns a qstring from an object attribute
 bool PyW_GetStringAttr(
-    PyObject *py_obj, 
-    const char *attr_name, 
+    PyObject *py_obj,
+    const char *attr_name,
     qstring *str)
 {
   PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr_name);
@@ -1034,7 +1034,7 @@ static int get_pyidc_cvt_type(PyObject *py_var)
   PyObject *attr = PyW_TryGetAttrString(py_var, S_PY_IDCCVT_ID_ATTR);
   if ( attr == NULL )
     return -1;
-  
+
   if ( !(PyInt_Check(attr) || PyLong_Check(attr)) )
   {
     Py_DECREF(attr);
@@ -1267,7 +1267,7 @@ int pyvar_to_idcvar(
           continue;
 
         size_t len = strlen(field_name);
-        
+
         // Skip private attributes
         if ( (len > 2 )
           && (strncmp(field_name, "__", 2) == 0 )
@@ -1376,7 +1376,7 @@ int idcvar_to_pyvar(
     }
     else
       return CIP_IMMUTABLE;
-  
+
   case VT_REF:
     {
       if ( *py_var == NULL )
@@ -1384,7 +1384,7 @@ int idcvar_to_pyvar(
         PyObject *py_cls = get_idaapi_attr(PY_CLSID_CVT_BYREF);
         if ( py_cls == NULL )
           return CIP_FAILED;
-  
+
         // Create a byref object with None value. We populate it later
         *py_var = PyObject_CallFunctionObjArgs(py_cls, Py_None, NULL);
         Py_DECREF(py_cls);
@@ -1441,7 +1441,7 @@ int idcvar_to_pyvar(
       }
       PyObject *obj;
       bool is_dict = false;
-      
+
       // Need to create a new object?
       if ( *py_var == NULL )
       {
@@ -1472,7 +1472,7 @@ int idcvar_to_pyvar(
         // Get the attribute
         idc_value_t v;
         VarGetAttr(&idc_var, attr_name, &v, true);
-        
+
         // Convert attribute to a python value (recursively)
         PyObject *py_attr(NULL);
         int cvt = idcvar_to_pyvar(v, &py_attr);
@@ -1488,7 +1488,7 @@ int idcvar_to_pyvar(
           PyDict_SetItemString(obj, attr_name, py_attr);
         else
           PyObject_SetAttrString(obj, attr_name, py_attr);
-        
+
         if ( cvt == CIP_OK )
           Py_XDECREF(py_attr);
       }
@@ -2322,26 +2322,30 @@ def set_script_timeout(timeout):
     """
     Changes the script timeout value. The script wait box dialog will be hidden and shown again when the timeout elapses.
     See also L{disable_script_timeout}.
+
     @param timeout: This value is in seconds.
                     If this value is set to zero then the script will never timeout.
-    @return: returns the old timeout value
+    @return: Returns the old timeout value
     """
     pass
 #</pydoc>
 */
 int set_script_timeout(int timeout);
+
 /*
 #<pydoc>
 def disable_script_timeout():
     """
     Disables the script timeout and hides the script wait box.
     Calling L{set_script_timeout} will not have any effects until the script is compiled and executed again
+
     @return: None
     """
     pass
 #</pydoc>
 */
 void disable_script_timeout();
+
 /*
 #<pydoc>
 def enable_extlang_python(enable):

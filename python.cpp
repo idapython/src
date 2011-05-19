@@ -144,6 +144,7 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
   {
     // We check the timer once every 10 calls
     ninsns = 0;
+
     // Timeout disabled or elapsed?
     if ( script_timeout != 0 && (time(NULL) - start_time > script_timeout) )
     {
@@ -164,6 +165,8 @@ static void reset_execution_time()
   start_time = time(NULL);
   ninsns = 0;
 }
+
+//------------------------------------------------------------------------
 // Prepare for Python execution
 static void begin_execution()
 {
@@ -175,8 +178,7 @@ static void begin_execution()
   PyEval_SetTrace(break_check, NULL);
 }
 
-//------------------------------------------------------------------------
-// Called after Python execution finishes
+//---------------------------------------------------------------------------
 static void hide_script_waitbox()
 {
   if ( box_displayed )
@@ -186,6 +188,8 @@ static void hide_script_waitbox()
   }
 }
 
+//------------------------------------------------------------------------
+// Called after Python execution finishes
 static void end_execution()
 {
   hide_script_waitbox();
@@ -197,19 +201,25 @@ static void end_execution()
 }
 
 //-------------------------------------------------------------------------
-// Exported to the Python environment
 void disable_script_timeout()
 {
+  // Clear timeout
   script_timeout = 0;
-    end_execution();
+  
+  // Uninstall the trace function and hide the waitbox (if it was shown)
+  end_execution();
 }
 
+//-------------------------------------------------------------------------
 int set_script_timeout(int timeout)
 {
+  // Update the timeout
   qswap(timeout, script_timeout);
-
+  
+  // Reset the execution time and hide the waitbox (so it is shown again after timeout elapses)
   reset_execution_time();
   hide_script_waitbox();
+
   return timeout;
 }
 

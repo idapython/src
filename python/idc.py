@@ -2327,7 +2327,7 @@ def GetString(ea, length = -1, strtype = ASCSTR_C):
     if length == -1:
         length = idaapi.get_max_ascii_length(ea, strtype)
 
-    return idaapi.get_ascii_contents(ea, length, strtype)
+    return idaapi.get_ascii_contents(ea, length, strtype, length + 1)
 
 
 def GetStringType(ea):
@@ -2911,7 +2911,7 @@ def AskAddr(defval, prompt):
     """
     Ask the user to enter an address
 
-    @param defval: a string designating the default address value. This value
+    @param defval: an ea_t designating the default address value. This value
              will appear in the dialog box.
     @param prompt: the prompt to display in the dialog box
 

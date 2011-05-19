@@ -73,6 +73,7 @@
 %ignore unregister_custom_data_type;
 %ignore register_custom_data_type;
 %ignore get_many_bytes;
+%ignore get_ascii_contents;
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
@@ -94,7 +95,7 @@
 %rename (unregister_custom_data_type) py_unregister_custom_data_type;
 %rename (register_custom_data_type) py_register_custom_data_type;
 %rename (get_many_bytes) py_get_many_bytes;
-
+%rename (get_ascii_contents) py_get_ascii_contents;
 %{
 //<code(py_bytes)>
 //------------------------------------------------------------------------
@@ -690,6 +691,43 @@ static PyObject *py_get_many_bytes(ea_t ea, unsigned int size)
   Py_RETURN_NONE;
 }
 
+//---------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_ascii_contents(ea, len, type, bufsize):
+  """
+  Get contents of ascii string
+  This function returns the displayed part of the string
+  It works even if the string has not been created in the database yet.
+
+  @param ea: linear address of the string
+  @param len: length of the string in bytes
+  @param type: type of the string
+  @param bufsize: size of output buffer
+  @return: 1-ok, 0-ascii string is too long and was truncated
+  """
+  pass
+#</pydoc>
+*/
+static PyObject *py_get_ascii_contents(
+    ea_t ea,
+    size_t len,
+    int32 type,
+    size_t bufsize = MAXSTR)
+{
+  char *buf = (char *)qalloc(bufsize);
+  if ( buf == NULL )
+    return NULL;
+
+  if ( !get_ascii_contents(ea, len, type, buf, bufsize) )
+  {
+    qfree(buf);
+    Py_RETURN_NONE;
+  }
+  PyObject *py_buf = PyString_FromStringAndSize((const char *)buf, bufsize);
+  qfree(buf);
+  return py_buf;
+}
 
 
 
