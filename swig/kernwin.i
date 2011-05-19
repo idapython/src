@@ -298,6 +298,11 @@ static PyObject *py_add_menu_item(
 {
   bool no_args;
 
+  // No slash in the menu path?
+  const char *p = strrchr(menupath, '/');
+  if ( p == NULL )
+    Py_RETURN_NONE;
+
   if ( args == Py_None )
   {
     no_args = true;
@@ -334,7 +339,7 @@ static PyObject *py_add_menu_item(
   py_add_del_menu_item_ctx *ctx = new py_add_del_menu_item_ctx();
 
   // Form the complete menu path
-  ctx->menupath = menupath;
+  ctx->menupath.append(menupath, p - menupath + 1);
   ctx->menupath.append(name);
   // Save callback data
   ctx->cb_data = cb_data;

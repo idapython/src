@@ -5,14 +5,14 @@ def cb(*args):
     return 1
 
 try:
-    ctx
-    idaapi.del_menu_item(ctx)
+    ex_addmenu_item_ctx
+    idaapi.del_menu_item(ex_addmenu_item_ctx)
     print("Menu removed")
-    del ctx
+    del ex_addmenu_item_ctx
 except:
-    ctx = idaapi.add_menu_item("Search/", "X", "", 0, cb, tuple("hello world"))
-    if ctx is None:
+    ex_addmenu_item_ctx = idaapi.add_menu_item("Search/", "X", "", 0, cb, tuple("hello world"))
+    if ex_addmenu_item_ctx is None:
         print("Failed to add menu!")
-        del ctx
+        del ex_addmenu_item_ctx
     else:
         print("Menu added successfully. Run the script again to delete the menu")
