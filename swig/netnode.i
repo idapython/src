@@ -82,7 +82,7 @@
 %ignore netnode::setbase;
 
 %ignore netnode::altadjust;
-
+%ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, char tag);
 %ignore netnode::operator nodeidx_t;
 
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
@@ -95,5 +95,20 @@
     nodeidx_t index()
     {
       return self->operator nodeidx_t();
+    }
+
+    PyObject *getblob(nodeidx_t start, const char *tag)
+    {
+      // Get the blob and let IDA allocate the memory
+      size_t bufsize;
+      void *buf = self->getblob(NULL, &bufsize, start, *tag);
+      if ( buf == NULL )
+        Py_RETURN_NONE;
+      // Create a Python string
+      PyObject *py_str = PyString_FromStringAndSize((const char *)buf, bufsize);
+      // Free memory
+      qfree(buf);
+
+      return py_str;
     }
 }
