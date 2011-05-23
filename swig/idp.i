@@ -32,7 +32,7 @@
 %ignore ph;
 %ignore IDB_Callback;
 %ignore IDP_Callback;
-
+%ignore _py_getreg;
 %ignore free_processor_module;
 %ignore read_config_file;
 
@@ -66,10 +66,10 @@ def AssembleLine(ea, cs, ip, use32, line):
 #</pydoc>
 */
 static PyObject *AssembleLine(
-    ea_t ea, 
-    ea_t cs, 
-    ea_t ip, 
-    bool use32, 
+    ea_t ea,
+    ea_t cs,
+    ea_t ip,
+    bool use32,
     const char *line)
 {
   int inslen;
@@ -99,10 +99,10 @@ def assemble(ea, cs, ip, use32, line):
 #</pydoc>
 */
 bool assemble(
-      ea_t ea, 
-      ea_t cs, 
-      ea_t ip, 
-      bool use32, 
+      ea_t ea,
+      ea_t cs,
+      ea_t ip,
+      bool use32,
       const char *line)
 {
   int inslen;
@@ -387,6 +387,66 @@ static PyObject *ph_get_regnames()
     PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
 
   return py_result;
+}
+
+//---------------------------------------------------------------------------
+static const regval_t *idaapi _py_getreg(
+  const char *name,
+  const regval_t *regvals);
+
+/*
+#<pydoc>
+def ph_get_operand_info():
+    """
+    Returns the operand information given an ea and operand number.
+
+    @param ea: address
+    @param n: operand number
+
+    @return: Returns an idd_opinfo_t as a tuple: (modified, ea, reg_ival, regidx, value_size).
+             Please refer to idd_opinfo_t structure in the SDK.
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *ph_get_operand_info(
+    ea_t ea,
+    int n)
+{
+  do
+  {
+    if ( dbg == NULL || n == - 1 )
+      break;
+
+    // Allocate register space
+    thid_t tid = get_current_thread();
+    regvals_t regvalues;
+    regvalues.reserve(dbg->registers_size);
+
+    // Read registers
+    if ( dbg->read_registers(tid, -1, regvalues.begin()) != 1 )
+      break;
+
+    // Call the processor module
+    idd_opinfo_t opinf;
+    if ( ph.notify(ph.get_operand_info,
+              ea,
+              n,
+              tid,
+              _py_getreg,
+              regvalues.begin(),
+              &opinf) != 0 )
+    {
+      break;
+    }
+    return Py_BuildValue("(i" PY_FMT64 "Kii)",
+                  opinf.modified,
+                  opinf.ea,
+                  opinf.value.ival,
+                  opinf.debregidx,
+                  opinf.value_size);
+  } while (false);
+  Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
@@ -1198,6 +1258,20 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
     }
   }
   return 0;
+}
+
+//-------------------------------------------------------------------------
+static const regval_t *idaapi _py_getreg(
+    const char *name,
+    const regval_t *regvals)
+{
+  for ( int i=dbg->registers_size - 1; i >= 0; i-- )
+  {
+    if ( stricmp(name, dbg->registers[i].name) == 0 )
+      return &regvals[i];
+  }
+  static regval_t rv;
+  return &rv;
 }
 
 //-------------------------------------------------------------------------

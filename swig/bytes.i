@@ -668,7 +668,7 @@ static PyObject *py_get_many_bytes(ea_t ea, unsigned int size)
   {
     if ( size <= 0 )
       break;
-    
+
     // Allocate memory via Python
     PyObject *py_buf = PyString_FromStringAndSize(NULL, Py_ssize_t(size));
     if ( py_buf == NULL )

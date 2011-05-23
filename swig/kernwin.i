@@ -408,6 +408,7 @@ class UI_Hooks(object):
                      (these names can be looked up in ida[tg]ui.cfg)
         @return: 0-ok, nonzero - a plugin has handled the command
         """
+        pass
 
     def postprocess(self):
         """
@@ -727,15 +728,15 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
   {
     switch (notification_code)
     {
-    case ui_preprocess:
+      case ui_preprocess:
       {
         const char *name = va_arg(va, const char *);
         return proxy->preprocess(name);
       }
 
-    case ui_postprocess:
-      proxy->postprocess();
-      break;
+      case ui_postprocess:
+        proxy->postprocess();
+        break;
     }
   }
   catch (Swig::DirectorException &)
