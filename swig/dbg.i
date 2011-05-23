@@ -274,7 +274,7 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
     case dbg_trace:
       tid = va_arg(va, thid_t);
       ip = va_arg(va, ea_t);
-      return proxy->dbg_bpt(tid, ip);
+      return proxy->dbg_trace(tid, ip);
 
     case dbg_request_error:
     {
