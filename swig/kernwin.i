@@ -11,6 +11,10 @@
 %rename (del_menu_item) py_del_menu_item;
 %ignore vwarning;
 
+%ignore choose_idasgn;
+%rename (choose_idasgn) py_choose_idasgn;
+
+
 %ignore msg;
 %rename (msg) py_msg;
 
@@ -105,7 +109,22 @@ void refresh_lists(void)
 
 %inline %{
 //<inline(py_kernwin)>
+
 //------------------------------------------------------------------------
+static PyObject *py_choose_idasgn()
+{
+  char *name = choose_idasgn();
+  if ( name == NULL )
+  {
+    Py_RETURN_NONE;
+  }
+  else
+  {
+    PyObject *py_str = PyString_FromString(name);
+    qfree(name);
+    return py_str;
+  }
+}
 
 //------------------------------------------------------------------------
 /*
@@ -416,6 +435,7 @@ class UI_Hooks(object):
 
         @return: Ignored
         """
+	pass
 
 #</pydoc>
 */
@@ -436,7 +456,7 @@ public:
     return unhook_from_notification_point(HT_UI, UI_Callback, this);
   }
 
-  virtual int preprocess(const char *name)
+  virtual int preprocess(const char * /*name*/)
   {
     return 0;
   }
@@ -467,9 +487,9 @@ char *idaapi choose_getl(void *self, uint32 n, char *buf)
 {
   PYW_GIL_ENSURE;
   PyObject *pyres = PyObject_CallMethod(
-    (PyObject *)self, 
-    "getl", 
-    "l", 
+    (PyObject *)self,
+    "getl",
+    "l",
     n);
   PYW_GIL_RELEASE;
 
@@ -478,7 +498,7 @@ char *idaapi choose_getl(void *self, uint32 n, char *buf)
     qstrncpy(buf, "<Empty>", MAXSTR);
   else
     qstrncpy(buf, res, MAXSTR);
-  
+
   Py_XDECREF(pyres);
   return buf;
 }
@@ -587,18 +607,6 @@ static void formchgcbfa_refresh_field(size_t p_fa, int fid)
 }
 
 //---------------------------------------------------------------------------
-static void formchgcbfa_set_field_value(
-    size_t p_fa, 
-    int fid, 
-    int ft,
-    PyObject *py_val,
-    size_t sz)
-{
-  DECLARE_FORM_ACTIONS;
-  return fa->refresh_field(fid);
-}
-
-//---------------------------------------------------------------------------
 static PyObject *formchgcbfa_get_field_value(
     size_t p_fa, 
     int fid, 
@@ -609,7 +617,7 @@ static PyObject *formchgcbfa_get_field_value(
   switch ( ft )
   {
     // button - uint32
-  case 4:
+    case 4:
     {
       uint32 val;
       if ( fa->get_field_value(fid, &val) )
@@ -617,7 +625,7 @@ static PyObject *formchgcbfa_get_field_value(
       break;
     }
     // ushort
-  case 2:
+    case 2:
     {
       ushort val;
       if ( fa->get_field_value(fid, &val) )
@@ -625,7 +633,7 @@ static PyObject *formchgcbfa_get_field_value(
       break;
     }
     // string label
-  case 1:
+    case 1:
     {
       char val[MAXSTR];
       if ( fa->get_field_value(fid, val) )
@@ -633,7 +641,7 @@ static PyObject *formchgcbfa_get_field_value(
       break;
     }
     // string input
-  case 3:
+    case 3:
     {
       qstring val;
       val.resize(sz + 1);
@@ -641,7 +649,7 @@ static PyObject *formchgcbfa_get_field_value(
         return PyString_FromString(val.begin());
       break;
     }
-  case 5:
+    case 5:
     {
       intvec_t intvec;
       // Returned as 1-base
@@ -653,6 +661,54 @@ static PyObject *formchgcbfa_get_field_value(
 
         return PyW_IntVecToPyList(intvec);
       }
+      break;
+    }
+    // Numeric control
+    case 6:
+    {
+      union
+      {
+        sel_t sel;
+        sval_t sval;
+        uval_t uval;
+        ulonglong ull;
+      } u;
+      switch ( sz )
+      {
+        case 'S': // sel_t
+        {
+          if ( fa->get_field_value(fid, &u.sel) )
+            return Py_BuildValue(PY_FMT64, u.sel);
+          break;
+        }
+        // sval_t
+        case 'n':
+        case 'N':
+        case 'D':
+        case 'O':
+        case 'Y':
+        case 'H':
+        {
+          if ( fa->get_field_value(fid, &u.sval) )
+            return Py_BuildValue(PY_SFMT64, u.sval);
+          break;
+        }
+        case 'L': // uint64
+        case 'l': // int64
+        {
+          if ( fa->get_field_value(fid, &u.ull) )
+            return Py_BuildValue(sz == 'L' ? "K" : "L", u.ull);
+          break;
+        }
+        case 'M': // uval_t
+        case '$': // ea_t
+        {
+          if ( fa->get_field_value(fid, &u.uval) )
+            return Py_BuildValue(PY_FMT64, u.uval);
+          break;
+        }
+      }
+      break;
     }
   }
   Py_RETURN_NONE;
@@ -670,39 +726,44 @@ static bool formchgcbfa_set_field_value(
   switch ( ft )
   {
     // button - uint32
-  case 4:
+    case 4:
     {
       uint32 val = PyLong_AsUnsignedLong(py_val);
       return fa->set_field_value(fid, &val);
     }
     // ushort
-  case 2:
+    case 2:
     {
       ushort val = PyLong_AsUnsignedLong(py_val) & 0xffff;
       return fa->set_field_value(fid, &val);
     }
     // strings
-  case 3:
-  case 1:
+    case 3:
+    case 1:
       return fa->set_field_value(fid, PyString_AsString(py_val));
     // intvec_t
-  case 5:
+    case 5:
     {
       intvec_t intvec;
       // Passed as 0-based
-      PyW_PyListToIntVec(py_val, intvec);
+      if ( !PyW_PyListToIntVec(py_val, intvec) )
+        break;
       
       // Make 1-based
       for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
         (*it)++;
 
-      bool ok = fa->set_field_value(fid, &intvec);
-      return ok;
+      return fa->set_field_value(fid, &intvec);
     }
-    // unknown
-  default:
-    return false;
+    // Numeric
+    case 6:
+    {
+      uint64 num;
+      if ( PyW_GetNumber(py_val, &num) )
+        return fa->set_field_value(fid, &num);
+    }
   }
+  return false;
 }
 
 #undef DECLARE_FORM_ACTIONS
@@ -739,9 +800,9 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
         break;
     }
   }
-  catch (Swig::DirectorException &)
+  catch (Swig::DirectorException &e)
   {
-    msg("Exception in UI Hook function:\n");
+    msg("Exception in UI Hook function: %s\n", e.getMessage());
     if ( PyErr_Occurred() )
       PyErr_Print();
   }
@@ -768,7 +829,7 @@ bool idaapi py_menu_item_callback(void *userdata)
     return false;
   }
 
-  bool ret = PyObject_IsTrue(result);
+  bool ret = PyObject_IsTrue(result) != 0;
   Py_DECREF(result);
   return ret;
 }
@@ -2331,7 +2392,7 @@ private:
   }
 
   // The user clicked
-  static bool idaapi s_cv_click(TCustomControl *cv, int shift, void *ud)
+  static bool idaapi s_cv_click(TCustomControl * /*cv*/, int shift, void *ud)
   {
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_click(shift);
@@ -3675,7 +3736,7 @@ class Form(object):
         def __init__(self, tp, value):
             cls = Form.fieldtype_to_ctype(tp, self.DefI64)
             if cls is None:
-                raise TypeError("Invalid field type: %s" % tp)
+                raise TypeError("Invalid numeric field type: %s" % tp)
             # Get a pointer type to the ctype type
             self.arg = pointer(cls(value))
 
@@ -4566,7 +4627,7 @@ class Form(object):
         Converts a control object to a tuple containing the field id
         and the associated buffer size
         """
-        # Input control depend on the associate buffer size (supplied by the user)
+        # Input control depend on the associated buffer size (supplied by the user)
 
         # Make sure you check instances types taking into account inheritance
         if isinstance(ctrl, Form.EmbeddedChooserControl):
@@ -4578,6 +4639,9 @@ class Form(object):
             return (3, min(_idaapi.MAXSTR, ctrl.size))
         elif isinstance(ctrl, Form.ColorInput):
             return (4, 0)
+        elif isinstance(ctrl, Form.NumericInput):
+            # Pass the numeric control type
+            return (6, ord(ctrl.tp[0]))
         elif isinstance(ctrl, Form.InputControl):
             return (1, ctrl.size)
         else:

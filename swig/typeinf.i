@@ -150,6 +150,10 @@
 %ignore regobj_t;
 %ignore build_func_type;
 
+%ignore append_type_name;
+%ignore for_all_types_ex;
+%ignore pdb2ti;
+
 %include "typeinf.hpp"
 
 // Custom wrappers

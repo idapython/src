@@ -414,7 +414,7 @@ static PyObject *py_get_global_cmd_link()
 }
 
 //-------------------------------------------------------------------------
-PyObject *insn_t_is_canon_insn(int itype)
+static PyObject *insn_t_is_canon_insn(int itype)
 {
   if ( ph.is_canon_insn(itype) )
     Py_RETURN_TRUE;
@@ -423,13 +423,13 @@ PyObject *insn_t_is_canon_insn(int itype)
 }
 
 //-------------------------------------------------------------------------
-PyObject *insn_t_get_canon_feature(int itype)
+static PyObject *insn_t_get_canon_feature(int itype)
 {
   return Py_BuildValue("I", ph.is_canon_insn(itype) ? ph.instruc[itype-ph.instruc_start].feature : 0);
 }
 
 //-------------------------------------------------------------------------
-PyObject *insn_t_get_canon_mnem(int itype)
+static PyObject *insn_t_get_canon_mnem(int itype)
 {
   if ( ph.is_canon_insn(itype) )
     return Py_BuildValue("s", ph.instruc[itype-ph.instruc_start].name);

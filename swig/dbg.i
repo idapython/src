@@ -6,7 +6,13 @@ typedef struct
 } regval_t;
 
 %ignore dbg;
+%ignore register_srcinfo_provider;
+%ignore unregister_srcinfo_provider;
+%ignore appcall_info_t;
 %ignore get_manual_regions;
+%ignore internal_appcall;
+%ignore internal_cleanup_appcall;
+
 %ignore source_file_t;
 %ignore source_item_t;
 %ignore srcinfo_provider_t;
@@ -15,6 +21,7 @@ typedef struct
 %ignore bpt_t::eval_cond;
 %ignore bpt_t::write;
 %ignore bpt_t::erase;
+%ignore bpt_t::cndbody;
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
 %ignore inform_idc_about_debthread;
@@ -28,6 +35,22 @@ static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 //</code(py_dbg)>
 %}
 
+%extend bpt_t
+{
+  PyObject *condition;
+}
+%{
+PyObject *bpt_t_condition_get(bpt_t *bpt)
+{
+  return PyString_FromString(bpt->cndbody.c_str());
+}
+
+void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
+{
+  if ( PyString_Check(val) )
+    bpt->cndbody = PyString_AsString(val);
+}
+%}
 %inline %{
 
 //<inline(py_dbg)>

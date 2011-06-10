@@ -11,7 +11,6 @@
 %ignore get_struct_operand;
 %ignore set_debug_names;
 %ignore get_debug_name;
-%ignore get_debug_names;
 %ignore nameVa;
 
 // Unexported & kernel-only
@@ -31,8 +30,11 @@
 %ignore is_exit_name;
 %ignore dummy_name_ea;
 
+%ignore get_debug_names;
 %rename (get_debug_names) py_get_debug_names;
 %inline %{
+//<inline(py_name)>
+//------------------------------------------------------------------------
 PyObject *py_get_debug_names(ea_t ea1, ea_t ea2)
 {
   // Get debug names
@@ -50,11 +52,12 @@ PyObject *py_get_debug_names(ea_t ea1, ea_t ea2)
   }
   return dict;
 }
+//------------------------------------------------------------------------
+//</inline(py_name)>
 %}
 
 %pythoncode %{
-
-import bisect
+#<pycode(py_name)>
 
 class NearestName:
     """
@@ -103,5 +106,6 @@ class NearestName:
             raise StopIteration
         return self._get_item(index)
 
+#</pycode(py_name)>
 %}
 %include "name.hpp"

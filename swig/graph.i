@@ -407,7 +407,7 @@ private:
   }
 
   // a graph viewer lost focus
-  void on_lostfocus(graph_viewer_t *gv)
+  void on_lostfocus(graph_viewer_t * /*gv*/)
   {
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
@@ -700,7 +700,7 @@ private:
       self = NULL;
     }
 
-    static void SelectNode(PyObject *self, int nid)
+    static void SelectNode(PyObject *self, int /*nid*/)
     {
       py_graph_t *_this = extract_this(self);
       if ( _this == NULL || _this->form == NULL )

@@ -421,8 +421,7 @@ static PyObject *ph_get_operand_info(
     // Allocate register space
     thid_t tid = get_current_thread();
     regvals_t regvalues;
-    regvalues.reserve(dbg->registers_size);
-
+    regvalues.resize(dbg->registers_size);
     // Read registers
     if ( dbg->read_registers(tid, -1, regvalues.begin()) != 1 )
       break;
@@ -809,22 +808,22 @@ public:
     return 0;
   }
 
-  virtual int is_call_insn(ea_t ea)
+  virtual int is_call_insn(ea_t /*ea*/)
   {
     return 0;
   }
 
-  virtual int is_ret_insn(ea_t ea, bool strict)
+  virtual int is_ret_insn(ea_t /*ea*/, bool /*strict*/)
   {
     return 0;
   }
 
   virtual PyObject *assemble(
-      ea_t ea,
-      ea_t cs,
-      ea_t ip,
-      bool use32,
-      const char *line)
+      ea_t /*ea*/,
+      ea_t /*cs*/,
+      ea_t /*ip*/,
+      bool /*use32*/,
+      const char * /*line*/)
   {
     return NULL;
   }
@@ -1070,9 +1069,9 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
       }
     }
   }
-  catch (Swig::DirectorException &)
+  catch (Swig::DirectorException &e)
   {
-    msg("Exception in IDP Hook function:\n");
+    msg("Exception in IDP Hook function: %s\n", e.getMessage());
     if ( PyErr_Occurred() )
       PyErr_Print();
   }
@@ -1249,9 +1248,9 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
       return proxy->segm_moved(ea, ea2, size);
     }
   }
-  catch (Swig::DirectorException &)
+  catch (Swig::DirectorException &e)
   {
-    msg("Exception in IDB Hook function:\n");
+    msg("Exception in IDB Hook function: %s\n", e.getMessage());
     if (PyErr_Occurred())
     {
       PyErr_Print();

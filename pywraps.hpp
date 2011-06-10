@@ -155,7 +155,7 @@ Py_ssize_t pyvar_walk_list(
 PyObject *PyW_IntVecToPyList(const intvec_t &intvec);
 
 // Converts an Python list to an intvec
-void PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
+bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
 
 // Returns a reference to a class
 PyObject *get_idaapi_attr(const char *attr);

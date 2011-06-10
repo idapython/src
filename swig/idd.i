@@ -1,5 +1,9 @@
 %ignore debugger_t;
 %ignore memory_info_t;
+%ignore lowcnd_t;
+%ignore lowcnd_vec_t;
+%ignore update_bpt_info_t;
+%ignore update_bpt_vec_t;
 %ignore register_info_t;
 %ignore appcall;
 %ignore idd_opinfo_t;
@@ -355,7 +359,8 @@ static PyObject *dbg_get_name()
 {
   if ( dbg == NULL )
     Py_RETURN_NONE;
-  return PyString_FromString(dbg->name);
+  else
+    return PyString_FromString(dbg->name);
 }
 
 //-------------------------------------------------------------------------

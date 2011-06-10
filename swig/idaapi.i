@@ -153,7 +153,7 @@ class pycvt_t
     else if ( (ft > FT_FIRST_NUM && ft < FT_LAST_NUM) && PyW_GetNumber(py_attr, &val.u64) )
       ; // nothing to be done
     // A string array?
-    else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || FT_CHRARR_STATIC ) 
+    else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || ft == FT_CHRARR_STATIC ) 
       && (PyList_CheckExact(py_attr) || PyW_IsSequenceType(py_attr)) )
     {
       // Return a reference to the attribute
@@ -492,7 +492,7 @@ PyObject *PyW_IntVecToPyList(const intvec_t &intvec)
 //---------------------------------------------------------------------------
 static int idaapi pylist_to_intvec_cb(
     PyObject *py_item, 
-    Py_ssize_t index, 
+    Py_ssize_t /*index*/, 
     void *ud)
 {
   intvec_t &intvec = *(intvec_t *)ud;
@@ -504,10 +504,10 @@ static int idaapi pylist_to_intvec_cb(
   return CIP_OK;
 }
 
-void PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec)
+bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec)
 {
   intvec.clear();
-  (void)pyvar_walk_list(py_list, pylist_to_intvec_cb, &intvec);
+  return pyvar_walk_list(py_list, pylist_to_intvec_cb, &intvec) != CIP_FAILED;
 }
 //---------------------------------------------------------------------------
 
@@ -1207,9 +1207,9 @@ int pyvar_to_idcvar(
       idc_var->set_int64(PyLong_AsLongLong(attr));
       Py_DECREF(attr);
       return CIP_OK;
-    //
-    // BYREF
-    //
+      //
+      // BYREF
+      //
     case PY_ICID_BYREF:
       {
         // BYREF always require this parameter
@@ -1822,6 +1822,7 @@ import struct
 import traceback
 import os
 import sys
+import bisect
 import __builtin__
 
 # -----------------------------------------------------------------------
@@ -1851,6 +1852,13 @@ PY_ICID_BYREF  = 1
 """byref object"""
 PY_ICID_OPAQUE = 2
 """opaque object"""
+
+# Step trace options (used with set_step_trace_options())
+ST_OVER_DEBUG_SEG  = 0x01
+"""step tracing will be disabled when IP is in a debugger segment"""
+
+ST_OVER_LIB_FUNC    = 0x02
+"""step tracing will be disabled when IP is in a library function"""
 
 # -----------------------------------------------------------------------
 class pyidc_opaque_object_t(object):

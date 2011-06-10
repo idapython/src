@@ -2418,10 +2418,7 @@ def GetLongPrm(offset):
     val = _IDC_GetAttr(idaapi.cvar.inf, _INFMAP, offset)
     if offset == INF_PROCNAME:
         # procName is a character array
-        # strip it at the terminating zero
-        idx = val.find('\0')
-        if idx != -1:
-          val = val[:idx]
+        val = idaapi.as_cstr(val)
     return val
 
 def GetShortPrm(offset):

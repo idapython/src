@@ -8,6 +8,8 @@
 %ignore reloc_info_t; // swig under mac chokes on this
 
 %ignore qmutex_create;
+%ignore qiterator;
+%ignore qrefcnt_t;
 %ignore qmutex_free;
 %ignore qmutex_lock;
 %ignore qmutex_t;

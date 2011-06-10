@@ -1,20 +1,20 @@
-// Convert an incoming Python list to a tid_t[] array 
+// Convert an incoming Python list to a tid_t[] array
 %typemap(in) tid_t[ANY](tid_t temp[$1_dim0]) {
     int i, len;
 
-    if (!PySequence_Check($input)) 
+    if (!PySequence_Check($input))
     {
         PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
         return NULL;
     }
 
-    /* Cap the number of elements to copy */ 
+    /* Cap the number of elements to copy */
     len = PySequence_Length($input) < $1_dim0 ? PySequence_Length($input) : $1_dim0;
 
-    for (i =0; i < len; i++) 
+    for (i =0; i < len; i++)
     {
         PyObject *o = PySequence_GetItem($input,i);
-        if (!PyLong_Check(o)) 
+        if (!PyLong_Check(o))
         {
             Py_XDECREF(o);
             PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
@@ -32,11 +32,7 @@
     $1 = MAXSTR;
  }
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
-#ifdef __cplusplus
-    $1 = ($1_ltype) new char[MAXSTR+1];
-#else
-    $1 = ($1_ltype) malloc(MAXSTR+1);
-#endif
+    $1 = ($1_ltype) qalloc(MAXSTR+1);
 }
 %typemap(out) ssize_t {
     /* REMOVING ssize_t return value in $symname */
@@ -51,11 +47,7 @@
         Py_INCREF(Py_None);
         resultobj = Py_None;
     }
-#ifdef __cplusplus
-    delete [] $1;
-#else
-    free($1);
-#endif
+    qfree($1);
 }
 %enddef
 
@@ -85,11 +77,7 @@
     $1 = MAXSPECSIZE;
 }
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
-#ifdef __cplusplus
-    $1 = (char *) new char[MAXSPECSIZE+1];
-#else
-    $1 = (char *) malloc(MAXSPECSIZE+1);
-#endif
+    $1 = (char *) qalloc(MAXSPECSIZE+1);
 }
 %typemap(out) ssize_t {
     /* REMOVING ssize_t return value in $symname */
@@ -104,11 +92,7 @@
         Py_INCREF(Py_None);
         resultobj = Py_None;
     }
-#ifdef __cplusplus
-    delete [] (char *)$1;
-#else
-    free((char *)$1);
-#endif
+    qfree((void *)$1);
 }
 %enddef
 
@@ -118,11 +102,7 @@
     $1 = &ressize;
 }
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
-#ifdef __cplusplus
-    $1 = (char *) new char[MAXSPECSIZE+1];
-#else
-    $1 = (char *) malloc(MAXSPECSIZE+1);
-#endif
+    $1 = (char *) qalloc(MAXSPECSIZE+1);
 }
 %typemap(out) ssize_t {
     /* REMOVING ssize_t return value in $symname */
@@ -137,11 +117,7 @@
         Py_INCREF(Py_None);
   resultobj = Py_None;
     }
-#ifdef __cplusplus
-    delete [] (char *)$1;
-#else
-    free((char *)$1);
-#endif
+    qfree((void *)$1);
 }
 %enddef
 

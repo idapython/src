@@ -3,7 +3,6 @@
 
 // FIXME: Are these really useful?
 %ignore iterate_func_chunks;
-%ignore get_idasgn_desc;
 %ignore get_idasgn_header_by_short_name;
 
 // Kernel-only & unexported symbols
@@ -27,7 +26,12 @@
 %ignore create_func_eas_array;
 %ignore auto_add_func_tails;
 %ignore read_tails;
+
+%ignore get_idasgn_desc;
 %rename (get_idasgn_desc) py_get_idasgn_desc;
+
+%ignore get_func_cmt;
+%rename (get_func_cmt) py_get_func_cmt;
 
 %include "funcs.hpp"
 
@@ -65,9 +69,10 @@ def get_idasgn_desc(n):
     @param n: number of signature in the list (0..get_idasgn_qty()-1)
     @return: None on failure or tuple(signame, optlibs)
     """
+    pass
 #</pydoc>
 */
-static PyObject *ida_export py_get_idasgn_desc(int n)
+static PyObject *py_get_idasgn_desc(int n)
 {
   char signame[MAXSTR];
   char optlibs[MAXSTR];
@@ -78,4 +83,31 @@ static PyObject *ida_export py_get_idasgn_desc(int n)
     return Py_BuildValue("(ss)", signame, optlibs);
 }
 
+//-----------------------------------------------------------------------
+/*
+#<pydoc>
+def get_func_cmt(fn, repeatable):
+    """
+    Retrieve function comment
+    @param fn: function instance
+    @param repeatable: retrieve repeatable or non-repeatable comments
+    @return: None on failure or the comment
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_get_func_cmt(func_t *fn, bool repeatable)
+{
+  char *s = get_func_cmt(fn, repeatable);
+  if ( s == NULL )
+  {
+    Py_RETURN_NONE;
+  }
+  else
+  {
+    PyObject *py_s = PyString_FromString(s);
+    qfree(s);
+    return py_s;
+  }
+}
 %}
