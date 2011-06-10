@@ -93,6 +93,9 @@ PyObject *PyW_TryImportModule(const char *name);
 // Tries to get an attribute and swallows the exception if it fails and returns NULL
 PyObject *PyW_TryGetAttrString(PyObject *py_var, const char *attr);
 
+// Returns the linked object (void *) from a PyObject
+void *pyobj_get_clink(PyObject *pyobj);
+
 // Converts a Python number (LONGLONG or normal integer) to an IDC variable (VT_LONG or VT_INT64)
 bool PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
 
@@ -159,6 +162,9 @@ bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
 
 // Returns a reference to a class
 PyObject *get_idaapi_attr(const char *attr);
+
+// Returns a reference to a class by its ID
+PyObject *get_idaapi_attr_by_id(const int class_id);
 
 // notify_when()
 bool pywraps_nw_term();

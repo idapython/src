@@ -22,7 +22,41 @@ class MyUiHook(idaapi.UI_Hooks):
     def postprocess(self):
         print("IDA finished processing command: %s" % self.cmdname)
         return 0
+    
+    def saving(self):
+        """
+        The kernel is saving the database.
 
+        @return: Ignored
+        """
+        print("Saving....")
+
+    def saved(self):
+        """
+        The kernel has saved the database.
+
+        @return: Ignored
+        """
+        print("Saved")
+
+    def term(self):
+        """
+        IDA is terminated and the database is already closed.
+        The UI may close its windows in this callback.
+        
+        This callback is best used with a plugin_t with flags PLUGIN_FIX
+        """
+        print("IDA terminated")
+
+    def get_ea_hint(self, ea):
+        """
+        The UI wants to display a simple hint for an address in the navigation band
+        
+        @param ea: The address
+        @return: String with the hint or None
+        """
+        print("get_ea_hint(%x)" % ea)
+    
 
 #---------------------------------------------------------------------
 # Remove an existing hook on second run

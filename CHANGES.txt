@@ -1,6 +1,20 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
 
+Changes from version 1.5.1 to 1.5.2
+------------------------------------
+- added ui_term/ui_save/ui_saved/ui_get_ea_hint UI notifications
+- added ph_get_operand_info() to retrieve operand information while debugging
+- added PteDump.py script
+- some code refactoring
+- bugfix: idaapi.netnode.getblob() was limited to MAXSPECSIZE
+- bugfix: idc.GetString()/idaapi.get_ascii_contents()/idautils.Strings() were limited to MAXSTR string length
+- bugfix: idaapi.del_menu_item() was failing to delete some menu items
+- bugfix: dbg_bpt was called instead of dbg_trace for a DBG_Hooks class implementation (old bug from 0.9.x)
+- bugfix: Form.GetControlValue() was not working with numeric controls
+- bugfix: SetBptCnd() was broken
+- bugfix: idaapi.get_func_cmt() was memory leaking
+
 Changes from version 1.5.0 to 1.5.1
 ------------------------------------
 - Introduced the CLI '?' pseudo-command to retrieve doc strings

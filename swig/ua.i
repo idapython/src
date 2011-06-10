@@ -825,34 +825,13 @@ static void op_t_set_specflag4(PyObject *self, PyObject *value)
 //-------------------------------------------------------------------------
 insn_t *insn_t_get_clink(PyObject *self)
 {
-  // Must have the link attribute
-  if ( !PyObject_HasAttrString(self, S_CLINK_NAME) )
-    return NULL;
-
-  insn_t *insn;
-  PyObject *attr = PyObject_GetAttrString(self, S_CLINK_NAME);
-  if ( PyCObject_Check(attr) )
-    insn = (insn_t *) PyCObject_AsVoidPtr(attr);
-  else
-    insn = NULL;
-  Py_DECREF(attr);
-  return insn;
+  return (insn_t *)pyobj_get_clink(self);
 }
 
 //-------------------------------------------------------------------------
 op_t *op_t_get_clink(PyObject *self)
 {
-  // Must have the link attribute
-  if ( !PyObject_HasAttrString(self, S_CLINK_NAME) )
-    return NULL;
-  op_t *r;
-  PyObject *attr = PyObject_GetAttrString(self, S_CLINK_NAME);
-  if ( PyCObject_Check(attr) )
-    r = (op_t *) PyCObject_AsVoidPtr(attr);
-  else
-    r = NULL;
-  Py_DECREF(attr);
-  return r;
+  return (op_t *)pyobj_get_clink(self);
 }
 
 //</code(py_ua)>

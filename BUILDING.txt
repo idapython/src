@@ -43,9 +43,9 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
    idapython/                     - IDAPython source code
 
 2. On Mac OS X copy libida.dylib from the IDA install directory to
-   swigsdk-versions/x.y/lib/gcc32.mac/
+   swigsdk-versions/x.y/lib/x86_mac_gcc_32/
     and libida64.dylib to
-   swigsdk-versions/x.y/lib/gcc64.mac/
+   swigsdk-versions/x.y/lib/x86_mac_gcc_64/
 
 3. Build the plugin
 

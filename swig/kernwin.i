@@ -109,6 +109,7 @@ void refresh_lists(void)
 
 %inline %{
 //<inline(py_kernwin)>
+//------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
 static PyObject *py_choose_idasgn()
@@ -435,7 +436,39 @@ class UI_Hooks(object):
 
         @return: Ignored
         """
-	pass
+        pass
+
+    def saving(self):
+        """
+        The kernel is saving the database.
+
+        @return: Ignored
+        """
+        pass
+
+    def saved(self):
+        """
+        The kernel has saved the database.
+
+        @return: Ignored
+        """
+        pass
+
+    def get_ea_hint(self, ea):
+        """
+        The UI wants to display a simple hint for an address in the navigation band
+        
+        @param ea: The address
+        @return: String with the hint or None
+        """
+        pass
+
+    def term(self):
+        """
+        IDA is terminated and the database is already closed.
+        The UI may close its windows in this callback.
+        """
+        pass
 
 #</pydoc>
 */
@@ -464,6 +497,22 @@ public:
   virtual void postprocess()
   {
   }
+
+  virtual void saving()
+  {
+  }
+
+  virtual void saved()
+  {
+  }
+
+  virtual void term()
+  {
+  }
+  virtual PyObject *get_ea_hint(ea_t /*ea*/)
+  {
+    Py_RETURN_NONE;
+  };
 };
 
 
@@ -798,6 +847,37 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
       case ui_postprocess:
         proxy->postprocess();
         break;
+
+      case ui_saving:
+        proxy->saving();
+        break;
+
+      case ui_saved:
+        proxy->saved();
+        break;
+
+      case ui_term:
+        proxy->term();
+        break;
+
+      case ui_get_ea_hint:
+      {
+        ea_t ea = va_arg(va, ea_t);
+        char *buf = va_arg(va, char *);
+        size_t sz = va_arg(va, size_t);
+        char *_buf;
+        Py_ssize_t _len;
+
+        PyObject *py_str = proxy->get_ea_hint(ea);
+        if ( py_str != NULL 
+          && PyString_Check(py_str) 
+          && PyString_AsStringAndSize(py_str, &_buf, &_len) != - 1 )
+        {
+          qstrncpy(buf, _buf, qmin(_len, sz));
+          ret = 1;
+        }
+        break;
+      }
     }
   }
   catch (Swig::DirectorException &e)
