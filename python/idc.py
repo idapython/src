@@ -1589,13 +1589,13 @@ def GenCallGdl(outfile, title, flags):
 #----------------------------------------------------------------------------
 #                 C O M M O N   I N F O R M A T I O N
 #----------------------------------------------------------------------------
-def GetIdaDirectory ():
+def GetIdaDirectory():
     """
     Get IDA directory
 
     This function returns the directory where IDA.EXE resides
     """
-    return idaapi.idadir()
+    return idaapi.idadir("")
 
 
 def GetInputFile():
@@ -3899,7 +3899,7 @@ def NextFunction(ea):
 
     @param ea: any address belonging to the function
 
-    @return:        -1 - no more functions
+    @return:        BADADDR - no more functions
             otherwise returns the next function start address
     """
     func = idaapi.get_next_func(ea)
@@ -3916,7 +3916,7 @@ def PrevFunction(ea):
 
     @param ea: any address belonging to the function
 
-    @return: -1 - no more functions
+    @return: BADADDR - no more functions
             otherwise returns the previous function start address
     """
     func = idaapi.get_prev_func(ea)
@@ -3934,7 +3934,7 @@ def GetFunctionAttr(ea, attr):
     @param ea: any address belonging to the function
     @param attr: one of FUNCATTR_... constants
 
-    @return: -1 - error otherwise returns the attribute value
+    @return: BADADDR - error otherwise returns the attribute value
     """
     func = idaapi.get_func(ea)
 
@@ -4116,7 +4116,8 @@ def ChooseFunction(title):
     @return: -1 - user refused to select a function
              otherwise returns the selected function start address
     """
-    return idaapi.choose_func(title, idaapi.BADADDR)
+    f = idaapi.choose_func(title, idaapi.BADADDR)
+    return BADADDR if f is None else f.startEA
 
 
 def GetFuncOffset(ea):
@@ -4245,8 +4246,7 @@ def MakeFrame(ea, lvsize, frregs, argsize):
              will be created. Otherwise the frame will be modified
     """
     func = idaapi.get_func(ea)
-
-    if not func:
+    if func is None:
         return -1
 
     frameid = idaapi.add_frame(func, lvsize, frregs, argsize)
@@ -4359,7 +4359,7 @@ def GetEntryPoint(ordinal):
     @param ordinal: entry point number
         it is returned by GetEntryPointOrdinal()
 
-    @return: -1 if entry point doesn't exist
+    @return: BADADDR if entry point doesn't exist
             otherwise entry point address.
             If entry point address is equal to its ordinal
             number, then the entry point has no ordinal.
@@ -4399,7 +4399,7 @@ def GetNextFixupEA(ea):
 
     @param ea: current address
 
-    @return: -1 - no more fixups otherwise returns the next
+    @return: BADADDR - no more fixups otherwise returns the next
                 address with fixup information
     """
     return idaapi.get_next_fixup_ea(ea)
@@ -4411,7 +4411,7 @@ def GetPrevFixupEA(ea):
 
     @param ea: current address
 
-    @return: -1 - no more fixups otherwise returns the
+    @return: BADADDR - no more fixups otherwise returns the
                 previous address with fixup information
     """
     return idaapi.get_prev_fixup_ea(ea)
@@ -4473,11 +4473,7 @@ def GetFixupTgtSel(ea):
                     otherwise returns fixup target selector
     """
     fd = idaapi.get_fixup(ea)
-
-    if not fd:
-        return -1
-
-    return fd.sel
+    return -1 if not fd else fd.sel
 
 
 def GetFixupTgtOff(ea):
@@ -4490,11 +4486,7 @@ def GetFixupTgtOff(ea):
                 otherwise returns fixup target offset
     """
     fd = idaapi.get_fixup(ea)
-
-    if not fd:
-        return -1
-
-    return fd.off
+    return -1 if not fd else fd.off
 
 
 def GetFixupTgtDispl(ea):
@@ -4507,11 +4499,7 @@ def GetFixupTgtDispl(ea):
                 otherwise returns fixup target displacement
     """
     fd = idaapi.get_fixup(ea)
-
-    if not fd:
-        return -1
-
-    return fd.displacement
+    return -1 if not fd else fd.displacement
 
 
 def SetFixup(ea, fixuptype, targetsel, targetoff, displ):
@@ -4620,7 +4608,7 @@ def GetFirstStrucIdx():
     """
     Get index of first structure type
 
-    @return:      -1 if no structure type is defined
+    @return:      BADADDR if no structure type is defined
                     index of first structure type.
                     Each structure type has an index and ID.
                     INDEX determines position of structure definition
@@ -4641,7 +4629,7 @@ def GetLastStrucIdx():
     """
     Get index of last structure type
 
-    @return:        -1 if no structure type is defined
+    @return:        BADADDR if no structure type is defined
                     index of last structure type.
                     See GetFirstStrucIdx() for the explanation of
                     structure indices and IDs.
@@ -4655,7 +4643,7 @@ def GetNextStrucIdx(index):
 
     @param index: current structure index
 
-    @return:    -1 if no (more) structure type is defined
+    @return:    BADADDR if no (more) structure type is defined
                 index of the next structure type.
                 See GetFirstStrucIdx() for the explanation of
                 structure indices and IDs.
@@ -4669,7 +4657,7 @@ def GetPrevStrucIdx(index):
 
     @param index: current structure index
 
-    @return:    -1 if no (more) structure type is defined
+    @return:    BADADDR if no (more) structure type is defined
                 index of the presiouvs structure type.
                 See GetFirstStrucIdx() for the explanation of
                 structure indices and IDs.
@@ -4683,7 +4671,7 @@ def GetStrucIdx(sid):
 
     @param sid: structure ID
 
-    @return:    -1 if bad structure ID is passed
+    @return:    BADADDR if bad structure ID is passed
                 otherwise returns structure index.
                 See GetFirstStrucIdx() for the explanation of
                 structure indices and IDs.
@@ -4697,7 +4685,7 @@ def GetStrucId(index):
 
     @param index: structure index
 
-    @return: -1 if bad structure index is passed otherwise returns structure ID.
+    @return: BADADDR if bad structure index is passed otherwise returns structure ID.
 
     @note: See GetFirstStrucIdx() for the explanation of structure indices and IDs.
     """
@@ -4710,7 +4698,7 @@ def GetStrucIdByName(name):
 
     @param name: structure type name
 
-    @return:    -1 if bad structure type name is passed
+    @return:    BADADDR if bad structure type name is passed
                 otherwise returns structure ID.
     """
     return idaapi.get_struc_id(name)
@@ -4748,7 +4736,7 @@ def GetStrucSize(sid):
 
     @param sid: structure type ID
 
-    @return:    -1 if bad structure type ID is passed
+    @return:    0 if bad structure type ID is passed
                 otherwise returns size of structure in bytes.
     """
     return idaapi.get_struc_size(sid)
@@ -4764,10 +4752,7 @@ def GetMemberQty(sid):
              returns number of members.
     """
     s = idaapi.get_struc(sid)
-    if not s:
-        return -1
-
-    return s.memqty
+    return -1 if not s else s.memqty
 
 
 def GetStrucPrevOff(sid, offset):
@@ -4814,10 +4799,7 @@ def GetStrucNextOff(sid, offset):
            'offset' belongs to the last member of the structure.
     """
     s = idaapi.get_struc(sid)
-    if not s:
-        return -1
-
-    return idaapi.get_struc_next_offset(s, offset)
+    return -1 if not s else idaapi.get_struc_next_offset(s, offset)
 
 
 def GetFirstMember(sid):
@@ -4988,10 +4970,7 @@ def GetMemberFlag(sid, member_offset):
         return -1
 
     m = idaapi.get_member(s, member_offset)
-    if not m:
-        return -1
-
-    return m.flag
+    return -1 if not m else m.flag
 
 
 def GetMemberStrId(sid, member_offset):
@@ -5626,6 +5605,8 @@ def GetConstEx(enum_id, value, serial, bmask):
 
     @return: id of constant or -1 if error
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_enum_member(enum_id, value, serial, bmask)
 
 
@@ -5693,6 +5674,8 @@ def GetBmaskName(enum_id, bmask):
 
     @return: name of bitmask or None
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_bmask_name(enum_id, bmask)
 
 
@@ -5706,6 +5689,8 @@ def GetBmaskCmt(enum_id, bmask, repeatable):
 
     @return: comment attached to bitmask or None
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_bmask_cmt(enum_id, bmask, repeatable)
 
 
@@ -5719,6 +5704,8 @@ def SetBmaskName(enum_id, bmask, name):
 
     @return: 1-ok, 0-failed
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.set_bmask_name(enum_id, bmask, name)
 
 
@@ -5733,6 +5720,8 @@ def SetBmaskCmt(enum_id, bmask, cmt, repeatable):
 
     @return: 1-ok, 0-failed
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.set_bmask_cmt(enum_id, bmask, cmt, repeatable)
 
 
@@ -5746,6 +5735,8 @@ def GetFirstConst(enum_id, bmask):
     @return: value of constant or -1 no constants are defined
              All constants are sorted by their values as unsigned longs.
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_first_enum_member(enum_id, bmask)
 
 
@@ -5760,6 +5751,8 @@ def GetLastConst(enum_id, bmask):
              All constants are sorted by their values
              as unsigned longs.
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_last_enum_member(enum_id, bmask)
 
 
@@ -5775,6 +5768,8 @@ def GetNextConst(enum_id, value, bmask):
              value. -1 no such constants exist.
              All constants are sorted by their values as unsigned longs.
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_next_enum_member(enum_id, value, bmask)
 
 
@@ -5791,6 +5786,8 @@ def GetPrevConst(enum_id, value, bmask):
         value. -1 no such constants exist.
         All constants are sorted by their values as unsigned longs.
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.get_prev_enum_member(enum_id, value, bmask)
 
 
@@ -5841,11 +5838,12 @@ def AddEnum(idx, name, flag):
             If idx >= GetEnumQty() or idx == -1
             then the new enum is created at the end of
             the list of enums.
+
     @param name: name of the enum.
     @param flag: flags for representation of numeric constants
-            in the definition of enum.
+                 in the definition of enum.
 
-    @return: id of new enum or -1.
+    @return: id of new enum or BADADDR
     """
     return idaapi.add_enum(idx, name, flag)
 
@@ -5973,6 +5971,8 @@ def AddConstEx(enum_id, name, value, bmask):
 
     @return: 0-ok, otherwise error code (one of ENUM_MEMBER_ERROR_*)
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.add_enum_member(enum_id, name, value, bmask)
 
 
@@ -5996,6 +5996,8 @@ def DelConstEx(enum_id, value, serial, bmask):
 
     @return: 1-ok, 0-failed
     """
+    if bmask < 0:
+        bmask &= BADADDR
     return idaapi.del_enum_member(enum_id, value, serial, bmask)
 
 
@@ -6467,7 +6469,7 @@ def GetProcessPid(idx):
         return 0
 
 
-def GetProccessName(idx):
+def GetProcessName(idx):
     """
     Get the name of a running process
 
@@ -6477,10 +6479,7 @@ def GetProccessName(idx):
     """
     pinfo = idaapi.process_info_t()
     pid = idaapi.get_process_info(idx, pinfo)
-    if pid != idaapi.NO_PROCESS:
-        return pinfo.name
-    else:
-        return ""
+    return None if pid == idaapi.NO_PROCESS else pinfo.name
 
 
 def AttachProcess(pid, event_id):
