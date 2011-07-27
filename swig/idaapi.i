@@ -151,9 +151,9 @@ class pycvt_t
 
   //-----------------------------------------------------------------------
   static int get_attr(
-    PyObject *py_obj, 
-    const char *attrname, 
-    int ft, 
+    PyObject *py_obj,
+    const char *attrname,
+    int ft,
     attr_t &val)
   {
     PyObject *py_attr;
@@ -166,7 +166,7 @@ class pycvt_t
     else if ( (ft > FT_FIRST_NUM && ft < FT_LAST_NUM) && PyW_GetNumber(py_attr, &val.u64) )
       ; // nothing to be done
     // A string array?
-    else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || ft == FT_CHRARR_STATIC ) 
+    else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || ft == FT_CHRARR_STATIC )
       && (PyList_CheckExact(py_attr) || PyW_IsSequenceType(py_attr)) )
     {
       // Return a reference to the attribute
@@ -182,8 +182,8 @@ class pycvt_t
 
   //-----------------------------------------------------------------------
   static int idaapi make_str_list_cb(
-    PyObject *py_item, 
-    Py_ssize_t index, 
+    PyObject *py_item,
+    Py_ssize_t index,
     void *ud)
   {
     if ( !PyString_Check(py_item) )
@@ -201,19 +201,19 @@ class pycvt_t
   {
     // Take the size
     Py_ssize_t size = pyvar_walk_list(py_list);
-    
+
     // Allocate a buffer
     char **a = (char **)qalloc((size + 1) * sizeof(char *));
-    
+
     // Walk and populate
     size = pyvar_walk_list(py_list, make_str_list_cb, a);
-    
+
     // Make the list NULL terminated
     a[size] = NULL;
-    
+
     // Return the list to the user
     *arr = a;
-    
+
     // Return the size of items processed
     return size;
   }
@@ -221,8 +221,8 @@ class pycvt_t
   //-----------------------------------------------------------------------
   typedef qvector<uint64> uint64vec_t;
   static int idaapi make_int_list(
-    PyObject *py_item, 
-    Py_ssize_t /*index*/, 
+    PyObject *py_item,
+    Py_ssize_t /*index*/,
     void *ud)
   {
     uint64 val;
@@ -344,7 +344,7 @@ public:
     }
     return ok ? -1 : i;
   }
-  
+
   //-----------------------------------------------------------------------
   // Converts fields from IDC and field description into a C structure
   // If 'use_extlang' is specified, then the passed idc_obj is considered
@@ -369,13 +369,13 @@ public:
 
       // Get field type
       int ft = fd.field_type & ~FT_VALUE_MASK;
-      
+
       // Point to structure member
       void *store = (void *)((char *)store_area + fd.field_offs);
-      
+
       // Retrieve attribute and type
       int cvt = get_attr(py_obj, fd.field_name, ft, attr);
-      
+
       // Attribute not found?
       if ( cvt == FT_NOT_FOUND )
       {
@@ -458,7 +458,7 @@ public:
 
 //-------------------------------------------------------------------------
 Py_ssize_t pyvar_walk_list(
-  PyObject *py_list, 
+  PyObject *py_list,
   int (idaapi *cb)(PyObject *py_item, Py_ssize_t index, void *ud),
   void *ud)
 {
@@ -480,7 +480,7 @@ Py_ssize_t pyvar_walk_list(
       break;
 
     int r = cb(py_item, i, ud);
-    
+
     // Decrement reference (if needed)
     if ( r != CIP_OK_NODECREF && is_seq )
         Py_DECREF(py_item); // Only sequences require us to decrement the reference
@@ -504,8 +504,8 @@ PyObject *PyW_IntVecToPyList(const intvec_t &intvec)
 
 //---------------------------------------------------------------------------
 static int idaapi pylist_to_intvec_cb(
-    PyObject *py_item, 
-    Py_ssize_t /*index*/, 
+    PyObject *py_item,
+    Py_ssize_t /*index*/,
     void *ud)
 {
   intvec_t &intvec = *(intvec_t *)ud;
@@ -1124,13 +1124,11 @@ struct py_add_del_menu_item_ctx
 //------------------------------------------------------------------------
 const char *pywraps_check_autoscripts()
 {
-#define STRING1(x) #x
-#define STRING2(x) STRING1(x)
   static const char *exts[] = {"py", "pyw", "pyc", "pyo"};
 
   static const char *fns[] =
   {
-    "swig_runtime_data" STRING2(SWIG_RUNTIME_VERSION),
+    "swig_runtime_data" SWIG_RUNTIME_VERSION,
     "sitecustomize",
     "usercustomize"
   };
@@ -1146,8 +1144,6 @@ const char *pywraps_check_autoscripts()
     }
   }
   return NULL;
-#undef STRING1
-#undef STRING2
 }
 
 //------------------------------------------------------------------------
@@ -1178,7 +1174,7 @@ bool init_pywraps()
     char dtor_name[MAXSTR];
     qsnprintf(dtor_name, sizeof(dtor_name), "%s.dtor", S_PY_IDC_OPAQUE_T);
 
-    // register the dtor function
+    // Register the dtor function
     if ( !set_idc_func_ex(dtor_name, py_idc_opaque_dtor, py_idc_cvt_helper_dtor_args, 0) )
       return false;
 

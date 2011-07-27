@@ -42,7 +42,7 @@
 
 // Python-style version tuple comes from the makefile
 // Only the serial and status is set here
-#define VER_SERIAL 0
+#define VER_SERIAL 3
 #define VER_STATUS "final"
 #define IDAPYTHON_RUNSTATEMENT                   0
 #define IDAPYTHON_ENABLE_EXTLANG                 3
@@ -205,7 +205,7 @@ void disable_script_timeout()
 {
   // Clear timeout
   script_timeout = 0;
-  
+
   // Uninstall the trace function and hide the waitbox (if it was shown)
   end_execution();
 }
@@ -215,7 +215,7 @@ int set_script_timeout(int timeout)
 {
   // Update the timeout
   qswap(timeout, script_timeout);
-  
+
   // Reset the execution time and hide the waitbox (so it is shown again after timeout elapses)
   reset_execution_time();
   hide_script_waitbox();
@@ -353,7 +353,7 @@ static PyObject *GetMainGlobals()
 
 //------------------------------------------------------------------------
 static void PythonEvalOrExec(
-    const char *str, 
+    const char *str,
     const char *filename = "<string>")
 {
   // Compile as an expression
@@ -411,7 +411,7 @@ static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res
       Py_file_input,
       globals,
       globals);
-    PYW_GIL_RELEASE;  
+    PYW_GIL_RELEASE;
     Py_XDECREF(result);
     end_execution();
 
@@ -513,13 +513,13 @@ static int PyRunFile(const char *FileName)
 
   PYW_GIL_ENSURE;
   PyObject *result = PyRun_File(
-        PyFile_AsFile(PyFileObject), 
-        FileName, 
-        Py_file_input, 
-        globals, 
+        PyFile_AsFile(PyFileObject),
+        FileName,
+        Py_file_input,
+        globals,
         globals);
   PYW_GIL_RELEASE;
-  
+
   Py_XDECREF(PyFileObject);
   Py_XDECREF(result);
 
@@ -760,7 +760,7 @@ bool idaapi IDAPython_extlang_run(
 
     if ( imported_module )
     {
-      PYW_GIL_ENSURE;    
+      PYW_GIL_ENSURE;
       module = PyImport_ImportModule(modname);
       PYW_GIL_RELEASE;
     }
@@ -1163,7 +1163,7 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
   // Pseudo commands
   //
   qstring s;
-  do 
+  do
   {
     // Help command?
     if ( line[0] == '?' )
@@ -1402,10 +1402,10 @@ bool IDAPython_Init(void)
 
   // Read configuration value
   read_user_config_file("python.cfg", set_python_options, NULL);
-  if ( g_alert_auto_scripts ) 
+  if ( g_alert_auto_scripts )
   {
     const char *autofn = pywraps_check_autoscripts();
-    if ( autofn != NULL 
+    if ( autofn != NULL
       && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
                     "Do you want to continue loading IDAPython?", autofn) == 0 )
     {
