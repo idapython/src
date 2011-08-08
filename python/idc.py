@@ -90,15 +90,18 @@ FF_IVL  = idaapi.FF_IVL             # Byte has value ?
 
 def hasValue(F):     return ((F & FF_IVL) != 0)     # any defined value?
 
-# Get byte value from flags
-# Get value of byte provided that the byte is initialized.
-# This macro works ok only for 8-bit byte machines.
+def byteValue(F):
+    """
+    Get byte value from flags
+    Get value of byte provided that the byte is initialized.
+    This macro works ok only for 8-bit byte machines.
+    """
+    return (F & MS_VAL)
 
-def byteValue(F):    return (F & MS_VAL)    # quick replacement for Byte()
 
-# Is the byte initialized?
-
-def isLoaded(ea):    return hasValue(GetFlags(ea))  # any defined value?
+def isLoaded(ea):
+    """Is the byte initialized?"""
+    return hasValue(GetFlags(ea))  # any defined value?
 
 MS_CLS   = idaapi.MS_CLS   # Mask for typing
 FF_CODE  = idaapi.FF_CODE  # Code ?
@@ -358,8 +361,6 @@ def AddHotkey(hotkey, idcfunc):
 
     @param hotkey: hotkey name ('a', "Alt-A", etc)
     @param idcfunc: IDC function name
-
-    @note: GUI version doesn't support hotkeys
 
     @return: None
     """
@@ -2020,7 +2021,9 @@ def ItemHead(ea):
     @return: the starting address of the item
              if the current address is unexplored, returns 'ea'
     """
-    return idaapi.get_item_head(ea)
+    if idaapi.isTail(idaapi.get_flags_novalue(ea)):
+        ea = idaapi.prev_not_tail(ea)
+    return ea
 
 
 def ItemEnd(ea):
@@ -4017,16 +4020,33 @@ def GetFunctionFlags(ea):
         return func.flags
 
 
-FUNC_NORET    = idaapi.FUNC_NORET    # function doesn't return
-FUNC_FAR      = idaapi.FUNC_FAR      # far function
-FUNC_LIB      = idaapi.FUNC_LIB      # library function
-FUNC_STATIC   = idaapi.FUNC_STATICDEF# static function
-FUNC_FRAME    = idaapi.FUNC_FRAME    # function uses frame pointer (BP)
-FUNC_USERFAR  = idaapi.FUNC_USERFAR  # user has specified far-ness
-                                     # of the function
-FUNC_HIDDEN   = idaapi.FUNC_HIDDEN   # a hidden function
-FUNC_THUNK    = idaapi.FUNC_THUNK    # thunk (jump) function
-FUNC_BOTTOMBP = idaapi.FUNC_BOTTOMBP # BP points to the bottom of the stack frame
+FUNC_NORET         = idaapi.FUNC_NORET         # function doesn't return
+FUNC_FAR           = idaapi.FUNC_FAR           # far function
+FUNC_LIB           = idaapi.FUNC_LIB           # library function
+FUNC_STATIC        = idaapi.FUNC_STATICDEF     # static function
+FUNC_FRAME         = idaapi.FUNC_FRAME         # function uses frame pointer (BP)
+FUNC_USERFAR       = idaapi.FUNC_USERFAR       # user has specified far-ness
+                                               # of the function
+FUNC_HIDDEN        = idaapi.FUNC_HIDDEN        # a hidden function
+FUNC_THUNK         = idaapi.FUNC_THUNK         # thunk (jump) function
+FUNC_BOTTOMBP      = idaapi.FUNC_BOTTOMBP      # BP points to the bottom of the stack frame
+FUNC_NORET_PENDING = idaapi.FUNC_NORET_PENDING # Function 'non-return' analysis
+                                               # must be performed. This flag is
+                                               # verified upon func_does_return()
+FUNC_SP_READY      = idaapi.FUNC_SP_READY      # SP-analysis has been performed
+                                               # If this flag is on, the stack
+                                               # change points should not be not
+                                               # modified anymore. Currently this
+                                               # analysis is performed only for PC
+FUNC_PURGED_OK     = idaapi.FUNC_PURGED_OK     # 'argsize' field has been validated.
+                                               # If this bit is clear and 'argsize'
+                                               # is 0, then we do not known the real
+                                               # number of bytes removed from
+                                               # the stack. This bit is handled
+                                               # by the processor module.
+FUNC_TAIL          = idaapi.FUNC_TAIL          # This is a function tail.
+                                               # Other bits must be clear
+                                               # (except FUNC_HIDDEN)
 
 
 def SetFunctionFlags(ea, flags):
@@ -4750,6 +4770,10 @@ def GetMemberQty(sid):
 
     @return: -1 if bad structure type ID is passed otherwise
              returns number of members.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     return -1 if not s else s.memqty
@@ -4772,6 +4796,10 @@ def GetStrucPrevOff(sid, offset):
            This function returns a member offset or a hole offset.
            It will return size of the structure if input
            'offset' is bigger than the structure size.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     if not s:
@@ -4797,6 +4825,10 @@ def GetStrucNextOff(sid, offset):
            This function returns a member offset or a hole offset.
            It will return size of the structure if input
            'offset' belongs to the last member of the structure.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     return -1 if not s else idaapi.get_struc_next_offset(s, offset)
@@ -4815,6 +4847,10 @@ def GetFirstMember(sid):
     @note: IDA allows 'holes' between members of a
            structure. It treats these 'holes'
            as unnamed arrays of bytes.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     if not s:
@@ -4836,6 +4872,10 @@ def GetLastMember(sid):
     @note: IDA allows 'holes' between members of a
           structure. It treats these 'holes'
           as unnamed arrays of bytes.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     if not s:
@@ -4854,6 +4894,10 @@ def GetMemberOffset(sid, member_name):
     @return: -1 if bad structure type ID is passed
              or no such member in the structure
              otherwise returns offset of the specified member.
+
+    @note: Union members are, in IDA's internals, located 
+           at subsequent byte offsets: member 0 -> offset 0x0, 
+           member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
     if not s:
@@ -5121,12 +5165,13 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0,
                    -1 means to add at the end of the structure
     @param flag: type of the new member. Should be one of
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-    @param typeid: if isStruc(flag) then typeid specifies
-                   the structure id for the member
+    @param typeid: if isStruc(flag) then typeid specifies the structure id for the member
                    if isOff0(flag) then typeid specifies the offset base.
                    if isASCII(flag) then typeid specifies the string type (ASCSTR_...).
                    if isStroff(flag) then typeid specifies the structure id
-                   Otherwise should be -1.
+                   if isEnum(flag) then typeid specifies the enum id
+                   if isCustom(flags) then typeid specifies the dtid and fid: dtid|(fid<<16)
+                   Otherwise typeid should be -1.
     @param nbytes: number of bytes in the new member
 
     @param target: target address of the offset expr. You may specify it as
@@ -5201,12 +5246,13 @@ def SetMemberType(sid, member_offset, flag, typeid, nitems, target=-1, tdelta=0,
     @param member_offset: offset of the member
     @param flag: new type of the member. Should be one of
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-    @param typeid: structure id if 'flag' == FF_STRU
-                   Denotes type of the member is the member
-                   itself is a structure. Otherwise should be -1.
+    @param typeid: if isStruc(flag) then typeid specifies the structure id for the member
                    if isOff0(flag) then typeid specifies the offset base.
-                   if isASCII(flag) then typeid specifies the string type
-                   (ASCSTR_...).
+                   if isASCII(flag) then typeid specifies the string type (ASCSTR_...).
+                   if isStroff(flag) then typeid specifies the structure id
+                   if isEnum(flag) then typeid specifies the enum id
+                   if isCustom(flags) then typeid specifies the dtid and fid: dtid|(fid<<16)
+                   Otherwise typeid should be -1.
     @param nitems: number of items in the member
 
     @param target: target address of the offset expr. You may specify it as
