@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -----------------------------------------------------------------------
-# IDAPython - Python plugin for Interactive Disassembler Pro
+# IDAPython - Python plugin for Interactive Disassembler
 #
 # Copyright (c) The IDAPython Team <idapython@googlegroups.com>
 #
@@ -94,7 +94,7 @@ from idautils import *
 import idaapi
 
 # Load the users personal init file
-userrc = get_user_idadir() + os.sep + "idapythonrc.py"
+userrc = os.path.join(get_user_idadir(), "idapythonrc.py")
 if os.path.exists(userrc):
     idaapi.IDAPython_ExecScript(userrc, globals())
 

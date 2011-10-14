@@ -7,7 +7,7 @@ The IDAPython Team:
 
 * Hex-Rays - http://www.hex-rays.com/ - <support@hex-rays.com>
 
-    Hex-Rays joined the project in September 2009 and started contributing.
+    Hex-Rays joined the IDAPython project in September 2009 and started contributing.
     It is primarily maintained by Elias Bachaalany.
 
 
@@ -21,3 +21,4 @@ The IDAPython Team:
     Igor Skochinsky
     Sebastian Muniz
     cbwhiz
+    Arnaud Diederen

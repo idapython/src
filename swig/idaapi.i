@@ -1,4 +1,4 @@
-%module(docstring="IDA Pro Plugin SDK API wrapper",directors="1") idaapi
+%module(docstring="IDA Plugin SDK API wrapper",directors="1") idaapi
 // Suppress 'previous definition of XX' warnings
 #pragma SWIG nowarn=302
 // and others...
@@ -12,14 +12,41 @@
 #pragma SWIG nowarn=451
 #pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
 
+%constant size_t SIZE_MAX = size_t(-1);
+
 // Enable automatic docstring generation
 %feature(autodoc);
+
+%define SWIG_DECLARE_PY_CLINKED_OBJECT(type)
+%inline %{
+static PyObject *type##_create()
+{
+  return PyCObject_FromVoidPtr(new type(), NULL);
+}
+static bool type##_destroy(PyObject *py_obj)
+{
+  if ( !PyCObject_Check(py_obj) )
+    return false;
+  delete (type *)PyCObject_AsVoidPtr(py_obj);
+  return true;
+}
+static type *type##_get_clink(PyObject *self)
+{
+  return (type *)pyobj_get_clink(self);
+}
+static PyObject *type##_get_clink_ptr(PyObject *self)
+{
+  return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG)pyobj_get_clink(self));
+}
+%}
+%enddef
 
 // We use those special maps because SWIG wraps passed PyObject* with 'SwigPtr_PyObject' and 'SwigVar_PyObject'
 // They act like autoptr and decrement the reference of the object when the scope ends
 // We need to keep a reference outside SWIG and let the caller manage its references
 %typemap(directorin)  PyObject * "/*%din%*/Py_XINCREF($1_name);$input = $1_name;"
 %typemap(directorout) PyObject * "/*%dout%*/$result = result;Py_XINCREF($result);"
+
 %{
 #include <Python.h>
 
@@ -29,7 +56,7 @@
 
 #ifndef NO_OBSOLETE_FUNCS
   #define NO_OBSOLETE_FUNCS 1
-#endif  
+#endif
 
 #ifdef HAVE_SSIZE_T
 #define _SSIZE_T_DEFINED 1
@@ -124,6 +151,7 @@ enum scfield_types_t
   FT_CHRARR_STATIC,
 };
 
+//---------------------------------------------------------------------------
 struct scfld_t
 {
   const char *field_name;
@@ -524,6 +552,30 @@ bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec)
   return pyvar_walk_list(py_list, pylist_to_intvec_cb, &intvec) != CIP_FAILED;
 }
 
+//---------------------------------------------------------------------------
+static int idaapi pylist_to_strvec_cb(
+  PyObject *py_item,
+  Py_ssize_t /*index*/,
+  void *ud)
+{
+  qstrvec_t &strvec = *(qstrvec_t *)ud;
+  const char *s;
+  if ( !PyString_Check(py_item) )
+    s = "";
+  else
+    s = PyString_AsString(py_item);
+
+  strvec.push_back(s);
+  return CIP_OK;
+}
+
+//---------------------------------------------------------------------------
+bool PyW_PyListToStrVec(PyObject *py_list, qstrvec_t &strvec)
+{
+  strvec.clear();
+  return pyvar_walk_list(py_list, pylist_to_strvec_cb, &strvec) != CIP_FAILED;
+}
+
 //-------------------------------------------------------------------------
 // Checks if the given py_var is a special PyIdc_cvt_helper object.
 // It does that by examining the magic attribute and returns its numeric value.
@@ -874,7 +926,9 @@ int idcvar_to_pyvar(
       PyObject *py_cls = get_idaapi_attr_by_id(PY_CLSID_CVT_INT64);
       if ( py_cls == NULL )
         return CIP_FAILED;
+      PYW_GIL_ENSURE;
       *py_var = PyObject_CallFunctionObjArgs(py_cls, PyLong_FromLongLong(idc_var.i64), NULL);
+      PYW_GIL_RELEASE;
       Py_DECREF(py_cls);
       if ( PyW_GetError() || *py_var == NULL )
         return CIP_FAILED;
@@ -928,7 +982,9 @@ int idcvar_to_pyvar(
           return CIP_FAILED;
 
         // Create a byref object with None value. We populate it later
+        PYW_GIL_ENSURE;
         *py_var = PyObject_CallFunctionObjArgs(py_cls, Py_None, NULL);
+        PYW_GIL_RELEASE;
         Py_DECREF(py_cls);
         if ( PyW_GetError() || *py_var == NULL )
           return CIP_FAILED;
@@ -993,7 +1049,9 @@ int idcvar_to_pyvar(
           return CIP_FAILED;
 
         // Call constructor
+        PYW_GIL_ENSURE;
         obj = PyObject_CallFunctionObjArgs(py_cls, NULL);
+        PYW_GIL_RELEASE;
         Py_DECREF(py_cls);
         if ( PyW_GetError() || obj == NULL )
           return CIP_FAILED;
@@ -1045,11 +1103,104 @@ int idcvar_to_pyvar(
   return CIP_OK;
 }
 
+//-------------------------------------------------------------------------
+// Converts IDC arguments to Python argument list or just one tuple
+// If 'decref' is NULL then 'pargs' will contain one element which is the tuple
+bool pyw_convert_idc_args(
+  const idc_value_t args[],
+  int nargs,
+  ppyobject_vec_t &pargs,
+  boolvec_t *decref,
+  char *errbuf,
+  size_t errbufsize)
+{
+  bool as_tupple = decref == NULL;
+  PyObject *py_tuple(NULL);
+
+  pargs.qclear();
+
+  if ( as_tupple )
+  {
+    py_tuple = PyTuple_New(nargs);
+    if ( py_tuple == NULL )
+    {
+      if ( errbuf != 0 && errbufsize > 0 )
+        qstrncpy(errbuf, "Failed to create a new tuple to store arguments!", errbufsize);
+      return false;
+    }
+    // Add the tuple
+    pargs.push_back(py_tuple);
+  }
+  else
+  {
+    decref->qclear();
+  }
+
+  for ( int i=0; i<nargs; i++ )
+  {
+    PyObject *py_obj(NULL);
+    int cvt = idcvar_to_pyvar(args[i], &py_obj);
+    if ( cvt < CIP_OK )
+    {
+      if ( errbuf != 0 && errbufsize > 0 )
+        qsnprintf(errbuf, errbufsize, "arg#%d has wrong type %d", i, args[i].vtype);
+      return false;
+    }
+
+    if ( as_tupple )
+    {
+      // Opaque object?
+      if ( cvt == CIP_OK_NODECREF )
+      {
+        // Increment reference for opaque objects.
+        // (A tupple will steal references of its set items,
+        // and for an opaque object we want it to still exist
+        // even if the tuple is gone)
+        Py_INCREF(py_obj);
+      }
+      // Save argument
+      PyTuple_SetItem(py_tuple, i, py_obj);
+    }
+    else
+    {
+      pargs.push_back(py_obj);
+      // Do not decrement reference of opaque objects
+      decref->push_back(cvt == CIP_OK);
+    }
+  }
+  return true;
+}
+
+//-------------------------------------------------------------------------
+// Frees arguments returned by pyw_convert_idc_args()
+void pyw_free_idc_args(
+  ppyobject_vec_t &pargs,
+  boolvec_t *decref)
+{
+  if ( decref == NULL )
+  {
+    if ( !pargs.empty() )
+      Py_XDECREF(pargs[0]);
+  }
+  else
+  {
+    // free argument objects
+    for ( int i=(int)pargs.size()-1; i>=0; i-- )
+    {
+      if ( decref->at(i) )
+        Py_DECREF(pargs[i]);
+    }
+    decref->clear();
+  }
+  pargs.clear();
+}
+
 
 
 
 //------------------------------------------------------------------------
 // String constants used
+static const char S_PYINVOKE0[]              = "_py_invoke0";
 static const char S_PY_SWIEX_CLSNAME[]       = "switch_info_ex_t";
 static const char S_PY_OP_T_CLSNAME[]        = "op_t";
 static const char S_PROPS[]                  = "props";
@@ -1121,6 +1272,22 @@ struct py_add_del_menu_item_ctx
   PyObject *cb_data;
 };
 
+//---------------------------------------------------------------------------
+// Context structure used by add|del_idc_hotkey()
+struct py_idchotkey_ctx_t
+{
+  qstring hotkey;
+  PyObject *pyfunc;
+};
+
+//---------------------------------------------------------------------------
+// Context structure used by register/unregister timer
+struct py_timer_ctx_t
+{
+  qtimer_t timer_id;
+  PyObject *pycallback;
+};
+
 //------------------------------------------------------------------------
 const char *pywraps_check_autoscripts()
 {
@@ -1147,6 +1314,43 @@ const char *pywraps_check_autoscripts()
 }
 
 //------------------------------------------------------------------------
+error_t PyW_CreateIdcException(idc_value_t *res, const char *msg)
+{
+  // Create exception object
+  VarObject(res, find_idc_class("exception"));
+
+  // Set the message field
+  idc_value_t v;
+  v.set_string(msg);
+  VarSetAttr(res, "message", &v);
+
+  // Throw exception
+  return set_qerrno(eExecThrow);
+}
+
+//------------------------------------------------------------------------
+// Calls a Python callable encoded in IDC.pvoid member
+static const char idc_py_invoke0_args[] = { VT_PVOID, 0 };
+static error_t idaapi idc_py_invoke0(
+    idc_value_t *argv,
+    idc_value_t *res)
+{
+  PyObject *pyfunc = (PyObject *) argv[0].pvoid;
+  PYW_GIL_ENSURE;
+  PyObject *py_result = PyObject_CallFunctionObjArgs(pyfunc, NULL);
+  PYW_GIL_RELEASE;
+
+  Py_XDECREF(py_result);
+
+  // Report Python error as IDC exception
+  qstring err;
+  if ( PyW_GetError(&err) )
+    return PyW_CreateIdcException(res, err.c_str());
+
+  return eOk;
+}
+
+//------------------------------------------------------------------------
 // This function must be called on initialization
 bool init_pywraps()
 {
@@ -1163,6 +1367,11 @@ bool init_pywraps()
       return false;
   }
 
+  // Register the IDC PyInvoke0 method (helper function for add_idc_hotkey())
+  if ( !set_idc_func_ex(S_PYINVOKE0, idc_py_invoke0, idc_py_invoke0_args, 0) )
+    return false;
+
+  // IDC opaque class not registered?
   if ( get_py_idc_cvt_opaque() == NULL )
   {
     // Add the class
@@ -1196,6 +1405,9 @@ void deinit_pywraps()
   pywraps_initialized = false;
   Py_XDECREF(py_cvt_helper_module);
   py_cvt_helper_module = NULL;
+
+  // Unregister the IDC PyInvoke0 method (helper function for add_idc_hotkey())
+  set_idc_func_ex(S_PYINVOKE0, NULL, idc_py_invoke0_args, 0);
 }
 
 //------------------------------------------------------------------------
@@ -1250,7 +1462,7 @@ PyObject *create_idaapi_linked_class_instance(
 // This function takes a reference to the idaapi module and keeps the reference
 PyObject *get_idaapi_attr_by_id(const int class_id)
 {
-  if ( class_id >= PY_CLSID_LAST )
+  if ( class_id >= PY_CLSID_LAST || py_cvt_helper_module == NULL )
     return NULL;
 
   // Some class names. The array is parallel with the PY_CLSID_xxx consts
@@ -1267,7 +1479,9 @@ PyObject *get_idaapi_attr_by_id(const int class_id)
 // Gets a class reference by name
 PyObject *get_idaapi_attr(const char *attrname)
 {
-  return PyW_TryGetAttrString(py_cvt_helper_module, attrname);
+  return py_cvt_helper_module == NULL
+    ? NULL
+    : PyW_TryGetAttrString(py_cvt_helper_module, attrname);
 }
 
 //------------------------------------------------------------------------
@@ -1467,7 +1681,7 @@ bool PyW_ObjectToString(PyObject *obj, qstring *out)
 //--------------------------------------------------------------------------
 // Checks if a Python error occured and fills the out parameter with the
 // exception string
-bool PyW_GetError(qstring *out)
+bool PyW_GetError(qstring *out, bool clear_err)
 {
   if ( PyErr_Occurred() == NULL )
     return false;
@@ -1476,14 +1690,77 @@ bool PyW_GetError(qstring *out)
   if ( out == NULL )
   {
     // Just clear the error
+    if ( clear_err )
+      PyErr_Clear();
+    return true;
+  }
+
+  // Get the exception info
+  PyObject *err_type, *err_value, *err_traceback, *py_ret(NULL);
+  PyErr_Fetch(&err_type, &err_value, &err_traceback);
+
+  if ( !clear_err )
+    PyErr_Restore(err_type, err_value, err_traceback);
+
+  // Resolve FormatExc()
+  PyObject *py_fmtexc = get_idaapi_attr(S_IDAAPI_FORMATEXC);
+
+  // Helper there?
+  if ( py_fmtexc != NULL )
+  {
+    // Call helper
+    PYW_GIL_ENSURE;
+    py_ret = PyObject_CallFunctionObjArgs(
+      py_fmtexc,
+      err_type,
+      err_value,
+      err_traceback,
+      NULL);
+    PYW_GIL_RELEASE;
+
+    // Dispose helper reference
+    Py_DECREF(py_fmtexc);
+  }
+
+  // Clear the error
+  if ( clear_err )
     PyErr_Clear();
+
+  // Helper failed?!
+  if ( py_ret == NULL )
+  {
+    // Just convert the 'value' part of the original error
+    py_ret = PyObject_Str(err_value);
+  }
+
+  // No exception text?
+  if ( py_ret == NULL )
+  {
+    *out = "IDAPython: unknown error!";
   }
   else
   {
-    PyObject *err_type, *err_value, *err_traceback;
-    PyErr_Fetch(&err_type, &err_value, &err_traceback);
-    PyW_ObjectToString(err_value, out);
+    *out = PyString_AsString(py_ret);
+    Py_DECREF(py_ret);
   }
+
+  if ( clear_err )
+  {
+    Py_XDECREF(err_traceback);
+    Py_XDECREF(err_value);
+    Py_XDECREF(err_type);
+  }
+  return true;
+}
+
+//-------------------------------------------------------------------------
+bool PyW_GetError(char *buf, size_t bufsz, bool clear_err)
+{
+  qstring s;
+  if ( !PyW_GetError(&s, clear_err) )
+    return false;
+
+  qstrncpy(buf, s.c_str(), bufsz);
   return true;
 }
 
@@ -1770,11 +2047,11 @@ bool pywraps_nw_term()
 {
   if ( g_nw == NULL )
     return true;
-  
+
   // If could not deinitialize then return w/o stopping nw
   if ( !g_nw->deinit() )
     return false;
-  
+
   // Cleanup
   delete g_nw;
   g_nw = NULL;
@@ -1874,7 +2151,9 @@ class pyidc_opaque_object_t(object):
 
 # -----------------------------------------------------------------------
 class py_clinked_object_t(pyidc_opaque_object_t):
-    """This is a utility and base class for C linked objects"""
+    """
+    This is a utility and base class for C linked objects
+    """
     def __init__(self, lnk = None):
         # static link: if a link was provided
         self.__static_clink__ = True if lnk else False
@@ -1884,22 +2163,13 @@ class py_clinked_object_t(pyidc_opaque_object_t):
 
     def __del__(self):
         """Delete the link upon object destruction (only if not static)"""
-        if not self.__static_clink__:
+        self._free()
+
+    def _free(self):
+        """Explicitly delete the link (only if not static)"""
+        if not self.__static_clink__ and self.__clink__ is not None:
             self._del_clink(self.__clink__)
-
-    def _create_clink(self):
-        """
-        Overwrite me.
-        Creates a new clink
-        @return: PyCObject representing the C link
-        """
-        pass
-
-    def _del_clink(self, lnk):
-        """Overwrite me.
-        This method deletes the link
-        """
-        pass
+            self.__clink__ = None
 
     def copy(self):
         """Returns a new copy of this class"""
@@ -1912,6 +2182,31 @@ class py_clinked_object_t(pyidc_opaque_object_t):
 
         return inst
 
+    #
+    # Methods to be overwritten
+    #
+    def _create_clink(self):
+        """
+        Overwrite me.
+        Creates a new clink
+        @return: PyCObject representing the C link
+        """
+        pass
+
+    def _del_clink(self, lnk):
+        """
+        Overwrite me.
+        This method deletes the link
+        """
+        pass
+
+    def _get_clink_ptr(self):
+        """
+        Overwrite me.
+        Returns the C link pointer as a 64bit number
+        """
+        pass
+
     def assign(self, other):
         """
         Overwrite me.
@@ -1921,6 +2216,10 @@ class py_clinked_object_t(pyidc_opaque_object_t):
         pass
 
     clink = property(lambda self: self.__clink__)
+    """Returns the C link as a PyObject"""
+
+    clink_ptr = property(lambda self: self._get_clink_ptr())
+    """Returns the C link pointer as a number"""
 
 # -----------------------------------------------------------------------
 class object_t(object):
@@ -1995,6 +2294,75 @@ class PyIdc_cvt_int64__(pyidc_cvt_helper__):
     def __rsub__(self, other): return self.__op(1, other, True)
     def __rmul__(self, other): return self.__op(2, other, True)
     def __rdiv__(self, other): return self.__op(3, other, True)
+
+# -----------------------------------------------------------------------
+# qstrvec_t clinked object
+class qstrvec_t(py_clinked_object_t):
+    """Class representing an qstrvec_t"""
+
+    def __init__(self, items=None):
+        py_clinked_object_t.__init__(self)
+        # Populate the list if needed
+        if items:
+            self.from_list(items)
+
+    def _create_clink(self):
+        return _idaapi.qstrvec_t_create()
+
+    def _del_clink(self, lnk):
+        return _idaapi.qstrvec_t_destroy(lnk)
+
+    def _get_clink_ptr(self):
+        return _idaapi.qstrvec_t_get_clink_ptr(self)
+
+    def assign(self, other):
+        """Copies the contents of 'other' to 'self'"""
+        return _idaapi.qstrvec_t_assign(self, other)
+
+    def __setitem__(self, idx, s):
+        """Sets string at the given index"""
+        return _idaapi.qstrvec_t_set(self, idx, s)
+
+    def __getitem__(self, idx):
+        """Gets the string at the given index"""
+        return _idaapi.qstrvec_t_get(self, idx)
+
+    def __get_size(self):
+        return _idaapi.qstrvec_t_size(self)
+
+    size = property(__get_size)
+    """Returns the count of elements"""
+
+    def addressof(self, idx):
+        """Returns the address (as number) of the qstring at the given index"""
+        return _idaapi.qstrvec_t_addressof(self, idx)
+
+    def add(self, s):
+        """Add a string to the vector"""
+        return _idaapi.qstrvec_t_add(self, s)
+
+
+    def from_list(self, lst):
+        """Populates the vector from a Python string list"""
+        return _idaapi.qstrvec_t_from_list(self, lst)
+
+
+    def clear(self, qclear=False):
+        """
+        Clears all strings from the vector.
+        @param qclear: Just reset the size but do not actually free the memory
+        """
+        return _idaapi.qstrvec_t_clear(self, qclear)
+
+
+    def insert(self, idx, s):
+        """Insert a string into the vector"""
+        return _idaapi.qstrvec_t_insert(self, idx, s)
+
+
+    def remove(self, idx):
+        """Removes a string from the vector"""
+        return _idaapi.qstrvec_t_remove(self, idx)
 
 # -----------------------------------------------------------------------
 class PyIdc_cvt_refclass__(pyidc_cvt_helper__):
@@ -2098,8 +2466,19 @@ def IDAPython_ExecSystem(cmd):
         s = ''.join(f.readlines())
         f.close()
         return s
-    except Exception, e:
-        return str(e)
+    except Exception as e:
+        return "%s\n%s" % (str(e), traceback.format_exc())
+
+# ------------------------------------------------------------
+def IDAPython_FormatExc(etype, value, tb, limit=None):
+    """
+    This function is used to format an exception given the
+    values returned by a PyErr_Fetch()
+    """
+    try:
+        return ''.join(traceback.format_exception(etype, value, tb, limit))
+    except:
+        return str(value)
 
 
 # ------------------------------------------------------------
@@ -2125,12 +2504,12 @@ def IDAPython_ExecScript(script, g):
     old__file__ = g['__file__'] if '__file__' in g else ''
     g['__file__'] = script
 
-    PY_COMPILE_ERR = None
     try:
         execfile(script, g)
-    except Exception, e:
-        PY_COMPILE_ERR = str(e) + "\n" + traceback.format_exc()
-        print PY_COMPILE_ERR
+        PY_COMPILE_ERR = None
+    except Exception as e:
+        PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
+        print(PY_COMPILE_ERR)
     finally:
         # Restore the globals to the state before the script was run
         g['__file__'] = old__file__
@@ -2156,7 +2535,9 @@ class __IDAPython_Completion_Util(object):
 
     @staticmethod
     def parse_identifier(line, prefix, prefix_start):
-        """Parse a line and extracts"""
+        """
+        Parse a line and extracts identifier
+        """
         id_start = prefix_start
         while id_start > 0:
             ch = line[id_start]
@@ -2181,7 +2562,7 @@ class __IDAPython_Completion_Util(object):
 
             for i in xrange(0, c-1):
                 m = getattr(m, parts[i])
-        except Exception, e:
+        except Exception as e:
             return (None, None)
         else:
             # search in the module
@@ -2387,6 +2768,112 @@ def RunPythonStatement(stmt):
     pass
 #</pydoc>
 */
+
+//---------------------------------------------------------------------------
+// qstrvec_t wrapper
+//---------------------------------------------------------------------------
+DECLARE_PY_CLINKED_OBJECT(qstrvec_t);
+
+static bool qstrvec_t_assign(PyObject *self, PyObject *other)
+{
+  qstrvec_t *lhs = qstrvec_t_get_clink(self);
+  qstrvec_t *rhs = qstrvec_t_get_clink(other);
+  if (lhs == NULL || rhs == NULL)
+    return false;
+  *lhs = *rhs;
+  return true;
+}
+
+static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL || idx >= sv->size() )
+    Py_RETURN_NONE;
+  else
+    return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG)&sv->at(idx));
+}
+
+
+static bool qstrvec_t_set(
+    PyObject *self,
+    size_t idx,
+    const char *s)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL || idx >= sv->size() )
+    return false;
+  (*sv)[idx] = s;
+  return true;
+}
+
+static bool qstrvec_t_from_list(
+  PyObject *self,
+  PyObject *py_list)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  return sv == NULL ? false : PyW_PyListToStrVec(py_list, *sv);
+}
+
+static size_t qstrvec_t_size(PyObject *self)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  return sv == NULL ? 0 : sv->size();
+}
+
+static PyObject *qstrvec_t_get(PyObject *self, size_t idx)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL || idx >= sv->size() )
+    Py_RETURN_NONE;
+  return PyString_FromString(sv->at(idx).c_str());
+}
+
+static bool qstrvec_t_add(PyObject *self, const char *s)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL )
+    return false;
+  sv->push_back(s);
+  return true;
+}
+
+static bool qstrvec_t_clear(PyObject *self, bool qclear)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL )
+    return false;
+
+  if ( qclear )
+    sv->qclear();
+  else
+    sv->clear();
+
+  return true;
+}
+
+static bool qstrvec_t_insert(
+    PyObject *self,
+    size_t idx,
+    const char *s)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL || idx >= sv->size() )
+    return false;
+  sv->insert(sv->begin() + idx, s);
+  return true;
+}
+
+static bool qstrvec_t_remove(PyObject *self, size_t idx)
+{
+  qstrvec_t *sv = qstrvec_t_get_clink(self);
+  if ( sv == NULL || idx >= sv->size() )
+    return false;
+
+  sv->erase(sv->begin()+idx);
+  return true;
+}
+
+//---------------------------------------------------------------------------
 
 
 

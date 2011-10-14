@@ -90,7 +90,7 @@ PyObject *py_appcall(
   if ( !ok )
   {
     PyErr_SetString(
-        PyExc_ValueError, 
+        PyExc_ValueError,
         "PyAppCall: Failed to convert Python values to IDC values");
     return NULL;
   }
@@ -275,9 +275,9 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
   ea_t answer;
   thid_t tid = PyInt_AsLong(py_tid);
   int sreg_value = PyInt_AsLong(py_sreg_value);
-  if ( dbg->thread_get_sreg_base(tid, sreg_value, &answer) != 1 )
+  if ( internal_get_sreg_base(tid, sreg_value, &answer) != 1 )
     Py_RETURN_NONE;
-  
+
   return Py_BuildValue(PY_FMT64, pyul_t(answer));
 }
 
@@ -310,7 +310,7 @@ static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
   char *buf;
   PyString_AsStringAndSize(ret, &buf, &len);
 
-  if ( (size_t)dbg->read_memory(ea_t(ea), buf, size_t(sz)) != sz )
+  if ( (size_t)read_dbg_memory(ea_t(ea), buf, size_t(sz)) != sz )
   {
     // Release the string on failure
     Py_DECREF(ret);
@@ -339,7 +339,7 @@ static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
 
   size_t sz = PyString_GET_SIZE(py_buf);
   void *buf = (void *)PyString_AS_STRING(py_buf);
-  if ( dbg->write_memory(ea_t(ea), buf, sz) != sz )
+  if ( write_dbg_memory(ea_t(ea), buf, sz) != sz )
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
@@ -386,7 +386,7 @@ static PyObject *dbg_get_memory_info()
   invalidate_dbgmem_contents(BADADDR, BADADDR);
 
   meminfo_vec_t areas;
-  dbg->get_memory_info(areas);
+  get_dbg_memory_info(&areas);
   return meminfo_vec_t_to_py(areas);
 }
 
@@ -587,7 +587,7 @@ class Appcall_callable__(object):
                self.type,
                self.fields,
                arg_list)
-        except Exception, e:
+        except Exception as e:
             e_obj = e
 
         # Restore appcall options

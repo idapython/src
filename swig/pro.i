@@ -6,7 +6,7 @@
 %ignore print_all_counters;
 %ignore incrementer_t;
 %ignore reloc_info_t; // swig under mac chokes on this
-
+%ignore qstrvec_t;
 %ignore qmutex_create;
 %ignore qiterator;
 %ignore qrefcnt_t;
@@ -86,3 +86,4 @@
 %rename (parse_command_line) py_parse_command_line;
 %include "pro.h"
 
+SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)

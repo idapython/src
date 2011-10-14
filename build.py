@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #---------------------------------------------------------------------
-# IDAPython - Python plugin for Interactive Disassembler Pro
+# IDAPython - Python plugin for Interactive Disassembler
 #
-# Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
+# (c) The IDAPython Team <idapython@googlegroups.com>
 #
 # All rights reserved.
 #
@@ -24,19 +24,19 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 1
+IDA_MINOR_VERSION = 2
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
 else:
-    IDA_SDK = ".." + os.sep + "swigsdk-versions" + os.sep + "%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)
+    IDA_SDK = os.path.join("..", "swigsdk-versions", ("%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)))
 
 # End of user configurable options
 
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 5
-VERSION_PATCH  = 2
+VERSION_PATCH  = 3
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -72,6 +72,8 @@ BINDIST_MANIFEST = [
     "docs/notes.txt",
     "examples/chooser.py",
     "examples/colours.py",
+    "examples/ex_idphook_asm.py",
+    "examples/ex_uirequests.py",
     "examples/debughook.py",
     "examples/ex_cli.py",
     "examples/ex1.idc",
@@ -87,6 +89,10 @@ BINDIST_MANIFEST = [
     "examples/ex_choose2.py",
     "examples/ex_debug_names.py",
     "examples/ex_graph.py",
+    "examples/ex_hotkey.py",
+    "examples/ex_patch.py",
+    "examples/ex_expr.py",
+    "examples/ex_timer.py",
     "examples/ex_dbg.py",
     "examples/ex_custview.py",
     "examples/ex_prefix_plugin.py",
@@ -94,6 +100,7 @@ BINDIST_MANIFEST = [
     "examples/ex_pyqt.py",
     "examples/ex_askusingform.py",
     "examples/ex_uihook.py",
+    "examples/ex_idphook_asm.py",
     "examples/ex_imports.py"
 ]
 
@@ -216,7 +223,7 @@ class GCCBuilder(BuilderBase):
         self.include_delimiter = "-I"
         self.macro_delimiter = "-D"
         self.libpath_delimiter = "-L"
-        self.compiler_parameters = "-fpermissive"
+        self.compiler_parameters = "-fpermissive -Wno-write-strings"
         self.linker_parameters = "-shared"
         self.basemacros = [ ]
         self.compiler = "g++ -m32"
@@ -279,8 +286,8 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
         if type(f) == types.TupleType:
             srcfilepath = f[0]
             srcfilename = os.path.basename(srcfilepath)
-            dstdir = distrootdir + os.sep + f[1]
-            dstfilepath = dstdir + os.sep + srcfilename
+            dstdir = os.path.join(distrootdir, f[1])
+            dstfilepath = os.path.join(dstdir, srcfilename)
         else:
             srcfilepath = f
             srcfilename = os.path.basename(f)
@@ -288,12 +295,12 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
             if srcdir == "":
                 dstdir = distrootdir
             else:
-                dstdir = distrootdir + os.sep + srcdir
+                dstdir = os.path.join(distrootdir, srcdir)
 
         if not os.path.exists(dstdir):
             os.makedirs(dstdir)
 
-        dstfilepath = dstdir + os.sep + srcfilename
+        dstfilepath = os.path.join(dstdir, srcfilename)
         shutil.copyfile(srcfilepath, dstfilepath)
         zip.write(dstfilepath)
 
@@ -304,14 +311,14 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     global SWIG_OPTIONS
     """ Build the plugin from the SWIG wrapper and plugin main source """
     # Path to the IDA SDK headers
-    ida_include_directory = idasdkdir + os.sep + "include"
+    ida_include_directory = os.path.join(idasdkdir, "include")
 
     builder = None
     # Platform-specific settings for the Linux build
     if platform == "linux":
         builder = GCCBuilder()
         platform_macros = [ "__LINUX__" ]
-        python_libpath = sysconfig.EXEC_PREFIX + os.sep + "lib"
+        python_libpath = os.path.join(sysconfig.EXEC_PREFIX, "lib")
         python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_linux_gcc_64" or "x86_linux_gcc_32")
         ida_lib = ""
@@ -320,7 +327,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     elif platform == "win32":
         builder = MSVCBuilder()
         platform_macros = [ "__NT__" ]
-        python_libpath = sysconfig.EXEC_PREFIX + os.sep + "libs"
+        python_libpath = os.path.join(sysconfig.EXEC_PREFIX, "libs")
         python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_win_vc_64" or "x86_win_vc_32")
         ida_lib = "ida.lib"

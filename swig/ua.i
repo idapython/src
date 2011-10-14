@@ -332,6 +332,31 @@ bool py_out_name_expr(
 }
 
 //-------------------------------------------------------------------------
+static PyObject *insn_t_get_op_link(PyObject *py_insn_lnk, int i)
+{
+  if ( i < 0 || i >= UA_MAXOP || !PyCObject_Check(py_insn_lnk) )
+    Py_RETURN_NONE;
+
+  // Extract C link
+  insn_t *insn = (insn_t *)PyCObject_AsVoidPtr(py_insn_lnk);
+
+  // Return a link to the operand
+  return PyCObject_FromVoidPtr(&insn->Operands[i], NULL);
+}
+
+//-------------------------------------------------------------------------
+static PyObject *insn_t_create()
+{
+  return PyCObject_FromVoidPtr(new insn_t(), NULL);
+}
+
+//-------------------------------------------------------------------------
+static PyObject *op_t_create()
+{
+  return PyCObject_FromVoidPtr(new op_t(), NULL);
+}
+
+//-------------------------------------------------------------------------
 static bool op_t_assign(PyObject *self, PyObject *other)
 {
   op_t *lhs = op_t_get_clink(self);
@@ -356,39 +381,12 @@ static bool insn_t_assign(PyObject *self, PyObject *other)
 }
 
 //-------------------------------------------------------------------------
-static PyObject *insn_t_get_op_link(PyObject *py_insn_lnk, int i)
-{
-  if ( i < 0 || i >= UA_MAXOP || !PyCObject_Check(py_insn_lnk) )
-    Py_RETURN_NONE;
-
-  // Extract C link
-  insn_t *insn = (insn_t *)PyCObject_AsVoidPtr(py_insn_lnk);
-
-  // Return a link to the operand
-  return PyCObject_FromVoidPtr(&insn->Operands[i], NULL);
-}
-
-//-------------------------------------------------------------------------
-static PyObject *insn_t_create()
-{
-  insn_t *insn = new insn_t();
-  return PyCObject_FromVoidPtr(insn, NULL);
-}
-
-//-------------------------------------------------------------------------
-static PyObject *op_t_create()
-{
-  op_t *op = new op_t();
-  return PyCObject_FromVoidPtr(op, NULL);
-}
-
-//-------------------------------------------------------------------------
 static bool op_t_destroy(PyObject *py_obj)
 {
   if ( !PyCObject_Check(py_obj) )
     return false;
 
-  op_t *op = (op_t *) PyCObject_AsVoidPtr(py_obj);
+  op_t *op = (op_t *)PyCObject_AsVoidPtr(py_obj);
   delete op;
 
   return true;
@@ -400,9 +398,7 @@ static bool insn_t_destroy(PyObject *py_obj)
   if ( !PyCObject_Check(py_obj) )
     return false;
 
-  insn_t *insn = (insn_t *) PyCObject_AsVoidPtr(py_obj);
-  delete insn;
-
+  delete (insn_t *)PyCObject_AsVoidPtr(py_obj);
   return true;
 }
 
@@ -855,12 +851,6 @@ class op_t(py_clinked_object_t):
     def assign(self, other):
         """Copies the contents of 'other' to 'self'"""
         return _idaapi.op_t_assign(self, other)
-
-#<pydoc>
-#    def copy(self):
-#        """Returns a new copy of this class"""
-#        pass
-#</pydoc>
 
     def __eq__(self, other):
         """Checks if two register operands are equal by checking the register number and its dtype"""

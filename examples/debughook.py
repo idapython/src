@@ -16,15 +16,16 @@ class MyDbgHook(DBG_Hooks):
 
     def dbg_process_start(self, pid, tid, ea, name, base, size):
         print("Process started, pid=%d tid=%d name=%s" % (pid, tid, name))
-        return 0
 
     def dbg_process_exit(self, pid, tid, ea, code):
         print("Process exited pid=%d tid=%d ea=0x%x code=%d" % (pid, tid, ea, code))
-        return 0
 
     def dbg_library_unload(self, pid, tid, ea, info):
         print("Library unloaded: pid=%d tid=%d ea=0x%x info=%s" % (pid, tid, ea, info))
         return 0
+
+    def dbg_process_attach(self, pid, tid, ea, name, base, size):
+        print("Process attach pid=%d tid=%d ea=0x%x name=%s base=%x size=%x" % (pid, tid, ea, name, base, size))
 
     def dbg_process_detach(self, pid, tid, ea):
         print("Process detached, pid=%d tid=%d ea=0x%x" % (pid, tid, ea))
@@ -57,15 +58,19 @@ class MyDbgHook(DBG_Hooks):
 
     def dbg_trace(self, tid, ea):
         print("Trace tid=%d ea=0x%x" % (tid, ea))
+        # return values:
+        #   1  - do not log this trace event;
+        #   0  - log it
         return 0
 
     def dbg_step_into(self):
         print("Step into")
-        return self.dbg_step_over()
+        self.dbg_step_over()
 
-#    def dbg_run_to(self, tid):
-#        print "Runto: tid=%d" % tid
-#        idaapi.continue_process()
+    def dbg_run_to(self, pid, tid=0, ea=0):
+        print "Runto: tid=%d" % tid
+        idaapi.continue_process()
+
 
     def dbg_step_over(self):
         eip = GetRegValue("EIP")
@@ -76,7 +81,7 @@ class MyDbgHook(DBG_Hooks):
             request_exit_process()
         else:
             request_step_over()
-        return 0
+
 
 # Remove an existing debug hook
 try:

@@ -115,6 +115,12 @@
 
 %ignore mem2base;
 %rename (mem2base) py_mem2base;
+%ignore update_snapshot_attributes;
+%ignore build_snapshot_tree;
+%ignore visit_snapshot_tree;
+%ignore save_database_ex;
+%ignore snapshot_t;
+%ignore snapshots_t;
 %ignore load_plugin;
 %rename (load_plugin) py_load_plugin;
 %ignore run_plugin;
@@ -170,8 +176,8 @@ static PyObject *py_load_plugin(const char *name)
   plugin_t *r = load_plugin(name);
   if ( r == NULL )
     Py_RETURN_NONE;
-
-  return PyCObject_FromVoidPtr(r, NULL);
+  else
+    return PyCObject_FromVoidPtr(r, NULL);
 }
 
 //------------------------------------------------------------------------
@@ -190,8 +196,8 @@ static bool py_run_plugin(PyObject *plg, int arg)
 {
   if ( !PyCObject_Check(plg) )
     return false;
-
-  return run_plugin((plugin_t *)PyCObject_AsVoidPtr(plg), arg);
+  else
+    return run_plugin((plugin_t *)PyCObject_AsVoidPtr(plg), arg);
 }
 
 //</inline(py_loader)>

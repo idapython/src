@@ -23,11 +23,14 @@
   #define PY_SFMT64 "l"
 #endif
 
+//------------------------------------------------------------------------
 #define S_IDAAPI_MODNAME                         "idaapi"
 #define S_IDC_MODNAME                            "idc"
 #define S_IDAAPI_EXECSCRIPT                      "IDAPython_ExecScript"
 #define S_IDAAPI_COMPLETION                      "IDAPython_Completion"
+#define S_IDAAPI_FORMATEXC                       "IDAPython_FormatExc"
 
+//------------------------------------------------------------------------
 // Vector of PyObject*
 typedef qvector<PyObject *> ppyobject_vec_t;
 
@@ -58,6 +61,36 @@ typedef qvector<PyObject *> ppyobject_vec_t;
 #define CIP_OK_NODECREF  2 // Success but do not decrement its reference
 
 //---------------------------------------------------------------------------
+// Helper macro to create C counterparts of Python py_clinked_object_t object
+#ifdef __PYWRAPS__
+#define DECLARE_PY_CLINKED_OBJECT(type)                        \
+  static PyObject *type##_create()                             \
+  {                                                            \
+    return PyCObject_FromVoidPtr(new type(), NULL);            \
+  }                                                            \
+  static bool type##_destroy(PyObject *py_obj)                 \
+  {                                                            \
+    if ( !PyCObject_Check(py_obj) )                            \
+      return false;                                            \
+    delete (type *)PyCObject_AsVoidPtr(py_obj);                \
+    return true;                                               \
+  }                                                            \
+  static type *type##_get_clink(PyObject *self)                \
+  {                                                            \
+    return (type *)pyobj_get_clink(self);                      \
+  }                                                            \
+  static PyObject *type##_get_clink_ptr(PyObject *self)        \
+  {                                                            \
+    return PyLong_FromUnsignedLongLong(                        \
+      (unsigned PY_LONG_LONG)pyobj_get_clink(self));           \
+  }
+#else
+// SWIG does not expand macros and thus those definitions won't be wrapped
+// Use DECLARE_PY_CLINKED_OBJECT(type) inside the .i file
+#define DECLARE_PY_CLINKED_OBJECT(type)
+#endif // __PYWRAPS__
+
+//---------------------------------------------------------------------------
 class CGilStateAuto
 {
 private:
@@ -82,10 +115,17 @@ public:
 
 #define PYW_GIL_ENSURE          PYW_GIL_ENSURE_N(_)
 #define PYW_GIL_RELEASE         PYW_GIL_RELEASE_N(_)
+
 //------------------------------------------------------------------------
 // All the exported functions from PyWraps are forward declared here
 insn_t *insn_t_get_clink(PyObject *self);
 op_t *op_t_get_clink(PyObject *self);
+
+// Returns a reference to a class
+PyObject *get_idaapi_attr(const char *attr);
+
+// Returns a reference to a class by its ID
+PyObject *get_idaapi_attr_by_id(const int class_id);
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
 PyObject *PyW_TryImportModule(const char *name);
@@ -112,7 +152,8 @@ bool PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
 bool PyW_IsSequenceType(PyObject *obj);
 
 // Returns an error string from the last exception (and clears it)
-bool PyW_GetError(qstring *out = NULL);
+bool PyW_GetError(qstring *out = NULL, bool clear_err = true);
+bool PyW_GetError(char *buf, size_t bufsz, bool clear_err = true);
 
 // If an error occured (it calls PyGetError) it displays it and return TRUE
 // This function is used when calling callbacks
@@ -124,16 +165,30 @@ PyObject *create_idaapi_class_instance0(const char *clsname);
 // Utility function to create linked class instances
 PyObject *create_idaapi_linked_class_instance(const char *clsname, void *lnk);
 
-// [De]Initializes PyWraps
-bool init_pywraps();
-void deinit_pywraps();
-
 // Returns the string representation of a PyObject
 bool PyW_ObjectToString(PyObject *obj, qstring *out);
 
 // Utility function to convert a python object to an IDC object
 // and sets a python exception on failure.
 bool convert_pyobj_to_idc_exc(PyObject *py_obj, idc_value_t *idc_obj);
+
+// Creates and initializes an IDC exception
+error_t PyW_CreateIdcException(idc_value_t *res, const char *msg);
+
+//
+// Conversion functions
+//
+bool pyw_convert_idc_args(
+  const idc_value_t args[],
+  int nargs,
+  ppyobject_vec_t &pargs,
+  boolvec_t *decref,
+  char *errbuf = NULL,
+  size_t errbufsize = 0);
+
+void pyw_free_idc_args(
+  ppyobject_vec_t &pargs,
+  boolvec_t *decref = NULL);
 
 // Converts Python variable to IDC variable
 // gvar_sn is used in case the Python object was a created from a call to idcvar_to_pyvar and the IDC object was a VT_REF
@@ -160,17 +215,22 @@ PyObject *PyW_IntVecToPyList(const intvec_t &intvec);
 // Converts an Python list to an intvec
 bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
 
-// Returns a reference to a class
-PyObject *get_idaapi_attr(const char *attr);
+// Converts a Python list to a qstrvec
+bool PyW_PyListToStrVec(PyObject *py_list, qstrvec_t &strvec);
 
-// Returns a reference to a class by its ID
-PyObject *get_idaapi_attr_by_id(const int class_id);
-
+//---------------------------------------------------------------------------
+//
 // notify_when()
+//
 bool pywraps_nw_term();
 bool pywraps_nw_notify(int slot, ...);
 bool pywraps_nw_init();
 
+//---------------------------------------------------------------------------
 const char *pywraps_check_autoscripts();
+
+// [De]Initializes PyWraps
+bool init_pywraps();
+void deinit_pywraps();
 
 #endif

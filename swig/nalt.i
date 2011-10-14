@@ -566,10 +566,10 @@ class switch_info_ex_t(py_clinked_object_t):
         return (self.flags & SWI_EXTENDED) != 0 and (self.flags2 & SWI2_SUBTRACT) != 0
 
     def get_jtable_size(self):
-        return self.jcases if self.is_indirect() else ncases
+        return self.jcases if self.is_indirect() else self.ncases
 
     def get_lowcase(self):
-        return self.ind_lowcase if is_indirect() else self.lowcase
+        return self.ind_lowcase if self.is_indirect() else self.lowcase
 
     def set_expr(self, r, dt):
         self.regnum = r

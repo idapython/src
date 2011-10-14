@@ -1,12 +1,32 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
 
+Changes from version 1.5.2 to 1.5.3
+------------------------------------
+- added set_idc_func_ex(): it is now possible to add new IDC functions using Python
+- added visit_patched_bytes() (see ex_patch.py)
+- added support for the multiline text input control in the Form class
+- added support for the editable/readonly dropdown list control in the Form class
+- added execute_sync() to register a function call into the UI message queue
+- added execute_ui_requests() / check ex_uirequests.py
+- added add_hotkey() / del_hotkey() to bind Python methods to hotkeys
+- added register_timer()/unregister_timer(). Check ex_timer.py
+- added the IDC (Arrays) netnode manipulation layer into idc.py
+- added idautils.Structs() and StructMembers() generator functions
+- removed the "Run Python Statment" menu item. IDA now has a unified dialog. 
+  Use RunPlugin("python", 0) to invoke it manually.
+- better error messages for script plugins, loaders and processor modules
+- bugfix: Dbg_Hooks.dbg_run_to() was receiving wrong input
+- bugfix: A few Enum related functions were not properly working in idc.py
+- bugfix: GetIdaDirectory() and GetProcessName() were broken in idc.py
+- bugfix: idaapi.get_item_head() / idc.ItemHead() were not working
+
 Changes from version 1.5.1 to 1.5.2
 ------------------------------------
 - added ui_term/ui_save/ui_saved/ui_get_ea_hint UI notifications
 - added ph_get_operand_info() to retrieve operand information while debugging
 - added PteDump.py script
-- some code refactoring
+- bugfix: read/write_dbg_memory() and dbg_get_thread_sreg_base() were not working with all debugger modules
 - bugfix: idaapi.netnode.getblob() was limited to MAXSPECSIZE
 - bugfix: idc.GetString()/idaapi.get_ascii_contents()/idautils.Strings() were limited to MAXSTR string length
 - bugfix: idaapi.del_menu_item() was failing to delete some menu items

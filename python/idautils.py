@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------
-# IDAPython - Python plugin for Interactive Disassembler Pro
+# IDAPython - Python plugin for Interactive Disassembler
 #
 # Copyright (c) 2004-2010 Gergely Erdelyi <gergely.erdelyi@d-dome.net>
 #
@@ -309,6 +309,38 @@ def FuncItems(start):
         yield fii.current()
         ok = fii.next_code()
 
+
+def Structs():
+    """
+    Get a list of structures
+
+    @return: List of tuples (idx, sid, name)
+    """
+    idx  = idc.GetFirstStrucIdx()
+    while idx != idaapi.BADADDR:
+        sid = idc.GetStrucId(idx)
+        yield (idx, sid, idc.GetStrucName(sid))
+        idx = idc.GetNextStrucIdx(idx)
+
+
+def StructMembers(sid):
+    """
+    Get a list of structure members information.
+
+    @param sid: ID of the structure.
+
+    @return: List of tuples (offset, name, size)
+
+    @note: If 'sid' does not refer to a valid structure,
+           an exception will be raised.
+    """
+    off = idc.GetFirstMember(sid)
+    if off == idaapi.BADNODE:
+        raise Exception("No structure with ID: 0x%x" % sid)
+    members = idc.GetMemberQty(sid)
+    for idx in range(0, members):
+        yield (off, idc.GetMemberName(sid, off), idc.GetMemberSize(sid, off))
+        off = idc.GetStrucNextOff(sid, off)
 
 
 def DecodePrecedingInstruction(ea):
@@ -648,16 +680,68 @@ class _procregs(object):
     def __setattr__(self, attr, value):
         raise AttributeError(attr)
 
+
 # -----------------------------------------------------------------------
 class _cpu(object):
     "Simple wrapper around GetRegValue/SetRegValue"
     def __getattr__(self, name):
-        #print "cpu.get(%s)"%name
+        #print "cpu.get(%s)" % name
         return idc.GetRegValue(name)
 
     def __setattr__(self, name, value):
-        #print "cpu.set(%s)"%name
+        #print "cpu.set(%s)" % name
         return idc.SetRegValue(value, name)
+
+
+# --------------------------------------------------------------------------
+class __process_ui_actions_helper(object):
+    def __init__(self, actions, flags = 0):
+        """Expect a list or a string with a list of actions"""
+        if isinstance(actions, str):
+            lst = actions.split(";")
+        elif isinstance(actions, (list, tuple)):
+            lst = actions
+        else:
+            raise ValueError, "Must pass a string, list or a tuple"
+
+        # Remember the action list and the flags
+        self.__action_list = lst
+        self.__flags = flags
+
+        # Reset action index
+        self.__idx = 0
+
+    def __len__(self):
+        return len(self.__action_list)
+
+    def __call__(self):
+        if self.__idx >= len(self.__action_list):
+            return False
+
+        # Execute one action
+        idaapi.process_ui_action(
+                self.__action_list[self.__idx],
+                self.__flags)
+
+        # Move to next action
+        self.__idx += 1
+
+        # Reschedule
+        return True
+
+
+# --------------------------------------------------------------------------
+def ProcessUiActions(actions, flags=0):
+    """
+    @param actions: A string containing a list of actions separated by semicolon, a list or a tuple
+    @param flags: flags to be passed to process_ui_action()
+    @return: Boolean. Returns False if the action list was empty or execute_ui_requests() failed.
+    """
+
+    # Instantiate a helper
+    helper = __process_ui_actions_helper(actions, flags)
+    return False if len(helper) < 1 else idaapi.execute_ui_requests((helper,))
+
 
 # -----------------------------------------------------------------------
 class peutils_t(object):

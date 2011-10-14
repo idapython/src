@@ -90,7 +90,7 @@
 
 %include "netnode.hpp"
 
-%extend netnode 
+%extend netnode
 {
     nodeidx_t index()
     {
@@ -110,6 +110,27 @@
       qfree(buf);
 
       return py_str;
+    }
+
+    PyObject *hashstr_buf(const char *idx, char tag=htag)
+    {
+      char buf[MAXSPECSIZE];
+      ssize_t sz = self->hashstr(idx, buf, sizeof(buf), tag);
+      if ( sz < 0 )
+        Py_RETURN_NONE;
+      else
+        return PyString_FromStringAndSize(buf, sz);
+    }
+
+    bool hashset_buf(const char *idx, PyObject *py_str, char tag=htag)
+    {
+      char *buf;
+      Py_ssize_t sz;
+
+      if ( PyString_AsStringAndSize(py_str, &buf, &sz) == -1 )
+        return false;
+      else
+        return self->hashset(idx, buf, sz, tag);
     }
 }
 

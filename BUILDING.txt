@@ -1,6 +1,6 @@
-----------------------------------------------------------
-IDAPython - Python plugin for Interactive Disassembler Pro
-----------------------------------------------------------
+------------------------------------------------------
+IDAPython - Python plugin for Interactive Disassembler
+------------------------------------------------------
 Building From Source
 --------------------
 
@@ -36,10 +36,10 @@ BUILDING
 
 Make sure all the needed tools (compiler, swig) are on the PATH.
 
-1. Unpack the IDAPython source and IDA Pro SDK into the following
+1. Unpack the IDAPython source and IDA SDK into the following
    directory structure:
 
-   swigsdk-versions/x.y/          - A supported version of the IDA Pro SDK
+   swigsdk-versions/x.y/          - A supported version of the IDA SDK
    idapython/                     - IDAPython source code
 
 2. On Mac OS X copy libida.dylib from the IDA install directory to

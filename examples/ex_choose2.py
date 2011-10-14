@@ -3,12 +3,13 @@ from idaapi import Choose2
 
 class MyChoose2(Choose2):
 
-    def __init__(self, title, nb = 5):
+    def __init__(self, title, nb = 5, deflt=1):
         Choose2.__init__(self, title, [ ["Address", 10], ["Name", 30] ])
         self.n = 0
         self.items = [ self.make_item() for x in xrange(0, nb+1) ]
         self.icon = 5
         self.selcount = 0
+        self.deflt = deflt
         self.popup_names = ["Inzert", "Del leet", "Ehdeet", "Ree frech"]
         print("created %s" % str(self))
 
@@ -79,6 +80,6 @@ class MyChoose2(Choose2):
             return [0xFF0000, 0]
 
 for i in xrange(1, 5+1):
-    c = MyChoose2("choose2 - sample %d" % i, i*2)
+    c = MyChoose2("choose2 - sample %d" % i, i*2, deflt=i)
     r = c.show()
     print r

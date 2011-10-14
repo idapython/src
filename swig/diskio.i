@@ -12,6 +12,7 @@
 %ignore free_ioports;
 %ignore lread;
 %ignore qlread;
+%ignore efilelength;
 %ignore qlgets;
 %ignore qlgetc;
 %ignore lreadbytes;

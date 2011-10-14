@@ -20,7 +20,7 @@ PLUGIN_TEST = 0
 
 # -----------------------------------------------------------------------
 # Configuration file
-VT_CFGFILE = idaapi.get_user_idadir() + os.sep + "virustotal.cfg"
+VT_CFGFILE = os.path.join(idaapi.get_user_idadir(), "virustotal.cfg")
 
 # -----------------------------------------------------------------------
 # VirusTotal Icon in PNG format

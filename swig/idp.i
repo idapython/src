@@ -423,7 +423,7 @@ static PyObject *ph_get_operand_info(
     regvals_t regvalues;
     regvalues.resize(dbg->registers_size);
     // Read registers
-    if ( dbg->read_registers(tid, -1, regvalues.begin()) != 1 )
+    if ( get_reg_vals(tid, -1, regvalues.begin()) != 1 )
       break;
 
     // Call the processor module
@@ -749,7 +749,7 @@ public:
 
   virtual PyObject *custom_mnem()
   {
-    return NULL;
+    Py_RETURN_NONE;
   }
 
   virtual int is_sane_insn(int no_crefs)
@@ -825,7 +825,7 @@ public:
       bool /*use32*/,
       const char * /*line*/)
   {
-    return NULL;
+    Py_RETURN_NONE;
   }
 };
 
@@ -865,7 +865,7 @@ public:
   virtual int struc_expanded(struc_t * /*sptr*/) { return 0; };
   virtual int struc_cmt_changed(tid_t /*struc_id*/) { return 0; };
   virtual int struc_member_created(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
-  virtual int struc_member_deleted(struc_t * /*sptr*/, tid_t /*member_id*/) { return 0; };
+  virtual int struc_member_deleted(struc_t * /*sptr*/, tid_t /*member_id*/, ea_t /*offset*/) { return 0; };
   virtual int struc_member_renamed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
   virtual int struc_member_changed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
   virtual int thunk_func_created(func_t * /*pfn*/) { return 0; };
@@ -1067,6 +1067,303 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
         Py_XDECREF(py_buffer);
         break;
       }
+      //      validate_flirt_func,    // flirt has recognized a library function
+      //      // this callback can be used by a plugin or proc module
+      //      // to intercept it and validate such a function
+      //      // args: ea_t start_ea
+      //      //       const char *funcname
+      //      // returns: -1-do not create a function,
+      //      //           1-function is validated
+      //      // the idp module is allowed to modify 'cmd'
+      //      set_func_start,         // Function chunk start address will be changed
+      //      // args: func_t *pfn
+      //      //       ea_t new_start
+      //      // Returns: 1-ok,<=0-do not change
+      //      set_func_end,           // Function chunk end address will be changed
+      //      // args: func_t *pfn
+      //      //       ea_t new_end
+      //      // Returns: 1-ok,<=0-do not change
+      //    outlabel,               // The kernel is going to generate an instruction
+      //      // label line or a function header
+      //      // args:
+      //      //   ea_t ea -
+      //      //   const char *colored_name -
+      //      // If returns value <=0, then the kernel should
+      //      // not generate the label
+      //      may_show_sreg,          // The kernel wants to display the segment registers
+      //      // in the messages window.
+      //      // arg - ea_t current_ea
+      //      // if this function returns 0
+      //      // then the kernel will not show
+      //      // the segment registers.
+      //      // (assuming that the module have done it)
+      //      coagulate,              // Try to define some unexplored bytes
+      //      // This notification will be called if the
+      //      // kernel tried all possibilities and could
+      //      // not find anything more useful than to
+      //      // convert to array of bytes.
+      //      // The module can help the kernel and convert
+      //      // the bytes into something more useful.
+      //      // arg:
+      //      //      ea_t start_ea
+      //      // returns: number of converted bytes + 1
+      //      auto_empty,             // Info: all analysis queues are empty
+      //      // args: none
+      //      // returns: none
+      //      // This callback is called once when the
+      //      // initial analysis is finished. If the queue is
+      //      // not empty upon the return from this callback,
+      //      // it will be called later again.
+      //      // See also auto_empty_finally.
+      //      auto_queue_empty,       // One analysis queue is empty
+      //      // args: atype_t type
+      //      // returns: 1-yes, keep the queue empty
+      //      //        <=0-no, the queue is not empty anymore
+      //      // This callback can be called many times, so
+      //      // only the autoMark() functions can be used from it
+      //      // (other functions may work but it is not tested)
+      //      func_bounds,            // find_func_bounds() finished its work
+      //      // The module may fine tune the function bounds
+      //      // args: int *possible_return_code
+      //      //       func_t *pfn
+      //      //       ea_t max_func_end_ea (from the kernel's point of view)
+      //      // returns: none
+      //      is_jump_func,           // is the function a trivial "jump" function?
+      //      // args:  func_t *pfn
+      //      //        ea_t *jump_target
+      //      //        ea_t *func_pointer
+      //      // returns: 0-no, 1-don't know, 2-yes, see jump_target
+      //      // and func_pointer
+      //      gen_regvar_def,         // generate register variable definition line
+      //      // args:  regvar_t *v
+      //      // returns: 0-ok
+      //      setsgr,                 // The kernel has changed a segment register value
+      //      // args:  ea_t startEA
+      //      //        ea_t endEA
+      //      //        int regnum
+      //      //        sel_t value
+      //      //        sel_t old_value
+      //      //        uchar tag (SR_... values)
+      //      // returns: 1-ok, 0-error
+      //      set_compiler,           // The kernel has changed the compiler information
+      //      // (inf.cc structure)
+      //      is_basic_block_end,     // Is the current instruction end of a basic block?
+      //      // This function should be defined for processors
+      //      // with delayed jump slots. The current instruction
+      //      // is stored in 'cmd'
+      //      // args:  bool call_insn_stops_block
+      //      // returns: 1-unknown, 0-no, 2-yes
+      //      reglink,                // IBM PC only, ignore it
+      //      get_vxd_name,           // IBM PC only, ignore it
+      //      // Get Vxd function name
+      //      // args: int vxdnum
+      //      //       int funcnum
+      //      //       char *outbuf
+      //      // returns: nothing
+      //
+      //
+      //      moving_segm,            // May the kernel move the segment?
+      //      // args: segment_t - segment to move
+      //      //       ea_t to   - new segment start address
+      //      // returns: 1-yes, <=0-the kernel should stop
+      //      move_segm,              // A segment is moved
+      //      // Fix processor dependent address sensitive information
+      //      // args: ea_t from  - old segment address
+      //      //       segment_t* - moved segment
+      //      // returns: nothing
+      //
+      //
+      //      get_stkvar_scale_factor,// Should stack variable references be multiplied by
+      //      // a coefficient before being used in the stack frame?
+      //      // Currently used by TMS320C55 because the references into
+      //      // the stack should be multiplied by 2
+      //      // Returns: scaling factor
+      //      // Note: PR_SCALE_STKVARS should be set to use this callback
+      //
+      //      create_flat_group,      // Create special segment representing the flat group
+      //      // (to use for PC mainly)
+      //      // args - ea_t image_base, int bitness, sel_t dataseg_sel
+      //
+      //      kernel_config_loaded,   // This callback is called when ida.cfg is parsed
+      //      // args - none, returns - nothing
+      //
+      //      might_change_sp,        // Does the instruction at 'ea' modify the stack pointer?
+      //      // args: ea_t ea
+      //      // returns: 1-yes, 0-false
+      //      // (not used yet)
+      //
+      //      is_alloca_probe,        // Does the function at 'ea' behave as __alloca_probe?
+      //      // args: ea_t ea
+      //      // returns: 2-yes, 1-false
+      //
+      //      out_3byte,              // Generate text representation of 3byte data
+      //      // init_out_buffer() is called before this function
+      //      // and all Out... function can be used.
+      //      // uFlag contains the flags.
+      //      // This callback might be implemented by the processor
+      //      // module to generate custom representation of 3byte data.
+      //      // args:
+      //      // ea_t dataea - address of the data item
+      //      // uint32 value - value to output
+      //      // bool analyze_only - only create xrefs if necessary
+      //      //              do not generate text representation
+      //      // returns: 2-yes, 1-false
+      //
+      //      get_reg_name,           // Generate text representation of a register
+      //      // int reg        - internal register number as defined in the processor module
+      //      // size_t width   - register width in bytes
+      //      // char *buf      - output buffer
+      //      // size_t bufsize - size of output buffer
+      //      // int reghi      - if not -1 then this function will return the register pair
+      //      // returns: -1 if error, strlen(buf)+2 otherwise
+      //      // Most processor modules do not need to implement this callback
+      //      // It is useful only if ph.regNames[reg] does not provide
+      //      // the correct register names
+      //      // save its local data
+      //      out_src_file_lnnum,     // Callback: generate analog of
+      //      //   #line "file.c" 123
+      //      // directive.
+      //      // const char *file - source file (may be NULL)
+      //      // size_t lnnum     - line number
+      //      // returns: 2-directive has been generated
+      //      get_autocmt,            // Callback: get dynamic auto comment
+      //      // Will be called if the autocomments are enabled
+      //      // and the comment retrieved from ida.int starts with
+      //      // '$!'. 'cmd' is contains valid info.
+      //      // char *buf  - output buffer
+      //      // size_t bufsize - output buffer size
+      //      // returns: 2-new comment has been generated
+      //      //          1-callback has not been handled
+      //      //            the buffer must not be changed in this case
+      //      is_insn_table_jump,     // Callback: determine if instruction is a table jump or call
+      //      // If CF_JUMP bit can not describe all kinds of table
+      //      // jumps, please define this callback.
+      //      // It will be called for insns with CF_JUMP bit set.
+      //      // input: cmd structure contains the current instruction
+      //      // returns: 1-yes, 0-no
+      //      auto_empty_finally,     // Info: all analysis queues are empty definitively
+      //      // args: none
+      //      // returns: none
+      //      // This callback is called only once.
+      //      // See also auto_empty.
+      //      loader_finished,        // Event: external file loader finished its work
+      //      // linput_t *li
+      //      // uint16 neflags
+      //      // const char *filetypename
+      //      // Use this event to augment the existing loader functionality
+      //      loader_elf_machine,     // Event: ELF loader machine type checkpoint
+      //      // linput_t *li
+      //      // int machine_type
+      //      // const char **p_procname
+      //      // proc_def **p_pd (see ldr\elf.h)
+      //      // set_elf_reloc_t *set_reloc
+      //      // A plugin check the machine_type. If it is the desired one,
+      //      // the the plugin fills p_procname with the processor name.
+      //      // p_pd is used to handle relocations, otherwise can be left untouched
+      //      // set_reloc can be later used by the plugin to specify relocations
+      //      // returns: e_machine value (if it is different from the
+      //      // original e_machine value, procname and p_pd will be ignored
+      //      // and the new value will be used)
+      //      // This event occurs for each loaded ELF file
+      //      is_indirect_jump,       // Callback: determine if instruction is an indrect jump
+      //      // If CF_JUMP bit can not describe all jump types
+      //      // jumps, please define this callback.
+      //      // input: cmd structure contains the current instruction
+      //      // returns: 1-use CF_JUMP, 2-no, 3-yes
+      //      verify_noreturn,        // The kernel wants to set 'noreturn' flags for a function
+      //      // func_t *pfn
+      //      // Returns: 1-ok, any other value-do not set 'noreturn' flag
+      //      verify_sp,              // All function instructions have been analyzed
+      //      // Now the processor module can analyze the stack pointer
+      //      // for the whole function
+      //      // input: func_t *pfn
+      //      // Returns: 1-ok, 0-bad stack pointer
+      //      treat_hindering_item,   // An item hinders creation of another item
+      //      // args: ea_t hindering_item_ea
+      //      //       flags_t new_item_flags (0 for code)
+      //      //       ea_t new_item_ea
+      //      //       asize_t new_item_length
+      //      // Returns: 1-no reaction, <=0-the kernel may delete the hindering item
+      //      str2reg,                // Convert a register name to a register number
+      //      // args: const char *regname
+      //      // Returns: register number + 2
+      //      // The register number is the register index in the regNames array
+      //      // Most processor modules do not need to implement this callback
+      //      // It is useful only if ph.regNames[reg] does not provide
+      //      // the correct register names
+      //      create_switch_xrefs,    // Create xrefs for a custom jump table
+      //      // in: ea_t jumpea;        - address of the jump insn
+      //      //     switch_info_ex_t *; - switch information
+      //      // returns: must return 2
+      //      calc_switch_cases,      // Calculate case values and targets for a custom jump table
+      //      // in:  ea_t insn_ea - address of the 'indirect jump' instruction
+      //      //      switch_info_ex_t *si      - switch information
+      //      //      casevec_t *casevec - vector of case values...
+      //      //      evec_t *targets - ...and corresponding target addresses
+      //      // casevec and targets may be NULL
+      //      // returns: 2-ok, 1-failed
+      //      determined_main,        // The main() function has been determined
+      //      // in:  ea_t main - address of the main() function
+      //      // returns: none
+      //      preprocess_chart,       // gui has retrieved a function flow chart
+      //      // in: qflow_chart_t *fc
+      //      // returns: none
+      //      // Plugins may modify the flow chart in this callback
+      //      get_bg_color,           // Get item background color
+      //      // in: ea_t ea, bgcolor_t *color
+      //      // Returns: 1-not implemented, 2-color set
+      //      // Plugins can hook this callback to color disassembly lines
+      //      // dynamically
+      //      get_operand_string,     // Request text string for operand (cli, java, ...)
+      //      // args: int opnum
+      //      //       char *buf
+      //      //       size_t buflen
+      //      // (cmd structure must contain info for the desired insn)
+      //      // opnum is the operand number; -1 means any string operand
+      //      // returns: 1 - no string (or empty string)
+      //      //         >1 - original string length with terminating zero
+      //
+      //      // the following 5 events are very low level
+      //      // take care of possible recursion
+      //      add_cref,               // a code reference is being created
+      //      // args: ea_t from, ea_t to, cref_t type
+      //      // returns: <0 - cancel cref creation
+      //      add_dref,               // a data reference is being created
+      //      // args: ea_t from, ea_t to, dref_t type
+      //      // returns: <0 - cancel dref creation
+      //      del_cref,               // a code reference is being deleted
+      //      // args: ea_t from, ea_t to, bool expand
+      //      // returns: <0 - cancel cref deletion
+      //      del_dref,               // a data reference is being deleted
+      //      // args: ea_t from, ea_t to
+      //      // returns: <0 - cancel dref deletion
+      //      coagulate_dref,         // data reference is being analyzed
+      //      // args: ea_t from, ea_t to, bool may_define, ea_t *code_ea
+      //      // plugin may correct code_ea (e.g. for thumb mode refs, we clear the last bit)
+      //      // returns: <0 - cancel dref analysis
+      //      custom_fixup,           // mutipurpose notification for FIXUP_CUSTOM
+      //      // args: cust_fix oper, ea_t ea, const fixup_data_t*, ... (see cust_fix)
+      //      // returns: 1 - no accepted (fixup ignored by ida)
+      //      //         >1 - accepted (see cust_fix)
+      //      off_preproc,            // called from get_offset_expr, when refinfo_t
+      //      // contain flag REFINFO_PREPROC. Normally this
+      //      // notification used in a combination with custom_fixup
+      //      // args: ea_t ea, int numop, ea_t* opval, const refinfo_t* ri,
+      //      //       char* buf, size_t bufsize, ea_t* target,
+      //      // ea_t* fullvalue, ea_t from, int getn_flags
+      //      // returns: 2 - buf filled as simple expression
+      //      //          3 - buf filled as complex expression
+      //      //          4 - apply standard processing (with - possible - changed values)
+      //      //     others - can't convert to offset expression
+      //
+      //      set_proc_options,       // called if the user specified an option string in the command line:
+      //      //  -p<processor name>:<options>
+      //      // can be used for e.g. setting a processor subtype
+      //      // also called if option string is passed to set_processor_type()
+      //      // and IDC's SetProcessorType()
+      //      // args: const char * options
+      //      // returns: <0 - bad option string
+      //
     }
   }
   catch (Swig::DirectorException &e)
@@ -1190,7 +1487,8 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
     case idb_event::struc_member_deleted:
       sptr = va_arg(va, struc_t *);
       member_id = va_arg(va, tid_t);
-      return proxy->struc_member_deleted(sptr, member_id);
+      ea        = va_arg(va, ea_t);
+      return proxy->struc_member_deleted(sptr, member_id, ea);
 
     case idb_event::struc_member_renamed:
       sptr = va_arg(va, struc_t *);

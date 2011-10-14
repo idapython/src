@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #---------------------------------------------------------------------
-# IDAPython - Python plugin for Interactive Disassembler Pro
+# IDAPython - Python plugin for Interactive Disassembler
 #
 # Original IDC.IDC:
 # Copyright (c) 1990-2010 Ilfak Guilfanov
@@ -39,8 +39,7 @@ import time
 import types
 
 __EA64__ = idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
-WORDMASK = __EA64__ and 0xFFFFFFFFFFFFFFFF or 0xFFFFFFFF
-
+WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF
 class DeprecatedIDCError(Exception):
     """
     Exception for deprecated function calls
@@ -78,7 +77,7 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
 BADADDR         = idaapi.BADADDR # Not allowed address value
 BADSEL          = idaapi.BADSEL  # Not allowed selector value/number
 MAXADDR         = idaapi.MAXADDR & WORDMASK
-
+SIZE_MAX        = idaapi.SIZE_MAX
 #
 #      Flag bit definitions (for GetFlags())
 #
@@ -836,6 +835,21 @@ def MakeStructEx(ea, size, strname):
         size = idaapi.get_struc_size(strid)
 
     return idaapi.doStruct(ea, size, strid)
+
+
+def MakeCustomDataEx(ea, size, dtid, fid):
+    """
+    Convert the item at address to custom data.
+
+    @param ea: linear address.
+    @param size: custom data size in bytes.
+    @param dtid: data type ID.
+    @param fid: data format ID.
+
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doCustomData(ea, size, dtid, fid)
+
 
 
 def MakeAlign(ea, count, align):
@@ -2021,9 +2035,7 @@ def ItemHead(ea):
     @return: the starting address of the item
              if the current address is unexplored, returns 'ea'
     """
-    if idaapi.isTail(idaapi.get_flags_novalue(ea)):
-        ea = idaapi.prev_not_tail(ea)
-    return ea
+    return idaapi.get_item_head(ea)
 
 
 def ItemEnd(ea):
@@ -2328,9 +2340,9 @@ def GetString(ea, length = -1, strtype = ASCSTR_C):
     @return: string contents or empty string
     """
     if length == -1:
-        length = idaapi.get_max_ascii_length(ea, strtype)
+        length = idaapi.get_max_ascii_length(ea, strtype, idaapi.ALOPT_IGNHEADS)
 
-    return idaapi.get_ascii_contents(ea, length, strtype, length + 1)
+    return idaapi.get_ascii_contents2(ea, length, strtype)
 
 
 def GetStringType(ea):
@@ -2935,7 +2947,7 @@ def AskLong(defval, prompt):
 
 def ProcessUiAction(name, flags=0):
     """
-    Invokes an IDA Pro UI action by name
+    Invokes an IDA UI action by name
 
     @param name: Command name
     @param flags: Reserved. Must be zero
@@ -4771,8 +4783,8 @@ def GetMemberQty(sid):
     @return: -1 if bad structure type ID is passed otherwise
              returns number of members.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -4797,8 +4809,8 @@ def GetStrucPrevOff(sid, offset):
            It will return size of the structure if input
            'offset' is bigger than the structure size.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -4826,8 +4838,8 @@ def GetStrucNextOff(sid, offset):
            It will return size of the structure if input
            'offset' belongs to the last member of the structure.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -4848,8 +4860,8 @@ def GetFirstMember(sid):
            structure. It treats these 'holes'
            as unnamed arrays of bytes.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -4873,8 +4885,8 @@ def GetLastMember(sid):
           structure. It treats these 'holes'
           as unnamed arrays of bytes.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -4895,8 +4907,8 @@ def GetMemberOffset(sid, member_name):
              or no such member in the structure
              otherwise returns offset of the specified member.
 
-    @note: Union members are, in IDA's internals, located 
-           at subsequent byte offsets: member 0 -> offset 0x0, 
+    @note: Union members are, in IDA's internals, located
+           at subsequent byte offsets: member 0 -> offset 0x0,
            member 1 -> offset 0x1, etc...
     """
     s = idaapi.get_struc(sid)
@@ -5891,6 +5903,8 @@ def AddEnum(idx, name, flag):
 
     @return: id of new enum or BADADDR
     """
+    if idx < 0:
+        idx = idx & SIZE_MAX
     return idaapi.add_enum(idx, name, flag)
 
 
@@ -6077,68 +6091,414 @@ def SetConstCmt(const_id, cmt, repeatable):
 #                         A R R A Y S  I N  I D C
 #----------------------------------------------------------------------------
 
+_IDC_ARRAY_PREFIX = "$ idc_array "
+def __l2m1(v):
+    """
+    Long to minus 1: If the 'v' appears to be the
+    'signed long' version of -1, then return -1.
+    Otherwise, return 'v'.
+    """
+    if v == idaapi.BADNODE:
+        return -1
+    else:
+        return v
+
+
+
+AR_LONG = idaapi.atag
+"""Array of longs"""
+
+AR_STR = idaapi.stag
+"""Array of strings"""
+
+
+class __dummy_netnode(object):
+    """
+    Implements, in an "always failing" fashion, the
+    netnode functions that are necessary for the
+    array-related functions.
+
+    The sole purpose of this singleton class is to
+    serve as a placeholder for netnode-manipulating
+    functions, that don't want to each have to perform
+    checks on the existence of the netnode.
+    (..in other words: it avoids a bunch of if/else's).
+
+    See __GetArrayById() for more info.
+    """
+    def rename(self, *args): return 0
+    def kill(self, *args): pass
+    def index(self, *args): return -1
+    def altset(self, *args): return 0
+    def supset(self, *args): return 0
+    def altval(self, *args): return 0
+    def supval(self, *args): return 0
+    def altdel(self, *args): return 0
+    def supdel(self, *args): return 0
+    def alt1st(self, *args): return -1
+    def sup1st(self, *args): return -1
+    def altlast(self, *args): return -1
+    def suplast(self, *args): return -1
+    def altnxt(self, *args): return -1
+    def supnxt(self, *args): return -1
+    def altprev(self, *args): return -1
+    def supprev(self, *args): return -1
+    def hashset(self, *args): return 0
+    def hashval(self, *args): return 0
+    def hashstr(self, *args): return 0
+    def hashstr_buf(self, *args): return 0
+    def hashset_idx(self, *args): return 0
+    def hashset_buf(self, *args): return 0
+    def hashval_long(self, *args): return 0
+    def hashdel(self, *args): return 0
+    def hash1st(self, *args): return 0
+    def hashnxt(self, *args): return 0
+    def hashprev(self, *args): return 0
+    def hashlast(self, *args): return 0
+__dummy_netnode.instance = __dummy_netnode()
+
+
+
+def __GetArrayById(array_id):
+    """
+    Get an array, by its ID.
+
+    This (internal) wrapper around 'idaaip.netnode(array_id)'
+    will ensure a certain safety around the retrieval of
+    arrays (by catching quite unexpect[ed|able] exceptions,
+    and making sure we don't create & use `transient' netnodes).
+
+    @param array_id: A positive, valid array ID.
+    """
+    try:
+        node = idaapi.netnode(array_id)
+        nodename = node.name()
+        if nodename is None or not nodename.startswith(_IDC_ARRAY_PREFIX):
+            return __dummy_netnode.instance
+        else:
+            return node
+    except NotImplementedError:
+        return __dummy_netnode.instance
+
+
 def CreateArray(name):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    """
+    Create array.
+
+    @param name: The array name.
+
+    @return: -1 in case of failure, a valid array_id otherwise.
+    """
+    node = idaapi.netnode()
+    res  = node.create(_IDC_ARRAY_PREFIX + name)
+    if res == False:
+        return -1
+    else:
+        return node.index()
+
 
 def GetArrayId(name):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    """
+    Get array array_id, by name.
 
-def RenameArray(hashid, newname):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @param name: The array name.
 
-def DeleteArray(hashid):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @return: -1 in case of failure (i.e., no array with that
+             name exists), a valid array_id otherwise.
+    """
+    return __l2m1(idaapi.netnode(_IDC_ARRAY_PREFIX + name, 0, False).index())
 
-def SetArrayLong(hashid, idx, value):
-    raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetArrayString(hashid, idx, s):
-    raise DeprecatedIDCError, "Use python pickles instead."
+def RenameArray(array_id, newname):
+    """
+    Rename array, by its ID.
 
-def GetArrayElement(tag, hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @param id: The ID of the array to rename.
+    @param newname: The new name of the array.
 
-def DelArrayElement(tag, hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @return: 1 in case of success, 0 otherwise
+    """
+    return __GetArrayById(array_id).rename(_IDC_ARRAY_PREFIX + newname) == 1
 
-def GetFirstIndex(tag, hashid):
-    raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetLastIndex(tag, hashid):
-    raise DeprecatedIDCError, "Use python pickles instead."
+def DeleteArray(array_id):
+    """
+    Delete array, by its ID.
 
-def GetNextIndex(tag, hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @param array_id: The ID of the array to delete.
+    """
+    __GetArrayById(array_id).kill()
 
-def GetPrevIndex(tag, hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
 
-def SetHashLong(hashid, idx, value):
-    raise DeprecatedIDCError, "Use python pickles instead."
+def SetArrayLong(array_id, idx, value):
+    """
+    Sets the long value of an array element.
 
-def SetHashString(hashid, idx, value):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @param array_id: The array ID.
+    @param idx: Index of an element.
+    @param value: 32bit or 64bit value to store in the array
 
-def GetHashLong(hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @return: 1 in case of success, 0 otherwise
+    """
+    return __GetArrayById(array_id).altset(idx, value)
 
-def GetHashString(hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
 
-def DelHashElement(hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+def SetArrayString(array_id, idx, value):
+    """
+    Sets the string value of an array element.
 
-def GetFirstHashKey(hashid):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @param array_id: The array ID.
+    @param idx: Index of an element.
+    @param value: String value to store in the array
 
-def GetNextHashKey(hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+    @return: 1 in case of success, 0 otherwise
+    """
+    return __GetArrayById(array_id).supset(idx, value)
 
-def GetLastHashKey(hashid):
-    raise DeprecatedIDCError, "Use python pickles instead."
 
-def GetPrevHashKey(hashid, idx):
-    raise DeprecatedIDCError, "Use python pickles instead."
+def GetArrayElement(tag, array_id, idx):
+    """
+    Get value of array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+    @param idx: Index of an element.
+
+    @return: Value of the specified array element. Note that
+             this function may return char or long result. Unexistent
+             array elements give zero as a result.
+    """
+    node = __GetArrayById(array_id)
+    if tag == AR_LONG:
+        return node.altval(idx, tag)
+    elif tag == AR_STR:
+        res = node.supval(idx, tag)
+        return 0 if res is None else res
+    else:
+        return 0
+
+
+def DelArrayElement(tag, array_id, idx):
+    """
+    Delete an array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+    @param idx: Index of an element.
+
+    @return: 1 in case of success, 0 otherwise.
+    """
+    node = __GetArrayById(array_id)
+    if tag == AR_LONG:
+        return node.altdel(idx, tag)
+    elif tag == AR_STR:
+        return node.supdel(idx, tag)
+    else:
+        return 0
+
+
+def GetFirstIndex(tag, array_id):
+    """
+    Get index of the first existing array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+
+    @return: -1 if the array is empty, otherwise index of first array
+             element of given type.
+    """
+    node = __GetArrayById(array_id)
+    if tag == AR_LONG:
+        return __l2m1(node.alt1st(tag))
+    elif tag == AR_STR:
+        return __l2m1(node.sup1st(tag))
+    else:
+        return -1
+
+
+def GetLastIndex(tag, array_id):
+    """
+    Get index of last existing array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+
+    @return: -1 if the array is empty, otherwise index of first array
+             element of given type.
+    """
+    node = __GetArrayById(array_id)
+    if tag == AR_LONG:
+        return __l2m1(node.altlast(tag))
+    elif tag == AR_STR:
+        return __l2m1(node.suplast(tag))
+    else:
+        return -1
+
+
+def GetNextIndex(tag, array_id, idx):
+    """
+    Get index of the next existing array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+    @param idx: Index of the current element.
+
+    @return: -1 if no more elements, otherwise returns index of the
+             next array element of given type.
+    """
+    node = __GetArrayById(array_id)
+    try:
+        if tag == AR_LONG:
+            return __l2m1(node.altnxt(idx, tag))
+        elif tag == AR_STR:
+            return __l2m1(node.supnxt(idx, tag))
+        else:
+            return -1
+    except OverflowError:
+        # typically: An index of -1 was passed.
+        return -1
+
+
+def GetPrevIndex(tag, array_id, idx):
+    """
+    Get index of the previous existing array element.
+
+    @param tag: Tag of array, specifies one of two array types: AR_LONG, AR_STR
+    @param array_id: The array ID.
+    @param idx: Index of the current element.
+
+    @return: -1 if no more elements, otherwise returns index of the
+             previous array element of given type.
+    """
+    node = __GetArrayById(array_id)
+    try:
+        if tag == AR_LONG:
+            return __l2m1(node.altprev(idx, tag))
+        elif tag == AR_STR:
+            return __l2m1(node.supprev(idx, tag))
+        else:
+            return -1
+    except OverflowError:
+        # typically: An index of -1 was passed.
+        return -1
+
+
+# -------------------- hashes -----------------------
+
+def SetHashLong(hash_id, key, value):
+    """
+    Sets the long value of a hash element.
+
+    @param hash_id: The hash ID.
+    @param key: Key of an element.
+    @param value: 32bit or 64bit value to store in the hash
+
+    @return: 1 in case of success, 0 otherwise
+    """
+    return __GetArrayById(hash_id).hashset_idx(key, value)
+
+
+def GetHashLong(hash_id, key):
+    """
+    Gets the long value of a hash element.
+
+    @param hash_id: The hash ID.
+    @param key: Key of an element.
+
+    @return: the 32bit or 64bit value of the element, or 0 if no such
+             element.
+    """
+    return __GetArrayById(hash_id).hashval_long(key);
+
+
+def SetHashString(hash_id, key, value):
+    """
+    Sets the string value of a hash element.
+
+    @param hash_id: The hash ID.
+    @param key: Key of an element.
+    @param value: string value to store in the hash
+
+    @return: 1 in case of success, 0 otherwise
+    """
+    return __GetArrayById(hash_id).hashset_buf(key, value)
+
+
+def GetHashString(hash_id, key):
+    """
+    Gets the string value of a hash element.
+
+    @param hash_id: The hash ID.
+    @param key: Key of an element.
+
+    @return: the string value of the element, or None if no such
+             element.
+    """
+    return __GetArrayById(hash_id).hashstr_buf(key);
+
+
+def DelHashElement(hash_id, key):
+    """
+    Delete a hash element.
+
+    @param hash_id: The hash ID.
+    @param key: Key of an element
+
+    @return: 1 upon success, 0 otherwise.
+    """
+    return __GetArrayById(hash_id).hashdel(key)
+
+
+def GetFirstHashKey(hash_id):
+    """
+    Get the first key in the hash.
+
+    @param hash_id: The hash ID.
+
+    @return: the key, 0 otherwise.
+    """
+    r = __GetArrayById(hash_id).hash1st()
+    return 0 if r is None else r
+
+
+def GetLastHashKey(hash_id):
+    """
+    Get the last key in the hash.
+
+    @param hash_id: The hash ID.
+
+    @return: the key, 0 otherwise.
+    """
+    r = __GetArrayById(hash_id).hashlast()
+    return 0 if r is None else r
+
+
+def GetNextHashKey(hash_id, key):
+    """
+    Get the next key in the hash.
+
+    @param hash_id: The hash ID.
+    @param key: The current key.
+
+    @return: the next key, 0 otherwise
+    """
+    r = __GetArrayById(hash_id).hashnxt(key)
+    return 0 if r is None else r
+
+
+def GetPrevHashKey(hash_id, key):
+    """
+    Get the previous key in the hash.
+
+    @param hash_id: The hash ID.
+    @param key: The current key.
+
+    @return: the previous key, 0 otherwise
+    """
+    r = __GetArrayById(hash_id).hashprev(key)
+    return 0 if r is None else r
+
+
 
 
 #----------------------------------------------------------------------------
@@ -7053,6 +7413,20 @@ EXCDLG_ALWAYS     = 0x00006000 # always display
 DOPT_LOAD_DINFO   = 0x00008000 # automatically load debug files (pdb)
 
 
+def GetDebuggerEventCondition():
+    """
+    Return the debugger event condition
+    """
+    return idaapi.get_debugger_event_cond()
+
+
+def SetDebuggerEventCondition(cond):
+    """
+    Set the debugger event condition
+    """
+    return idaapi.set_debugger_event_cond(cond)
+
+
 def SetRemoteDebugger(hostname, password, portnum):
     """
     Set remote debugging options
@@ -7628,10 +8002,11 @@ def DelConst(constid, v, mask):    return DelConstEx(constid, v, 0, mask)
 def GetConst(constid, v, mask):    return GetConstEx(constid, v, 0, mask)
 def AnalyseArea(sEA, eEA):         return AnalyzeArea(sEA,eEA)
 
-def MakeStruct(ea, name):          return MakeStructEx(ea, -1, name)
-def Name(ea):                      return NameEx(BADADDR, ea)
-def GetTrueName(ea):               return GetTrueNameEx(BADADDR, ea)
-def MakeName(ea, name):            return MakeNameEx(ea,name,SN_CHECK)
+def MakeStruct(ea, name):                 return MakeStructEx(ea, -1, name)
+def MakeCustomData(ea, size, dtid, fid):  return MakeCustomDataEx(ea, size, dtid, fid)
+def Name(ea):                             return NameEx(BADADDR, ea)
+def GetTrueName(ea):                      return GetTrueNameEx(BADADDR, ea)
+def MakeName(ea, name):                   return MakeNameEx(ea,name,SN_CHECK)
 
 #def GetFrame(ea):                return GetFunctionAttr(ea, FUNCATTR_FRAME)
 #def GetFrameLvarSize(ea):        return GetFunctionAttr(ea, FUNCATTR_FRSIZE)

@@ -26,7 +26,7 @@ private:
     nodetext_cache_t(const char *t, bgcolor_t c): text(t), bgcolor(c) { }
     nodetext_cache_t() { }
   };
-  
+
   class nodetext_cache_map_t: public std::map<int, nodetext_cache_t>
   {
   public:
@@ -62,24 +62,24 @@ private:
   private:
     Py_ssize_t uid;
   public:
-    
+
     cmdid_map_t()
     {
       // We start by one and keep zero for error id
-      uid = 1; 
+      uid = 1;
     }
-    
+
     void add(py_graph_t *pyg)
     {
       (*this)[uid] = pyg;
       ++uid;
     }
-    
-    const Py_ssize_t id() const 
-    { 
+
+    const Py_ssize_t id() const
+    {
       return uid;
     }
-    
+
     void clear(py_graph_t *pyg)
     {
       iterator e = end();
@@ -94,7 +94,7 @@ private:
           ++it;
       }
     }
-    
+
     py_graph_t *get(Py_ssize_t id)
     {
       iterator it = find(id);
@@ -123,7 +123,7 @@ private:
     py_graph_t *_this = cmdid_pyg.get(id);
     if ( _this != NULL )
       _this->on_command(id);
-    
+
     return true;
   }
 
@@ -208,11 +208,11 @@ private:
 
         edge_ids[j] = v;
       }
-      
+
       // Incomplete?
       if ( j != qnumber(edge_ids) )
         break;
-      
+
       // Add the edge
       g->add_edge(edge_ids[0], edge_ids[1], NULL);
     }
@@ -312,27 +312,27 @@ private:
         PYW_GIL_ENSURE;
         PyObject *result = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
         PYW_GIL_RELEASE;
-        
+
         Py_XDECREF(result);
       }
       unbind();
     }
-    
+
     // Remove the TForm from list
     if ( form != NULL )
       tform_pyg.erase(form);
-    
+
     // Remove all associated commands from the list
     cmdid_pyg.clear(this);
-    
+
     // Delete this instance
     delete this;
   }
 
   // graph is being clicked
   int on_clicked(
-        graph_viewer_t * /*gv*/, 
-        selection_item_t * /*item1*/, 
+        graph_viewer_t * /*gv*/,
+        selection_item_t * /*item1*/,
         graph_item_t *item2)
   {
     // in:  graph_viewer_t *gv
@@ -349,12 +349,12 @@ private:
 
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_CLICK, 
-        "i", 
+        self,
+        (char *)S_ON_CLICK,
+        "i",
         item2->n);
     PYW_GIL_RELEASE;
-    
+
     if ( result == NULL || !PyObject_IsTrue(result) )
     {
       Py_XDECREF(result);
@@ -376,15 +376,15 @@ private:
     //selection_item_t *s = va_arg(va, selection_item_t *);
     if ( item == NULL || !item->is_node )
       return 1;
-    
+
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_DBL_CLICK, 
-        "i", 
+        self,
+        (char *)S_ON_DBL_CLICK,
+        "i",
         item->node);
     PYW_GIL_RELEASE;
-    
+
     if ( result == NULL || !PyObject_IsTrue(result) )
     {
       Py_XDECREF(result);
@@ -399,8 +399,8 @@ private:
   {
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_ACTIVATE, 
+        self,
+        (char *)S_ON_ACTIVATE,
         NULL);
     PYW_GIL_RELEASE;
     Py_XDECREF(result);
@@ -411,8 +411,8 @@ private:
   {
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_DEACTIVATE, 
+        self,
+        (char *)S_ON_DEACTIVATE,
         NULL);
     PYW_GIL_RELEASE;
 
@@ -430,9 +430,9 @@ private:
 
     PYW_GIL_ENSURE;
     PyObject *result = PyObject_CallMethod(
-          self, 
-          (char *)S_ON_SELECT, 
-          "i", 
+          self,
+          (char *)S_ON_SELECT,
+          "i",
           curnode);
     PYW_GIL_RELEASE;
 
@@ -473,7 +473,7 @@ private:
       else
       {
         // Ignore the click
-        ret = 1; 
+        ret = 1;
       }
       break;
     //
@@ -491,20 +491,20 @@ private:
     case grcode_gotfocus:
       if ( cb_flags & GR_HAVE_GOTFOCUS )
         on_gotfocus(va_arg(va, graph_viewer_t *));
-      
+
       ret = 0;
       break;
     //
     case grcode_lostfocus:
       if ( cb_flags & GR_HAVE_LOSTFOCUS )
         on_lostfocus(va_arg(va, graph_viewer_t *));
-      
+
       ret = 0;
       break;
     //
     case grcode_user_refresh:
       on_user_refresh(va_arg(va, mutable_graph_t *));
-      
+
       ret = 1;
       break;
     //
@@ -664,7 +664,9 @@ private:
     {
       // get a unique graph id
       netnode id;
-      id.create();
+      char grnode[MAXSTR];
+      qsnprintf(grnode, sizeof(grnode), "$ pygraph %s", title);
+      id.create(grnode);
       gv = create_graph_viewer(form, id, s_callback, this, 0);
       open_tform(form, FORM_MDI | FORM_TAB | FORM_MENU);
       if ( gv != NULL )
@@ -724,7 +726,7 @@ private:
       if ( _this == NULL || _this->form == NULL )
         return;
 
-      close_tform(_this->form, 0);
+      close_tform(_this->form, FORM_CLOSE_LATER);
     }
 
     static void Refresh(PyObject *self)

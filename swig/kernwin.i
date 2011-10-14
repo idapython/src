@@ -3,6 +3,7 @@
 %ignore AskUsingForm_c;
 %ignore close_form;
 %ignore vaskstr;
+%ignore strvec_t;
 %ignore load_custom_icon;
 %ignore vasktext;
 %ignore add_menu_item;
@@ -14,6 +15,8 @@
 %ignore choose_idasgn;
 %rename (choose_idasgn) py_choose_idasgn;
 
+%rename (del_hotkey) py_del_hotkey;
+%rename (add_hotkey) py_add_hotkey;
 
 %ignore msg;
 %rename (msg) py_msg;
@@ -24,6 +27,7 @@
 %ignore error;
 %rename (error) py_error;
 
+%ignore textctrl_info_t;
 %ignore vinfo;
 %ignore UI_Callback;
 %ignore vnomem;
@@ -35,6 +39,8 @@
 %ignore askyn_v;
 %ignore add_custom_viewer_popup_item;
 %ignore create_custom_viewer;
+%ignore take_database_snapshot;
+%ignore restore_database_snapshot;
 %ignore destroy_custom_viewer;
 %ignore destroy_custom_viewerdestroy_custom_viewer;
 %ignore get_custom_viewer_place;
@@ -64,10 +70,21 @@
 
 %rename (asktext) py_asktext;
 %rename (str2ea)  py_str2ea;
+%ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
 %ignore execute_sync;
 %ignore exec_request_t;
+%rename (execute_sync) py_execute_sync;
 
+%ignore ui_request_t;
+%ignore execute_ui_requests;
+%rename (execute_ui_requests) py_execute_ui_requests;
+
+%ignore timer_t;
+%ignore register_timer;
+%rename (register_timer) py_register_timer;
+%ignore unregister_timer;
+%rename (unregister_timer) py_unregister_timer;
 
 // Make askaddr(), askseg(), and asklong() return a
 // tuple: (result, value)
@@ -107,11 +124,115 @@ void refresh_lists(void)
 # This is for read_selection()
 %apply unsigned long *OUTPUT { ea_t *ea1, ea_t *ea2 };
 
+SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
+
 %inline %{
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
+/*
+#<pydoc>
+def register_timer(interval, callback):
+    """
+    Register a timer
+
+    @param interval: Interval in milliseconds
+    @param callback: A Python callable that takes no parameters and returns an integer.
+                     The callback may return:
+                     -1   : to unregister the timer
+                     >= 0 : the new or same timer interval
+    @return: None or a timer object
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_register_timer(int interval, PyObject *py_callback)
+{
+  if ( py_callback == NULL || !PyCallable_Check(py_callback) )
+    Py_RETURN_NONE;
+
+  // An inner class hosting the callback method
+  struct tmr_t
+  {
+    static int idaapi callback(void *ud)
+    {
+      py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
+      PYW_GIL_ENSURE;
+      PyObject *py_result = PyObject_CallFunctionObjArgs(ctx->pycallback, NULL);
+      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result);
+      Py_XDECREF(py_result);
+      PYW_GIL_RELEASE;
+
+      // Timer has been unregistered?
+      if ( ret == -1 )
+      {
+        // Fee the context
+        Py_DECREF(ctx->pycallback);
+        delete ctx;
+      }
+      return ret;
+    };
+  };
+
+  py_timer_ctx_t *ctx = new py_timer_ctx_t();
+  ctx->pycallback = py_callback;
+  Py_INCREF(py_callback);
+  ctx->timer_id = register_timer(
+    interval,
+    tmr_t::callback,
+    ctx);
+
+  if ( ctx->timer_id == NULL )
+  {
+    Py_DECREF(py_callback);
+    delete ctx;
+    Py_RETURN_NONE;
+  }
+  return PyCObject_FromVoidPtr(ctx, NULL);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def unregister_timer(timer_obj):
+    """
+    Unregister a timer
+
+    @param timer_obj: a timer object previously returned by a register_timer()
+    @return: Boolean
+    @note: After the timer has been deleted, the timer_obj will become invalid.
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_unregister_timer(PyObject *py_timerctx)
+{
+  if ( py_timerctx == NULL || !PyCObject_Check(py_timerctx) )
+    Py_RETURN_FALSE;
+
+  py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCObject_AsVoidPtr(py_timerctx);
+  if ( !unregister_timer(ctx->timer_id) )
+    Py_RETURN_FALSE;
+
+  Py_DECREF(ctx->pycallback);
+  delete ctx;
+
+  Py_RETURN_TRUE;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def choose_idasgn():
+    """
+    Opens the signature chooser
+
+    @return: None or the selected signature name
+    """
+    pass
+#</pydoc>
+*/
 static PyObject *py_choose_idasgn()
 {
   char *name = choose_idasgn();
@@ -203,7 +324,7 @@ PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
     Py_RETURN_NONE;
 
   PyObject *py_ret;
-  if ( asktext(size_t(max_text), buf, defval, prompt) != NULL )
+  if ( asktext(size_t(max_text), buf, defval, "%s", prompt) != NULL )
   {
     py_ret = PyString_FromString(buf);
   }
@@ -240,7 +361,7 @@ ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
 #<pydoc>
 def process_ui_action(name, flags):
     """
-    Invokes an IDA Pro UI action by name
+    Invokes an IDA UI action by name
 
     @param name:  action name
     @param flags: Reserved. Must be zero
@@ -283,6 +404,108 @@ static bool py_del_menu_item(PyObject *py_ctx)
   }
 
   return ok;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def del_hotkey(ctx):
+    """
+    Deletes a previously registered function hotkey
+
+    @param ctx: Hotkey context previously returned by add_hotkey()
+
+    @return: Boolean.
+    """
+    pass
+#</pydoc>
+*/
+bool py_del_hotkey(PyObject *pyctx)
+{
+  if ( !PyCObject_Check(pyctx) )
+    return false;
+
+  py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCObject_AsVoidPtr(pyctx);
+  if ( !del_idc_hotkey(ctx->hotkey.c_str()) )
+    return false;
+
+  Py_DECREF(ctx->pyfunc);
+  delete ctx;
+  return true;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def add_hotkey(hotkey, pyfunc):
+    """
+    Associates a function call with a hotkey.
+    Callable pyfunc will be called each time the hotkey is pressed
+
+    @param hotkey: The hotkey
+    @param pyfunc: Callable
+
+    @return: Context object on success or None on failure.
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
+{
+  // Make sure a callable was passed
+  if ( !PyCallable_Check(pyfunc) )
+    return NULL;
+
+  // Form the function name
+  qstring idc_func_name;
+  idc_func_name.sprnt("py_hotkeycb_%p", pyfunc);
+
+  // Can add the hotkey?
+  if ( add_idc_hotkey(hotkey, idc_func_name.c_str()) == IDCHK_OK ) do
+  {
+    // Generate global variable name
+    qstring idc_gvarname;
+    idc_gvarname.sprnt("_g_pyhotkey_ref_%p", pyfunc);
+
+    // Now add the global variable
+    idc_value_t *gvar = add_idc_gvar(idc_gvarname.c_str());
+    if ( gvar == NULL )
+      break;
+
+    // The function body will call a registered IDC function that
+    // will take a global variable that wraps a PyCallable as a pvoid
+    qstring idc_func;
+    idc_func.sprnt("static %s() { %s(%s); }",
+      idc_func_name.c_str(),
+      S_PYINVOKE0,
+      idc_gvarname.c_str());
+
+    // Compile the IDC condition
+    char errbuf[MAXSTR];
+    if ( !CompileLineEx(idc_func.c_str(), errbuf, sizeof(errbuf)) )
+      break;
+
+    // Create new context
+    // Define context
+    py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t();
+
+    // Remember the hotkey
+    ctx->hotkey = hotkey;
+
+    // Take reference to the callable
+    ctx->pyfunc = pyfunc;
+    Py_INCREF(pyfunc);
+
+    // Bind IDC variable w/ the PyCallable
+    gvar->set_pvoid(pyfunc);
+
+    // Return the context
+    return PyCObject_FromVoidPtr(ctx, NULL);
+  } while (false);
+
+  // Cleanup
+  del_idc_hotkey(hotkey);
+  Py_RETURN_NONE;
 }
 
 //------------------------------------------------------------------------
@@ -366,6 +589,200 @@ static PyObject *py_add_menu_item(
 
   // Return context to user
   return PyCObject_FromVoidPtr(ctx, NULL);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+
+MFF_FAST = 0x0000
+"""execute code as soon as possible
+this mode is ok call ui related functions
+that do not query the database."""
+
+MFF_READ = 0x0001
+"""execute code only when ida is idle and it is safe to query the database.
+this mode is recommended only for code that does not modify the database.
+(nb: ida may be in the middle of executing another user request, for example it may be waiting for him to enter values into a modal dialog box)"""
+
+MFF_WRITE = 0x0002
+"""execute code only when ida is idle and it is safe to modify the database. in particular, this flag will suspend execution if there is
+a modal dialog box on the screen this mode can be used to call any ida api function. MFF_WRITE implies MFF_READ"""
+
+MFF_NOWAIT = 0x0004
+"""Do not wait for the request to be executed.
+he caller should ensure that the request is not
+destroyed until the execution completes.
+if not, the request will be ignored.
+the return code of execute_sync() is meaningless
+in this case.
+This flag can be used to delay the code execution
+until the next UI loop run even from the main thread"""
+
+def execute_sync(callable, reqf)
+    """
+    Executes a function in the context of the main thread.
+    If the current thread not the main thread, then the call is queued and
+    executed afterwards.
+
+    @note: The Python version of execute_sync() cannot be called from a different thread
+           for the time being.
+    @param callable: A python callable object
+    @param reqf: one of MFF_ flags
+    @return: -1 or the return value of the callable
+    """
+    pass
+#</pydoc>
+*/
+//------------------------------------------------------------------------
+static int py_execute_sync(PyObject *py_callable, int reqf)
+{
+  // Not callable?
+  if ( !PyCallable_Check(py_callable) )
+    return -1;
+
+  struct py_exec_request_t: exec_request_t
+  {
+    PyObject *py_callable;
+    bool no_wait;
+    virtual int idaapi execute()
+    {
+      PYW_GIL_ENSURE;
+      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
+      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
+      Py_XDECREF(py_result);
+      PYW_GIL_RELEASE;
+
+      // Free this request
+      if ( no_wait )
+        delete this;
+
+      return r;
+    }
+    py_exec_request_t(PyObject *pyc, bool no_wait):
+            py_callable(pyc), no_wait(no_wait)
+    {
+      // Take reference to the callable
+      Py_INCREF(py_callable);
+    }
+    virtual ~py_exec_request_t()
+    {
+      // Release callable
+      Py_XDECREF(py_callable);
+    }
+  };
+
+  bool no_wait = (reqf & MFF_NOWAIT) != 0;
+
+  // Allocate a request
+  py_exec_request_t *req = new py_exec_request_t(py_callable, no_wait);
+
+  // Execute it
+  int r = execute_sync(*req, reqf);
+
+  // Delete only if NOWAIT was not specified
+  // (Otherwise the request will delete itself)
+  if ( !no_wait )
+    delete req;
+
+  return r;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+
+def execute_ui_requests(callable_list)
+    """
+    Inserts a list of callables into the UI message processing queue.
+    When the UI is ready it will call one callable.
+    A callable can request to be called more than once if it returns True.
+
+    @param callable_list: A list of python callable objects.
+    @note: A callable should return True if it wants to be called more than once.
+    @return: Boolean. False if the list contains a non callabale item
+    """
+    pass
+#</pydoc>
+*/
+static bool py_execute_ui_requests(PyObject *py_list)
+{
+  struct py_ui_request_t: public ui_request_t
+  {
+  private:
+    ppyobject_vec_t py_callables;
+    size_t py_callable_idx;
+
+    static int idaapi s_py_list_walk_cb(
+      PyObject *py_item,
+      Py_ssize_t index,
+      void *ud)
+    {
+      // Not callable? Terminate iteration
+      if ( !PyCallable_Check(py_item) )
+        return CIP_FAILED;
+
+      // Append this callable and increment its reference
+      py_ui_request_t *_this = (py_ui_request_t *)ud;
+      _this->py_callables.push_back(py_item);
+      Py_INCREF(py_item);
+
+      return CIP_OK;
+    }
+  public:
+    py_ui_request_t(): py_callable_idx(0)
+    {
+    }
+
+    virtual bool idaapi run()
+    {
+      // Get callable
+      PyObject *py_callable = py_callables.at(py_callable_idx);
+
+      PYW_GIL_ENSURE;
+      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
+      bool reschedule = py_result != NULL && PyObject_IsTrue(py_result);
+      Py_XDECREF(py_result);
+      PYW_GIL_RELEASE;
+
+      // No rescheduling? Then advance to the next callable
+      if ( !reschedule )
+        ++py_callable_idx;
+
+      // Reschedule this C callback only if there are more callables
+      return py_callable_idx < py_callables.size();
+    }
+
+    // Walk the list and extract all callables
+    bool init(PyObject *py_list)
+    {
+      Py_ssize_t count = pyvar_walk_list(
+        py_list,
+        s_py_list_walk_cb,
+        this);
+      return count > 0;
+    }
+
+    virtual idaapi ~py_ui_request_t()
+    {
+      // Release all callables
+      for ( ppyobject_vec_t::const_iterator it=py_callables.begin();
+        it != py_callables.end();
+        ++it )
+      {
+        Py_XDECREF(*it);
+      }
+    }
+  };
+
+  py_ui_request_t *req = new py_ui_request_t();
+  if ( !req->init(py_list) )
+  {
+    delete req;
+    return false;
+  }
+  execute_ui_requests(req, NULL);
+  return true;
 }
 
 //------------------------------------------------------------------------
@@ -457,7 +874,7 @@ class UI_Hooks(object):
     def get_ea_hint(self, ea):
         """
         The UI wants to display a simple hint for an address in the navigation band
-        
+
         @param ea: The address
         @return: String with the hint or None
         """
@@ -509,6 +926,7 @@ public:
   virtual void term()
   {
   }
+
   virtual PyObject *get_ea_hint(ea_t /*ea*/)
   {
     Py_RETURN_NONE;
@@ -566,7 +984,9 @@ uint32 choose_choose(
     int flags,
     int x0,int y0,
     int x1,int y1,
-    int width)
+    int width,
+    int deflt,
+    int icon)
 {
   PyObject *pytitle = PyObject_GetAttrString((PyObject *)self, "title");
   const char *title = pytitle != NULL ? PyString_AsString(pytitle) : "Choose";
@@ -580,8 +1000,8 @@ uint32 choose_choose(
     choose_sizer,
     choose_getl,
     title,
-    1,
-    1,
+    icon,
+    deflt,
     NULL, /* del */
     NULL, /* inst */
     NULL, /* update */
@@ -608,6 +1028,77 @@ PyObject *choose2_get_embedded_selection(PyObject *self);
 #define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
 
 //---------------------------------------------------------------------------
+DECLARE_PY_CLINKED_OBJECT(textctrl_info_t);
+
+static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
+{
+  textctrl_info_t *lhs = textctrl_info_t_get_clink(self);
+  textctrl_info_t *rhs = textctrl_info_t_get_clink(other);
+  if (lhs == NULL || rhs == NULL)
+    return false;
+
+  *lhs = *rhs;
+  return true;
+}
+
+//-------------------------------------------------------------------------
+static bool textctrl_info_t_set_text(PyObject *self, const char *s)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  if ( ti == NULL )
+    return false;
+  ti->text = s;
+  return true;
+}
+
+//-------------------------------------------------------------------------
+static const char *textctrl_info_t_get_text(PyObject *self)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  return ti == NULL ? "" : ti->text.c_str();
+}
+
+//-------------------------------------------------------------------------
+static bool textctrl_info_t_set_flags(PyObject *self, unsigned int flags)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  if ( ti == NULL )
+    return false;
+  ti->flags = flags;
+  return true;
+}
+
+//-------------------------------------------------------------------------
+static unsigned int textctrl_info_t_get_flags(
+    PyObject *self,
+    unsigned int flags)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  return ti == NULL ? 0 : ti->flags;
+}
+
+//-------------------------------------------------------------------------
+static bool textctrl_info_t_set_tabsize(
+    PyObject *self,
+    unsigned int tabsize)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  if ( ti == NULL )
+    return false;
+  ti->tabsize = tabsize;
+  return true;
+}
+
+//-------------------------------------------------------------------------
+static unsigned int textctrl_info_t_get_tabsize(
+  PyObject *self,
+  unsigned int tabsize)
+{
+  textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
+  return ti == NULL ? 0 : ti->tabsize;
+}
+
+//---------------------------------------------------------------------------
 static bool formchgcbfa_enable_field(size_t p_fa, int fid, bool enable)
 {
   DECLARE_FORM_ACTIONS;
@@ -623,11 +1114,11 @@ static bool formchgcbfa_show_field(size_t p_fa, int fid, bool show)
 
 //---------------------------------------------------------------------------
 static bool formchgcbfa_move_field(
-    size_t p_fa, 
-    int fid, 
-    int x, 
-    int y, 
-    int w, 
+    size_t p_fa,
+    int fid,
+    int x,
+    int y,
+    int w,
     int h)
 {
   DECLARE_FORM_ACTIONS;
@@ -656,15 +1147,48 @@ static void formchgcbfa_refresh_field(size_t p_fa, int fid)
 }
 
 //---------------------------------------------------------------------------
+static void formchgcbfa_close(size_t p_fa, int fid, int close_normally)
+{
+  DECLARE_FORM_ACTIONS;
+  fa->close(close_normally);
+}
+
+//---------------------------------------------------------------------------
 static PyObject *formchgcbfa_get_field_value(
-    size_t p_fa, 
-    int fid, 
+    size_t p_fa,
+    int fid,
     int ft,
     size_t sz)
 {
   DECLARE_FORM_ACTIONS;
   switch ( ft )
   {
+    case 8:
+    {
+      // Readonly? Then return the selected index
+      if ( sz == 1 )
+      {
+        int sel_idx;
+        if ( fa->get_field_value(fid, &sel_idx) )
+          return PyLong_FromLong(sel_idx);
+      }
+      // Not readonly? Then return the qstring
+      else
+      {
+        qstring val;
+        if ( fa->get_field_value(fid, &val) )
+          return PyString_FromString(val.c_str());
+      }
+      break;
+    }
+    // multilinetext - tuple representing textctrl_info_t
+    case 7:
+    {
+      textctrl_info_t ti;
+      if ( fa->get_field_value(fid, &ti) )
+        return Py_BuildValue("(sII)", ti.text.c_str(), ti.flags, ti.tabsize);
+      break;
+    }
     // button - uint32
     case 4:
     {
@@ -765,8 +1289,8 @@ static PyObject *formchgcbfa_get_field_value(
 
 //---------------------------------------------------------------------------
 static bool formchgcbfa_set_field_value(
-  size_t p_fa, 
-  int fid, 
+  size_t p_fa,
+  int fid,
   int ft,
   PyObject *py_val)
 {
@@ -774,6 +1298,29 @@ static bool formchgcbfa_set_field_value(
 
   switch ( ft )
   {
+    // dropdown list
+    case 8:
+    {
+      // Editable dropdown list
+      if ( PyString_Check(py_val) )
+      {
+        qstring val(PyString_AsString(py_val));
+        return fa->set_field_value(fid, &val);
+      }
+      // Readonly dropdown list
+      else
+      {
+        int sel_idx = PyLong_AsLong(py_val);
+        return fa->set_field_value(fid, &sel_idx);
+      }
+      break;
+    }
+    // multilinetext - textctrl_info_t
+    case 7:
+    {
+      textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
+      return ti == NULL ? false : fa->set_field_value(fid, ti);
+    }
     // button - uint32
     case 4:
     {
@@ -797,7 +1344,7 @@ static bool formchgcbfa_set_field_value(
       // Passed as 0-based
       if ( !PyW_PyListToIntVec(py_val, intvec) )
         break;
-      
+
       // Make 1-based
       for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
         (*it)++;
@@ -869,8 +1416,8 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
         Py_ssize_t _len;
 
         PyObject *py_str = proxy->get_ea_hint(ea);
-        if ( py_str != NULL 
-          && PyString_Check(py_str) 
+        if ( py_str != NULL
+          && PyString_Check(py_str)
           && PyString_AsStringAndSize(py_str, &_buf, &_len) != - 1 )
         {
           qstrncpy(buf, _buf, qmin(_len, sz));
@@ -1017,7 +1564,11 @@ private:
     if ( notification_code != ui_get_chooser_item_attrs )
       return 0;
 
-    va_arg(va, void *);
+    // Pass events that belong to our chooser only
+    void *chooser_obj = va_arg(va, void *);
+    if ( obj != chooser_obj )
+      return 0;
+
     int n = int(va_arg(va, uint32));
     chooser_item_attrs_t *attr = va_arg(va, chooser_item_attrs_t *);
     thisobj->on_get_line_attr(n, attr);
@@ -1606,6 +2157,7 @@ public:
       embedded->get_icon     = (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL;
       embedded->ins          = (cb_flags & CHOOSE2_HAVE_INS) != 0     ? s_ins      : NULL;
       embedded->update       = (cb_flags & CHOOSE2_HAVE_UPDATE) != 0  ? s_update   : NULL;
+      embedded->get_attrs    = NULL;
       // Fill callbacks that are only present in idaq
       if ( is_idaq() )
       {
@@ -1798,6 +2350,7 @@ PyObject *choose2_get_embedded_selection(PyObject *self)
 }
 
 //------------------------------------------------------------------------
+// Return the C instances as 64bit numbers
 PyObject *choose2_get_embedded(PyObject *self)
 {
   py_choose2_t *c2 = choose2_find_instance(self);
@@ -2450,14 +3003,14 @@ private:
     cvw_popupmap_t::iterator it = _global_popup_map.find(mid);
     if ( it == _global_popup_map.end() )
       return false;
-  
+
     return it->second.cv->on_popup_menu(it->second.menu_id);
   }
 
   static bool idaapi s_cv_keydown(
       TCustomControl * /*cv*/,
-      int vk_key, 
-      int shift, 
+      int vk_key,
+      int shift,
       void *ud)
   {
     customviewer_t *_this = (customviewer_t *)ud;
@@ -2557,6 +3110,7 @@ public:
 
   // OnHint
   virtual bool on_hint(place_t * /*place*/, int * /*important_lines*/, qstring &/*hint*/) { return false; }
+
   // OnPopupMenuClick
   virtual bool on_popup_menu(size_t menu_id) { return false; }
 
@@ -2582,7 +3136,7 @@ public:
   void close()
   {
     if ( _form != NULL )
-      close_tform(_form, FORM_SAVE);
+      close_tform(_form, FORM_SAVE | FORM_CLOSE_LATER);
   }
 
   //--------------------------------------------------------------------------
@@ -2884,7 +3438,7 @@ private:
       PYW_GIL_ENSURE;
       PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL);
       PYW_GIL_RELEASE;
-      
+
       PyW_ShowCbErr(S_ON_CLOSE);
       Py_XDECREF(py_result);
 
@@ -2900,10 +3454,10 @@ private:
   {
     PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
-        py_self, 
-        (char *)S_ON_KEYDOWN, 
-        "ii", 
-        vk_key, 
+        py_self,
+        (char *)S_ON_KEYDOWN,
+        "ii",
+        vk_key,
         shift);
     PYW_GIL_RELEASE;
 
@@ -2919,11 +3473,11 @@ private:
   {
     PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
-        py_self, 
-        (char *)S_ON_POPUP, 
+        py_self,
+        (char *)S_ON_POPUP,
         NULL);
     PYW_GIL_RELEASE;
-    
+
     PyW_ShowCbErr(S_ON_POPUP);
     bool ok = py_result != NULL && PyObject_IsTrue(py_result);
     Py_XDECREF(py_result);
@@ -2937,12 +3491,12 @@ private:
     size_t ln = data.to_lineno(place);
     PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
-        py_self, 
-        (char *)S_ON_HINT, 
-        PY_FMT64, 
+        py_self,
+        (char *)S_ON_HINT,
+        PY_FMT64,
         pyul_t(ln));
     PYW_GIL_RELEASE;
-    
+
     PyW_ShowCbErr(S_ON_HINT);
     bool ok = py_result != NULL && PyTuple_Check(py_result) && PyTuple_Size(py_result) == 2;
     if ( ok )
@@ -2953,7 +3507,7 @@ private:
 
       if ( important_lines != NULL )
         *important_lines = PyInt_AsLong(py_nlines);
-      
+
       hint = PyString_AsString(py_hint);
     }
     Py_XDECREF(py_result);
@@ -2966,9 +3520,9 @@ private:
   {
     PYW_GIL_ENSURE;
     PyObject *py_result = PyObject_CallMethod(
-        py_self, 
-        (char *)S_ON_POPUP_MENU, 
-        PY_FMT64, 
+        py_self,
+        (char *)S_ON_POPUP_MENU,
+        PY_FMT64,
         pyul_t(menu_id));
     PYW_GIL_RELEASE;
 
@@ -3121,7 +3675,7 @@ public:
     // Return a reference to the C++ instance (only once)
     if ( py_this == NULL )
       py_this = PyCObject_FromVoidPtr(this, NULL);
-  
+
     return true;
   }
 
@@ -3394,7 +3948,9 @@ uint32 choose_choose(PyObject *self,
     int flags,
     int x0,int y0,
     int x1,int y1,
-    int width);
+    int width,
+    int deflt,
+    int icon);
 
 
 
@@ -3706,7 +4262,7 @@ class Choose2(object):
 #ICON WARNING|QUESTION|INFO|NONE
 #AUTOHIDE NONE|DATABASE|REGISTRY|SESSION
 #HIDECANCEL
-#BUTTON YES|NO|CANCEL "Value"
+#BUTTON YES|NO|CANCEL "Value|NONE"
 #STARTITEM {id:ItemName}
 #HELP / ENDHELP
 try:
@@ -3717,18 +4273,91 @@ try:
     # Callback for buttons
     # typedef void (idaapi *formcb_t)(TView *fields[], int code);
 
-    _FORMCB_T = WINFUNCTYPE(c_void_p, c_void_p, c_int)
+    _FORMCB_T = WINFUNCTYPE(None, c_void_p, c_int)
 
     # Callback for form change
     # typedef int (idaapi *formchgcb_t)(int field_id, form_actions_t &fa);
     _FORMCHGCB_T = WINFUNCTYPE(c_int, c_int, c_void_p)
 except:
     try:
-        _FORMCB_T    = CFUNCTYPE(c_void_p, c_void_p, c_int)
+        _FORMCB_T    = CFUNCTYPE(None, c_void_p, c_int)
         _FORMCHGCB_T = CFUNCTYPE(c_int, c_int, c_void_p)
     except:
         _FORMCHGCB_T = _FORMCB_T = None
 
+
+# -----------------------------------------------------------------------
+# textctrl_info_t clinked object
+class textctrl_info_t(py_clinked_object_t):
+    """Class representing textctrl_info_t"""
+
+    # Some constants
+    TXTF_AUTOINDENT = 0x0001
+    """Auto-indent on new line"""
+    TXTF_ACCEPTTABS = 0x0002
+    """Tab key inserts 'tabsize' spaces"""
+    TXTF_READONLY   = 0x0004
+    """Text cannot be edited (but can be selected and copied)"""
+    TXTF_SELECTED   = 0x0008
+    """Shows the field with its text selected"""
+    TXTF_MODIFIED   = 0x0010
+    """Gets/sets the modified status"""
+    TXTF_FIXEDFONT  = 0x0020
+    """The control uses IDA's fixed font"""
+
+    def __init__(self, text="", flags=0, tabsize=0):
+        py_clinked_object_t.__init__(self)
+        if text:
+            self.text = text
+        if flags:
+            self.flags = flags
+        if tabsize:
+            self.tabsize = tabsize
+
+    def _create_clink(self):
+        return _idaapi.textctrl_info_t_create()
+
+    def _del_clink(self, lnk):
+        return _idaapi.textctrl_info_t_destroy(lnk)
+
+    def _get_clink_ptr(self):
+        return _idaapi.textctrl_info_t_get_clink_ptr(self)
+
+    def assign(self, other):
+        """Copies the contents of 'other' to 'self'"""
+        return _idaapi.textctrl_info_t_assign(self, other)
+
+    def __set_text(self, s):
+        """Sets the text value"""
+        return _idaapi.textctrl_info_t_set_text(self, s)
+
+    def __get_text(self):
+        """Sets the text value"""
+        return _idaapi.textctrl_info_t_get_text(self)
+
+    def __set_flags__(self, flags):
+        """Sets the flags value"""
+        return _idaapi.textctrl_info_t_set_flags(self, flags)
+
+    def __get_flags__(self):
+        """Returns the flags value"""
+        return _idaapi.textctrl_info_t_get_flags(self)
+
+    def __set_tabsize__(self, tabsize):
+        """Sets the tabsize value"""
+        return _idaapi.textctrl_info_t_set_tabsize(self, tabsize)
+
+    def __get_tabsize__(self):
+        """Returns the tabsize value"""
+        return _idaapi.textctrl_info_t_get_tabsize(self)
+
+    value   = property(__get_text, __set_text)
+    """Alias for the text property"""
+    text    = property(__get_text, __set_text)
+    """Text value"""
+    flags   = property(__get_flags__, __set_flags__)
+    """Flags value"""
+    tabsize = property(__get_tabsize__, __set_tabsize__)
 
 # -----------------------------------------------------------------------
 class Form(object):
@@ -3775,6 +4404,10 @@ class Form(object):
     """Form change callback - formchgcb_t"""
     FT_ECHOOSER = 'E'
     """Embedded chooser - idaapi.Choose2"""
+    FT_MULTI_LINE_TEXT = 't'
+    """Multi text control - textctrl_info_t"""
+    FT_DROPDOWN_LIST   = 'b'
+    """Dropdown list control - Form.DropdownControl"""
 
     FT_CHKGRP = 'C'
     FT_CHKGRP2= 'c'
@@ -3856,8 +4489,7 @@ class Form(object):
             """Control argument value. This could be one element or a list/tuple (for multiple args per control)"""
 
             self.form = None
-            """Reference to the parent form. It is filled by Form.Add()
-            """
+            """Reference to the parent form. It is filled by Form.Add()"""
 
 
         def get_tag(self):
@@ -4239,7 +4871,7 @@ class Form(object):
             self.arg = _FORMCHGCB_T(self.helper_cb)
 
         def helper_cb(self, fid, p_fa):
-            # Remember the pointer to the forms_action
+            # Remember the pointer to the forms_action in the parent form
             self.form.p_fa = p_fa
 
             # Call user's handler
@@ -4335,8 +4967,117 @@ class Form(object):
             Form.Control.free(self)
 
 
+    class DropdownListControl(InputControl, qstrvec_t):
+        """
+        Dropdown control
+        This control allows manipulating a dropdown control
+        """
+        def __init__(self, items=[], readonly=True, selval=0, width=50, swidth=50, hlp = None):
+            """
+            @param items: A string list of items used to prepopulate the control
+            @param readonly: Specifies whether the dropdown list is editable or not
+            @param selval: The preselected item index (when readonly) or text value (when editable)
+            @param width: the control width (n/a if the dropdown list is readonly)
+            @param swidth: string width
+            """
+
+            # Ignore the width if readonly was set
+            if readonly:
+                width = 0
+
+            # Init the input control base class
+            Form.InputControl.__init__(
+                self,
+                Form.FT_DROPDOWN_LIST,
+                width,
+                swidth,
+                hlp)
+
+            # Init the associated qstrvec
+            qstrvec_t.__init__(self, items)
+
+            # Remember if readonly or not
+            self.readonly = readonly
+
+            if readonly:
+                # Create a C integer and remember it
+                self.__selval = c_int(selval)
+                val_addr      = addressof(self.__selval)
+            else:
+                # Create an strvec with one qstring
+                self.__selval = qstrvec_t([selval])
+                # Get address of the first element
+                val_addr      = self.__selval.addressof(0)
+
+            # Two arguments:
+            # - argument #1: a pointer to the qstrvec containing the items
+            # - argument #2: an integer to hold the selection
+            #         or
+            #            #2: a qstring to hold the dropdown text control value
+            self.arg = (
+                pointer(c_void_p.from_address(self.clink_ptr)),
+                pointer(c_void_p.from_address(val_addr))
+            )
+
+
+        def __set_selval(self, val):
+            if self.readonly:
+                self.__selval.value = val
+            else:
+                self.__selval[0] = val
+
+        def __get_selval(self):
+            # Return the selection index
+            # or the entered text value
+            return self.__selval.value if self.readonly else self.__selval[0]
+
+        value  = property(__get_selval, __set_selval)
+        selval = property(__get_selval, __set_selval)
+        """
+        Read/write the selection value.
+        The value is used as an item index in readonly mode or text value in editable mode
+        This value can be used only after the form has been closed.
+        """
+
+        def free(self):
+            self._free()
+
+
+        def set_items(self, items):
+            """Sets the dropdown list items"""
+            self.from_list(items)
+
+
+    class MultiLineTextControl(InputControl, textctrl_info_t):
+        """
+        Multi line text control.
+        This class inherits from textctrl_info_t. Thus the attributes are also inherited
+        This control allows manipulating a multilinetext control
+        """
+        def __init__(self, text="", flags=0, tabsize=0, width=50, swidth=50, hlp = None):
+            """
+            @param text: Initial text value
+            @param flags: One of textctrl_info_t.TXTF_.... values
+            @param tabsize: Tab size
+            @param width: Display width
+            @param swidth: String width
+            """
+            # Init the input control base class
+            Form.InputControl.__init__(self, Form.FT_MULTI_LINE_TEXT, width, swidth, hlp)
+
+            # Init the associated textctrl_info base class
+            textctrl_info_t.__init__(self, text=text, flags=flags, tabsize=tabsize)
+
+            # Get the argument as a pointer from the embedded ti
+            self.arg = pointer(c_void_p.from_address(self.clink_ptr))
+
+
+        def free(self):
+            self._free()
+
+
     #
-    # Class methods
+    # Form class
     #
     def __init__(self, form, controls):
         """
@@ -4364,6 +5105,8 @@ class Form(object):
         Frees all resources associated with a compiled form.
         Make sure you call this function when you finish using the form.
         """
+
+        # Free all the controls
         for ctrl in self.__controls.values():
              ctrl.free()
 
@@ -4667,22 +5410,40 @@ class Form(object):
         return _idaapi.formchgcbfa_refresh_field(self.p_fa, ctrl.id)
 
 
+    def Close(self, close_normally):
+        """
+        Close the form
+        @param close_normally:
+                   1: form is closed normally as if the user pressed Enter
+                   0: form is closed abnormally as if the user pressed Esc
+        @return: None
+        """
+        return _idaapi.formchgcbfa_close(self.p_fa, close_normally)
+
+
     def GetControlValue(self, ctrl):
         """
         Returns the control's value depending on its type
         @param ctrl: Form control instance
         @return:
-            - number: color button, radio controls
-            - string: file/dir input, string input and string label
-            - int list: for embedded chooser control (0-based indices of selected items)
+            - color button, radio controls: integer
+            - file/dir input, string input and string label: string
+            - embedded chooser control (0-based indices of selected items): integer list
+            - for multilinetext control: textctrl_info_t
+            - dropdown list controls: string (when editable) or index (when readonly)
             - None: on failure
         """
         tid, sz = self.ControlToFieldTypeIdAndSize(ctrl)
-        return _idaapi.formchgcbfa_get_field_value(
+        r = _idaapi.formchgcbfa_get_field_value(
                     self.p_fa,
                     ctrl.id,
                     tid,
                     sz)
+        # Multilinetext? Unpack the tuple into a new textctrl_info_t instance
+        if r is not None and tid == 7:
+            return textctrl_info_t(text=r[0], flags=r[1], tabsize=r[2])
+        else:
+            return r
 
 
     def SetControlValue(self, ctrl, value):
@@ -4690,7 +5451,10 @@ class Form(object):
         Set the control's value depending on its type
         @param ctrl: Form control instance
         @param value:
-            - embedded chooser: base a 0-base indices list to select embedded chooser items
+            - embedded chooser: a 0-base indices list to select embedded chooser items
+            - multilinetext: a textctrl_info_t
+            - dropdown list: an integer designating the selection index if readonly
+                             a string designating the edit control value if not readonly
         @return: Boolean true on success
         """
         tid, _ = self.ControlToFieldTypeIdAndSize(ctrl)
@@ -4710,7 +5474,11 @@ class Form(object):
         # Input control depend on the associated buffer size (supplied by the user)
 
         # Make sure you check instances types taking into account inheritance
-        if isinstance(ctrl, Form.EmbeddedChooserControl):
+        if isinstance(ctrl, Form.DropdownListControl):
+            return (8, 1 if ctrl.readonly else 0)
+        elif isinstance(ctrl, Form.MultiLineTextControl):
+            return (7, 0)
+        elif isinstance(ctrl, Form.EmbeddedChooserControl):
             return (5, 0)
         # Group items or controls
         elif isinstance(ctrl, (Form.GroupItemControl, Form.GroupControl)):
@@ -4846,21 +5614,23 @@ class PluginForm(object):
         return _idaapi.plgform_close(self.__clink__)
 
     FORM_SAVE           = 0x1
-    """save state in desktop config"""
+    """Save state in desktop config"""
 
     FORM_NO_CONTEXT     = 0x2
-    """don't change the current context (useful for toolbars)"""
+    """Don't change the current context (useful for toolbars)"""
 
     FORM_DONT_SAVE_SIZE = 0x4
-    """don't save size of the window"""
+    """Don't save size of the window"""
 
+    FORM_CLOSE_LATER    = 0x8
+    """This flag should be used when Close() is called from an event handler"""
 #</pycode(py_plgform)>
 
 class Choose:
   """
   Choose - class for choose() with callbacks
   """
-  def __init__(self, list, title, flags=0):
+  def __init__(self, list, title, flags=0, deflt=1, icon=37):
     self.list = list
     self.title = title
 
@@ -4871,6 +5641,8 @@ class Choose:
     self.y1 = -1
 
     self.width = -1
+    self.deflt = deflt
+    self.icon = icon
 
     # HACK: Add a circular reference for non-modal choosers. This prevents the GC
     # from collecting the class object the callbacks need. Unfortunately this means
@@ -4925,7 +5697,16 @@ class Choose:
     choose - Display the choose dialogue
     """
     old = set_script_timeout(0)
-    n = _idaapi.choose_choose(self, self.flags, self.x0, self.y0, self.x1, self.y1, self.width)
+    n = _idaapi.choose_choose(
+        self, 
+        self.flags, 
+        self.x0, 
+        self.y0, 
+        self.x1, 
+        self.y1, 
+        self.width,
+        self.deflt,
+        self.icon)
     set_script_timeout(old)
     return n
 %}
@@ -5272,3 +6053,5 @@ class simplecustviewer_t(object):
 #</pydoc>
 #</pycode(py_custviewer)>
 %}
+
+

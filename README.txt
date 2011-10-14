@@ -1,8 +1,8 @@
-----------------------------------------------------------
-IDAPython - Python plugin for Interactive Disassembler Pro
-----------------------------------------------------------
+------------------------------------------------------
+IDAPython - Python plugin for Interactive Disassembler
+------------------------------------------------------
 
-WHAT IS IDAPTYHON?
+What is IDAPython?
 ------------------
 
 IDAPython is an IDA plugin which makes it possible to write scripts
@@ -12,7 +12,7 @@ access to both the IDA API and any installed Python module.
 Check the scripts in the examples directory to get an quick glimpse.
 
 
-AVAILABILITY
+Availability
 ------------
 
 Latest stable versions of IDAPython are available from
@@ -22,7 +22,7 @@ Development builds are available from
   http://code.google.com/p/idapython/
 
 
-RESOURCES
+Resources
 ---------
 
 The full function cross-reference is readable online at
@@ -35,22 +35,23 @@ Mailing list for the project is hosted by Google Groups at
   http://groups.google.com/group/idapython
 
 
-INSTALLATION FROM BINARIES
+Installation from binaries
 --------------------------
 
 1. Install 2.6 or 2.7 from http://www.python.org/
-2. Copy "python" directory to %IDADIR%
-3. Copy "plugins" directory to the %IDADIR%\plugins\
+2. Copy the whole "python" directory to %IDADIR%
+3. Copy the contents of the "plugins" directory to the %IDADIR%\plugins\
 4. Copy "python.cfg" to %IDADIR%\cfg
 
-USAGE
+Usage
 -----
 
  - Run script: File / Script file (Alt-F7)
  - Execute Python statement(s) (Ctrl-F3)
  - Run previously executed script again: View / Recent Scripts (Alt+F9)
 
-Batch mode execution:
+
+* Batch mode execution:
 
 Start IDA with the following command line options:
 
@@ -75,7 +76,7 @@ Where N can be:
   1: run script when UI is ready
   2: run script immediately on plugin load (shortly after IDA starts and before processor modules and loaders)
 
-User init file:
+* User init file
 
 You can place your custom settings to a file called 'idapythonrc.py'
 that should be placed to
@@ -89,3 +90,25 @@ or
 The user init file is read and executed at the end of the init process.
 
 Please note that IDAPython can be configured with "python.cfg" file.
+
+* Invoking Python from IDC
+
+The IDAPython plugin exposes a new IDC function "RunPythonStatement(string idc_code)" that allows execution
+of Python code from IDC
+
+* Invoking IDC from Python
+
+It is possible to use the idc.Eval() to evaluate IDC expressions from Python
+
+* Making Python the default language
+
+By default, IDA will use IDC to evaluate expressions. It is possible to change the default language to use
+Python instead of IDC.
+
+In order to do that, please use the following IDC code:
+
+RunPlugin("python", 3)
+
+To disable Python language and revert back to IDC:
+RunPlugin("python", 4)
+

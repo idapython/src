@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// IDAPython - Python plugin for Interactive Disassembler Pro
+// IDAPython - Python plugin for Interactive Disassembler
 //
 // Copyright (c) The IDAPython Team <idapython@googlegroups.com>
 //
@@ -42,7 +42,7 @@
 
 // Python-style version tuple comes from the makefile
 // Only the serial and status is set here
-#define VER_SERIAL 3
+#define VER_SERIAL 0
 #define VER_STATUS "final"
 #define IDAPYTHON_RUNSTATEMENT                   0
 #define IDAPYTHON_ENABLE_EXTLANG                 3
@@ -75,11 +75,9 @@ enum script_run_when
 //-------------------------------------------------------------------------
 // Global variables
 static bool g_initialized = false;
-static bool g_menu_installed = false;
 static int  g_run_when = -1;
 static char g_run_script[QMAXPATH];
 static char g_idapython_dir[QMAXPATH];
-static char g_runstmt_hotkey[30] = "Ctrl-F3";
 
 //-------------------------------------------------------------------------
 // Prototypes and forward declarations
@@ -223,123 +221,23 @@ int set_script_timeout(int timeout)
   return timeout;
 }
 
-//-------------------------------------------------------------------------
-// Converts IDC arguments to Python argument list or just one tuple
-// If 'decref' is NULL then 'pargs' will contain one element which is the tuple
-static bool convert_args(
-  const idc_value_t args[],
-  int nargs,
-  ppyobject_vec_t &pargs,
-  boolvec_t *decref,
-  char *errbuf,
-  size_t errbufsize)
-{
-  bool as_tupple = decref == NULL;
-  PyObject *py_tuple(NULL);
-
-  pargs.qclear();
-
-  if ( as_tupple )
-  {
-    py_tuple = PyTuple_New(nargs);
-    if ( py_tuple == NULL )
-    {
-      qstrncpy(errbuf, "Failed to create a new tuple to store arguments!", errbufsize);
-      return false;
-    }
-    // Add the tuple
-    pargs.push_back(py_tuple);
-  }
-  else
-  {
-    decref->qclear();
-  }
-
-  for ( int i=0; i<nargs; i++ )
-  {
-    PyObject *py_obj(NULL);
-    int cvt = idcvar_to_pyvar(args[i], &py_obj);
-    if ( cvt < CIP_OK )
-    {
-      qsnprintf(errbuf, errbufsize, "arg#%d has wrong type %d", i, args[i].vtype);
-      return false;
-    }
-
-    if ( as_tupple )
-    {
-      // Opaque object?
-      if ( cvt == CIP_OK_NODECREF )
-      {
-        // Increment reference for opaque objects.
-        // (A tupple will steal references of its set items,
-        // and for an opaque object we want it to still exist
-        // even if the tuple is gone)
-        Py_INCREF(py_obj);
-      }
-      // Save argument
-      PyTuple_SetItem(py_tuple, i, py_obj);
-    }
-    else
-    {
-      pargs.push_back(py_obj);
-      // do not decrement reference of opaque objects
-      decref->push_back(cvt == CIP_OK);
-    }
-  }
-  return true;
-}
-
-//-------------------------------------------------------------------------
-// Frees arguments returned by convert_args()
-static void free_args(
-  ppyobject_vec_t &pargs,
-  boolvec_t *decref = NULL)
-{
-  if ( decref == NULL )
-  {
-    if ( !pargs.empty() )
-      Py_XDECREF(pargs[0]);
-  }
-  else
-  {
-    // free argument objects
-    for ( int i=(int)pargs.size()-1; i>=0; i-- )
-    {
-      if ( decref->at(i) )
-        Py_DECREF(pargs[i]);
-    }
-    decref->clear();
-  }
-  pargs.clear();
-}
-
 //------------------------------------------------------------------------
 // Return a formatted error or just print it to the console
-static void handle_python_error(char *errbuf, size_t errbufsize)
+static void handle_python_error(
+      char *errbuf,
+      size_t errbufsize,
+      bool clear_error = true)
 {
   if ( errbufsize > 0 )
     errbuf[0] = '\0';
 
+  // No exception?
   if ( !PyErr_Occurred() )
     return;
 
-  PyObject *result;
-  PyObject *ptype, *pvalue, *ptraceback;
-  PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-  result = PyObject_Str(pvalue);
-  if ( result != NULL )
-  {
-    qsnprintf(errbuf, errbufsize, "ERROR: %s", PyString_AsString(result));
-    PyErr_Clear();
-    Py_XDECREF(ptype);
-    Py_XDECREF(pvalue);
-    Py_XDECREF(ptraceback);
-    Py_DECREF(result);
-  }
-  else
-  {
-    PyErr_Print();
-  }
+  qstring s;
+  if ( PyW_GetError(&s, clear_error) )
+    qstrncpy(errbuf, s.c_str(), errbufsize);
 }
 
 //------------------------------------------------------------------------
@@ -391,23 +289,26 @@ static void PythonEvalOrExec(
 }
 
 //------------------------------------------------------------------------
-// Simple Python statement runner function for IDC
-static const char idc_runpythonstatement_args[] = { VT_STR2, 0 };
-static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res)
+// Executes a simple string
+static bool idaapi IDAPython_extlang_run_statements(
+  const char *str,
+  char *errbuf,
+  size_t errbufsize)
 {
   PyObject *globals = GetMainGlobals();
+  bool ok;
   if ( globals == NULL )
   {
-    res->set_string("internal error");
+    ok = false;
   }
   else
   {
+    errbuf[0] = '\0';
     PyErr_Clear();
-
     begin_execution();
     PYW_GIL_ENSURE;
     PyObject *result = PyRun_String(
-      argv[0].c_str(),
+      str,
       Py_file_input,
       globals,
       globals);
@@ -415,21 +316,31 @@ static error_t idaapi idc_runpythonstatement(idc_value_t *argv, idc_value_t *res
     Py_XDECREF(result);
     end_execution();
 
-    if ( result == NULL || PyErr_Occurred() )
-    {
-      char errbuf[MAXSTR];
-      handle_python_error(errbuf, sizeof(errbuf));
-      if ( errbuf[0] == '\0' )
-        res->set_string("internal error");
-      else
-        res->set_string(errbuf);
-    }
-    else
-    {
-      // success
-      res->set_long(0);
-    }
+    ok = result != NULL && !PyErr_Occurred();
+
+    if ( !ok )
+      handle_python_error(errbuf, errbufsize);
   }
+  if ( !ok && errbuf[0] == '\0' )
+    qstrncpy(errbuf, "internal error", errbufsize);
+  return ok;
+}
+
+//------------------------------------------------------------------------
+// Simple Python statement runner function for IDC
+static const char idc_runpythonstatement_args[] = { VT_STR2, 0 };
+static error_t idaapi idc_runpythonstatement(
+      idc_value_t *argv,
+      idc_value_t *res)
+{
+  char errbuf[MAXSTR];
+  bool ok = IDAPython_extlang_run_statements(argv[0].c_str(), errbuf, sizeof(errbuf));
+
+  if ( ok )
+    res->set_long(0);
+  else
+    res->set_string(errbuf);
+
   return eOk;
 }
 
@@ -441,15 +352,7 @@ const char *idaapi set_python_options(
 {
   do
   {
-    if ( value_type == IDPOPT_STR )
-    {
-      if ( qstrcmp(keyword, "EXEC_STATEMENT_HOTKEY" ) == 0 )
-      {
-        qstrncpy(g_runstmt_hotkey, (const char *)value, sizeof(g_runstmt_hotkey));
-        break;
-      }
-    }
-    else if ( value_type == IDPOPT_NUM )
+    if ( value_type == IDPOPT_NUM )
     {
       if ( qstrcmp(keyword, "SCRIPT_TIMEOUT") == 0 )
       {
@@ -567,7 +470,7 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
 
   char script[MAXSTR];
   qstrncpy(script, FileName, sizeof(script));
-  strrpl(script, '\\', '//');
+  strrpl(script, '\\', '/');
 
   PyObject *py_script = PyString_FromString(script);
   PYW_GIL_ENSURE;
@@ -754,7 +657,7 @@ bool idaapi IDAPython_extlang_run(
   do
   {
     // Convert arguments to python
-    ok = convert_args(args, nargs, pargs, &decref, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, &decref, errbuf, errbufsize);
     if ( !ok )
       break;
 
@@ -792,7 +695,7 @@ bool idaapi IDAPython_extlang_run(
     ok = return_python_result(result, pres, errbuf, errbufsize);
   } while ( false );
 
-  free_args(pargs, &decref);
+  pyw_free_idc_args(pargs, &decref);
 
   if ( imported_module )
     Py_XDECREF(module);
@@ -851,7 +754,7 @@ bool idaapi IDAPython_extlang_create_object(
     }
 
     // Error during conversion?
-    ok = convert_args(args, nargs, pargs, NULL, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, NULL, errbuf, errbufsize);
     if ( !ok )
       break;
     ok = false;
@@ -867,7 +770,7 @@ bool idaapi IDAPython_extlang_create_object(
   Py_XDECREF(py_cls);
 
   // Free the arguments tuple
-  free_args(pargs);
+  pyw_free_idc_args(pargs);
   return ok;
 }
 
@@ -918,9 +821,41 @@ bool idaapi IDAPython_extlang_get_attr(
     // No object specified:
     else
     {
-      // then work with main module
+      // ...then work with main module
       py_obj = py_mod;
     }
+    // Special case: if attribute not passed then retrieve the class
+    // name associated associated with the passed object
+    if ( attr == NULL || attr[0] == '\0' )
+    {
+      cvt = CIP_FAILED;
+      // Get the class
+      PyObject *cls = PyObject_GetAttrString(py_obj, "__class__");
+      if ( cls == NULL )
+        break;
+
+      // Get its name
+      PyObject *name = PyObject_GetAttrString(cls, "__name__");
+      Py_DECREF(cls);
+      if ( name == NULL )
+        break;
+
+      // Convert name object to string object
+      PyObject *string = PyObject_Str(name);
+      Py_DECREF(name);
+      if ( string == NULL )
+        break;
+
+      // Convert name python string to a C string
+      const char *clsname = PyString_AsString(name);
+      if ( clsname == NULL )
+        break;
+
+      result->set_string(clsname);
+      cvt = CIP_OK;
+      break;
+    }
+
     PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr);
     // No attribute?
     if ( py_attr == NULL )
@@ -1089,7 +1024,7 @@ bool idaapi IDAPython_extlang_call_method(
     }
 
     // Convert arguments to python objects
-    ok = convert_args(args, nargs, pargs, NULL, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, NULL, errbuf, errbufsize);
     if ( !ok )
       break;
 
@@ -1100,7 +1035,7 @@ bool idaapi IDAPython_extlang_call_method(
   } while ( false );
 
   // Free converted args
-  free_args(pargs);
+  pyw_free_idc_args(pargs);
 
   // Release reference of object if needed
   if ( obj_cvt != CIP_OK_NODECREF )
@@ -1124,7 +1059,8 @@ extlang_t extlang_python =
     IDAPython_extlang_create_object,
     IDAPython_extlang_get_attr,
     IDAPython_extlang_set_attr,
-    IDAPython_extlang_call_method
+    IDAPython_extlang_call_method,
+    IDAPython_extlang_run_statements,
 };
 
 //-------------------------------------------------------------------------
@@ -1247,26 +1183,6 @@ void py_print_banner()
   PYW_GIL_RELEASE;
 }
 
-//-------------------------------------------------------------------------
-// Install python menu items
-static void install_python_menus()
-{
-  if ( g_menu_installed )
-    return;
-
-  // Add menu items for all the functions
-  // Note: Different paths are used for the GUI version
-  add_menu_item(
-    "File/IDC command...",
-    "P~y~thon command...",
-    g_runstmt_hotkey,
-    SETMENU_APP,
-    IDAPython_Menu_Callback,
-    (void *)IDAPYTHON_RUNSTATEMENT);
-
-  g_menu_installed = true;
-}
-
 //------------------------------------------------------------------------
 // Parse plugin options
 void parse_plugin_options()
@@ -1331,7 +1247,6 @@ static int idaapi menu_installer_cb(void *, int code, va_list)
     case ui_ready_to_run:
       g_ui_ready = true;
       py_print_banner();
-      install_python_menus();
 
       if ( g_run_when == run_on_ui_ready )
           RunScript(g_run_script);
@@ -1429,7 +1344,8 @@ bool IDAPython_Init(void)
   init_idaapi();
 
   // Set IDAPYTHON_VERSION in Python
-  qsnprintf(tmp, sizeof(tmp), "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
+  qsnprintf(tmp, sizeof(tmp),
+    "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
     "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
     VER_MAJOR,
     VER_MINOR,
@@ -1447,8 +1363,17 @@ bool IDAPython_Init(void)
   qmakepath(tmp, MAXSTR, g_idapython_dir, S_INIT_PY, NULL);
   if ( !PyRunFile(tmp) )
   {
-    handle_python_error(tmp, sizeof(tmp));
-    warning("IDAPython: error executing " S_INIT_PY ":\n%s", tmp);
+    // Try to fetch a one line error string. We must do it before printing
+    // the traceback information. Make sure that the exception is not cleared
+    handle_python_error(tmp, sizeof(tmp), false);
+
+    // Print the exception traceback
+    PyRun_SimpleString("import traceback;traceback.print_exc();");
+
+    warning("IDAPython: error executing " S_INIT_PY ":\n"
+            "%s\n"
+            "\n"
+            "Refer to the message window to see the full error log.", tmp);
     return false;
   }
 
@@ -1497,7 +1422,6 @@ void IDAPython_Term(void)
 #endif
   /* Remove the menu items before termination */
   del_menu_item("File/Python command...");
-  g_menu_installed = false;
 
   // Notify about IDA closing
   pywraps_nw_notify(NW_TERMIDA_SLOT);

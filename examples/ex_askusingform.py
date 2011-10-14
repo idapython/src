@@ -218,6 +218,148 @@ using address %$
     if ok == 1:
         print("You entered: %x" % num.value)
 
+# --------------------------------------------------------------------------
+def test_multilinetext_legacy():
+    # Here we text the multi line text control in legacy mode
+
+    # Sample form from kernwin.hpp
+    s = """Sample dialog box
+
+This is sample dialog box
+<Enter multi line text:t40:80:50::>
+"""
+    # Use either StringArgument or NumericArgument to pass values to the function
+    ti = textctrl_info_t("Some initial value")
+    ok = idaapi.AskUsingForm(s, pointer(c_void_p.from_address(ti.clink_ptr)))
+    if ok == 1:
+        print("You entered: %s" % ti.text)
+
+    del ti
+
+# --------------------------------------------------------------------------
+class MyForm2(Form):
+    """Simple Form to test multilinetext and combo box controls"""
+    def __init__(self):
+        Form.__init__(self, r"""STARTITEM 0
+BUTTON YES* Yeah
+BUTTON NO Nope
+BUTTON CANCEL NONE
+Form Test
+
+{FormChangeCb}
+<Multilinetext:{txtMultiLineText}>
+""", {
+            'txtMultiLineText': Form.MultiLineTextControl(text="Hello"),
+            'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
+        })
+
+
+    def OnFormChange(self, fid):
+        if fid == self.txtMultiLineText.id:
+            pass
+        elif fid == -2:
+            ti = self.GetControlValue(self.txtMultiLineText)
+            print "ti.text = %s" % ti.text
+        else:
+            print(">>fid:%d" % fid)
+        return 1
+
+# --------------------------------------------------------------------------
+def test_multilinetext(execute=True):
+    """Test the multilinetext and combobox controls"""
+    f = MyForm2()
+    f, args = f.Compile()
+    if execute:
+        ok = f.Execute()
+    else:
+        print args[0]
+        print args[1:]
+        ok = 0
+
+    if ok == 1:
+        assert f.txtMultiLineText.text == f.txtMultiLineText.value
+        print f.txtMultiLineText.text
+
+    f.Free()
+
+# --------------------------------------------------------------------------
+class MyForm3(Form):
+    """Simple Form to test multilinetext and combo box controls"""
+    def __init__(self):
+        self.__n = 0
+        Form.__init__(self,
+r"""BUTTON YES* Yeah
+BUTTON NO Nope
+BUTTON CANCEL NONE
+Dropdown list test
+
+{FormChangeCb}
+<Dropdown list (readonly):{cbReadonly}> <Add element:{iButtonAddelement}> <Set index:{iButtonSetIndex}>
+<Dropdown list (editable):{cbEditable}> <Set string:{iButtonSetString}>
+""", {
+            'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
+            'cbReadonly': Form.DropdownListControl(
+                        items=["red", "green", "blue"],
+                        readonly=True,
+                        selval=1),
+            'cbEditable': Form.DropdownListControl(
+                        items=["1MB", "2MB", "3MB", "4MB"],
+                        readonly=False,
+                        selval="4MB"),
+            'iButtonAddelement': Form.ButtonInput(self.OnButtonNop),
+            'iButtonSetIndex': Form.ButtonInput(self.OnButtonNop),
+            'iButtonSetString': Form.ButtonInput(self.OnButtonNop),
+        })
+
+
+    def OnButtonNop(self, code=0):
+        """Do nothing, we will handle events in the form callback"""
+        pass
+
+    def OnFormChange(self, fid):
+        if fid == self.iButtonSetString.id:
+            s = idc.AskStr("none", "Enter value")
+            if s:
+                self.SetControlValue(self.cbEditable, s)
+        elif fid == self.iButtonSetIndex.id:
+            s = idc.AskStr("1", "Enter index value:")
+            if s:
+                try:
+                    i = int(s)
+                except:
+                    i = 0
+                self.SetControlValue(self.cbReadonly, i)
+        elif fid == self.iButtonAddelement.id:
+            # add a value to the string list
+            self.__n += 1
+            self.cbReadonly.add("some text #%d" % self.__n)
+            # Refresh the control
+            self.RefreshField(self.cbReadonly)
+        elif fid == -2:
+            s = self.GetControlValue(self.cbEditable)
+            print "user entered: %s" % s
+            sel_idx = self.GetControlValue(self.cbReadonly)
+
+        return 1
+
+# --------------------------------------------------------------------------
+def test_dropdown(execute=True):
+    """Test the combobox controls"""
+    f = MyForm3()
+    f, args = f.Compile()
+    if execute:
+        ok = f.Execute()
+    else:
+        print args[0]
+        print args[1:]
+        ok = 0
+
+    if ok == 1:
+        print "Editable: %s" % f.cbEditable.value
+        print "Readonly: %s" % f.cbReadonly.value
+
+    f.Free()
+
 #</pycode(ex_askusingform)>
 
 
