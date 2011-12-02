@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pywraps", "pywraps.vcxproj", "{F43D6BB8-B7D6-486A-82E5-BABBA9848525}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Rel64|Win32 = Rel64|Win32
+		Release|Win32 = Release|Win32
+		Release64|Win32 = Release64|Win32
+		SemiDebug|Win32 = SemiDebug|Win32
+		SemiDebugx64|Win32 = SemiDebugx64|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Debug|Win32.Build.0 = Debug|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Rel64|Win32.ActiveCfg = Rel64|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Rel64|Win32.Build.0 = Rel64|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Release|Win32.ActiveCfg = Release|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Release|Win32.Build.0 = Release|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Release64|Win32.ActiveCfg = Release64|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.Release64|Win32.Build.0 = Release64|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.SemiDebug|Win32.ActiveCfg = SemiDebug|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.SemiDebug|Win32.Build.0 = SemiDebug|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.SemiDebugx64|Win32.ActiveCfg = SemiDebugx64|Win32
+		{F43D6BB8-B7D6-486A-82E5-BABBA9848525}.SemiDebugx64|Win32.Build.0 = SemiDebugx64|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

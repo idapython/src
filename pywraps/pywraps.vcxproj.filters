@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="py_dbgidd">
+      <UniqueIdentifier>{9fd646ab-4c34-4457-a88f-0b9efa521a7c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="py_graph">
+      <UniqueIdentifier>{c7c2445a-144b-4574-a5a7-4547bf731f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pywraps">
+      <UniqueIdentifier>{a817be2b-11e4-441c-9e1e-ff3825b03d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_diskio">
+      <UniqueIdentifier>{bfbff292-8186-40a9-a90f-09a530e2e5d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_bytes">
+      <UniqueIdentifier>{2ebfadc0-402b-4ef7-b2bf-ab9fb8c5279b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deploy">
+      <UniqueIdentifier>{0ad19987-f808-44a4-865b-985e7f8dca02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deploy\examples">
+      <UniqueIdentifier>{1016cbe2-fa4e-49b5-9e8f-b8fc4a0656d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_idaapi">
+      <UniqueIdentifier>{e57b232e-0cdb-4cc6-ad63-80ecfeaa25b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_typeinf">
+      <UniqueIdentifier>{cfda7913-ffad-425d-b9ce-295bb647d8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="swig.i">
+      <UniqueIdentifier>{ec48a898-4c2f-443d-9236-c8b58c036050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_gdl">
+      <UniqueIdentifier>{12e97676-9f57-4e1f-af42-6bf0cd178ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_ua">
+      <UniqueIdentifier>{62308260-bfab-49eb-9b11-7522f7b671d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IDAPython">
+      <UniqueIdentifier>{f33949eb-15bb-4926-94e3-1648a4c3bca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_notifywhen">
+      <UniqueIdentifier>{79a2a07e-7db7-43ac-8c41-fe08777e802c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_lines">
+      <UniqueIdentifier>{714c10e9-2a6f-4b86-a594-b53b28f9fc7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_nalt">
+      <UniqueIdentifier>{22f57328-eb90-4341-bb06-464f6c7b2bd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_loader">
+      <UniqueIdentifier>{ef594bc3-6670-4e55-a77f-e3bff3193d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_idp">
+      <UniqueIdentifier>{7092618c-44fe-497b-a229-360bab592f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_utils">
+      <UniqueIdentifier>{c5616ba8-8b0d-41a0-bf78-583fdcfb3898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin">
+      <UniqueIdentifier>{0cefa3d8-f4b6-4085-b2a2-6b2d97167252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_custview">
+      <UniqueIdentifier>{b21f3b63-396e-4725-83cc-2df9f5b6bb46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_choose2">
+      <UniqueIdentifier>{c4a9b8be-70fa-4287-bc47-73db56202dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_cli">
+      <UniqueIdentifier>{a103675f-abc2-4f84-a0b8-9ac7403f04db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_plgform">
+      <UniqueIdentifier>{ac94c213-e485-48ac-b554-3868e350d671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_askusingform">
+      <UniqueIdentifier>{833c766e-6e8d-4c00-947f-71a7b34378a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_kernwin\py_choose">
+      <UniqueIdentifier>{8dc47ef4-3da0-4bf8-9ce2-5a9f8896b1b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="swig_stub">
+      <UniqueIdentifier>{8e65a873-5b8f-4052-a929-e13e9e0f81ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IDAPython\Examples">
+      <UniqueIdentifier>{b7a7d68d-a3b0-487c-b4d0-bd716dd06280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py_expr">
+      <UniqueIdentifier>{959b59d2-acb2-4c89-a828-eece77e502f4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\swig\dbg.i">
+      <Filter>py_dbgidd</Filter>
+    </None>
+    <None Include="..\swig\idd.i">
+      <Filter>py_dbgidd</Filter>
+    </None>
+    <None Include="py_appcall.py">
+      <Filter>py_dbgidd</Filter>
+    </None>
+    <None Include="..\swig\graph.i">
+      <Filter>py_graph</Filter>
+    </None>
+    <None Include="py_graph.py">
+      <Filter>py_graph</Filter>
+    </None>
+    <None Include="..\swig\diskio.i">
+      <Filter>py_diskio</Filter>
+    </None>
+    <None Include="..\swig\fpro.i">
+      <Filter>py_diskio</Filter>
+    </None>
+    <None Include="py_diskio.py">
+      <Filter>py_diskio</Filter>
+    </None>
+    <None Include="..\swig\bytes.i">
+      <Filter>py_bytes</Filter>
+    </None>
+    <None Include="py_custdata.py">
+      <Filter>py_bytes</Filter>
+    </None>
+    <None Include="..\AUTHORS.txt">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\build.py">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\CHANGES.txt">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\COPYING.txt">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="deploy.bat">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="deploy.py">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\makefile">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\README.txt">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\STATUS.txt">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="td.bat">
+      <Filter>deploy</Filter>
+    </None>
+    <None Include="..\examples\chooser.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\colours.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\debughook.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex1_idaapi.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex1_idautils.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_add_menu_item.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_choose2.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_cli.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_custdata.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_custview.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_dbg.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_debug_names.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_func_chooser.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_gdl_qflow_chart.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_graph.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_imports.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\ex_strings.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\hotkey.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\idapythonrc.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\examples\structure.py">
+      <Filter>deploy\examples</Filter>
+    </None>
+    <None Include="..\swig\idaapi.i">
+      <Filter>py_idaapi</Filter>
+    </None>
+    <None Include="py_idaapi.py">
+      <Filter>py_idaapi</Filter>
+    </None>
+    <None Include="..\swig\typeinf.i">
+      <Filter>py_typeinf</Filter>
+    </None>
+    <None Include="..\swig\allins.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\area.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\auto.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\entry.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\enum.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\expr.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\fixup.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\frame.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\funcs.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\ida.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\ints.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\moves.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\name.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\netnode.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\offset.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\pro.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\queue.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\search.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\segment.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\srarea.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\strlist.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\struct.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\typeconv.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\xref.i">
+      <Filter>swig.i</Filter>
+    </None>
+    <None Include="..\swig\gdl.i">
+      <Filter>py_gdl</Filter>
+    </None>
+    <None Include="py_gdl.py">
+      <Filter>py_gdl</Filter>
+    </None>
+    <None Include="py_ua.py">
+      <Filter>py_ua</Filter>
+    </None>
+    <None Include="..\swig\ua.i">
+      <Filter>py_ua</Filter>
+    </None>
+    <None Include="..\python\idautils.py">
+      <Filter>IDAPython</Filter>
+    </None>
+    <None Include="..\python\idc.py">
+      <Filter>IDAPython</Filter>
+    </None>
+    <None Include="..\python\init.py">
+      <Filter>IDAPython</Filter>
+    </None>
+    <None Include="..\python.cfg">
+      <Filter>IDAPython</Filter>
+    </None>
+    <None Include="py_notifywhen.py">
+      <Filter>py_notifywhen</Filter>
+    </None>
+    <None Include="..\swig\lines.i">
+      <Filter>py_lines</Filter>
+    </None>
+    <None Include="py_lines.py">
+      <Filter>py_lines</Filter>
+    </None>
+    <None Include="..\swig\nalt.i">
+      <Filter>py_nalt</Filter>
+    </None>
+    <None Include="py_nalt.py">
+      <Filter>py_nalt</Filter>
+    </None>
+    <None Include="..\swig\loader.i">
+      <Filter>py_loader</Filter>
+    </None>
+    <None Include="..\swig\idp.i">
+      <Filter>py_idp</Filter>
+    </None>
+    <None Include="..\swig\kernwin.i">
+      <Filter>py_kernwin</Filter>
+    </None>
+    <None Include="py_kernwin.py">
+      <Filter>py_kernwin</Filter>
+    </None>
+    <None Include="py_custview.py">
+      <Filter>py_kernwin\py_custview</Filter>
+    </None>
+    <None Include="py_choose2.py">
+      <Filter>py_kernwin\py_choose2</Filter>
+    </None>
+    <None Include="py_cli.py">
+      <Filter>py_kernwin\py_cli</Filter>
+    </None>
+    <None Include="py_plgform.py">
+      <Filter>py_kernwin\py_plgform</Filter>
+    </None>
+    <None Include="py_askusingform.py">
+      <Filter>py_kernwin\py_askusingform</Filter>
+    </None>
+    <None Include="..\examples\ex_askusingform.py">
+      <Filter>py_kernwin\py_askusingform</Filter>
+    </None>
+    <None Include="..\examples\ex_uihook.py">
+      <Filter>py_kernwin</Filter>
+    </None>
+    <None Include="..\examples\ex_pyside.py">
+      <Filter>py_kernwin\py_plgform</Filter>
+    </None>
+    <None Include="..\examples\ex_pyqt.py">
+      <Filter>py_kernwin\py_plgform</Filter>
+    </None>
+    <None Include="..\examples\ex_idphook_asm.py">
+      <Filter>py_idp</Filter>
+    </None>
+    <None Include="..\examples\ex_prefix_plugin.py">
+      <Filter>py_kernwin</Filter>
+    </None>
+    <None Include="py_expr.py">
+      <Filter>py_expr</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="driver_dbg.cpp">
+      <Filter>py_dbgidd</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_graph.cpp">
+      <Filter>py_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="driver.cpp">
+      <Filter>pywraps</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_diskio.cpp">
+      <Filter>py_diskio</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_bytes.cpp">
+      <Filter>py_bytes</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_custdata.cpp">
+      <Filter>py_bytes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obj\x86_win_vc_32\idaapi_include.cpp">
+      <Filter>IDAPython</Filter>
+    </ClCompile>
+    <ClCompile Include="..\python.cpp">
+      <Filter>IDAPython</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_notifywhen.cpp">
+      <Filter>py_notifywhen</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_nalt.cpp">
+      <Filter>py_nalt</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_kernwin.cpp">
+      <Filter>py_kernwin</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_custview.cpp">
+      <Filter>py_kernwin\py_custview</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_chooser.cpp">
+      <Filter>py_kernwin\py_choose2</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_cli.cpp">
+      <Filter>py_kernwin\py_cli</Filter>
+    </ClCompile>
+    <ClCompile Include="swig_stub.cpp">
+      <Filter>swig_stub</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_expr.cpp">
+      <Filter>py_expr</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="py_dbg.hpp">
+      <Filter>py_dbgidd</Filter>
+    </ClInclude>
+    <ClInclude Include="py_graph.hpp">
+      <Filter>py_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pywraps.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="py_diskio.hpp">
+      <Filter>py_diskio</Filter>
+    </ClInclude>
+    <ClInclude Include="py_linput.hpp">
+      <Filter>py_diskio</Filter>
+    </ClInclude>
+    <ClInclude Include="py_qfile.hpp">
+      <Filter>py_diskio</Filter>
+    </ClInclude>
+    <ClInclude Include="py_bytes.hpp">
+      <Filter>py_bytes</Filter>
+    </ClInclude>
+    <ClInclude Include="py_custdata.hpp">
+      <Filter>py_bytes</Filter>
+    </ClInclude>
+    <ClInclude Include="py_idaapi.hpp">
+      <Filter>py_idaapi</Filter>
+    </ClInclude>
+    <ClInclude Include="py_typeinf.hpp">
+      <Filter>py_typeinf</Filter>
+    </ClInclude>
+    <ClInclude Include="py_ua.hpp">
+      <Filter>py_ua</Filter>
+    </ClInclude>
+    <ClInclude Include="py_notifywhen.hpp">
+      <Filter>py_notifywhen</Filter>
+    </ClInclude>
+    <ClInclude Include="py_lines.hpp">
+      <Filter>py_lines</Filter>
+    </ClInclude>
+    <ClInclude Include="py_nalt.hpp">
+      <Filter>py_nalt</Filter>
+    </ClInclude>
+    <ClInclude Include="py_loader.hpp">
+      <Filter>py_loader</Filter>
+    </ClInclude>
+    <ClInclude Include="py_idp.hpp">
+      <Filter>py_idp</Filter>
+    </ClInclude>
+    <ClInclude Include="py_cvt.hpp">
+      <Filter>py_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="py_kernwin.hpp">
+      <Filter>py_kernwin</Filter>
+    </ClInclude>
+    <ClInclude Include="py_custview.hpp">
+      <Filter>py_kernwin\py_custview</Filter>
+    </ClInclude>
+    <ClInclude Include="py_choose2.hpp">
+      <Filter>py_kernwin\py_choose2</Filter>
+    </ClInclude>
+    <ClInclude Include="py_cli.hpp">
+      <Filter>py_kernwin\py_cli</Filter>
+    </ClInclude>
+    <ClInclude Include="py_plgform.hpp">
+      <Filter>py_kernwin\py_plgform</Filter>
+    </ClInclude>
+    <ClInclude Include="py_askusingform.hpp">
+      <Filter>py_kernwin\py_askusingform</Filter>
+    </ClInclude>
+    <ClInclude Include="py_choose.hpp">
+      <Filter>py_kernwin\py_choose</Filter>
+    </ClInclude>
+    <ClInclude Include="swig_stub.h">
+      <Filter>swig_stub</Filter>
+    </ClInclude>
+    <ClInclude Include="py_expr.hpp">
+      <Filter>py_expr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\obj\x86_win_vc_32\idaapi_include.h">
+      <Filter>IDAPython</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>
