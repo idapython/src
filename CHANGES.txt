@@ -3,6 +3,7 @@ Please see http://code.google.com/p/idapython/source/list for a detailed list of
 
 Changes from version 1.5.2 to 1.5.3
 ------------------------------------
+- IDA Pro 6.2 support
 - added set_idc_func_ex(): it is now possible to add new IDC functions using Python
 - added visit_patched_bytes() (see ex_patch.py)
 - added support for the multiline text input control in the Form class
@@ -13,7 +14,7 @@ Changes from version 1.5.2 to 1.5.3
 - added register_timer()/unregister_timer(). Check ex_timer.py
 - added the IDC (Arrays) netnode manipulation layer into idc.py
 - added idautils.Structs() and StructMembers() generator functions
-- removed the "Run Python Statment" menu item. IDA now has a unified dialog. 
+- removed the "Run Python Statement" menu item. IDA now has a unified dialog. 
   Use RunPlugin("python", 0) to invoke it manually.
 - better error messages for script plugins, loaders and processor modules
 - bugfix: Dbg_Hooks.dbg_run_to() was receiving wrong input

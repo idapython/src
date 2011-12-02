@@ -152,6 +152,7 @@
 
 %ignore append_type_name;
 %ignore for_all_types_ex;
+%ignore fix_idb_type;
 %ignore pdb2ti;
 
 %include "typeinf.hpp"

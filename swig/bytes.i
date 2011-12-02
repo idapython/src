@@ -97,6 +97,7 @@
 %rename (unregister_custom_data_type) py_unregister_custom_data_type;
 %rename (register_custom_data_type) py_register_custom_data_type;
 %rename (get_many_bytes) py_get_many_bytes;
+%rename (get_ascii_contents) py_get_ascii_contents;
 %rename (get_ascii_contents2) py_get_ascii_contents2;
 %{
 //<code(py_bytes)>
@@ -799,6 +800,30 @@ static PyObject *py_get_ascii_contents2(
   PyObject *py_buf = PyString_FromStringAndSize((const char *)buf, used_size);
   qfree(buf);
   return py_buf;
+}
+//---------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_ascii_contents(ea, len, type):
+  """
+  Get contents of ascii string
+  This function returns the displayed part of the string
+  It works even if the string has not been created in the database yet.
+
+  @param ea: linear address of the string
+  @param len: length of the string in bytes (including terminating 0)
+  @param type: type of the string
+  @return: string contents (not including terminating 0) or None
+  """
+  pass
+#</pydoc>
+*/
+static PyObject *py_get_ascii_contents(
+    ea_t ea,
+    size_t len,
+    int32 type)
+{
+  return py_get_ascii_contents2(ea, len, type);
 }
 
 

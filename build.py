@@ -418,7 +418,8 @@ def build_binary_package(ea64, nukeold):
     binmanifest = []
     if nukeold:
         binmanifest.extend(BINDIST_MANIFEST)
-    binmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
+    if not ea64 or nukeold:
+      binmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
     binmanifest.append((plugin_name, "plugins"))
     build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
 

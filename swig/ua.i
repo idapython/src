@@ -858,7 +858,7 @@ class op_t(py_clinked_object_t):
 
     def is_reg(self, r):
         """Checks if the register operand is the given processor register"""
-        return self.type == _idaapi.o_reg and self == r
+        return self.type == o_reg and self.reg == r
 
     def has_reg(self, r):
         """Checks if the operand accesses the given processor register"""
