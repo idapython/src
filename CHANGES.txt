@@ -1,6 +1,16 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
 
+Changes from version 1.5.3 to 1.5.4
+------------------------------------
+- fix for Python autorun script vulnerability reported by Greg MacManus
+- remove current directory from sys.path during initialization
+- added PyWraps sources. This will facilitate deployment, development and
+  debugging of IDAPython additions
+- bugfix: op_t.is_reg() was buggy
+- bugfix: build.py was putting duplicate files into the .zip
+- bugfix: added back wrapped version of get_ascii_contents()
+
 Changes from version 1.5.2 to 1.5.3
 ------------------------------------
 - IDA Pro 6.2 support

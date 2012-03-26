@@ -227,7 +227,7 @@ bool pywraps_nw_notify(int slot, ...);
 bool pywraps_nw_init();
 
 //---------------------------------------------------------------------------
-const char *pywraps_check_autoscripts();
+bool pywraps_check_autoscripts(char *buf, size_t bufsize);
 
 // [De]Initializes PyWraps
 bool init_pywraps();

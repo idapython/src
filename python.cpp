@@ -1266,6 +1266,29 @@ static int idaapi menu_installer_cb(void *, int code, va_list)
 }
 
 //-------------------------------------------------------------------------
+// remove current directory (empty entry) from the sys.path
+static void sanitize_path()
+{
+  char buf[QMAXPATH];
+  qstrncpy(buf, Py_GetPath(), sizeof(buf));
+  char *ctx;
+  qstring newpath;
+  for ( char *d0 = qstrtok(buf, DELIMITER, &ctx);
+        d0 != NULL;
+        d0 = qstrtok(NULL, DELIMITER, &ctx) )
+  {
+    if ( d0[0] == '\0' )
+      // skip empty entry
+      continue;
+
+    if ( !newpath.empty() )
+      newpath.append(DELIMITER);
+    newpath.append(d0);
+  }
+  PySys_SetPath(newpath.begin());
+}
+
+//-------------------------------------------------------------------------
 // Initialize the Python environment
 bool IDAPython_Init(void)
 {
@@ -1280,7 +1303,7 @@ bool IDAPython_Init(void)
   if ( !CheckScriptFiles() )
     return false;
 
-  char tmp[MAXSTR+64];
+  char tmp[QMAXPATH];
 #ifdef __LINUX__
   // Export symbols from libpython to resolve imported module deps
   qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so.1",
@@ -1319,10 +1342,9 @@ bool IDAPython_Init(void)
   read_user_config_file("python.cfg", set_python_options, NULL);
   if ( g_alert_auto_scripts )
   {
-    const char *autofn = pywraps_check_autoscripts();
-    if ( autofn != NULL
+    if ( pywraps_check_autoscripts(tmp, sizeof(tmp))
       && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
-                    "Do you want to continue loading IDAPython?", autofn) == 0 )
+                    "Do you want to continue loading IDAPython?", tmp) <= 0 )
     {
       return false;
     }
@@ -1335,6 +1357,8 @@ bool IDAPython_Init(void)
     warning("IDAPython: Py_Initialize() failed");
     return false;
   }
+
+  sanitize_path();
 
   // Enable multi-threading support
   if ( !PyEval_ThreadsInitialized() )

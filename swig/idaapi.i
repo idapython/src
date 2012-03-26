@@ -1289,28 +1289,40 @@ struct py_timer_ctx_t
 };
 
 //------------------------------------------------------------------------
-const char *pywraps_check_autoscripts()
+bool pywraps_check_autoscripts(char *buf, size_t bufsize)
 {
-  static const char *exts[] = {"py", "pyw", "pyc", "pyo"};
+  static const char *const exts[] =
+  {
+    "py",
+    "pyc",
+    "pyd",
+    "pyo",
+    "pyw",
+  };
 
-  static const char *fns[] =
+  static const char *const fns[] =
   {
     "swig_runtime_data" SWIG_RUNTIME_VERSION,
     "sitecustomize",
     "usercustomize"
   };
 
-  for (size_t ifn=0; ifn < qnumber(fns); ++ifn )
+  for ( size_t ifn=0; ifn < qnumber(fns); ++ifn )
   {
     for ( size_t iext=0; iext < qnumber(exts); ++iext )
     {
       static char fn[QMAXPATH];
-      qsnprintf(fn, sizeof(fn), "%s.%s", fns[ifn], exts[iext]);
+      qsnprintf(buf, bufsize, "%s.%s", fns[ifn], exts[iext]);
       if ( qfileexist(fn) )
-        return fn;
+        return true;
+      if ( qfileexist(fns[ifn]) )
+      {
+        qstrncpy(buf, fns[ifn], bufsize);
+        return true;
+      }
     }
   }
-  return NULL;
+  return false;
 }
 
 //------------------------------------------------------------------------
