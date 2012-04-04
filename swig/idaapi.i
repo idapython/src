@@ -1311,10 +1311,7 @@ bool pywraps_check_autoscripts(char *buf, size_t bufsize)
   {
     for ( size_t iext=0; iext < qnumber(exts); ++iext )
     {
-      static char fn[QMAXPATH];
       qsnprintf(buf, bufsize, "%s.%s", fns[ifn], exts[iext]);
-      if ( qfileexist(fn) )
-        return true;
       if ( qfileexist(fns[ifn]) )
       {
         qstrncpy(buf, fns[ifn], bufsize);
