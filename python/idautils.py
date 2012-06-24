@@ -217,9 +217,14 @@ def Functions(start=None, end=None):
     if not start: start = idaapi.cvar.inf.minEA
     if not end:   end = idaapi.cvar.inf.maxEA
 
-    func = idaapi.get_func(start)
-    if not func:
-        func = idaapi.get_next_func(start)
+    # find first function head chunk in the range
+    chunk = idaapi.get_fchunk(start)
+    if not chunk:
+        chunk = idaapi.get_next_fchunk(start)
+    while chunk and chunk.startEA < end and (chunk.flags & idaapi.FUNC_TAIL) != 0:
+        chunk = idaapi.get_next_fchunk(chunk.startEA)
+    func = chunk
+
     while func and func.startEA < end:
         startea = func.startEA
         yield startea

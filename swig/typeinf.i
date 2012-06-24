@@ -87,6 +87,7 @@
 %ignore decorate_name;
 %ignore gen_decorate_name;
 %ignore calc_bare_name;
+%ignore calc_cpp_name;
 %ignore predicate_t;
 %ignore choose_named_type;
 %ignore get_default_align;
@@ -131,6 +132,14 @@
 
 %ignore type_pair_vec_t::add_names;
 
+%ignore format_data_info_t;
+%ignore valinfo_t;
+%ignore print_c_data;
+%ignore format_c_data;
+%ignore format_c_number;
+%ignore get_enum_member_expr;
+%ignore extend_sign;
+
 // Kernel-only symbols
 %ignore init_til;
 %ignore save_til;
@@ -161,6 +170,7 @@
 
 %rename (load_til) load_til_wrap;
 %rename (get_type_size0) py_get_type_size0;
+%rename (idc_get_type_raw) py_idc_get_type_raw;
 %rename (unpack_object_from_idb) py_unpack_object_from_idb;
 %rename (unpack_object_from_bv) py_unpack_object_from_bv;
 %rename (pack_object_to_idb) py_pack_object_to_idb;
@@ -266,12 +276,12 @@ PyObject *py_unpack_object_from_idb(
   p_list *fields = (p_list *) PyString_AsString(py_fields);
   idc_value_t idc_obj;
   error_t err = unpack_object_from_idb(
-      &idc_obj, 
-      ti, 
-      type, 
-      fields, 
-      ea, 
-      NULL, 
+      &idc_obj,
+      ti,
+      type,
+      fields,
+      ea,
+      NULL,
       pio_flags);
 
   // Unpacking failed?
@@ -281,7 +291,7 @@ PyObject *py_unpack_object_from_idb(
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
-  
+
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
@@ -334,11 +344,11 @@ PyObject *py_unpack_object_from_bv(
 
   idc_value_t idc_obj;
   error_t err = unpack_object_from_bv(
-      &idc_obj, 
-      ti, 
-      type, 
-      fields, 
-      bytes, 
+      &idc_obj,
+      ti,
+      type,
+      fields,
+      bytes,
       pio_flags);
 
   // Unpacking failed?
@@ -517,6 +527,19 @@ int idc_parse_types(const char *input, int flags)
         hti |= HTI_FIL;
 
     return parse_decls(idati, input, (flags & 2) == 0 ? msg : NULL, hti);
+}
+
+PyObject *py_idc_get_type_raw(ea_t ea)
+{
+    qtype type, fields;
+    if (get_tinfo(ea, &type, &fields))
+    {
+      return Py_BuildValue("(ss)", (char *)type.c_str(), (char *)fields.c_str());
+    }
+    else
+    {
+      Py_RETURN_NONE;
+    }
 }
 
 char *idc_get_type(ea_t ea, char *buf, size_t bufsize)

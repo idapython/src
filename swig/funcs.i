@@ -62,9 +62,8 @@ static ea_t get_fchunk_referer(ea_t ea, size_t idx)
 def get_idasgn_desc(n):
     """
     Get information about a signature in the list.
-    It returns both:
-      signame - the name of the signature
-      optlibs - the names of the optional libraries
+    It returns both: the name of the signature, and names of the
+    optional libraries
 
     @param n: number of signature in the list (0..get_idasgn_qty()-1)
     @return: None on failure or tuple(signame, optlibs)

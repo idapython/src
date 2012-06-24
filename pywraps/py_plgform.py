@@ -9,7 +9,7 @@ class PluginForm(object):
     """
 
     FORM_MDI      = 0x01
-    """start by default as MDI"""
+    """start by default as MDI (obsolete)"""
     FORM_TAB      = 0x02
     """attached by default to a tab"""
     FORM_RESTORE  = 0x04
@@ -38,7 +38,7 @@ class PluginForm(object):
         @param caption: The form caption
         @param options: One of PluginForm.FORM_ constants
         """
-        options |= PluginForm.FORM_MDI|PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
+        options |= PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
         return _idaapi.plgform_show(self.__clink__, self, caption, options)
 
 

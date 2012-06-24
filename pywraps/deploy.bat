@@ -3,7 +3,7 @@
 rem Please use the same tag for the same .i file
 rem That means if many insertions are going to happen in one given .i file then don't use more than code marking tag
 
-set PY=c:\python26\python.exe
+set PY=c:\python27\python.exe
 
 echo.
 echo -------- DEPLOY started --------------------------------------------------

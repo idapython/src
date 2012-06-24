@@ -1,5 +1,11 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
+Changes from version 1.5.4 to 1.5.5
+------------------------------------
+- IDA Pro 6.3 support
+- The Functions() generator function now accepts function tail start parameter
+- Added into idc.py: DbgRead/DbgWrite/SetTargetAssembler and stack pointer related functions
+- Wrapped more type info related functions
 
 Changes from version 1.5.3 to 1.5.4
 ------------------------------------

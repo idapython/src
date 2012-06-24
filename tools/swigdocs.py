@@ -5,6 +5,7 @@
 #
 import glob
 import sys
+import os
 
 # ---------------------------------------------------------------------------
 def extract_docs(lines, out):
@@ -68,16 +69,28 @@ def extract_docs(lines, out):
             in_inline = True
 
 # ---------------------------------------------------------------------------
+def gen_docs_from(file, out):
+    f = open(file, 'r')
+    lines = f.readlines()
+    f.close()
+    extract_docs(lines, out)
+
+# ---------------------------------------------------------------------------
 def gen_docs(path = '../swig/', outfn = 'idaapi.py', mask = '*.i'):
     out = []
+
+    # idaapi contains definitions used by other modules
+    # handle it first
+    idaapi_i = os.path.join(path, 'idaapi.i')
+    gen_docs_from(idaapi_i, out)
+
     for fn in glob.glob(path + mask):
-        f = open(fn, 'r')
-        lines = f.readlines()
-        f.close()
-        extract_docs(lines, out)
+        fn = fn.replace('\\', '/')
+        if fn != idaapi_i:
+          gen_docs_from(fn, out)
 
     f = open(outfn, 'w')
-    f.write('"""This is a placeholder module used to document all the IDA SDK functions that are wrapped manually. You still need to import \'idaapi\' and not this module to use the functions"""\n')
+#    f.write('"""This is a placeholder module used to document all the IDA SDK functions that are wrapped manually. You still need to import \'idaapi\' (not this module) to use the functions"""\n')
     f.write('\n'.join(out))
     f.close()
 

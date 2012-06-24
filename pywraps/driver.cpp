@@ -168,5 +168,5 @@ plugin_t PLUGIN =
   "",                   // multiline help about the plugin
 
   "pywraps",            // the preferred short name of the plugin
-  "Alt-0"               // the preferred hotkey to run the plugin
+  ""                    // the preferred hotkey to run the plugin
 };

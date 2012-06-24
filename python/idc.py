@@ -1772,6 +1772,35 @@ def DbgQword(ea):
     return __DbgValue(ea, 8)
 
 
+def DbgRead(ea, size):
+    """
+    Read from debugger memory.
+
+    @param ea: linear address
+    @param size: size of data to read
+    @return: data as a string. If failed, If failed, throws an exception
+
+    Thread-safe function (may be called only from the main thread and debthread)
+    """
+    return idaapi.dbg_read_memory(ea, size)
+
+
+def DbgWrite(ea, data):
+    """
+    Write to debugger memory.
+
+    @param ea: linear address
+    @param data: string to write
+    @return: number of written bytes (-1 - network/debugger error)
+
+    Thread-safe function (may be called only from the main thread and debthread)
+    """
+    if not idaapi.dbg_can_query():
+        return -1
+    elif len(data) > 0:
+        return idaapi.dbg_write_memory(ea, data)
+
+
 def GetOriginalByte(ea):
     """
     Get original value of program byte
@@ -2866,6 +2895,16 @@ def SetProcessorType (processor, level):
                                      set, IDA should display an error message and exit.
     """
     return idaapi.set_processor_type(processor, level)
+
+def SetTargetAssembler(asmidx):
+    """
+    Set target assembler
+    @param asmidx: index of the target assembler in the array of
+    assemblers for the current processor.
+
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.set_target_assembler(asmidx)
 
 SETPROC_COMPAT = idaapi.SETPROC_COMPAT
 SETPROC_ALL    = idaapi.SETPROC_ALL
@@ -4341,6 +4380,75 @@ def SetSpDiff(ea, delta):
 
 
 # ----------------------------------------------------------------------------
+#                              S T A C K
+# ----------------------------------------------------------------------------
+
+def AddAutoStkPnt2(func_ea, ea, delta):
+    """
+    Add automatical SP register change point
+    @param func_ea: function start
+    @param ea: linear address where SP changes
+               usually this is the end of the instruction which
+               modifies the stack pointer (cmd.ea+cmd.size)
+    @param delta: difference between old and new values of SP
+    @return: 1-ok, 0-failed
+    """
+    pfn = idaapi.get_func(func_ea)
+    if not pfn:
+        return 0
+    return idaapi.add_auto_stkpnt2(pfn, ea, delta)
+
+def AddUserStkPnt(ea, delta):
+    """
+    Add user-defined SP register change point.
+
+    @param ea: linear address where SP changes
+    @param delta: difference between old and new values of SP
+
+    @return: 1-ok, 0-failed
+    """
+    return idaapi.add_user_stkpnt(ea, delta);
+
+def DelStkPnt(func_ea, ea):
+    """
+    Delete SP register change point
+
+    @param func_ea: function start
+    @param ea: linear address
+    @return: 1-ok, 0-failed
+    """
+    pfn = idaapi.get_func(func_ea)
+    if not pfn:
+        return 0
+    return idaapi.del_stkpnt(pfn, ea)
+
+def GetMinSpd(func_ea):
+    """
+    Return the address with the minimal spd (stack pointer delta)
+    If there are no SP change points, then return BADADDR.
+
+    @param func_ea: function start
+    @return: BADDADDR - no such function
+    """
+    pfn = idaapi.get_func(func_ea)
+    if not pfn:
+        return BADADDR
+    return idaapi.get_min_spd_ea(pfn)
+
+def RecalcSpd(cur_ea):
+    """
+    Recalculate SP delta for an instruction that stops execution.
+
+    @param cur_ea: linear address of the current instruction
+    @return: 1 - new stkpnt is added, 0 - nothing is changed
+    """
+    return idaapi.recalc_spd(cur_ea)
+
+
+
+
+
+# ----------------------------------------------------------------------------
 #                        E N T R Y   P O I N T S
 # ----------------------------------------------------------------------------
 
@@ -4458,9 +4566,9 @@ def GetFixupTgtType(ea):
     @return: -1 - no fixup at the specified address
                 otherwise returns fixup target type:
     """
-    fd = idaapi.get_fixup(ea)
+    fd = idaapi.fixup_data_t()
 
-    if not fd:
+    if not idaapi.get_fixup(ea, fd):
         return -1
 
     return fd.type
@@ -4504,8 +4612,12 @@ def GetFixupTgtSel(ea):
     @return: -1 - no fixup at the specified address
                     otherwise returns fixup target selector
     """
-    fd = idaapi.get_fixup(ea)
-    return -1 if not fd else fd.sel
+    fd = idaapi.fixup_data_t()
+
+    if not idaapi.get_fixup(ea, fd):
+        return -1
+
+    return fd.sel
 
 
 def GetFixupTgtOff(ea):
@@ -4517,8 +4629,12 @@ def GetFixupTgtOff(ea):
     @return: -1 - no fixup at the specified address
                 otherwise returns fixup target offset
     """
-    fd = idaapi.get_fixup(ea)
-    return -1 if not fd else fd.off
+    fd = idaapi.fixup_data_t()
+
+    if not idaapi.get_fixup(ea, fd):
+        return -1
+
+    return fd.off
 
 
 def GetFixupTgtDispl(ea):
@@ -4530,8 +4646,12 @@ def GetFixupTgtDispl(ea):
     @return: -1 - no fixup at the specified address
                 otherwise returns fixup target displacement
     """
-    fd = idaapi.get_fixup(ea)
-    return -1 if not fd else fd.displacement
+    fd = idaapi.fixup_data_t()
+
+    if not idaapi.get_fixup(ea, fd):
+        return -1
+
+    return fd.displacement
 
 
 def SetFixup(ea, fixuptype, targetsel, targetoff, displ):
@@ -4789,6 +4909,30 @@ def GetMemberQty(sid):
     """
     s = idaapi.get_struc(sid)
     return -1 if not s else s.memqty
+
+
+def GetMemberId(sid, member_offset):
+    """
+    @param sid: structure type ID
+    @param member_offset:. The offset can be
+    any offset in the member. For example,
+    is a member is 4 bytes long and starts
+    at offset 2, then 2,3,4,5 denote
+    the same structure member.
+
+    @return: -1 if bad structure type ID is passed or there is
+    no member at the specified offset.
+    otherwise returns the member id.
+    """
+    s = idaapi.get_struc(sid)
+    if not s:
+        return -1
+
+    m = idaapi.get_member(s, member_offset)
+    if not m:
+        return -1
+
+    return m.id
 
 
 def GetStrucPrevOff(sid, offset):
@@ -6633,6 +6777,15 @@ def SizeOf(typestr):
     """
     return idaapi.get_type_size0(idaapi.cvar.idati, typestr)
 
+def GetTinfo(ea):
+    """
+    Get type information of function/variable as 'typeinfo' object
+
+    @param ea: the address of the object
+    @return: None on failure, or (type, fields) tuple.
+    """
+    return idaapi.idc_get_type_raw(ea)
+
 def GuessType(ea):
     """
     Guess type of function/variable
@@ -6652,11 +6805,16 @@ def SetType(ea, newtype):
     @param newtype: the type string in C declaration form.
                 Must contain the closing ';'
                 if specified as an empty string, then the
-                assciated with 'ea' will be deleted
+                item associated with 'ea' will be deleted.
 
     @return: 1-ok, 0-failed.
     """
-    return idaapi.apply_cdecl2(idaapi.cvar.idati, ea, newtype)
+    if newtype is not '':
+        return idaapi.apply_cdecl2(idaapi.cvar.idati, ea, newtype)
+    if idaapi.has_ti(ea):
+        idaapi.del_tinfo(ea)
+        return True
+    return False
 
 def ParseType(inputtype, flags):
     """
@@ -7680,6 +7838,29 @@ def SetBptAttr(address, bptattr, value):
         idaapi.update_bpt(bpt)
         return True
 
+def SetBptCndEx(ea, cnd, is_lowcnd):
+    """
+    Set breakpoint condition
+
+    @param ea: any address in the breakpoint range
+    @param cnd: breakpoint condition
+    @param is_lowcnd: 0 - regular condition, 1 - low level condition
+
+    @return: success
+    """
+    bpt = idaapi.bpt_t()
+
+    if not idaapi.get_bpt(ea, bpt):
+        return False
+
+    bpt.condition = cnd
+    if not is_lowcnd:
+        bpt.flags |= BPT_LOWCND
+    else:
+        bpt.flags &= ~BPT_LOWCND
+
+    return idaapi.update_bpt(bpt)
+
 
 def SetBptCnd(ea, cnd):
     """
@@ -7690,14 +7871,7 @@ def SetBptCnd(ea, cnd):
 
     @return: success
     """
-    bpt = idaapi.bpt_t()
-
-    if not idaapi.get_bpt(ea, bpt):
-        return False
-
-    bpt.condition = cnd
-
-    return idaapi.update_bpt(bpt)
+    return SetBptCndEx(ea, cnd, 0)
 
 
 def AddBptEx(ea, size, bpttype):

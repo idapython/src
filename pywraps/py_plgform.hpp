@@ -24,10 +24,10 @@ private:
         PYW_GIL_ENSURE;
         PyObject *py_result = PyObject_CallMethod(
           _this->py_obj,
-          (char *)S_ON_CREATE, "O", 
+          (char *)S_ON_CREATE, "O",
           PyCObject_FromVoidPtr(form, NULL));
         PYW_GIL_RELEASE;
-        
+
         PyW_ShowCbErr(S_ON_CREATE);
         Py_XDECREF(py_result);
       }
@@ -40,10 +40,10 @@ private:
         PYW_GIL_ENSURE;
         PyObject *py_result = PyObject_CallMethod(
           _this->py_obj,
-          (char *)S_ON_CLOSE, "O", 
+          (char *)S_ON_CLOSE, "O",
           PyCObject_FromVoidPtr(form, NULL));
         PYW_GIL_RELEASE;
-        
+
         PyW_ShowCbErr(S_ON_CLOSE);
         Py_XDECREF(py_result);
 
@@ -57,7 +57,7 @@ private:
   {
     unhook_from_notification_point(HT_UI, s_callback, this);
     form = NULL;
-    
+
     // Call DECREF at last, since it may trigger __del__
     Py_XDECREF(py_obj);
   }
@@ -69,7 +69,7 @@ public:
 
   bool show(
     PyObject *obj,
-    const char *caption, 
+    const char *caption,
     int options)
   {
     // Already displayed?
@@ -91,7 +91,7 @@ public:
     form = create_tform(caption, NULL);
     if ( form == NULL )
       return false;
-  
+
     if ( !hook_to_notification_point(HT_UI, s_callback, this) )
     {
       form = NULL;
@@ -119,7 +119,7 @@ public:
   {
     return PyCObject_FromVoidPtr(new plgform_t(), destroy);
   }
-  
+
   static void destroy(void *obj)
   {
     delete (plgform_t *)obj;
@@ -137,9 +137,9 @@ static PyObject *plgform_new()
 
 static bool plgform_show(
   PyObject *py_link,
-  PyObject *py_obj, 
-  const char *caption, 
-  int options = FORM_MDI|FORM_TAB|FORM_MENU|FORM_RESTORE)
+  PyObject *py_obj,
+  const char *caption,
+  int options = FORM_TAB|FORM_MENU|FORM_RESTORE)
 {
   DECL_PLGFORM;
   return plgform->show(py_obj, caption, options);

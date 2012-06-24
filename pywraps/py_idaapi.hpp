@@ -619,7 +619,7 @@ def parse_command_line(cmdline):
 static PyObject *py_parse_command_line(const char *cmdline)
 {
   qstrvec_t args;
-  if ( parse_command_line(cmdline, &args) == 0 )
+  if ( parse_command_line2(cmdline, &args, NULL) == 0 )
     Py_RETURN_NONE;
 
   PyObject *py_list = PyList_New(args.size());
@@ -729,8 +729,8 @@ static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
 
 
 static bool qstrvec_t_set(
-    PyObject *self, 
-    size_t idx, 
+    PyObject *self,
+    size_t idx,
     const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
@@ -741,7 +741,7 @@ static bool qstrvec_t_set(
 }
 
 static bool qstrvec_t_from_list(
-  PyObject *self, 
+  PyObject *self,
   PyObject *py_list)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
@@ -781,13 +781,13 @@ static bool qstrvec_t_clear(PyObject *self, bool qclear)
     sv->qclear();
   else
     sv->clear();
-  
+
   return true;
 }
 
 static bool qstrvec_t_insert(
-    PyObject *self, 
-    size_t idx, 
+    PyObject *self,
+    size_t idx,
     const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
@@ -802,7 +802,7 @@ static bool qstrvec_t_remove(PyObject *self, size_t idx)
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == NULL || idx >= sv->size() )
     return false;
-  
+
   sv->erase(sv->begin()+idx);
   return true;
 }

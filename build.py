@@ -24,7 +24,7 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 2
+IDA_MINOR_VERSION = 3
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -36,7 +36,7 @@ else:
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 5
-VERSION_PATCH  = 4
+VERSION_PATCH  = 5
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -319,10 +319,11 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         builder = GCCBuilder()
         platform_macros = [ "__LINUX__" ]
         python_libpath = os.path.join(sysconfig.EXEC_PREFIX, "lib")
-        python_library = "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
+        python_library = "-Bdynamic -lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_linux_gcc_64" or "x86_linux_gcc_32")
         ida_lib = ""
-        extra_link_parameters = ""
+        extra_link_parameters = " -s"
+        builder.compiler_parameters += " -O2"
     # Platform-specific settings for the Windows build
     elif platform == "win32":
         builder = MSVCBuilder()
@@ -333,6 +334,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
+        builder.compiler_parameters += " -Ox"
     # Platform-specific settings for the Mac OS X build
     elif platform == "macosx":
         builder = GCCBuilder()
@@ -342,13 +344,16 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         python_library = "-framework Python"
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_mac_gcc_64" or "x86_mac_gcc_32")
         ida_lib = ea64 and "-lida64" or "-lida"
-        extra_link_parameters = ""
+        extra_link_parameters = " -s"
+        builder.compiler_parameters += " -O3"
 
     assert builder, "Unknown platform! No idea how to build here..."
 
     # Enable EA64 for the compiler if necessary
     if ea64:
         platform_macros.append("__EA64__")
+
+    platform_macros.append("NDEBUG")
 
     if not '--no-early-load' in sys.argv:
         platform_macros.append("PLUGINFIX")

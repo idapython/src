@@ -68,6 +68,8 @@ def print_banner():
 # -----------------------------------------------------------------------
 
 # Redirect stderr and stdout to the IDA message window
+_orig_stdout = sys.stdout;
+_orig_stderr = sys.stderr;
 sys.stdout = sys.stderr = IDAPythonStdOut()
 
 # Assign a default sys.argv

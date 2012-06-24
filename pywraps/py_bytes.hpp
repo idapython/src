@@ -152,6 +152,16 @@ static PyObject *py_get_many_bytes(ea_t ea, unsigned int size)
 //---------------------------------------------------------------------------
 /*
 #<pydoc>
+# Conversion options for get_ascii_contents2():
+ACFOPT_ASCII    = 0x00000000 # convert Unicode strings to ASCII
+ACFOPT_UTF16    = 0x00000001 # return UTF-16 (aka wide-char) array for Unicode strings
+                             # ignored for non-Unicode strings
+ACFOPT_UTF8     = 0x00000002 # convert Unicode strings to UTF-8
+                             # ignored for non-Unicode strings
+ACFOPT_CONVMASK = 0x0000000F
+ACFOPT_ESCAPE   = 0x00000010 # for ACFOPT_ASCII, convert non-printable
+                             # characters to C escapes (\n, \xNN, \uNNNN)
+
 def get_ascii_contents2(ea, len, type, flags = ACFOPT_ASCII):
   """
   Get contents of ascii string

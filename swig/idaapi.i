@@ -15,7 +15,7 @@
 %constant size_t SIZE_MAX = size_t(-1);
 
 // Enable automatic docstring generation
-%feature(autodoc);
+%feature(autodoc,0);
 
 %define SWIG_DECLARE_PY_CLINKED_OBJECT(type)
 %inline %{
@@ -2056,11 +2056,11 @@ bool pywraps_nw_term()
 {
   if ( g_nw == NULL )
     return true;
-
+  
   // If could not deinitialize then return w/o stopping nw
   if ( !g_nw->deinit() )
     return false;
-
+  
   // Cleanup
   delete g_nw;
   g_nw = NULL;
@@ -2694,7 +2694,7 @@ def parse_command_line(cmdline):
 static PyObject *py_parse_command_line(const char *cmdline)
 {
   qstrvec_t args;
-  if ( parse_command_line(cmdline, &args) == 0 )
+  if ( parse_command_line2(cmdline, &args, NULL) == 0 )
     Py_RETURN_NONE;
 
   PyObject *py_list = PyList_New(args.size());

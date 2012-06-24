@@ -572,6 +572,14 @@ def test_gpa():
     return 1
 
 # -----------------------------------------------------------------------
+def test_loaddll():
+    h = loadlib("twain_32.dll")
+    if h == 0:
+        print "failed to load twain32 library!"
+        return -1
+    return 1
+
+# -----------------------------------------------------------------------
 # Packs a simple structure (into the database) and unpacks it back using the idaapi methods
 def test_pck_idb_raw():
     name, tp, flds = idc.ParseType("struct { int a, b; char x[5];};", 0)
@@ -884,7 +892,7 @@ def test_exec_throw():
 # all the tests that take zero parameters
 tests0 = (test_gpa, test_pck_idb_raw, test_pck_bv_raw,
           test_unpack_raw, test_pck_idb, test_pck_bv,
-          test_enum_files, test2, test_exec_throw)
+          test_enum_files, test2, test_exec_throw, test_loaddll)
 test_log = None # test log file
 
 # -----------------------------------------------------------------------

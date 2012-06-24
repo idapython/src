@@ -83,7 +83,17 @@
 %ignore get_process_exit_code;
 %ignore BELOW_NORMAL_PRIORITY_CLASS;
 %ignore parse_command_line;
-%rename (parse_command_line) py_parse_command_line;
+%ignore parse_command_line2;
+%rename (parse_command_line2) py_parse_command_line;
+%ignore qgetenv;
+%ignore qsetenv;
+%ignore qctime;
+%ignore qlocaltime;
+%ignore qstrftime;
+%ignore qstrftime64;
+%ignore qstrtok;
+%ignore qstrlwr;
+%ignore qstrupr;
 %include "pro.h"
 
 SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)

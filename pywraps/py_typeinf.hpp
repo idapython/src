@@ -101,12 +101,12 @@ PyObject *py_unpack_object_from_idb(
   p_list *fields = (p_list *) PyString_AsString(py_fields);
   idc_value_t idc_obj;
   error_t err = unpack_object_from_idb(
-      &idc_obj, 
-      ti, 
-      type, 
-      fields, 
-      ea, 
-      NULL, 
+      &idc_obj,
+      ti,
+      type,
+      fields,
+      ea,
+      NULL,
       pio_flags);
 
   // Unpacking failed?
@@ -116,7 +116,7 @@ PyObject *py_unpack_object_from_idb(
   // Convert
   PyObject *py_ret(NULL);
   err = idcvar_to_pyvar(idc_obj, &py_ret);
-  
+
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
@@ -169,11 +169,11 @@ PyObject *py_unpack_object_from_bv(
 
   idc_value_t idc_obj;
   error_t err = unpack_object_from_bv(
-      &idc_obj, 
-      ti, 
-      type, 
-      fields, 
-      bytes, 
+      &idc_obj,
+      ti,
+      type,
+      fields,
+      bytes,
       pio_flags);
 
   // Unpacking failed?

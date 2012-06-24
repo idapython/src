@@ -494,7 +494,7 @@ in this case.
 This flag can be used to delay the code execution
 until the next UI loop run even from the main thread"""
 
-def execute_sync(callable, reqf)
+def execute_sync(callable, reqf):
     """
     Executes a function in the context of the main thread.
     If the current thread not the main thread, then the call is queued and
@@ -567,7 +567,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
 /*
 #<pydoc>
 
-def execute_ui_requests(callable_list)
+def execute_ui_requests(callable_list):
     """
     Inserts a list of callables into the UI message processing queue.
     When the UI is ready it will call one callable.
@@ -760,7 +760,11 @@ class UI_Hooks(object):
         IDA is terminated and the database is already closed.
         The UI may close its windows in this callback.
         """
-        pass
+        # if the user forgot to call unhook, do it for him
+        self.unhook()
+
+    def __term__(self):
+        self.term()
 
 #</pydoc>
 */
@@ -769,6 +773,7 @@ class UI_Hooks
 public:
   virtual ~UI_Hooks()
   {
+    unhook();
   }
 
   bool hook()

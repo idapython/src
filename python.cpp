@@ -125,6 +125,7 @@ static int    script_timeout = 2;
 static bool   g_ui_ready = false;
 static bool   g_alert_auto_scripts = true;
 static bool   g_remove_cwd_sys_path = false;
+static bool   g_use_local_python    = false;
 
 static void end_execution();
 static void begin_execution();
@@ -369,6 +370,11 @@ const char *idaapi set_python_options(
         g_remove_cwd_sys_path = *(uval_t *)value != 0;
         break;
       }
+      else if ( qstrcmp(keyword, "USE_LOCAL_PYTHON") == 0 )
+      {
+        g_use_local_python = *(uval_t *)value != 0;
+        break;
+      }
     }
     return IDPOPT_BADKEY;
   } while (false);
@@ -466,7 +472,10 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
 {
   PyObject *py_execscript = get_idaapi_attr(S_IDAAPI_EXECSCRIPT);
   if ( py_execscript == NULL )
+  {
+    qstrncpy(errbuf, "Could not find idaapi." S_IDAAPI_EXECSCRIPT " ?!", errbufsz);
     return false;
+  }
 
   char script[MAXSTR];
   qstrncpy(script, FileName, sizeof(script));
@@ -1288,6 +1297,25 @@ static void sanitize_path()
   PySys_SetPath(newpath.begin());
 }
 
+
+//-------------------------------------------------------------------------
+// we have to do it ourselves because Python 2.7 calls exit() if importing site fails
+static bool initsite(void)
+{
+  PyObject *m;
+  m = PyImport_ImportModule("site");
+  if (m == NULL)
+  {
+    PyErr_Print();
+    Py_Finalize();
+    return false;
+  }
+  else {
+    Py_DECREF(m);
+  }
+  return true;
+}
+
 //-------------------------------------------------------------------------
 // Initialize the Python environment
 bool IDAPython_Init(void)
@@ -1306,12 +1334,11 @@ bool IDAPython_Init(void)
   char tmp[QMAXPATH];
 #ifdef __LINUX__
   // Export symbols from libpython to resolve imported module deps
-  qsnprintf(tmp, sizeof(tmp), "libpython%d.%d.so.1",
-    PY_MAJOR_VERSION,
-    PY_MINOR_VERSION);
-  if ( !dlopen(tmp, RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY) )
+  // use the standard soname: libpython2.7.so.1.0
+#define PYLIB "libpython" QSTRINGIZE(PY_MAJOR_VERSION) "." QSTRINGIZE(PY_MINOR_VERSION) ".so.1.0"
+  if ( !dlopen(PYLIB, RTLD_NOLOAD | RTLD_GLOBAL | RTLD_LAZY) )
   {
-    warning("IDAPython: %s", dlerror());
+    warning("IDAPython dlopen(" PYLIB ") error: %s", dlerror());
     return false;
   }
 #endif
@@ -1350,15 +1377,30 @@ bool IDAPython_Init(void)
     }
   }
 
+  if ( g_use_local_python )
+    Py_SetPythonHome(g_idapython_dir);
+
+  // don't import "site" right now
+  Py_NoSiteFlag = 1;
+
   // Start the interpreter
   Py_Initialize();
+
   if ( !Py_IsInitialized() )
   {
     warning("IDAPython: Py_Initialize() failed");
     return false;
   }
 
+  // remove current directory
   sanitize_path();
+
+  // import "site"
+  if ( !g_use_local_python && !initsite() )
+  {
+    warning("IDAPython: importing \"site\" failed");
+    return false;
+  }
 
   // Enable multi-threading support
   if ( !PyEval_ThreadsInitialized() )
@@ -1416,7 +1458,7 @@ bool IDAPython_Init(void)
   parse_plugin_options();
 
   // Register a RunPythonStatement() function for IDC
-  set_idc_func(S_IDC_RUNPYTHON_STATEMENT, idc_runpythonstatement, idc_runpythonstatement_args);
+  set_idc_func_ex(S_IDC_RUNPYTHON_STATEMENT, idc_runpythonstatement, idc_runpythonstatement_args, 0);
 
   // A script specified on the command line is run
   if ( g_run_when == run_on_init )
@@ -1463,7 +1505,7 @@ void IDAPython_Term(void)
   deinit_pywraps();
 
   // Uninstall IDC function
-  set_idc_func(S_IDC_RUNPYTHON_STATEMENT, NULL, NULL);
+  set_idc_func_ex(S_IDC_RUNPYTHON_STATEMENT, NULL, NULL, 0);
 
   // Shut the interpreter down
   Py_Finalize();

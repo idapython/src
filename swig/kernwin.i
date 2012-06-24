@@ -619,7 +619,7 @@ in this case.
 This flag can be used to delay the code execution
 until the next UI loop run even from the main thread"""
 
-def execute_sync(callable, reqf)
+def execute_sync(callable, reqf):
     """
     Executes a function in the context of the main thread.
     If the current thread not the main thread, then the call is queued and
@@ -692,7 +692,7 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
 /*
 #<pydoc>
 
-def execute_ui_requests(callable_list)
+def execute_ui_requests(callable_list):
     """
     Inserts a list of callables into the UI message processing queue.
     When the UI is ready it will call one callable.
@@ -885,7 +885,11 @@ class UI_Hooks(object):
         IDA is terminated and the database is already closed.
         The UI may close its windows in this callback.
         """
-        pass
+        # if the user forgot to call unhook, do it for him
+        self.unhook()
+
+    def __term__(self):
+        self.term()
 
 #</pydoc>
 */
@@ -894,6 +898,7 @@ class UI_Hooks
 public:
   virtual ~UI_Hooks()
   {
+    unhook();
   }
 
   bool hook()
@@ -2690,10 +2695,10 @@ private:
         PYW_GIL_ENSURE;
         PyObject *py_result = PyObject_CallMethod(
           _this->py_obj,
-          (char *)S_ON_CREATE, "O", 
+          (char *)S_ON_CREATE, "O",
           PyCObject_FromVoidPtr(form, NULL));
         PYW_GIL_RELEASE;
-        
+
         PyW_ShowCbErr(S_ON_CREATE);
         Py_XDECREF(py_result);
       }
@@ -2706,10 +2711,10 @@ private:
         PYW_GIL_ENSURE;
         PyObject *py_result = PyObject_CallMethod(
           _this->py_obj,
-          (char *)S_ON_CLOSE, "O", 
+          (char *)S_ON_CLOSE, "O",
           PyCObject_FromVoidPtr(form, NULL));
         PYW_GIL_RELEASE;
-        
+
         PyW_ShowCbErr(S_ON_CLOSE);
         Py_XDECREF(py_result);
 
@@ -2723,7 +2728,7 @@ private:
   {
     unhook_from_notification_point(HT_UI, s_callback, this);
     form = NULL;
-    
+
     // Call DECREF at last, since it may trigger __del__
     Py_XDECREF(py_obj);
   }
@@ -2735,7 +2740,7 @@ public:
 
   bool show(
     PyObject *obj,
-    const char *caption, 
+    const char *caption,
     int options)
   {
     // Already displayed?
@@ -2757,7 +2762,7 @@ public:
     form = create_tform(caption, NULL);
     if ( form == NULL )
       return false;
-  
+
     if ( !hook_to_notification_point(HT_UI, s_callback, this) )
     {
       form = NULL;
@@ -2785,7 +2790,7 @@ public:
   {
     return PyCObject_FromVoidPtr(new plgform_t(), destroy);
   }
-  
+
   static void destroy(void *obj)
   {
     delete (plgform_t *)obj;
@@ -2805,9 +2810,9 @@ static PyObject *plgform_new()
 
 static bool plgform_show(
   PyObject *py_link,
-  PyObject *py_obj, 
-  const char *caption, 
-  int options = FORM_MDI|FORM_TAB|FORM_MENU|FORM_RESTORE)
+  PyObject *py_obj,
+  const char *caption,
+  int options = FORM_TAB|FORM_MENU|FORM_RESTORE)
 {
   DECL_PLGFORM;
   return plgform->show(py_obj, caption, options);
@@ -5531,7 +5536,7 @@ class PluginForm(object):
     """
 
     FORM_MDI      = 0x01
-    """start by default as MDI"""
+    """start by default as MDI (obsolete)"""
     FORM_TAB      = 0x02
     """attached by default to a tab"""
     FORM_RESTORE  = 0x04
@@ -5560,7 +5565,7 @@ class PluginForm(object):
         @param caption: The form caption
         @param options: One of PluginForm.FORM_ constants
         """
-        options |= PluginForm.FORM_MDI|PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
+        options |= PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
         return _idaapi.plgform_show(self.__clink__, self, caption, options)
 
 

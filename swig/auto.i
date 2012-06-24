@@ -11,6 +11,7 @@
 %ignore auto_save;
 %ignore auto_term;
 %ignore ea_without_xrefs;
+%ignore postpone_lastinsn_analysis;
 
 %include "auto.hpp"
 

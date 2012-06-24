@@ -475,7 +475,7 @@ class IDP_Hooks(object):
            - cmd.itype must be set >= idaapi.CUSTOM_CMD_ITYPE
            - cmd.size must be set to the instruction length
 
-       @return: Boolean
+        @return: Boolean
             - False if the instruction is not recognized
             - True if the instruction was decoded. idaapi.cmd should be filled in that case.
         """
