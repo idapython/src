@@ -674,6 +674,7 @@ class IDP_Hooks
 public:
   virtual ~IDP_Hooks()
   {
+    unhook();
   }
 
   bool hook()
@@ -795,7 +796,7 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
 class IDB_Hooks
 {
 public:
-  virtual ~IDB_Hooks() {};
+  virtual ~IDB_Hooks() { unhook(); };
 
   bool hook()
   {

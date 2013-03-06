@@ -464,20 +464,19 @@ def SaveBase(idbname, flags=0):
 
     @param idbname: name of the idb file. if empty, the current idb
                     file will be used.
-    @param flags: DBFL_BAK or 0
+    @param flags: combination of idaapi.DBFL_... bits or 0
     """
     if len(idbname) == 0:
         idbname = GetIdbPath()
     saveflags = idaapi.cvar.database_flags
-    if flags & DBFL_BAK:
-        idaapi.cvar.database_flags |= DBFL_BAK
-    else:
-        idaapi.cvar.database_flags &= ~DBFL_BAK
+    mask = idaapi.DBFL_KILL | idaapi.DBFL_COMP | idaapi.DBFL_BAK
+    idaapi.cvar.database_flags &= ~mask
+    idaapi.cvar.database_flags |= flags & mask
     res = idaapi.save_database(idbname, 0)
     idaapi.cvar.database_flags = saveflags
     return res
 
-DBFL_BAK = 0x04            # create backup file
+DBFL_BAK = idaapi.DBFL_BAK # for compatiblity with older versions, eventually delete this
 
 
 def Exit(code):
@@ -671,6 +670,12 @@ def MakeArray(ea, nitems):
     """
     flags = idaapi.getFlags(ea)
 
+    if idaapi.isCode(flags) or idaapi.isTail(flags) or idaapi.isAlign(flags):
+        return False
+
+    if idaapi.isCode(flags) or idaapi.isTail(flags) or idaapi.isAlign(flags):
+        return False
+
     if idaapi.isUnknown(flags):
         flags = idaapi.FF_BYTE
 
@@ -765,13 +770,35 @@ def MakeQword(ea):
 
 def MakeOword(ea):
     """
-    Convert the current item to a octa word (16 bytes)
+    Convert the current item to an octa word (16 bytes/128 bits)
 
     @param ea: linear address
 
     @return: 1-ok, 0-failure
     """
     return idaapi.doOwrd(ea, 16)
+
+
+def MakeYword(ea):
+    """
+    Convert the current item to a ymm word (32 bytes/256 bits)
+
+    @param ea: linear address
+
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doYwrd(ea, 32)
+
+
+def MakeYword(ea):
+    """
+    Convert the current item to a ymm word (32 bytes/256 bits)
+
+    @param ea: linear address
+
+    @return: 1-ok, 0-failure
+    """
+    return idaapi.doYwrd(ea, 32)
 
 
 def MakeFloat(ea):
@@ -1323,7 +1350,7 @@ def ExtLinA(ea, n, line):
     Specify an additional line to display before the generated ones.
 
     @param ea: linear address
-    @param n: number of anterior additioal line (0..MAX_ITEM_LINES)
+    @param n: number of anterior additional line (0..MAX_ITEM_LINES)
     @param line: the line to display
 
     @return: None
@@ -1333,7 +1360,8 @@ def ExtLinA(ea, n, line):
     additional line #149, your line will not be displayed.  MAX_ITEM_LINES is
     defined in IDA.CFG
     """
-    idaapi.ExtraUpdate(ea, line, idaapi.E_PREV + n)
+    idaapi.update_extra_cmt(ea, idaapi.E_PREV + n, line)
+    idaapi.doExtra(ea)
 
 
 def ExtLinB(ea, n, line):
@@ -1341,7 +1369,7 @@ def ExtLinB(ea, n, line):
     Specify an additional line to display after the generated ones.
 
     @param ea: linear address
-    @param n: number of posterior additioal line (0..MAX_ITEM_LINES)
+    @param n: number of posterior additional line (0..MAX_ITEM_LINES)
     @param line: the line to display
 
     @return: None
@@ -1351,7 +1379,8 @@ def ExtLinB(ea, n, line):
     and there is no additional line #149, your line will not be displayed.
     MAX_ITEM_LINES is defined in IDA.CFG
     """
-    idaapi.ExtraUpdate(ea, line, idaapi.E_NEXT + n)
+    idaapi.update_extra_cmt(ea, idaapi.E_NEXT + n, line)
+    idaapi.doExtra(ea)
 
 
 def DelExtLnA(ea, n):
@@ -1359,11 +1388,11 @@ def DelExtLnA(ea, n):
     Delete an additional anterior line
 
     @param ea: linear address
-    @param n: number of anterior additioal line (0..500)
+    @param n: number of anterior additional line (0..500)
 
     @return: None
     """
-    idaapi.ExtraDel(ea, idaapi.E_PREV + n)
+    idaapi.del_extra_cmt(ea, idaapi.E_PREV + n)
 
 
 def DelExtLnB(ea, n):
@@ -1371,11 +1400,11 @@ def DelExtLnB(ea, n):
     Delete an additional posterior line
 
     @param ea: linear address
-    @param n: number of posterior additioal line (0..500)
+    @param n: number of posterior additional line (0..500)
 
     @return: None
     """
-    idaapi.ExtraDel(ea, idaapi.E_NEXT + n)
+    idaapi.del_extra_cmt(ea, idaapi.E_NEXT + n)
 
 
 def SetManualInsn(ea, insn):
@@ -2308,7 +2337,7 @@ def LineA(ea, num):
 
     @return: anterior line string
     """
-    return idaapi.ExtraGet(ea, idaapi.E_PREV + num)
+    return idaapi.get_extra_cmt(ea, idaapi.E_PREV + num)
 
 
 def LineB(ea, num):
@@ -2320,7 +2349,7 @@ def LineB(ea, num):
 
     @return: posterior line string
     """
-    return idaapi.ExtraGet(ea, idaapi.E_NEXT + num)
+    return idaapi.get_extra_cmt(ea, idaapi.E_NEXT + num)
 
 
 def GetCommentEx(ea, repeatable):
@@ -6954,6 +6983,159 @@ def DelHiddenArea(ea):
     return idaapi.del_hidden_area(ea)
 
 
+
+def GetStepTraceOptions():
+    """
+    Get step current tracing options
+
+    @return: a combination of ST_... constants
+    """
+    return idaapi.get_step_trace_options()
+
+
+def SetStepTraceOptions(options):
+    """
+    Set step current tracing options.
+    @param options: combination of ST_... constants
+    """
+    return idaapi.set_step_trace_options(options)
+
+
+ST_OVER_DEBUG_SEG = 0x01 # step tracing will be disabled when IP is in a debugger segment
+ST_OVER_LIB_FUNC  = 0x02 # step tracing will be disabled when IP is in a library function
+ST_ALREADY_LOGGED = 0x04 # step tracing will be disabled when IP is already logged
+ST_SKIP_LOOPS     = 0x08 # step tracing will try to skip loops already recorded
+
+def LoadTraceFile(filename):
+    """
+    Load a previously recorded binary trace file
+    @param filename: trace file
+    """
+    return idaapi.load_trace_file(filename, None)
+
+def SaveTraceFile(filename, description):
+    """
+    Save current trace to a binary trace file
+    @param filename: trace file
+    """
+    return idaapi.save_trace_file(filename, description)
+
+def CheckTraceFile(filename):
+    """
+    Check the given binary trace file
+    @param filename: trace file
+    """
+    return idaapi.is_valid_trace_file(filename)
+
+def ClearTraceFile(filename):
+    """
+    Clear the current trace buffer
+    """
+    return idaapi.clear_trace()
+
+def GetTraceDesc(filename):
+    """
+    Get the trace description of the given binary trace file
+    @param filename: trace file
+    """
+    return idaapi.get_trace_file_desc(filename)
+
+def SetTraceDesc(filename, description):
+    """
+    Update the trace description of the given binary trace file
+    @param filename: trace file
+    @description: trace description
+    """
+    return idaapi.set_trace_file_desc(filename, description)
+
+def GetMaxTev():
+    """
+    Return the total number of recorded events
+    """
+    return idaapi.get_tev_qty()
+
+def GetTevEa(tev):
+    """
+    Return the address of the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_ea(tev)
+
+TEV_NONE  = 0 # no event
+TEV_INSN  = 1 # an instruction trace
+TEV_CALL  = 2 # a function call trace
+TEV_RET   = 3 # a function return trace
+TEV_BPT   = 4 # write, read/write, execution trace
+TEV_MEM   = 5 # memory layout changed
+TEV_EVENT = 6 # debug event
+
+def GetTevType(tev):
+    """
+    Return the type of the specified event (TEV_... constants)
+    @param tev: event number
+    """
+    return idaapi.get_tev_type(tev)
+
+def GetTevTid(tev):
+    """
+    Return the thread id of the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_tid(tev)
+
+def GetTevRegVal(tev, reg):
+    """
+    Return the register value for the specified event
+    @param tev: event number
+    @param reg: register name (like EAX, RBX, ...)
+    """
+    return idaapi.get_tev_reg_val(tev, reg)
+
+def GetTevRegMemQty(tev):
+    """
+    Return the number of memory addresses recorded for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_reg_mem_qty(tev)
+
+def GetTevRegMem(tev, idx):
+    """
+    Return the memory pointed by 'index' for the specified event
+    @param tev: event number
+    @param idx: memory address index
+    """
+    return idaapi.get_tev_reg_mem(tev, idx)
+
+def GetTevRegMemEa(tev, idx):
+    """
+    Return the address pointed by 'index' for the specified event
+    @param tev: event number
+    @param idx: memory address index
+    """
+    return idaapi.get_tev_reg_mem_ea(tev, idx)
+
+def GetTevCallee(tev):
+    """
+    Return the address of the callee for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_call_tev_callee(tev)
+
+def GetTevReturn(tev):
+    """
+    Return the return address for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_ret_tev_return(tev)
+
+def GetBptTevEa(tev):
+    """
+    Return the address of the specified TEV_BPT event
+    @param tev: event number
+    """
+    return idaapi.get_bpt_tev_ea(tev)
+
+
 #--------------------------------------------------------------------------
 #                   D E B U G G E R  I N T E R F A C E
 #--------------------------------------------------------------------------
@@ -7784,13 +7966,17 @@ BPT_WRITE   = 1    # Hardware: Write access
 BPT_RDWR    = 3    # Hardware: Read/write access
 BPT_SOFT    = 4    # Software breakpoint
 
-BPTATTR_COUNT =  4
-BPTATTR_FLAGS =  5
-BPT_BRK       = 0x01  # the debugger stops on this breakpoint
-BPT_TRACE     = 0x02  # the debugger adds trace information when this breakpoint is reached
-BPT_UPDMEM    = 0x04  # refresh the memory layout and contents before evaluating bpt condition
-BPT_ENABLED   = 0x08  # enabled?
-BPT_LOWCND    = 0x10  # condition is calculated at low level (on the server side)
+BPTATTR_COUNT  =  4
+BPTATTR_FLAGS  =  5
+BPT_BRK        = 0x001 # the debugger stops on this breakpoint
+BPT_TRACE      = 0x002 # the debugger adds trace information when this breakpoint is reached
+BPT_UPDMEM     = 0x004 # refresh the memory layout and contents before evaluating bpt condition
+BPT_ENABLED    = 0x008 # enabled?
+BPT_LOWCND     = 0x010 # condition is calculated at low level (on the server side)
+BPT_TRACEON    = 0x020 # enable tracing when the breakpoint is reached
+BPT_TRACE_INSN = 0x040 #   instruction tracing
+BPT_TRACE_FUNC = 0x080 #   function tracing
+BPT_TRACE_BBLK = 0x100 #   basic block tracing
 
 BPTATTR_COND  =  6   # Breakpoint condition. NOTE: the return value is a string in this case
 
@@ -7959,6 +8145,159 @@ def EnableTracing(trace_level, enable):
 TRACE_STEP = 0x0  # lowest level trace. trace buffers are not maintained
 TRACE_INSN = 0x1  # instruction level trace
 TRACE_FUNC = 0x2  # function level trace (calls & rets)
+
+
+def GetStepTraceOptions():
+    """
+    Get step current tracing options
+
+    @return: a combination of ST_... constants
+    """
+    return idaapi.get_step_trace_options()
+
+
+def SetStepTraceOptions(options):
+    """
+    Set step current tracing options.
+    @param options: combination of ST_... constants
+    """
+    return idaapi.set_step_trace_options(options)
+
+
+ST_OVER_DEBUG_SEG = 0x01 # step tracing will be disabled when IP is in a debugger segment
+ST_OVER_LIB_FUNC  = 0x02 # step tracing will be disabled when IP is in a library function
+ST_ALREADY_LOGGED = 0x04 # step tracing will be disabled when IP is already logged
+ST_SKIP_LOOPS     = 0x08 # step tracing will try to skip loops already recorded
+
+def LoadTraceFile(filename):
+    """
+    Load a previously recorded binary trace file
+    @param filename: trace file
+    """
+    return idaapi.load_trace_file(filename, None)
+
+def SaveTraceFile(filename, description):
+    """
+    Save current trace to a binary trace file
+    @param filename: trace file
+    """
+    return idaapi.save_trace_file(filename, description)
+
+def CheckTraceFile(filename):
+    """
+    Check the given binary trace file
+    @param filename: trace file
+    """
+    return idaapi.is_valid_trace_file(filename)
+
+def ClearTraceFile(filename):
+    """
+    Clear the current trace buffer
+    """
+    return idaapi.clear_trace()
+
+def GetTraceDesc(filename):
+    """
+    Get the trace description of the given binary trace file
+    @param filename: trace file
+    """
+    return idaapi.get_trace_file_desc(filename)
+
+def SetTraceDesc(filename, description):
+    """
+    Update the trace description of the given binary trace file
+    @param filename: trace file
+    @description: trace description
+    """
+    return idaapi.set_trace_file_desc(filename, description)
+
+def GetMaxTev():
+    """
+    Return the total number of recorded events
+    """
+    return idaapi.get_tev_qty()
+
+def GetTevEa(tev):
+    """
+    Return the address of the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_ea(tev)
+
+TEV_NONE  = 0 # no event
+TEV_INSN  = 1 # an instruction trace
+TEV_CALL  = 2 # a function call trace
+TEV_RET   = 3 # a function return trace
+TEV_BPT   = 4 # write, read/write, execution trace
+TEV_MEM   = 5 # memory layout changed
+TEV_EVENT = 6 # debug event
+
+def GetTevType(tev):
+    """
+    Return the type of the specified event (TEV_... constants)
+    @param tev: event number
+    """
+    return idaapi.get_tev_type(tev)
+
+def GetTevTid(tev):
+    """
+    Return the thread id of the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_tid(tev)
+
+def GetTevRegVal(tev, reg):
+    """
+    Return the register value for the specified event
+    @param tev: event number
+    @param reg: register name (like EAX, RBX, ...)
+    """
+    return idaapi.get_tev_reg_val(tev, reg)
+
+def GetTevRegMemQty(tev):
+    """
+    Return the number of memory addresses recorded for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_tev_reg_mem_qty(tev)
+
+def GetTevRegMem(tev, idx):
+    """
+    Return the memory pointed by 'index' for the specified event
+    @param tev: event number
+    @param idx: memory address index
+    """
+    return idaapi.get_tev_reg_mem(tev, idx)
+
+def GetTevRegMemEa(tev, idx):
+    """
+    Return the address pointed by 'index' for the specified event
+    @param tev: event number
+    @param idx: memory address index
+    """
+    return idaapi.get_tev_reg_mem_ea(tev, idx)
+
+def GetTevCallee(tev):
+    """
+    Return the address of the callee for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_call_tev_callee(tev)
+
+def GetTevReturn(tev):
+    """
+    Return the return address for the specified event
+    @param tev: event number
+    """
+    return idaapi.get_ret_tev_return(tev)
+
+def GetBptTevEa(tev):
+    """
+    Return the address of the specified TEV_BPT event
+    @param tev: event number
+    """
+    return idaapi.get_bpt_tev_ea(tev)
+
 
 #--------------------------------------------------------------------------
 #                             C O L O R S

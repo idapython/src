@@ -141,8 +141,8 @@ bool PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
 
 // Returns a qstring from a Python attribute string
 bool PyW_GetStringAttr(
-    PyObject *py_obj, 
-    const char *attr_name, 
+    PyObject *py_obj,
+    const char *attr_name,
     qstring *str);
 
 // Converts a Python number to an uint64 and indicates whether the number was a long number
@@ -205,7 +205,7 @@ int idcvar_to_pyvar(
 
 // Walks a Python list or Sequence and calls the callback
 Py_ssize_t pyvar_walk_list(
-  PyObject *py_list, 
+  PyObject *py_list,
   int (idaapi *cb)(PyObject *py_item, Py_ssize_t index, void *ud) = NULL,
   void *ud = NULL);
 

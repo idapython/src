@@ -13,7 +13,7 @@ static void idaapi s_py_get_user_defined_prefix(
   size_t bufsize)
 {
   PyObject *py_ret = PyObject_CallFunction(
-    py_get_user_defined_prefix, 
+    py_get_user_defined_prefix,
     PY_FMT64 "iis" PY_FMT64,
     ea, lnnum, indent, line, bufsize);
 
@@ -53,11 +53,11 @@ def set_user_defined_prefix(width, callback):
           lnnum  - line number
           indent - indent of the line contents (-1 means the default instruction)
                    indent and is used for instruction itself. see explanations for printf_line()
-          line   - the line to be generated. the line usually contains color tags this argument 
+          line   - the line to be generated. the line usually contains color tags this argument
                    can be examined to decide whether to generated the prefix
           bufsize- the maximum allowed size of the output buffer
         It returns a buffer of size < bufsize
-    
+
     In order to remove the callback before unloading the plugin, specify the width = 0 or the callback = None
     """
     pass
@@ -69,7 +69,7 @@ static PyObject *py_set_user_defined_prefix(size_t width, PyObject *pycb)
   {
     // Release old callback reference
     Py_XDECREF(py_get_user_defined_prefix);
-  
+
     // ...and clear it
     py_get_user_defined_prefix = NULL;
 
@@ -101,7 +101,7 @@ def tag_remove(colstr):
     """
     Remove color escape sequences from a string
     @param colstr: the colored string with embedded tags
-    @return: 
+    @return:
         None on failure
         or a new string w/o the tags
     """
@@ -114,7 +114,7 @@ PyObject *py_tag_remove(const char *instr)
   char *buf = new char[sz + 5];
   if ( buf == NULL )
     Py_RETURN_NONE;
-  
+
   ssize_t r = tag_remove(instr, buf, sz);
   PyObject *res;
   if ( r < 0 )
@@ -162,22 +162,22 @@ int py_tag_advance(const char *line, int cnt)
 def generate_disassembly(ea, max_lines, as_stack, notags):
     """
     Generate disassembly lines (many lines) and put them into a buffer
-    
+
     @param ea: address to generate disassembly for
     @param max_lines: how many lines max to generate
     @param as_stack: Display undefined items as 2/4/8 bytes
-    @return: 
+    @return:
         - None on failure
-        - tuple(most_important_line_number, tuple(lines)) : Returns a tuple containing 
+        - tuple(most_important_line_number, tuple(lines)) : Returns a tuple containing
           the most important line number and a tuple of generated lines
     """
     pass
 #</pydoc>
 */
 PyObject *py_generate_disassembly(
-  ea_t ea, 
-  int max_lines, 
-  bool as_stack, 
+  ea_t ea,
+  int max_lines,
+  bool as_stack,
   bool notags)
 {
   if ( max_lines <= 0 )

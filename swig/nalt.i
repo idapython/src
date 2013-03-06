@@ -6,6 +6,11 @@
 %ignore NALT_EA;
 %ignore enum_import_names;
 %rename (enum_import_names) py_enum_import_names;
+%ignore custom_refinfo_handler_t;
+%ignore custom_refinfo_handlers_t;
+%ignore register_custom_refinfo;
+%ignore unregister_custom_refinfo;
+%ignore get_custom_refinfos;
 
 %include "nalt.hpp"
 

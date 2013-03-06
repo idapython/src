@@ -33,8 +33,6 @@
 %ignore noFlow;
 %ignore doRef;
 %ignore noRef;
-%ignore doExtra;
-%ignore noExtra;
 %ignore coagulate;
 %ignore coagulate_dref;
 %ignore init_hidden_areas;
@@ -1160,7 +1158,7 @@ class data_format_t(object):
 #        pass
 #</pydoc>
 # -----------------------------------------------------------------------
-def __walk_types_and_formats(formats, type_action, format_action):
+def __walk_types_and_formats(formats, type_action, format_action, installing):
     broken = False
     for f in formats:
         if len(f) == 1:
@@ -1170,13 +1168,19 @@ def __walk_types_and_formats(formats, type_action, format_action):
         else:
             dt  = f[0]
             dfs = f[1:]
-            if not type_action(dt):
+            # install data type before installing formats
+            if installing and not type_action(dt):
                 broken = True
                 break
+            # process formats using the correct dt.id
             for df in dfs:
                 if not format_action(df, dt.id):
                     broken = True
                     break
+            # uninstall data type after uninstalling formats
+            if not installing and not type_action(dt):
+                broken = True
+                break
     return not broken
 
 # -----------------------------------------------------------------------
@@ -1201,16 +1205,16 @@ def register_data_types_and_formats(formats):
     def __reg_format(df, dtid):
         df.register(dtid)
         if dtid == 0:
-            print "Registering format '%s' with built-in types, ID=%d" % (df.name, df.id)
+            print "Registered format '%s' with built-in types, ID=%d" % (df.name, df.id)
         else:
-            print "   Registering format '%s', ID=%d (dtid=%d)" % (df.name, df.id, dtid)
+            print "   Registered format '%s', ID=%d (dtid=%d)" % (df.name, df.id, dtid)
         return df.id != -1
 
     def __reg_type(dt):
         dt.register()
-        print "Registering type '%s', ID=%d" % (dt.name, dt.id)
+        print "Registered type '%s', ID=%d" % (dt.name, dt.id)
         return dt.id != -1
-    ok = __walk_types_and_formats(formats, __reg_type, __reg_format)
+    ok = __walk_types_and_formats(formats, __reg_type, __reg_format, True)
     return 1 if ok else -1
 
 # -----------------------------------------------------------------------
@@ -1219,15 +1223,15 @@ def unregister_data_types_and_formats(formats):
     unregisters multiple data types and formats at once.
     """
     def __unreg_format(df, dtid):
-        df.unregister(dtid)
         print "%snregistering format '%s'" % ("U" if dtid == 0 else "   u", df.name)
+        df.unregister(dtid)
         return True
 
     def __unreg_type(dt):
         print "Unregistering type '%s', ID=%d" % (dt.name, dt.id)
         dt.unregister()
         return True
-    ok = __walk_types_and_formats(formats, __unreg_type, __unreg_format)
+    ok = __walk_types_and_formats(formats, __unreg_type, __unreg_format, False)
     return 1 if ok else -1
 
 #</pycode(py_bytes)>

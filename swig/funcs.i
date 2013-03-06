@@ -35,6 +35,12 @@
 
 %include "funcs.hpp"
 
+%inline %{
+#ifndef FUNC_STATICDEF
+#define FUNC_STATICDEF  0x00000008
+#endif
+%}
+
 %clear(char *buf);
 %clear(char *optlibs);
 

@@ -466,7 +466,7 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va);
 class DBG_Hooks
 {
 public:
-  virtual ~DBG_Hooks() {};
+  virtual ~DBG_Hooks() { unhook(); };
 
   bool hook() { return hook_to_notification_point(HT_DBG, DBG_Callback, this); };
   bool unhook() { return unhook_from_notification_point(HT_DBG, DBG_Callback, this); };

@@ -54,10 +54,6 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   #define USE_DANGEROUS_FUNCTIONS 1
 #endif
 
-#ifndef NO_OBSOLETE_FUNCS
-  #define NO_OBSOLETE_FUNCS 1
-#endif
-
 #ifdef HAVE_SSIZE_T
 #define _SSIZE_T_DEFINED 1
 #endif

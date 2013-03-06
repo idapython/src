@@ -440,6 +440,8 @@ dt_string = 13 #  pointer to asciiz string
 dt_unicode = 14 #  pointer to unicode string
 dt_3byte = 15 #  3-byte data
 dt_ldbl = 16 #  long double (which may be different from tbyte)
+dt_byte32 = 17 # 256 bit
+dt_byte64 = 18 # 512 bit
 
 #
 # op_t.flags

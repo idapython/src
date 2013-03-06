@@ -564,7 +564,7 @@ private:
 
   void show()
   {
-    open_tform(form, FORM_TAB|FORM_MENU);
+    open_tform(form, FORM_TAB|FORM_MENU|FORM_QWIDGET);
   }
 
   static py_graph_t *extract_this(PyObject *self)
@@ -668,7 +668,7 @@ private:
       qsnprintf(grnode, sizeof(grnode), "$ pygraph %s", title);
       id.create(grnode);
       gv = create_graph_viewer(form, id, s_callback, this, 0);
-      open_tform(form, FORM_TAB | FORM_MENU);
+      open_tform(form, FORM_TAB | FORM_MENU | FORM_QWIDGET);
       if ( gv != NULL )
         viewer_fit_window(gv);
     }

@@ -88,6 +88,7 @@
 %ignore gen_decorate_name;
 %ignore calc_bare_name;
 %ignore calc_cpp_name;
+%ignore calc_c_cpp_name;
 %ignore predicate_t;
 %ignore choose_named_type;
 %ignore get_default_align;
@@ -129,6 +130,7 @@
 %ignore has_delay_slot_t;
 %ignore gen_use_arg_types;
 %ignore enable_numbered_types;
+%ignore compact_numbered_types;
 
 %ignore type_pair_vec_t::add_names;
 
@@ -163,6 +165,7 @@
 %ignore for_all_types_ex;
 %ignore fix_idb_type;
 %ignore pdb2ti;
+%ignore process_sdacl_padding;
 
 %include "typeinf.hpp"
 

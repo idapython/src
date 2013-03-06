@@ -85,10 +85,6 @@
 %ignore is_database_ext;
 %ignore ida_database_memory;
 %ignore ida_workdir;
-%ignore DBFL_KILL;
-%ignore DBFL_COMP;
-%ignore DBFL_BAK;
-%ignore DBFL_TEMP;
 %ignore is_temp_database;
 %ignore pe_create_idata;
 %ignore pe_load_resources;
@@ -118,7 +114,6 @@
 %ignore update_snapshot_attributes;
 %ignore build_snapshot_tree;
 %ignore visit_snapshot_tree;
-%ignore save_database_ex;
 %ignore snapshot_t;
 %ignore snapshots_t;
 %ignore load_plugin;

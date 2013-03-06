@@ -3352,7 +3352,7 @@ public:
     if ( _form == NULL )
       return false;
 
-    open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE);
+    open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE|FORM_QWIDGET);
     return true;
   }
 };
@@ -3637,7 +3637,8 @@ public:
   //--------------------------------------------------------------------------
   bool jumpto(size_t ln, int x, int y)
   {
-    return customviewer_t::jumpto(&simpleline_place_t(ln), x, y);
+    simpleline_place_t l(ln);
+    return customviewer_t::jumpto(&l, x, y);
   }
 
   //--------------------------------------------------------------------------
@@ -5703,12 +5704,12 @@ class Choose:
     """
     old = set_script_timeout(0)
     n = _idaapi.choose_choose(
-        self, 
-        self.flags, 
-        self.x0, 
-        self.y0, 
-        self.x1, 
-        self.y1, 
+        self,
+        self.flags,
+        self.x0,
+        self.y0,
+        self.x1,
+        self.y1,
         self.width,
         self.deflt,
         self.icon)

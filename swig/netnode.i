@@ -74,6 +74,7 @@
 %ignore netnode::inited;
 %ignore netnode::init;
 %ignore netnode::flush;
+%ignore netnode::get_linput;
 %ignore netnode::term;
 %ignore netnode::killbase;
 %ignore netnode::getdrive;

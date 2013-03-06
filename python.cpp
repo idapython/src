@@ -18,8 +18,6 @@
 #define _SSIZE_T_DEFINED 1
 #endif
 
-#include <stdio.h>
-#include <string.h>
 #ifdef __LINUX__
 #include <dlfcn.h>
 #endif
@@ -28,13 +26,10 @@
 #endif
 #include <ida.hpp>
 #include <idp.hpp>
-#include <ieee.h>
-#include <bytes.hpp>
-#include <diskio.hpp>
 #include <expr.hpp>
+#include <diskio.hpp>
 #include <loader.hpp>
 #include <kernwin.hpp>
-#include <netnode.hpp>
 #include "pywraps.hpp"
 
 //-------------------------------------------------------------------------
@@ -83,6 +78,7 @@ static char g_idapython_dir[QMAXPATH];
 // Prototypes and forward declarations
 
 // Alias to SWIG_Init
+//lint -esym(526,init_idaapi) not defined
 extern "C" void init_idaapi(void);
 
 // Plugin run() callback
@@ -127,8 +123,8 @@ static bool   g_alert_auto_scripts = true;
 static bool   g_remove_cwd_sys_path = false;
 static bool   g_use_local_python    = false;
 
-static void end_execution();
-static void begin_execution();
+static void end_execution(void);
+static void begin_execution(void);
 
 //------------------------------------------------------------------------
 // This callback is called on various interpreter events
@@ -154,6 +150,10 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
 #ifdef ENABLE_PYTHON_PROFILING
   return tracefunc(obj, frame, what, arg);
 #else
+  qnotused(obj);
+  qnotused(frame);
+  qnotused(what);
+  qnotused(arg);
   return 0;
 #endif
 }
@@ -200,6 +200,7 @@ static void end_execution()
 }
 
 //-------------------------------------------------------------------------
+//lint -esym(714,disable_script_timeout) Symbol not referenced
 void disable_script_timeout()
 {
   // Clear timeout
@@ -210,6 +211,7 @@ void disable_script_timeout()
 }
 
 //-------------------------------------------------------------------------
+//lint -esym(714,set_script_timeout) Symbol not referenced
 int set_script_timeout(int timeout)
 {
   // Update the timeout
@@ -411,6 +413,20 @@ bool CheckScriptFiles()
 // Caller of this function should call handle_python_error() to clear the exception and print the error
 static int PyRunFile(const char *FileName)
 {
+#ifdef __NT__
+  // if the current disk has no space (sic, the current directory, not the one
+  // with the input file), PyRun_File() will die with a cryptic message that
+  // C runtime library could not be loaded. So we check the disk space before
+  // calling it.
+  char curdir[QMAXPATH];
+  if ( _getcwd(curdir, sizeof(curdir)) == NULL
+    || getdspace(curdir) == 0 )
+  {
+    warning("No free disk space on %s, python will not be available", curdir);
+    return 0;
+  }
+#endif
+
   PyObject *PyFileObject = PyFile_FromString((char*)FileName, "r");
   PyObject *globals = GetMainGlobals();
   if ( globals == NULL || PyFileObject == NULL )
@@ -534,14 +550,6 @@ static bool RunScript(const char *script)
 
   end_execution();
   return ok;
-}
-
-//-------------------------------------------------------------------------
-bool idaapi IDAPython_Menu_Callback(void *ud)
-{
-  // note: on 64-bit systems the pointer will be truncated to 32-bits!
-  run((ssize_t)ud);
-  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -766,7 +774,6 @@ bool idaapi IDAPython_extlang_create_object(
     ok = pyw_convert_idc_args(args, nargs, pargs, NULL, errbuf, errbufsize);
     if ( !ok )
       break;
-    ok = false;
 
     // Call the constructor
     PYW_GIL_ENSURE;
@@ -861,7 +868,7 @@ bool idaapi IDAPython_extlang_get_attr(
         break;
 
       result->set_string(clsname);
-      cvt = CIP_OK;
+      cvt = CIP_OK; //lint !e838
       break;
     }
 
@@ -908,6 +915,7 @@ bool idaapi IDAPython_extlang_get_attr(
 
 //-------------------------------------------------------------------------
 // Returns the attribute value of a given object from the global scope
+//lint -e{818}
 bool idaapi IDAPython_extlang_set_attr(
   idc_value_t *obj,       // in: object name (may be NULL)
   const char *attr,       // in: attribute name
@@ -969,6 +977,7 @@ bool idaapi IDAPython_extlang_set_attr(
 
 //-------------------------------------------------------------------------
 // Calculator callback for Python external language evaluator
+//lint -e{818}
 bool idaapi IDAPython_extlang_calcexpr(
   ea_t /*current_ea*/,
   const char *expr,
@@ -1055,7 +1064,7 @@ bool idaapi IDAPython_extlang_call_method(
 }
 
 //-------------------------------------------------------------------------
-extlang_t extlang_python =
+const extlang_t extlang_python =
 {
     sizeof(extlang_t),
     0,
@@ -1142,7 +1151,7 @@ bool idaapi IDAPYthon_cli_complete_line(
     return false;
 
   PYW_GIL_ENSURE;
-  PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x);
+  PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x); //lint !e1776
   PYW_GIL_RELEASE;
 
   Py_DECREF(py_complete);

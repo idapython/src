@@ -522,7 +522,7 @@ public:
     if ( _form == NULL )
       return false;
 
-    open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE);
+    open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE|FORM_QWIDGET);
     return true;
   }
 };
@@ -807,7 +807,8 @@ public:
   //--------------------------------------------------------------------------
   bool jumpto(size_t ln, int x, int y)
   {
-    return customviewer_t::jumpto(&simpleline_place_t(ln), x, y);
+    simpleline_place_t l(ln);
+    return customviewer_t::jumpto(&l, x, y);
   }
 
   //--------------------------------------------------------------------------

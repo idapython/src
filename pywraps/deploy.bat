@@ -91,11 +91,11 @@ echo Deploying lines
 
 rem  --------------------------------------------------------------------------
 echo Deploying pc_win32_appcall
-%PY% deploy.py appcalltest py_appcall.py ..\..\..\ida\tests\input\pc_win32_appcall.pe.hints
+%PY% deploy.py appcalltest py_appcall.py ..\..\..\tests\input\pc_win32_appcall.pe.hints
 
 rem  --------------------------------------------------------------------------
 echo Deploying ex_custdata example
-%PY% deploy.py ex_custdata ..\examples\ex_custdata.py ..\..\..\ida\tests\input\pc_win32_custdata1.pe.hints
+%PY% deploy.py ex_custdata ..\examples\ex_custdata.py ..\..\..\tests\input\pc_win32_custdata1.pe.hints
 
 rem  --------------------------------------------------------------------------
 echo Deploying ex_formchooser
