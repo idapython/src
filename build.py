@@ -24,7 +24,7 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 3
+IDA_MINOR_VERSION = 4
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -36,7 +36,7 @@ else:
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 5
-VERSION_PATCH  = 5
+VERSION_PATCH  = 6
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])

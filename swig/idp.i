@@ -360,7 +360,7 @@ static PyObject *ph_get_instruc()
 {
   Py_ssize_t i = 0;
   PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
-  for ( instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
+  for ( const instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
         p != end;
         ++p )
   {

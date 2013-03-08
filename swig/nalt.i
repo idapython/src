@@ -50,10 +50,10 @@ static int idaapi py_import_enum_cb(
   PyObject *py_ea = Py_BuildValue(PY_FMT64, pyul_t(ea));
   PYW_GIL_ENSURE;
   PyObject *py_result = PyObject_CallFunctionObjArgs(
-      (PyObject *)param, 
-      py_ea, 
-      py_name, 
-      py_ord, 
+      (PyObject *)param,
+      py_ea,
+      py_name,
+      py_ord,
       NULL);
   PYW_GIL_RELEASE;
 
@@ -79,7 +79,7 @@ switch_info_ex_t *switch_info_ex_t_get_clink(PyObject *self)
     r = (switch_info_ex_t *) PyCObject_AsVoidPtr(attr);
   else
     r = NULL;
-  
+
   Py_DECREF(attr);
   return r;
 }
@@ -111,7 +111,7 @@ static PyObject *py_get_import_module_name(int mod_index)
   char buf[MAXSTR];
   if ( !get_import_module_name(mod_index, buf, sizeof(buf)) )
     Py_RETURN_NONE;
-  
+
   return PyString_FromString(buf);
 }
 
@@ -131,7 +131,7 @@ PyObject *py_get_switch_info_ex(ea_t ea)
 {
   switch_info_ex_t *ex = new switch_info_ex_t();
   PyObject *py_obj;
-  if ( ::get_switch_info_ex(ea, ex, sizeof(switch_info_ex_t)) <= 0 
+  if ( ::get_switch_info_ex(ea, ex, sizeof(switch_info_ex_t)) <= 0
     || (py_obj = create_idaapi_linked_class_instance(S_PY_SWIEX_CLSNAME, ex)) == NULL )
   {
     delete ex;
@@ -151,7 +151,7 @@ def create_switch_xrefs(insn_ea, si):
     will call it for switch tables
 
     Note: Custom switch information are not supported yet.
-        
+
     @param insn_ea: address of the 'indirect jump' instruction
     @param si: switch information
 
@@ -179,7 +179,7 @@ idaman bool ida_export py_create_switch_xrefs(
 def create_switch_table(insn_ea, si):
     """
     Create switch table from the switch information
-        
+
     @param insn_ea: address of the 'indirect jump' instruction
     @param si: switch information
 
@@ -195,7 +195,7 @@ idaman bool ida_export py_create_switch_table(
   switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
   if ( swi == NULL )
     return false;
-        
+
   create_switch_table(insn_ea, swi);
   return true;
 }
@@ -256,7 +256,7 @@ static int py_enum_import_names(int mod_index, PyObject *py_cb)
 {
   if ( !PyCallable_Check(py_cb) )
     return -1;
-  
+
   return enum_import_names(mod_index, py_import_enum_cb, py_cb);
 }
 

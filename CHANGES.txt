@@ -1,5 +1,9 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
+Changes from version 1.5.5 to 1.5.6
+------------------------------------
+- IDA Pro 6.4 support
+
 Changes from version 1.5.4 to 1.5.5
 ------------------------------------
 - IDA Pro 6.3 support

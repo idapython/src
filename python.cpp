@@ -427,25 +427,25 @@ static int PyRunFile(const char *FileName)
   }
 #endif
 
-  PyObject *PyFileObject = PyFile_FromString((char*)FileName, "r");
+  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e1776
   PyObject *globals = GetMainGlobals();
-  if ( globals == NULL || PyFileObject == NULL )
+  if ( globals == NULL || file_obj == NULL )
   {
-    Py_XDECREF(PyFileObject);
+    Py_XDECREF(file_obj);
     return 0;
   }
   PyErr_Clear();
 
   PYW_GIL_ENSURE;
   PyObject *result = PyRun_File(
-        PyFile_AsFile(PyFileObject),
+        PyFile_AsFile(file_obj),
         FileName,
         Py_file_input,
         globals,
         globals);
   PYW_GIL_RELEASE;
 
-  Py_XDECREF(PyFileObject);
+  Py_XDECREF(file_obj);
   Py_XDECREF(result);
 
   return result != NULL && !PyErr_Occurred();

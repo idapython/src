@@ -673,9 +673,6 @@ def MakeArray(ea, nitems):
     if idaapi.isCode(flags) or idaapi.isTail(flags) or idaapi.isAlign(flags):
         return False
 
-    if idaapi.isCode(flags) or idaapi.isTail(flags) or idaapi.isAlign(flags):
-        return False
-
     if idaapi.isUnknown(flags):
         flags = idaapi.FF_BYTE
 
@@ -777,17 +774,6 @@ def MakeOword(ea):
     @return: 1-ok, 0-failure
     """
     return idaapi.doOwrd(ea, 16)
-
-
-def MakeYword(ea):
-    """
-    Convert the current item to a ymm word (32 bytes/256 bits)
-
-    @param ea: linear address
-
-    @return: 1-ok, 0-failure
-    """
-    return idaapi.doYwrd(ea, 32)
 
 
 def MakeYword(ea):
@@ -2358,12 +2344,24 @@ def GetCommentEx(ea, repeatable):
 
     @param ea: linear address
 
+    @param repeatable: 1 to get the repeatable comment, 0 to get the normal comment
+
     @return: string or None if it fails
     """
     return idaapi.get_cmt(ea, repeatable)
 
 
-def CommentEx(ea, repeatable): GetCommentEx(ea, repeatable)
+def CommentEx(ea, repeatable):
+    """
+    Get regular indented comment
+
+    @param ea: linear address
+
+    @param repeatable: 1 to get the repeatable comment, 0 to get the normal comment
+
+    @return: string or None if it fails
+    """
+    return GetCommentEx(ea, repeatable)
 
 
 def AltOp(ea, n):
@@ -6983,159 +6981,6 @@ def DelHiddenArea(ea):
     return idaapi.del_hidden_area(ea)
 
 
-
-def GetStepTraceOptions():
-    """
-    Get step current tracing options
-
-    @return: a combination of ST_... constants
-    """
-    return idaapi.get_step_trace_options()
-
-
-def SetStepTraceOptions(options):
-    """
-    Set step current tracing options.
-    @param options: combination of ST_... constants
-    """
-    return idaapi.set_step_trace_options(options)
-
-
-ST_OVER_DEBUG_SEG = 0x01 # step tracing will be disabled when IP is in a debugger segment
-ST_OVER_LIB_FUNC  = 0x02 # step tracing will be disabled when IP is in a library function
-ST_ALREADY_LOGGED = 0x04 # step tracing will be disabled when IP is already logged
-ST_SKIP_LOOPS     = 0x08 # step tracing will try to skip loops already recorded
-
-def LoadTraceFile(filename):
-    """
-    Load a previously recorded binary trace file
-    @param filename: trace file
-    """
-    return idaapi.load_trace_file(filename, None)
-
-def SaveTraceFile(filename, description):
-    """
-    Save current trace to a binary trace file
-    @param filename: trace file
-    """
-    return idaapi.save_trace_file(filename, description)
-
-def CheckTraceFile(filename):
-    """
-    Check the given binary trace file
-    @param filename: trace file
-    """
-    return idaapi.is_valid_trace_file(filename)
-
-def ClearTraceFile(filename):
-    """
-    Clear the current trace buffer
-    """
-    return idaapi.clear_trace()
-
-def GetTraceDesc(filename):
-    """
-    Get the trace description of the given binary trace file
-    @param filename: trace file
-    """
-    return idaapi.get_trace_file_desc(filename)
-
-def SetTraceDesc(filename, description):
-    """
-    Update the trace description of the given binary trace file
-    @param filename: trace file
-    @description: trace description
-    """
-    return idaapi.set_trace_file_desc(filename, description)
-
-def GetMaxTev():
-    """
-    Return the total number of recorded events
-    """
-    return idaapi.get_tev_qty()
-
-def GetTevEa(tev):
-    """
-    Return the address of the specified event
-    @param tev: event number
-    """
-    return idaapi.get_tev_ea(tev)
-
-TEV_NONE  = 0 # no event
-TEV_INSN  = 1 # an instruction trace
-TEV_CALL  = 2 # a function call trace
-TEV_RET   = 3 # a function return trace
-TEV_BPT   = 4 # write, read/write, execution trace
-TEV_MEM   = 5 # memory layout changed
-TEV_EVENT = 6 # debug event
-
-def GetTevType(tev):
-    """
-    Return the type of the specified event (TEV_... constants)
-    @param tev: event number
-    """
-    return idaapi.get_tev_type(tev)
-
-def GetTevTid(tev):
-    """
-    Return the thread id of the specified event
-    @param tev: event number
-    """
-    return idaapi.get_tev_tid(tev)
-
-def GetTevRegVal(tev, reg):
-    """
-    Return the register value for the specified event
-    @param tev: event number
-    @param reg: register name (like EAX, RBX, ...)
-    """
-    return idaapi.get_tev_reg_val(tev, reg)
-
-def GetTevRegMemQty(tev):
-    """
-    Return the number of memory addresses recorded for the specified event
-    @param tev: event number
-    """
-    return idaapi.get_tev_reg_mem_qty(tev)
-
-def GetTevRegMem(tev, idx):
-    """
-    Return the memory pointed by 'index' for the specified event
-    @param tev: event number
-    @param idx: memory address index
-    """
-    return idaapi.get_tev_reg_mem(tev, idx)
-
-def GetTevRegMemEa(tev, idx):
-    """
-    Return the address pointed by 'index' for the specified event
-    @param tev: event number
-    @param idx: memory address index
-    """
-    return idaapi.get_tev_reg_mem_ea(tev, idx)
-
-def GetTevCallee(tev):
-    """
-    Return the address of the callee for the specified event
-    @param tev: event number
-    """
-    return idaapi.get_call_tev_callee(tev)
-
-def GetTevReturn(tev):
-    """
-    Return the return address for the specified event
-    @param tev: event number
-    """
-    return idaapi.get_ret_tev_return(tev)
-
-def GetBptTevEa(tev):
-    """
-    Return the address of the specified TEV_BPT event
-    @param tev: event number
-    """
-    return idaapi.get_bpt_tev_ea(tev)
-
-
 #--------------------------------------------------------------------------
 #                   D E B U G G E R  I N T E R F A C E
 #--------------------------------------------------------------------------
@@ -8040,7 +7885,7 @@ def SetBptCndEx(ea, cnd, is_lowcnd):
         return False
 
     bpt.condition = cnd
-    if not is_lowcnd:
+    if is_lowcnd:
         bpt.flags |= BPT_LOWCND
     else:
         bpt.flags &= ~BPT_LOWCND
@@ -8542,9 +8387,10 @@ def SegDefReg(ea, reg, value):                   return SetSegDefReg(ea, reg, va
 
 
 def Comment(ea):                return GetCommentEx(ea, 0)
-"""Returns the non-repeatable comment or None"""
+"""Returns the regular comment or None"""
 
 def RptCmt(ea):                 return GetCommentEx(ea, 1)
+"""Returns the repeatable comment or None"""
 
 def SetReg(ea, reg, value): return SetRegEx(ea, reg, value, SR_user)
 

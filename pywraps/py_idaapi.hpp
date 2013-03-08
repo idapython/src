@@ -94,6 +94,8 @@ struct py_timer_ctx_t
 };
 
 //------------------------------------------------------------------------
+// check if we have a file which is known to be executed automatically
+// by SWIG or Python runtime
 bool pywraps_check_autoscripts(char *buf, size_t bufsize)
 {
   static const char *const exts[] =
@@ -114,14 +116,18 @@ bool pywraps_check_autoscripts(char *buf, size_t bufsize)
 
   for ( size_t ifn=0; ifn < qnumber(fns); ++ifn )
   {
+    // check for a script or module with several possible extensions
     for ( size_t iext=0; iext < qnumber(exts); ++iext )
     {
       qsnprintf(buf, bufsize, "%s.%s", fns[ifn], exts[iext]);
-      if ( qfileexist(fns[ifn]) )
-      {
-        qstrncpy(buf, fns[ifn], bufsize);
+      if ( qfileexist(buf) )
         return true;
-      }
+    }
+    // check for a subdirectory under current directory
+    if ( qfileexist(fns[ifn]) )
+    {
+      qstrncpy(buf, fns[ifn], bufsize);
+      return true;
     }
   }
   return false;
