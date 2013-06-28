@@ -358,6 +358,9 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     if not '--no-early-load' in sys.argv:
         platform_macros.append("PLUGINFIX")
 
+    # Turn off obsolete functions
+    platform_macros.append("NO_OBSOLETE_FUNCS")
+
     # Build the wrapper from the interface files
     ea64flag = ea64 and "-D__EA64__" or ""
     swigcmd = "swig %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_OPTIONS, ea64flag, ida_include_directory)
@@ -419,13 +422,17 @@ def build_binary_package(ea64, nukeold):
                                                              platform_string)
     # Build the plugin
     build_plugin(platform_string, IDA_SDK, plugin_name, ea64)
+    
     # Build the binary distribution
     binmanifest = []
     if nukeold:
         binmanifest.extend(BINDIST_MANIFEST)
+    
     if not ea64 or nukeold:
       binmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
+    
     binmanifest.append((plugin_name, "plugins"))
+    
     build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
 
 

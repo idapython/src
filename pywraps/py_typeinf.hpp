@@ -63,7 +63,7 @@ def print_type(ea, on_line):
 static PyObject *py_print_type(ea_t ea, bool one_line)
 {
   char buf[MAXSTR];
-  if ( print_type(ea, buf, sizeof(buf), one_line) )
+  if ( print_type2(ea, buf, sizeof(buf), one_line ? PRTYPE_1LINE : PRTYPE_MULTI) )
   {
     qstrncat(buf, ";", sizeof(buf));
     return PyString_FromString(buf);
