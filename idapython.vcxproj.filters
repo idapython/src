@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="python.cpp" />
+    <ClCompile Include="idaapi.cpp">
+      <Filter>autogen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pywraps.hpp" />
+    <ClInclude Include="pywraps\py_askusingform.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_bytes.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_choose.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_choose2.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_cli.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_custdata.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_custview.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_cvt.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_dbg.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_diskio.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_expr.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_graph.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_idaapi.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_idp.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_kernwin.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_lines.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_linput.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_loader.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_nalt.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_name.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_notifywhen.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_plgform.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_qfile.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_typeinf.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\py_ua.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="pywraps\pywraps.hpp">
+      <Filter>pywraps</Filter>
+    </ClInclude>
+    <ClInclude Include="idaapi.h">
+      <Filter>autogen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="python.cfg" />
+    <None Include="swig\allins.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\auto.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\area.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\bytes.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\diskio.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\idaapi.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\entry.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\enum.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\expr.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\fixup.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\fpro.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\frame.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\funcs.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\gdl.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\graph.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\ida.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\idp.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\idd.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\dbg.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="obj\x86_win_vc_32\idaapi.py">
+      <Filter>autogen</Filter>
+    </None>
+    <None Include="swig\ints.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\loader.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\kernwin.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\lines.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="pywraps\deploy.py">
+      <Filter>py</Filter>
+    </None>
+    <None Include="python\init.py">
+      <Filter>py</Filter>
+    </None>
+    <None Include="python\idautils.py">
+      <Filter>py</Filter>
+    </None>
+    <None Include="python\idc.py">
+      <Filter>py</Filter>
+    </None>
+    <None Include="pywraps\py_appcall.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_custdata.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_askusingform.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_choose2.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_cli.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="swig\nalt.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\pro.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\name.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\netnode.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\offset.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="pywraps\py_lines.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_custview.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_diskio.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_expr.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_gdl.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_graph.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_idaapi.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_kernwin.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_ua.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_nalt.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_name.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_notifywhen.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="pywraps\py_plgform.py">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="swig\queue.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\search.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\segment.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\srarea.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\strlist.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\struct.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\typeconv.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\typeinf.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\ua.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\xref.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="swig\moves.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="BUILDING.txt">
+      <Filter>TEXT</Filter>
+    </None>
+    <None Include="CHANGES.txt">
+      <Filter>TEXT</Filter>
+    </None>
+    <None Include="pywraps\deploy.bat">
+      <Filter>pywraps</Filter>
+    </None>
+    <None Include="STATUS.txt">
+      <Filter>TEXT</Filter>
+    </None>
+    <None Include="README.txt">
+      <Filter>TEXT</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="swig_i">
+      <UniqueIdentifier>{16b55e12-2b1e-4d6d-a1bf-df3400f06d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="autogen">
+      <UniqueIdentifier>{f733d65b-1c25-4587-8566-7000875727ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="py">
+      <UniqueIdentifier>{e2ec193c-4803-45b0-96c8-bfdc173c14ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pywraps">
+      <UniqueIdentifier>{01459f9f-5d55-4797-aab4-81876a9163d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEXT">
+      <UniqueIdentifier>{b581ad45-b3f6-4591-baf0-306dab4e0590}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
