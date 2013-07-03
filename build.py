@@ -45,6 +45,10 @@ PYTHON_MINOR_VERSION = int(platform.python_version()[2])
 # Find Python headers
 PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 
+S_EA64         = 'ea64'
+S_WITH_HEXRAYS = 'with-hexrays'
+S_NO_OPT       = 'no-opt'
+
 # Swig command-line parameters
 SWIG_OPTIONS = '-modern -python -c++ -w451 -shadow -D__GNUC__ -DNO_OBSOLETE_FUNCS'
 
@@ -61,6 +65,7 @@ COMMON_MACROS = [
 # Common includes for all compilations
 COMMON_INCLUDES = [ ".", "swig" ]
 
+# -----------------------------------------------------------------------
 # List files for the binary distribution
 BINDIST_MANIFEST = [
     "README.txt",
@@ -104,6 +109,7 @@ BINDIST_MANIFEST = [
     "examples/ex_imports.py"
 ]
 
+# -----------------------------------------------------------------------
 # List files for the source distribution (appended to binary list)
 SRCDIST_MANIFEST = [
     "BUILDING.txt",
@@ -150,13 +156,30 @@ SRCDIST_MANIFEST = [
     "swig/xref.i",
     "swig/graph.i",
     "swig/fpro.i",
+    "swig/hexrays.i",
     "tools/gendocs.py",
 ]
 
+# -----------------------------------------------------------------------
+def parse_options(args):
+    """Parse arguments and returned a dictionary of options"""
+
+    no_opt       = '--' + S_NO_OPT       in sys.argv
+    ea64         = '--' + S_EA64         in sys.argv
+    with_hexrays = '--' + S_WITH_HEXRAYS in sys.argv
+
+    return {
+            S_EA64: ea64, 
+            S_WITH_HEXRAYS: with_hexrays, 
+            S_NO_OPT: no_opt
+           }
+
+# -----------------------------------------------------------------------
 class BuilderBase:
     """ Base class for builders """
     def __init__(self):
         pass
+
 
     def compile(self, source, objectname=None, includes=[], macros=[]):
         """
@@ -186,6 +209,7 @@ class BuilderBase:
         if VERBOSE:
             print cmdstring
         return os.system(cmdstring)
+
 
     def link(self, objects, outfile, libpaths=[], libraries=[], extra_parameters=None):
         """ Link the binary from objects and libraries """
@@ -217,6 +241,7 @@ class BuilderBase:
         return macrostring
 
 
+# -----------------------------------------------------------------------
 class GCCBuilder(BuilderBase):
     """ Generic GCC compiler class """
     def __init__(self):
@@ -241,6 +266,7 @@ class GCCBuilder(BuilderBase):
         return "-o %s" % filename
 
 
+# -----------------------------------------------------------------------
 class MSVCBuilder(BuilderBase):
     """ Generic Visual C compiler class """
     def __init__(self):
@@ -266,7 +292,7 @@ class MSVCBuilder(BuilderBase):
     def linker_out_string(self, filename):
         return "/out:%s" % filename
 
-
+# -----------------------------------------------------------------------
 def build_distribution(manifest, distrootdir, ea64, nukeold):
     """ Create a distibution to a directory and a ZIP file """
     # (Re)create the output directory
@@ -307,7 +333,17 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
     zip.close()
 
 
-def build_plugin(platform, idasdkdir, plugin_name, ea64):
+# -----------------------------------------------------------------------
+def build_plugin(
+        platform, 
+        idasdkdir, 
+        plugin_name, 
+        options):
+
+    # Get the arguments
+    ea64         = options[S_EA64]
+    with_hexrays = options[S_WITH_HEXRAYS]
+
     global SWIG_OPTIONS
     """ Build the plugin from the SWIG wrapper and plugin main source """
     # Path to the IDA SDK headers
@@ -334,7 +370,8 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
-        builder.compiler_parameters += " -Ox"
+        if not options[S_NO_OPT]:
+            builder.compiler_parameters += " -Ox"
     # Platform-specific settings for the Mac OS X build
     elif platform == "macosx":
         builder = GCCBuilder()
@@ -352,6 +389,11 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
     # Enable EA64 for the compiler if necessary
     if ea64:
         platform_macros.append("__EA64__")
+
+    # Build with Hex-Rays decompiler
+    if with_hexrays:
+        platform_macros.append("WITH_HEXRAYS")
+        SWIG_OPTIONS += ' -DWITH_HEXRAYS '
 
     platform_macros.append("NDEBUG")
 
@@ -388,6 +430,7 @@ def build_plugin(platform, idasdkdir, plugin_name, ea64):
                          extra_link_parameters)
     assert res == 0, "Failed to link the plugin binary"
 
+# -----------------------------------------------------------------------
 def detect_platform(ea64):
     # Detect the platform
     system = platform.system()
@@ -410,7 +453,9 @@ def detect_platform(ea64):
 
     return (system, platform_string, plugin_name)
 
-def build_binary_package(ea64, nukeold):
+# -----------------------------------------------------------------------
+def build_binary_package(options, nukeold):
+    ea64 = options[S_EA64]
     system, platform_string, plugin_name = detect_platform(ea64)
     BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR,
                                                              VERSION_MINOR,
@@ -421,7 +466,7 @@ def build_binary_package(ea64, nukeold):
                                                              PYTHON_MINOR_VERSION,
                                                              platform_string)
     # Build the plugin
-    build_plugin(platform_string, IDA_SDK, plugin_name, ea64)
+    build_plugin(platform_string, IDA_SDK, plugin_name, options)
     
     # Build the binary distribution
     binmanifest = []
@@ -436,6 +481,7 @@ def build_binary_package(ea64, nukeold):
     build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
 
 
+# -----------------------------------------------------------------------
 def build_source_package():
     """ Build a directory and a ZIP file with all the sources """
     SRCDISTDIR = "idapython-%d.%d.%d" % (VERSION_MAJOR,
@@ -448,6 +494,7 @@ def build_source_package():
     srcmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py"])
     build_distribution(srcmanifest, SRCDISTDIR, ea64=False, nukeold=True)
 
+# -----------------------------------------------------------------------
 def gen_docs(z = False):
         print "Generating documentation....."
         old_dir = os.getcwd()
@@ -494,6 +541,7 @@ def gen_docs(z = False):
             os.chdir(old_dir)
         return
 
+# -----------------------------------------------------------------------
 def usage():
     print """IDAPython build script.
 
@@ -504,23 +552,36 @@ Available switches:
     Used with '--doc' switch. It will compress the generated documentation
   --ea64:
     Builds also the 64bit version of the plugin
+  --with-hexrays:
+    Build with the Hex-Rays Decompiler wrappings
   --no-early-load:
     The plugin will be compiled as normal plugin
     This switch disables processor, plugin and loader scripts
 """
 
+# -----------------------------------------------------------------------
 def main():
     if '--help' in sys.argv:
         return usage()
     elif '--doc' in sys.argv:
         return gen_docs(z = '--zip' in sys.argv)
 
-    # Do 64-bit build?
-    ea64 = '--ea64' in sys.argv
-    build_binary_package(ea64=False, nukeold=True)
+    # Parse options
+    options = parse_options(sys.argv)
+    ea64 = options[S_EA64]
+
+    # Always build the non __EA64__ version
+    options[S_EA64] = False
+    build_binary_package(options, nukeold=True)
+
+    # Rebuild package with __EA64__ if needed
     if ea64:
-        build_binary_package(ea64=True, nukeold=False)
+        options[S_EA64] = True
+        build_binary_package(options, nukeold=False)
+
+    # Always build the source package
     build_source_package()
 
+# -----------------------------------------------------------------------
 if __name__ == "__main__":
     main()

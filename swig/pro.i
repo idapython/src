@@ -1,3 +1,21 @@
+//---------------------------------------------------------------------
+%typemap(out) uint64 {
+$result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+}
+
+//---------------------------------------------------------------------
+%typemap(in) uint64
+{
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected an uint64 type");
+    return NULL;
+  }
+  $1 = $1_temp;
+}
+
+//---------------------------------------------------------------------
 %ignore wchar2char;
 %ignore hit_counter_t;
 %ignore reg_hit_counter;
@@ -6,10 +24,8 @@
 %ignore print_all_counters;
 %ignore incrementer_t;
 %ignore reloc_info_t; // swig under mac chokes on this
-%ignore qstrvec_t;
 %ignore qmutex_create;
 %ignore qiterator;
-%ignore qrefcnt_t;
 %ignore qmutex_free;
 %ignore qmutex_lock;
 %ignore qmutex_t;
@@ -38,8 +54,6 @@
 %ignore qstrstr;
 %ignore qstrchr;
 %ignore qstrrchr;
-%ignore qstring;
-%ignore qvector;
 %ignore bytevec_t;
 %ignore reloc_info_t;
 %ignore relobj_t;
@@ -96,4 +110,27 @@
 %ignore qstrupr;
 %include "pro.h"
 
-SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)
+//---------------------------------------------------------------------
+%template(uvalvec_t) qvector<uval_t>;    // vector of unsigned values
+%template(intvec_t)  qvector<int>;       // vector of integers
+%template(qstrvec_t) qvector<qstring>;   // vector of strings
+%template(boolvec_t) qvector<bool>;      // vector of bools
+
+//---------------------------------------------------------------------
+class qstring {
+public:
+    const char *c_str() const { return self->c_str(); }
+};
+
+//---------------------------------------------------------------------
+// for obscure reasons swig can't get past this one on its own, it needs a dummy declaration.
+class strvec_t {
+public:
+    qstring& at(int _idx) { return self->at(_idx).line; }
+    size_t size() const { return self->size(); }
+};
+
+class qtype {
+public:
+    const uchar *c_str() const { return self->c_str(); }
+};

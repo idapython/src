@@ -97,7 +97,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\pywraps;..\..\include;\python27\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NO_OBSOLETE_FUNCS;_DEBUG;__NT__;__IDP__;MAXSTR=1024;WIN32;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;USE_STANDARD_FILE_FUNCTIONS;VER_MAJOR=1;VER_MINOR=5;VER_PATCH=3;PLUGINFIX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WITH_HEXRAYS;NO_OBSOLETE_FUNCS;_DEBUG;__NT__;__IDP__;MAXSTR=1024;WIN32;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;USE_STANDARD_FILE_FUNCTIONS;VER_MAJOR=1;VER_MINOR=5;VER_PATCH=3;PLUGINFIX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -302,6 +302,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="build.py" />
     <None Include="BUILDING.txt" />
     <None Include="CHANGES.txt" />
     <None Include="obj\x86_win_vc_32\idaapi.py" />
@@ -346,6 +347,7 @@
     <None Include="swig\funcs.i" />
     <None Include="swig\gdl.i" />
     <None Include="swig\graph.i" />
+    <None Include="swig\hexrays.i" />
     <None Include="swig\ida.i" />
     <None Include="swig\idaapi.i" />
     <None Include="swig\idd.i" />

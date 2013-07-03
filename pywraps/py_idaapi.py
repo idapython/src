@@ -207,72 +207,72 @@ class PyIdc_cvt_int64__(pyidc_cvt_helper__):
 
 # -----------------------------------------------------------------------
 # qstrvec_t clinked object
-class qstrvec_t(py_clinked_object_t):
-    """Class representing an qstrvec_t"""
+# class qstrvec_t(py_clinked_object_t):
+#     """Class representing an qstrvec_t"""
 
-    def __init__(self, items=None):
-        py_clinked_object_t.__init__(self)
-        # Populate the list if needed
-        if items:
-            self.from_list(items)
+#     def __init__(self, items=None):
+#         py_clinked_object_t.__init__(self)
+#         # Populate the list if needed
+#         if items:
+#             self.from_list(items)
 
-    def _create_clink(self):
-        return _idaapi.qstrvec_t_create()
+#     def _create_clink(self):
+#         return _idaapi.qstrvec_t_create()
 
-    def _del_clink(self, lnk):
-        return _idaapi.qstrvec_t_destroy(lnk)
+#     def _del_clink(self, lnk):
+#         return _idaapi.qstrvec_t_destroy(lnk)
 
-    def _get_clink_ptr(self):
-        return _idaapi.qstrvec_t_get_clink_ptr(self)
+#     def _get_clink_ptr(self):
+#         return _idaapi.qstrvec_t_get_clink_ptr(self)
 
-    def assign(self, other):
-        """Copies the contents of 'other' to 'self'"""
-        return _idaapi.qstrvec_t_assign(self, other)
+#     def assign(self, other):
+#         """Copies the contents of 'other' to 'self'"""
+#         return _idaapi.qstrvec_t_assign(self, other)
 
-    def __setitem__(self, idx, s):
-        """Sets string at the given index"""
-        return _idaapi.qstrvec_t_set(self, idx, s)
+#     def __setitem__(self, idx, s):
+#         """Sets string at the given index"""
+#         return _idaapi.qstrvec_t_set(self, idx, s)
 
-    def __getitem__(self, idx):
-        """Gets the string at the given index"""
-        return _idaapi.qstrvec_t_get(self, idx)
+#     def __getitem__(self, idx):
+#         """Gets the string at the given index"""
+#         return _idaapi.qstrvec_t_get(self, idx)
 
-    def __get_size(self):
-        return _idaapi.qstrvec_t_size(self)
+#     def __get_size(self):
+#         return _idaapi.qstrvec_t_size(self)
 
-    size = property(__get_size)
-    """Returns the count of elements"""
+#     size = property(__get_size)
+#     """Returns the count of elements"""
 
-    def addressof(self, idx):
-        """Returns the address (as number) of the qstring at the given index"""
-        return _idaapi.qstrvec_t_addressof(self, idx)
+#     def addressof(self, idx):
+#         """Returns the address (as number) of the qstring at the given index"""
+#         return _idaapi.qstrvec_t_addressof(self, idx)
 
-    def add(self, s):
-        """Add a string to the vector"""
-        return _idaapi.qstrvec_t_add(self, s)
-
-
-    def from_list(self, lst):
-        """Populates the vector from a Python string list"""
-        return _idaapi.qstrvec_t_from_list(self, lst)
+#     def add(self, s):
+#         """Add a string to the vector"""
+#         return _idaapi.qstrvec_t_add(self, s)
 
 
-    def clear(self, qclear=False):
-        """
-        Clears all strings from the vector.
-        @param qclear: Just reset the size but do not actually free the memory
-        """
-        return _idaapi.qstrvec_t_clear(self, qclear)
+#     def from_list(self, lst):
+#         """Populates the vector from a Python string list"""
+#         return _idaapi.qstrvec_t_from_list(self, lst)
 
 
-    def insert(self, idx, s):
-        """Insert a string into the vector"""
-        return _idaapi.qstrvec_t_insert(self, idx, s)
+#     def clear(self, qclear=False):
+#         """
+#         Clears all strings from the vector.
+#         @param qclear: Just reset the size but do not actually free the memory
+#         """
+#         return _idaapi.qstrvec_t_clear(self, qclear)
 
 
-    def remove(self, idx):
-        """Removes a string from the vector"""
-        return _idaapi.qstrvec_t_remove(self, idx)
+#     def insert(self, idx, s):
+#         """Insert a string into the vector"""
+#         return _idaapi.qstrvec_t_insert(self, idx, s)
+
+
+#     def remove(self, idx):
+#         """Removes a string from the vector"""
+#         return _idaapi.qstrvec_t_remove(self, idx)
 
 # -----------------------------------------------------------------------
 class PyIdc_cvt_refclass__(pyidc_cvt_helper__):

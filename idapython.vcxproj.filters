@@ -293,6 +293,12 @@
     <None Include="README.txt">
       <Filter>TEXT</Filter>
     </None>
+    <None Include="swig\hexrays.i">
+      <Filter>swig_i</Filter>
+    </None>
+    <None Include="build.py">
+      <Filter>py</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="swig_i">

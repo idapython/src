@@ -42,6 +42,9 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
    swigsdk-versions/x.y/          - A supported version of the IDA SDK
    idapython/                     - IDAPython source code
 
+Note: To build with Hex-Rays decompiler support, please copy hexrays.hpp from
+      the decompiler SDK folder into IDA's include folder (in the SDK).
+
 2. On Mac OS X copy libida.dylib from the IDA install directory to
    swigsdk-versions/x.y/lib/x86_mac_gcc_32/
     and libida64.dylib to

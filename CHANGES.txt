@@ -1,5 +1,14 @@
 Please see http://code.google.com/p/idapython/source/list for a detailed list of changes.
 
+Changes from version 1.5.6 to 1.5.7
+------------------------------------
+- Added '--with-hexrays' switch to the build script so it wrap Hex-Rays Decompiler API
+- Experimental: integrated Hex-Rays Decompiler bindings that were contributed by EiNSTeiN:
+    https://github.com/EiNSTeiN-/hexrays-python
+- Added one Hex-Rays decompiler sample: vds1.py
+- Fixed small mismatch between SWIG define and CL defines (/DNO_OBSOLETE_FUNCS)
+- Use print_type2() instead of the deprecated function print_type()
+
 Changes from version 1.5.5 to 1.5.6
 ------------------------------------
 - IDA Pro 6.4 support

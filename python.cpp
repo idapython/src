@@ -30,6 +30,12 @@
 #include <diskio.hpp>
 #include <loader.hpp>
 #include <kernwin.hpp>
+
+#ifdef WITH_HEXRAYS
+  #include <hexrays.hpp>
+  hexdsp_t *hexdsp = NULL;
+#endif
+
 #include "pywraps.hpp"
 
 //-------------------------------------------------------------------------
@@ -1313,16 +1319,18 @@ static bool initsite(void)
 {
   PyObject *m;
   m = PyImport_ImportModule("site");
-  if (m == NULL)
+  if ( m == NULL )
   {
     PyErr_Print();
     Py_Finalize();
+
     return false;
   }
-  else {
+  else 
+  {
     Py_DECREF(m);
+    return true;
   }
-  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -1378,9 +1386,9 @@ bool IDAPython_Init(void)
   read_user_config_file("python.cfg", set_python_options, NULL);
   if ( g_alert_auto_scripts )
   {
-    if ( pywraps_check_autoscripts(tmp, sizeof(tmp))
-      && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
-                    "Do you want to continue loading IDAPython?", tmp) <= 0 )
+    if (    pywraps_check_autoscripts(tmp, sizeof(tmp))
+         && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
+                        "Do you want to continue loading IDAPython?", tmp) <= 0 )
     {
       return false;
     }
@@ -1418,8 +1426,14 @@ bool IDAPython_Init(void)
   // Init the SWIG wrapper
   init_idaapi();
 
+#ifdef Py_DEBUG
+  msg("HexraysPython: Python compiled with DEBUG enabled.\n");
+#endif
+
   // Set IDAPYTHON_VERSION in Python
-  qsnprintf(tmp, sizeof(tmp),
+  qsnprintf(
+    tmp, 
+    sizeof(tmp),
     "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
     "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
     VER_MAJOR,
@@ -1428,6 +1442,7 @@ bool IDAPython_Init(void)
     VER_STATUS,
     VER_SERIAL,
     g_remove_cwd_sys_path ? "True" : "False");
+
   PyRun_SimpleString(tmp);
 
   // Install extlang. Needs to be done before running init.py
@@ -1467,7 +1482,11 @@ bool IDAPython_Init(void)
   parse_plugin_options();
 
   // Register a RunPythonStatement() function for IDC
-  set_idc_func_ex(S_IDC_RUNPYTHON_STATEMENT, idc_runpythonstatement, idc_runpythonstatement_args, 0);
+  set_idc_func_ex(
+    S_IDC_RUNPYTHON_STATEMENT, 
+    idc_runpythonstatement, 
+    idc_runpythonstatement_args, 
+    0);
 
   // A script specified on the command line is run
   if ( g_run_when == run_on_init )

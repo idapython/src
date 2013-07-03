@@ -1,3 +1,4 @@
+//---------------------------------------------------------------------
 // Convert an incoming Python list to a tid_t[] array
 %typemap(in) tid_t[ANY](tid_t temp[$1_dim0]) {
     int i, len;
@@ -27,16 +28,21 @@
     $1 = &temp[0];
 }
 
+//---------------------------------------------------------------------
 %define %cstring_output_maxstr_none(TYPEMAP, SIZE)
+
 %typemap (default) SIZE {
     $1 = MAXSTR;
  }
+
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
     $1 = ($1_ltype) qalloc(MAXSTR+1);
 }
+
 %typemap(out) ssize_t {
     /* REMOVING ssize_t return value in $symname */
 }
+
 %typemap(argout) (TYPEMAP,SIZE) {
     if (result > 0)
     {
@@ -51,6 +57,7 @@
 }
 %enddef
 
+//---------------------------------------------------------------------
 %define %cstring_bounded_output_none(TYPEMAP,MAX)
 %typemap(in, numinputs=0) TYPEMAP(char temp[MAX+1]) {
     $1 = ($1_ltype) temp;
@@ -72,6 +79,7 @@
 }
 %enddef
 
+//---------------------------------------------------------------------
 %define %binary_output_or_none(TYPEMAP, SIZE)
 %typemap (default) SIZE {
     $1 = MAXSPECSIZE;
@@ -96,6 +104,7 @@
 }
 %enddef
 
+//---------------------------------------------------------------------
 %define %binary_output_with_size(TYPEMAP, SIZE)
 %typemap (default) SIZE {
     size_t ressize = MAXSPECSIZE;
@@ -121,7 +130,8 @@
 }
 %enddef
 
- // Check that the argument is a callable Python object
+//---------------------------------------------------------------------
+// Check that the argument is a callable Python object
 %typemap(in) PyObject *pyfunc {
     if (!PyCallable_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected a callable object");
