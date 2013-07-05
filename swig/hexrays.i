@@ -754,15 +754,15 @@ citem_t.to_specific_type = property(citem_to_specific_type)
 
 """ array used for translating cinsn_t->op type to their names. """
 cinsn_t.op_to_typename = {}
-for k in dir(globals()):
+for k in dir(_idaapi):
     if k.startswith('cit_'):
-        cinsn_t.op_to_typename[getattr(globals(), k)] = k[4:]
+        cinsn_t.op_to_typename[getattr(_idaapi, k)] = k[4:]
 
 """ array used for translating cexpr_t->op type to their names. """
 cexpr_t.op_to_typename = {}
-for k in dir(globals()):
+for k in dir(_idaapi):
     if k.startswith('cot_'):
-        cexpr_t.op_to_typename[getattr(globals(), k)] = k[4:]
+        cexpr_t.op_to_typename[getattr(_idaapi, k)] = k[4:]
 
 def property_op_to_typename(self):
     return self.op_to_typename[self.op]
@@ -1066,7 +1066,7 @@ def _map_as_dict(maptype, name, keytype, valuetype):
     
     for fctname in ['begin', 'end', 'first', 'second', 'next', \
                         'find', 'insert', 'erase', 'clear', 'size']:
-        fct = globals()[name + '_' + fctname]
+        fct = getattr(_idaapi, name + '_' + fctname)
         setattr(maptype, '__' + fctname, fct)
     
     maptype.__len__ = maptype.size

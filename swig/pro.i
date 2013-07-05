@@ -82,7 +82,7 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %ignore setflag;
 %ignore read2bytes;
 %ignore rotate_left;
-%ignore qswap;
+//%ignore qswap;
 %ignore swap32;
 %ignore swap16;
 %ignore swap_value;
@@ -108,6 +108,10 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %ignore qstrtok;
 %ignore qstrlwr;
 %ignore qstrupr;
+
+void qvector<uval_t>::grow(const unsigned int &x=0);
+%ignore qvector<uval_t>::grow;
+
 %include "pro.h"
 
 //---------------------------------------------------------------------
