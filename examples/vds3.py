@@ -88,41 +88,74 @@ class hexrays_callback_info(object):
         self.save()
         return
     
-    def invert_if_event(self, vu):
+    def find_if_statement(self, vu):
         
         vu.get_current_item(idaapi.USE_KEYBOARD)
         item = vu.item
         
+        if item.is_citem() and item.it.op == idaapi.cit_if and item.it.to_specific_type.cif.ielse is not None:
+            return item.it.to_specific_type
+        
+        if vu.tail.citype == idaapi.VDI_TAIL and vu.tail.loc.itp == idaapi.ITP_ELSE:
+            # for tail marks, we know only the corresponding ea,
+            # not the pointer to if-statement
+            # find it by walking the whole ctree
+            class if_finder_t(idaapi.ctree_visitor_t):
+                def __init__(self, ea):
+                    idaapi.ctree_visitor_t.__init__(self, idaapi.CV_FAST | idaapi.CV_INSNS)
+                    
+                    self.ea = ea
+                    self.found = None
+                    return
+                
+                def visit_insn(self, i):
+                    if i.op == idaapi.cit_if and i.ea == self.ea:
+                        self.found = i
+                        return 1 # stop enumeration
+                    return 0
+            
+            iff = if_finder_t(vu.tail.loc.ea)
+            if iff.apply_to(vu.cfunc.body, None):
+                return iff.found
+        
+        return
+    
+    def invert_if_event(self, vu):
+        
         cfunc = vu.cfunc.__deref__()
         
-        if item.citype != idaapi.VDI_EXPR:
+        i = self.find_if_statement(vu)
+        if not i:
             return False
         
-        if self.invert_if(cfunc, item.it.to_specific_type):
+        if self.invert_if(cfunc, i):
             vu.refresh_ctext()
             
-            self.add_location(item.it.ea)
+            self.add_location(i.ea)
         
         return True
     
     def restore(self, cfunc):
         
-        #~ print 'restoring invert-if for %x' % (cfunc.entry_ea, )
+        class visitor(idaapi.ctree_visitor_t):
+            
+            def __init__(self, inverter, cfunc):
+                idaapi.ctree_visitor_t.__init__(self, idaapi.CV_FAST | idaapi.CV_INSNS)
+                self.inverter = inverter
+                self.cfunc = cfunc
+                return
+            
+            def visit_insn(self, i):
+                try:
+                    if i.op == idaapi.cit_if and i.ea in self.inverter.stored:
+                        self.inverter.invert_if(self.cfunc, i)
+                except:
+                    traceback.print_exc()
+                return 0 # continue enumeration
         
-        str(cfunc) # generate treeitems.
+        visitor(self, cfunc).apply_to(cfunc.body, None)
         
-        restored = False
-        
-        for item in cfunc.treeitems:
-            item = item.to_specific_type
-            if item.opname == 'if' and item.ea in self.stored:
-                if self.invert_if(cfunc, item):
-                    restored = True
-                    #~ print 'restore invert-if location %x' % (item.ea, )
-                else:
-                    print 'invert-if location %x: NOT RESTORED' % (item.ea, )
-        
-        return restored
+        return
     
     def menu_callback(self):
         try:
@@ -142,7 +175,7 @@ class hexrays_callback_info(object):
                         return 1
                 
             elif event == idaapi.hxe_right_click:
-                self.vu = args[0]
+                self.vu,  = args
                 idaapi.add_custom_viewer_popup_item(self.vu.ct, "Invert then/else", "I", self.menu_callback)
             
             elif event == idaapi.hxe_maturity:

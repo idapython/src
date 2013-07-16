@@ -2,6 +2,7 @@
 // SWIG bindings for Hexray Decompiler's hexrays.hpp
 //
 // Author: EiNSTeiN_ <einstein@g3nius.org>
+// Copyright (C) 2013 ESET
 //
 // Integrated into IDAPython project by the IDAPython Team <idapython@googlegroups.com>
 //---------------------------------------------------------------------
@@ -153,6 +154,11 @@ public:
 typedef intvec_t svalvec_t; // vector of signed values
 typedef intvec_t eavec_t;// vector of addresses
 
+// director classes make it possible to override virtual functions from python.
+%feature("director") ctree_visitor_t;
+%feature("director") ctree_parentee_t;
+%feature("director") cfunc_parentee_t;
+%feature("director") user_lvar_visitor_t;
 
 // hexrays templates
 %template(user_numforms_t) std::map<operand_locator_t, number_format_t>;
@@ -240,7 +246,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %{
 
 //---------------------------------------------------------------------
-static int hexrays_cblist_py_call(PyObject *fct, PyObject *args)
+static int hexrays_python_call(PyObject *fct, PyObject *args)
 {
     PyObject *resultobj;
     int result;
@@ -264,7 +270,7 @@ static int hexrays_cblist_py_call(PyObject *fct, PyObject *args)
     if (SWIG_IsOK(ecode1))
         return result;
 
-    msg("IDAPython: Hex-rays python callback returned non-integer, value ignored.\n");
+    msg("IDAPython: Hex-rays python callback returned non-integer; value ignored.\n");
     return 0;
 }
 
@@ -274,7 +280,7 @@ static bool idaapi __python_custom_viewer_popup_item_callback(void *ud)
     int ret;
     PyObject *fct = (PyObject *)ud;
     
-    ret = hexrays_cblist_py_call(fct, NULL);
+    ret = hexrays_python_call(fct, NULL);
     
     return ret ? true : false;
 }
@@ -296,18 +302,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             {
                 cfunc_t *arg0 = va_arg(va, cfunc_t *);
                 ctree_maturity_t arg1 = va_argi(va, ctree_maturity_t);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 );
                 
                 args = Py_BuildValue("(iOi)", event, arg0obj, arg1);
-                ret = hexrays_cblist_py_call(fct, args);
-            
-                //Py_XDECREF(arg0obj);
-                Py_DECREF(args);
+                ret = hexrays_python_call(fct, args);
                 
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_cfunc_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 cfunc_t");
-                    //PyErr_Clear();
-                }
+                Py_XDECREF(arg0obj);
+                Py_DECREF(args);
             }
             break;
         case hxe_interr:
@@ -317,7 +318,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
                 int arg0 = va_argi(va, int);
                 
                 args = Py_BuildValue("(ii)", event, arg0);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
             
                 Py_DECREF(args);
             }
@@ -331,24 +332,15 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             {
                 cfunc_t *arg0 = va_arg(va, cfunc_t *);
                 vc_printer_t *arg1 = va_arg(va, vc_printer_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, SWIG_POINTER_OWN |  0 );
-                PyObject *arg1obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg1), SWIGTYPE_p_vc_printer_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 );
+                PyObject *arg1obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg1), SWIGTYPE_p_vc_printer_t, 0 );
                 
                 args = Py_BuildValue("(iOO)", event, arg0obj, arg1obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
             
-                //Py_XDECREF(arg0obj);
-                //Py_XDECREF(arg1obj);
+                Py_XDECREF(arg0obj);
+                Py_XDECREF(arg1obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_cfunc_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 cfunc_t");
-                    PyErr_Clear();
-                }
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg1obj, &argp,SWIGTYPE_p_vc_printer_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #1 vc_printer_t");
-                    //PyErr_Clear();
-                }
             }
             break;
 
@@ -358,18 +350,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< vdui_t *vu
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_switch_pseudocode:
@@ -379,18 +366,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< vdui_t *vu
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_refresh_pseudocode:
@@ -399,18 +381,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< See also hxe_text_ready, which happens earlier
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_close_pseudocode:
@@ -418,18 +395,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< vdui_t *vu
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_keyboard:
@@ -442,18 +414,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
                 vdui_t *arg0 = va_arg(va, vdui_t *);
                 int arg1 = va_argi(va, int);
                 int arg2 = va_argi(va, int);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iOii)", event, arg0obj, arg1, arg2);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_right_click:
@@ -461,18 +428,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< vdui_t *vu
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_double_click:
@@ -483,18 +445,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
                 int arg1 = va_argi(va, int);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iOi)", event, arg0obj, arg1);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_curpos:
@@ -503,18 +460,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< vdui_t *vu
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_create_hint:
@@ -529,18 +481,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///<     appended by the decompiler
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         case hxe_text_ready:
@@ -551,18 +498,13 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
             ///< COLOR_ADDR is used to store pointers to ctree elements
             {
                 vdui_t *arg0 = va_arg(va, vdui_t *);
-                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, SWIG_POINTER_OWN |  0 );
+                PyObject *arg0obj = SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 );
                 
                 args = Py_BuildValue("(iO)", event, arg0obj);
-                ret = hexrays_cblist_py_call(fct, args);
+                ret = hexrays_python_call(fct, args);
                 
-                //Py_XDECREF(arg0obj);
+                Py_XDECREF(arg0obj);
                 Py_DECREF(args);
-                
-                if (!SWIG_IsOK(SWIG_ConvertPtr(arg0obj, &argp,SWIGTYPE_p_vdui_t, SWIG_POINTER_DISOWN |  0 ))) {
-                    msg("error deleting callback argument #0 vdui_t");
-                    //PyErr_Clear();
-                }
             }
             break;
         default:
@@ -578,8 +520,6 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
 
 %ignore init_hexrays_plugin;
 %rename(init_hexrays_plugin) __init_hexrays_plugin;
-
-%rename(add_custom_viewer_popup_item) __add_custom_viewer_popup_item;
 
 %ignore add_custom_viewer_popup_item;
 %rename(add_custom_viewer_popup_item) __add_custom_viewer_popup_item;
@@ -673,7 +613,7 @@ class DecompilationFailure(Exception):
 
 # ---------------------------------------------------------------------
 def decompile(ea, hf=None):
-    if type(ea) == int:
+    if isinstance(ea, (int, long)):
         func = idaapi.get_func(ea)
         if not func: return
     elif type(ea) == idaapi.func_t:
@@ -749,7 +689,7 @@ def citem_to_specific_type(self):
     elif self.op >= cit_empty and self.op < cit_end:
         return self.cinsn
     
-    raise RuntimeError('unknown op type')
+    raise RuntimeError('unknown op type %s' % (repr(self.op), ))
 citem_t.to_specific_type = property(citem_to_specific_type)
 
 """ array used for translating cinsn_t->op type to their names. """
@@ -953,7 +893,7 @@ lvar_t.is_mapdst_var = property(lvar_t.is_mapdst_var)
 
 def _map___getitem__(self, key):
     """ Returns the value associated with the provided key. """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of key should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
     if key not in self:
         raise KeyError('key not found')
@@ -961,16 +901,16 @@ def _map___getitem__(self, key):
 
 def _map___setitem__(self, key, value):
     """ Returns the value associated with the provided key. """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if type(value) != self.valuetype:
+    if not isinstance(value, self.valuetype):
         raise KeyError('type of `value` should be ' + repr(self.valuetype) + ' but got ' + type(value))
     self.insert(key, value)
     return
 
 def _map___delitem__(self, key):
     """ Removes the value associated with the provided key. """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
     if key not in self:
         raise KeyError('key not found')
@@ -979,7 +919,7 @@ def _map___delitem__(self, key):
 
 def _map___contains__(self, key):
     """ Returns true if the specified key exists in the . """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
     if self.find(key) != self.end():
         return True
@@ -1035,7 +975,7 @@ def _map_has_key(self, key):
 
 def _map_pop(self, key):
     """ Sets the value associated with the provided key. """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
     if key not in self:
         raise KeyError('key not found')
@@ -1052,7 +992,7 @@ def _map_popitem(self):
 
 def _map_setdefault(self, key, default=None):
     """ Sets the value associated with the provided key. """
-    if type(key) != self.keytype:
+    if not isinstance(key, self.keytype):
         raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
     if key in self:
         return self[key]
@@ -1100,11 +1040,11 @@ def _map_as_dict(maptype, name, keytype, valuetype):
     maptype.popitem = _map_popitem
     maptype.setdefault = _map_setdefault
 
-_map_as_dict(user_labels_t, 'user_labels', int, qstring)
+_map_as_dict(user_labels_t, 'user_labels', (int, long), qstring)
 _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
-_map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, int)
-_map_as_dict(user_unions_t, 'user_unions', int, intvec_t)
+_map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, (int, long))
+_map_as_dict(user_unions_t, 'user_unions', (int, long), intvec_t)
 _map_as_dict(eamap_t, 'eamap', int, cinsnptrvec_t)
 #_map_as_dict(boundaries_t, 'boundaries', cinsn_t, areaset_t)
 
