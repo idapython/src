@@ -24,7 +24,7 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 4
+IDA_MINOR_VERSION = 5
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -35,8 +35,8 @@ else:
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 5
-VERSION_PATCH  = 6
+VERSION_MINOR  = 6
+VERSION_PATCH  = 0
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -50,7 +50,7 @@ S_WITH_HEXRAYS = 'with-hexrays'
 S_NO_OPT       = 'no-opt'
 
 # Swig command-line parameters
-SWIG_OPTIONS = '-modern -python -c++ -w451 -shadow -D__GNUC__ -DNO_OBSOLETE_FUNCS'
+SWIG_OPTIONS = '-modern -python -threads -c++ -w451 -shadow -D__GNUC__'
 
 # Common macros for all compilations
 COMMON_MACROS = [
@@ -169,8 +169,8 @@ def parse_options(args):
     with_hexrays = '--' + S_WITH_HEXRAYS in sys.argv
 
     return {
-            S_EA64: ea64, 
-            S_WITH_HEXRAYS: with_hexrays, 
+            S_EA64: ea64,
+            S_WITH_HEXRAYS: with_hexrays,
             S_NO_OPT: no_opt
            }
 
@@ -335,9 +335,9 @@ def build_distribution(manifest, distrootdir, ea64, nukeold):
 
 # -----------------------------------------------------------------------
 def build_plugin(
-        platform, 
-        idasdkdir, 
-        plugin_name, 
+        platform,
+        idasdkdir,
+        plugin_name,
         options):
 
     # Get the arguments
@@ -401,7 +401,7 @@ def build_plugin(
         platform_macros.append("PLUGINFIX")
 
     # Turn off obsolete functions
-    platform_macros.append("NO_OBSOLETE_FUNCS")
+    #platform_macros.append("NO_OBSOLETE_FUNCS")
 
     # Build the wrapper from the interface files
     ea64flag = ea64 and "-D__EA64__" or ""
@@ -467,17 +467,17 @@ def build_binary_package(options, nukeold):
                                                              platform_string)
     # Build the plugin
     build_plugin(platform_string, IDA_SDK, plugin_name, options)
-    
+
     # Build the binary distribution
     binmanifest = []
     if nukeold:
         binmanifest.extend(BINDIST_MANIFEST)
-    
+
     if not ea64 or nukeold:
       binmanifest.extend([(x, "python") for x in "python/init.py", "python/idc.py", "python/idautils.py", "idaapi.py"])
-    
+
     binmanifest.append((plugin_name, "plugins"))
-    
+
     build_distribution(binmanifest, BINDISTDIR, ea64, nukeold)
 
 

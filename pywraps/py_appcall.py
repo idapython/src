@@ -162,7 +162,7 @@ class Appcall_callable__(object):
     def __get_size(self):
         if self.__type == None:
             return -1
-        r = _idaapi.get_type_size0(_idaapi.cvar.idati, self.__type)
+        r = _idaapi.calc_type_size(_idaapi.cvar.idati, self.__type)
         if not r:
             return -1
         return r
@@ -658,6 +658,46 @@ def test_pck_bv():
     return 1
 
 # -----------------------------------------------------------------------
+def test_local_types():
+  (type, fields) = GetLocalTinfo(1)
+  if not type:
+    return -1
+  decl = GetLocalType(1, PRTYPE_MULTI)
+  if decl != "enum\n"\
+           + "{\n"\
+           + "  FEATURE_OBJECT_CACHING = 0x0,\n"\
+           + "  FEATURE_ZONE_ELEVATION = 0x1,\n"\
+           + "  FEATURE_MIME_HANDLING = 0x2,\n"\
+           + "  FEATURE_MIME_SNIFFING = 0x3,\n"\
+           + "  FEATURE_WINDOW_RESTRICTIONS = 0x4,\n"\
+           + "  FEATURE_WEBOC_POPUPMANAGEMENT = 0x5,\n"\
+           + "  FEATURE_BEHAVIORS = 0x6,\n"\
+           + "  FEATURE_DISABLE_MK_PROTOCOL = 0x7,\n"\
+           + "  FEATURE_LOCALMACHINE_LOCKDOWN = 0x8,\n"\
+           + "  FEATURE_SECURITYBAND = 0x9,\n"\
+           + "  FEATURE_RESTRICT_ACTIVEXINSTALL = 0xA,\n"\
+           + "  FEATURE_VALIDATE_NAVIGATE_URL = 0xB,\n"\
+           + "  FEATURE_RESTRICT_FILEDOWNLOAD = 0xC,\n"\
+           + "  FEATURE_ADDON_MANAGEMENT = 0xD,\n"\
+           + "  FEATURE_PROTOCOL_LOCKDOWN = 0xE,\n"\
+           + "  FEATURE_HTTP_USERNAME_PASSWORD_DISABLE = 0xF,\n"\
+           + "  FEATURE_SAFE_BINDTOOBJECT = 0x10,\n"\
+           + "  FEATURE_UNC_SAVEDFILECHECK = 0x11,\n"\
+           + "  FEATURE_GET_URL_DOM_FILEPATH_UNENCODED = 0x12,\n"\
+           + "  FEATURE_TABBED_BROWSING = 0x13,\n"\
+           + "  FEATURE_SSLUX = 0x14,\n"\
+           + "  FEATURE_DISABLE_NAVIGATION_SOUNDS = 0x15,\n"\
+           + "  FEATURE_DISABLE_LEGACY_COMPRESSION = 0x16,\n"\
+           + "  FEATURE_FORCE_ADDR_AND_STATUS = 0x17,\n"\
+           + "  FEATURE_XMLHTTP = 0x18,\n"\
+           + "  FEATURE_DISABLE_TELNET_PROTOCOL = 0x19,\n"\
+           + "  FEATURE_FEEDS = 0x1A,\n"\
+           + "  FEATURE_BLOCK_INPUT_PROMPTS = 0x1B,\n"\
+           + "  FEATURE_ENTRY_COUNT = 0x1C,\n"\
+           + "} _tagINTERNETFEATURELIST\n":
+      print "decl = " + decl
+      return -2
+  return 1
 # various tests
 def test1(stage):
     # call a method that takes a string buffer and appends a dot to its end
@@ -891,7 +931,7 @@ def test_exec_throw():
 # -----------------------------------------------------------------------
 # all the tests that take zero parameters
 tests0 = (test_gpa, test_pck_idb_raw, test_pck_bv_raw,
-          test_unpack_raw, test_pck_idb, test_pck_bv,
+          test_unpack_raw, test_pck_idb, test_pck_bv, test_local_types,
           test_enum_files, test2, test_exec_throw, test_loaddll)
 test_log = None # test log file
 

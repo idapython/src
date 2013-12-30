@@ -53,11 +53,23 @@ static const char S_ON_GETTEXT[]             = "OnGetText";
 static const char S_ON_ACTIVATE[]            = "OnActivate";
 static const char S_ON_DEACTIVATE[]          = "OnDeactivate";
 static const char S_ON_SELECT[]              = "OnSelect";
+static const char S_ON_CREATING_GROUP[]      = "OnCreatingGroup";
+static const char S_ON_DELETING_GROUP[]      = "OnDeletingGroup";
+static const char S_ON_GROUP_VISIBILITY[]    = "OnGroupVisibility";
 static const char S_M_EDGES[]                = "_edges";
 static const char S_M_NODES[]                = "_nodes";
 static const char S_M_THIS[]                 = "_this";
 static const char S_M_TITLE[]                = "_title";
 static const char S_CLINK_NAME[]             = "__clink__";
+static const char S_ON_VIEW_ACTIVATED[]      = "OnViewActivated";
+static const char S_ON_VIEW_DEACTIVATED[]    = "OnViewDeactivated";
+static const char S_ON_VIEW_KEYDOWN[]        = "OnViewKeydown";
+static const char S_ON_VIEW_CLICK[]          = "OnViewClick";
+static const char S_ON_VIEW_DBLCLICK[]       = "OnViewDblclick";
+static const char S_ON_VIEW_CURPOS[]         = "OnViewCurpos";
+static const char S_ON_VIEW_SWITCHED[]       = "OnViewSwitched";
+static const char S_ON_VIEW_MOUSE_OVER[]     = "OnViewMouseOver";
+
 
 #ifdef __PYWRAPS__
 static const char S_PY_IDAAPI_MODNAME[]      = "__main__";
@@ -66,7 +78,7 @@ static const char S_PY_IDAAPI_MODNAME[]      = S_IDAAPI_MODNAME;
 #endif
 
 //------------------------------------------------------------------------
-static PyObject *py_cvt_helper_module = NULL;
+static ref_t py_cvt_helper_module;
 static bool pywraps_initialized = false;
 
 //---------------------------------------------------------------------------
@@ -155,19 +167,16 @@ static error_t idaapi idc_py_invoke0(
     idc_value_t *argv,
     idc_value_t *res)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *pyfunc = (PyObject *) argv[0].pvoid;
-  PYW_GIL_ENSURE;
-  PyObject *py_result = PyObject_CallFunctionObjArgs(pyfunc, NULL);
-  PYW_GIL_RELEASE;
-
-  Py_XDECREF(py_result);
+  newref_t py_result(PyObject_CallFunctionObjArgs(pyfunc, NULL));
 
   // Report Python error as IDC exception
   qstring err;
+  error_t err_code = eOk;
   if ( PyW_GetError(&err) )
-    return PyW_CreateIdcException(res, err.c_str());
-
-  return eOk;
+    err_code = PyW_CreateIdcException(res, err.c_str());
+  return err_code;
 }
 
 //------------------------------------------------------------------------
@@ -223,8 +232,11 @@ void deinit_pywraps()
     return;
 
   pywraps_initialized = false;
-  Py_XDECREF(py_cvt_helper_module);
-  py_cvt_helper_module = NULL;
+
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    py_cvt_helper_module = ref_t(); // Deref.
+  }
 
   // Unregister the IDC PyInvoke0 method (helper function for add_idc_hotkey())
   set_idc_func_ex(S_PYINVOKE0, NULL, idc_py_invoke0_args, 0);
@@ -232,47 +244,34 @@ void deinit_pywraps()
 
 //------------------------------------------------------------------------
 // Utility function to create a class instance whose constructor takes zero arguments
-PyObject *create_idaapi_class_instance0(const char *clsname)
+ref_t create_idaapi_class_instance0(const char *clsname)
 {
-  PyObject *py_cls = get_idaapi_attr(clsname);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_t py_cls(get_idaapi_attr(clsname));
   if ( py_cls == NULL )
-    return NULL;
+    return ref_t();
 
-  PYW_GIL_ENSURE;
-  PyObject *py_obj = PyObject_CallFunctionObjArgs(py_cls, NULL);
-  PYW_GIL_RELEASE;
-
-  Py_DECREF(py_cls);
+  ref_t py_obj = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, NULL));
   if ( PyW_GetError() || py_obj == NULL )
-  {
-    Py_XDECREF(py_obj);
-    Py_RETURN_NONE;
-  }
+    py_obj = ref_t();
   return py_obj;
 }
 
 //------------------------------------------------------------------------
 // Utility function to create linked class instances
-PyObject *create_idaapi_linked_class_instance(
+ref_t create_idaapi_linked_class_instance(
     const char *clsname,
     void *lnk)
 {
-  PyObject *py_cls = get_idaapi_attr(clsname);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_t py_cls(get_idaapi_attr(clsname));
   if ( py_cls == NULL )
-    return NULL;
+    return ref_t();
 
-  PyObject *py_lnk = PyCObject_FromVoidPtr(lnk, NULL);
-  PYW_GIL_ENSURE;
-  PyObject *py_obj = PyObject_CallFunctionObjArgs(py_cls, py_lnk, NULL);
-  PYW_GIL_RELEASE;
-  Py_DECREF(py_cls);
-  Py_DECREF(py_lnk);
-
+  newref_t py_lnk(PyCObject_FromVoidPtr(lnk, NULL));
+  ref_t py_obj = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, py_lnk.o, NULL));
   if ( PyW_GetError() || py_obj == NULL )
-  {
-    Py_XDECREF(py_obj);
-    py_obj = NULL;
-  }
+    py_obj = ref_t();
   return py_obj;
 }
 
@@ -280,10 +279,10 @@ PyObject *create_idaapi_linked_class_instance(
 // Gets a class type reference in idaapi
 // With the class type reference we can create a new instance of that type
 // This function takes a reference to the idaapi module and keeps the reference
-PyObject *get_idaapi_attr_by_id(const int class_id)
+ref_t get_idaapi_attr_by_id(const int class_id)
 {
   if ( class_id >= PY_CLSID_LAST || py_cvt_helper_module == NULL )
-    return NULL;
+    return ref_t();
 
   // Some class names. The array is parallel with the PY_CLSID_xxx consts
   static const char *class_names[]=
@@ -292,16 +291,18 @@ PyObject *get_idaapi_attr_by_id(const int class_id)
     "object_t",
     "PyIdc_cvt_refclass__"
   };
-  return PyObject_GetAttrString(py_cvt_helper_module, class_names[class_id]);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return newref_t(PyObject_GetAttrString(py_cvt_helper_module.o, class_names[class_id]));
 }
 
 //------------------------------------------------------------------------
 // Gets a class reference by name
-PyObject *get_idaapi_attr(const char *attrname)
+ref_t get_idaapi_attr(const char *attrname)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return py_cvt_helper_module == NULL
-    ? NULL
-    : PyW_TryGetAttrString(py_cvt_helper_module, attrname);
+    ? ref_t()
+    : PyW_TryGetAttrString(py_cvt_helper_module.o, attrname);
 }
 
 //------------------------------------------------------------------------
@@ -311,41 +312,39 @@ bool PyW_GetStringAttr(
     const char *attr_name,
     qstring *str)
 {
-  PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr_name);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_t py_attr(PyW_TryGetAttrString(py_obj, attr_name));
   if ( py_attr == NULL )
     return false;
 
-  bool ok = PyString_Check(py_attr) != 0;
+  bool ok = PyString_Check(py_attr.o) != 0;
   if ( ok )
-    *str = PyString_AsString(py_attr);
+    *str = PyString_AsString(py_attr.o);
 
-  Py_DECREF(py_attr);
   return ok;
 }
 
 //------------------------------------------------------------------------
 // Returns an attribute or NULL
 // No errors will be set if the attribute did not exist
-PyObject *PyW_TryGetAttrString(PyObject *py_obj, const char *attr)
+ref_t PyW_TryGetAttrString(PyObject *py_obj, const char *attr)
 {
-  if ( !PyObject_HasAttrString(py_obj, attr) )
-    return NULL;
-  else
-    return PyObject_GetAttrString(py_obj, attr);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_t o;
+  if ( PyObject_HasAttrString(py_obj, attr) )
+    o = newref_t(PyObject_GetAttrString(py_obj, attr));
+  return o;
 }
 
 //------------------------------------------------------------------------
 // Tries to import a module and clears the exception on failure
-PyObject *PyW_TryImportModule(const char *name)
+ref_t PyW_TryImportModule(const char *name)
 {
-  PYW_GIL_ENSURE;
-  PyObject *result = PyImport_ImportModule(name);
-  PYW_GIL_RELEASE;
-  if ( result != NULL )
-    return result;
-  if ( PyErr_Occurred() )
-    PyErr_Clear();
-  return NULL;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t result(PyImport_ImportModule(name));
+  if ( result == NULL && PyErr_Occurred() )
+      PyErr_Clear();
+  return result;
 }
 
 //-------------------------------------------------------------------------
@@ -358,144 +357,158 @@ PyObject *PyW_TryImportModule(const char *name)
 // And because of that we are confused as to whether to convert to 32 or 64
 bool PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 {
-  if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
-    return false;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  bool rc = true;
+  do
+  {
+    if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
+    {
+      rc = false;
+      break;
+    }
 
-  // Can we convert to C long?
-  long l = PyInt_AsLong(py_var);
-  if ( !PyErr_Occurred() )
-  {
-    idc_var->set_long(l);
-    return true;
-  }
-  // Clear last error
-  PyErr_Clear();
-  // Can be fit into a C unsigned long?
-  l = (long) PyLong_AsUnsignedLong(py_var);
-  if ( !PyErr_Occurred() )
-  {
-    idc_var->set_long(l);
-    return true;
-  }
-  PyErr_Clear();
-  idc_var->set_int64(PyLong_AsLongLong(py_var));
-  return true;
+    // Can we convert to C long?
+    long l = PyInt_AsLong(py_var);
+    if ( !PyErr_Occurred() )
+    {
+      idc_var->set_long(l);
+      break;
+    }
+    // Clear last error
+    PyErr_Clear();
+    // Can be fit into a C unsigned long?
+    l = (long) PyLong_AsUnsignedLong(py_var);
+    if ( !PyErr_Occurred() )
+    {
+      idc_var->set_long(l);
+      break;
+    }
+    PyErr_Clear();
+    idc_var->set_int64(PyLong_AsLongLong(py_var));
+  } while ( false );
+  return rc;
 }
 
 //-------------------------------------------------------------------------
 // Parses a Python object as a long or long long
 bool PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
 {
-  if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
-    return false;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  bool rc = true;
+#define SETNUM(numexpr, is64_expr)              \
+  do                                            \
+  {                                             \
+    if ( num != NULL )                          \
+      *num = numexpr;                           \
+    if ( is_64 != NULL )                        \
+      *is_64 = is64_expr;                       \
+  } while ( false )
 
-  // Can we convert to C long?
-  long l = PyInt_AsLong(py_var);
-  if ( !PyErr_Occurred() )
+  do
   {
-    if ( num != NULL )
-      *num = uint64(l);
-    if ( is_64 != NULL )
-      *is_64 = false;
-    return true;
-  }
-
-  // Clear last error
-  PyErr_Clear();
-
-  // Can be fit into a C unsigned long?
-  unsigned long ul = PyLong_AsUnsignedLong(py_var);
-  if ( !PyErr_Occurred() )
-  {
-    if ( num != NULL )
-      *num = uint64(ul);
-    if ( is_64 != NULL )
-      *is_64 = false;
-    return true;
-  }
-  PyErr_Clear();
-
-  // Try to parse as int64
-  PY_LONG_LONG ll = PyLong_AsLongLong(py_var);
-  if ( !PyErr_Occurred() )
-  {
-    if ( num != NULL )
-      *num = uint64(ll);
-    if ( is_64 != NULL )
-      *is_64 = true;
-    return true;
-  }
-  PyErr_Clear();
-
-  // Try to parse as uint64
-  unsigned PY_LONG_LONG ull = PyLong_AsUnsignedLongLong(py_var);
-  PyObject *err = PyErr_Occurred();
-  if ( err == NULL )
-  {
-    if ( num != NULL )
-      *num = uint64(ull);
-    if ( is_64 != NULL )
-      *is_64 = true;
-    return true;
-  }
-  // Negative number? _And_ it with uint64(-1)
-  bool ok = false;
-  if ( err == PyExc_TypeError )
-  {
-    PyObject *py_mask = Py_BuildValue("K", 0xFFFFFFFFFFFFFFFFull);
-    PyObject *py_num = PyNumber_And(py_var, py_mask);
-    if ( py_num != NULL && py_mask != NULL )
+    if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
     {
-      PyErr_Clear();
-      ull = PyLong_AsUnsignedLongLong(py_num);
-      if ( !PyErr_Occurred() )
+      rc = false;
+      break;
+    }
+
+    // Can we convert to C long?
+    long l = PyInt_AsLong(py_var);
+    if ( !PyErr_Occurred() )
+    {
+      SETNUM(uint64(l), false);
+      break;
+    }
+
+    // Clear last error
+    PyErr_Clear();
+
+    // Can be fit into a C unsigned long?
+    unsigned long ul = PyLong_AsUnsignedLong(py_var);
+    if ( !PyErr_Occurred() )
+    {
+      SETNUM(uint64(ul), false);
+      break;
+    }
+    PyErr_Clear();
+
+    // Try to parse as int64
+    PY_LONG_LONG ll = PyLong_AsLongLong(py_var);
+    if ( !PyErr_Occurred() )
+    {
+      SETNUM(uint64(ll), true);
+      break;
+    }
+    PyErr_Clear();
+
+    // Try to parse as uint64
+    unsigned PY_LONG_LONG ull = PyLong_AsUnsignedLongLong(py_var);
+    PyObject *err = PyErr_Occurred();
+    if ( err == NULL )
+    {
+      SETNUM(uint64(ull), true);
+      break;
+    }
+    // Negative number? _And_ it with uint64(-1)
+    rc = false;
+    if ( err == PyExc_TypeError )
+    {
+      newref_t py_mask(Py_BuildValue("K", 0xFFFFFFFFFFFFFFFFull));
+      newref_t py_num(PyNumber_And(py_var, py_mask.o));
+      if ( py_num != NULL && py_mask != NULL )
       {
-        if ( num != NULL )
-          *num = uint64(ull);
-        if ( is_64 != NULL )
-          *is_64 = true;
-        ok = true;
+        PyErr_Clear();
+        ull = PyLong_AsUnsignedLongLong(py_num.o);
+        if ( !PyErr_Occurred() )
+        {
+          SETNUM(uint64(ull), true);
+          rc = true;
+        }
       }
     }
-    Py_XDECREF(py_num);
-    Py_XDECREF(py_mask);
-  }
-  PyErr_Clear();
-  return ok;
+    PyErr_Clear();
+  } while ( false );
+  return rc;
+#undef SETNUM
 }
 
 //-------------------------------------------------------------------------
 // Checks if a given object is of sequence type
 bool PyW_IsSequenceType(PyObject *obj)
 {
-  if ( !PySequence_Check(obj) )
-    return false;
-
-  Py_ssize_t sz = PySequence_Size(obj);
-  if ( sz == -1 || PyErr_Occurred() != NULL )
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  bool rc = true;
+  do
   {
-    PyErr_Clear();
-    return false;
-  }
-  return true;
+    if ( !PySequence_Check(obj) )
+    {
+      rc = false;
+      break;
+    }
+
+    Py_ssize_t sz = PySequence_Size(obj);
+    if ( sz == -1 || PyErr_Occurred() != NULL )
+    {
+      PyErr_Clear();
+      rc = false;
+      break;
+    }
+  } while ( false );
+  return rc;
 }
 
 //-------------------------------------------------------------------------
 // Returns the string representation of an object
 bool PyW_ObjectToString(PyObject *obj, qstring *out)
 {
-  PyObject *py_str = PyObject_Str(obj);
-  if ( py_str != NULL )
-  {
-    *out = PyString_AsString(py_str);
-    Py_DECREF(py_str);
-    return true;
-  }
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_str(PyObject_Str(obj));
+  bool ok = py_str != NULL;
+  if ( ok )
+    *out = PyString_AsString(py_str.o);
   else
-  {
     out->qclear();
-    return false;
-  }
+  return ok;
 }
 
 //--------------------------------------------------------------------------
@@ -503,6 +516,8 @@ bool PyW_ObjectToString(PyObject *obj, qstring *out)
 // exception string
 bool PyW_GetError(qstring *out, bool clear_err)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( PyErr_Occurred() == NULL )
     return false;
 
@@ -523,23 +538,18 @@ bool PyW_GetError(qstring *out, bool clear_err)
     PyErr_Restore(err_type, err_value, err_traceback);
 
   // Resolve FormatExc()
-  PyObject *py_fmtexc = get_idaapi_attr(S_IDAAPI_FORMATEXC);
+  ref_t py_fmtexc(get_idaapi_attr(S_IDAAPI_FORMATEXC));
 
   // Helper there?
   if ( py_fmtexc != NULL )
   {
     // Call helper
-    PYW_GIL_ENSURE;
     py_ret = PyObject_CallFunctionObjArgs(
-      py_fmtexc,
+      py_fmtexc.o,
       err_type,
       err_value,
       err_traceback,
       NULL);
-    PYW_GIL_RELEASE;
-
-    // Dispose helper reference
-    Py_DECREF(py_fmtexc);
   }
 
   // Clear the error
@@ -576,6 +586,8 @@ bool PyW_GetError(qstring *out, bool clear_err)
 //-------------------------------------------------------------------------
 bool PyW_GetError(char *buf, size_t bufsz, bool clear_err)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   qstring s;
   if ( !PyW_GetError(&s, clear_err) )
     return false;
@@ -589,6 +601,8 @@ bool PyW_GetError(char *buf, size_t bufsz, bool clear_err)
 // This method is used to display errors that occurred in a callback
 bool PyW_ShowCbErr(const char *cb_name)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   static qstring err_str;
   if ( !PyW_GetError(&err_str) )
     return false;
@@ -600,10 +614,11 @@ bool PyW_ShowCbErr(const char *cb_name)
 //---------------------------------------------------------------------------
 void *pyobj_get_clink(PyObject *pyobj)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   // Try to query the link attribute
-  PyObject *attr = PyW_TryGetAttrString(pyobj, S_CLINK_NAME);
-  void *t = attr != NULL && PyCObject_Check(attr) ? PyCObject_AsVoidPtr(attr) : NULL;
-  Py_XDECREF(attr);
+  ref_t attr(PyW_TryGetAttrString(pyobj, S_CLINK_NAME));
+  void *t = attr != NULL && PyCObject_Check(attr.o) ? PyCObject_AsVoidPtr(attr.o) : NULL;
   return t;
 }
 
@@ -624,8 +639,10 @@ def parse_command_line(cmdline):
 */
 static PyObject *py_parse_command_line(const char *cmdline)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   qstrvec_t args;
-  if ( parse_command_line2(cmdline, &args, NULL) == 0 )
+  if ( parse_command_line3(cmdline, &args, NULL, LP_PATH_WITH_ARGS) == 0 )
     Py_RETURN_NONE;
 
   PyObject *py_list = PyList_New(args.size());
@@ -727,6 +744,7 @@ static bool qstrvec_t_assign(PyObject *self, PyObject *other)
 
 static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == NULL || idx >= sv->size() )
     Py_RETURN_NONE;
@@ -751,6 +769,7 @@ static bool qstrvec_t_from_list(
   PyObject *self,
   PyObject *py_list)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   return sv == NULL ? false : PyW_PyListToStrVec(py_list, *sv);
 }
@@ -763,6 +782,7 @@ static size_t qstrvec_t_size(PyObject *self)
 
 static PyObject *qstrvec_t_get(PyObject *self, size_t idx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == NULL || idx >= sv->size() )
     Py_RETURN_NONE;

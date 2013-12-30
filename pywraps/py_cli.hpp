@@ -37,17 +37,17 @@ private:
   static py_cli_t *py_clis[MAX_PY_CLI];
   static const py_cli_cbs_t py_cli_cbs[MAX_PY_CLI];
   //--------------------------------------------------------------------------
-#define IMPL_PY_CLI_CB(CBN) \
+#define IMPL_PY_CLI_CB(CBN)                                             \
   static bool idaapi s_keydown##CBN(qstring *line, int *p_x, int *p_sellen, int *vk_key, int shift) \
-  { \
+  {                                                                     \
     return py_clis[CBN]->on_keydown(line, p_x, p_sellen, vk_key, shift); \
-  } \
-  static bool idaapi s_execute_line##CBN(const char *line) \
-  { \
-    return py_clis[CBN]->on_execute_line(line); \
-  } \
+  }                                                                     \
+  static bool idaapi s_execute_line##CBN(const char *line)              \
+  {                                                                     \
+    return py_clis[CBN]->on_execute_line(line);                         \
+  }                                                                     \
   static bool idaapi s_complete_line##CBN(qstring *completion, const char *prefix, int n, const char *line, int x) \
-  { \
+  {                                                                     \
     return py_clis[CBN]->on_complete_line(completion, prefix, n, line, x); \
   }
 
@@ -62,18 +62,15 @@ private:
   // Returns: true-executed line, false-ask for more lines
   bool on_execute_line(const char *line)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_EXECUTE_LINE, 
-        "s", 
-        line);
-    PYW_GIL_RELEASE;
-    
-    bool ok = result != NULL && PyObject_IsTrue(result);
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_EXECUTE_LINE,
+                    "s",
+                    line));
     PyW_ShowCbErr(S_ON_EXECUTE_LINE);
-    Py_XDECREF(result);
-    return ok;
+    return result != NULL && PyObject_IsTrue(result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -95,41 +92,45 @@ private:
     int *vk_key,
     int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-      self, 
-      (char *)S_ON_KEYDOWN, 
-      "siiHi", 
-      line->c_str(), 
-      *p_x,
-      *p_sellen,
-      *vk_key,
-      shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_KEYDOWN,
+                    "siiHi",
+                    line->c_str(),
+                    *p_x,
+                    *p_sellen,
+                    *vk_key,
+                    shift));
 
-    bool ok = result != NULL && PyTuple_Check(result);
+    bool ok = result != NULL && PyTuple_Check(result.o);
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
 
     if ( ok )
     {
-      Py_ssize_t sz = PyTuple_Size(result);
+      Py_ssize_t sz = PyTuple_Size(result.o);
       PyObject *item;
-      
-      if ( sz > 0 && (item = PyTuple_GetItem(result, 0)) != NULL && PyString_Check(item) )
-        *line = PyString_AsString(item);
-      
-      if ( sz > 1 && (item = PyTuple_GetItem(result, 1)) != NULL && PyInt_Check(item) )
-        *p_x = PyInt_AsLong(item);
-      
-      if ( sz > 2 && (item = PyTuple_GetItem(result, 2)) != NULL && PyInt_Check(item) )
-        *p_sellen = PyInt_AsLong(item);
 
-      if ( sz > 3 && (item = PyTuple_GetItem(result, 3)) != NULL && PyInt_Check(item) )
-        *vk_key = PyInt_AsLong(item) & 0xffff;
+#define GET_TUPLE_ENTRY(col, PyThingy, AsThingy, out)                   \
+      do                                                                \
+      {                                                                 \
+        if ( sz > col )                                                 \
+        {                                                               \
+          borref_t _r(PyTuple_GetItem(result.o, col));                  \
+          if ( _r != NULL && PyThingy##_Check(_r.o) )                   \
+            *out = PyThingy##_##AsThingy(_r.o);                         \
+        }                                                               \
+      } while ( false )
+
+      GET_TUPLE_ENTRY(0, PyString, AsString, line);
+      GET_TUPLE_ENTRY(1, PyInt, AsLong, p_x);
+      GET_TUPLE_ENTRY(2, PyInt, AsLong, p_sellen);
+      GET_TUPLE_ENTRY(3, PyInt, AsLong, vk_key);
+      *vk_key &= 0xffff;
+#undef GET_TUPLE_ENTRY
     }
-
-    Py_XDECREF(result);
     return ok;
   }
 
@@ -140,41 +141,41 @@ private:
   // Returns: true if generated a new completion
   // This callback is optional
   bool on_complete_line(
-    qstring *completion,
-    const char *prefix,
-    int n,
-    const char *line,
-    int x)
+          qstring *completion,
+          const char *prefix,
+          int n,
+          const char *line,
+          int x)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_COMPLETE_LINE, 
-        "sisi", 
-        prefix, 
-        n, 
-        line, 
-        x);
-    PYW_GIL_RELEASE;
-    
-    bool ok = result != NULL && PyString_Check(result);
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_COMPLETE_LINE,
+                    "sisi",
+                    prefix,
+                    n,
+                    line,
+                    x));
+
+    bool ok = result != NULL && PyString_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
-      *completion = PyString_AsString(result);
-
-    Py_XDECREF(result);
+      *completion = PyString_AsString(result.o);
     return ok;
   }
 
   // Private ctor (use bind())
-  py_cli_t() 
-  { 
+  py_cli_t()
+  {
   }
 
 public:
   //---------------------------------------------------------------------------
   static int bind(PyObject *py_obj)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+
     int cli_idx;
     // Find an empty slot
     for ( cli_idx = 0; cli_idx < MAX_PY_CLI; ++cli_idx )
@@ -183,7 +184,7 @@ public:
         break;
     }
     py_cli_t *py_cli = NULL;
-    do 
+    do
     {
       // No free slots?
       if ( cli_idx >= MAX_PY_CLI )
@@ -197,14 +198,12 @@ public:
       py_cli->cli.size = sizeof(cli_t);
 
       // Store 'flags'
-      if ( (attr = PyW_TryGetAttrString(py_obj, S_FLAGS)) == NULL )
       {
-        py_cli->cli.flags = 0;
-      }
-      else
-      {
-        py_cli->cli.flags = PyLong_AsLong(attr);
-        Py_DECREF(attr);
+        ref_t flags_attr(PyW_TryGetAttrString(py_obj, S_FLAGS));
+        if ( flags_attr == NULL )
+          py_cli->cli.flags = 0;
+        else
+          py_cli->cli.flags = PyLong_AsLong(flags_attr.o);
       }
 
       // Store 'sname'
@@ -256,9 +255,12 @@ public:
 
     py_cli_t *py_cli = py_clis[cli_idx];
     remove_command_interpreter(&py_cli->cli);
-    
-    Py_DECREF(py_cli->self);
-    delete py_cli;
+
+    {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      Py_DECREF(py_cli->self);
+      delete py_cli;
+    }
 
     py_clis[cli_idx] = NULL;
 
@@ -280,12 +282,12 @@ const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 
 //<inline(py_cli)>
 static int py_install_command_interpreter(PyObject *py_obj)
-{ 
+{
   return py_cli_t::bind(py_obj);
 }
 
 static void py_remove_command_interpreter(int cli_idx)
-{ 
+{
   py_cli_t::unbind(cli_idx);
 }
 //</inline(py_cli)>

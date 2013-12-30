@@ -98,7 +98,8 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %ignore BELOW_NORMAL_PRIORITY_CLASS;
 %ignore parse_command_line;
 %ignore parse_command_line2;
-%rename (parse_command_line2) py_parse_command_line;
+%ignore parse_command_line3;
+%rename (parse_command_line3) py_parse_command_line;
 %ignore qgetenv;
 %ignore qsetenv;
 %ignore qctime;
@@ -126,13 +127,6 @@ public:
     const char *c_str() const { return self->c_str(); }
 };
 
-//---------------------------------------------------------------------
-// for obscure reasons swig can't get past this one on its own, it needs a dummy declaration.
-class strvec_t {
-public:
-    qstring& at(int _idx) { return self->at(_idx).line; }
-    size_t size() const { return self->size(); }
-};
 
 class qtype {
 public:

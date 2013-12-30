@@ -25,7 +25,14 @@ typedef struct
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
 %ignore inform_idc_about_debthread;
+%ignore is_dbgmem_valid;
+// We want ALL wrappers around what is declared in dbg.hpp
+// to release the GIL when calling into the IDA api: those
+// might be very long operations, that even require some
+// network traffic.
+%thread;
 %include "dbg.hpp"
+%nothread;
 %ignore DBG_Callback;
 %feature("director") DBG_Hooks;
 
@@ -112,6 +119,7 @@ static PyObject *refresh_debugger_memory()
   // Invalidate the cache
   isEnabled(0);
 
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
 }
 
@@ -119,74 +127,78 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va);
 class DBG_Hooks
 {
 public:
-  virtual ~DBG_Hooks() { unhook(); };
+  virtual ~DBG_Hooks() { unhook(); }
 
-  bool hook() { return hook_to_notification_point(HT_DBG, DBG_Callback, this); };
-  bool unhook() { return unhook_from_notification_point(HT_DBG, DBG_Callback, this); };
+  bool hook() { return hook_to_notification_point(HT_DBG, DBG_Callback, this); }
+  bool unhook() { return unhook_from_notification_point(HT_DBG, DBG_Callback, this); }
   /* Hook functions to be overridden in Python */
   virtual void dbg_process_start(pid_t pid,
     thid_t tid,
     ea_t ea,
     char *name,
     ea_t base,
-    asize_t size) { };
+    asize_t size) {}
   virtual void dbg_process_exit(pid_t pid,
     thid_t tid,
     ea_t ea,
-    int exit_code) { };
+    int exit_code) {}
   virtual void dbg_process_attach(pid_t pid,
     thid_t tid,
     ea_t ea,
     char *name,
     ea_t base,
-    asize_t size) { };
+    asize_t size) {}
   virtual void dbg_process_detach(pid_t pid,
     thid_t tid,
-    ea_t ea) { };
+    ea_t ea) {}
   virtual void dbg_thread_start(pid_t pid,
     thid_t tid,
-    ea_t ea) { };
+    ea_t ea) {}
   virtual void dbg_thread_exit(pid_t pid,
     thid_t tid,
     ea_t ea,
-    int exit_code) { };
+    int exit_code) {}
   virtual void dbg_library_load(pid_t pid,
     thid_t tid,
     ea_t ea,
     char *name,
     ea_t base,
-    asize_t size) { };
+    asize_t size) {}
   virtual void dbg_library_unload(pid_t pid,
     thid_t tid,
     ea_t ea,
-    char *libname) { };
+    char *libname) {}
   virtual void dbg_information(pid_t pid,
     thid_t tid,
     ea_t ea,
-    char *info) { };
+    char *info) {}
   virtual int dbg_exception(pid_t pid,
     thid_t tid,
     ea_t ea,
     int code,
     bool can_cont,
     ea_t exc_ea,
-    char *info) { return 0; };
-  virtual void dbg_suspend_process(void) { };
-  virtual int dbg_bpt(thid_t tid, ea_t breakpoint_ea) { return 0; };
-  virtual int dbg_trace(thid_t tid, ea_t ip) { return 0; };
+    char *info) { return 0; }
+  virtual void dbg_suspend_process(void) {}
+  virtual int dbg_bpt(thid_t tid, ea_t breakpoint_ea) { return 0; }
+  virtual int dbg_trace(thid_t tid, ea_t ip) { return 0; }
   virtual void dbg_request_error(int failed_command,
-    int failed_dbg_notification) { };
-  virtual void dbg_step_into(void) { };
-  virtual void dbg_step_over(void) { };
-  virtual void dbg_run_to(pid_t pid, thid_t tid, ea_t ea) { };
-  virtual void dbg_step_until_ret(void) { };
+    int failed_dbg_notification) {}
+  virtual void dbg_step_into(void) {}
+  virtual void dbg_step_over(void) {}
+  virtual void dbg_run_to(pid_t pid, thid_t tid, ea_t ea) {}
+  virtual void dbg_step_until_ret(void) {}
 };
 
 int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
 {
+  // This hook gets called from the kernel. Ensure we hold the GIL.
+  PYW_GIL_GET;
+
   class DBG_Hooks *proxy = (class DBG_Hooks *)ud;
   debug_event_t *event;
   int code = 0;
+
   try
   {
     switch (notification_code)

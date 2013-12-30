@@ -11,8 +11,8 @@
 #define thisdecl py_choose2_t *_this = thisobj
 #define MENU_COMMAND_CB(id) \
   static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) \
-  { \
-    return thisobj->on_command(id, int(n)); \
+  {                                                             \
+    return thisobj->on_command(id, int(n));                     \
   }
 
 //------------------------------------------------------------------------
@@ -100,6 +100,9 @@ private:
   //------------------------------------------------------------------------
   static int idaapi ui_cb(void *obj, int notification_code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
+
     // UI callback to handle chooser items with attributes
     if ( notification_code != ui_get_chooser_item_attrs )
       return 0;
@@ -209,6 +212,9 @@ private:
 
   void on_get_line(int lineno, char * const *line_arr)
   {
+    // Called from s_getl, which itself can be called from the kernel. Ensure GIL
+    PYW_GIL_GET;
+
     // Get headers?
     if ( lineno == 0 )
     {
@@ -224,64 +230,51 @@ private:
       line_arr[i][0] = '\0';
 
     // Call Python
-    PYW_GIL_ENSURE;
-    PyObject *list = PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t list(PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1));
     if ( list == NULL )
       return;
 
     // Go over the List returned by Python and convert to C strings
     for ( int i=ncols-1; i>=0; i-- )
     {
-      PyObject *item = PyList_GetItem(list, Py_ssize_t(i));
+      borref_t item(PyList_GetItem(list.o, Py_ssize_t(i)));
       if ( item == NULL )
         continue;
 
-      const char *str = PyString_AsString(item);
+      const char *str = PyString_AsString(item.o);
       if ( str != NULL )
         qstrncpy(line_arr[i], str, MAXSTR);
     }
-    Py_DECREF(list);
   }
 
   size_t on_get_size()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL);
-    PYW_GIL_RELEASE;
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL));
     if ( pyres == NULL )
       return 0;
 
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res;
+    return PyInt_AsLong(pyres.o);
   }
 
   void on_refreshed()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL));
   }
 
   void on_select(const intvec_t &intvec)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_list = PyW_IntVecToPyList(intvec);
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
-    Py_XDECREF(py_list);
+    PYW_GIL_GET;
+    ref_t py_list(PyW_IntVecToPyList(intvec));
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list.o));
   }
 
   void on_close()
   {
-    // Call Python
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
 
     // Delete this instance if none modal and not embedded
     if ( !is_modal() && get_embedded() == NULL )
@@ -290,123 +283,96 @@ private:
 
   int on_delete_line(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_DELETE_LINE,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-
-    if ( pyres == NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res + 1;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_DELETE_LINE,
+                    "i",
+                    lineno - 1));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
   }
 
   int on_refresh(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_REFRESH,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-    if ( pyres == NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res + 1;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_REFRESH,
+                    "i",
+                    lineno - 1));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
   }
 
   void on_insert_line()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL));
   }
 
   void on_enter(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_SELECT_LINE,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_SELECT_LINE,
+                    "i",
+                    lineno - 1));
   }
 
   void on_edit_line(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-      self,
-      (char *)S_ON_EDIT_LINE,
-      "i",
-      lineno - 1);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_EDIT_LINE,
+                    "i",
+                    lineno - 1));
   }
 
   int on_command(int cmd_id, int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-          self,
-          (char *)S_ON_COMMAND,
-          "ii",
-          lineno - 1,
-          cmd_id);
-    PYW_GIL_RELEASE;
-
-    if ( pyres==NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_XDECREF(pyres);
-    return res;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_COMMAND,
+                    "ii",
+                    lineno - 1,
+                    cmd_id));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o);
   }
 
   int on_get_icon(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_GET_ICON,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_XDECREF(pyres);
-    return res;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_GET_ICON,
+                    "i",
+                    lineno - 1));
+    return PyInt_AsLong(pyres.o);
   }
 
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1);
-    PYW_GIL_RELEASE;
-
-    if ( pyres == NULL )
-      return;
-
-    if ( PyList_Check(pyres) )
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1));
+    if ( pyres != NULL )
     {
-      PyObject *item;
-      if ( (item = PyList_GetItem(pyres, 0)) != NULL )
-        attr->color = PyInt_AsLong(item);
-      if ( (item = PyList_GetItem(pyres, 1)) != NULL )
-        attr->flags = PyInt_AsLong(item);
+      if ( PyList_Check(pyres.o) )
+      {
+        PyObject *item;
+        if ( (item = PyList_GetItem(pyres.o, 0)) != NULL )
+          attr->color = PyInt_AsLong(item);
+        if ( (item = PyList_GetItem(pyres.o, 1)) != NULL )
+          attr->flags = PyInt_AsLong(item);
+      }
     }
-    Py_XDECREF(pyres);
   }
 
 public:
@@ -496,7 +462,7 @@ public:
 
       // Adjust the title
       ptitle = title_buf;
-      
+
       // Adjust the caption
       p = strtok(NULL, delimiter);
       caption += (p - temp);
@@ -507,12 +473,12 @@ public:
     }
 
     if ( !add_chooser_command(
-      ptitle,
-      caption, 
-      menu_cbs[menu_cb_idx],
-      menu_index,
-      icon,
-      flags))
+                 ptitle,
+                 caption,
+                 menu_cbs[menu_cb_idx],
+                 menu_index,
+                 icon,
+                 flags))
     {
       return -1;
     }
@@ -525,83 +491,71 @@ public:
   // Otherwise the chooser window is created and displayed
   int create(PyObject *self)
   {
-    PyObject *attr;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
 
     // Get flags
-    attr = PyW_TryGetAttrString(self, S_FLAGS);
-    if ( attr == NULL )
+    ref_t flags_attr(PyW_TryGetAttrString(self, S_FLAGS));
+    if ( flags_attr == NULL )
       return -1;
-
-    flags = PyInt_Check(attr) != 0 ? PyInt_AsLong(attr) : 0;
-    Py_DECREF(attr);
+    flags = PyInt_Check(flags_attr.o) != 0 ? PyInt_AsLong(flags_attr.o) : 0;
 
     // Get the title
     if ( !PyW_GetStringAttr(self, S_TITLE, &title) )
       return -1;
 
     // Get columns
-    attr = PyW_TryGetAttrString(self, "cols");
-    if ( attr == NULL )
+    ref_t cols_attr(PyW_TryGetAttrString(self, "cols"));
+    if ( cols_attr == NULL )
       return -1;
 
     // Get col count
-    int ncols = int(PyList_Size(attr));
+    int ncols = int(PyList_Size(cols_attr.o));
 
     // Get cols caption and widthes
     cols.qclear();
     for ( int i=0; i<ncols; i++ )
     {
       // get list item: [name, width]
-      PyObject *list = PyList_GetItem(attr, i);
-      PyObject *v = PyList_GetItem(list, 0);
+      borref_t list(PyList_GetItem(cols_attr.o, i));
+      borref_t v(PyList_GetItem(list.o, 0));
 
       // Extract string
-      const char *str = v == NULL ? "" : PyString_AsString(v);
+      const char *str = v == NULL ? "" : PyString_AsString(v.o);
       cols.push_back(str);
 
       // Extract width
       int width;
-      v = PyList_GetItem(list, 1);
+      borref_t v2(PyList_GetItem(list.o, 1));
       // No width? Guess width from column title
-      if ( v == NULL )
+      if ( v2 == NULL )
         width = strlen(str);
       else
-        width = PyInt_AsLong(v);
+        width = PyInt_AsLong(v2.o);
       widths.push_back(width);
     }
-    Py_DECREF(attr);
 
     // Get *deflt
     int deflt = -1;
-    attr = PyW_TryGetAttrString(self, "deflt");
-    if ( attr != NULL )
-    {
-      deflt = PyInt_AsLong(attr);
-      Py_DECREF(attr);
-    }
+    ref_t deflt_attr(PyW_TryGetAttrString(self, "deflt"));
+    if ( deflt_attr != NULL )
+      deflt = PyInt_AsLong(deflt_attr.o);
 
     // Get *icon
     int icon = -1;
-    if ( (attr = PyW_TryGetAttrString(self, "icon")) != NULL )
-    {
-      icon = PyInt_AsLong(attr);
-      Py_DECREF(attr);
-    }
+    ref_t icon_attr(PyW_TryGetAttrString(self, "icon"));
+    if ( icon_attr != NULL )
+      icon = PyInt_AsLong(icon_attr.o);
 
     // Get *x1,y1,x2,y2
     int pts[4];
     static const char *pt_attrs[qnumber(pts)] = {"x1", "y1", "x2", "y2"};
     for ( size_t i=0; i < qnumber(pts); i++ )
     {
-      if ( (attr = PyW_TryGetAttrString(self, pt_attrs[i])) == NULL )
-      {
+      ref_t pt_attr(PyW_TryGetAttrString(self, pt_attrs[i]));
+      if ( pt_attr == NULL )
         pts[i] = -1;
-      }
       else
-      {
-        pts[i] = PyInt_AsLong(attr);
-        Py_DECREF(attr);
-      }
+        pts[i] = PyInt_AsLong(pt_attr.o);
     }
 
     // Check what callbacks we have
@@ -628,10 +582,8 @@ public:
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
     {
-      attr = attr = PyW_TryGetAttrString(self, callbacks[i].name);
-      bool have_cb = attr != NULL && PyCallable_Check(attr) != 0;
-      Py_XDECREF(attr);
-
+      ref_t cb_attr(PyW_TryGetAttrString(self, callbacks[i].name));
+      bool have_cb = cb_attr != NULL && PyCallable_Check(cb_attr.o) != 0;
       if ( have_cb )
       {
         cb_flags |= callbacks[i].have;
@@ -646,19 +598,18 @@ public:
 
     // Get *popup names
     // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh"
-    attr = PyW_TryGetAttrString(self, S_POPUP_NAMES);
-    if ( (attr != NULL)
-      && PyList_Check(attr)
-      && PyList_Size(attr) == POPUP_NAMES_COUNT )
+    ref_t pn_attr(PyW_TryGetAttrString(self, S_POPUP_NAMES));
+    if ( (pn_attr != NULL)
+      && PyList_Check(pn_attr.o)
+      && PyList_Size(pn_attr.o) == POPUP_NAMES_COUNT )
     {
       popup_names = new const char *[POPUP_NAMES_COUNT];
       for ( int i=0; i<POPUP_NAMES_COUNT; i++ )
       {
-        const char *str = PyString_AsString(PyList_GetItem(attr, i));
+        const char *str = PyString_AsString(PyList_GetItem(pn_attr.o, i));
         popup_names[i] = qstrdup(str);
       }
     }
-    Py_XDECREF(attr);
 
     // Adjust flags (if needed)
     if ( (cb_flags & CHOOSE2_HAVE_GETATTR) != 0 )
@@ -672,8 +623,8 @@ public:
     install_hooks(true);
 
     // Check if *embedded
-    attr = PyW_TryGetAttrString(self, S_EMBEDDED);
-    if ( attr != NULL && PyObject_IsTrue(attr) == 1 )
+    ref_t emb_attr(PyW_TryGetAttrString(self, S_EMBEDDED));
+    if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
     {
       // Create an embedded chooser structure
       embedded               = new chooser_info_t();
@@ -710,7 +661,6 @@ public:
         embedded->refresh      = NULL;
       }
     }
-    Py_XDECREF(attr);
 
     // Create the chooser (if not embedded)
     int r;
@@ -873,6 +823,8 @@ void choose2_activate(PyObject *self)
 //------------------------------------------------------------------------
 PyObject *choose2_get_embedded_selection(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   py_choose2_t *c2 = choose2_find_instance(self);
   chooser_info_t *embedded;
 
@@ -886,13 +838,17 @@ PyObject *choose2_get_embedded_selection(PyObject *self)
   for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
     (*it)--;
 
-  return PyW_IntVecToPyList(intvec);
+  ref_t ret(PyW_IntVecToPyList(intvec));
+  ret.incref();
+  return ret.o;
 }
 
 //------------------------------------------------------------------------
 // Return the C instances as 64bit numbers
 PyObject *choose2_get_embedded(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   py_choose2_t *c2 = choose2_find_instance(self);
   chooser_info_t *embedded;
 
@@ -945,8 +901,8 @@ PyObject *choose2_get_embedded_selection(PyObject *self);
 
 static void NT_CDECL choose2_test_embedded(chooser_info_t *embedded)
 {
-  msg("cb=%d -> looks %valid\n", 
-    embedded->cb, 
+  msg("cb=%d -> looks %valid\n",
+    embedded->cb,
     embedded->cb == sizeof(chooser_info_t) ? "" : "in");
 }
 static size_t choose2_get_test_embedded()

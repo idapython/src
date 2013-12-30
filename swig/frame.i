@@ -17,6 +17,8 @@
 %ignore write_stkpnts;
 %ignore del_stkpnts;
 %ignore rename_frame;
+%ignore _set_frame_size;
+%ignore add_empty_frame;
 
 %ignore get_stkvar;
 %rename (get_stkvar) py_get_stkvar;

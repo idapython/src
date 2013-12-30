@@ -6,45 +6,35 @@
 //---------------------------------------------------------------------------
 uint32 idaapi choose_sizer(void *self)
 {
-  PyObject *pyres;
-  uint32 res;
-
-  PYW_GIL_ENSURE;
-  pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
-  PYW_GIL_RELEASE;
-
-  res = PyInt_AsLong(pyres);
-  Py_DECREF(pyres);
-  return res;
+  PYW_GIL_GET;
+  newref_t pyres(PyObject_CallMethod((PyObject *)self, "sizer", ""));
+  return PyInt_AsLong(pyres.o);
 }
 
 //---------------------------------------------------------------------------
 char *idaapi choose_getl(void *self, uint32 n, char *buf)
 {
-  PYW_GIL_ENSURE;
-  PyObject *pyres = PyObject_CallMethod(
-    (PyObject *)self,
-    "getl",
-    "l",
-    n);
-  PYW_GIL_RELEASE;
+  PYW_GIL_GET;
+  newref_t pyres(
+          PyObject_CallMethod(
+                  (PyObject *)self,
+                  "getl",
+                  "l",
+                  n));
 
   const char *res;
-  if (pyres == NULL || (res = PyString_AsString(pyres)) == NULL )
+  if (pyres == NULL || (res = PyString_AsString(pyres.o)) == NULL )
     qstrncpy(buf, "<Empty>", MAXSTR);
   else
     qstrncpy(buf, res, MAXSTR);
-
-  Py_XDECREF(pyres);
   return buf;
 }
 
 //---------------------------------------------------------------------------
 void idaapi choose_enter(void *self, uint32 n)
 {
-  PYW_GIL_ENSURE;
-  Py_XDECREF(PyObject_CallMethod((PyObject *)self, "enter", "l", n));
-  PYW_GIL_RELEASE;
+  PYW_GIL_GET;
+  newref_t res(PyObject_CallMethod((PyObject *)self, "enter", "l", n));
 }
 
 //---------------------------------------------------------------------------
@@ -57,8 +47,9 @@ uint32 choose_choose(
     int deflt,
     int icon)
 {
-  PyObject *pytitle = PyObject_GetAttrString((PyObject *)self, "title");
-  const char *title = pytitle != NULL ? PyString_AsString(pytitle) : "Choose";
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t pytitle(PyObject_GetAttrString((PyObject *)self, "title"));
+  const char *title = pytitle != NULL ? PyString_AsString(pytitle.o) : "Choose";
 
   int r = choose(
     flags,
@@ -79,7 +70,7 @@ uint32 choose_choose(
     NULL, /* destroy */
     NULL, /* popup_names */
     NULL);/* get_icon */
-  Py_XDECREF(pytitle);
+
   return r;
 }
 //</inline(py_kernwin)>

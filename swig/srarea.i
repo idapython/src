@@ -1,14 +1,14 @@
 // Ignore kernel-only symbols
-%ignore createSRarea;
-%ignore killSRareas;
-%ignore delSRarea;
-%ignore splitSRarea;
-%ignore SRareaStart;
-%ignore SRareaEnd;
+%ignore create_srarea;
+%ignore kill_srareras;
+%ignore del_srarea;
+%ignore break_srarea;
+%ignore set_srarea_start;
+%ignore set_srarea_end;
 %ignore repairSRarea;
-%ignore SRinit;
-%ignore SRterm;
-%ignore SRsave;
+%ignore init_srarea;
+%ignore term_srarea;
+%ignore save_srarea;
 
 #define R_es 29
 #define R_cs 30

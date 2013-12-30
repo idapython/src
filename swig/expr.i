@@ -74,10 +74,12 @@ struct py_idcfunc_ctx_t
   int nargs;
   py_idcfunc_ctx_t(PyObject *py_func, const char *name, int nargs): py_func(py_func), name(name), nargs(nargs)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_INCREF(py_func);
   }
   ~py_idcfunc_ctx_t()
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_DECREF(py_func);
   }
 };
@@ -91,25 +93,25 @@ static error_t py_call_idc_func(
   // Convert IDC arguments to Python list
   py_idcfunc_ctx_t *ctx = (py_idcfunc_ctx_t *)_ctx;
   int cvt;
-  ppyobject_vec_t pargs;
   char errbuf[MAXSTR];
-  if ( !pyw_convert_idc_args(argv, ctx->nargs, pargs, NULL, errbuf, sizeof(errbuf)) )
+
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_vec_t pargs;
+  if ( !pyw_convert_idc_args(argv, ctx->nargs, pargs, true, errbuf, sizeof(errbuf)) )
   {
     // Error during conversion? Create an IDC exception
     return PyW_CreateIdcException(r, errbuf);
   }
 
   // Call the Python function
-  PYW_GIL_ENSURE;
-  PyObject *py_result = PyObject_CallObject(
-                            ctx->py_func,
-                            pargs.empty() ? NULL : pargs[0]);
-  
+  newref_t py_result(PyObject_CallObject(
+                             ctx->py_func,
+                             pargs.empty() ? NULL : pargs[0].o));
+
   error_t err;
   if ( PyW_GetError(errbuf, sizeof(errbuf)) )
   {
     err = PyW_CreateIdcException(r, errbuf);
-    Py_XDECREF(py_result);
   }
   else
   {
@@ -120,13 +122,7 @@ static error_t py_call_idc_func(
       err = PyW_CreateIdcException(r, "ERROR: bad return value");
     else
       err = eOk;
-    if ( cvt != CIP_OK_NODECREF )
-      Py_XDECREF(py_result);
   }
-  PYW_GIL_RELEASE;
-
-  // Free the converted args
-  pyw_free_idc_args(pargs);
 
   return err;
 }

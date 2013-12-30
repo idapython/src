@@ -49,6 +49,8 @@
 %ignore til_add_macro;
 %ignore til_next_macro;
 
+%ignore parse_subtype;
+%ignore calc_type_size;
 %ignore get_type_size;
 %ignore get_type_size0;
 %ignore skip_type;
@@ -62,6 +64,7 @@
 %ignore print_type;
 %ignore show_type;
 %ignore show_plist;
+%ignore show_bytes;
 %ignore skip_function_arg_names;
 %ignore perform_funcarg_conversion;
 %ignore get_argloc_info;
@@ -85,11 +88,17 @@
 %ignore get_named_type_size;
 
 %ignore decorate_name;
+%ignore decorate_name3;
 %ignore gen_decorate_name;
 %ignore calc_bare_name;
+%ignore calc_bare_name3;
 %ignore calc_cpp_name;
 %ignore calc_c_cpp_name;
+%ignore calc_c_cpp_name3;
 %ignore predicate_t;
+%ignore local_predicate_t;
+%ignore tinfo_predicate_t;
+%ignore local_tinfo_predicate_t;
 %ignore choose_named_type;
 %ignore get_default_align;
 %ignore align_size;
@@ -123,6 +132,8 @@
 %rename (apply_type_to_stkarg) py_apply_type_to_stkarg;
 %ignore print_type;
 %rename (print_type) py_print_type;
+%rename (calc_type_size) py_calc_type_size;
+%rename (apply_type) py_apply_type;
 
 %ignore use_regarg_type_cb;
 %ignore set_op_type_t;
@@ -143,29 +154,17 @@
 %ignore extend_sign;
 
 // Kernel-only symbols
-%ignore init_til;
-%ignore save_til;
-%ignore term_til;
-%ignore determine_til;
-%ignore sync_from_til;
-%ignore get_tilpath;
-%ignore autoload_til;
-%ignore get_idainfo_by_type;
-%ignore apply_callee_type;
-%ignore propagate_stkargs;
 %ignore build_anon_type_name;
-%ignore type_names;
-%ignore get_compiler_id;
-%ignore reloc_info_t;
-%ignore relobj_t;
-%ignore regobj_t;
-%ignore build_func_type;
-
-%ignore append_type_name;
-%ignore for_all_types_ex;
-%ignore fix_idb_type;
-%ignore pdb2ti;
-%ignore process_sdacl_padding;
+%ignore enum_type_data_t::is_signed;
+%ignore enum_type_data_t::is_unsigned;
+%ignore enum_type_data_t::get_sign;
+%ignore bitfield_type_data_t::serialize;
+%ignore func_type_data_t::serialize;
+%ignore func_type_data_t::deserialize;
+%ignore enum_type_data_t::get_enum_base_type;
+%ignore enum_type_data_t::deserialize_enum;
+%ignore valstr_deprecated_t;
+%ignore valinfo_deprecated_t;
 
 %include "typeinf.hpp"
 
@@ -174,6 +173,7 @@
 %rename (load_til) load_til_wrap;
 %rename (get_type_size0) py_get_type_size0;
 %rename (idc_get_type_raw) py_idc_get_type_raw;
+%rename (idc_get_local_type_raw) py_idc_get_local_type_raw;
 %rename (unpack_object_from_idb) py_unpack_object_from_idb;
 %rename (unpack_object_from_bv) py_unpack_object_from_bv;
 %rename (pack_object_to_idb) py_pack_object_to_idb;
@@ -183,22 +183,26 @@
 //-------------------------------------------------------------------------
 PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
 {
-  qtype fields, type;
+  tinfo_t tif;
   qstring name;
-  bool ok = parse_decl(ti, decl, &name, &type, &fields, flags);
-  if ( !ok )
-    Py_RETURN_NONE;
+  qtype fields, type;
+  bool ok = parse_decl2(ti, decl, &name, &tif, flags);
+  if ( ok )
+    ok = tif.serialize(&type, &fields, NULL, SUDT_FAST);
 
-  return Py_BuildValue("(sss)",
-    name.c_str(),
-    (char *)type.c_str(),
-    (char *)fields.c_str());
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
+    return Py_BuildValue("(sss)",
+                         name.c_str(),
+                         (char *)type.c_str(),
+                         (char *)fields.c_str());
+  Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def get_type_size0(ti, tp):
+def calc_type_size(ti, tp):
     """
     Returns the size of a type
     @param ti: Type info. 'idaapi.cvar.idati' can be passed.
@@ -210,25 +214,69 @@ def get_type_size0(ti, tp):
     pass
 #</pydoc>
 */
-PyObject *py_get_type_size0(const til_t *ti, PyObject *tp)
+PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
 {
-  if ( !PyString_Check(tp) )
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( PyString_Check(tp) )
+  {
+    // To avoid release of 'data' during Py_BEGIN|END_ALLOW_THREADS section.
+    borref_t tpref(tp);
+    const type_t *data = (type_t *)PyString_AsString(tp);
+    size_t sz;
+    Py_BEGIN_ALLOW_THREADS;
+    tinfo_t tif;
+    tif.deserialize(ti, &data, NULL, NULL);
+    sz = tif.get_size();
+    Py_END_ALLOW_THREADS;
+    if ( sz != BADSIZE )
+      return PyInt_FromLong(sz);
+    Py_RETURN_NONE;
+  }
+  else
   {
     PyErr_SetString(PyExc_ValueError, "String expected!");
     return NULL;
   }
-
-  size_t sz = get_type_size0(ti, (type_t *)PyString_AsString(tp));
-  if ( sz == BADSIZE )
-    Py_RETURN_NONE;
-
-  return PyInt_FromLong(sz);
 }
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def print_type(ea, on_line):
+def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
+    """
+    Apply the specified type to the address
+    @param ti: Type info. 'idaapi.cvar.idati' can be passed.
+    @param py_type: type string
+    @param py_fields: type fields
+    @param ea: the address of the object
+    @param flags: combination of TINFO_... constants or 0
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_t ea, int flags)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  {
+    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
+    return NULL;
+  }
+  const type_t *type   = (const type_t *) PyString_AsString(py_type);
+  const p_list *fields = (const p_list *) PyString_AsString(py_fields);
+  bool rc;
+  Py_BEGIN_ALLOW_THREADS;
+  tinfo_t tif;
+  rc = tif.deserialize(ti, &type, &fields, NULL) && apply_tinfo2(ea, tif, flags);
+  Py_END_ALLOW_THREADS;
+  return rc;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def print_type(ea, one_line):
     """
     Returns the type of an item
     @return:
@@ -240,14 +288,13 @@ def print_type(ea, on_line):
 */
 static PyObject *py_print_type(ea_t ea, bool one_line)
 {
-  char buf[MAXSTR];
-  if ( print_type2(ea, buf, sizeof(buf), one_line ? PRTYPE_1LINE : PRTYPE_MULTI) )
-  {
-    qstrncat(buf, ";", sizeof(buf));
+  char buf[64*MAXSTR];
+  int flags = PRTYPE_SEMI | (one_line ? PRTYPE_1LINE : PRTYPE_MULTI);
+  bool ok = print_type2(ea, buf, sizeof(buf), one_line ? PRTYPE_1LINE : PRTYPE_MULTI);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
     return PyString_FromString(buf);
-  }
-  else
-    Py_RETURN_NONE;
+  Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
@@ -268,17 +315,24 @@ PyObject *py_unpack_object_from_idb(
   ea_t ea,
   int pio_flags = 0)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
   }
 
+  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
+  borref_t py_type_ref(py_type);
+  borref_t py_fields_ref(py_fields);
+
   // Unpack
   type_t *type   = (type_t *) PyString_AsString(py_type);
   p_list *fields = (p_list *) PyString_AsString(py_fields);
   idc_value_t idc_obj;
-  error_t err = unpack_object_from_idb(
+  error_t err;
+  Py_BEGIN_ALLOW_THREADS;
+  err = unpack_object_from_idb(
       &idc_obj,
       ti,
       type,
@@ -286,22 +340,21 @@ PyObject *py_unpack_object_from_idb(
       ea,
       NULL,
       pio_flags);
+  Py_END_ALLOW_THREADS;
 
   // Unpacking failed?
   if ( err != eOk )
     return Py_BuildValue("(ii)", 0, err);
 
   // Convert
-  PyObject *py_ret(NULL);
+  ref_t py_ret;
   err = idcvar_to_pyvar(idc_obj, &py_ret);
 
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
-
-  PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
-  Py_DECREF(py_ret);
-  return py_result;
+  else
+    return Py_BuildValue("(iO)", 1, py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -330,11 +383,16 @@ PyObject *py_unpack_object_from_bv(
   PyObject *py_bytes,
   int pio_flags = 0)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyString_Check(py_type) && !PyString_Check(py_fields) && !PyString_Check(py_bytes) )
   {
     PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
     return NULL;
   }
+
+  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
+  borref_t py_type_ref(py_type);
+  borref_t py_fields_ref(py_fields);
 
   // Get type strings
   type_t *type   = (type_t *) PyString_AsString(py_type);
@@ -346,29 +404,30 @@ PyObject *py_unpack_object_from_bv(
   memcpy(bytes.begin(), PyString_AsString(py_bytes), bytes.size());
 
   idc_value_t idc_obj;
-  error_t err = unpack_object_from_bv(
+  error_t err;
+  Py_BEGIN_ALLOW_THREADS;
+  err = unpack_object_from_bv(
       &idc_obj,
       ti,
       type,
       fields,
       bytes,
       pio_flags);
+  Py_END_ALLOW_THREADS;
 
   // Unpacking failed?
   if ( err != eOk )
     return Py_BuildValue("(ii)", 0, err);
 
   // Convert
-  PyObject *py_ret(NULL);
+  ref_t py_ret;
   err = idcvar_to_pyvar(idc_obj, &py_ret);
 
   // Conversion failed?
   if ( err != CIP_OK )
     return Py_BuildValue("(ii)", 0, err);
 
-  PyObject *py_result = Py_BuildValue("(iO)", 1, py_ret);
-  Py_DECREF(py_ret);
-  return py_result;
+  return Py_BuildValue("(iO)", 1, py_ret.o);
 }
 
 //-------------------------------------------------------------------------
@@ -396,6 +455,7 @@ PyObject *py_pack_object_to_idb(
   ea_t ea,
   int pio_flags = 0)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
@@ -404,15 +464,24 @@ PyObject *py_pack_object_to_idb(
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
-  if ( !convert_pyobj_to_idc_exc(py_obj, &idc_obj) )
+  borref_t py_obj_ref(py_obj);
+  if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
+  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
+  borref_t py_type_ref(py_type);
+  borref_t py_fields_ref(py_fields);
+
   // Get type strings
-  type_t *type   = (type_t *) PyString_AsString(py_type);
-  p_list *fields = (p_list *) PyString_AsString(py_fields);
+  type_t *type   = (type_t *)PyString_AsString(py_type);
+  p_list *fields = (p_list *)PyString_AsString(py_fields);
 
   // Pack
-  error_t err = pack_object_to_idb(&idc_obj, ti, type, fields, ea, pio_flags);
+  // error_t err;
+  error_t err;
+  Py_BEGIN_ALLOW_THREADS;
+  err = pack_object_to_idb(&idc_obj, ti, type, fields, ea, pio_flags);
+  Py_END_ALLOW_THREADS;
   return PyInt_FromLong(err);
 }
 
@@ -443,6 +512,7 @@ PyObject *py_pack_object_to_bv(
   ea_t base_ea,
   int pio_flags=0)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
@@ -451,16 +521,23 @@ PyObject *py_pack_object_to_bv(
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
-  if ( !convert_pyobj_to_idc_exc(py_obj, &idc_obj) )
+  borref_t py_obj_ref(py_obj);
+  if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
+  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
+  borref_t py_type_ref(py_type);
+  borref_t py_fields_ref(py_fields);
+
   // Get type strings
-  type_t *type   = (type_t *) PyString_AsString(py_type);
-  p_list *fields = (p_list *) PyString_AsString(py_fields);
+  type_t *type   = (type_t *)PyString_AsString(py_type);
+  p_list *fields = (p_list *)PyString_AsString(py_fields);
 
   // Pack
   relobj_t bytes;
-  error_t err = pack_object_to_bv(
+  error_t err;
+  Py_BEGIN_ALLOW_THREADS;
+  err = pack_object_to_bv(
     &idc_obj,
     ti,
     type,
@@ -468,174 +545,212 @@ PyObject *py_pack_object_to_bv(
     &bytes,
     NULL,
     pio_flags);
-  do
-  {
-    if ( err != eOk )
-      break;
-    if ( !bytes.relocate(base_ea, inf.mf) )
-    {
+  if ( err == eOk && !bytes.relocate(base_ea, inf.mf) )
       err = -1;
-      break;
-    }
+  Py_END_ALLOW_THREADS;
+  if ( err == eOk )
     return Py_BuildValue("(is#)", 1, bytes.begin(), bytes.size());
-  } while ( false );
-  return Py_BuildValue("(ii)", 0, err);
+  else
+    return Py_BuildValue("(ii)", 0, err);
 }
-//</inline(py_typeinf)>
-til_t * load_til(const char *tildir, const char *name)
+
+//-------------------------------------------------------------------------
+/* Parse types from a string or file. See ParseTypes() in idc.py */
+int idc_parse_types(const char *input, int flags)
 {
-    char errbuf[4096];
-    til_t *res;
+  int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
 
-    res = load_til(tildir, name, errbuf, sizeof(errbuf));
+  if ((flags & 1) != 0)
+      hti |= HTI_FIL;
 
-    if (!res)
+  return parse_decls(idati, input, (flags & 2) == 0 ? msg : NULL, hti);
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_idc_get_type_raw(ea_t ea)
+{
+  qtype type, fields;
+  bool ok = get_tinfo(ea, &type, &fields);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
+    return Py_BuildValue("(ss)", (char *)type.c_str(), (char *)fields.c_str());
+  else
+    Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_idc_get_local_type_raw(int ordinal)
+{
+  const type_t *type;
+  const p_list *fields;
+  bool ok = get_numbered_type(idati, ordinal, &type, &fields);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
+    return Py_BuildValue("(ss)", (char *)type, (char *)fields);
+  Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
+{
+  tinfo_t tif;
+  if ( guess_tinfo2(ea, &tif) )
+  {
+    qstring out;
+    if ( tif.print(&out) )
+      return qstrncpy(buf, out.begin(), bufsize);
+  }
+  return NULL;
+}
+
+//-------------------------------------------------------------------------
+char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
+{
+  tinfo_t tif;
+  if ( get_tinfo2(ea, &tif) )
+  {
+    qstring out;
+    if ( tif.print(&out) )
     {
-        PyErr_SetString(PyExc_RuntimeError, errbuf);
-        return NULL;
+      qstrncpy(buf, out.c_str(), bufsize);
+      return buf;
+    }
+  }
+  return NULL;
+}
+
+//-------------------------------------------------------------------------
+int idc_set_local_type(int ordinal, const char *dcl, int flags)
+{
+  if (dcl == NULL || dcl[0] == '\0')
+  {
+    if ( !del_numbered_type(idati, ordinal) )
+        return 0;
+  }
+  else
+  {
+    tinfo_t tif;
+    qstring name;
+    if ( !parse_decl2(idati, dcl, &name, &tif, flags) )
+      return 0;
+
+    if ( ordinal <= 0 )
+    {
+      if ( !name.empty() )
+        ordinal = get_type_ordinal(idati, name.begin());
+
+      if ( ordinal <= 0 )
+        ordinal = alloc_type_ordinal(idati);
     }
 
-    return res;
+    if ( tif.set_numbered_type(idati, ordinal, 0, name.c_str()) != TERR_OK )
+      return 0;
+  }
+  return ordinal;
+}
+
+//-------------------------------------------------------------------------
+int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
+{
+  tinfo_t tif;
+  if ( !tif.get_numbered_type(idati, ordinal) )
+  {
+    buf[0] = 0;
+    return false;
+  }
+
+  qstring res;
+  const char *name = get_numbered_type_name(idati, ordinal);
+  if ( !tif.print(&res, name, flags, 2, 40) )
+  {
+    buf[0] = 0;
+    return false;
+  }
+
+  qstrncpy(buf, res.begin(), maxsize);
+  return true;
+}
+
+//-------------------------------------------------------------------------
+PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *name, int flags)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  {
+    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
+    return NULL;
+  }
+
+  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
+  borref_t py_type_ref(py_type);
+  borref_t py_fields_ref(py_fields);
+
+  qstring res;
+  const type_t *type   = (type_t *)PyString_AsString(py_type);
+  const p_list *fields = (p_list *)PyString_AsString(py_fields);
+  bool ok;
+  Py_BEGIN_ALLOW_THREADS;
+  tinfo_t tif;
+  ok = tif.deserialize(idati, &type, &fields, NULL)
+    && tif.print(&res, name, flags, 2, 40);
+  Py_END_ALLOW_THREADS;
+  if ( ok )
+    return PyString_FromString(res.begin());
+  else
+    Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
+{
+  const char *name = get_numbered_type_name(idati, ordinal);
+  if ( name == NULL )
+    return false;
+
+  qstrncpy(buf, name, bufsize);
+  return true;
+}
+
+//</inline(py_typeinf)>
+til_t *load_til(const char *tildir, const char *name)
+{
+  char errbuf[MAXSTR];
+  til_t *res = load_til(tildir, name, errbuf, sizeof(errbuf));
+  if ( res == NULL )
+    PyErr_SetString(PyExc_RuntimeError, errbuf);
+  return res;
 }
 %}
 
 %rename (load_til_header) load_til_header_wrap;
 %inline %{
-til_t * load_til_header_wrap(const char *tildir, const char *name)
+til_t *load_til_header_wrap(const char *tildir, const char *name)
 {
-    char errbuf[4096];
-    til_t *res;
-
-    res = load_til_header(tildir, name, errbuf, sizeof(errbuf));;
-
-    if (!res)
-    {
-        PyErr_SetString(PyExc_RuntimeError, errbuf);
-        return NULL;
-    }
-
-    return res;
+  char errbuf[MAXSTR];
+  til_t *res = load_til_header(tildir, name, errbuf, sizeof(errbuf));;
+  if ( res == NULL )
+    PyErr_SetString(PyExc_RuntimeError, errbuf);
+  return res;
 }
 %}
 
 %cstring_output_maxsize(char *buf, size_t maxsize);
 
-%inline %{
-/* Parse types from a string or file. See ParseTypes() in idc.py */
-int idc_parse_types(const char *input, int flags)
-{
-    int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
+%pythoncode %{
+#<pycode(py_typeinf)>
 
-    if ((flags & 1) != 0)
-        hti |= HTI_FIL;
+def get_type_size0(ti, tp):
+    """
+    DEPRECATED. Please use calc_type_size instead
+    Returns the size of a type
+    @param ti: Type info. 'idaapi.cvar.idati' can be passed.
+    @param tp: type string
+    @return:
+        - None on failure
+        - The size of the type
+    """
+    return calc_type_size(ti, tp)
 
-    return parse_decls(idati, input, (flags & 2) == 0 ? msg : NULL, hti);
-}
+#</pycode(py_typeinf)>
 
-PyObject *py_idc_get_type_raw(ea_t ea)
-{
-    qtype type, fields;
-    if (get_tinfo(ea, &type, &fields))
-    {
-      return Py_BuildValue("(ss)", (char *)type.c_str(), (char *)fields.c_str());
-    }
-    else
-    {
-      Py_RETURN_NONE;
-    }
-}
-
-char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
-{
-    qtype type, fnames;
-
-    if (get_tinfo(ea, &type, &fnames))
-    {
-        int code = print_type_to_one_line(buf, bufsize, idati, type.c_str(),
-                                          NULL, NULL, fnames.c_str());
-        if (code == T_NORMAL)
-            return buf;
-    }
-    return NULL;
-}
-
-char *idc_guess_type(ea_t ea, char *buf, size_t bufsize)
-{
-    qtype type, fnames;
-
-    if (guess_tinfo(ea, &type, &fnames))
-    {
-        int code = print_type_to_one_line(buf, bufsize, idati, type.c_str(),
-                                          NULL, NULL, fnames.c_str());
-        if (code == T_NORMAL)
-            return buf;
-    }
-    return NULL;
-}
-
-int idc_set_local_type(int ordinal, const char *dcl, int flags)
-{
-    if (dcl == NULL || dcl[0] == '\0')
-    {
-        if (!del_numbered_type(idati, ordinal))
-            return 0;
-    }
-    else
-    {
-        qstring name;
-        qtype type;
-        qtype fields;
-
-        if (!parse_decl(idati, dcl, &name, &type, &fields, flags))
-            return 0;
-
-        if (ordinal <= 0)
-	{
-            if (!name.empty())
-                ordinal = get_type_ordinal(idati, name.c_str());
-
-            if (ordinal <= 0)
-                ordinal = alloc_type_ordinal(idati);
-	}
-
-        if (!set_numbered_type(idati, ordinal, 0, name.c_str(), type.c_str(), fields.c_str()))
-            return 0;
-    }
-    return ordinal;
-}
-
-int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
-{
-    const type_t *type;
-    const p_list *fields;
-
-    if (!get_numbered_type(idati, ordinal, &type, &fields))
-    {
-        buf[0] = 0;
-        return false;
-    }
-
-    qstring res;
-    const char *name = get_numbered_type_name(idati, ordinal);
-
-    if (print_type_to_qstring(&res, NULL, 2, 40, flags, idati, type, name, NULL, fields) <= 0)
-    {
-        buf[0] = 0;
-        return false;
-    }
-
-    qstrncpy(buf, res.c_str(), maxsize);
-    return true;
-}
-
-char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
-{
-    const char *name = get_numbered_type_name(idati, ordinal);
-
-    if (name == NULL)
-        return false;
-
-    qstrncpy(buf, name, bufsize);
-    return true;
-}
 %}

@@ -13,7 +13,13 @@ def make_re(tag, mod_name, prefix):
     s = '%(p)s<%(tag)s\(%(m)s\)>(.+?)%(p)s</%(tag)s\(%(m)s\)>' % {'m': mod_name, 'tag': tag, 'p': prefix}
     return (s, re.compile(s, re.DOTALL))
 
+def convert_path(path_in):
+    parts = path_in.split('/')
+    return os.sep.join(parts)
+
 def deploy(mod_name, src_files, dest_file, silent = True):
+    dest_file = convert_path(dest_file)
+    src_files = map(convert_path, src_files)
     # create regular expressions
     templates = (
         ('pycode', make_re('pycode', mod_name, '#')),
@@ -88,4 +94,5 @@ def main(argv = None):
     deploy(mod_name, src_files, dest_file)
 
 #main(['', 'py_graph', 'py_graph.hpp,py_graph.py', 'graph.i'])
-main()
+if __name__ == '__main__':
+    main()

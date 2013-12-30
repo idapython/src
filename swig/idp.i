@@ -35,6 +35,7 @@
 %ignore _py_getreg;
 %ignore free_processor_module;
 %ignore read_config_file;
+%ignore cfg_compiler_changed;
 
 %ignore gen_idb_event;
 
@@ -74,12 +75,17 @@ static PyObject *AssembleLine(
 {
   int inslen;
   char buf[MAXSTR];
+  bool ok = false;
   if (ph.notify != NULL &&
-    (inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
+    (inslen = ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
   {
-    return PyString_FromStringAndSize(buf, inslen);
+    ok = true;
   }
-  Py_RETURN_NONE;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
+    return PyString_FromStringAndSize(buf, inslen);
+  else
+    Py_RETURN_NONE;
 }
 
 //---------------------------------------------------------------------------
@@ -107,17 +113,20 @@ bool assemble(
 {
   int inslen;
   char buf[MAXSTR];
-
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  bool rc = false;
+  Py_BEGIN_ALLOW_THREADS;
   if (ph.notify != NULL)
   {
-    inslen =  ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
+    inslen = ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
     if (inslen > 0)
     {
       patch_many_bytes(ea, buf, inslen);
-      return true;
+      rc = true;
     }
   }
-  return false;
+  Py_END_ALLOW_THREADS;
+  return rc;
 }
 
 //-------------------------------------------------------------------------
@@ -359,6 +368,7 @@ def ph_get_instruc():
 static PyObject *ph_get_instruc()
 {
   Py_ssize_t i = 0;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *py_result = PyTuple_New(ph.instruc_end - ph.instruc_start);
   for ( const instruc_t *p = ph.instruc + ph.instruc_start, *end = ph.instruc + ph.instruc_end;
         p != end;
@@ -382,10 +392,10 @@ def ph_get_regnames():
 static PyObject *ph_get_regnames()
 {
   Py_ssize_t i = 0;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *py_result = PyList_New(ph.regsNum);
   for ( Py_ssize_t i=0; i<ph.regsNum; i++ )
     PyList_SetItem(py_result, i, PyString_FromString(ph.regNames[i]));
-
   return py_result;
 }
 
@@ -413,6 +423,10 @@ static PyObject *ph_get_operand_info(
     ea_t ea,
     int n)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  bool ok = false;
+  idd_opinfo_t opinf;
+  Py_BEGIN_ALLOW_THREADS;
   do
   {
     if ( dbg == NULL || n == - 1 )
@@ -427,7 +441,6 @@ static PyObject *ph_get_operand_info(
       break;
 
     // Call the processor module
-    idd_opinfo_t opinf;
     if ( ph.notify(ph.get_operand_info,
               ea,
               n,
@@ -438,14 +451,19 @@ static PyObject *ph_get_operand_info(
     {
       break;
     }
-    return Py_BuildValue("(i" PY_FMT64 "Kii)",
-                  opinf.modified,
-                  opinf.ea,
-                  opinf.value.ival,
-                  opinf.debregidx,
-                  opinf.value_size);
+    ok = true;
   } while (false);
-  Py_RETURN_NONE;
+
+  Py_END_ALLOW_THREADS;
+  if ( ok )
+    return Py_BuildValue("(i" PY_FMT64 "Kii)",
+                         opinf.modified,
+                         opinf.ea,
+                         opinf.value.ival,
+                         opinf.debregidx,
+                         opinf.value_size);
+  else
+    Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
@@ -826,6 +844,7 @@ public:
       bool /*use32*/,
       const char * /*line*/)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
   }
 };
@@ -889,6 +908,8 @@ public:
 //-------------------------------------------------------------------------
 int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
 {
+  // This hook gets called from the kernel. Ensure we hold the GIL.
+  PYW_GIL_GET;
   IDP_Hooks *proxy = (IDP_Hooks *)ud;
   int ret = 0;
   try
@@ -910,16 +931,16 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
     case processor_t::custom_outop:
       {
         op_t *op = va_arg(va, op_t *);
-        PyObject *py_obj = create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op);
+        ref_t py_obj(create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op));
         if ( py_obj == NULL )
           break;
-        ret = proxy->custom_outop(py_obj) ? 2 : 0;
-        Py_XDECREF(py_obj);
+        ret = proxy->custom_outop(py_obj.o) ? 2 : 0;
         break;
       }
 
     case processor_t::custom_mnem:
       {
+        PYW_GIL_CHECK_LOCKED_SCOPE();
         PyObject *py_ret = proxy->custom_mnem();
         if ( py_ret != NULL && PyString_Check(py_ret) )
         {
@@ -1051,6 +1072,7 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
         // Extract user buffer (we hardcode the MAXSTR size limit)
         uchar *bin = va_arg(va, uchar *);
         // Call python
+        PYW_GIL_CHECK_LOCKED_SCOPE();
         PyObject *py_buffer = proxy->assemble(ea, cs, ip, use32, line);
         if ( py_buffer != NULL && PyString_Check(py_buffer) )
         {
@@ -1370,6 +1392,7 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
   catch (Swig::DirectorException &e)
   {
     msg("Exception in IDP Hook function: %s\n", e.getMessage());
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( PyErr_Occurred() )
       PyErr_Print();
   }
@@ -1379,6 +1402,9 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
 //---------------------------------------------------------------------------
 int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 {
+  // This hook gets called from the kernel. Ensure we hold the GIL.
+  PYW_GIL_GET;
+
   class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
   ea_t ea, ea2;
   bool repeatable_cmt;
@@ -1550,10 +1576,9 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
   catch (Swig::DirectorException &e)
   {
     msg("Exception in IDB Hook function: %s\n", e.getMessage());
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if (PyErr_Occurred())
-    {
       PyErr_Print();
-    }
   }
   return 0;
 }

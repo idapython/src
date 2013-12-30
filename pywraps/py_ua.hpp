@@ -35,6 +35,8 @@ def init_output_buffer(size = MAXSTR):
 */
 PyObject *py_init_output_buffer(size_t size = MAXSTR)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   // Let Python allocate a writable string buffer for us
   PyObject *py_str = PyString_FromStringAndSize(NULL, size);
   if ( py_str == NULL )
@@ -73,6 +75,7 @@ PyObject *py_decode_preceding_insn(ea_t ea)
 {
   bool farref;
   ea_t r = decode_preceding_insn(ea, &farref);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return Py_BuildValue("(" PY_FMT64 "i)", pyul_t(r), farref ? 1 : 0);
 }
 
@@ -117,6 +120,7 @@ def get_stkvar(op, v):
 */
 PyObject *py_get_stkvar(PyObject *py_op, PyObject *py_v)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   uint64 v;
   if ( op == NULL || !PyW_GetNumber(py_v, &v) )
@@ -150,6 +154,7 @@ def add_stkvar3(op, v, flags):
 */
 bool py_add_stkvar3(PyObject *py_op, PyObject *py_v, int flags)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   uint64 v;
   return ( op == NULL || !PyW_GetNumber(py_v, &v) || !add_stkvar3(*op, sval_t(v), flags)) ? false : true;
@@ -192,11 +197,24 @@ bool py_apply_type_to_stkarg(
     const char *name)
 {
   uint64 v;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type))
+  {
     return false;
+  }
   else
-    return apply_type_to_stkarg(*op, uval_t(v), (type_t *) PyString_AsString(py_type), name);
+  {
+    const type_t *t = (type_t *) PyString_AsString(py_type);
+    tinfo_t tif;
+    tif.deserialize(idati, &t);
+    borref_t br(py_op);
+    bool rc;
+    Py_BEGIN_ALLOW_THREADS;
+    rc = apply_tinfo_to_stkarg(*op, uval_t(v), tif, name);
+    Py_END_ALLOW_THREADS;
+    return rc;
+  }
 }
 
 //-------------------------------------------------------------------------
@@ -213,6 +231,7 @@ def OutImmChar(op, outflags = 0):
 */
 static void py_OutImmChar(PyObject *x)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(x);
   if ( op != NULL )
     OutImmChar(*op);
@@ -233,6 +252,7 @@ def ua_stkvar2(op, outflags = 0):
 */
 static bool py_ua_stkvar2(PyObject *x, adiff_t v, int flags)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(x);
   return op == NULL ? false : ua_stkvar2(*op, v, flags);
 }
@@ -252,6 +272,7 @@ def ua_add_off_drefs(op, type):
 */
 ea_t py_ua_add_off_drefs(PyObject *py_op, dref_t type)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   return op == NULL ? BADADDR : ua_add_off_drefs(*op, type);
 }
@@ -270,6 +291,7 @@ def ua_add_off_drefs2(op, type, outf):
 */
 ea_t py_ua_add_off_drefs2(PyObject *py_op, dref_t type, int outf)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   return op == NULL ? BADADDR : ua_add_off_drefs2(*op, type, outf);
 }
@@ -295,6 +317,7 @@ bool py_out_name_expr(
   ea_t ea,
   PyObject *py_off)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
   uint64 v(0);
   adiff_t off;
@@ -302,13 +325,14 @@ bool py_out_name_expr(
     off = adiff_t(v);
   else
     off = BADADDR;
-  
+
   return op == NULL ? false : out_name_expr(*op, ea, off);
 }
 
 //-------------------------------------------------------------------------
 static PyObject *insn_t_get_op_link(PyObject *py_insn_lnk, int i)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( i < 0 || i >= UA_MAXOP || !PyCObject_Check(py_insn_lnk) )
     Py_RETURN_NONE;
 
@@ -322,18 +346,21 @@ static PyObject *insn_t_get_op_link(PyObject *py_insn_lnk, int i)
 //-------------------------------------------------------------------------
 static PyObject *insn_t_create()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyCObject_FromVoidPtr(new insn_t(), NULL);
 }
 
 //-------------------------------------------------------------------------
 static PyObject *op_t_create()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyCObject_FromVoidPtr(new op_t(), NULL);
 }
 
 //-------------------------------------------------------------------------
 static bool op_t_assign(PyObject *self, PyObject *other)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *lhs = op_t_get_clink(self);
   op_t *rhs = op_t_get_clink(other);
   if (lhs == NULL || rhs == NULL)
@@ -346,6 +373,7 @@ static bool op_t_assign(PyObject *self, PyObject *other)
 //-------------------------------------------------------------------------
 static bool insn_t_assign(PyObject *self, PyObject *other)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *lhs = insn_t_get_clink(self);
   insn_t *rhs = insn_t_get_clink(other);
   if (lhs == NULL || rhs == NULL)
@@ -358,6 +386,7 @@ static bool insn_t_assign(PyObject *self, PyObject *other)
 //-------------------------------------------------------------------------
 static bool op_t_destroy(PyObject *py_obj)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_obj) )
     return false;
 
@@ -370,6 +399,7 @@ static bool op_t_destroy(PyObject *py_obj)
 //-------------------------------------------------------------------------
 static bool insn_t_destroy(PyObject *py_obj)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_obj) )
     return false;
 
@@ -381,13 +411,16 @@ static bool insn_t_destroy(PyObject *py_obj)
 // Returns a C link to the global 'cmd' variable
 static PyObject *py_get_global_cmd_link()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyCObject_FromVoidPtr(&::cmd, NULL);
 }
 
 //-------------------------------------------------------------------------
 static PyObject *insn_t_is_canon_insn(int itype)
 {
-  if ( ph.is_canon_insn(itype) )
+  bool ok = ph.is_canon_insn(itype);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
     Py_RETURN_TRUE;
   else
     Py_RETURN_FALSE;
@@ -396,13 +429,17 @@ static PyObject *insn_t_is_canon_insn(int itype)
 //-------------------------------------------------------------------------
 static PyObject *insn_t_get_canon_feature(int itype)
 {
-  return Py_BuildValue("I", ph.is_canon_insn(itype) ? ph.instruc[itype-ph.instruc_start].feature : 0);
+  uint32 v = ph.is_canon_insn(itype) ? ph.instruc[itype-ph.instruc_start].feature : 0;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return Py_BuildValue("I", v);
 }
 
 //-------------------------------------------------------------------------
 static PyObject *insn_t_get_canon_mnem(int itype)
 {
-  if ( ph.is_canon_insn(itype) )
+  bool ok = ph.is_canon_insn(itype);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( ok )
     return Py_BuildValue("s", ph.instruc[itype-ph.instruc_start].name);
   else
     Py_RETURN_NONE;
@@ -411,6 +448,7 @@ static PyObject *insn_t_get_canon_mnem(int itype)
 //-------------------------------------------------------------------------
 static PyObject *insn_t_get_cs(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -419,10 +457,11 @@ static PyObject *insn_t_get_cs(PyObject *self)
 
 static void insn_t_set_cs(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
-  
+
   uint64 v(0);
   PyW_GetNumber(value, &v);
   link->cs = ea_t(v);
@@ -430,6 +469,7 @@ static void insn_t_set_cs(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_ip(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -438,6 +478,7 @@ static PyObject *insn_t_get_ip(PyObject *self)
 
 static void insn_t_set_ip(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -448,6 +489,7 @@ static void insn_t_set_ip(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_ea(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -456,6 +498,7 @@ static PyObject *insn_t_get_ea(PyObject *self)
 
 static void insn_t_set_ea(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -466,6 +509,7 @@ static void insn_t_set_ea(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_itype(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -474,6 +518,7 @@ static PyObject *insn_t_get_itype(PyObject *self)
 
 static void insn_t_set_itype(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -482,6 +527,7 @@ static void insn_t_set_itype(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_size(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -490,6 +536,7 @@ static PyObject *insn_t_get_size(PyObject *self)
 
 static void insn_t_set_size(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -498,6 +545,7 @@ static void insn_t_set_size(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_auxpref(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -506,6 +554,7 @@ static PyObject *insn_t_get_auxpref(PyObject *self)
 
 static void insn_t_set_auxpref(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -514,6 +563,7 @@ static void insn_t_set_auxpref(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_segpref(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -522,6 +572,7 @@ static PyObject *insn_t_get_segpref(PyObject *self)
 
 static void insn_t_set_segpref(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -530,6 +581,7 @@ static void insn_t_set_segpref(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_insnpref(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -538,6 +590,7 @@ static PyObject *insn_t_get_insnpref(PyObject *self)
 
 static void insn_t_set_insnpref(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -546,6 +599,7 @@ static void insn_t_set_insnpref(PyObject *self, PyObject *value)
 
 static PyObject *insn_t_get_flags(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -554,6 +608,7 @@ static PyObject *insn_t_get_flags(PyObject *self)
 
 static void insn_t_set_flags(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *link = insn_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -563,6 +618,7 @@ static void insn_t_set_flags(PyObject *self, PyObject *value)
 //-------------------------------------------------------------------------
 static PyObject *op_t_get_n(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -579,6 +635,7 @@ static void op_t_set_n(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_type(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -587,6 +644,7 @@ static PyObject *op_t_get_type(PyObject *self)
 
 static void op_t_set_type(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -595,6 +653,7 @@ static void op_t_set_type(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_offb(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -603,6 +662,7 @@ static PyObject *op_t_get_offb(PyObject *self)
 
 static void op_t_set_offb(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -611,6 +671,7 @@ static void op_t_set_offb(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_offo(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -619,6 +680,7 @@ static PyObject *op_t_get_offo(PyObject *self)
 
 static void op_t_set_offo(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -627,6 +689,7 @@ static void op_t_set_offo(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_flags(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -635,6 +698,7 @@ static PyObject *op_t_get_flags(PyObject *self)
 
 static void op_t_set_flags(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -643,6 +707,7 @@ static void op_t_set_flags(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_dtyp(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -651,6 +716,7 @@ static PyObject *op_t_get_dtyp(PyObject *self)
 
 static void op_t_set_dtyp(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -659,6 +725,7 @@ static void op_t_set_dtyp(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_reg_phrase(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -666,6 +733,7 @@ static PyObject *op_t_get_reg_phrase(PyObject *self)
 }
 static void op_t_set_reg_phrase(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -674,6 +742,7 @@ static void op_t_set_reg_phrase(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_value(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -682,6 +751,7 @@ static PyObject *op_t_get_value(PyObject *self)
 
 static void op_t_set_value(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -690,6 +760,7 @@ static void op_t_set_value(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_addr(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -698,6 +769,7 @@ static PyObject *op_t_get_addr(PyObject *self)
 
 static void op_t_set_addr(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -708,6 +780,7 @@ static void op_t_set_addr(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_specval(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -716,6 +789,7 @@ static PyObject *op_t_get_specval(PyObject *self)
 
 static void op_t_set_specval(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -726,6 +800,7 @@ static void op_t_set_specval(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_specflag1(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -734,6 +809,7 @@ static PyObject *op_t_get_specflag1(PyObject *self)
 
 static void op_t_set_specflag1(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -742,6 +818,7 @@ static void op_t_set_specflag1(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_specflag2(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -750,6 +827,7 @@ static PyObject *op_t_get_specflag2(PyObject *self)
 
 static void op_t_set_specflag2(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -758,6 +836,7 @@ static void op_t_set_specflag2(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_specflag3(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -766,6 +845,7 @@ static PyObject *op_t_get_specflag3(PyObject *self)
 
 static void op_t_set_specflag3(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
@@ -774,6 +854,7 @@ static void op_t_set_specflag3(PyObject *self, PyObject *value)
 
 static PyObject *op_t_get_specflag4(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
@@ -782,6 +863,7 @@ static PyObject *op_t_get_specflag4(PyObject *self)
 
 static void op_t_set_specflag4(PyObject *self, PyObject *value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;

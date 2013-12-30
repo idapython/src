@@ -69,10 +69,12 @@
 %ignore netnode::set_close_flag;
 %ignore netnode::reserve_nodes;
 %ignore netnode::validate;
+%ignore netnode::upgrade16;
 %ignore netnode::upgrade;
 %ignore netnode::compress;
 %ignore netnode::inited;
 %ignore netnode::init;
+%ignore netnode::can_write;
 %ignore netnode::flush;
 %ignore netnode::get_linput;
 %ignore netnode::term;

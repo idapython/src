@@ -14,6 +14,12 @@
 
 %clear(char dtyp);
 
+%pythoncode %{
+#<pycode(py_idd_2)>
+NO_PROCESS = 0xFFFFFFFF
+NO_THREAD  = 0
+#</pycode(py_idd_2)>
+%}
 %{
 //<code(py_idd)>
 
@@ -28,6 +34,8 @@ static bool dbg_can_query()
 //-------------------------------------------------------------------------
 static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   PyObject *py_list = PyList_New(areas.size());
   meminfo_vec_t::const_iterator it, it_end(areas.end());
   Py_ssize_t i = 0;
@@ -56,6 +64,8 @@ PyObject *py_appcall(
   PyObject *py_fields,
   PyObject *arg_list)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( !PyList_Check(arg_list) )
     return NULL;
 
@@ -71,11 +81,11 @@ PyObject *py_appcall(
   for ( Py_ssize_t i=0; i<nargs; i++ )
   {
     // Get argument
-    PyObject *py_item = PyList_GetItem(arg_list, i);
+    borref_t py_item(PyList_GetItem(arg_list, i));
     if ( (debug & IDA_DEBUG_APPCALL) != 0 )
     {
       qstring s;
-      PyW_ObjectToString(py_item, &s);
+      PyW_ObjectToString(py_item.o, &s);
       msg("obj[%d]->%s\n", int(i), s.c_str());
     }
     // Convert it
@@ -95,6 +105,10 @@ PyObject *py_appcall(
     return NULL;
   }
 
+  error_t ret;
+  idc_value_t idc_result;
+  Py_BEGIN_ALLOW_THREADS;
+
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
     msg("input variables:\n"
@@ -110,8 +124,7 @@ PyObject *py_appcall(
   }
 
   // Do Appcall
-  idc_value_t idc_result;
-  error_t ret = appcall(
+  ret = appcall(
     func_ea,
     tid,
     (type_t *)type,
@@ -120,16 +133,17 @@ PyObject *py_appcall(
     idc_args.begin(),
     &idc_result);
 
+  Py_END_ALLOW_THREADS;
+
   if ( ret != eOk )
   {
     // An exception was thrown?
     if ( ret == eExecThrow )
     {
       // Convert the result (which is a debug_event) into a Python object
-      PyObject *py_appcall_exc(NULL);
+      ref_t py_appcall_exc;
       idcvar_to_pyvar(idc_result, &py_appcall_exc);
-      PyErr_SetObject(PyExc_OSError, py_appcall_exc);
-      Py_DECREF(py_appcall_exc);
+      PyErr_SetObject(PyExc_OSError, py_appcall_exc.o);
       return NULL;
     }
     // An error in the Appcall? (or an exception but AppCallOptions/DEBEV is not set)
@@ -159,7 +173,7 @@ PyObject *py_appcall(
   for ( Py_ssize_t i=0; i<nargs; i++ )
   {
     // Get argument
-    PyObject *py_item = PyList_GetItem(arg_list, i);
+    borref_t py_item(PyList_GetItem(arg_list, i));
     // We convert arguments but fail only on fatal errors
     // (we ignore failure because of immutable objects)
     if ( idcvar_to_pyvar(idc_args[i], &py_item) == CIP_FAILED )
@@ -169,13 +183,13 @@ PyObject *py_appcall(
     }
   }
   // Convert the result from IDC back to Python
-  PyObject *py_result(NULL);
+  ref_t py_result;
   if ( idcvar_to_pyvar(idc_result, &py_result) <= CIP_IMMUTABLE )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
     return NULL;
   }
-
+  QASSERT(30413, py_result.o->ob_refcnt == 1);
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
     msg("return var:\n"
@@ -184,7 +198,8 @@ PyObject *py_appcall(
     VarPrint(&s, &idc_result);
     msg("%s\n-----------\n", s.c_str());
   }
-  return py_result;
+  py_result.incref();
+  return py_result.o;
 }
 //</code(py_idd)>
 %}
@@ -212,6 +227,8 @@ def dbg_get_registers():
 */
 static PyObject *dbg_get_registers()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( dbg == NULL )
     Py_RETURN_NONE;
 
@@ -270,6 +287,8 @@ def dbg_get_thread_sreg_base(tid, sreg_value):
 */
 static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( !dbg_can_query() || !PyInt_Check(py_tid) || !PyInt_Check(py_sreg_value) )
     Py_RETURN_NONE;
   ea_t answer;
@@ -296,6 +315,8 @@ def dbg_read_memory(ea, sz):
 */
 static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   uint64 ea, sz;
   if ( !dbg_can_query() || !PyW_GetNumber(py_ea, &ea) || !PyW_GetNumber(py_sz, &sz) )
     Py_RETURN_NONE;
@@ -333,6 +354,8 @@ def dbg_write_memory(ea, buffer):
 */
 static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   uint64 ea;
   if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
     Py_RETURN_NONE;
@@ -357,6 +380,8 @@ def dbg_get_name():
 */
 static PyObject *dbg_get_name()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( dbg == NULL )
     Py_RETURN_NONE;
   else
@@ -378,15 +403,19 @@ def dbg_get_memory_info():
 */
 static PyObject *dbg_get_memory_info()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( !dbg_can_query() )
     Py_RETURN_NONE;
 
   // Invalidate memory
+  meminfo_vec_t areas;
+  Py_BEGIN_ALLOW_THREADS;
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, BADADDR);
 
-  meminfo_vec_t areas;
   get_dbg_memory_info(&areas);
+  Py_END_ALLOW_THREADS;
   return meminfo_vec_t_to_py(areas);
 }
 
@@ -611,7 +640,7 @@ class Appcall_callable__(object):
     def __get_size(self):
         if self.__type == None:
             return -1
-        r = _idaapi.get_type_size0(_idaapi.cvar.idati, self.__type)
+        r = _idaapi.calc_type_size(_idaapi.cvar.idati, self.__type)
         if not r:
             return -1
         return r

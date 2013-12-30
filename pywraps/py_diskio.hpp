@@ -5,17 +5,17 @@
 //--------------------------------------------------------------------------
 int idaapi py_enumerate_files_cb(const char *file, void *ud)
 {
-  PyObject *py_file = PyString_FromString(file);
-  PYW_GIL_ENSURE;
-  PyObject *py_ret  = PyObject_CallFunctionObjArgs(
-    (PyObject *)ud, 
-    py_file, 
-    NULL);
-  PYW_GIL_RELEASE;
-  int r = (py_ret == NULL || !PyNumber_Check(py_ret)) ? 1 /* stop enumeration on failure */ : PyInt_AsLong(py_ret);
-  Py_XDECREF(py_file);
-  Py_XDECREF(py_ret);
-  return r;
+  // No need to 'PYW_GIL_GET' here, as this is called synchronously
+  // and from the same thread as the one that executes
+  // 'py_enumerate_files'.
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_file(PyString_FromString(file));
+  newref_t py_ret(
+          PyObject_CallFunctionObjArgs(
+                  (PyObject *)ud,
+                  py_file.o,
+                  NULL));
+  return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
 //</code(py_diskio)>
 
@@ -31,7 +31,7 @@ def enumerate_files(path, fname, callback):
     @param callback: a callable object that takes the filename as
                      its first argument and it returns 0 to continue
                      enumeration or non-zero to stop enumeration.
-    @return: 
+    @return:
         None in case of script errors
         tuple(code, fname) : If the callback returns non-zero
     """
@@ -40,6 +40,8 @@ def enumerate_files(path, fname, callback):
 */
 PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   do
   {
     if ( !PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback) )

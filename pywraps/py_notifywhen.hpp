@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------
 class pywraps_notify_when_t
 {
-  ppyobject_vec_t table[NW_EVENTSCNT];
+  ref_vec_t table[NW_EVENTSCNT];
   qstring err;
   bool in_notify;
   struct notify_when_args_t
@@ -22,6 +22,8 @@ class pywraps_notify_when_t
   //------------------------------------------------------------------------
   static int idaapi idp_callback(void *ud, int event_id, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
     pywraps_notify_when_t *_this = (pywraps_notify_when_t *)ud;
     switch ( event_id )
     {
@@ -60,31 +62,28 @@ class pywraps_notify_when_t
   //------------------------------------------------------------------------
   void register_callback(int slot, PyObject *py_callable)
   {
-    ppyobject_vec_t &tbl = table[slot];
-    ppyobject_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, py_callable);
+    borref_t callable_ref(py_callable);
+    ref_vec_t &tbl = table[slot];
+    ref_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, callable_ref);
 
     // Already added
     if ( it != it_end )
       return;
 
-    // Increment reference
-    Py_INCREF(py_callable);
-
     // Insert the element
-    tbl.push_back(py_callable);
+    tbl.push_back(callable_ref);
   }
 
   //------------------------------------------------------------------------
   void unregister_callback(int slot, PyObject *py_callable)
   {
-    ppyobject_vec_t &tbl = table[slot];
-    ppyobject_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, py_callable);
+    borref_t callable_ref(py_callable);
+    ref_vec_t &tbl = table[slot];
+    ref_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, callable_ref);
+
     // Not found?
     if ( it == it_end )
       return;
-
-    // Decrement reference
-    Py_DECREF(py_callable);
 
     // Delete the element
     tbl.erase(it);
@@ -101,11 +100,11 @@ public:
   bool deinit()
   {
     // Uninstall all objects
-    ppyobject_vec_t::iterator it, it_end;
+    ref_vec_t::iterator it, it_end;
     for ( int slot=0; slot<NW_EVENTSCNT; slot++ )
     {
       for ( it = table[slot].begin(), it_end = table[slot].end(); it!=it_end; ++it )
-        unregister_callback(slot, *it);
+        unregister_callback(slot, it->o);
     }
     // ...and remove the notification
     return unhook_from_notification_point(HT_IDP, idp_callback, this);
@@ -154,6 +153,8 @@ public:
   //------------------------------------------------------------------------
   bool notify_va(int slot, va_list va)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+
     // Sanity bounds check!
     if ( slot < 0 || slot >= NW_EVENTSCNT )
       return false;
@@ -161,42 +162,38 @@ public:
     bool ok = true;
     in_notify = true;
     int old = slot == NW_OPENIDB_SLOT ? va_arg(va, int) : 0;
-    for (ppyobject_vec_t::iterator it = table[slot].begin(), it_end = table[slot].end();
-      it != it_end;
-      ++it)
+
     {
-      // Form the notification code
-      PyObject *py_code = PyInt_FromLong(1 << slot);
-      PyObject *py_result(NULL);
-      switch ( slot )
+      for (ref_vec_t::iterator it = table[slot].begin(), it_end = table[slot].end();
+           it != it_end;
+           ++it)
       {
-      case NW_CLOSEIDB_SLOT:
-      case NW_INITIDA_SLOT:
-      case NW_TERMIDA_SLOT:
+        // Form the notification code
+        newref_t py_code(PyInt_FromLong(1 << slot));
+        ref_t py_result;
+        switch ( slot )
         {
-          PYW_GIL_ENSURE;
-          py_result = PyObject_CallFunctionObjArgs(*it, py_code, NULL);
-          PYW_GIL_RELEASE;
-          break;
+          case NW_CLOSEIDB_SLOT:
+          case NW_INITIDA_SLOT:
+          case NW_TERMIDA_SLOT:
+            {
+              py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, NULL));
+              break;
+            }
+          case NW_OPENIDB_SLOT:
+            {
+              newref_t py_old(PyInt_FromLong(old));
+              py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, py_old.o, NULL));
+            }
+            break;
         }
-      case NW_OPENIDB_SLOT:
+        if ( PyW_GetError(&err) || py_result == NULL )
         {
-          PyObject *py_old = PyInt_FromLong(old);
-          PYW_GIL_ENSURE;
-          py_result = PyObject_CallFunctionObjArgs(*it, py_code, py_old, NULL);
-          PYW_GIL_RELEASE;
-          Py_DECREF(py_old);
+          PyErr_Clear();
+          warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
+          ok = false;
         }
-        break;
       }
-      Py_DECREF(py_code);
-      if ( PyW_GetError(&err) || py_result == NULL )
-      {
-        PyErr_Clear();
-        warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
-        ok = false;
-      }
-      Py_XDECREF(py_result);
     }
     in_notify = false;
 
@@ -211,6 +208,7 @@ public:
       }
       delayed_notify_when_list.qclear();
     }
+
     return ok;
   }
 
@@ -247,6 +245,10 @@ bool pywraps_nw_notify(int slot, ...)
   if ( g_nw == NULL )
     return false;
 
+  // Appears to be called from 'driver_notifywhen.cpp', which
+  // itself is called from possibly non-python code.
+  // I.e., we must acquire the GIL.
+  PYW_GIL_GET;
   va_list va;
   va_start(va, slot);
   bool ok = g_nw->notify_va(slot, va);
@@ -261,11 +263,11 @@ bool pywraps_nw_term()
 {
   if ( g_nw == NULL )
     return true;
-  
+
   // If could not deinitialize then return w/o stopping nw
   if ( !g_nw->deinit() )
     return false;
-  
+
   // Cleanup
   delete g_nw;
   g_nw = NULL;
@@ -296,6 +298,7 @@ def notify_when(when, callback):
 */
 static bool notify_when(int when, PyObject *py_callable)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( g_nw == NULL || !PyCallable_Check(py_callable) )
     return false;
   return g_nw->notify_when(when, py_callable);

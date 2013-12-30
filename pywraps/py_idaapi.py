@@ -18,6 +18,36 @@ import os
 import sys
 import bisect
 import __builtin__
+import imp
+
+def require(modulename):
+    """
+    Load, or reload a module.
+
+    When under heavy development, a user's tool might consist of multiple
+    modules. If those are imported using the standard 'import' mechanism,
+    there is no guarantee that the Python implementation will re-read
+    and re-evaluate the module's Python code. In fact, it usually doesn't.
+    What should be done instead is 'reload()'-ing that module.
+
+    This is a simple helper function that will do just that: In case the
+    module doesn't exist, it 'import's it, and if it does exist,
+    'reload()'s it.
+
+    For more information, see: <http://www.hexblog.com/?p=749>.
+    """
+    if modulename in sys.modules.keys():
+        reload(sys.modules[modulename])
+    else:
+        import importlib
+        import inspect
+        m = importlib.import_module(modulename)
+        frame_obj, filename, line_number, function_name, lines, index = inspect.stack()[1]
+        importer_module = inspect.getmodule(frame_obj)
+        if importer_module is None: # No importer module; called from command line
+            importer_module = sys.modules['__main__']
+        setattr(importer_module, modulename, m)
+        sys.modules[modulename] = m
 
 # -----------------------------------------------------------------------
 
@@ -403,11 +433,7 @@ def IDAPython_ExecScript(script, g):
     if len(scriptpath) and scriptpath not in sys.path:
         sys.path.append(scriptpath)
 
-    # Save the argv, path, I/O and base modules for later cleanup
     argv = sys.argv
-    path = sys.path
-    stdio = [sys.stdin, sys.stdout, sys.stderr]
-    basemodules = sys.modules.copy()
     sys.argv = [ script ]
 
     # Adjust the __file__ path in the globals we pass to the script
@@ -421,18 +447,65 @@ def IDAPython_ExecScript(script, g):
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
         print(PY_COMPILE_ERR)
     finally:
-        # Restore the globals to the state before the script was run
+        # Restore state
         g['__file__'] = old__file__
-
         sys.argv = argv
-        sys.path = path
-        sys.stdin, sys.stdout, sys.stderr = stdio
 
-        # Clean up the modules loaded by the script
-        for module in sys.modules.keys():
-            if not module in basemodules:
-                del sys.modules[module]
+    return PY_COMPILE_ERR
 
+# ------------------------------------------------------------
+def IDAPython_LoadProcMod(script, g):
+    """
+    Load processor module.
+    """
+    pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
+    parent = sys.modules[pname]
+
+    scriptpath, scriptname = os.path.split(script)
+    if len(scriptpath) and scriptpath not in sys.path:
+        sys.path.append(scriptpath)
+
+    procmod_name = os.path.splitext(scriptname)[0]
+    procobj = None
+    fp = None
+    try:
+        fp, pathname, description = imp.find_module(procmod_name)
+        procmod = imp.load_module(procmod_name, fp, pathname, description)
+        if parent:
+            setattr(parent, procmod_name, procmod)
+            # export attrs from parent to processor module
+            parent_attrs = getattr(parent, '__all__',
+                                   (attr for attr in dir(parent) if not attr.startswith('_')))
+            for pa in parent_attrs:
+                setattr(procmod, pa, getattr(parent, pa))
+            # instantiate processor object
+            if getattr(procmod, 'PROCESSOR_ENTRY', None):
+                procobj = procmod.PROCESSOR_ENTRY()
+        PY_COMPILE_ERR = None
+    except Exception as e:
+        PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
+        print(PY_COMPILE_ERR)
+    finally:
+        if fp: fp.close()
+
+    sys.path.remove(scriptpath)
+
+    return (PY_COMPILE_ERR, procobj)
+
+# ------------------------------------------------------------
+def IDAPython_UnLoadProcMod(script, g):
+    """
+    Unload processor module.
+    """
+    pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
+    parent = sys.modules[pname]
+
+    scriptname = os.path.split(script)[1]
+    procmod_name = os.path.splitext(scriptname)[0]
+    if getattr(parent, procmod_name, None):
+        delattr(parent, procmod_name)
+        del sys.modules[procmod_name]
+    PY_COMPILE_ERR = None
     return PY_COMPILE_ERR
 
 # ----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 #<pycode(py_graph)>
-class GraphViewer(object):
+class GraphViewer(CustomIDAMemo):
     """This class wraps the user graphing facility provided by the graph.hpp file"""
     def __init__(self, title, close_open = False):
         """
@@ -51,12 +51,6 @@ class GraphViewer(object):
         It is possible to call Show() again (which will recreate the graph)
         """
         _idaapi.pyg_close(self)
-
-    def Refresh(self):
-        """
-        Refreshes the graph. This causes the OnRefresh() to be called
-        """
-        _idaapi.pyg_refresh(self)
 
     def Show(self):
         """

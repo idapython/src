@@ -110,6 +110,7 @@ private:
   //--------------------------------------------------------------------------
   void _from_cobject(PyObject *pycobject)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     this->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
   }
 
@@ -133,6 +134,7 @@ public:
   //--------------------------------------------------------------------------
   loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( pycobject != NULL && PyCObject_Check(pycobject) )
       _from_cobject(pycobject);
   }
@@ -143,11 +145,13 @@ public:
     if ( li == NULL )
       return;
 
+    PYW_GIL_GET;
+    Py_BEGIN_ALLOW_THREADS;
     if ( own == OWN_CREATE )
       close_linput(li);
     else if ( own == OWN_FROM_FP )
       unmake_linput(li);
-
+    Py_END_ALLOW_THREADS;
     li = NULL;
     own = OWN_NONE;
   }
@@ -162,14 +166,17 @@ public:
   bool open(const char *filename, bool remote = false)
   {
     close();
+    PYW_GIL_GET;
+    Py_BEGIN_ALLOW_THREADS;
     li = open_linput(filename, remote);
-    if ( li == NULL )
-      return false;
-
-    // Save file name
-    fn = filename;
-    own = OWN_CREATE;
-    return true;
+    if ( li != NULL )
+    {
+      // Save file name
+      fn = filename;
+      own = OWN_CREATE;
+    }
+    Py_END_ALLOW_THREADS;
+    return li != NULL;
   }
 
   //--------------------------------------------------------------------------
@@ -193,6 +200,7 @@ public:
   // This method can be used to pass a linput_t* from C code
   static loader_input_t *from_cobject(PyObject *pycobject)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !PyCObject_Check(pycobject) )
       return NULL;
     loader_input_t *l = new loader_input_t();
@@ -203,14 +211,18 @@ public:
   //--------------------------------------------------------------------------
   static loader_input_t *from_fp(FILE *fp)
   {
+    PYW_GIL_GET;
+    loader_input_t *l = NULL;
+    Py_BEGIN_ALLOW_THREADS;
     linput_t *fp_li = make_linput(fp);
-    if ( fp_li == NULL )
-      return NULL;
-
-    loader_input_t *l = new loader_input_t();
-    l->own = OWN_FROM_FP;
-    l->fn.sprnt("<FILE * %p>", fp);
-    l->li = fp_li;
+    if ( fp_li != NULL )
+    {
+      l = new loader_input_t();
+      l->own = OWN_FROM_FP;
+      l->fn.sprnt("<FILE * %p>", fp);
+      l->li = fp_li;
+    }
+    Py_END_ALLOW_THREADS;
     return l;
   }
 
@@ -223,37 +235,55 @@ public:
   //--------------------------------------------------------------------------
   bool open_memory(ea_t start, asize_t size = 0)
   {
-    linput_t *l = create_memory_linput(start, size);
-    if ( l == NULL )
-      return false;
-    close();
-    li = l;
-    fn = "<memory>";
-    own = OWN_CREATE;
-    return true;
+    PYW_GIL_GET;
+    linput_t *l;
+    Py_BEGIN_ALLOW_THREADS;
+    l = create_memory_linput(start, size);
+    if ( l != NULL )
+    {
+      close();
+      li = l;
+      fn = "<memory>";
+      own = OWN_CREATE;
+    }
+    Py_END_ALLOW_THREADS;
+    return l != NULL;
   }
 
   //--------------------------------------------------------------------------
   int32 seek(int32 pos, int whence = SEEK_SET)
   {
-    return qlseek(li, pos, whence);
+    int32 r;
+    PYW_GIL_GET;
+    Py_BEGIN_ALLOW_THREADS;
+    r = qlseek(li, pos, whence);
+    Py_END_ALLOW_THREADS;
+    return r;
   }
 
   //--------------------------------------------------------------------------
   int32 tell()
   {
-    return qltell(li);
+    int32 r;
+    PYW_GIL_GET;
+    Py_BEGIN_ALLOW_THREADS;
+    r = qltell(li);
+    Py_END_ALLOW_THREADS;
+    return r;
   }
 
   //--------------------------------------------------------------------------
   PyObject *getz(size_t sz, int32 fpos = -1)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     do
     {
       char *buf = (char *) malloc(sz + 5);
       if ( buf == NULL )
         break;
+      Py_BEGIN_ALLOW_THREADS;
       qlgetz(li, fpos, buf, sz);
+      Py_END_ALLOW_THREADS;
       PyObject *ret = PyString_FromString(buf);
       free(buf);
       return ret;
@@ -264,12 +294,17 @@ public:
   //--------------------------------------------------------------------------
   PyObject *gets(size_t len)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     do
     {
       char *buf = (char *) malloc(len + 5);
       if ( buf == NULL )
         break;
-      if ( qlgets(buf, len, li) == NULL )
+      bool ok;
+      Py_BEGIN_ALLOW_THREADS;
+      ok = qlgets(buf, len, li) != NULL;
+      Py_END_ALLOW_THREADS;
+      if ( !ok )
       {
         free(buf);
         break;
@@ -284,12 +319,16 @@ public:
   //--------------------------------------------------------------------------
   PyObject *read(size_t size)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     do
     {
       char *buf = (char *) malloc(size + 5);
       if ( buf == NULL )
         break;
-      ssize_t r = qlread(li, buf, size);
+      ssize_t r;
+      Py_BEGIN_ALLOW_THREADS;
+      r = qlread(li, buf, size);
+      Py_END_ALLOW_THREADS;
       if ( r == -1 )
       {
         free(buf);
@@ -311,12 +350,16 @@ public:
   //--------------------------------------------------------------------------
   PyObject *readbytes(size_t size, bool big_endian)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     do
     {
       char *buf = (char *) malloc(size + 5);
       if ( buf == NULL )
         break;
-      int r = lreadbytes(li, buf, size, big_endian);
+      int r;
+      Py_BEGIN_ALLOW_THREADS;
+      r = lreadbytes(li, buf, size, big_endian);
+      Py_END_ALLOW_THREADS;
       if ( r == -1 )
       {
         free(buf);
@@ -332,25 +375,38 @@ public:
   //--------------------------------------------------------------------------
   int file2base(int32 pos, ea_t ea1, ea_t ea2, int patchable)
   {
-    return ::file2base(li, pos, ea1, ea2, patchable);
+    int rc;
+    Py_BEGIN_ALLOW_THREADS;
+    rc = ::file2base(li, pos, ea1, ea2, patchable);
+    Py_END_ALLOW_THREADS;
+    return rc;
   }
 
   //--------------------------------------------------------------------------
   int32 size()
   {
-    return qlsize(li);
+    int32 rc;
+    Py_BEGIN_ALLOW_THREADS;
+    rc = qlsize(li);
+    Py_END_ALLOW_THREADS;
+    return rc;
   }
 
   //--------------------------------------------------------------------------
   PyObject *filename()
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyString_FromString(fn.c_str());
   }
 
   //--------------------------------------------------------------------------
   PyObject *get_char()
   {
-    int ch = qlgetc(li);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    int ch;
+    Py_BEGIN_ALLOW_THREADS;
+    ch = qlgetc(li);
+    Py_END_ALLOW_THREADS;
     if ( ch == EOF )
       Py_RETURN_NONE;
     return Py_BuildValue("c", ch);

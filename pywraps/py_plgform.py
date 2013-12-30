@@ -59,6 +59,19 @@ class PluginForm(object):
 
         @param ctx: Context. Reference to a module that already imported QtGui module
         """
+        if form is None:
+            return None
+        if type(form).__name__ == "SwigPyObject":
+            # Since 'form' is a SwigPyObject, we first need to convert it to a PyCObject.
+            # However, there's no easy way of doing it, so we'll use a rather brutal approach:
+            # converting the SwigPyObject to a 'long' (will go through 'SwigPyObject_long',
+            # that will return the pointer's value as a long), and then convert that value
+            # back to a pointer into a PyCObject.
+            ptr_l = long(form)
+            from ctypes import pythonapi, c_void_p, py_object
+            pythonapi.PyCObject_FromVoidPtr.restype  = py_object
+            pythonapi.PyCObject_AsVoidPtr.argtypes = [c_void_p, c_void_p]
+            form = pythonapi.PyCObject_FromVoidPtr(ptr_l, 0)
         return ctx.QtGui.QWidget.FromCObject(form)
 
 
@@ -89,7 +102,7 @@ class PluginForm(object):
 
         @return: None
         """
-        return _idaapi.plgform_close(self.__clink__)
+        return _idaapi.plgform_close(self.__clink__, options)
 
     FORM_SAVE           = 0x1
     """Save state in desktop config"""

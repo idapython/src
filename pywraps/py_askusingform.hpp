@@ -142,6 +142,7 @@ static PyObject *formchgcbfa_get_field_value(
     size_t sz)
 {
   DECLARE_FORM_ACTIONS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   switch ( ft )
   {
     case 8:
@@ -213,7 +214,9 @@ static PyObject *formchgcbfa_get_field_value(
         for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
           (*it)--;
 
-        return PyW_IntVecToPyList(intvec);
+        ref_t l(PyW_IntVecToPyList(intvec));
+        l.incref();
+        return l.o;
       }
       break;
     }
@@ -276,6 +279,7 @@ static bool formchgcbfa_set_field_value(
   PyObject *py_val)
 {
   DECLARE_FORM_ACTIONS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
 
   switch ( ft )
   {

@@ -85,10 +85,12 @@ static void idaapi s_py_get_user_defined_prefix(
   char *buf,
   size_t bufsize)
 {
-  PyObject *py_ret = PyObject_CallFunction(
-    py_get_user_defined_prefix,
-    PY_FMT64 "iis" PY_FMT64,
-    ea, lnnum, indent, line, bufsize);
+  PYW_GIL_GET;
+  newref_t py_ret(
+          PyObject_CallFunction(
+                  py_get_user_defined_prefix,
+                  PY_FMT64 "iis" PY_FMT64,
+                  ea, lnnum, indent, line, bufsize));
 
   // Error? Display it
   // No error? Copy the buffer
@@ -96,14 +98,13 @@ static void idaapi s_py_get_user_defined_prefix(
   {
     Py_ssize_t py_len;
     char *py_str;
-    if ( PyString_AsStringAndSize(py_ret, &py_str, &py_len) != -1 )
+    if ( PyString_AsStringAndSize(py_ret.o, &py_str, &py_len) != -1 )
     {
       memcpy(buf, py_str, qmin(bufsize, py_len));
       if ( py_len < bufsize )
         buf[py_len] = '\0';
     }
   }
-  Py_XDECREF(py_ret);
 }
 //</code(py_lines)>
 %}
@@ -138,6 +139,7 @@ def set_user_defined_prefix(width, callback):
 */
 static PyObject *py_set_user_defined_prefix(size_t width, PyObject *pycb)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( width == 0 || pycb == Py_None )
   {
     // Release old callback reference
@@ -183,6 +185,7 @@ def tag_remove(colstr):
 */
 PyObject *py_tag_remove(const char *instr)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   size_t sz = strlen(instr);
   char *buf = new char[sz + 5];
   if ( buf == NULL )
@@ -208,6 +211,7 @@ PyObject *py_tag_addr(ea_t ea)
 {
   char buf[100];
   tag_addr(buf, buf + sizeof(buf), ea);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyString_FromString(buf);
 }
 
@@ -253,6 +257,7 @@ PyObject *py_generate_disassembly(
   bool as_stack,
   bool notags)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( max_lines <= 0 )
     Py_RETURN_NONE;
 
@@ -261,7 +266,7 @@ PyObject *py_generate_disassembly(
   int lnnum;
   int nlines = generate_disassembly(ea, lines, max_lines, &lnnum, as_stack);
 
-  PyObject *py_tuple = PyTuple_New(nlines);
+  newref_t py_tuple(PyTuple_New(nlines));
   for ( int i=0; i<nlines; i++ )
   {
     const char *s = lines[i];
@@ -272,13 +277,11 @@ PyObject *py_generate_disassembly(
       tag_remove(s, &qbuf[0], line_len);
       s = (const char *)&qbuf[0];
     }
-    PyTuple_SetItem(py_tuple, i, PyString_FromString(s));
+    PyTuple_SetItem(py_tuple.o, i, PyString_FromString(s));
     qfree(lines[i]);
   }
   delete [] lines;
-  PyObject *py_result = Py_BuildValue("(iO)", lnnum, py_tuple);
-  Py_DECREF(py_tuple);
-  return py_result;
+  return Py_BuildValue("(iO)", lnnum, py_tuple.o);
 }
 //</inline(py_lines)>
 

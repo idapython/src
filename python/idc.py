@@ -260,6 +260,9 @@ NEF_FLAT   = idaapi.NEF_FLAT   # Autocreated FLAT group (PE)
 def IsString(var): raise NotImplementedError, "this function is not needed in Python"
 def IsLong(var):   raise NotImplementedError, "this function is not needed in Python"
 def IsFloat(var):  raise NotImplementedError, "this function is not needed in Python"
+def IsFunc(var):   raise NotImplementedError, "this function is not needed in Python"
+def IsPvoid(var):  raise NotImplementedError, "this function is not needed in Python"
+def IsInt64(var):  raise NotImplementedError, "this function is not needed in Python"
 
 def MK_FP(seg, off):
     """
@@ -1159,7 +1162,11 @@ REFINFO_NOBASE  = 0x80 # offset base is a number
                        # that base have be any value
                        # nb: base xrefs are created only if base
                        # points to the middle of a segment
-
+REFINFO_SUBTRACT = 0x0100 # the reference value is subtracted from
+                          # the base value instead of (as usual)
+                          # being added to it
+REFINFO_SIGNEDOP = 0x0200 # the operand value is sign-extended (only
+                          # supported for REF_OFF8/16/32/64)
 
 def OpSeg(ea, n):
     """
@@ -1865,24 +1872,28 @@ def Qword(ea):
 def GetFloat(ea):
     """
     Get value of a floating point number (4 bytes)
-
+    This function assumes number stored using IEEE format
+    and in the same endianness as integers.
+    
     @param ea: linear address
 
     @return: float
     """
-    tmp = idaapi.get_many_bytes(ea, 4)
+    tmp = struct.pack("I", Dword(ea))
     return struct.unpack("f", tmp)[0]
 
 
 def GetDouble(ea):
     """
     Get value of a floating point number (8 bytes)
+    This function assumes number stored using IEEE format
+    and in the same endianness as integers.
 
     @param ea: linear address
 
     @return: double
     """
-    tmp = idaapi.get_many_bytes(ea, 8)
+    tmp = struct.pack("Q", Qword(ea))
     return struct.unpack("d", tmp)[0]
 
 
@@ -2165,23 +2176,46 @@ def Demangle(name, disable_mask):
     return idaapi.demangle_name(name, disable_mask)
 
 
+def GetDisasmEx(ea, flags):
+    """
+    Get disassembly line
+
+    @param ea: linear address of instruction
+
+    @param flags: combination of the GENDSM_ flags, or 0
+
+    @return: "" - could not decode instruction at the specified location
+
+    @note: this function may not return exactly the same mnemonics
+           as you see on the screen.
+    """
+    text = idaapi.generate_disasm_line(ea, flags)
+    if text:
+        return idaapi.tag_remove(text)
+    else:
+        return ""
+
+# flags for GetDisasmEx
+# generate a disassembly line as if
+# there is an instruction at 'ea'
+GENDSM_FORCE_CODE = idaapi.GENDSM_FORCE_CODE
+
+# if the instruction consists of several lines,
+# produce all of them (useful for parallel instructions)
+GENDSM_MULTI_LINE = idaapi.GENDSM_MULTI_LINE
+
 def GetDisasm(ea):
     """
     Get disassembly line
 
     @param ea: linear address of instruction
 
-    @return: "" - no instruction at the specified location
+    @return: "" - could not decode instruction at the specified location
 
     @note: this function may not return exactly the same mnemonics
            as you see on the screen.
     """
-    text = idaapi.generate_disasm_line(ea)
-    if text:
-        return idaapi.tag_remove(text)
-    else:
-        return ""
-
+    return GetDisasmEx(ea, 0)
 
 def GetMnem(ea):
     """
@@ -2475,9 +2509,9 @@ def ChangeConfig(directive):
     @param directive: directives to process, for example: PACK_DATABASE=2
 
     @note: If the directives are erroneous, a fatal error will be generated.
-           The changes will be effective only for the current session.
+           The settings are permanent: effective for the current session and the next ones
     """
-    return Eval('ChangeConfig("%s")' % directive)
+    return Eval('ChangeConfig("%s")' % idaapi.str2user(directive))
 
 
 # The following functions allow you to set/get common parameters.
@@ -3279,7 +3313,7 @@ def SegName(ea):
             return name
 
 
-def AddSeg(startea, endea, base, use32, align, comb):
+def AddSegEx(startea, endea, base, use32, align, comb, flags):
     """
     Create a new segment
 
@@ -3294,6 +3328,7 @@ def AddSeg(startea, endea, base, use32, align, comb):
     @param use32: 0: 16bit segment, 1: 32bit segment, 2: 64bit segment
     @param align: segment alignment. see below for alignment values
     @param comb: segment combination. see below for combination values.
+    @param flags: combination of ADDSEG_... bits
 
     @return: 0-failed, 1-ok
     """
@@ -3304,8 +3339,27 @@ def AddSeg(startea, endea, base, use32, align, comb):
     s.bitness     = use32
     s.align       = align
     s.comb        = comb
-    return idaapi.add_segm_ex(s, "", "", idaapi.ADDSEG_NOSREG)
+    return idaapi.add_segm_ex(s, "", "", flags)
 
+ADDSEG_NOSREG  = idaapi.ADDSEG_NOSREG  # set all default segment register values
+                                       # to BADSELs
+                                       # (undefine all default segment registers)
+ADDSEG_OR_DIE  = idaapi. ADDSEG_OR_DIE # qexit() if can't add a segment
+ADDSEG_NOTRUNC = idaapi.ADDSEG_NOTRUNC # don't truncate the new segment at the beginning
+                                       # of the next segment if they overlap.
+                                       # destroy/truncate old segments instead.
+ADDSEG_QUIET   = idaapi.ADDSEG_QUIET   # silent mode, no "Adding segment..." in the messages window
+ADDSEG_FILLGAP = idaapi.ADDSEG_FILLGAP # If there is a gap between the new segment
+                                       # and the previous one, and this gap is less
+                                       # than 64K, then fill the gap by extending the
+                                       # previous segment and adding .align directive
+                                       # to it. This way we avoid gaps between segments.
+                                       # Too many gaps lead to a virtual array failure.
+                                       # It can not hold more than ~1000 gaps.
+ADDSEG_SPARSE  = idaapi.ADDSEG_SPARSE  # Use sparse storage method for the new segment
+
+def AddSeg(startea, endea, base, use32, align, comb):
+    return AddSegEx(startea, endea, base, use32, align, comb, ADDSEG_NOSREG)
 
 def DelSeg(ea, flags):
     """
@@ -3889,7 +3943,7 @@ def SaveFile(filepath, pos, ea, size):
 
     @return: 0 - error, 1 - ok
     """
-    of = idaapi.fopenWB(filepath)
+    of = idaapi.fopenM(filepath)
 
     if of:
         retval = idaapi.base2file(of, pos, ea, ea+size)
@@ -5369,10 +5423,10 @@ def AddStrucMember(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0,
 
     """
     if isOff0(flag):
-        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes,
+        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, idaapi.str2user(name), offset, flag, typeid, nbytes,
                                                                                target, tdelta, reftype))
     else:
-        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d);' % (sid, name, offset, flag, typeid, nbytes))
+        return Eval('AddStrucMember(%d, "%s", %d, %d, %d, %d);' % (sid, idaapi.str2user(name), offset, flag, typeid, nbytes))
 
 
 STRUC_ERROR_MEMBER_NAME    = -1 # already has member with this name (bad name)
@@ -6799,10 +6853,10 @@ def GetType(ea):
 def SizeOf(typestr):
     """
     Returns the size of the type. It is equivalent to IDC's sizeof().
-    Use name, tp, fld = idc.ParseType() ; Sizeof(fld) to retrieve the size
+    Use name, tp, fld = idc.ParseType() ; SizeOf(tp) to retrieve the size
     @return: -1 if typestring is not valid otherwise the size of the type
     """
-    return idaapi.get_type_size0(idaapi.cvar.idati, typestr)
+    return idaapi.calc_type_size(idaapi.cvar.idati, typestr)
 
 def GetTinfo(ea):
     """
@@ -6812,6 +6866,15 @@ def GetTinfo(ea):
     @return: None on failure, or (type, fields) tuple.
     """
     return idaapi.idc_get_type_raw(ea)
+
+def GetLocalTinfo(ordinal):
+    """
+    Get local type information as 'typeinfo' object
+
+    @param ordinal:  slot number (1...NumberOfLocalTypes)
+    @return: None on failure, or (type, fields, name) tuple.
+    """
+    return idaapi.idc_get_local_type_raw(ordinal)
 
 def GuessType(ea):
     """
@@ -6823,6 +6886,37 @@ def GuessType(ea):
     """
     return idaapi.idc_guess_type(ea)
 
+TINFO_GUESSED   = 0x0000 # this is a guessed type
+TINFO_DEFINITE  = 0x0001 # this is a definite type
+TINFO_DELAYFUNC = 0x0002 # if type is a function and no function exists at ea,
+                         # schedule its creation and argument renaming to
+                         # auto-analysis otherwise try to create it immediately
+
+def ApplyType(ea, py_type, flags = TINFO_DEFINITE):
+    """
+    Apply the specified type to the address
+
+    @param ti: Type info. 'idaapi.cvar.idati' can be passed.
+    @param py_type: typeinfo tuple (type, fields) as GetTinfo() returns
+                 or tuple (name, type, fields) as ParseType() returns
+                 or None
+                if specified as None, then the
+                item associated with 'ea' will be deleted.
+    @param ea: the address of the object
+    @param flags: combination of TINFO_... constants or 0
+    @return: Boolean
+    """
+
+    if py_type != None:
+        if len(py_type) == 3:
+          pt = py_type[1:]      # skip name component
+        else:
+          pt = py_type
+        return idaapi.apply_type(idaapi.cvar.idati, pt[0], pt[1], ea, flags)
+    if idaapi.has_ti(ea):
+        idaapi.del_tinfo(ea)
+        return True
+    return False
 
 def SetType(ea, newtype):
     """
@@ -6837,11 +6931,10 @@ def SetType(ea, newtype):
     @return: 1-ok, 0-failed.
     """
     if newtype is not '':
-        return idaapi.apply_cdecl2(idaapi.cvar.idati, ea, newtype)
-    if idaapi.has_ti(ea):
-        idaapi.del_tinfo(ea)
-        return True
-    return False
+        pt = ParseType(newtype, 0)[1:]
+    else:
+        pt = None
+    return ApplyType(ea, pt, TINFO_DEFINITE)
 
 def ParseType(inputtype, flags):
     """
@@ -6852,6 +6945,8 @@ def ParseType(inputtype, flags):
 
     @return: None on failure or (name, type, fields) tuple
     """
+    if len(inputtype) != 0 and inputtype[-1] != ';':
+        inputtype = inputtype + ';'
     return idaapi.idc_parse_decl(idaapi.cvar.idati, inputtype, flags)
 
 def ParseTypes(inputtype, flags = 0):
@@ -6874,6 +6969,9 @@ PT_PAK2 =   0x0020  # #pragma pack(2)
 PT_PAK4 =   0x0030  # #pragma pack(4)
 PT_PAK8 =   0x0040  # #pragma pack(8)
 PT_PAK16 =  0x0050  # #pragma pack(16)
+PT_HIGH  =  0x0080  # assume high level prototypes
+                    # (with hidden args, etc)
+PT_LOWER =  0x0100  # lower the function prototypes
 
 
 def GetMaxLocalType():
@@ -6903,17 +7001,14 @@ def SetLocalType(ordinal, input, flags):
 def GetLocalType(ordinal, flags):
     """
     Retrieve a local type declaration
-
-    @param ordinal:  slot number (1...NumberOfLocalTypes)
     @param flags: any of PRTYPE_* constants
-
     @return: local type as a C declaration or ""
-
-    @note: This function can return types strings up to 64KiB. Use idaapi.idc_get_local_type()
-           for larger types.
     """
-    res,str = idaapi.idc_get_local_type(ordinal, flags, 2**16)
-    return str
+    (type, fields) = GetLocalTinfo(ordinal)
+    if type:
+      name = GetLocalTypeName(ordinal)
+      return idaapi.idc_print_type(type, fields, name, flags)
+    return ""
 
 PRTYPE_1LINE  = 0x0000 # print to one line
 PRTYPE_MULTI  = 0x0001 # print to many lines
@@ -7313,7 +7408,7 @@ def SendDbgCommand(cmd):
     An exception will be raised if the debugger is not running or the current debugger does not export
     the 'SendDbgCommand' IDC command.
     """
-    s = Eval('SendDbgCommand("%s");' % cmd)
+    s = Eval('SendDbgCommand("%s");' % idaapi.str2user(cmd))
     if s.startswith("IDC_FAILURE"):
         raise Exception, "Debugger command is available only when the debugger is active!"
     return s
@@ -7806,10 +7901,11 @@ BPTATTR_SIZE  =  2   # size of the breakpoint (undefined for software breakpoint
 BPTATTR_TYPE  =  3
 
 # Breakpoint types:
-BPT_EXEC    = 0    # Hardware: Execute instruction
-BPT_WRITE   = 1    # Hardware: Write access
-BPT_RDWR    = 3    # Hardware: Read/write access
-BPT_SOFT    = 4    # Software breakpoint
+BPT_WRITE    = 1                     # Hardware: Write access
+BPT_RDWR     = 3                     # Hardware: Read/write access
+BPT_SOFT     = 4                     # Software breakpoint
+BPT_EXEC     = 8                     # Hardware: Execute instruction
+BPT_DEFAULT  = (BPT_SOFT|BPT_EXEC);  # Choose bpt type automaticaly
 
 BPTATTR_COUNT  =  4
 BPTATTR_FLAGS  =  5
@@ -7921,7 +8017,7 @@ def AddBptEx(ea, size, bpttype):
 
 
 def AddBpt(ea):
-    return AddBptEx(ea, 0, BPT_SOFT)
+    return AddBptEx(ea, 0, BPT_DEFAULT)
 
 
 def DelBpt(ea):
@@ -8019,12 +8115,13 @@ def LoadTraceFile(filename):
     Load a previously recorded binary trace file
     @param filename: trace file
     """
-    return idaapi.load_trace_file(filename, None)
+    return idaapi.load_trace_file(filename)
 
 def SaveTraceFile(filename, description):
     """
     Save current trace to a binary trace file
     @param filename: trace file
+    @param description: trace description
     """
     return idaapi.save_trace_file(filename, description)
 

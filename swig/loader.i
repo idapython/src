@@ -68,6 +68,7 @@
 %ignore IDP_DESC_START;
 %ignore IDP_DESC_END;
 %ignore get_idp_desc;
+%ignore get_idp_descs;
 %ignore init_fileregions;
 %ignore term_fileregions;
 %ignore save_fileregions;
@@ -108,6 +109,8 @@
 %ignore is_in_loader;
 %ignore get_ids_filename;
 %ignore is_embedded_dbfile_ext;
+%ignore cpp_namespaces;
+%ignore max_trusted_idb_count;
 
 %ignore mem2base;
 %rename (mem2base) py_mem2base;
@@ -147,8 +150,11 @@ static int py_mem2base(PyObject *py_mem, ea_t ea, long fpos = -1)
 {
   Py_ssize_t len;
   char *buf;
-  if ( PyString_AsStringAndSize(py_mem, &buf, &len) == -1 )
-    return 0;
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    if ( PyString_AsStringAndSize(py_mem, &buf, &len) == -1 )
+      return 0;
+  }
 
   return mem2base((void *)buf, ea, ea+len, fpos);
 }
@@ -169,6 +175,7 @@ def load_plugin(name):
 static PyObject *py_load_plugin(const char *name)
 {
   plugin_t *r = load_plugin(name);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( r == NULL )
     Py_RETURN_NONE;
   else
@@ -189,10 +196,20 @@ def run_plugin(plg):
 */
 static bool py_run_plugin(PyObject *plg, int arg)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(plg) )
+  {
     return false;
+  }
   else
-    return run_plugin((plugin_t *)PyCObject_AsVoidPtr(plg), arg);
+  {
+    plugin_t *p = (plugin_t *)PyCObject_AsVoidPtr(plg);
+    bool rc;
+    Py_BEGIN_ALLOW_THREADS;
+    rc = run_plugin(p, arg);
+    Py_END_ALLOW_THREADS;
+    return rc;
+  }
 }
 
 //</inline(py_loader)>

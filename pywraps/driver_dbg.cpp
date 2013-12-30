@@ -58,7 +58,8 @@ static PyObject *ex_pytoidc(
     return NULL;
   idc_value_t v;
   int sn = 0;
-  if ( pyvar_to_idcvar(self, &v, &sn) < CIP_OK )
+  borref_t self_ref(self);
+  if ( pyvar_to_idcvar(self_ref, &v, &sn) < CIP_OK )
     Py_RETURN_NONE;
   Py_RETURN_TRUE;
 }

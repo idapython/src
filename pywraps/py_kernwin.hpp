@@ -24,6 +24,8 @@ def register_timer(interval, callback):
 */
 static PyObject *py_register_timer(int interval, PyObject *py_callback)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( py_callback == NULL || !PyCallable_Check(py_callback) )
     Py_RETURN_NONE;
 
@@ -32,17 +34,15 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
   {
     static int idaapi callback(void *ud)
     {
+      PYW_GIL_GET;
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(ctx->pycallback, NULL);
-      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pycallback, NULL));
+      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result.o);
 
       // Timer has been unregistered?
       if ( ret == -1 )
       {
-        // Fee the context
+        // Free the context
         Py_DECREF(ctx->pycallback);
         delete ctx;
       }
@@ -83,6 +83,8 @@ def unregister_timer(timer_obj):
 */
 static PyObject *py_unregister_timer(PyObject *py_timerctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( py_timerctx == NULL || !PyCObject_Check(py_timerctx) )
     Py_RETURN_FALSE;
 
@@ -111,6 +113,7 @@ def choose_idasgn():
 static PyObject *py_choose_idasgn()
 {
   char *name = choose_idasgn();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( name == NULL )
   {
     Py_RETURN_NONE;
@@ -140,6 +143,7 @@ static PyObject *py_get_highlighted_identifier(int flags = 0)
 {
   char buf[MAXSTR];
   bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !ok )
     Py_RETURN_NONE;
   else
@@ -157,6 +161,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
 {
   Py_ssize_t len;
   char *s;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( PyString_AsStringAndSize(data, &s, &len) == -1 )
     return 0;
   else
@@ -191,6 +196,7 @@ def asktext(max_text, defval, prompt):
 */
 PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( max_text <= 0 )
     Py_RETURN_NONE;
 
@@ -234,6 +240,26 @@ ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
+def str2user(str):
+    """
+    Insert C-style escape characters to string
+
+    @return: new string with escape characters inserted
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_str2user(const char *str)
+{
+  qstring qstr(str);
+  qstring retstr;
+  qstr2user(&retstr, qstr);
+  return PyString_FromString(retstr.c_str());
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
 def process_ui_action(name, flags):
     """
     Invokes an IDA UI action by name
@@ -265,6 +291,7 @@ def del_menu_item(menu_ctx):
 */
 static bool py_del_menu_item(PyObject *py_ctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_ctx) )
     return false;
 
@@ -297,6 +324,7 @@ def del_hotkey(ctx):
 */
 bool py_del_hotkey(PyObject *pyctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(pyctx) )
     return false;
 
@@ -327,6 +355,7 @@ def add_hotkey(hotkey, pyfunc):
 */
 PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   // Make sure a callable was passed
   if ( !PyCallable_Check(pyfunc) )
     return NULL;
@@ -414,6 +443,7 @@ static PyObject *py_add_menu_item(
   PyObject *pyfunc,
   PyObject *args)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   bool no_args;
 
   // No slash in the menu path?
@@ -512,55 +542,55 @@ def execute_sync(callable, reqf):
 //------------------------------------------------------------------------
 static int py_execute_sync(PyObject *py_callable, int reqf)
 {
-  // Not callable?
-  if ( !PyCallable_Check(py_callable) )
-    return -1;
-
-  struct py_exec_request_t: exec_request_t
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  int rc = -1;
+  // Callable?
+  if ( PyCallable_Check(py_callable) )
   {
-    PyObject *py_callable;
-    bool no_wait;
-    virtual int idaapi execute()
+    struct py_exec_request_t : exec_request_t
     {
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      ref_t py_callable;
+      virtual int idaapi execute()
+      {
+        PYW_GIL_GET;
+        newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
+        int ret = py_result == NULL || !PyInt_Check(py_result.o)
+                ? -1
+                : PyInt_AsLong(py_result.o);
+        // if the requesting thread decided not to wait for the request to
+        // complete, we have to self-destroy, nobody else will do it
+        if ( (code & MFF_NOWAIT) != 0 )
+          delete this;
+        return ret;
+      }
+      py_exec_request_t(PyObject *pyc)
+      {
+        // No need to GIL-ensure here, since this is created
+        // within the py_execute_sync() scope.
+        py_callable = borref_t(pyc);
+      }
+      virtual ~py_exec_request_t()
+      {
+        // Need to GIL-ensure here, since this might be called
+        // from the main thread.
+        PYW_GIL_GET;
+        py_callable = ref_t(); // Release callable
+      }
+    };
+    py_exec_request_t *req = new py_exec_request_t(py_callable);
 
-      // Free this request
-      if ( no_wait )
-        delete this;
-
-      return r;
-    }
-    py_exec_request_t(PyObject *pyc, bool no_wait):
-            py_callable(pyc), no_wait(no_wait)
-    {
-      // Take reference to the callable
-      Py_INCREF(py_callable);
-    }
-    virtual ~py_exec_request_t()
-    {
-      // Release callable
-      Py_XDECREF(py_callable);
-    }
-  };
-
-  bool no_wait = (reqf & MFF_NOWAIT) != 0;
-
-  // Allocate a request
-  py_exec_request_t *req = new py_exec_request_t(py_callable, no_wait);
-
-  // Execute it
-  int r = execute_sync(*req, reqf);
-
-  // Delete only if NOWAIT was not specified
-  // (Otherwise the request will delete itself)
-  if ( !no_wait )
-    delete req;
-
-  return r;
+    // Release GIL before executing, or if this is running in the
+    // non-main thread, this will wait on the req.sem, while the main
+    // thread might be waiting for the GIL to be available.
+    Py_BEGIN_ALLOW_THREADS;
+    rc = execute_sync(*req, reqf);
+    Py_END_ALLOW_THREADS;
+    // destroy the request once it is finished. exception: NOWAIT requests
+    // will be handled in the future, so do not destroy them yet!
+    if ( (reqf & MFF_NOWAIT) == 0 )
+      delete req;
+  }
+  return rc;
 }
 
 //------------------------------------------------------------------------
@@ -585,23 +615,22 @@ static bool py_execute_ui_requests(PyObject *py_list)
   struct py_ui_request_t: public ui_request_t
   {
   private:
-    ppyobject_vec_t py_callables;
+    ref_vec_t py_callables;
     size_t py_callable_idx;
 
     static int idaapi s_py_list_walk_cb(
-      PyObject *py_item,
-      Py_ssize_t index,
-      void *ud)
+            const ref_t &py_item,
+            Py_ssize_t index,
+            void *ud)
     {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
       // Not callable? Terminate iteration
-      if ( !PyCallable_Check(py_item) )
+      if ( !PyCallable_Check(py_item.o) )
         return CIP_FAILED;
 
       // Append this callable and increment its reference
       py_ui_request_t *_this = (py_ui_request_t *)ud;
       _this->py_callables.push_back(py_item);
-      Py_INCREF(py_item);
-
       return CIP_OK;
     }
   public:
@@ -611,14 +640,13 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     virtual bool idaapi run()
     {
-      // Get callable
-      PyObject *py_callable = py_callables.at(py_callable_idx);
+      PYW_GIL_GET;
 
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      bool reschedule = py_result != NULL && PyObject_IsTrue(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      // Get callable
+      ref_t py_callable = py_callables.at(py_callable_idx);
+      bool reschedule;
+      newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
+      reschedule = py_result != NULL && PyObject_IsTrue(py_result.o);
 
       // No rescheduling? Then advance to the next callable
       if ( !reschedule )
@@ -640,13 +668,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     virtual idaapi ~py_ui_request_t()
     {
-      // Release all callables
-      for ( ppyobject_vec_t::const_iterator it=py_callables.begin();
-        it != py_callables.end();
-        ++it )
-      {
-        Py_XDECREF(*it);
-      }
+      py_callables.clear();
     }
   };
 
@@ -809,6 +831,7 @@ public:
 
   virtual PyObject *get_ea_hint(ea_t /*ea*/)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
   };
 };
@@ -821,6 +844,8 @@ public:
 //---------------------------------------------------------------------------
 int idaapi UI_Callback(void *ud, int notification_code, va_list va)
 {
+  // This hook gets called from the kernel. Ensure we hold the GIL.
+  PYW_GIL_GET;
   UI_Hooks *proxy = (UI_Hooks *)ud;
   int ret = 0;
   try
@@ -857,6 +882,7 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
         char *_buf;
         Py_ssize_t _len;
 
+        PYW_GIL_CHECK_LOCKED_SCOPE();
         PyObject *py_str = proxy->get_ea_hint(ea);
         if ( py_str != NULL
           && PyString_Check(py_str)
@@ -872,6 +898,7 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
   catch (Swig::DirectorException &e)
   {
     msg("Exception in UI Hook function: %s\n", e.getMessage());
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( PyErr_Occurred() )
       PyErr_Print();
   }
@@ -881,15 +908,15 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
 //------------------------------------------------------------------------
 bool idaapi py_menu_item_callback(void *userdata)
 {
+  PYW_GIL_GET;
+
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
   PyObject *func = PyTuple_GET_ITEM(userdata, 0);
   PyObject *args = PyTuple_GET_ITEM(userdata, 1);
 
   // Call the python function
-  PYW_GIL_ENSURE;
-  PyObject *result = PyEval_CallObject(func, args);
-  PYW_GIL_RELEASE;
+  newref_t result(PyEval_CallObject(func, args));
 
   // We cannot raise an exception in the callback, just print it.
   if ( result == NULL )
@@ -898,9 +925,7 @@ bool idaapi py_menu_item_callback(void *userdata)
     return false;
   }
 
-  bool ret = PyObject_IsTrue(result) != 0;
-  Py_DECREF(result);
-  return ret;
+  return PyObject_IsTrue(result.o) != 0;
 }
 //</code(py_kernwin)>
 

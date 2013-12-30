@@ -168,6 +168,7 @@ private:
 
   static bool idaapi s_popup_cb(void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_popup();
   }
@@ -179,6 +180,7 @@ private:
     if ( it == _global_popup_map.end() )
       return false;
 
+    PYW_GIL_GET;
     return it->second.cv->on_popup_menu(it->second.menu_id);
   }
 
@@ -188,6 +190,7 @@ private:
       int shift,
       void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_keydown(vk_key, shift);
   }
@@ -195,6 +198,7 @@ private:
   // The popup menu is being constructed
   static void idaapi s_cv_popup(TCustomControl * /*cv*/, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     _this->on_popup();
   }
@@ -202,6 +206,7 @@ private:
   // The user clicked
   static bool idaapi s_cv_click(TCustomControl * /*cv*/, int shift, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_click(shift);
   }
@@ -209,6 +214,7 @@ private:
   // The user double clicked
   static bool idaapi s_cv_dblclick(TCustomControl * /*cv*/, int shift, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_dblclick(shift);
   }
@@ -216,6 +222,7 @@ private:
   // Cursor position has been changed
   static void idaapi s_cv_curpos(TCustomControl * /*cv*/, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     _this->on_curpos_changed();
   }
@@ -223,6 +230,8 @@ private:
   //--------------------------------------------------------------------------
   static int idaapi s_ui_cb(void *ud, int code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     switch ( code )
     {
@@ -243,11 +252,12 @@ private:
         TForm *form = va_arg(va, TForm *);
         if ( _this->_form != form )
           break;
-
-        unhook_from_notification_point(HT_UI, s_ui_cb, _this);
-        _this->on_close();
-        _this->on_post_close();
       }
+      // fallthrough...
+    case ui_term:
+      unhook_from_notification_point(HT_UI, s_ui_cb, _this);
+      _this->on_close();
+      _this->on_post_close();
       break;
     }
 
@@ -541,6 +551,8 @@ private:
   // Convert a tuple (String, [color, [bgcolor]]) to a simpleline_t
   static bool py_to_simpleline(PyObject *py, simpleline_t &sl)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+
     if ( PyString_Check(py) )
     {
       sl.line = PyString_AsString(py);
@@ -570,37 +582,29 @@ private:
   //
   virtual bool on_click(int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_CLICK);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
   // OnDblClick
   virtual bool on_dblclick(int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_DBL_CLICK);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
   // OnCurorPositionChanged
   virtual void on_curpos_changed()
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL));
     PyW_ShowCbErr(S_ON_CURSOR_POS_CHANGED);
-    Py_XDECREF(py_result);
   }
 
   //--------------------------------------------------------------------------
@@ -610,12 +614,9 @@ private:
     // Call the close method if it is there and the object is still bound
     if ( (features & HAVE_CLOSE) != 0 && py_self != NULL )
     {
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL);
-      PYW_GIL_RELEASE;
-
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL));
       PyW_ShowCbErr(S_ON_CLOSE);
-      Py_XDECREF(py_result);
 
       // Cleanup
       Py_DECREF(py_self);
@@ -627,36 +628,31 @@ private:
   // OnKeyDown
   virtual bool on_keydown(int vk_key, int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_KEYDOWN,
-        "ii",
-        vk_key,
-        shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_KEYDOWN,
+                    "ii",
+                    vk_key,
+                    shift));
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
 // OnPopupShow
   virtual bool on_popup()
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_POPUP,
-        NULL);
-    PYW_GIL_RELEASE;
-
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_POPUP,
+                    NULL));
     PyW_ShowCbErr(S_ON_POPUP);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -664,28 +660,22 @@ private:
   virtual bool on_hint(place_t *place, int *important_lines, qstring &hint)
   {
     size_t ln = data.to_lineno(place);
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_HINT,
-        PY_FMT64,
-        pyul_t(ln));
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_HINT,
+                    PY_FMT64,
+                    pyul_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != NULL && PyTuple_Check(py_result) && PyTuple_Size(py_result) == 2;
+    bool ok = py_result != NULL && PyTuple_Check(py_result.o) && PyTuple_Size(py_result.o) == 2;
     if ( ok )
     {
-      // Borrow references
-      PyObject *py_nlines = PyTuple_GetItem(py_result, 0);
-      PyObject *py_hint   = PyTuple_GetItem(py_result, 1);
-
       if ( important_lines != NULL )
-        *important_lines = PyInt_AsLong(py_nlines);
-
-      hint = PyString_AsString(py_hint);
+        *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
+      hint = PyString_AsString(PyTuple_GetItem(py_result.o, 1));
     }
-    Py_XDECREF(py_result);
     return ok;
   }
 
@@ -693,18 +683,15 @@ private:
   // OnPopupMenuClick
   virtual bool on_popup_menu(size_t menu_id)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_POPUP_MENU,
-        PY_FMT64,
-        pyul_t(menu_id));
-    PYW_GIL_RELEASE;
-
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_POPUP_MENU,
+                    PY_FMT64,
+                    pyul_t(menu_id)));
     PyW_ShowCbErr(S_ON_POPUP_MENU);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -776,6 +763,7 @@ public:
     place_t *pl;
     int x, y;
     pl = get_place(mouse, &x, &y);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( pl == NULL )
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_FMT64 "ii)", pyul_t(data.to_lineno(pl)), x, y);
@@ -786,6 +774,7 @@ public:
   PyObject *get_line(size_t nline)
   {
     simpleline_t *r = data.get_line(nline);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( r == NULL )
       Py_RETURN_NONE;
     return Py_BuildValue("(sII)", r->line.c_str(), (unsigned int)r->color, (unsigned int)r->bgcolor);
@@ -835,6 +824,8 @@ public:
       {S_ON_DBL_CLICK,          HAVE_DBLCLICK},
       {S_ON_CURSOR_POS_CHANGED, HAVE_CURPOS}
     };
+
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     for ( size_t i=0; i<qnumber(cbtable); i++ )
     {
       if ( PyObject_HasAttrString(py_link, cbtable[i].cb_name) )
@@ -892,6 +883,7 @@ public:
   PyObject *py_get_selection()
   {
     size_t x1, y1, x2, y2;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !get_selection(&x1, &y1, &x2, &y2) )
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_FMT64 PY_FMT64 PY_FMT64 PY_FMT64 ")", pyul_t(x1), pyul_t(y1), pyul_t(x2), pyul_t(y2));
@@ -899,6 +891,7 @@ public:
 
   static py_simplecustview_t *get_this(PyObject *py_this)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyCObject_Check(py_this) ? (py_simplecustview_t *) PyCObject_AsVoidPtr(py_this) : NULL;
   }
 
@@ -920,6 +913,7 @@ public:
 //
 PyObject *pyscv_init(PyObject *py_link, const char *title)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   py_simplecustview_t *_this = new py_simplecustview_t();
   bool ok = _this->init(py_link, title);
   if ( !ok )
@@ -964,6 +958,7 @@ bool pyscv_refresh_current(PyObject *py_this)
 PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
 {
   DECL_THIS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   const char *line;
   if ( _this == NULL || (line = _this->get_current_line(mouse, notags)) == NULL )
     Py_RETURN_NONE;
@@ -1024,7 +1019,10 @@ PyObject *pyscv_get_line(PyObject *py_this, size_t nline)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->get_line(nline);
 }
 
@@ -1034,7 +1032,10 @@ PyObject *pyscv_get_pos(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->get_pos(mouse);
 }
 
@@ -1044,6 +1045,7 @@ PyObject *pyscv_clear_lines(PyObject *py_this)
   DECL_THIS;
   if ( _this != NULL )
     _this->clear();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
 }
 
@@ -1081,7 +1083,10 @@ PyObject *pyscv_get_selection(PyObject *py_this)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->py_get_selection();
 }
 
@@ -1089,6 +1094,7 @@ PyObject *pyscv_get_selection(PyObject *py_this)
 PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( _this != NULL )
   {
     qstring word;

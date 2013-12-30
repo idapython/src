@@ -15,11 +15,11 @@ def raw_main(p=True):
         
         for ns in xrange(0, q.nsucc(n)):
             if p:
-                print "  %d->%d" % (n, q.succ(n, ns))
+                print "SUCC:  %d->%d" % (n, q.succ(n, ns))
         
         for ns in xrange(0, q.npred(n)):
             if p:
-                print "  %d->%d" % (n, q.pred(n, ns))
+                print "PRED:  %d->%d" % (n, q.pred(n, ns))
 
 # -----------------------------------------------------------------------
 # Using the class

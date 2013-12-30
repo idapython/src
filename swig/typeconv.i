@@ -44,6 +44,7 @@
 }
 
 %typemap(argout) (TYPEMAP,SIZE) {
+    Py_XDECREF(resultobj);
     if (result > 0)
     {
         resultobj = PyString_FromString($1);
@@ -91,6 +92,7 @@
     /* REMOVING ssize_t return value in $symname */
 }
 %typemap(argout) (TYPEMAP,SIZE) {
+    Py_XDECREF(resultobj);
     if (result > 0)
     {
         resultobj = PyString_FromStringAndSize((char *)$1, result);
@@ -117,6 +119,7 @@
     /* REMOVING ssize_t return value in $symname */
 }
 %typemap(argout) (TYPEMAP,SIZE) {
+    Py_XDECREF(resultobj);
     if (result)
     {
         resultobj = PyString_FromStringAndSize((char *)$1, *$2);
@@ -151,3 +154,32 @@
   }
   $1 = ea_t($1_temp);
 }
+//-------------------------------------------------------------------------
+// Convert qstring
+%typemap(in) qstring*
+{
+  char *buf;
+  Py_ssize_t length;
+  int success = PyString_AsStringAndSize($input, &buf, &length);
+  if ( success > -1 )
+  {
+    $1 = new qstring(buf, length);
+  }
+}
+%typemap(freearg) qstring*
+{
+  delete $1;
+}
+%typemap(out) qstring*
+{
+  $result = PyString_FromStringAndSize($1->c_str(), $1->length());
+}
+#ifdef __EA64__
+%apply longlong  *INOUT { sval_t *value };
+%apply ulonglong *INOUT { ea_t   *addr };
+%apply ulonglong *INOUT { sel_t  *sel };
+#else
+%apply int          *INOUT { sval_t *value };
+%apply unsigned int *INOUT { ea_t   *addr };
+%apply unsigned int *INOUT { sel_t  *sel };
+#endif

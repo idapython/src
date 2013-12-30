@@ -32,8 +32,8 @@
 #include <kernwin.hpp>
 
 #ifdef WITH_HEXRAYS
-  #include <hexrays.hpp>
-  hexdsp_t *hexdsp = NULL;
+#include <hexrays.hpp>
+hexdsp_t *hexdsp = NULL;
 #endif
 
 #include "pywraps.hpp"
@@ -55,12 +55,6 @@ static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
 static const char S_MAIN[] =                     "__main__";
 static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
-
-#ifdef PLUGINFIX
-  #define PLUGIN_FLAGS PLUGIN_FIX
-#else
-  #define PLUGIN_FLAGS 0
-#endif
 
 //-------------------------------------------------------------------------
 // Types
@@ -178,6 +172,7 @@ static void begin_execution()
   if ( !g_ui_ready || script_timeout == 0 )
     return;
 
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   end_execution();
   reset_execution_time();
   PyEval_SetTrace(break_check, NULL);
@@ -198,6 +193,7 @@ static void hide_script_waitbox()
 static void end_execution()
 {
   hide_script_waitbox();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
 #ifdef ENABLE_PYTHON_PROFILING
   PyEval_SetTrace(tracefunc, NULL);
 #else
@@ -264,8 +260,9 @@ static void PythonEvalOrExec(
     const char *filename = "<string>")
 {
   // Compile as an expression
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyCompilerFlags cf = {0};
-  PyObject *py_code = Py_CompileStringFlags(str, filename, Py_eval_input, &cf);
+  newref_t py_code(Py_CompileStringFlags(str, filename, Py_eval_input, &cf));
   if ( py_code == NULL || PyErr_Occurred() )
   {
     // Not an expression?
@@ -273,28 +270,27 @@ static void PythonEvalOrExec(
 
     // Run as a string
     PyRun_SimpleString(str);
-    return;
   }
-
-  PyObject *py_globals = GetMainGlobals();
-  PYW_GIL_ENSURE;
-  PyObject *py_result = PyEval_EvalCode(
-    (PyCodeObject *) py_code,
-    py_globals,
-    py_globals);
-  PYW_GIL_RELEASE;
-  Py_DECREF(py_code);
-
-  if ( py_result == NULL || PyErr_Occurred() )
+  else
   {
-    PyErr_Print();
-    return;
-  }
-  qstring result_str;
-  if ( py_result != Py_None && PyW_ObjectToString(py_result, &result_str) )
-    msg("%s\n", result_str.c_str());
+    PyObject *py_globals = GetMainGlobals();
+    newref_t py_result(
+            PyEval_EvalCode(
+                    (PyCodeObject *) py_code.o,
+                    py_globals,
+                    py_globals));
 
-  Py_DECREF(py_result);
+    if ( py_result == NULL || PyErr_Occurred() )
+    {
+      PyErr_Print();
+    }
+    else
+    {
+      qstring result_str;
+      if ( py_result.o != Py_None && PyW_ObjectToString(py_result.o, &result_str) )
+        msg("%s\n", result_str.c_str());
+    }
+  }
 }
 
 //------------------------------------------------------------------------
@@ -304,6 +300,7 @@ static bool idaapi IDAPython_extlang_run_statements(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   PyObject *globals = GetMainGlobals();
   bool ok;
   if ( globals == NULL )
@@ -315,18 +312,13 @@ static bool idaapi IDAPython_extlang_run_statements(
     errbuf[0] = '\0';
     PyErr_Clear();
     begin_execution();
-    PYW_GIL_ENSURE;
-    PyObject *result = PyRun_String(
-      str,
-      Py_file_input,
-      globals,
-      globals);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(result);
+    newref_t result(PyRun_String(
+                            str,
+                            Py_file_input,
+                            globals,
+                            globals));
     end_execution();
-
     ok = result != NULL && !PyErr_Occurred();
-
     if ( !ok )
       handle_python_error(errbuf, errbufsize);
   }
@@ -433,6 +425,7 @@ static int PyRunFile(const char *FileName)
   }
 #endif
 
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e1776
   PyObject *globals = GetMainGlobals();
   if ( globals == NULL || file_obj == NULL )
@@ -442,19 +435,16 @@ static int PyRunFile(const char *FileName)
   }
   PyErr_Clear();
 
-  PYW_GIL_ENSURE;
   PyObject *result = PyRun_File(
         PyFile_AsFile(file_obj),
         FileName,
         Py_file_input,
         globals,
         globals);
-  PYW_GIL_RELEASE;
-
   Py_XDECREF(file_obj);
+  int rc = result != NULL && !PyErr_Occurred();
   Py_XDECREF(result);
-
-  return result != NULL && !PyErr_Occurred();
+  return rc;
 }
 
 //-------------------------------------------------------------------------
@@ -485,17 +475,54 @@ void IDAPython_RunStatement(void)
 }
 
 //-------------------------------------------------------------------------
+// Convert return value from Python to IDC or report about an error.
+// This function also decrements the reference "result" (python variable)
+static bool return_python_result(
+  idc_value_t *idc_result,
+  const ref_t &py_result,
+  char *errbuf,
+  size_t errbufsize)
+{
+  if ( errbufsize > 0 )
+    errbuf[0] = '\0';
+
+  if ( py_result == NULL )
+  {
+    handle_python_error(errbuf, errbufsize);
+    return false;
+  }
+
+  int cvt = CIP_OK;
+  if ( idc_result != NULL )
+  {
+    idc_result->clear();
+    cvt = pyvar_to_idcvar(py_result, idc_result);
+    if ( cvt < CIP_OK )
+      qsnprintf(errbuf, errbufsize, "ERROR: bad return value");
+  }
+
+  return cvt >= CIP_OK;
+}
+
+//-------------------------------------------------------------------------
 // This function will call the Python function 'idaapi.IDAPython_ExecFile'
 // It does not use 'import', thus the executed script will not yield a new module name
 // It returns the exception and traceback information.
 // We use the Python function to execute the script because it knows how to deal with
 // module reloading.
-static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbufsz)
+static bool IDAPython_ExecFile(
+        const char *FileName,
+        char *errbuf,
+        size_t errbufsz,
+        const char *idaapi_script = S_IDAAPI_EXECSCRIPT,
+        idc_value_t *second_res = NULL,
+        bool want_tuple = false)
 {
-  PyObject *py_execscript = get_idaapi_attr(S_IDAAPI_EXECSCRIPT);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ref_t py_execscript(get_idaapi_attr(idaapi_script));
   if ( py_execscript == NULL )
   {
-    qstrncpy(errbuf, "Could not find idaapi." S_IDAAPI_EXECSCRIPT " ?!", errbufsz);
+    qsnprintf(errbuf, errbufsz, "Could not find idaapi.%s ?!", idaapi_script);
     return false;
   }
 
@@ -503,18 +530,15 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
   qstrncpy(script, FileName, sizeof(script));
   strrpl(script, '\\', '/');
 
-  PyObject *py_script = PyString_FromString(script);
-  PYW_GIL_ENSURE;
-  PyObject *py_ret = PyObject_CallFunctionObjArgs(
-    py_execscript,
-    py_script,
+  newref_t py_script(PyString_FromString(script));
+  newref_t py_ret(PyObject_CallFunctionObjArgs(
+    py_execscript.o,
+    py_script.o,
     GetMainGlobals(),
-    NULL);
-  PYW_GIL_RELEASE;
-  Py_DECREF(py_script);
-  Py_DECREF(py_execscript);
+    NULL));
 
   // Failure at this point means the script was interrupted
+  bool interrupted = false;
   qstring err;
   if ( PyW_GetError(&err) || py_ret == NULL )
   {
@@ -523,23 +547,52 @@ static bool IDAPython_ExecFile(const char *FileName, char *errbuf, size_t errbuf
       qstrncpy(errbuf, "Script interrupted", errbufsz);
     else
       qstrncpy(errbuf, err.c_str(), errbufsz);
-    Py_XDECREF(py_ret);
-    return false;
+    interrupted = true;
   }
 
-  bool ok;
-  if ( py_ret == Py_None )
-    ok = true;
-  else if ( PyString_Check(py_ret) )
+  bool ok = false;
+  if ( !interrupted  )
   {
-    qstrncpy(errbuf, PyString_AsString(py_ret), errbufsz);
-    ok = false;
-  }
-  // Cannot be otherwise!
-  else
-    INTERR(30154);
+    PyObject *ret_o;
+    if ( want_tuple )
+    {
+      if ( second_res != NULL
+        && PyTuple_Check(py_ret.o)
+        && PyTuple_Size(py_ret.o) == 2 )
+      {
+        ret_o = PyTuple_GetItem(py_ret.o, 0);   // Borrowed reference
+      }
+      else
+      {
+        INTERR(30444);
+      }
+    }
+    else
+    {
+      ret_o = py_ret.o;
+    }
 
-  Py_XDECREF(py_ret);
+    if ( ret_o == Py_None )
+    {
+      if ( want_tuple )
+      {
+        borref_t ret2_o(PyTuple_GetItem(py_ret.o, 1));
+        ok = return_python_result(second_res, ret2_o, errbuf, errbufsz);
+      }
+      else
+      {
+        ok = true;
+      }
+    }
+    else if ( PyString_Check(ret_o) )
+    {
+      qstrncpy(errbuf, PyString_AsString(ret_o), errbufsz);
+    }
+    else
+    {
+      INTERR(30154);
+    }
+  }
   return ok;
 }
 
@@ -585,39 +638,6 @@ static bool parse_py_modname(
 }
 
 //-------------------------------------------------------------------------
-// Convert return value from Python to IDC or report about an error.
-// This function also decrements the reference "result" (python variable)
-static bool return_python_result(
-  idc_value_t *idc_result,
-  PyObject *py_result,
-  char *errbuf,
-  size_t errbufsize)
-{
-  if ( errbufsize > 0 )
-    errbuf[0] = '\0';
-
-  if ( py_result == NULL )
-  {
-    handle_python_error(errbuf, errbufsize);
-    return false;
-  }
-
-  int cvt = CIP_OK;
-  if ( idc_result != NULL )
-  {
-    idc_result->clear();
-    cvt = pyvar_to_idcvar(py_result, idc_result);
-    if ( cvt < CIP_OK )
-      qsnprintf(errbuf, errbufsize, "ERROR: bad return value");
-  }
-
-  if ( cvt != CIP_OK_NODECREF )
-    Py_XDECREF(py_result);
-
-  return cvt >= CIP_OK;
-}
-
-//-------------------------------------------------------------------------
 // Compile callback for Python external language evaluator
 bool idaapi IDAPython_extlang_compile(
   const char *name,
@@ -626,6 +646,7 @@ bool idaapi IDAPython_extlang_compile(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   PyObject *globals = GetMainGlobals();
 
   PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
@@ -668,27 +689,25 @@ bool idaapi IDAPython_extlang_run(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   // Try to extract module name (if any) from the funcname
   char modname[MAXSTR] = {0};
   char funcname[MAXSTR] = {0};
   bool imported_module = parse_py_modname(name, modname, funcname, MAXSTR);
 
-  ppyobject_vec_t pargs;
-  boolvec_t decref;
   bool ok = true;
   PyObject *module = NULL;
+  ref_vec_t pargs;
   do
   {
     // Convert arguments to python
-    ok = pyw_convert_idc_args(args, nargs, pargs, &decref, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, false, errbuf, errbufsize);
     if ( !ok )
       break;
 
     if ( imported_module )
     {
-      PYW_GIL_ENSURE;
       module = PyImport_ImportModule(modname);
-      PYW_GIL_RELEASE;
     }
     else
     {
@@ -707,22 +726,20 @@ bool idaapi IDAPython_extlang_run(
       break;
     }
 
-    PyCodeObject *code = (PyCodeObject *) PyFunction_GetCode(func);
-    PYW_GIL_ENSURE;
-    PyObject *pres = PyEval_EvalCodeEx(
-                        code,
-                        globals, NULL,
-                        &pargs[0], nargs,
-                        NULL, 0, NULL, 0, NULL);
-    PYW_GIL_RELEASE;
-    ok = return_python_result(result, pres, errbuf, errbufsize);
+    borref_t code(PyFunction_GetCode(func));
+    qvector<PyObject*> pargs_ptrs;
+    pargs.to_pyobject_pointers(&pargs_ptrs);
+    newref_t py_res(PyEval_EvalCodeEx(
+                            (PyCodeObject*) code.o,
+                            globals, NULL,
+                            pargs_ptrs.begin(),
+                            nargs,
+                            NULL, 0, NULL, 0, NULL));
+    ok = return_python_result(result, py_res, errbuf, errbufsize);
   } while ( false );
-
-  pyw_free_idc_args(pargs, &decref);
 
   if ( imported_module )
     Py_XDECREF(module);
-
   return ok;
 }
 
@@ -733,8 +750,43 @@ bool idaapi IDAPython_extlang_compile_file(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   begin_execution();
   bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize);
+  end_execution();
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+// Load processor module callback for Python external language evaluator
+static bool idaapi IDAPython_extlang_loadprocmod(
+  const char *filename,
+  idc_value_t *procobj,
+  char *errbuf,
+  size_t errbufsize)
+{
+  PYW_GIL_GET;
+  begin_execution();
+  bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_LOADPROCMOD, procobj, true);
+  if ( ok && procobj->is_zero() )
+  {
+    errbuf[0] = '\0';
+    ok = false;
+  }
+  end_execution();
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+// Unload processor module callback for Python external language evaluator
+static bool idaapi IDAPython_extlang_unloadprocmod(
+  const char *filename,
+  char *errbuf,
+  size_t errbufsize)
+{
+  PYW_GIL_GET;
+  begin_execution();
+  bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_UNLOADPROCMOD);
   end_execution();
   return ok;
 }
@@ -749,10 +801,9 @@ bool idaapi IDAPython_extlang_create_object(
   char *errbuf,           // out: error message if evaluation fails
   size_t errbufsize)     // in: size of the error buffer
 {
-  PyObject *py_mod(NULL), *py_cls(NULL);
-  ppyobject_vec_t pargs;
-
+  PYW_GIL_GET;
   bool ok = false;
+  ref_vec_t pargs;
   do
   {
     // Parse the object name (to get the module and class name)
@@ -761,7 +812,7 @@ bool idaapi IDAPython_extlang_create_object(
     parse_py_modname(name, modname, clsname, MAXSTR);
 
     // Get a reference to the module
-    py_mod = PyW_TryImportModule(modname);
+    ref_t py_mod(PyW_TryImportModule(modname));
     if ( py_mod == NULL )
     {
       qsnprintf(errbuf, errbufsize, "Could not import module '%s'!", modname);
@@ -769,7 +820,7 @@ bool idaapi IDAPython_extlang_create_object(
     }
 
     // Get the class reference
-    py_cls = PyW_TryGetAttrString(py_mod, clsname);
+    ref_t py_cls(PyW_TryGetAttrString(py_mod.o, clsname));
     if ( py_cls == NULL )
     {
       qsnprintf(errbuf, errbufsize, "Could not find class type '%s'!", clsname);
@@ -777,22 +828,15 @@ bool idaapi IDAPython_extlang_create_object(
     }
 
     // Error during conversion?
-    ok = pyw_convert_idc_args(args, nargs, pargs, NULL, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, true, errbuf, errbufsize);
     if ( !ok )
       break;
 
     // Call the constructor
-    PYW_GIL_ENSURE;
-    PyObject *py_res = PyObject_CallObject(py_cls, pargs.empty() ? NULL : pargs[0]);
-    PYW_GIL_RELEASE;
+    newref_t py_res(PyObject_CallObject(py_cls.o, pargs.empty() ? NULL : pargs[0].o));
     ok = return_python_result(result, py_res, errbuf, errbufsize);
   } while ( false );
 
-  Py_XDECREF(py_mod);
-  Py_XDECREF(py_cls);
-
-  // Free the arguments tuple
-  pyw_free_idc_args(pargs);
   return ok;
 }
 
@@ -803,38 +847,37 @@ bool idaapi IDAPython_extlang_get_attr(
   const char *attr,       // in: attribute name
   idc_value_t *result)
 {
-  PyObject *py_mod(NULL), *py_obj(NULL);
-  bool is_opaque_obj = false;
+  PYW_GIL_GET;
   int cvt = CIP_FAILED;
   do
   {
     // Get a reference to the module
-    py_mod = PyW_TryImportModule(S_MAIN);
+    ref_t py_mod(PyW_TryImportModule(S_MAIN));
     if ( py_mod == NULL )
       break;
 
     // Object specified:
     // - (1) string contain attribute name in the main module
     // - (2) opaque object (we use it as is)
+    ref_t py_obj;
     if ( obj != NULL )
     {
       // (1) Get attribute from main module
       if ( obj->vtype == VT_STR2 )
-        py_obj = PyW_TryGetAttrString(py_mod, obj->c_str());
+      {
+        py_obj = PyW_TryGetAttrString(py_mod.o, obj->c_str());
+      }
       // (2) see if opaque object
       else
       {
         // Convert object (expecting opaque object)
         cvt = idcvar_to_pyvar(*obj, &py_obj);
-        // Only opaque objects are accepted
-        if ( cvt != CIP_OK_NODECREF )
+        if ( cvt != CIP_OK_OPAQUE ) // Only opaque objects are accepted
         {
-          Py_XDECREF(py_obj);
-          py_obj = NULL;
+          py_obj = ref_t();
           cvt = CIP_FAILED;
           break;
         }
-        is_opaque_obj = true;
       }
       // Get the attribute reference
       if ( py_obj == NULL )
@@ -852,24 +895,22 @@ bool idaapi IDAPython_extlang_get_attr(
     {
       cvt = CIP_FAILED;
       // Get the class
-      PyObject *cls = PyObject_GetAttrString(py_obj, "__class__");
+      newref_t cls(PyObject_GetAttrString(py_obj.o, "__class__"));
       if ( cls == NULL )
         break;
 
       // Get its name
-      PyObject *name = PyObject_GetAttrString(cls, "__name__");
-      Py_DECREF(cls);
+      newref_t name(PyObject_GetAttrString(cls.o, "__name__"));
       if ( name == NULL )
         break;
 
       // Convert name object to string object
-      PyObject *string = PyObject_Str(name);
-      Py_DECREF(name);
+      newref_t string(PyObject_Str(name.o));
       if ( string == NULL )
         break;
 
       // Convert name python string to a C string
-      const char *clsname = PyString_AsString(name);
+      const char *clsname = PyString_AsString(string.o);
       if ( clsname == NULL )
         break;
 
@@ -878,7 +919,7 @@ bool idaapi IDAPython_extlang_get_attr(
       break;
     }
 
-    PyObject *py_attr = PyW_TryGetAttrString(py_obj, attr);
+    ref_t py_attr(PyW_TryGetAttrString(py_obj.o, attr));
     // No attribute?
     if ( py_attr == NULL )
     {
@@ -890,32 +931,23 @@ bool idaapi IDAPython_extlang_get_attr(
     {
       cvt = CIP_OK;
       // Decrement attribute (because of GetAttrString)
-      Py_DECREF(py_attr);
     }
     else
     {
       cvt = pyvar_to_idcvar(py_attr, result);
-      // Conversion succeeded and opaque object was passed:
-      // Since the object will be passed to IDC, it is likely that IDC value will be
-      // destroyed and also destroying the opaque object with it. That is an undesired effect.
-      // We increment the reference of the object so that even if the IDC value dies
-      // the opaque object remains. So by not decrement reference after GetAttrString() call
-      // we are indirectly increasing the reference. If it was not opaque then we decrement the reference.
-      if ( cvt >= CIP_OK && cvt != CIP_OK_NODECREF )
-      {
-        // Decrement the reference (that was incremented by GetAttrString())
-        Py_DECREF(py_attr);
-      }
+      // // Conversion succeeded and opaque object was passed:
+      // // Since the object will be passed to IDC, it is likely that IDC value will be
+      // // destroyed and also destroying the opaque object with it. That is an undesired effect.
+      // // We increment the reference of the object so that even if the IDC value dies
+      // // the opaque object remains. So by not decrement reference after GetAttrString() call
+      // // we are indirectly increasing the reference. If it was not opaque then we decrement the reference.
+      // if ( cvt >= CIP_OK && cvt != CIP_OK_NODECREF )
+      // {
+      //   // Decrement the reference (that was incremented by GetAttrString())
+      //   py_attr.decref();
+      // }
     }
   } while ( false );
-
-  // Free main module reference
-  Py_XDECREF(py_mod);
-
-  // Wasn't working with main module?
-  if ( obj != NULL && !is_opaque_obj )
-      Py_XDECREF(py_obj);
-
   return cvt >= CIP_OK;
 }
 
@@ -927,31 +959,27 @@ bool idaapi IDAPython_extlang_set_attr(
   const char *attr,       // in: attribute name
   idc_value_t *value)
 {
-  PyObject *py_mod(NULL), *py_obj(NULL);
-  bool ok = false, is_opaque_obj = false;
+  PYW_GIL_GET;
+  bool ok = false;
   do
   {
     // Get a reference to the module
-    py_mod = PyW_TryImportModule(S_MAIN);
+    ref_t py_mod(PyW_TryImportModule(S_MAIN));
     if ( py_mod == NULL )
       break;
-
+    ref_t py_obj;
     if ( obj != NULL )
     {
       // Get the attribute reference (from just a name)
       if ( obj->vtype == VT_STR2 )
-        py_obj = PyW_TryGetAttrString(py_mod, obj->c_str());
+      {
+        py_obj = PyW_TryGetAttrString(py_mod.o, obj->c_str());
+      }
       else
       {
         int cvt = idcvar_to_pyvar(*obj, &py_obj);
-        // Only opaque objects are accepted
-        if ( cvt != CIP_OK_NODECREF )
-        {
-          Py_XDECREF(py_obj);
-          py_obj = NULL;
-        }
-        else
-          is_opaque_obj = true;
+        if ( cvt != CIP_OK_OPAQUE )  // Only opaque objects are accepted
+          py_obj = ref_t();
       }
       // No object to set_attr on?
       if ( py_obj == NULL )
@@ -963,21 +991,15 @@ bool idaapi IDAPython_extlang_set_attr(
       py_obj = py_mod;
     }
     // Convert the value
-    PyObject *py_var(NULL);
+    ref_t py_var;
     int cvt = idcvar_to_pyvar(*value, &py_var);
     if ( cvt >= CIP_OK )
     {
-      ok = PyObject_SetAttrString(py_obj, attr, py_var) != -1;
-      if ( cvt != CIP_OK_NODECREF )
-        Py_XDECREF(py_var);
+      ok = PyObject_SetAttrString(py_obj.o, attr, py_var.o) != -1;
+      // if ( cvt != CIP_OK_NODECREF )
+      //   Py_XDECREF(py_var);
     }
   } while ( false );
-
-  Py_XDECREF(py_mod);
-
-  if ( obj != NULL && !is_opaque_obj )
-    Py_XDECREF(py_obj);
-
   return ok;
 }
 
@@ -991,17 +1013,19 @@ bool idaapi IDAPython_extlang_calcexpr(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   PyObject *globals = GetMainGlobals();
-  if ( globals == NULL )
-    return false;
-
-  begin_execution();
-  PYW_GIL_ENSURE;
-  PyObject *result = PyRun_String(expr, Py_eval_input, globals, globals);
-  PYW_GIL_RELEASE;
-  end_execution();
-
-  return return_python_result(rv, result, errbuf, errbufsize);
+  bool ok = globals != NULL;
+  ref_t result;
+  if ( ok )
+  {
+    begin_execution();
+    result = newref_t(PyRun_String(expr, Py_eval_input, globals, globals));
+    end_execution();
+  }
+  if ( ok && result != NULL )
+    ok = return_python_result(rv, result, errbuf, errbufsize);
+  return ok;
 }
 
 //-------------------------------------------------------------------------
@@ -1014,6 +1038,7 @@ bool idaapi IDAPython_extlang_call_method(
   char *errbuf,
   size_t errbufsize)
 {
+  PYW_GIL_GET;
   // Check for unsupported usage of call_method.
   // Mainly a method call requires an object and a method.
   if ( (idc_obj == NULL && method_name == NULL) || (idc_obj != NULL && method_name == NULL) )
@@ -1023,16 +1048,18 @@ bool idaapi IDAPython_extlang_call_method(
   }
   // Behave like run()
   else if ( idc_obj == NULL && method_name != NULL )
+  {
       return IDAPython_extlang_run(method_name, nargs, args, result, errbuf, errbufsize);
+  }
 
-  PyObject *py_obj(NULL), *py_method(NULL);
   // Holds conversion status of input object
   int obj_cvt;
-  ppyobject_vec_t pargs;
   bool ok = false;
+  ref_vec_t pargs;
   do
   {
     // Convert input object
+    ref_t py_obj;
     obj_cvt = idcvar_to_pyvar(*idc_obj, &py_obj);
     if ( obj_cvt < CIP_OK )
     {
@@ -1040,32 +1067,22 @@ bool idaapi IDAPython_extlang_call_method(
       break;
     }
 
-    py_method = PyW_TryGetAttrString(py_obj, method_name);
-    if ( py_method == NULL || !PyCallable_Check(py_method) )
+    ref_t py_method(PyW_TryGetAttrString(py_obj.o, method_name));
+    if ( py_method == NULL || !PyCallable_Check(py_method.o) )
     {
       qsnprintf(errbuf, errbufsize, "The input object does not have a callable method called '%s'", method_name);
       break;
     }
 
     // Convert arguments to python objects
-    ok = pyw_convert_idc_args(args, nargs, pargs, NULL, errbuf, errbufsize);
+    ok = pyw_convert_idc_args(args, nargs, pargs, true, errbuf, errbufsize);
     if ( !ok )
       break;
 
-    PYW_GIL_ENSURE;
-    PyObject *py_res = PyObject_CallObject(py_method, pargs.empty() ? NULL : pargs[0]);
-    PYW_GIL_RELEASE;
+    newref_t py_res(PyObject_CallObject(py_method.o, pargs.empty() ? NULL : pargs[0].o));
     ok = return_python_result(result, py_res, errbuf, errbufsize);
   } while ( false );
 
-  // Free converted args
-  pyw_free_idc_args(pargs);
-
-  // Release reference of object if needed
-  if ( obj_cvt != CIP_OK_NODECREF )
-    Py_XDECREF(py_obj);
-
-  Py_XDECREF(py_method);
   return ok;
 }
 
@@ -1085,6 +1102,8 @@ const extlang_t extlang_python =
     IDAPython_extlang_set_attr,
     IDAPython_extlang_call_method,
     IDAPython_extlang_run_statements,
+    IDAPython_extlang_loadprocmod,
+    IDAPython_extlang_unloadprocmod,
 };
 
 //-------------------------------------------------------------------------
@@ -1100,6 +1119,8 @@ void enable_extlang_python(bool enable)
 // Execute a line in the Python CLI
 bool idaapi IDAPython_cli_execute_line(const char *line)
 {
+  PYW_GIL_GET;
+
   // Do not process empty lines
   if ( line[0] == '\0' )
     return true;
@@ -1152,26 +1173,20 @@ bool idaapi IDAPYthon_cli_complete_line(
     const char *line,
     int x)
 {
-  PyObject *py_complete = get_idaapi_attr(S_IDAAPI_COMPLETION);
+  PYW_GIL_GET;
+
+  ref_t py_complete(get_idaapi_attr(S_IDAAPI_COMPLETION));
   if ( py_complete == NULL )
     return false;
 
-  PYW_GIL_ENSURE;
-  PyObject *py_ret = PyObject_CallFunction(py_complete, "sisi", prefix, n, line, x); //lint !e1776
-  PYW_GIL_RELEASE;
-
-  Py_DECREF(py_complete);
+  newref_t py_ret(PyObject_CallFunction(py_complete.o, "sisi", prefix, n, line, x)); //lint !e1776
 
   // Swallow the error
   PyW_GetError(completion);
 
-  bool ok = py_ret != NULL && PyString_Check(py_ret) != 0;
-
+  bool ok = py_ret != NULL && PyString_Check(py_ret.o) != 0;
   if ( ok )
-    *completion = PyString_AS_STRING(py_ret);
-
-  Py_XDECREF(py_ret);
-
+    *completion = PyString_AS_STRING(py_ret.o);
   return ok;
 }
 
@@ -1202,9 +1217,8 @@ void enable_python_cli(bool enable)
 // Prints the IDAPython copyright banner
 void py_print_banner()
 {
-  PYW_GIL_ENSURE;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   PyRun_SimpleString("print_banner()");
-  PYW_GIL_RELEASE;
 }
 
 //------------------------------------------------------------------------
@@ -1216,7 +1230,7 @@ void parse_plugin_options()
 
   // No options?
   if ( options == NULL )
-      return;
+    return;
 
   // User specified 'when' parameter?
   const char *p = strchr(options, ';');
@@ -1238,7 +1252,8 @@ void parse_plugin_options()
 // The arguments will then be accessible via 'idc' module / 'ARGV' variable.
 void convert_idc_args()
 {
-  PyObject *py_args = PyList_New(0);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_args(PyList_New(0));
 
   idc_value_t *idc_args = find_idc_gvar(S_IDC_ARGS_VARNAME);
   if ( idc_args != NULL )
@@ -1247,47 +1262,76 @@ void convert_idc_args()
     char attr_name[20] = {"0"};
     for ( int i=1; VarGetAttr(idc_args, attr_name, &attr) == eOk; i++ )
     {
-      PyList_Insert(py_args, i, PyString_FromString(attr.c_str()));
+      PyList_Insert(py_args.o, i, PyString_FromString(attr.c_str()));
       qsnprintf(attr_name, sizeof(attr_name), "%d", i);
     }
   }
 
   // Get reference to the IDC module (it is imported by init.py)
-  PyObject *py_mod = PyW_TryImportModule(S_IDC_MODNAME);
+  ref_t py_mod(PyW_TryImportModule(S_IDC_MODNAME));
   if ( py_mod != NULL )
-    PyObject_SetAttrString(py_mod, S_IDC_ARGS_VARNAME, py_args);
-
-  Py_DECREF(py_args);
-  Py_XDECREF(py_mod);
+    PyObject_SetAttrString(py_mod.o, S_IDC_ARGS_VARNAME, py_args.o);
 }
 
 //------------------------------------------------------------------------
-// We install the menu later because the text version crashes if
-// add_menu_item is called too early
-static int idaapi menu_installer_cb(void *, int code, va_list)
+static int idaapi script_runner_cb(void *, int code, va_list)
 {
   switch ( code )
   {
     case ui_ready_to_run:
-      g_ui_ready = true;
-      py_print_banner();
+      {
+        PYW_GIL_GET; // This hook gets called from the kernel. Ensure we hold the GIL.
+        g_ui_ready = true;
+        py_print_banner();
 
-      if ( g_run_when == run_on_ui_ready )
+        if ( g_run_when == run_on_ui_ready )
           RunScript(g_run_script);
+      }
       break;
 
     case ui_database_inited:
       {
+        PYW_GIL_GET; // This hook gets called from the kernel. Ensure we hold the GIL.
         convert_idc_args();
         if ( g_run_when == run_on_db_open )
           RunScript(g_run_script);
-        break;
       }
+      break;
     default:
       break;
   }
   return 0;
 }
+
+#ifdef _DEBUG
+//------------------------------------------------------------------------
+// extern int PyThread_acquire_lock(PyThread_type_lock lock, int waitflag);
+extern PyThreadState *_PyThreadState_Current;
+static int idaapi ui_debug_handler_cb(void *, int code, va_list)
+{
+  // This hook gets called from the kernel, but its very point is to
+  // make sure that we don't hold the GIL. Thus: No PYW_GIL_GET here!
+  switch ( code )
+  {
+    case debug_assert_thread_waitready:
+      // We will *always* be in a non-main thread when this is called.
+      if ( _PyThreadState_Current != NULL )
+      {
+        PyThreadState *tcur = PyGILState_GetThisThreadState();
+        if ( tcur == _PyThreadState_Current )
+        {
+          // This thread is the '_PyThreadState_Current'; i.e., it holds the lock.
+          // We're likely to end up in a deadlock.
+          BPT;
+        }
+      }
+      break;
+    default:
+      break;
+  }
+  return 0;
+}
+#endif
 
 //-------------------------------------------------------------------------
 // remove current directory (empty entry) from the sys.path
@@ -1323,14 +1367,13 @@ static bool initsite(void)
   {
     PyErr_Print();
     Py_Finalize();
-
     return false;
   }
-  else 
+  else
   {
     Py_DECREF(m);
-    return true;
   }
+  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -1386,9 +1429,9 @@ bool IDAPython_Init(void)
   read_user_config_file("python.cfg", set_python_options, NULL);
   if ( g_alert_auto_scripts )
   {
-    if (    pywraps_check_autoscripts(tmp, sizeof(tmp))
-         && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
-                        "Do you want to continue loading IDAPython?", tmp) <= 0 )
+    if ( pywraps_check_autoscripts(tmp, sizeof(tmp))
+      && askyn_c(0, "HIDECANCEL\nTITLE IDAPython\nThe script '%s' was found in the current directory and will be automatically executed by Python.\n\n"
+                    "Do you want to continue loading IDAPython?", tmp) <= 0 )
     {
       return false;
     }
@@ -1432,17 +1475,16 @@ bool IDAPython_Init(void)
 
   // Set IDAPYTHON_VERSION in Python
   qsnprintf(
-    tmp, 
-    sizeof(tmp),
-    "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
-    "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
-    VER_MAJOR,
-    VER_MINOR,
-    VER_PATCH,
-    VER_STATUS,
-    VER_SERIAL,
-    g_remove_cwd_sys_path ? "True" : "False");
-
+          tmp,
+          sizeof(tmp),
+          "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
+          "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
+          VER_MAJOR,
+          VER_MINOR,
+          VER_PATCH,
+          VER_STATUS,
+          VER_SERIAL,
+          g_remove_cwd_sys_path ? "True" : "False");
   PyRun_SimpleString(tmp);
 
   // Install extlang. Needs to be done before running init.py
@@ -1483,27 +1525,28 @@ bool IDAPython_Init(void)
 
   // Register a RunPythonStatement() function for IDC
   set_idc_func_ex(
-    S_IDC_RUNPYTHON_STATEMENT, 
-    idc_runpythonstatement, 
-    idc_runpythonstatement_args, 
-    0);
+          S_IDC_RUNPYTHON_STATEMENT,
+          idc_runpythonstatement,
+          idc_runpythonstatement_args,
+          0);
 
   // A script specified on the command line is run
   if ( g_run_when == run_on_init )
     RunScript(g_run_script);
 
-#ifdef PLUGINFIX
-  hook_to_notification_point(HT_UI, menu_installer_cb, NULL);
-#else
-  install_python_menus();
-  py_print_banner();
+#ifdef _DEBUG
+  hook_to_notification_point(HT_UI, ui_debug_handler_cb, NULL);
 #endif
+  hook_to_notification_point(HT_UI, script_runner_cb, NULL);
 
   // Enable the CLI by default
   enable_python_cli(true);
 
   g_initialized = true;
   pywraps_nw_notify(NW_INITIDA_SLOT);
+
+  PyEval_ReleaseThread(PyThreadState_Get());
+
   return true;
 }
 
@@ -1511,11 +1554,20 @@ bool IDAPython_Init(void)
 // Cleaning up Python
 void IDAPython_Term(void)
 {
-#ifdef PLUGINFIX
-  unhook_from_notification_point(HT_UI, menu_installer_cb, NULL);
+  if ( PyGILState_GetThisThreadState() )
+  {
+    // Note: No 'PYW_GIL_GET' here, as it would try to release
+    // the state after 'Py_Finalize()' has been called.
+    // ...nor is it a good idea to try to put it in its own scope,
+    // as it will PyGILState_Release() the current thread & GIL, and
+    // Py_Finalize() itself wouldn't be happy then.
+    PyGILState_Ensure();
+  }
+
+  unhook_from_notification_point(HT_UI, script_runner_cb, NULL);
+#ifdef _DEBUG
+  unhook_from_notification_point(HT_UI, ui_debug_handler_cb, NULL);
 #endif
-  /* Remove the menu items before termination */
-  del_menu_item("File/Python command...");
 
   // Notify about IDA closing
   pywraps_nw_notify(NW_TERMIDA_SLOT);
@@ -1594,7 +1646,7 @@ void idaapi run(int arg)
 plugin_t PLUGIN =
 {
   IDP_INTERFACE_VERSION,
-  PLUGIN_FLAGS | PLUGIN_HIDE, // plugin flags
+  PLUGIN_FIX | PLUGIN_HIDE, // plugin flags
   init,          // initialize
   term,          // terminate. this pointer may be NULL.
   run,           // invoke plugin

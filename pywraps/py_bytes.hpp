@@ -5,20 +5,17 @@
 //------------------------------------------------------------------------
 static bool idaapi py_testf_cb(flags_t flags, void *ud)
 {
-  PyObject *py_flags = PyLong_FromUnsignedLong(flags);
-  PYW_GIL_ENSURE;
-  PyObject *result = PyObject_CallFunctionObjArgs((PyObject *) ud, py_flags, NULL);
-  PYW_GIL_RELEASE;
-  bool ret = result != NULL && PyObject_IsTrue(result);
-  Py_XDECREF(result);
-  Py_XDECREF(py_flags);
-  return ret;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_flags(PyLong_FromUnsignedLong(flags));
+  newref_t result(PyObject_CallFunctionObjArgs((PyObject *) ud, py_flags.o, NULL));
+  return result != NULL && PyObject_IsTrue(result.o);
 }
 
 //------------------------------------------------------------------------
 // Wraps the (next|prev)that()
 static ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCallable_Check(py_callable) )
     return BADADDR;
   else
@@ -33,20 +30,17 @@ static int idaapi py_visit_patched_bytes_cb(
       uint32 v,
       void *ud)
 {
-  PYW_GIL_ENSURE;
-  PyObject *py_result = PyObject_CallFunction(
-    (PyObject *)ud,
-    PY_FMT64 "iII",
-    pyul_t(ea),
-    fpos,
-    o,
-    v);
-  PYW_GIL_RELEASE;
-
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_result(
+          PyObject_CallFunction(
+                  (PyObject *)ud,
+                  PY_FMT64 "iII",
+                  pyul_t(ea),
+                  fpos,
+                  o,
+                  v));
   PyW_ShowCbErr("visit_patched_bytes");
-  int ret = (py_result != NULL && PyInt_Check(py_result)) ? PyInt_AsLong(py_result) : 0;
-  Py_XDECREF(py_result);
-  return ret;
+  return (py_result != NULL && PyInt_Check(py_result.o)) ? PyInt_AsLong(py_result.o) : 0;
 }
 //</code(py_bytes)>
 //------------------------------------------------------------------------
@@ -74,6 +68,7 @@ def visit_patched_bytes(ea1, ea2, callable):
 */
 static int py_visit_patched_bytes(ea_t ea1, ea_t ea2, PyObject *py_callable)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCallable_Check(py_callable) )
     return 0;
   else
@@ -122,29 +117,23 @@ def get_many_bytes(ea, size):
 */
 static PyObject *py_get_many_bytes(ea_t ea, unsigned int size)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   do
   {
     if ( size <= 0 )
       break;
 
     // Allocate memory via Python
-    PyObject *py_buf = PyString_FromStringAndSize(NULL, Py_ssize_t(size));
+    newref_t py_buf(PyString_FromStringAndSize(NULL, Py_ssize_t(size)));
     if ( py_buf == NULL )
       break;
 
     // Read bytes
-    bool ok = get_many_bytes(ea, PyString_AsString(py_buf), size);
+    if ( !get_many_bytes(ea, PyString_AsString(py_buf.o), size) )
+      Py_RETURN_NONE;
 
-    // If failed, dispose the Python string
-    if ( !ok )
-    {
-      Py_DECREF(py_buf);
-
-      py_buf = Py_None;
-      Py_INCREF(py_buf);
-    }
-
-    return py_buf;
+    py_buf.incref();
+    return py_buf.o;
   } while ( false );
   Py_RETURN_NONE;
 }
@@ -195,9 +184,11 @@ static PyObject *py_get_ascii_contents2(
   }
   if ( type == ASCSTR_C && used_size > 0 && buf[used_size-1] == '\0' )
     used_size--;
-  PyObject *py_buf = PyString_FromStringAndSize((const char *)buf, used_size);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_buf(PyString_FromStringAndSize((const char *)buf, used_size));
   qfree(buf);
-  return py_buf;
+  py_buf.incref();
+  return py_buf.o;
 }
 //---------------------------------------------------------------------------
 /*

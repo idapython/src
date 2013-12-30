@@ -50,6 +50,7 @@
 %ignore is_idaview;
 %ignore refresh_custom_viewer;
 %ignore set_custom_viewer_handlers;
+%ignore get_viewer_name;
 // Ignore these string functions. There are trivial replacements in Python.
 %ignore addblanks;
 %ignore trim;
@@ -70,6 +71,7 @@
 
 %rename (asktext) py_asktext;
 %rename (str2ea)  py_str2ea;
+%rename (str2user)  py_str2user;
 %ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
 %ignore execute_sync;
@@ -88,33 +90,40 @@
 
 // Make askaddr(), askseg(), and asklong() return a
 // tuple: (result, value)
-%apply unsigned long *INOUT { sval_t *value };
 %rename (_asklong) asklong;
-%apply unsigned long *INOUT { ea_t   *addr };
 %rename (_askaddr) askaddr;
-%apply unsigned long *INOUT { sel_t  *sel };
 %rename (_askseg) askseg;
 
 %feature("director") UI_Hooks;
 %inline %{
 int py_msg(const char *format)
 {
-  return msg("%s", format);
+  int rc;
+  Py_BEGIN_ALLOW_THREADS;
+  rc = msg("%s", format);
+  Py_END_ALLOW_THREADS;
+  return rc;
 }
 
 void py_warning(const char *format)
 {
+  Py_BEGIN_ALLOW_THREADS;
   warning("%s", format);
+  Py_END_ALLOW_THREADS;
 }
 
 void py_error(const char *format)
 {
+  Py_BEGIN_ALLOW_THREADS;
   error("%s", format);
+  Py_END_ALLOW_THREADS;
 }
 
 void refresh_lists(void)
 {
+  Py_BEGIN_ALLOW_THREADS;
   callui(ui_list);
+  Py_END_ALLOW_THREADS;
 }
 %}
 
@@ -149,6 +158,8 @@ def register_timer(interval, callback):
 */
 static PyObject *py_register_timer(int interval, PyObject *py_callback)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( py_callback == NULL || !PyCallable_Check(py_callback) )
     Py_RETURN_NONE;
 
@@ -157,17 +168,15 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
   {
     static int idaapi callback(void *ud)
     {
+      PYW_GIL_GET;
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(ctx->pycallback, NULL);
-      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pycallback, NULL));
+      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result.o);
 
       // Timer has been unregistered?
       if ( ret == -1 )
       {
-        // Fee the context
+        // Free the context
         Py_DECREF(ctx->pycallback);
         delete ctx;
       }
@@ -208,6 +217,8 @@ def unregister_timer(timer_obj):
 */
 static PyObject *py_unregister_timer(PyObject *py_timerctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   if ( py_timerctx == NULL || !PyCObject_Check(py_timerctx) )
     Py_RETURN_FALSE;
 
@@ -236,6 +247,7 @@ def choose_idasgn():
 static PyObject *py_choose_idasgn()
 {
   char *name = choose_idasgn();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( name == NULL )
   {
     Py_RETURN_NONE;
@@ -265,6 +277,7 @@ static PyObject *py_get_highlighted_identifier(int flags = 0)
 {
   char buf[MAXSTR];
   bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !ok )
     Py_RETURN_NONE;
   else
@@ -282,6 +295,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
 {
   Py_ssize_t len;
   char *s;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( PyString_AsStringAndSize(data, &s, &len) == -1 )
     return 0;
   else
@@ -316,6 +330,7 @@ def asktext(max_text, defval, prompt):
 */
 PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( max_text <= 0 )
     Py_RETURN_NONE;
 
@@ -359,6 +374,26 @@ ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
+def str2user(str):
+    """
+    Insert C-style escape characters to string
+
+    @return: new string with escape characters inserted
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_str2user(const char *str)
+{
+  qstring qstr(str);
+  qstring retstr;
+  qstr2user(&retstr, qstr);
+  return PyString_FromString(retstr.c_str());
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
 def process_ui_action(name, flags):
     """
     Invokes an IDA UI action by name
@@ -390,6 +425,7 @@ def del_menu_item(menu_ctx):
 */
 static bool py_del_menu_item(PyObject *py_ctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_ctx) )
     return false;
 
@@ -422,6 +458,7 @@ def del_hotkey(ctx):
 */
 bool py_del_hotkey(PyObject *pyctx)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(pyctx) )
     return false;
 
@@ -452,6 +489,7 @@ def add_hotkey(hotkey, pyfunc):
 */
 PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   // Make sure a callable was passed
   if ( !PyCallable_Check(pyfunc) )
     return NULL;
@@ -539,6 +577,7 @@ static PyObject *py_add_menu_item(
   PyObject *pyfunc,
   PyObject *args)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   bool no_args;
 
   // No slash in the menu path?
@@ -637,55 +676,55 @@ def execute_sync(callable, reqf):
 //------------------------------------------------------------------------
 static int py_execute_sync(PyObject *py_callable, int reqf)
 {
-  // Not callable?
-  if ( !PyCallable_Check(py_callable) )
-    return -1;
-
-  struct py_exec_request_t: exec_request_t
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  int rc = -1;
+  // Callable?
+  if ( PyCallable_Check(py_callable) )
   {
-    PyObject *py_callable;
-    bool no_wait;
-    virtual int idaapi execute()
+    struct py_exec_request_t : exec_request_t
     {
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      int r = py_result == NULL || !PyInt_Check(py_result) ? -1 : PyInt_AsLong(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      ref_t py_callable;
+      virtual int idaapi execute()
+      {
+        PYW_GIL_GET;
+        newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
+        int ret = py_result == NULL || !PyInt_Check(py_result.o)
+                ? -1
+                : PyInt_AsLong(py_result.o);
+        // if the requesting thread decided not to wait for the request to
+        // complete, we have to self-destroy, nobody else will do it
+        if ( (code & MFF_NOWAIT) != 0 )
+          delete this;
+        return ret;
+      }
+      py_exec_request_t(PyObject *pyc)
+      {
+        // No need to GIL-ensure here, since this is created
+        // within the py_execute_sync() scope.
+        py_callable = borref_t(pyc);
+      }
+      virtual ~py_exec_request_t()
+      {
+        // Need to GIL-ensure here, since this might be called
+        // from the main thread.
+        PYW_GIL_GET;
+        py_callable = ref_t(); // Release callable
+      }
+    };
+    py_exec_request_t *req = new py_exec_request_t(py_callable);
 
-      // Free this request
-      if ( no_wait )
-        delete this;
-
-      return r;
-    }
-    py_exec_request_t(PyObject *pyc, bool no_wait):
-            py_callable(pyc), no_wait(no_wait)
-    {
-      // Take reference to the callable
-      Py_INCREF(py_callable);
-    }
-    virtual ~py_exec_request_t()
-    {
-      // Release callable
-      Py_XDECREF(py_callable);
-    }
-  };
-
-  bool no_wait = (reqf & MFF_NOWAIT) != 0;
-
-  // Allocate a request
-  py_exec_request_t *req = new py_exec_request_t(py_callable, no_wait);
-
-  // Execute it
-  int r = execute_sync(*req, reqf);
-
-  // Delete only if NOWAIT was not specified
-  // (Otherwise the request will delete itself)
-  if ( !no_wait )
-    delete req;
-
-  return r;
+    // Release GIL before executing, or if this is running in the
+    // non-main thread, this will wait on the req.sem, while the main
+    // thread might be waiting for the GIL to be available.
+    Py_BEGIN_ALLOW_THREADS;
+    rc = execute_sync(*req, reqf);
+    Py_END_ALLOW_THREADS;
+    // destroy the request once it is finished. exception: NOWAIT requests
+    // will be handled in the future, so do not destroy them yet!
+    if ( (reqf & MFF_NOWAIT) == 0 )
+      delete req;
+  }
+  return rc;
 }
 
 //------------------------------------------------------------------------
@@ -710,23 +749,22 @@ static bool py_execute_ui_requests(PyObject *py_list)
   struct py_ui_request_t: public ui_request_t
   {
   private:
-    ppyobject_vec_t py_callables;
+    ref_vec_t py_callables;
     size_t py_callable_idx;
 
     static int idaapi s_py_list_walk_cb(
-      PyObject *py_item,
-      Py_ssize_t index,
-      void *ud)
+            const ref_t &py_item,
+            Py_ssize_t index,
+            void *ud)
     {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
       // Not callable? Terminate iteration
-      if ( !PyCallable_Check(py_item) )
+      if ( !PyCallable_Check(py_item.o) )
         return CIP_FAILED;
 
       // Append this callable and increment its reference
       py_ui_request_t *_this = (py_ui_request_t *)ud;
       _this->py_callables.push_back(py_item);
-      Py_INCREF(py_item);
-
       return CIP_OK;
     }
   public:
@@ -736,14 +774,13 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     virtual bool idaapi run()
     {
-      // Get callable
-      PyObject *py_callable = py_callables.at(py_callable_idx);
+      PYW_GIL_GET;
 
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallFunctionObjArgs(py_callable, NULL);
-      bool reschedule = py_result != NULL && PyObject_IsTrue(py_result);
-      Py_XDECREF(py_result);
-      PYW_GIL_RELEASE;
+      // Get callable
+      ref_t py_callable = py_callables.at(py_callable_idx);
+      bool reschedule;
+      newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
+      reschedule = py_result != NULL && PyObject_IsTrue(py_result.o);
 
       // No rescheduling? Then advance to the next callable
       if ( !reschedule )
@@ -765,13 +802,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     virtual idaapi ~py_ui_request_t()
     {
-      // Release all callables
-      for ( ppyobject_vec_t::const_iterator it=py_callables.begin();
-        it != py_callables.end();
-        ++it )
-      {
-        Py_XDECREF(*it);
-      }
+      py_callables.clear();
     }
   };
 
@@ -934,6 +965,7 @@ public:
 
   virtual PyObject *get_ea_hint(ea_t /*ea*/)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
   };
 };
@@ -942,45 +974,35 @@ public:
 //---------------------------------------------------------------------------
 uint32 idaapi choose_sizer(void *self)
 {
-  PyObject *pyres;
-  uint32 res;
-
-  PYW_GIL_ENSURE;
-  pyres = PyObject_CallMethod((PyObject *)self, "sizer", "");
-  PYW_GIL_RELEASE;
-
-  res = PyInt_AsLong(pyres);
-  Py_DECREF(pyres);
-  return res;
+  PYW_GIL_GET;
+  newref_t pyres(PyObject_CallMethod((PyObject *)self, "sizer", ""));
+  return PyInt_AsLong(pyres.o);
 }
 
 //---------------------------------------------------------------------------
 char *idaapi choose_getl(void *self, uint32 n, char *buf)
 {
-  PYW_GIL_ENSURE;
-  PyObject *pyres = PyObject_CallMethod(
-    (PyObject *)self,
-    "getl",
-    "l",
-    n);
-  PYW_GIL_RELEASE;
+  PYW_GIL_GET;
+  newref_t pyres(
+          PyObject_CallMethod(
+                  (PyObject *)self,
+                  "getl",
+                  "l",
+                  n));
 
   const char *res;
-  if (pyres == NULL || (res = PyString_AsString(pyres)) == NULL )
+  if (pyres == NULL || (res = PyString_AsString(pyres.o)) == NULL )
     qstrncpy(buf, "<Empty>", MAXSTR);
   else
     qstrncpy(buf, res, MAXSTR);
-
-  Py_XDECREF(pyres);
   return buf;
 }
 
 //---------------------------------------------------------------------------
 void idaapi choose_enter(void *self, uint32 n)
 {
-  PYW_GIL_ENSURE;
-  Py_XDECREF(PyObject_CallMethod((PyObject *)self, "enter", "l", n));
-  PYW_GIL_RELEASE;
+  PYW_GIL_GET;
+  newref_t res(PyObject_CallMethod((PyObject *)self, "enter", "l", n));
 }
 
 //---------------------------------------------------------------------------
@@ -993,8 +1015,9 @@ uint32 choose_choose(
     int deflt,
     int icon)
 {
-  PyObject *pytitle = PyObject_GetAttrString((PyObject *)self, "title");
-  const char *title = pytitle != NULL ? PyString_AsString(pytitle) : "Choose";
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t pytitle(PyObject_GetAttrString((PyObject *)self, "title"));
+  const char *title = pytitle != NULL ? PyString_AsString(pytitle.o) : "Choose";
 
   int r = choose(
     flags,
@@ -1015,7 +1038,7 @@ uint32 choose_choose(
     NULL, /* destroy */
     NULL, /* popup_names */
     NULL);/* get_icon */
-  Py_XDECREF(pytitle);
+
   return r;
 }
 
@@ -1166,6 +1189,7 @@ static PyObject *formchgcbfa_get_field_value(
     size_t sz)
 {
   DECLARE_FORM_ACTIONS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   switch ( ft )
   {
     case 8:
@@ -1237,7 +1261,9 @@ static PyObject *formchgcbfa_get_field_value(
         for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
           (*it)--;
 
-        return PyW_IntVecToPyList(intvec);
+        ref_t l(PyW_IntVecToPyList(intvec));
+        l.incref();
+        return l.o;
       }
       break;
     }
@@ -1300,6 +1326,7 @@ static bool formchgcbfa_set_field_value(
   PyObject *py_val)
 {
   DECLARE_FORM_ACTIONS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
 
   switch ( ft )
   {
@@ -1371,6 +1398,11 @@ static bool formchgcbfa_set_field_value(
 
 static size_t py_get_AskUsingForm()
 {
+  // Return a pointer to the function. Note that, although
+  // the C implementation of AskUsingForm_cv will do some
+  // Qt/txt widgets generation, the Python's ctypes
+  // implementation through which the call well go will first
+  // unblock other threads. No need to do it ourselves.
   return (size_t)AskUsingForm_c;
 }
 
@@ -1384,6 +1416,8 @@ static size_t py_get_AskUsingForm()
 //---------------------------------------------------------------------------
 int idaapi UI_Callback(void *ud, int notification_code, va_list va)
 {
+  // This hook gets called from the kernel. Ensure we hold the GIL.
+  PYW_GIL_GET;
   UI_Hooks *proxy = (UI_Hooks *)ud;
   int ret = 0;
   try
@@ -1420,6 +1454,7 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
         char *_buf;
         Py_ssize_t _len;
 
+        PYW_GIL_CHECK_LOCKED_SCOPE();
         PyObject *py_str = proxy->get_ea_hint(ea);
         if ( py_str != NULL
           && PyString_Check(py_str)
@@ -1435,6 +1470,7 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
   catch (Swig::DirectorException &e)
   {
     msg("Exception in UI Hook function: %s\n", e.getMessage());
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( PyErr_Occurred() )
       PyErr_Print();
   }
@@ -1444,15 +1480,15 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
 //------------------------------------------------------------------------
 bool idaapi py_menu_item_callback(void *userdata)
 {
+  PYW_GIL_GET;
+
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
   PyObject *func = PyTuple_GET_ITEM(userdata, 0);
   PyObject *args = PyTuple_GET_ITEM(userdata, 1);
 
   // Call the python function
-  PYW_GIL_ENSURE;
-  PyObject *result = PyEval_CallObject(func, args);
-  PYW_GIL_RELEASE;
+  newref_t result(PyEval_CallObject(func, args));
 
   // We cannot raise an exception in the callback, just print it.
   if ( result == NULL )
@@ -1461,9 +1497,7 @@ bool idaapi py_menu_item_callback(void *userdata)
     return false;
   }
 
-  bool ret = PyObject_IsTrue(result) != 0;
-  Py_DECREF(result);
-  return ret;
+  return PyObject_IsTrue(result.o) != 0;
 }
 
 
@@ -1476,8 +1510,8 @@ bool idaapi py_menu_item_callback(void *userdata)
 #define thisdecl py_choose2_t *_this = thisobj
 #define MENU_COMMAND_CB(id) \
   static uint32 idaapi s_menu_command_##id(void *obj, uint32 n) \
-  { \
-    return thisobj->on_command(id, int(n)); \
+  {                                                             \
+    return thisobj->on_command(id, int(n));                     \
   }
 
 //------------------------------------------------------------------------
@@ -1565,6 +1599,9 @@ private:
   //------------------------------------------------------------------------
   static int idaapi ui_cb(void *obj, int notification_code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
+
     // UI callback to handle chooser items with attributes
     if ( notification_code != ui_get_chooser_item_attrs )
       return 0;
@@ -1674,6 +1711,9 @@ private:
 
   void on_get_line(int lineno, char * const *line_arr)
   {
+    // Called from s_getl, which itself can be called from the kernel. Ensure GIL
+    PYW_GIL_GET;
+
     // Get headers?
     if ( lineno == 0 )
     {
@@ -1689,64 +1729,51 @@ private:
       line_arr[i][0] = '\0';
 
     // Call Python
-    PYW_GIL_ENSURE;
-    PyObject *list = PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t list(PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1));
     if ( list == NULL )
       return;
 
     // Go over the List returned by Python and convert to C strings
     for ( int i=ncols-1; i>=0; i-- )
     {
-      PyObject *item = PyList_GetItem(list, Py_ssize_t(i));
+      borref_t item(PyList_GetItem(list.o, Py_ssize_t(i)));
       if ( item == NULL )
         continue;
 
-      const char *str = PyString_AsString(item);
+      const char *str = PyString_AsString(item.o);
       if ( str != NULL )
         qstrncpy(line_arr[i], str, MAXSTR);
     }
-    Py_DECREF(list);
   }
 
   size_t on_get_size()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL);
-    PYW_GIL_RELEASE;
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL));
     if ( pyres == NULL )
       return 0;
 
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res;
+    return PyInt_AsLong(pyres.o);
   }
 
   void on_refreshed()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL));
   }
 
   void on_select(const intvec_t &intvec)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_list = PyW_IntVecToPyList(intvec);
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
-    Py_XDECREF(py_list);
+    PYW_GIL_GET;
+    ref_t py_list(PyW_IntVecToPyList(intvec));
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list.o));
   }
 
   void on_close()
   {
-    // Call Python
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
 
     // Delete this instance if none modal and not embedded
     if ( !is_modal() && get_embedded() == NULL )
@@ -1755,123 +1782,96 @@ private:
 
   int on_delete_line(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_DELETE_LINE,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-
-    if ( pyres == NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res + 1;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_DELETE_LINE,
+                    "i",
+                    lineno - 1));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
   }
 
   int on_refresh(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_REFRESH,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-    if ( pyres == NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_DECREF(pyres);
-    return res + 1;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_REFRESH,
+                    "i",
+                    lineno - 1));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
   }
 
   void on_insert_line()
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL));
   }
 
   void on_enter(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_SELECT_LINE,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_SELECT_LINE,
+                    "i",
+                    lineno - 1));
   }
 
   void on_edit_line(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-      self,
-      (char *)S_ON_EDIT_LINE,
-      "i",
-      lineno - 1);
-    PYW_GIL_RELEASE;
-    Py_XDECREF(pyres);
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_EDIT_LINE,
+                    "i",
+                    lineno - 1));
   }
 
   int on_command(int cmd_id, int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-          self,
-          (char *)S_ON_COMMAND,
-          "ii",
-          lineno - 1,
-          cmd_id);
-    PYW_GIL_RELEASE;
-
-    if ( pyres==NULL )
-      return lineno;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_XDECREF(pyres);
-    return res;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_COMMAND,
+                    "ii",
+                    lineno - 1,
+                    cmd_id));
+    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o);
   }
 
   int on_get_icon(int lineno)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(
-        self,
-        (char *)S_ON_GET_ICON,
-        "i",
-        lineno - 1);
-    PYW_GIL_RELEASE;
-
-    size_t res = PyInt_AsLong(pyres);
-    Py_XDECREF(pyres);
-    return res;
+    PYW_GIL_GET;
+    newref_t pyres(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_GET_ICON,
+                    "i",
+                    lineno - 1));
+    return PyInt_AsLong(pyres.o);
   }
 
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
-    PYW_GIL_ENSURE;
-    PyObject *pyres = PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1);
-    PYW_GIL_RELEASE;
-
-    if ( pyres == NULL )
-      return;
-
-    if ( PyList_Check(pyres) )
+    PYW_GIL_GET;
+    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1));
+    if ( pyres != NULL )
     {
-      PyObject *item;
-      if ( (item = PyList_GetItem(pyres, 0)) != NULL )
-        attr->color = PyInt_AsLong(item);
-      if ( (item = PyList_GetItem(pyres, 1)) != NULL )
-        attr->flags = PyInt_AsLong(item);
+      if ( PyList_Check(pyres.o) )
+      {
+        PyObject *item;
+        if ( (item = PyList_GetItem(pyres.o, 0)) != NULL )
+          attr->color = PyInt_AsLong(item);
+        if ( (item = PyList_GetItem(pyres.o, 1)) != NULL )
+          attr->flags = PyInt_AsLong(item);
+      }
     }
-    Py_XDECREF(pyres);
   }
 
 public:
@@ -1961,7 +1961,7 @@ public:
 
       // Adjust the title
       ptitle = title_buf;
-      
+
       // Adjust the caption
       p = strtok(NULL, delimiter);
       caption += (p - temp);
@@ -1972,12 +1972,12 @@ public:
     }
 
     if ( !add_chooser_command(
-      ptitle,
-      caption, 
-      menu_cbs[menu_cb_idx],
-      menu_index,
-      icon,
-      flags))
+                 ptitle,
+                 caption,
+                 menu_cbs[menu_cb_idx],
+                 menu_index,
+                 icon,
+                 flags))
     {
       return -1;
     }
@@ -1990,83 +1990,71 @@ public:
   // Otherwise the chooser window is created and displayed
   int create(PyObject *self)
   {
-    PyObject *attr;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
 
     // Get flags
-    attr = PyW_TryGetAttrString(self, S_FLAGS);
-    if ( attr == NULL )
+    ref_t flags_attr(PyW_TryGetAttrString(self, S_FLAGS));
+    if ( flags_attr == NULL )
       return -1;
-
-    flags = PyInt_Check(attr) != 0 ? PyInt_AsLong(attr) : 0;
-    Py_DECREF(attr);
+    flags = PyInt_Check(flags_attr.o) != 0 ? PyInt_AsLong(flags_attr.o) : 0;
 
     // Get the title
     if ( !PyW_GetStringAttr(self, S_TITLE, &title) )
       return -1;
 
     // Get columns
-    attr = PyW_TryGetAttrString(self, "cols");
-    if ( attr == NULL )
+    ref_t cols_attr(PyW_TryGetAttrString(self, "cols"));
+    if ( cols_attr == NULL )
       return -1;
 
     // Get col count
-    int ncols = int(PyList_Size(attr));
+    int ncols = int(PyList_Size(cols_attr.o));
 
     // Get cols caption and widthes
     cols.qclear();
     for ( int i=0; i<ncols; i++ )
     {
       // get list item: [name, width]
-      PyObject *list = PyList_GetItem(attr, i);
-      PyObject *v = PyList_GetItem(list, 0);
+      borref_t list(PyList_GetItem(cols_attr.o, i));
+      borref_t v(PyList_GetItem(list.o, 0));
 
       // Extract string
-      const char *str = v == NULL ? "" : PyString_AsString(v);
+      const char *str = v == NULL ? "" : PyString_AsString(v.o);
       cols.push_back(str);
 
       // Extract width
       int width;
-      v = PyList_GetItem(list, 1);
+      borref_t v2(PyList_GetItem(list.o, 1));
       // No width? Guess width from column title
-      if ( v == NULL )
+      if ( v2 == NULL )
         width = strlen(str);
       else
-        width = PyInt_AsLong(v);
+        width = PyInt_AsLong(v2.o);
       widths.push_back(width);
     }
-    Py_DECREF(attr);
 
     // Get *deflt
     int deflt = -1;
-    attr = PyW_TryGetAttrString(self, "deflt");
-    if ( attr != NULL )
-    {
-      deflt = PyInt_AsLong(attr);
-      Py_DECREF(attr);
-    }
+    ref_t deflt_attr(PyW_TryGetAttrString(self, "deflt"));
+    if ( deflt_attr != NULL )
+      deflt = PyInt_AsLong(deflt_attr.o);
 
     // Get *icon
     int icon = -1;
-    if ( (attr = PyW_TryGetAttrString(self, "icon")) != NULL )
-    {
-      icon = PyInt_AsLong(attr);
-      Py_DECREF(attr);
-    }
+    ref_t icon_attr(PyW_TryGetAttrString(self, "icon"));
+    if ( icon_attr != NULL )
+      icon = PyInt_AsLong(icon_attr.o);
 
     // Get *x1,y1,x2,y2
     int pts[4];
     static const char *pt_attrs[qnumber(pts)] = {"x1", "y1", "x2", "y2"};
     for ( size_t i=0; i < qnumber(pts); i++ )
     {
-      if ( (attr = PyW_TryGetAttrString(self, pt_attrs[i])) == NULL )
-      {
+      ref_t pt_attr(PyW_TryGetAttrString(self, pt_attrs[i]));
+      if ( pt_attr == NULL )
         pts[i] = -1;
-      }
       else
-      {
-        pts[i] = PyInt_AsLong(attr);
-        Py_DECREF(attr);
-      }
+        pts[i] = PyInt_AsLong(pt_attr.o);
     }
 
     // Check what callbacks we have
@@ -2093,10 +2081,8 @@ public:
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
     {
-      attr = attr = PyW_TryGetAttrString(self, callbacks[i].name);
-      bool have_cb = attr != NULL && PyCallable_Check(attr) != 0;
-      Py_XDECREF(attr);
-
+      ref_t cb_attr(PyW_TryGetAttrString(self, callbacks[i].name));
+      bool have_cb = cb_attr != NULL && PyCallable_Check(cb_attr.o) != 0;
       if ( have_cb )
       {
         cb_flags |= callbacks[i].have;
@@ -2111,19 +2097,18 @@ public:
 
     // Get *popup names
     // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh"
-    attr = PyW_TryGetAttrString(self, S_POPUP_NAMES);
-    if ( (attr != NULL)
-      && PyList_Check(attr)
-      && PyList_Size(attr) == POPUP_NAMES_COUNT )
+    ref_t pn_attr(PyW_TryGetAttrString(self, S_POPUP_NAMES));
+    if ( (pn_attr != NULL)
+      && PyList_Check(pn_attr.o)
+      && PyList_Size(pn_attr.o) == POPUP_NAMES_COUNT )
     {
       popup_names = new const char *[POPUP_NAMES_COUNT];
       for ( int i=0; i<POPUP_NAMES_COUNT; i++ )
       {
-        const char *str = PyString_AsString(PyList_GetItem(attr, i));
+        const char *str = PyString_AsString(PyList_GetItem(pn_attr.o, i));
         popup_names[i] = qstrdup(str);
       }
     }
-    Py_XDECREF(attr);
 
     // Adjust flags (if needed)
     if ( (cb_flags & CHOOSE2_HAVE_GETATTR) != 0 )
@@ -2137,8 +2122,8 @@ public:
     install_hooks(true);
 
     // Check if *embedded
-    attr = PyW_TryGetAttrString(self, S_EMBEDDED);
-    if ( attr != NULL && PyObject_IsTrue(attr) == 1 )
+    ref_t emb_attr(PyW_TryGetAttrString(self, S_EMBEDDED));
+    if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
     {
       // Create an embedded chooser structure
       embedded               = new chooser_info_t();
@@ -2175,7 +2160,6 @@ public:
         embedded->refresh      = NULL;
       }
     }
-    Py_XDECREF(attr);
 
     // Create the chooser (if not embedded)
     int r;
@@ -2338,6 +2322,8 @@ void choose2_activate(PyObject *self)
 //------------------------------------------------------------------------
 PyObject *choose2_get_embedded_selection(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   py_choose2_t *c2 = choose2_find_instance(self);
   chooser_info_t *embedded;
 
@@ -2351,13 +2337,17 @@ PyObject *choose2_get_embedded_selection(PyObject *self)
   for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
     (*it)--;
 
-  return PyW_IntVecToPyList(intvec);
+  ref_t ret(PyW_IntVecToPyList(intvec));
+  ret.incref();
+  return ret.o;
 }
 
 //------------------------------------------------------------------------
 // Return the C instances as 64bit numbers
 PyObject *choose2_get_embedded(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
   py_choose2_t *c2 = choose2_find_instance(self);
   chooser_info_t *embedded;
 
@@ -2433,17 +2423,17 @@ private:
   static py_cli_t *py_clis[MAX_PY_CLI];
   static const py_cli_cbs_t py_cli_cbs[MAX_PY_CLI];
   //--------------------------------------------------------------------------
-#define IMPL_PY_CLI_CB(CBN) \
+#define IMPL_PY_CLI_CB(CBN)                                             \
   static bool idaapi s_keydown##CBN(qstring *line, int *p_x, int *p_sellen, int *vk_key, int shift) \
-  { \
+  {                                                                     \
     return py_clis[CBN]->on_keydown(line, p_x, p_sellen, vk_key, shift); \
-  } \
-  static bool idaapi s_execute_line##CBN(const char *line) \
-  { \
-    return py_clis[CBN]->on_execute_line(line); \
-  } \
+  }                                                                     \
+  static bool idaapi s_execute_line##CBN(const char *line)              \
+  {                                                                     \
+    return py_clis[CBN]->on_execute_line(line);                         \
+  }                                                                     \
   static bool idaapi s_complete_line##CBN(qstring *completion, const char *prefix, int n, const char *line, int x) \
-  { \
+  {                                                                     \
     return py_clis[CBN]->on_complete_line(completion, prefix, n, line, x); \
   }
 
@@ -2458,18 +2448,15 @@ private:
   // Returns: true-executed line, false-ask for more lines
   bool on_execute_line(const char *line)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_EXECUTE_LINE, 
-        "s", 
-        line);
-    PYW_GIL_RELEASE;
-    
-    bool ok = result != NULL && PyObject_IsTrue(result);
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_EXECUTE_LINE,
+                    "s",
+                    line));
     PyW_ShowCbErr(S_ON_EXECUTE_LINE);
-    Py_XDECREF(result);
-    return ok;
+    return result != NULL && PyObject_IsTrue(result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -2491,41 +2478,45 @@ private:
     int *vk_key,
     int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-      self, 
-      (char *)S_ON_KEYDOWN, 
-      "siiHi", 
-      line->c_str(), 
-      *p_x,
-      *p_sellen,
-      *vk_key,
-      shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_KEYDOWN,
+                    "siiHi",
+                    line->c_str(),
+                    *p_x,
+                    *p_sellen,
+                    *vk_key,
+                    shift));
 
-    bool ok = result != NULL && PyTuple_Check(result);
+    bool ok = result != NULL && PyTuple_Check(result.o);
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
 
     if ( ok )
     {
-      Py_ssize_t sz = PyTuple_Size(result);
+      Py_ssize_t sz = PyTuple_Size(result.o);
       PyObject *item;
-      
-      if ( sz > 0 && (item = PyTuple_GetItem(result, 0)) != NULL && PyString_Check(item) )
-        *line = PyString_AsString(item);
-      
-      if ( sz > 1 && (item = PyTuple_GetItem(result, 1)) != NULL && PyInt_Check(item) )
-        *p_x = PyInt_AsLong(item);
-      
-      if ( sz > 2 && (item = PyTuple_GetItem(result, 2)) != NULL && PyInt_Check(item) )
-        *p_sellen = PyInt_AsLong(item);
 
-      if ( sz > 3 && (item = PyTuple_GetItem(result, 3)) != NULL && PyInt_Check(item) )
-        *vk_key = PyInt_AsLong(item) & 0xffff;
+#define GET_TUPLE_ENTRY(col, PyThingy, AsThingy, out)                   \
+      do                                                                \
+      {                                                                 \
+        if ( sz > col )                                                 \
+        {                                                               \
+          borref_t _r(PyTuple_GetItem(result.o, col));                  \
+          if ( _r != NULL && PyThingy##_Check(_r.o) )                   \
+            *out = PyThingy##_##AsThingy(_r.o);                         \
+        }                                                               \
+      } while ( false )
+
+      GET_TUPLE_ENTRY(0, PyString, AsString, line);
+      GET_TUPLE_ENTRY(1, PyInt, AsLong, p_x);
+      GET_TUPLE_ENTRY(2, PyInt, AsLong, p_sellen);
+      GET_TUPLE_ENTRY(3, PyInt, AsLong, vk_key);
+      *vk_key &= 0xffff;
+#undef GET_TUPLE_ENTRY
     }
-
-    Py_XDECREF(result);
     return ok;
   }
 
@@ -2536,41 +2527,41 @@ private:
   // Returns: true if generated a new completion
   // This callback is optional
   bool on_complete_line(
-    qstring *completion,
-    const char *prefix,
-    int n,
-    const char *line,
-    int x)
+          qstring *completion,
+          const char *prefix,
+          int n,
+          const char *line,
+          int x)
   {
-    PYW_GIL_ENSURE;
-    PyObject *result = PyObject_CallMethod(
-        self, 
-        (char *)S_ON_COMPLETE_LINE, 
-        "sisi", 
-        prefix, 
-        n, 
-        line, 
-        x);
-    PYW_GIL_RELEASE;
-    
-    bool ok = result != NULL && PyString_Check(result);
+    PYW_GIL_GET;
+    newref_t result(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_COMPLETE_LINE,
+                    "sisi",
+                    prefix,
+                    n,
+                    line,
+                    x));
+
+    bool ok = result != NULL && PyString_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
-      *completion = PyString_AsString(result);
-
-    Py_XDECREF(result);
+      *completion = PyString_AsString(result.o);
     return ok;
   }
 
   // Private ctor (use bind())
-  py_cli_t() 
-  { 
+  py_cli_t()
+  {
   }
 
 public:
   //---------------------------------------------------------------------------
   static int bind(PyObject *py_obj)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+
     int cli_idx;
     // Find an empty slot
     for ( cli_idx = 0; cli_idx < MAX_PY_CLI; ++cli_idx )
@@ -2579,7 +2570,7 @@ public:
         break;
     }
     py_cli_t *py_cli = NULL;
-    do 
+    do
     {
       // No free slots?
       if ( cli_idx >= MAX_PY_CLI )
@@ -2593,14 +2584,12 @@ public:
       py_cli->cli.size = sizeof(cli_t);
 
       // Store 'flags'
-      if ( (attr = PyW_TryGetAttrString(py_obj, S_FLAGS)) == NULL )
       {
-        py_cli->cli.flags = 0;
-      }
-      else
-      {
-        py_cli->cli.flags = PyLong_AsLong(attr);
-        Py_DECREF(attr);
+        ref_t flags_attr(PyW_TryGetAttrString(py_obj, S_FLAGS));
+        if ( flags_attr == NULL )
+          py_cli->cli.flags = 0;
+        else
+          py_cli->cli.flags = PyLong_AsLong(flags_attr.o);
       }
 
       // Store 'sname'
@@ -2652,9 +2641,12 @@ public:
 
     py_cli_t *py_cli = py_clis[cli_idx];
     remove_command_interpreter(&py_cli->cli);
-    
-    Py_DECREF(py_cli->self);
-    delete py_cli;
+
+    {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      Py_DECREF(py_cli->self);
+      delete py_cli;
+    }
 
     py_clis[cli_idx] = NULL;
 
@@ -2677,11 +2669,14 @@ const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 class plgform_t
 {
 private:
-  PyObject *py_obj;
+  ref_t py_obj;
   TForm *form;
 
   static int idaapi s_callback(void *ud, int notification_code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
+
     plgform_t *_this = (plgform_t *)ud;
     if ( notification_code == ui_tform_visible )
     {
@@ -2692,15 +2687,12 @@ private:
         // G: HWND
         // We wrap and pass as a CObject in the hope that a Python UI framework
         // can unwrap a CObject and get the hwnd/widget back
-        PYW_GIL_ENSURE;
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CREATE, "O",
-          PyCObject_FromVoidPtr(form, NULL));
-        PYW_GIL_RELEASE;
-
+        newref_t py_result(
+                PyObject_CallMethod(
+                        _this->py_obj.o,
+                        (char *)S_ON_CREATE, "O",
+                        PyCObject_FromVoidPtr(form, NULL)));
         PyW_ShowCbErr(S_ON_CREATE);
-        Py_XDECREF(py_result);
       }
     }
     else if ( notification_code == ui_tform_invisible )
@@ -2708,16 +2700,14 @@ private:
       TForm *form = va_arg(va, TForm *);
       if ( form == _this->form )
       {
-        PYW_GIL_ENSURE;
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CLOSE, "O",
-          PyCObject_FromVoidPtr(form, NULL));
-        PYW_GIL_RELEASE;
-
-        PyW_ShowCbErr(S_ON_CLOSE);
-        Py_XDECREF(py_result);
-
+        {
+          newref_t py_result(
+                  PyObject_CallMethod(
+                          _this->py_obj.o,
+                          (char *)S_ON_CLOSE, "O",
+                          PyCObject_FromVoidPtr(form, NULL)));
+          PyW_ShowCbErr(S_ON_CLOSE);
+        }
         _this->unhook();
       }
     }
@@ -2730,11 +2720,12 @@ private:
     form = NULL;
 
     // Call DECREF at last, since it may trigger __del__
-    Py_XDECREF(py_obj);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    py_obj = ref_t();
   }
 
 public:
-  plgform_t(): py_obj(NULL), form(NULL)
+  plgform_t(): form(NULL)
   {
   }
 
@@ -2769,8 +2760,7 @@ public:
       return false;
     }
 
-    py_obj = obj;
-    Py_INCREF(obj);
+    py_obj = borref_t(obj);
 
     if ( is_idaq() )
       options |= FORM_QWIDGET;
@@ -2788,6 +2778,7 @@ public:
 
   static PyObject *create()
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyCObject_FromVoidPtr(new plgform_t(), destroy);
   }
 
@@ -2802,7 +2793,7 @@ public:
 %inline %{
 //<inline(py_plgform)>
 //---------------------------------------------------------------------------
-#define DECL_PLGFORM plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
 static PyObject *plgform_new()
 {
   return plgform_t::create();
@@ -2998,6 +2989,7 @@ private:
 
   static bool idaapi s_popup_cb(void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_popup();
   }
@@ -3009,6 +3001,7 @@ private:
     if ( it == _global_popup_map.end() )
       return false;
 
+    PYW_GIL_GET;
     return it->second.cv->on_popup_menu(it->second.menu_id);
   }
 
@@ -3018,6 +3011,7 @@ private:
       int shift,
       void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_keydown(vk_key, shift);
   }
@@ -3025,6 +3019,7 @@ private:
   // The popup menu is being constructed
   static void idaapi s_cv_popup(TCustomControl * /*cv*/, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     _this->on_popup();
   }
@@ -3032,6 +3027,7 @@ private:
   // The user clicked
   static bool idaapi s_cv_click(TCustomControl * /*cv*/, int shift, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_click(shift);
   }
@@ -3039,6 +3035,7 @@ private:
   // The user double clicked
   static bool idaapi s_cv_dblclick(TCustomControl * /*cv*/, int shift, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_dblclick(shift);
   }
@@ -3046,6 +3043,7 @@ private:
   // Cursor position has been changed
   static void idaapi s_cv_curpos(TCustomControl * /*cv*/, void *ud)
   {
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     _this->on_curpos_changed();
   }
@@ -3053,6 +3051,8 @@ private:
   //--------------------------------------------------------------------------
   static int idaapi s_ui_cb(void *ud, int code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     switch ( code )
     {
@@ -3073,11 +3073,12 @@ private:
         TForm *form = va_arg(va, TForm *);
         if ( _this->_form != form )
           break;
-
-        unhook_from_notification_point(HT_UI, s_ui_cb, _this);
-        _this->on_close();
-        _this->on_post_close();
       }
+      // fallthrough...
+    case ui_term:
+      unhook_from_notification_point(HT_UI, s_ui_cb, _this);
+      _this->on_close();
+      _this->on_post_close();
       break;
     }
 
@@ -3371,6 +3372,8 @@ private:
   // Convert a tuple (String, [color, [bgcolor]]) to a simpleline_t
   static bool py_to_simpleline(PyObject *py, simpleline_t &sl)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+
     if ( PyString_Check(py) )
     {
       sl.line = PyString_AsString(py);
@@ -3400,37 +3403,29 @@ private:
   //
   virtual bool on_click(int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_CLICK);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
   // OnDblClick
   virtual bool on_dblclick(int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift));
     PyW_ShowCbErr(S_ON_DBL_CLICK);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
   // OnCurorPositionChanged
   virtual void on_curpos_changed()
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL));
     PyW_ShowCbErr(S_ON_CURSOR_POS_CHANGED);
-    Py_XDECREF(py_result);
   }
 
   //--------------------------------------------------------------------------
@@ -3440,12 +3435,9 @@ private:
     // Call the close method if it is there and the object is still bound
     if ( (features & HAVE_CLOSE) != 0 && py_self != NULL )
     {
-      PYW_GIL_ENSURE;
-      PyObject *py_result = PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL);
-      PYW_GIL_RELEASE;
-
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL));
       PyW_ShowCbErr(S_ON_CLOSE);
-      Py_XDECREF(py_result);
 
       // Cleanup
       Py_DECREF(py_self);
@@ -3457,36 +3449,31 @@ private:
   // OnKeyDown
   virtual bool on_keydown(int vk_key, int shift)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_KEYDOWN,
-        "ii",
-        vk_key,
-        shift);
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_KEYDOWN,
+                    "ii",
+                    vk_key,
+                    shift));
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
 // OnPopupShow
   virtual bool on_popup()
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_POPUP,
-        NULL);
-    PYW_GIL_RELEASE;
-
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_POPUP,
+                    NULL));
     PyW_ShowCbErr(S_ON_POPUP);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -3494,28 +3481,22 @@ private:
   virtual bool on_hint(place_t *place, int *important_lines, qstring &hint)
   {
     size_t ln = data.to_lineno(place);
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_HINT,
-        PY_FMT64,
-        pyul_t(ln));
-    PYW_GIL_RELEASE;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_HINT,
+                    PY_FMT64,
+                    pyul_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != NULL && PyTuple_Check(py_result) && PyTuple_Size(py_result) == 2;
+    bool ok = py_result != NULL && PyTuple_Check(py_result.o) && PyTuple_Size(py_result.o) == 2;
     if ( ok )
     {
-      // Borrow references
-      PyObject *py_nlines = PyTuple_GetItem(py_result, 0);
-      PyObject *py_hint   = PyTuple_GetItem(py_result, 1);
-
       if ( important_lines != NULL )
-        *important_lines = PyInt_AsLong(py_nlines);
-
-      hint = PyString_AsString(py_hint);
+        *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
+      hint = PyString_AsString(PyTuple_GetItem(py_result.o, 1));
     }
-    Py_XDECREF(py_result);
     return ok;
   }
 
@@ -3523,18 +3504,15 @@ private:
   // OnPopupMenuClick
   virtual bool on_popup_menu(size_t menu_id)
   {
-    PYW_GIL_ENSURE;
-    PyObject *py_result = PyObject_CallMethod(
-        py_self,
-        (char *)S_ON_POPUP_MENU,
-        PY_FMT64,
-        pyul_t(menu_id));
-    PYW_GIL_RELEASE;
-
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_self,
+                    (char *)S_ON_POPUP_MENU,
+                    PY_FMT64,
+                    pyul_t(menu_id)));
     PyW_ShowCbErr(S_ON_POPUP_MENU);
-    bool ok = py_result != NULL && PyObject_IsTrue(py_result);
-    Py_XDECREF(py_result);
-    return ok;
+    return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
   //--------------------------------------------------------------------------
@@ -3606,6 +3584,7 @@ public:
     place_t *pl;
     int x, y;
     pl = get_place(mouse, &x, &y);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( pl == NULL )
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_FMT64 "ii)", pyul_t(data.to_lineno(pl)), x, y);
@@ -3616,6 +3595,7 @@ public:
   PyObject *get_line(size_t nline)
   {
     simpleline_t *r = data.get_line(nline);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( r == NULL )
       Py_RETURN_NONE;
     return Py_BuildValue("(sII)", r->line.c_str(), (unsigned int)r->color, (unsigned int)r->bgcolor);
@@ -3665,6 +3645,8 @@ public:
       {S_ON_DBL_CLICK,          HAVE_DBLCLICK},
       {S_ON_CURSOR_POS_CHANGED, HAVE_CURPOS}
     };
+
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     for ( size_t i=0; i<qnumber(cbtable); i++ )
     {
       if ( PyObject_HasAttrString(py_link, cbtable[i].cb_name) )
@@ -3722,6 +3704,7 @@ public:
   PyObject *py_get_selection()
   {
     size_t x1, y1, x2, y2;
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !get_selection(&x1, &y1, &x2, &y2) )
       Py_RETURN_NONE;
     return Py_BuildValue("(" PY_FMT64 PY_FMT64 PY_FMT64 PY_FMT64 ")", pyul_t(x1), pyul_t(y1), pyul_t(x2), pyul_t(y2));
@@ -3729,6 +3712,7 @@ public:
 
   static py_simplecustview_t *get_this(PyObject *py_this)
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyCObject_Check(py_this) ? (py_simplecustview_t *) PyCObject_AsVoidPtr(py_this) : NULL;
   }
 
@@ -3744,12 +3728,12 @@ public:
 %inline %{
 //<inline(py_cli)>
 static int py_install_command_interpreter(PyObject *py_obj)
-{ 
+{
   return py_cli_t::bind(py_obj);
 }
 
 static void py_remove_command_interpreter(int cli_idx)
-{ 
+{
   py_cli_t::unbind(cli_idx);
 }
 //</inline(py_cli)>
@@ -3760,6 +3744,7 @@ static void py_remove_command_interpreter(int cli_idx)
 //
 PyObject *pyscv_init(PyObject *py_link, const char *title)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   py_simplecustview_t *_this = new py_simplecustview_t();
   bool ok = _this->init(py_link, title);
   if ( !ok )
@@ -3804,6 +3789,7 @@ bool pyscv_refresh_current(PyObject *py_this)
 PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
 {
   DECL_THIS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   const char *line;
   if ( _this == NULL || (line = _this->get_current_line(mouse, notags)) == NULL )
     Py_RETURN_NONE;
@@ -3864,7 +3850,10 @@ PyObject *pyscv_get_line(PyObject *py_this, size_t nline)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->get_line(nline);
 }
 
@@ -3874,7 +3863,10 @@ PyObject *pyscv_get_pos(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->get_pos(mouse);
 }
 
@@ -3884,6 +3876,7 @@ PyObject *pyscv_clear_lines(PyObject *py_this)
   DECL_THIS;
   if ( _this != NULL )
     _this->clear();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
 }
 
@@ -3921,7 +3914,10 @@ PyObject *pyscv_get_selection(PyObject *py_this)
 {
   DECL_THIS;
   if ( _this == NULL )
+  {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
+  }
   return _this->py_get_selection();
 }
 
@@ -3929,6 +3925,7 @@ PyObject *pyscv_get_selection(PyObject *py_this)
 PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
 {
   DECL_THIS;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( _this != NULL )
   {
     qstring word;
@@ -5587,6 +5584,19 @@ class PluginForm(object):
 
         @param ctx: Context. Reference to a module that already imported QtGui module
         """
+        if form is None:
+            return None
+        if type(form).__name__ == "SwigPyObject":
+            # Since 'form' is a SwigPyObject, we first need to convert it to a PyCObject.
+            # However, there's no easy way of doing it, so we'll use a rather brutal approach:
+            # converting the SwigPyObject to a 'long' (will go through 'SwigPyObject_long',
+            # that will return the pointer's value as a long), and then convert that value
+            # back to a pointer into a PyCObject.
+            ptr_l = long(form)
+            from ctypes import pythonapi, c_void_p, py_object
+            pythonapi.PyCObject_FromVoidPtr.restype  = py_object
+            pythonapi.PyCObject_AsVoidPtr.argtypes = [c_void_p, c_void_p]
+            form = pythonapi.PyCObject_FromVoidPtr(ptr_l, 0)
         return ctx.QtGui.QWidget.FromCObject(form)
 
 
@@ -5617,7 +5627,7 @@ class PluginForm(object):
 
         @return: None
         """
-        return _idaapi.plgform_close(self.__clink__)
+        return _idaapi.plgform_close(self.__clink__, options)
 
     FORM_SAVE           = 0x1
     """Save state in desktop config"""

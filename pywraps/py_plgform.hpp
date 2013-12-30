@@ -6,11 +6,14 @@
 class plgform_t
 {
 private:
-  PyObject *py_obj;
+  ref_t py_obj;
   TForm *form;
 
   static int idaapi s_callback(void *ud, int notification_code, va_list va)
   {
+    // This hook gets called from the kernel. Ensure we hold the GIL.
+    PYW_GIL_GET;
+
     plgform_t *_this = (plgform_t *)ud;
     if ( notification_code == ui_tform_visible )
     {
@@ -21,15 +24,12 @@ private:
         // G: HWND
         // We wrap and pass as a CObject in the hope that a Python UI framework
         // can unwrap a CObject and get the hwnd/widget back
-        PYW_GIL_ENSURE;
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CREATE, "O",
-          PyCObject_FromVoidPtr(form, NULL));
-        PYW_GIL_RELEASE;
-
+        newref_t py_result(
+                PyObject_CallMethod(
+                        _this->py_obj.o,
+                        (char *)S_ON_CREATE, "O",
+                        PyCObject_FromVoidPtr(form, NULL)));
         PyW_ShowCbErr(S_ON_CREATE);
-        Py_XDECREF(py_result);
       }
     }
     else if ( notification_code == ui_tform_invisible )
@@ -37,16 +37,14 @@ private:
       TForm *form = va_arg(va, TForm *);
       if ( form == _this->form )
       {
-        PYW_GIL_ENSURE;
-        PyObject *py_result = PyObject_CallMethod(
-          _this->py_obj,
-          (char *)S_ON_CLOSE, "O",
-          PyCObject_FromVoidPtr(form, NULL));
-        PYW_GIL_RELEASE;
-
-        PyW_ShowCbErr(S_ON_CLOSE);
-        Py_XDECREF(py_result);
-
+        {
+          newref_t py_result(
+                  PyObject_CallMethod(
+                          _this->py_obj.o,
+                          (char *)S_ON_CLOSE, "O",
+                          PyCObject_FromVoidPtr(form, NULL)));
+          PyW_ShowCbErr(S_ON_CLOSE);
+        }
         _this->unhook();
       }
     }
@@ -59,11 +57,12 @@ private:
     form = NULL;
 
     // Call DECREF at last, since it may trigger __del__
-    Py_XDECREF(py_obj);
+    PYW_GIL_CHECK_LOCKED_SCOPE();
+    py_obj = ref_t();
   }
 
 public:
-  plgform_t(): py_obj(NULL), form(NULL)
+  plgform_t(): form(NULL)
   {
   }
 
@@ -98,8 +97,7 @@ public:
       return false;
     }
 
-    py_obj = obj;
-    Py_INCREF(obj);
+    py_obj = borref_t(obj);
 
     if ( is_idaq() )
       options |= FORM_QWIDGET;
@@ -117,6 +115,7 @@ public:
 
   static PyObject *create()
   {
+    PYW_GIL_CHECK_LOCKED_SCOPE();
     return PyCObject_FromVoidPtr(new plgform_t(), destroy);
   }
 
@@ -129,7 +128,7 @@ public:
 
 //<inline(py_plgform)>
 //---------------------------------------------------------------------------
-#define DECL_PLGFORM plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
 static PyObject *plgform_new()
 {
   return plgform_t::create();
