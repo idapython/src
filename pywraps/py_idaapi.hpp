@@ -167,7 +167,7 @@ static error_t idaapi idc_py_invoke0(
     idc_value_t *argv,
     idc_value_t *res)
 {
-  PYW_GIL_CHECK_LOCKED_SCOPE();
+  PYW_GIL_GET;
   PyObject *pyfunc = (PyObject *) argv[0].pvoid;
   newref_t py_result(PyObject_CallFunctionObjArgs(pyfunc, NULL));
 

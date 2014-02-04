@@ -1022,9 +1022,8 @@ bool idaapi IDAPython_extlang_calcexpr(
     begin_execution();
     result = newref_t(PyRun_String(expr, Py_eval_input, globals, globals));
     end_execution();
-  }
-  if ( ok && result != NULL )
     ok = return_python_result(rv, result, errbuf, errbufsize);
+  }
   return ok;
 }
 

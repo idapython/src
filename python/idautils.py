@@ -330,7 +330,7 @@ def Structs():
 
 def StructMembers(sid):
     """
-    Get a list of structure members information.
+    Get a list of structure members information (or stack vars if given a frame).
 
     @param sid: ID of the structure.
 
@@ -338,14 +338,17 @@ def StructMembers(sid):
 
     @note: If 'sid' does not refer to a valid structure,
            an exception will be raised.
+    @note: This will not return 'holes' in structures/stack frames;
+           it only returns defined structure members.
     """
-    off = idc.GetFirstMember(sid)
-    if off == idaapi.BADNODE:
+    m = idc.GetFirstMember(sid)
+    if m == -1:
         raise Exception("No structure with ID: 0x%x" % sid)
-    members = idc.GetMemberQty(sid)
-    for idx in range(0, members):
-        yield (off, idc.GetMemberName(sid, off), idc.GetMemberSize(sid, off))
-        off = idc.GetStrucNextOff(sid, off)
+    while (m != idaapi.BADADDR):
+        name = idc.GetMemberName(sid, m)
+        if name:
+            yield (m, name, idc.GetMemberSize(sid, m))
+        m = idc.GetStrucNextOff(sid, m)
 
 
 def DecodePrecedingInstruction(ea):

@@ -37,7 +37,6 @@
 %ignore close_comment;
 %ignore copy_extra_cmts;
 %ignore gen_extra_cmts;
-%ignore get_first_free_extra_cmtidx;
 %ignore Dumper;
 %ignore init_lines;
 %ignore save_lines;

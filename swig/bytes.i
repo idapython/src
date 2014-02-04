@@ -4,6 +4,11 @@
 // For get_enum_id()
 %apply unsigned char *OUTPUT { uchar *serial };
 
+// get_[first|last]_serial_enum_member() won't take serials as input; it'll be present as output
+%apply unsigned char *OUTPUT { uchar *out_serial };
+// get_[next|prev]_serial_enum_member() take serials as input, and have the result present as output
+%apply unsigned char *INOUT { uchar *in_out_serial };
+
 // Unexported and kernel-only declarations
 %ignore FlagsEnable;
 %ignore FlagsDisable;

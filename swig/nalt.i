@@ -12,6 +12,18 @@
 %ignore unregister_custom_refinfo;
 %ignore get_custom_refinfos;
 
+%template (ids_array) wrapped_array<tid_t,32>;
+
+%extend strpath_t {
+  wrapped_array<tid_t,32> __getIds() {
+    return wrapped_array<tid_t,32>($self->ids);
+  }
+
+  %pythoncode {
+    ids = property(__getIds)
+  }
+}
+
 %include "nalt.hpp"
 
 %{

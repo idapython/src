@@ -4943,7 +4943,7 @@ def GetStrucName(sid):
 
     @param sid: structure type ID
 
-    @return:    -1 if bad structure type ID is passed
+    @return:    None if bad structure type ID is passed
                 otherwise returns structure type name.
     """
     return idaapi.get_struc_name(sid)
@@ -5023,8 +5023,8 @@ def GetStrucPrevOff(sid, offset):
     @param sid: structure type ID
     @param offset: current offset
 
-    @return: -1 if bad structure type ID is passed
-             or no (more) offsets in the structure
+    @return: -1 if bad structure type ID is passed,
+             idaapi.BADADDR if no (more) offsets in the structure,
              otherwise returns previous offset in a structure.
 
     @note: IDA allows 'holes' between members of a
@@ -5052,8 +5052,8 @@ def GetStrucNextOff(sid, offset):
     @param sid:     structure type ID
     @param offset: current offset
 
-    @return: -1 if bad structure type ID is passed
-             or no (more) offsets in the structure
+    @return: -1 if bad structure type ID is passed,
+             idaapi.BADADDR if no (more) offsets in the structure,
              otherwise returns next offset in a structure.
 
     @note: IDA allows 'holes' between members of a
@@ -5077,8 +5077,8 @@ def GetFirstMember(sid):
 
     @param sid: structure type ID
 
-    @return: -1 if bad structure type ID is passed
-             or structure has no members
+    @return: -1 if bad structure type ID is passed,
+             idaapi.BADADDR if structure has no members,
              otherwise returns offset of the first member.
 
     @note: IDA allows 'holes' between members of a
@@ -5102,8 +5102,8 @@ def GetLastMember(sid):
 
     @param sid: structure type ID
 
-    @return: -1 if bad structure type ID is passed
-             or structure has no members
+    @return: -1 if bad structure type ID is passed,
+             idaapi.BADADDR if structure has no members,
              otherwise returns offset of the last member.
 
     @note: IDA allows 'holes' between members of a
@@ -5212,7 +5212,7 @@ def GetMemberSize(sid, member_offset):
                           at offset 2, then 2,3,4,5 denote
                           the same structure member.
 
-    @return: -1 if bad structure type ID is passed
+    @return: None if bad structure type ID is passed,
              or no such member in the structure
              otherwise returns size of the specified
              member in bytes.

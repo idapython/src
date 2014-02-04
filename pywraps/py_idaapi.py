@@ -20,7 +20,7 @@ import bisect
 import __builtin__
 import imp
 
-def require(modulename):
+def require(modulename, package=None):
     """
     Load, or reload a module.
 
@@ -41,7 +41,7 @@ def require(modulename):
     else:
         import importlib
         import inspect
-        m = importlib.import_module(modulename)
+        m = importlib.import_module(modulename, package)
         frame_obj, filename, line_number, function_name, lines, index = inspect.stack()[1]
         importer_module = inspect.getmodule(frame_obj)
         if importer_module is None: # No importer module; called from command line

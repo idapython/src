@@ -72,6 +72,15 @@ _orig_stdout = sys.stdout;
 _orig_stderr = sys.stderr;
 sys.stdout = sys.stderr = IDAPythonStdOut()
 
+# -----------------------------------------------------------------------
+# Initialize the help, with our own stdin wrapper, that'll query the user
+# -----------------------------------------------------------------------
+import pydoc
+class IDAPythonHelpPrompter:
+    def readline(self):
+        return idaapi.askstr(0, '', 'Help topic?')
+help = pydoc.Helper(input = IDAPythonHelpPrompter(), output = sys.stdout)
+
 # Assign a default sys.argv
 sys.argv = [""]
 

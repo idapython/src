@@ -111,12 +111,8 @@ public:
 // Declare a variable to acquire/release the GIL
 #define PYW_GIL_GET gil_lock_t lock;
 
-#ifdef _DEBUG
-#define GIL_CHKCONDFAIL (PyGILState_GetThisThreadState() != _PyThreadState_Current)
-#else
 #define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) == IDA_DEBUG_PLUGIN) \
                       && PyGILState_GetThisThreadState() != _PyThreadState_Current)
-#endif
 
 #define PYW_GIL_CHECK_LOCKED_SCOPE()                                    \
   do                                                                    \
