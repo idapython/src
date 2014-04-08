@@ -936,4 +936,3 @@ class GraphViewer(CustomIDAMemo):
 #</pydoc>
 #</pycode(py_graph)>
 %}
-

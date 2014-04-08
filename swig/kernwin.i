@@ -72,11 +72,17 @@
 %rename (asktext) py_asktext;
 %rename (str2ea)  py_str2ea;
 %rename (str2user)  py_str2user;
+
 %ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
-%ignore execute_sync;
+
 %ignore exec_request_t;
+
+%ignore execute_sync;
 %rename (execute_sync) py_execute_sync;
+
+%ignore read_selection;
+%rename (read_selection) py_read_selection;
 
 %ignore ui_request_t;
 %ignore execute_ui_requests;
@@ -138,6 +144,30 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 %inline %{
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def read_selection():
+    """
+    Returns selected area boundaries
+
+    @return: tuple(ok: bool, start_ea, end_ea)
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_read_selection()
+{
+  ea_t ea1, ea2;
+  bool b = read_selection(&ea1, &ea2);
+
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return Py_BuildValue(
+            "(i" PY_FMT64 PY_FMT64 ")", 
+            b ? 1 : 0, 
+            pyul_t(ea1), pyul_t(ea2));
+}
 
 //------------------------------------------------------------------------
 /*
@@ -1398,11 +1428,6 @@ static bool formchgcbfa_set_field_value(
 
 static size_t py_get_AskUsingForm()
 {
-  // Return a pointer to the function. Note that, although
-  // the C implementation of AskUsingForm_cv will do some
-  // Qt/txt widgets generation, the Python's ctypes
-  // implementation through which the call well go will first
-  // unblock other threads. No need to do it ourselves.
   return (size_t)AskUsingForm_c;
 }
 

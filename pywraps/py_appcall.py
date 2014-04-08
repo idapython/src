@@ -658,10 +658,12 @@ def test_pck_bv():
     return 1
 
 # -----------------------------------------------------------------------
+# Test work with local types
 def test_local_types():
   (type, fields) = GetLocalTinfo(1)
   if not type:
     return -1
+
   decl = GetLocalType(1, PRTYPE_MULTI)
   if decl != "enum\n"\
            + "{\n"\
@@ -697,7 +699,10 @@ def test_local_types():
            + "} _tagINTERNETFEATURELIST\n":
       print "decl = " + decl
       return -2
+
   return 1
+
+# -----------------------------------------------------------------------
 # various tests
 def test1(stage):
     # call a method that takes a string buffer and appends a dot to its end

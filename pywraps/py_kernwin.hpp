@@ -8,6 +8,30 @@
 //------------------------------------------------------------------------
 /*
 #<pydoc>
+def read_selection():
+    """
+    Returns selected area boundaries
+
+    @return: tuple(ok: bool, start_ea, end_ea)
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_read_selection()
+{
+  ea_t ea1, ea2;
+  bool b = read_selection(&ea1, &ea2);
+
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return Py_BuildValue(
+            "(i" PY_FMT64 PY_FMT64 ")", 
+            b ? 1 : 0, 
+            pyul_t(ea1), pyul_t(ea2));
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
 def register_timer(interval, callback):
     """
     Register a timer

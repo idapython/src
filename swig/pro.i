@@ -127,7 +127,6 @@ public:
     const char *c_str() const { return self->c_str(); }
 };
 
-
 class qtype {
 public:
     const uchar *c_str() const { return self->c_str(); }
