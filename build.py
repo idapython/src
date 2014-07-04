@@ -24,7 +24,7 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 5
+IDA_MINOR_VERSION = 6
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
@@ -35,7 +35,7 @@ else:
 
 # IDAPython version
 VERSION_MAJOR  = 1
-VERSION_MINOR  = 6
+VERSION_MINOR  = 7
 VERSION_PATCH  = 0
 
 # Determine Python version
@@ -339,13 +339,14 @@ def build_plugin(
         idasdkdir,
         plugin_name,
         options):
+    """ Build the plugin from the SWIG wrapper and plugin main source """
+
+    global SWIG_OPTIONS
 
     # Get the arguments
     ea64         = options[S_EA64]
     with_hexrays = options[S_WITH_HEXRAYS]
 
-    global SWIG_OPTIONS
-    """ Build the plugin from the SWIG wrapper and plugin main source """
     # Path to the IDA SDK headers
     ida_include_directory = os.path.join(idasdkdir, "include")
 

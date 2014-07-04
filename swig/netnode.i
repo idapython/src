@@ -87,6 +87,7 @@
 %ignore netnode::altadjust;
 %ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, char tag);
 %ignore netnode::operator nodeidx_t;
+%ignore netnode::validate_names;
 
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, char tag=htag);
@@ -136,4 +137,3 @@
         return self->hashset(idx, buf, sz, tag);
     }
 }
-

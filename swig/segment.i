@@ -31,10 +31,12 @@ void segment_t_startEA_set(segment_t *segm, ea_t newea)
     segm->startEA = newea;
   }
 }
+
 ea_t segment_t_startEA_get(segment_t *segm)
 {
   return segm->startEA;
 }
+
 void segment_t_endEA_set(segment_t *segm, ea_t newea)
 {
   if ( getseg(segm->startEA) == segm )
@@ -46,6 +48,7 @@ void segment_t_endEA_set(segment_t *segm, ea_t newea)
     segm->endEA = newea;
   }
 }
+
 ea_t segment_t_endEA_get(segment_t *segm)
 {
   return segm->endEA;
@@ -56,6 +59,7 @@ ea_t segment_t_endEA_get(segment_t *segm)
   ea_t startEA;
   ea_t endEA; 
 }
+
 %include "segment.hpp"
 
 %inline %{

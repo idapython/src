@@ -771,7 +771,7 @@ static PyObject *op_t_get_value(PyObject *self)
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue("I", link->value);
+  return Py_BuildValue(PY_FMT64, (pyul_t)link->value);
 }
 
 static void op_t_set_value(PyObject *self, PyObject *value)
@@ -780,7 +780,9 @@ static void op_t_set_value(PyObject *self, PyObject *value)
   op_t *link = op_t_get_clink(self);
   if ( link == NULL )
     return;
-  link->value = PyInt_AsLong(value);
+  uint64 v(0);
+  PyW_GetNumber(value, &v);
+  link->value = uval_t(v);
 }
 
 static PyObject *op_t_get_addr(PyObject *self)

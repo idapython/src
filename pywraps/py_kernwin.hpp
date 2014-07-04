@@ -8,30 +8,6 @@
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def read_selection():
-    """
-    Returns selected area boundaries
-
-    @return: tuple(ok: bool, start_ea, end_ea)
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_read_selection()
-{
-  ea_t ea1, ea2;
-  bool b = read_selection(&ea1, &ea2);
-
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  return Py_BuildValue(
-            "(i" PY_FMT64 PY_FMT64 ")", 
-            b ? 1 : 0, 
-            pyul_t(ea1), pyul_t(ea2));
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
 def register_timer(interval, callback):
     """
     Register a timer
@@ -198,6 +174,45 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
 def free_custom_icon(icon_id):
     """
     Frees an icon loaded with load_custom_icon()
+    """
+    pass
+#</pydoc>
+*/
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def readsel2(view, p0, p1):
+    """
+    Read the user selection, and store its information in p0 (from) and p1 (to).
+
+    This can be used as follows:
+
+
+    >>> p0 = idaapi.twinpos_t()
+    p1 = idaapi.twinpos_t()
+    view = idaapi.get_current_viewer()
+    idaapi.readsel2(view, p0, p1)
+
+
+    At that point, p0 and p1 hold information for the selection.
+    But, the 'at' property of p0 and p1 is not properly typed.
+    To specialize it, call #place() on it, passing it the view
+    they were retrieved from. Like so:
+
+
+    >>> place0 = p0.place(view)
+    place1 = p1.place(view)
+
+
+    This will effectively "cast" the place into a specialized type,
+    holding proper information, depending on the view type (e.g.,
+    disassembly, structures, enums, ...)
+
+    @param view: The view to retrieve the selection for.
+    @param p0: Storage for the "from" part of the selection.
+    @param p1: Storage for the "to" part of the selection.
+    @return: a bool value indicating success.
     """
     pass
 #</pydoc>

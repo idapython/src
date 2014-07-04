@@ -17,9 +17,8 @@ def main():
         return True
 
     sv = cfunc.get_pseudocode();
-    for i in xrange(0, sv.size()):
-        line = idaapi.tag_remove(str(sv[i]));
-        print line
+    for sline in sv:
+        print idaapi.tag_remove(sline.line);
 
     return True
 

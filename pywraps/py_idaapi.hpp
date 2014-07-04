@@ -726,12 +726,9 @@ def RunPythonStatement(stmt):
 #</pydoc>
 */
 
-/*
 //---------------------------------------------------------------------------
-// qstrvec_t wrapper
+// qstrvec_t wrapper (INTERNAL! Don't expose. See py_idaapi.py)
 //---------------------------------------------------------------------------
-DECLARE_PY_CLINKED_OBJECT(qstrvec_t);
-
 static bool qstrvec_t_assign(PyObject *self, PyObject *other)
 {
   qstrvec_t *lhs = qstrvec_t_get_clink(self);
@@ -833,7 +830,7 @@ static bool qstrvec_t_remove(PyObject *self, size_t idx)
   sv->erase(sv->begin()+idx);
   return true;
 }
-*/
+
 //---------------------------------------------------------------------------
 //</inline(py_idaapi)>
 

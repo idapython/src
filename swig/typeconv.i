@@ -134,7 +134,31 @@
 %enddef
 
 //---------------------------------------------------------------------
+//                          IN/OUT qstring
+//---------------------------------------------------------------------
+%typemap(in,numinputs=0) qstring *result (qstring temp) {
+    $1 = &temp;
+}
+%typemap(argout) qstring *result {
+    Py_XDECREF(resultobj);
+    if (result)
+    {
+        resultobj = PyString_FromStringAndSize($1->begin(), $1->length());
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+}
+%typemap(freearg) qstring* result
+{
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//---------------------------------------------------------------------
 // Check that the argument is a callable Python object
+//---------------------------------------------------------------------
 %typemap(in) PyObject *pyfunc {
     if (!PyCallable_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected a callable object");
@@ -155,8 +179,10 @@
   $1 = ea_t($1_temp);
 }
 
-//-------------------------------------------------------------------------
-// Convert qstring
+//---------------------------------------------------------------------
+//                            IN qstring
+//---------------------------------------------------------------------
+// This is used to set/retrieve qstring that are structure members.
 %typemap(in) qstring*
 {
   char *buf;
@@ -167,25 +193,32 @@
     $1 = new qstring(buf, length);
   }
 }
-
 %typemap(freearg) qstring*
 {
   delete $1;
 }
-
 %typemap(out) qstring*
 {
   $result = PyString_FromStringAndSize($1->c_str(), $1->length());
 }
+%typemap(out) qstring
+{
+  $result = PyString_FromStringAndSize($1.c_str(), $1.length());
+}
+%apply qstring { _qstring<char> }
+%apply qstring* { _qstring<char>* }
+
 
 #ifdef __EA64__
 %apply longlong  *INOUT { sval_t *value };
 %apply ulonglong *INOUT { ea_t   *addr };
 %apply ulonglong *INOUT { sel_t  *sel };
+%apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
 #else
 %apply int          *INOUT { sval_t *value };
 %apply unsigned int *INOUT { ea_t   *addr };
 %apply unsigned int *INOUT { sel_t  *sel };
+%apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
 #endif
 
 
@@ -200,14 +233,14 @@
 %immutable;
 %inline %{
 template <typename Type, size_t N>
-struct wrapped_array {
+struct wrapped_array_t {
   Type (&data)[N];
-  wrapped_array(Type (&data)[N]) : data(data) { }
+  wrapped_array_t(Type (&data)[N]) : data(data) { }
 };
 %}
 %mutable;
 
-%extend wrapped_array {
+%extend wrapped_array_t {
   inline size_t __len__() const { return N; }
 
   inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
@@ -221,5 +254,49 @@ struct wrapped_array {
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
   }
+
+  %pythoncode {
+    __iter__ = _bounded_getitem_iterator
+  }
 }
 
+//-------------------------------------------------------------------------
+#if SWIG_VERSION == 0x20012
+%typemap(out) tinfo_t {}
+%typemap(ret) tinfo_t
+{
+  // ret tinfo_t
+  tinfo_t *ni = new tinfo_t($1);
+  til_register_python_tinfo_t_instance(ni);
+  $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
+}
+
+
+// KLUDGE: We'll let the compiler (or at worse the runtime)
+// decide of the flags to use, depending on the method we are currently
+// wrapping: at new-time, a SWIG_POINTER_NEW is required.
+%typemap(out) tinfo_t* {}
+%typemap(ret) tinfo_t*
+{
+  // ret tinfo_t*
+  tinfo_t *ni = new tinfo_t(*($1));
+  til_register_python_tinfo_t_instance(ni);
+  if ( strcmp("new_tinfo_t", "$symname") == 0 )
+  {
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_NEW | 0);
+    delete $1;
+  }
+  else
+  {
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_OWN | 0);
+  }
+}
+
+%typemap(check) tinfo_t*
+{
+  if ( $1 == NULL )
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+#else
+#error Ensure tinfo_t wrapping is compatible with this version of SWIG
+#endif

@@ -289,8 +289,8 @@ private:
                     self,
                     (char *)S_ON_DELETE_LINE,
                     "i",
-                    lineno - 1));
-    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
+                    IS_CHOOSER_EVENT(lineno) ? lineno : lineno-1));
+    return pyres == NULL ? 1 : PyInt_AsLong(pyres.o);
   }
 
   int on_refresh(int lineno)

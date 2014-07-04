@@ -8,11 +8,11 @@ The IDAPython Team:
 * Hex-Rays - http://www.hex-rays.com/ - <support@hex-rays.com>
 
     Hex-Rays joined the IDAPython project in September 2009 and started contributing.
-    It is primarily maintained by Arnaud Diederen.
+    It is primarily maintained, updated and improved by Arnaud Diederen of Hex-Rays.
 
-* Elias Bachaalany - http://0xeb.wordpress.com/
-
-    Current project owner and maintainer
+* Elias Bachaalany - elias.bachaalany@gmail.com
+    Maintains IDAPython online source code repository and coordinates patches/updates/contributions from Hex-Rays and 3rd party contributors
+    
 
 * Ero Carrera - http://dkbza.org/
 

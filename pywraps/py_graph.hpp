@@ -112,7 +112,6 @@ private:
 
   static cmdid_map_t cmdid_pyg;
 
-  // TForm *form;
   bool refresh_needed;
   nodetext_cache_map_t node_cache;
 
@@ -122,6 +121,7 @@ private:
   // static callback
   static int idaapi s_callback(void *obj, int code, va_list va)
   {
+    QASSERT(30453, py_customidamemo_t::lookup_info.find_by_py_view(NULL, NULL, (py_graph_t *) obj));
     PYW_GIL_GET;
     return ((py_graph_t *)obj)->gr_callback(code, va);
   }
@@ -255,13 +255,13 @@ private:
   }
 
   // a group is being created
-  int on_creating_group(mutable_graph_t *my_g, intset_t *my_nodes)
+  int on_creating_group(mutable_graph_t *my_g, intvec_t *my_nodes)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     printf("my_g: %p; my_nodes: %p\n", my_g, my_nodes);
     newref_t py_nodes(PyList_New(my_nodes->size()));
     int i;
-    intset_t::const_iterator p;
+    intvec_t::const_iterator p;
     for ( i = 0, p=my_nodes->begin(); p != my_nodes->end(); ++p, ++i )
       PyList_SetItem(py_nodes.o, i, PyInt_FromLong(*p));
     newref_t py_result(
@@ -331,6 +331,7 @@ private:
     TForm *form = create_tform(title, &hwnd);
     if ( hwnd != NULL ) // Created new tform
     {
+      lookup_info_t::entry_t &e = lookup_info.new_entry(this);
       // get a unique graph id
       netnode id;
       char grnode[MAXSTR];
@@ -342,8 +343,7 @@ private:
         viewer_fit_window(pview);
       bind(self, pview);
       refresh();
-      // Link "form" and "py_graph"
-      lookup_info.add(form, view, this);
+      lookup_info.commit(e, form, view);
     }
     else
     {
@@ -700,7 +700,7 @@ int py_graph_t::gr_callback(int code, va_list va)
     case grcode_creating_group:      // a group is being created
       {
         mutable_graph_t *g = va_arg(va, mutable_graph_t*);
-        intset_t *nodes = va_arg(va, intset_t*);
+        intvec_t *nodes = va_arg(va, intvec_t*);
         ret = on_creating_group(g, nodes);
       }
       break;

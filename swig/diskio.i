@@ -29,6 +29,7 @@
 %ignore make_linput;
 %ignore unmake_linput;
 %ignore create_remote_linput;
+%ignore make_filehandle_linput;
 
 // FIXME: These should be wrapped for completeness
 %ignore eread;

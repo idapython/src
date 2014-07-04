@@ -21,27 +21,25 @@
 #pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
 
 #define _STD_BEGIN
-#define typename
 
-%{
-#include "hexrays.hpp"
-%}
+#ifdef __NT__
+%include <windows.i>
+#endif
 
 //---------------------------------------------------------------------
 // some defines to calm SWIG down.
 #define DEFINE_MEMORY_ALLOCATION_FUNCS()
 //#define DECLARE_UNCOPYABLE(f)
 #define AS_PRINTF(format_idx, varg_idx)
-#define idaapi
-#define __fastcall
 
 %ignore vd_printer_t::vprint;
 %ignore string_printer_t::vprint;
-%ignore typestring::dstr;
-%ignore typestring::multiprint;
 %ignore vdui_t::vdui_t;
 %ignore cblock_t::find;
 %ignore cfunc_t::cfunc_t;
+%ignore cfunc_t::sv;         // lazy member. Use get_pseudocode() instead
+%ignore cfunc_t::boundaries; // lazy member. Use get_boundaries() instead
+%ignore cfunc_t::eamap;      // lazy member. Use get_eamap() instead
 %ignore ctree_item_t::verify;
 %ignore ccases_t::find_value;
 %ignore ccases_t::print;
@@ -60,26 +58,60 @@
 %ignore lvar_t::is_promoted_arg;
 %ignore lvar_t::lvar_t;
 %ignore strtype_info_t::find_strmem;
-%ignore typestring::resolve_func_type;
-%ignore typestring::common_type;
-%ignore typestring::noarray_size;
 %ignore file_printer_t::_print;
 %ignore file_printer_t;
+%ignore qstring_printer_t::qstring_printer_t(const cfunc_t *, qstring &, bool);
 
 %extend cfunc_t {
-    %immutable rgas;
-    %immutable stas;
+    %immutable argidx;
+
+   qstring __str__() {
+     qstring qs;
+     qstring_printer_t p($self, qs, 0);
+     $self->print_func(p);
+     return qs;
+   }
+};
+
+%ignore qstring_printer_t::qstring_printer_t(const cfunc_t *, qstring &, bool);
+%ignore qstring_printer_t::~qstring_printer_t();
+
+%extend qstring_printer_t {
+
+   qstring_printer_t(const cfunc_t *f, bool tags);
+   ~qstring_printer_t();
+
+   qstring get_s() {
+     return $self->s;
+   }
+
+   %pythoncode {
+     s = property(lambda self: self.get_s())
+   }
 };
 
 %rename(dereference_uint16) operator uint16*;
 %rename(dereference_const_uint16) operator const uint16*;
 
-// this is a dummy class template to allow swig to do its thing.
+#if !defined(__MAC__) || (MACSDKVER >= 1060)
+#define HAS_MAP_AT
+#endif
+
+// Provide trivial std::map facade so basic operations are available.
 template<class key_type, class mapped_type> class std::map {
 public:
+#ifdef HAS_MAP_AT
     mapped_type& at(const key_type& _Keyval);
+#endif
     size_t size() const;
 };
+
+#ifndef HAS_MAP_AT
+#warning "std::map doesn't provide at(). Augmenting it."
+%extend std::map {
+    mapped_type& at(const key_type& _Keyval) { return $self->operator[](_Keyval); }
+}
+#endif
 
 //---------------------------------------------------------------------
 %extend citem_t {
@@ -150,15 +182,21 @@ public:
 %ignore qvector< citem_t *>::grow;
 %ignore qvector< cinsn_t *>::grow;
 
+
 //~ %template(qwstrvec_t) qvector<qwstring>; // vector of unicode strings
 typedef intvec_t svalvec_t; // vector of signed values
 typedef intvec_t eavec_t;// vector of addresses
 
-// director classes make it possible to override virtual functions from python.
-%feature("director") ctree_visitor_t;
-%feature("director") ctree_parentee_t;
-%feature("director") cfunc_parentee_t;
-%feature("director") user_lvar_visitor_t;
+// At this point, SWIG doesn't know about this
+// type yet (kernwin.i is included later). Therefore,
+// unless we do this, swig will consider 'strvec_t' to be
+// just a regular type, and when retrieving structure
+// members of type 'strvec_t', 2 issues:
+//  - an additional copy will be made, and
+//  - SWIG will use SWIGTYPE_p_strvec_t, which has a != Python type
+//    information than SWIGTYPE_p_qvectorT_simpleline_t_t, and no
+//    proper Python 'strvec_t' proxy instance will be created.
+typedef qvector<simpleline_t> strvec_t;
 
 // hexrays templates
 %template(user_numforms_t) std::map<operand_locator_t, number_format_t>;
@@ -172,6 +210,29 @@ typedef intvec_t eavec_t;// vector of addresses
 %template(cinsnptrvec_t) qvector<cinsn_t *>;
 %template(eamap_t) std::map<ea_t, cinsnptrvec_t>;
 %template(boundaries_t) std::map<cinsn_t *, areaset_t>;
+// WARNING: The order here is VERY important:
+//  1) The '%extend' directive. Note that
+//    - the template name must be used, not the typedef (i.e., not 'cfuncptr_t')
+//    - to override the destructor, the destructor must have the template parameters.
+//  2) The '%ignore' directive.
+//    - Again, using the template name, but this time
+//    - not qualifying the destructor with template parameters
+//  3) The '%template' directive, that will indeed instantiate
+//     the template for swig.
+%{ void hexrays_deregister_python_cfuncptr_t_instance(cfuncptr_t *fp); %}
+%extend qrefcnt_t<cfunc_t> {
+  // The typemap above will take care of registering newly-constructed cfuncptr_t
+  // instances. However, there's no such thing as a destructor typemap.
+  // Therefore, we need to do the grunt work of de-registering ourselves.
+  // Note: The 'void' here is important: Without it, SWIG considers it to
+  //       be a different destructor (which, of course, makes a ton of sense.)
+  ~qrefcnt_t<cfunc_t>(void)
+  {
+    hexrays_deregister_python_cfuncptr_t_instance($self);
+    delete $self;
+  }
+}
+%ignore qrefcnt_t<cfunc_t>::~qrefcnt_t(void);
 %template(cfuncptr_t) qrefcnt_t<cfunc_t>;
 %template(qvector_history_t) qvector<history_item_t>;
 %template(history_t) qstack<history_item_t>;
@@ -215,25 +276,6 @@ class qlist_cinsn_t_iterator {};
     const char *c_str() const { return self->c_str(); }
 };
 
-%{
-cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf)
-{
-    try
-    {
-        cfuncptr_t cfunc = decompile(pfn, hf);
-        return cfunc;
-    }
-    catch(...)
-    {
-        error("Hex-Rays Python: decompiler threw an exception.\n");
-    }
-    return cfuncptr_t(0);
-}
-%}
-
-cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf);
-%ignore decompile;
-
 void qswap(cinsn_t &a, cinsn_t &b);
 %include "typemaps.i"
 
@@ -244,6 +286,19 @@ void qswap(cinsn_t &a, cinsn_t &b);
 }
 
 %{
+
+//-------------------------------------------------------------------------
+qstring_printer_t *new_qstring_printer_t(const cfunc_t *f, bool tags)
+{
+  return new qstring_printer_t(f, * (new qstring()), tags);
+}
+
+//-------------------------------------------------------------------------
+void delete_qstring_printer_t(qstring_printer_t *qs)
+{
+  delete &(qs->s);
+  delete qs;
+}
 
 //---------------------------------------------------------------------
 static int hexrays_python_call(ref_t fct, ref_t args)
@@ -524,7 +579,88 @@ int __remove_hexrays_callback(PyObject *hx_cblist_callback)
 
   return result;
 }
+
 %}
+
+
+%{
+//-------------------------------------------------------------------------
+// A set of cfuncptr_t objects that were created from IDAPython.
+// This is necessary in order to delete those objects before the hexrays
+// plugin is unloaded. Otherwise, IDAPython will still delete them, but
+// the plugin's 'hexdsp' dispatcher function will point to dlclose()'d
+// code.
+static qvector<cfuncptr_t*> python_cfuncptrs;
+void hexrays_clear_python_cfuncptr_t_references(void)
+{
+  for ( size_t i = 0, n = python_cfuncptrs.size(); i < n; ++i )
+    python_cfuncptrs[i]->reset();
+  // NOTE: Don't clear() the array of pointers. All the python-exposed
+  // cfuncptr_t instances will be deleted through the python
+  // shutdown/ref-decrementing process anyway, and the entries will be
+  // properly pulled out of the vector when that happens.
+}
+
+void hexrays_register_python_cfuncptr_t_instance(cfuncptr_t *fp)
+{
+  QASSERT(30457, !python_cfuncptrs.has(fp));
+  python_cfuncptrs.push_back(fp);
+}
+
+void hexrays_deregister_python_cfuncptr_t_instance(cfuncptr_t *fp)
+{
+  qvector<cfuncptr_t*>::iterator found = python_cfuncptrs.find(fp);
+  if ( found != python_cfuncptrs.end() )
+  {
+    fp->reset();
+    python_cfuncptrs.erase(found);
+  }
+}
+
+%}
+
+//-------------------------------------------------------------------------
+#if SWIG_VERSION == 0x20012
+%typemap(out) cfuncptr_t {}
+%typemap(ret) cfuncptr_t
+{
+  // ret cfuncptr_t
+  cfuncptr_t *ni = new cfuncptr_t($1);
+  hexrays_register_python_cfuncptr_t_instance(ni);
+  $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
+}
+
+
+%typemap(out) cfuncptr_t *{}
+%typemap(ret) cfuncptr_t *
+{
+  // ret cfuncptr_t*
+  cfuncptr_t *ni = new cfuncptr_t(*($1));
+  hexrays_register_python_cfuncptr_t_instance(ni);
+  $result = SWIG_NewPointerObj(ni, $1_descriptor, SWIG_POINTER_OWN | 0);
+}
+#else
+#error Ensure cfuncptr_t wrapping is compatible with this version of SWIG
+#endif
+
+%{
+cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf)
+{
+    try
+    {
+        cfuncptr_t cfunc = decompile(pfn, hf);
+        return cfunc;
+    }
+    catch(...)
+    {
+        error("Hex-Rays Python: decompiler threw an exception.\n");
+    }
+    return cfuncptr_t(0);
+}
+%}
+
+cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf);
+%ignore decompile;
 
 //---------------------------------------------------------------------
 %define %python_callback_in(CB)
@@ -540,6 +676,17 @@ int __remove_hexrays_callback(PyObject *hx_cblist_callback)
 %python_callback_in(PyObject *hx_cblist_callback);
 %python_callback_in(PyObject *custom_viewer_popup_item_callback);
 
+%ignore cexpr_t::get_1num_op(const cexpr_t **, const cexpr_t **) const;
+#pragma SWIG nowarn=503
+%warnfilter(514) user_lvar_visitor_t; // Director base class 'x' has no virtual destructor.
+%warnfilter(514) ctree_visitor_t;     // ditto
+%warnfilter(514) ctree_parentee_t;    // ditto
+%warnfilter(514) cfunc_parentee_t;    // ditto
+%warnfilter(473) user_lvar_visitor_t::get_info_mapping_for_saving; // Returning a pointer or reference in a director method is not recommended.
+%feature("director") ctree_visitor_t;
+%feature("director") ctree_parentee_t;
+%feature("director") cfunc_parentee_t;
+%feature("director") user_lvar_visitor_t;
 %include "hexrays.hpp"
 
 %pythoncode %{
@@ -582,53 +729,19 @@ def decompile(ea, hf=None):
 
 # ---------------------------------------------------------------------
 # stringify all string types
-qtype.__str__ = qtype.c_str
-typestring.__str__ = typestring._print
-qstring.__str__ = qstring.c_str
-citem_cmt_t.__str__ = citem_cmt_t.c_str
-
-typestring.size = property(typestring.size)
-typestring.is_user_cc = property(typestring.is_user_cc)
-typestring.is_vararg = property(typestring.is_vararg)
-typestring.is_ptr_or_array = property(typestring.is_ptr_or_array)
-typestring.is_paf = property(typestring.is_paf)
-typestring.is_funcptr = property(typestring.is_funcptr)
-typestring.is_ptr = property(typestring.is_ptr)
-typestring.is_enum = property(typestring.is_enum)
-typestring.is_func = property(typestring.is_func)
-typestring.is_void = property(typestring.is_void)
-typestring.is_array = property(typestring.is_array)
-typestring.is_float = property(typestring.is_float)
-typestring.is_union = property(typestring.is_union)
-typestring.is_struct = property(typestring.is_struct)
-typestring.is_struni = property(typestring.is_struni)
-typestring.is_double = property(typestring.is_double)
-typestring.is_ldouble = property(typestring.is_ldouble)
-typestring.is_floating = property(typestring.is_floating)
-typestring.is_const = property(typestring.is_const)
-typestring.is_correct = property(typestring.is_correct)
-typestring.is_scalar = property(typestring.is_scalar)
-typestring.is_small_struni = property(typestring.is_small_struni)
-typestring.is_like_scalar = property(typestring.is_like_scalar)
-typestring.is_pvoid = property(typestring.is_pvoid)
-typestring.is_partial_ptr = property(typestring.is_partial_ptr)
-typestring.is_well_defined = property(typestring.is_well_defined)
-typestring.requires_cot_ref = property(typestring.requires_cot_ref)
-typestring.partial_type_num = property(typestring.partial_type_num)
+#qtype.__str__ = qtype.c_str
+#qstring.__str__ = qstring.c_str
+#citem_cmt_t.__str__ = citem_cmt_t.c_str
 
 # ---------------------------------------------------------------------
 # listify all list types
-def _vectors_iterator(self):
-    for i in range(len(self)):
-        yield self[i]
-for cls in [cinsnptrvec_t, ctree_items_t, uvalvec_t, \
-            intvec_t, boolvec_t, hexwarns_t, \
-            history_t, strvec_t, qvector_lvar_t,
-            qvector_carg_t, qvector_ccase_t
-        ]:
-    cls.__getitem__ = cls.at
-    cls.__len__ = cls.size
-    cls.__iter__ = _vectors_iterator
+_listify_types(cinsnptrvec_t,
+               ctree_items_t,
+               qvector_lvar_t,
+               qvector_carg_t,
+               qvector_ccase_t,
+               hexwarns_t,
+               history_t)
 
 def citem_to_specific_type(self):
     """ cast the citem_t object to its more specific type, either cexpr_t or cinsn_t. """
@@ -786,27 +899,17 @@ def cblock_insert(self, index, item):
     return
 cblock_t.insert = cblock_insert
 
-def cfunc___str__(self):
-    qs = qstring()
-    p = qstring_printer_t(self, qs, 0)
-    self.print_func(p)
-    return qs.c_str()
-cfunc_t.__str__ = cfunc___str__
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
 
-def cfunc_typestring(self):
-    """ Get the function's return type typestring object. The full prototype \
-        can be obtained via typestring._print() method. """
-
-    ts = typestring()
-    qt = qtype()
-
-    result = self.get_func_type(ts, qt)
-    if not result: return
-
-    return ts
-cfunc_t.typestring = property(cfunc_typestring)
-cfuncptr_t.typestring = property(lambda self: self.__deref__().typestring)
+def cfunc_type(self):
+    """ Get the function's return type tinfo_t object. """
+    tif = tinfo_t()
+    result = self.get_func_type(tif)
+    if not result:
+        return
+    return tif
+cfunc_t.type = property(cfunc_type)
+cfuncptr_t.type = property(lambda self: self.__deref__().type)
 
 cfunc_t.arguments = property(lambda self: [o for o in self.lvars if o.is_arg_var])
 cfuncptr_t.arguments = property(lambda self: self.__deref__().arguments)
@@ -821,6 +924,8 @@ cfunc_t.eamap = property(cfunc_t.get_eamap)
 cfuncptr_t.eamap = property(lambda self: self.__deref__().get_eamap())
 cfunc_t.boundaries = property(cfunc_t.get_boundaries)
 cfuncptr_t.boundaries = property(lambda self: self.__deref__().get_boundaries())
+
+#pragma SWIG nowarn=+503
 
 lvar_t.used = property(lvar_t.used)
 lvar_t.typed = property(lvar_t.typed)
@@ -989,7 +1094,7 @@ def _map_as_dict(maptype, name, keytype, valuetype):
     maptype.popitem = _map_popitem
     maptype.setdefault = _map_setdefault
 
-_map_as_dict(user_labels_t, 'user_labels', (int, long), qstring)
+#_map_as_dict(user_labels_t, 'user_labels', (int, long), qstring)
 _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
 _map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, (int, long))

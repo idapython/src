@@ -69,7 +69,8 @@ enum script_run_when
 
 //-------------------------------------------------------------------------
 // Global variables
-static bool g_initialized = false;
+static bool g_instance_initialized = false; // This instance of the plugin is the one
+                                            // that initialized the python interpreter.
 static int  g_run_when = -1;
 static char g_run_script[QMAXPATH];
 static char g_idapython_dir[QMAXPATH];
@@ -133,7 +134,8 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
   if ( wasBreak() )
   {
     // User pressed Cancel in the waitbox; send KeyboardInterrupt exception
-    PyErr_SetInterrupt();
+    PyErr_SetString(PyExc_KeyboardInterrupt, "User interrupted");
+    return -1;
   }
   else if ( !box_displayed && ++ninsns > 10 )
   {
@@ -638,48 +640,6 @@ static bool parse_py_modname(
 }
 
 //-------------------------------------------------------------------------
-// Compile callback for Python external language evaluator
-bool idaapi IDAPython_extlang_compile(
-  const char *name,
-  ea_t /*current_ea*/,
-  const char *expr,
-  char *errbuf,
-  size_t errbufsize)
-{
-  PYW_GIL_GET;
-  PyObject *globals = GetMainGlobals();
-
-  PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
-  if ( code == NULL )
-  {
-    handle_python_error(errbuf, errbufsize);
-    return false;
-  }
-
-  // Set the desired function name
-  Py_XDECREF(code->co_name);
-  code->co_name = PyString_FromString(name);
-
-  // Create a function out of code
-  PyObject *func = PyFunction_New((PyObject *)code, globals);
-
-  if ( func == NULL )
-  {
-ERR:
-    handle_python_error(errbuf, errbufsize);
-    Py_XDECREF(code);
-    return false;
-  }
-
-  int err = PyDict_SetItemString(globals, name, func);
-  Py_XDECREF(func);
-  if ( err )
-    goto ERR;
-
-  return true;
-}
-
-//-------------------------------------------------------------------------
 // Run callback for Python external language evaluator
 bool idaapi IDAPython_extlang_run(
   const char *name,
@@ -741,6 +701,68 @@ bool idaapi IDAPython_extlang_run(
   if ( imported_module )
     Py_XDECREF(module);
   return ok;
+}
+
+//-------------------------------------------------------------------------
+// Compile callback for Python external language evaluator
+bool idaapi IDAPython_extlang_compile(
+  const char *name,
+  ea_t /*current_ea*/,
+  const char *expr,
+  char *errbuf,
+  size_t errbufsize)
+{
+  PYW_GIL_GET;
+  PyObject *globals = GetMainGlobals();
+  bool is_func = false;
+
+  PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
+  if ( code == NULL )
+  {
+    // try compiling as a list of statements
+    // wrap them into a function
+    handle_python_error(errbuf, errbufsize);
+    qstring expr_copy = expr;
+    expr_copy.replace("\n", "\n    ");
+    qstring qexpr;
+	qexpr.sprnt("def %s():\n    %s", name, expr_copy.c_str());
+    code = (PyCodeObject *)Py_CompileString(qexpr.c_str(), "<string>", Py_file_input);
+    if ( code == NULL )
+    {
+      handle_python_error(errbuf, errbufsize);
+      return false;
+    }
+    is_func = true;
+  }
+
+  // Set the desired function name
+  Py_XDECREF(code->co_name);
+  code->co_name = PyString_FromString(name);
+
+  // Create a function out of code
+  PyObject *func = PyFunction_New((PyObject *)code, globals);
+
+  if ( func == NULL )
+  {
+ERR:
+    handle_python_error(errbuf, errbufsize);
+    Py_XDECREF(code);
+    return false;
+  }
+
+  int err = PyDict_SetItemString(globals, name, func);
+  Py_XDECREF(func);
+
+  if ( err )
+    goto ERR;
+
+  if ( is_func )
+  {
+    const idc_value_t args;
+    idc_value_t result;
+    return IDAPython_extlang_run(name, 0, &args, &result, errbuf, errbufsize);
+  }
+  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -1273,8 +1295,11 @@ void convert_idc_args()
 }
 
 //------------------------------------------------------------------------
-static int idaapi script_runner_cb(void *, int code, va_list)
+static int idaapi on_ui_notification(void *, int code, va_list va)
 {
+#ifdef WITH_HEXRAYS
+  qnotused(va);
+#endif
   switch ( code )
   {
     case ui_ready_to_run:
@@ -1296,7 +1321,61 @@ static int idaapi script_runner_cb(void *, int code, va_list)
           RunScript(g_run_script);
       }
       break;
+
+#ifdef WITH_HEXRAYS
+      // FIXME: HACK! THERE SHOULD BE A UI (or IDB?) NOTIFICATION
+      // WHEN A PLUGIN GETS [UN]LOADED!
+      // In the meantime, we're checking to see whether the Hex-Rays
+      // plugin gets loaded/pulled away.
+    case ui_add_menu_item:
+      if ( hexdsp == NULL )
+      {
+        const char *name = va_arg(va, char *);
+        name = va_arg(va, char *); // Drop 'menupath'. Look for 'name'.
+        if ( streq(name, "Jump to pseudocode") )
+        {
+          init_hexrays_plugin(0);
+          if ( hexdsp != NULL )
+            msg("IDAPython Hex-Rays bindings initialized.\n");
+        }
+      }
+      break;
+
+    case ui_del_menu_item:
+      {
+        if ( hexdsp != NULL )
+        {
+          // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
+          // are cleared right away.
+          const char *menupath = va_arg(va, char *);
+          if ( streq(menupath, "Jump/Jump to pseudocode") )
+          {
+            hexrays_clear_python_cfuncptr_t_references();
+            hexdsp = NULL;
+          }
+        }
+      }
+      break;
+#endif
+
     default:
+      break;
+  }
+  return 0;
+}
+
+//-------------------------------------------------------------------------
+//lint -esym(526,til_clear_python_tinfo_t_instances) not defined
+extern void til_clear_python_tinfo_t_instances(void);
+static int idaapi on_idp_notification(void *, int code, va_list)
+{
+  switch ( code )
+  {
+    case processor_t::closebase:
+      // The til machinery is about to garbage-collect: We must go
+      // through all the tinfo_t objects that are embedded in SWIG wrappers,
+      // (i.e., that were created from Python) and clear those.
+      til_clear_python_tinfo_t_instances();
       break;
   }
   return 0;
@@ -1379,8 +1458,7 @@ static bool initsite(void)
 // Initialize the Python environment
 bool IDAPython_Init(void)
 {
-  // Already initialized?
-  if ( g_initialized  )
+  if ( Py_IsInitialized() != 0 )
     return true;
 
   // Form the absolute path to IDA\python folder
@@ -1404,7 +1482,7 @@ bool IDAPython_Init(void)
 
 #ifdef __MAC__
   // We should set python home to the module's path, otherwise it can pick up stray modules from $PATH
-  NSModule pythonModule = NSModuleForSymbol(NSLookupAndBindSymbol("_Py_Initialize"));
+  NSModule pythonModule = NSModuleForSymbol(NSLookupAndBindSymbol("_Py_InitializeEx"));
   // Use dylib functions to find out where the framework was loaded from
   const char *buf = (char *)NSLibraryNameForModule(pythonModule);
   if ( buf != NULL )
@@ -1443,11 +1521,11 @@ bool IDAPython_Init(void)
   Py_NoSiteFlag = 1;
 
   // Start the interpreter
-  Py_Initialize();
+  Py_InitializeEx(0 /* Don't catch SIGPIPE, SIGXFZ, SIGXFSZ & SIGINT signals */);
 
   if ( !Py_IsInitialized() )
   {
-    warning("IDAPython: Py_Initialize() failed");
+    warning("IDAPython: Py_InitializeEx() failed");
     return false;
   }
 
@@ -1505,6 +1583,7 @@ bool IDAPython_Init(void)
             "%s\n"
             "\n"
             "Refer to the message window to see the full error log.", tmp);
+    remove_extlang(&extlang_python);
     return false;
   }
 
@@ -1512,6 +1591,7 @@ bool IDAPython_Init(void)
   if ( !init_pywraps() || !pywraps_nw_init() )
   {
     warning("IDAPython: init_pywraps() failed!");
+    remove_extlang(&extlang_python);
     return false;
   }
 
@@ -1536,16 +1616,17 @@ bool IDAPython_Init(void)
 #ifdef _DEBUG
   hook_to_notification_point(HT_UI, ui_debug_handler_cb, NULL);
 #endif
-  hook_to_notification_point(HT_UI, script_runner_cb, NULL);
+  hook_to_notification_point(HT_UI, on_ui_notification, NULL);
+  hook_to_notification_point(HT_IDP, on_idp_notification, NULL);
 
   // Enable the CLI by default
   enable_python_cli(true);
 
-  g_initialized = true;
   pywraps_nw_notify(NW_INITIDA_SLOT);
 
   PyEval_ReleaseThread(PyThreadState_Get());
 
+  g_instance_initialized = true;
   return true;
 }
 
@@ -1553,6 +1634,9 @@ bool IDAPython_Init(void)
 // Cleaning up Python
 void IDAPython_Term(void)
 {
+  if ( !g_instance_initialized || Py_IsInitialized() == 0 )
+    return;
+
   if ( PyGILState_GetThisThreadState() )
   {
     // Note: No 'PYW_GIL_GET' here, as it would try to release
@@ -1563,7 +1647,8 @@ void IDAPython_Term(void)
     PyGILState_Ensure();
   }
 
-  unhook_from_notification_point(HT_UI, script_runner_cb, NULL);
+  unhook_from_notification_point(HT_IDP, on_idp_notification, NULL);
+  unhook_from_notification_point(HT_UI, on_ui_notification, NULL);
 #ifdef _DEBUG
   unhook_from_notification_point(HT_UI, ui_debug_handler_cb, NULL);
 #endif
@@ -1588,8 +1673,7 @@ void IDAPython_Term(void)
 
   // Shut the interpreter down
   Py_Finalize();
-
-  g_initialized = false;
+  g_instance_initialized = false;
 }
 
 //-------------------------------------------------------------------------

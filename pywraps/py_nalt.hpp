@@ -135,6 +135,54 @@ idaman bool ida_export py_create_switch_xrefs(
   return true;
 }
 
+//-------------------------------------------------------------------------
+struct cases_and_targets_t
+{
+  casevec_t cases;
+  eavec_t targets;
+};
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def calc_switch_cases(insn_ea, si):
+    """
+    Get information about a switch's cases.
+
+    The returned information can be used as follows:
+
+        for idx in xrange(len(results.cases)):
+            cur_case = results.cases[idx]
+            for cidx in xrange(len(cur_case)):
+                print "case: %d" % cur_case[cidx]
+            print "  goto 0x%x" % results.targets[idx]
+
+    @param insn_ea: address of the 'indirect jump' instruction
+    @param si: switch information
+
+    @return: a structure with 2 members: 'cases', and 'targets'.
+    """
+    pass
+#</pydoc>
+*/
+idaman cases_and_targets_t *ida_export py_calc_switch_cases(
+  ea_t insn_ea,
+  PyObject *py_swi)
+{
+  switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
+  if ( swi == NULL )
+    return NULL;
+
+  cases_and_targets_t *ct = new cases_and_targets_t;
+  if ( !calc_switch_cases(insn_ea, swi, &ct->cases, &ct->targets) )
+  {
+    delete ct;
+    return NULL;
+  }
+
+  return ct;
+}
+
 
 //-------------------------------------------------------------------------
 /*

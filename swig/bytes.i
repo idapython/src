@@ -67,6 +67,7 @@
 %ignore term_flags;
 %ignore reset_flags;
 %ignore flush_flags;
+%ignore get_flags_linput;
 %ignore data_type_t;
 %ignore data_format_t;
 %ignore get_custom_data_type;

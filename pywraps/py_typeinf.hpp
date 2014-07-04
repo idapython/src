@@ -532,7 +532,49 @@ char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
   qstrncpy(buf, name, bufsize);
   return true;
 }
-
 //</inline(py_typeinf)>
+
+//<code(py_typeinf)>
+//-------------------------------------------------------------------------
+// A set of tinfo_t objects that were created from IDAPython.
+// This is necessary in order to clear all the "type details" that are
+// associated, in the kernel, with the tinfo_t instances.
+//
+// Unfortunately the IDAPython plugin has to terminate _after_ the IDB is
+// closed, but the "type details" must be cleared _before_ the IDB is closed.
+static qvector<tinfo_t*> python_tinfos;
+void til_clear_python_tinfo_t_instances(void)
+{
+  // Pre-emptive strike: clear all the python-exposed tinfo_t instances: if that
+  // were not done here, ~tinfo_t() calls happening as part of the python shutdown
+  // process will try and clear() their details. ..but the kernel's til-related
+  // functions will already have deleted those details at that point.
+  for ( size_t i = 0, n = python_tinfos.size(); i < n; ++i )
+    python_tinfos[i]->clear();
+  // NOTE: Don't clear() the array of pointers. All the python-exposed tinfo_t
+  // instances will be deleted through the python shutdown/ref-decrementing
+  // process anyway (which will cause til_deregister_..() calls), and the
+  // entries will be properly pulled out of the vector when that happens.
+}
+
+void til_register_python_tinfo_t_instance(tinfo_t *tif)
+{
+  // Let's add_unique() it, because every reference to an object's
+  // tinfo_t property will end up trying to register it.
+  python_tinfos.add_unique(tif);
+}
+
+void til_deregister_python_tinfo_t_instance(tinfo_t *tif)
+{
+  qvector<tinfo_t*>::iterator found = python_tinfos.find(tif);
+  if ( found != python_tinfos.end() )
+  {
+    tif->clear();
+    python_tinfos.erase(found);
+  }
+}
+
+//</code(py_typeinf)>
+
 
 #endif

@@ -43,7 +43,6 @@
 %ignore restore_database_snapshot;
 %ignore destroy_custom_viewer;
 %ignore destroy_custom_viewerdestroy_custom_viewer;
-%ignore get_custom_viewer_place;
 %ignore set_custom_viewer_popup_menu;
 %ignore set_custom_viewer_handler;
 %ignore set_custom_viewer_range;
@@ -72,17 +71,11 @@
 %rename (asktext) py_asktext;
 %rename (str2ea)  py_str2ea;
 %rename (str2user)  py_str2user;
-
 %ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
-
-%ignore exec_request_t;
-
 %ignore execute_sync;
+%ignore exec_request_t;
 %rename (execute_sync) py_execute_sync;
-
-%ignore read_selection;
-%rename (read_selection) py_read_selection;
 
 %ignore ui_request_t;
 %ignore execute_ui_requests;
@@ -136,38 +129,11 @@ void refresh_lists(void)
 # This is for get_cursor()
 %apply int *OUTPUT {int *x, int *y};
 
-# This is for read_selection()
-%apply unsigned long *OUTPUT { ea_t *ea1, ea_t *ea2 };
-
 SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %inline %{
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def read_selection():
-    """
-    Returns selected area boundaries
-
-    @return: tuple(ok: bool, start_ea, end_ea)
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_read_selection()
-{
-  ea_t ea1, ea2;
-  bool b = read_selection(&ea1, &ea2);
-
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  return Py_BuildValue(
-            "(i" PY_FMT64 PY_FMT64 ")", 
-            b ? 1 : 0, 
-            pyul_t(ea1), pyul_t(ea2));
-}
 
 //------------------------------------------------------------------------
 /*
@@ -338,6 +304,45 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
 def free_custom_icon(icon_id):
     """
     Frees an icon loaded with load_custom_icon()
+    """
+    pass
+#</pydoc>
+*/
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def readsel2(view, p0, p1):
+    """
+    Read the user selection, and store its information in p0 (from) and p1 (to).
+
+    This can be used as follows:
+
+
+    >>> p0 = idaapi.twinpos_t()
+    p1 = idaapi.twinpos_t()
+    view = idaapi.get_current_viewer()
+    idaapi.readsel2(view, p0, p1)
+
+
+    At that point, p0 and p1 hold information for the selection.
+    But, the 'at' property of p0 and p1 is not properly typed.
+    To specialize it, call #place() on it, passing it the view
+    they were retrieved from. Like so:
+
+
+    >>> place0 = p0.place(view)
+    place1 = p1.place(view)
+
+
+    This will effectively "cast" the place into a specialized type,
+    holding proper information, depending on the view type (e.g.,
+    disassembly, structures, enums, ...)
+
+    @param view: The view to retrieve the selection for.
+    @param p0: Storage for the "from" part of the selection.
+    @param p1: Storage for the "to" part of the selection.
+    @return: a bool value indicating success.
     """
     pass
 #</pydoc>
@@ -1086,8 +1091,6 @@ PyObject *choose2_get_embedded_selection(PyObject *self);
 #define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
 
 //---------------------------------------------------------------------------
-DECLARE_PY_CLINKED_OBJECT(textctrl_info_t);
-
 static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
 {
   textctrl_info_t *lhs = textctrl_info_t_get_clink(self);
@@ -1222,20 +1225,21 @@ static PyObject *formchgcbfa_get_field_value(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   switch ( ft )
   {
+    // dropdown list
     case 8:
     {
       // Readonly? Then return the selected index
       if ( sz == 1 )
       {
         int sel_idx;
-        if ( fa->get_field_value(fid, &sel_idx) )
+        if ( fa->get_combobox_value(fid, &sel_idx) )
           return PyLong_FromLong(sel_idx);
       }
       // Not readonly? Then return the qstring
       else
       {
         qstring val;
-        if ( fa->get_field_value(fid, &val) )
+        if ( fa->get_combobox_value(fid, &val) )
           return PyString_FromString(val.c_str());
       }
       break;
@@ -1244,15 +1248,15 @@ static PyObject *formchgcbfa_get_field_value(
     case 7:
     {
       textctrl_info_t ti;
-      if ( fa->get_field_value(fid, &ti) )
+      if ( fa->get_text_value(fid, &ti) )
         return Py_BuildValue("(sII)", ti.text.c_str(), ti.flags, ti.tabsize);
       break;
     }
     // button - uint32
     case 4:
     {
-      uint32 val;
-      if ( fa->get_field_value(fid, &val) )
+      uval_t val;
+      if ( fa->get_unsigned_value(fid, &val) )
         return PyLong_FromUnsignedLong(val);
       break;
     }
@@ -1260,7 +1264,7 @@ static PyObject *formchgcbfa_get_field_value(
     case 2:
     {
       ushort val;
-      if ( fa->get_field_value(fid, &val) )
+      if ( fa->_get_field_value(fid, &val) )
         return PyLong_FromUnsignedLong(val);
       break;
     }
@@ -1268,7 +1272,7 @@ static PyObject *formchgcbfa_get_field_value(
     case 1:
     {
       char val[MAXSTR];
-      if ( fa->get_field_value(fid, val) )
+      if ( fa->get_ascii_value(fid, val, sizeof(val)) )
         return PyString_FromString(val);
       break;
     }
@@ -1277,7 +1281,7 @@ static PyObject *formchgcbfa_get_field_value(
     {
       qstring val;
       val.resize(sz + 1);
-      if ( fa->get_field_value(fid, val.begin()) )
+      if ( fa->get_ascii_value(fid, val.begin(), val.size()) )
         return PyString_FromString(val.begin());
       break;
     }
@@ -1285,12 +1289,11 @@ static PyObject *formchgcbfa_get_field_value(
     {
       intvec_t intvec;
       // Returned as 1-base
-      if (fa->get_field_value(fid, &intvec))
+      if (fa->get_chooser_value(fid, &intvec))
       {
         // Make 0-based
         for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
           (*it)--;
-
         ref_t l(PyW_IntVecToPyList(intvec));
         l.incref();
         return l.o;
@@ -1311,33 +1314,38 @@ static PyObject *formchgcbfa_get_field_value(
       {
         case 'S': // sel_t
         {
-          if ( fa->get_field_value(fid, &u.sel) )
+          if ( fa->get_segment_value(fid, &u.sel) )
             return Py_BuildValue(PY_FMT64, u.sel);
           break;
         }
         // sval_t
         case 'n':
-        case 'N':
         case 'D':
         case 'O':
         case 'Y':
         case 'H':
         {
-          if ( fa->get_field_value(fid, &u.sval) )
+          if ( fa->get_signed_value(fid, &u.sval) )
             return Py_BuildValue(PY_SFMT64, u.sval);
           break;
         }
         case 'L': // uint64
         case 'l': // int64
         {
-          if ( fa->get_field_value(fid, &u.ull) )
-            return Py_BuildValue(sz == 'L' ? "K" : "L", u.ull);
+          if ( fa->_get_field_value(fid, &u.ull) )
+            return Py_BuildValue("K", u.ull);
           break;
         }
+        case 'N':
         case 'M': // uval_t
+        {
+          if ( fa->get_unsigned_value(fid, &u.uval) )
+            return Py_BuildValue(PY_FMT64, u.uval);
+          break;
+        }
         case '$': // ea_t
         {
-          if ( fa->get_field_value(fid, &u.uval) )
+          if ( fa->get_ea_value(fid, &u.uval) )
             return Py_BuildValue(PY_FMT64, u.uval);
           break;
         }
@@ -1367,13 +1375,13 @@ static bool formchgcbfa_set_field_value(
       if ( PyString_Check(py_val) )
       {
         qstring val(PyString_AsString(py_val));
-        return fa->set_field_value(fid, &val);
+        return fa->set_combobox_value(fid, &val);
       }
       // Readonly dropdown list
       else
       {
         int sel_idx = PyLong_AsLong(py_val);
-        return fa->set_field_value(fid, &sel_idx);
+        return fa->set_combobox_value(fid, &sel_idx);
       }
       break;
     }
@@ -1381,24 +1389,24 @@ static bool formchgcbfa_set_field_value(
     case 7:
     {
       textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
-      return ti == NULL ? false : fa->set_field_value(fid, ti);
+      return ti == NULL ? false : fa->set_text_value(fid, ti);
     }
     // button - uint32
     case 4:
     {
-      uint32 val = PyLong_AsUnsignedLong(py_val);
-      return fa->set_field_value(fid, &val);
+      uval_t val = PyLong_AsUnsignedLong(py_val);
+      return fa->set_unsigned_value(fid, &val);
     }
     // ushort
     case 2:
     {
       ushort val = PyLong_AsUnsignedLong(py_val) & 0xffff;
-      return fa->set_field_value(fid, &val);
+      return fa->_set_field_value(fid, &val);
     }
     // strings
     case 3:
     case 1:
-      return fa->set_field_value(fid, PyString_AsString(py_val));
+      return fa->set_ascii_value(fid, PyString_AsString(py_val));
     // intvec_t
     case 5:
     {
@@ -1411,14 +1419,14 @@ static bool formchgcbfa_set_field_value(
       for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
         (*it)++;
 
-      return fa->set_field_value(fid, &intvec);
+      return fa->set_chooser_value(fid, &intvec);
     }
     // Numeric
     case 6:
     {
       uint64 num;
       if ( PyW_GetNumber(py_val, &num) )
-        return fa->set_field_value(fid, &num);
+        return fa->_set_field_value(fid, &num);
     }
   }
   return false;
@@ -1428,6 +1436,11 @@ static bool formchgcbfa_set_field_value(
 
 static size_t py_get_AskUsingForm()
 {
+  // Return a pointer to the function. Note that, although
+  // the C implementation of AskUsingForm_cv will do some
+  // Qt/txt widgets generation, the Python's ctypes
+  // implementation through which the call well go will first
+  // unblock other threads. No need to do it ourselves.
   return (size_t)AskUsingForm_c;
 }
 
@@ -1813,8 +1826,8 @@ private:
                     self,
                     (char *)S_ON_DELETE_LINE,
                     "i",
-                    lineno - 1));
-    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
+                    IS_CHOOSER_EVENT(lineno) ? lineno : lineno-1));
+    return pyres == NULL ? 1 : PyInt_AsLong(pyres.o);
   }
 
   int on_refresh(int lineno)
@@ -3980,8 +3993,39 @@ uint32 choose_choose(PyObject *self,
     int deflt,
     int icon);
 
+%extend place_t {
+  static idaplace_t *as_idaplace_t(place_t *p) { return (idaplace_t *) p; }
+  static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p; }
+  static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p; }
+  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p; }
+}
 
+%extend twinpos_t {
 
+  %pythoncode {
+    def place_as_idaplace_t(self):
+        return place_t.as_idaplace_t(self.at)
+    def place_as_enumplace_t(self):
+        return place_t.as_enumplace_t(self.at)
+    def place_as_structplace_t(self):
+        return place_t.as_structplace_t(self.at)
+    def place_as_simpleline_place_t(self):
+        return place_t.as_simpleline_place_t(self.at)
+
+    def place(self, view):
+        ptype = get_viewer_place_type(view)
+        if ptype == TCCPT_IDAPLACE:
+            return self.place_as_idaplace_t()
+        elif ptype == TCCPT_ENUMPLACE:
+            return self.place_as_enumplace_t()
+        elif ptype == TCCPT_STRUCTPLACE:
+            return self.place_as_structplace_t()
+        elif ptype == TCCPT_SIMPLELINE_PLACE:
+            return self.place_as_simpleline_place_t()
+        else:
+            return self.at
+  }
+}
 
 %pythoncode %{
 
@@ -4995,7 +5039,7 @@ class Form(object):
             Form.Control.free(self)
 
 
-    class DropdownListControl(InputControl, qstrvec_t):
+    class DropdownListControl(InputControl, _qstrvec_t):
         """
         Dropdown control
         This control allows manipulating a dropdown control
@@ -5022,7 +5066,7 @@ class Form(object):
                 hlp)
 
             # Init the associated qstrvec
-            qstrvec_t.__init__(self, items)
+            _qstrvec_t.__init__(self, items)
 
             # Remember if readonly or not
             self.readonly = readonly
@@ -5033,7 +5077,7 @@ class Form(object):
                 val_addr      = addressof(self.__selval)
             else:
                 # Create an strvec with one qstring
-                self.__selval = qstrvec_t([selval])
+                self.__selval = _qstrvec_t([selval])
                 # Get address of the first element
                 val_addr      = self.__selval.addressof(0)
 
@@ -6094,5 +6138,3 @@ class simplecustviewer_t(object):
 #</pydoc>
 #</pycode(py_custviewer)>
 %}
-
-

@@ -807,6 +807,15 @@ public:
   }
 };
 
+enum areacb_type_t
+{
+  AREACB_TYPE_UNKNOWN,
+  AREACB_TYPE_FUNC,
+  AREACB_TYPE_SEGMENT,
+  AREACB_TYPE_HIDDEN_AREA,
+  AREACB_TYPE_SRAREA,
+};
+
 //---------------------------------------------------------------------------
 // IDB hooks
 //---------------------------------------------------------------------------
@@ -827,8 +836,9 @@ public:
   // Hook functions to override in Python
   virtual int byte_patched(ea_t /*ea*/) { return 0; };
   virtual int cmt_changed(ea_t, bool /*repeatable_cmt*/) { return 0; };
-  virtual int ti_changed(ea_t /*ea*/, const type_t * /*type*/, const p_list * /*fnames*/) { msg("ti_changed hook not supported yet\n"); return 0; };
-  virtual int op_ti_changed(ea_t /*ea*/, int /*n*/, const type_t * /*type*/, const p_list * /*fnames*/) { msg("op_ti_changed hook not supported yet\n"); return 0; };
+  virtual int area_cmt_changed(areacb_t * /*areas*/, area_t * /*area*/, const char * /*cmt*/, bool /*repeatable*/) { return 0; }
+  virtual int ti_changed(ea_t /*ea*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; };
+  virtual int op_ti_changed(ea_t /*ea*/, int /*n*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; };
   virtual int op_type_changed(ea_t /*ea*/, int /*n*/) { return 0; };
   virtual int enum_created(enum_t /*id*/) { return 0; };
   virtual int enum_deleted(enum_t /*id*/) { return 0; };
@@ -1365,8 +1375,8 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
   class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
   ea_t ea, ea2;
   bool repeatable_cmt;
-  /*type_t *type;*/
-  /*  p_list *fnames; */
+  type_t *type;
+  p_list *fnames;
   int n;
   enum_t id;
   const_t cid;
@@ -1382,152 +1392,161 @@ int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
   try {
     switch (notification_code)
     {
-    case idb_event::byte_patched:
-      ea = va_arg(va, ea_t);
-      return proxy->byte_patched(ea);
+      case idb_event::byte_patched:
+        ea = va_arg(va, ea_t);
+        return proxy->byte_patched(ea);
 
-    case idb_event::cmt_changed:
-      ea = va_arg(va, ea_t);
-      repeatable_cmt = va_arg(va, int);
-      return proxy->cmt_changed(ea, repeatable_cmt);
-#if 0
-    case idb_event::ti_changed:
-      ea = va_arg(va, ea_t);
-      type = va_arg(va, type_t *);
-      fnames = va_arg(va, fnames);
-      return proxy->ti_changed(ea, type, fnames);
+      case idb_event::cmt_changed:
+        ea = va_arg(va, ea_t);
+        repeatable_cmt = va_arg(va, int);
+        return proxy->cmt_changed(ea, repeatable_cmt);
 
-    case idb_event::op_ti_changed:
-      ea = va_arg(va, ea_t);
-      n = va_arg(va, int);
-      type = va_arg(va, type_t *);
-      fnames = va_arg(va, fnames);
-      return proxy->op_ti_changed(ea, n, type, fnames);
-#endif
-    case idb_event::op_type_changed:
-      ea = va_arg(va, ea_t);
-      n = va_arg(va, int);
-      return proxy->op_type_changed(ea, n);
+      case idb_event::area_cmt_changed:
+        {
+          areacb_t *cb = va_arg(va, areacb_t*);
+          area_t *area = va_arg(va, area_t*);
+          const char *cmt = va_arg(va, char*);
+          repeatable_cmt = va_arg(va, int);
+          return proxy->area_cmt_changed(cb, area, cmt, repeatable_cmt);
+        }
 
-    case idb_event::enum_created:
-      id = va_arg(va, enum_t);
-      return proxy->enum_created(id);
+      case idb_event::ti_changed:
+        ea = va_arg(va, ea_t);
+        type = va_arg(va, type_t *);
+        fnames = va_arg(va, p_list *);
+        return proxy->ti_changed(ea, type, fnames);
 
-    case idb_event::enum_deleted:
-      id = va_arg(va, enum_t);
-      return proxy->enum_deleted(id);
+      case idb_event::op_ti_changed:
+        ea = va_arg(va, ea_t);
+        n = va_arg(va, int);
+        type = va_arg(va, type_t *);
+        fnames = va_arg(va, p_list *);
+        return proxy->op_ti_changed(ea, n, type, fnames);
 
-    case idb_event::enum_bf_changed:
-      id = va_arg(va, enum_t);
-      return proxy->enum_bf_changed(id);
+      case idb_event::op_type_changed:
+        ea = va_arg(va, ea_t);
+        n = va_arg(va, int);
+        return proxy->op_type_changed(ea, n);
 
-    case idb_event::enum_cmt_changed:
-      id = va_arg(va, enum_t);
-      return proxy->enum_cmt_changed(id);
+      case idb_event::enum_created:
+        id = va_arg(va, enum_t);
+        return proxy->enum_created(id);
+
+      case idb_event::enum_deleted:
+        id = va_arg(va, enum_t);
+        return proxy->enum_deleted(id);
+
+      case idb_event::enum_bf_changed:
+        id = va_arg(va, enum_t);
+        return proxy->enum_bf_changed(id);
+
+      case idb_event::enum_cmt_changed:
+        id = va_arg(va, enum_t);
+        return proxy->enum_cmt_changed(id);
 
 #ifdef NO_OBSOLETE_FUNCS
-    case idb_event::enum_member_created:
+      case idb_event::enum_member_created:
 #else
-    case idb_event::enum_const_created:
+      case idb_event::enum_const_created:
 #endif
-      id = va_arg(va, enum_t);
-      cid = va_arg(va, const_t);
-      return proxy->enum_member_created(id, cid);
+        id = va_arg(va, enum_t);
+        cid = va_arg(va, const_t);
+        return proxy->enum_member_created(id, cid);
 
 #ifdef NO_OBSOLETE_FUNCS
-    case idb_event::enum_member_deleted:
+      case idb_event::enum_member_deleted:
 #else
-    case idb_event::enum_const_deleted:
+      case idb_event::enum_const_deleted:
 #endif
-      id = va_arg(va, enum_t);
-      cid = va_arg(va, const_t);
-      return proxy->enum_member_deleted(id, cid);
+        id = va_arg(va, enum_t);
+        cid = va_arg(va, const_t);
+        return proxy->enum_member_deleted(id, cid);
 
-    case idb_event::struc_created:
-      struc_id = va_arg(va, tid_t);
-      return proxy->struc_created(struc_id);
+      case idb_event::struc_created:
+        struc_id = va_arg(va, tid_t);
+        return proxy->struc_created(struc_id);
 
-    case idb_event::struc_deleted:
-      struc_id = va_arg(va, tid_t);
-      return proxy->struc_deleted(struc_id);
+      case idb_event::struc_deleted:
+        struc_id = va_arg(va, tid_t);
+        return proxy->struc_deleted(struc_id);
 
-    case idb_event::struc_renamed:
-      sptr = va_arg(va, struc_t *);
-      return proxy->struc_renamed(sptr);
+      case idb_event::struc_renamed:
+        sptr = va_arg(va, struc_t *);
+        return proxy->struc_renamed(sptr);
 
-    case idb_event::struc_expanded:
-      sptr = va_arg(va, struc_t *);
-      return proxy->struc_expanded(sptr);
+      case idb_event::struc_expanded:
+        sptr = va_arg(va, struc_t *);
+        return proxy->struc_expanded(sptr);
 
-    case idb_event::struc_cmt_changed:
-      struc_id = va_arg(va, tid_t);
-      return proxy->struc_cmt_changed(struc_id);
+      case idb_event::struc_cmt_changed:
+        struc_id = va_arg(va, tid_t);
+        return proxy->struc_cmt_changed(struc_id);
 
-    case idb_event::struc_member_created:
-      sptr = va_arg(va, struc_t *);
-      mptr = va_arg(va, member_t *);
-      return proxy->struc_member_created(sptr, mptr);
+      case idb_event::struc_member_created:
+        sptr = va_arg(va, struc_t *);
+        mptr = va_arg(va, member_t *);
+        return proxy->struc_member_created(sptr, mptr);
 
-    case idb_event::struc_member_deleted:
-      sptr = va_arg(va, struc_t *);
-      member_id = va_arg(va, tid_t);
-      ea        = va_arg(va, ea_t);
-      return proxy->struc_member_deleted(sptr, member_id, ea);
+      case idb_event::struc_member_deleted:
+        sptr = va_arg(va, struc_t *);
+        member_id = va_arg(va, tid_t);
+        ea        = va_arg(va, ea_t);
+        return proxy->struc_member_deleted(sptr, member_id, ea);
 
-    case idb_event::struc_member_renamed:
-      sptr = va_arg(va, struc_t *);
-      mptr = va_arg(va, member_t *);
-      return proxy->struc_member_renamed(sptr, mptr);
+      case idb_event::struc_member_renamed:
+        sptr = va_arg(va, struc_t *);
+        mptr = va_arg(va, member_t *);
+        return proxy->struc_member_renamed(sptr, mptr);
 
-    case idb_event::struc_member_changed:
-      sptr = va_arg(va, struc_t *);
-      mptr = va_arg(va, member_t *);
-      return proxy->struc_member_changed(sptr, mptr);
+      case idb_event::struc_member_changed:
+        sptr = va_arg(va, struc_t *);
+        mptr = va_arg(va, member_t *);
+        return proxy->struc_member_changed(sptr, mptr);
 
-    case idb_event::thunk_func_created:
-      pfn = va_arg(va, func_t *);
-      return proxy->thunk_func_created(pfn);
+      case idb_event::thunk_func_created:
+        pfn = va_arg(va, func_t *);
+        return proxy->thunk_func_created(pfn);
 
-    case idb_event::func_tail_appended:
-      pfn = va_arg(va, func_t *);
-      tail = va_arg(va, func_t *);
-      return proxy->func_tail_appended(pfn, tail);
+      case idb_event::func_tail_appended:
+        pfn = va_arg(va, func_t *);
+        tail = va_arg(va, func_t *);
+        return proxy->func_tail_appended(pfn, tail);
 
-    case idb_event::func_tail_removed:
-      pfn = va_arg(va, func_t *);
-      ea = va_arg(va, ea_t);
-      return proxy->func_tail_removed(pfn, ea);
+      case idb_event::func_tail_removed:
+        pfn = va_arg(va, func_t *);
+        ea = va_arg(va, ea_t);
+        return proxy->func_tail_removed(pfn, ea);
 
-    case idb_event::tail_owner_changed:
-      tail = va_arg(va, func_t *);
-      ea = va_arg(va, ea_t);
-      return proxy->tail_owner_changed(tail, ea);
+      case idb_event::tail_owner_changed:
+        tail = va_arg(va, func_t *);
+        ea = va_arg(va, ea_t);
+        return proxy->tail_owner_changed(tail, ea);
 
-    case idb_event::func_noret_changed:
-      pfn = va_arg(va, func_t *);
-      return proxy->func_noret_changed(pfn);
+      case idb_event::func_noret_changed:
+        pfn = va_arg(va, func_t *);
+        return proxy->func_noret_changed(pfn);
 
-    case idb_event::segm_added:
-      seg = va_arg(va, segment_t *);
-      return proxy->segm_added(seg);
+      case idb_event::segm_added:
+        seg = va_arg(va, segment_t *);
+        return proxy->segm_added(seg);
 
-    case idb_event::segm_deleted:
-      ea = va_arg(va, ea_t);
-      return proxy->segm_deleted(ea);
+      case idb_event::segm_deleted:
+        ea = va_arg(va, ea_t);
+        return proxy->segm_deleted(ea);
 
-    case idb_event::segm_start_changed:
-      seg = va_arg(va, segment_t *);
-      return proxy->segm_start_changed(seg);
+      case idb_event::segm_start_changed:
+        seg = va_arg(va, segment_t *);
+        return proxy->segm_start_changed(seg);
 
-    case idb_event::segm_end_changed:
-      seg = va_arg(va, segment_t *);
-      return proxy->segm_end_changed(seg);
+      case idb_event::segm_end_changed:
+        seg = va_arg(va, segment_t *);
+        return proxy->segm_end_changed(seg);
 
-    case idb_event::segm_moved:
-      ea = va_arg(va, ea_t);
-      ea2 = va_arg(va, ea_t);
-      size = va_arg(va, asize_t);
-      return proxy->segm_moved(ea, ea2, size);
+      case idb_event::segm_moved:
+        ea = va_arg(va, ea_t);
+        ea2 = va_arg(va, ea_t);
+        size = va_arg(va, asize_t);
+        return proxy->segm_moved(ea, ea2, size);
     }
   }
   catch (Swig::DirectorException &e)

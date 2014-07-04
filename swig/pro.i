@@ -16,6 +16,7 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
 
 //---------------------------------------------------------------------
+
 %ignore wchar2char;
 %ignore hit_counter_t;
 %ignore reg_hit_counter;
@@ -55,6 +56,7 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %ignore qstrchr;
 %ignore qstrrchr;
 %ignore bytevec_t;
+%ignore qstrvec_t;
 %ignore reloc_info_t;
 %ignore relobj_t;
 %ignore wchar2char;
@@ -63,6 +65,7 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %ignore base64_encode;
 %ignore base64_decode;
 %ignore utf8_unicode;
+%ignore unicode_utf8;
 %ignore win_utf2idb;
 %ignore char2oem;
 %ignore oem2char;
@@ -112,22 +115,59 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 
 void qvector<uval_t>::grow(const unsigned int &x=0);
 %ignore qvector<uval_t>::grow;
+%ignore qvector::at(size_t);
+
+// simpleline_t doesn't implement '=='. Therefore, all these cannot be present in the instantiated template.
+%ignore qvector<simpleline_t>::operator==;
+%ignore qvector<simpleline_t>::operator!=;
+%ignore qvector<simpleline_t>::find;
+%ignore qvector<simpleline_t>::has;
+%ignore qvector<simpleline_t>::del;
+%ignore qvector<simpleline_t>::add_unique;
 
 %include "pro.h"
 
 //---------------------------------------------------------------------
-%template(uvalvec_t) qvector<uval_t>;    // vector of unsigned values
-%template(intvec_t)  qvector<int>;       // vector of integers
-%template(qstrvec_t) qvector<qstring>;   // vector of strings
-%template(boolvec_t) qvector<bool>;      // vector of bools
+%extend qvector {
+  inline size_t __len__() const { return $self->size(); }
+
+  // The fact that we are returning a const version of a reference to the
+  // type is what allows SWIG to generate a wrapper for this method, that
+  // will build an proper object (int, unsigned int, ...) instead
+  // of a pointer. Remove the 'const', and you'll see that, in
+  // SWIGINTERN PyObject *_wrap_uvalvec_t___getitem__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  // it will produce this:
+  //    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_unsigned_int, 0 |  0 );
+  // instead of that:
+  //    resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(*result));
+  inline const T& __getitem__(size_t i) const throw(std::out_of_range) {
+    if (i >= $self->size() || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return $self->at(i);
+  }
+
+  inline void __setitem__(size_t i, const T& v) throw(std::out_of_range) {
+    if (i >= $self->size() || i < 0)
+      throw std::out_of_range("out of bounds access");
+    $self->at(i) = v;
+  }
+
+  %pythoncode {
+    __iter__ = _bounded_getitem_iterator
+  }
+}
 
 //---------------------------------------------------------------------
-class qstring {
-public:
-    const char *c_str() const { return self->c_str(); }
-};
+%template(uvalvec_t) qvector<uval_t>; // unsigned values
+%template(intvec_t)  qvector<int>;
+%template(boolvec_t) qvector<bool>;
+%template(casevec_t) qvector<qvector<sval_t> >; // signed values
+%template(strvec_t)  qvector<simpleline_t>;
 
-class qtype {
-public:
-    const uchar *c_str() const { return self->c_str(); }
-};
+%pythoncode %{
+_listify_types(uvalvec_t,
+               intvec_t,
+               boolvec_t,
+               casevec_t,
+               strvec_t)
+%}

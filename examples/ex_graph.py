@@ -1,5 +1,6 @@
 # -----------------------------------------------------------------------
-# This is an example illustrating how to use the graphing functionality in Python
+# This is an example illustrating how to use the user graphing functionality
+# in Python
 # (c) Hex-Rays
 #
 from idaapi import GraphViewer

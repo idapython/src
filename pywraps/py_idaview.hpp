@@ -42,7 +42,8 @@ bool py_idaview_t::Bind(PyObject *self)
   else
   {
     py_view = new py_idaview_t();
-    lookup_info.add(tform, v, py_view);
+    lookup_info_t::entry_t &e = lookup_info.new_entry(py_view);
+    lookup_info.commit(e, tform, v);
   }
 
   // Finally, bind:

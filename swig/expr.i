@@ -43,6 +43,7 @@
 %ignore init_idc;
 %ignore term_idc;
 %ignore create_default_idc_classes;
+%ignore notify_extlang_changed;
 %ignore insn_to_idc;
 %ignore find_builtin_idc_func;
 %ignore idc_mutex;

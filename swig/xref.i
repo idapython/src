@@ -11,6 +11,7 @@
 %ignore destroy_switch_info;
 %ignore create_switch_xrefs;
 %ignore create_switch_table;
+%rename (calc_switch_cases)   py_calc_switch_cases;
 
 // These functions should not be called directly (according to docs)
 %ignore xrefblk_t_first_from;

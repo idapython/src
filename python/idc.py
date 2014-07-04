@@ -481,6 +481,12 @@ def SaveBase(idbname, flags=0):
 
 DBFL_BAK = idaapi.DBFL_BAK # for compatiblity with older versions, eventually delete this
 
+def ValidateNames():
+    """
+    check consistency of IDB name records
+    @return: number of inconsistent name records
+    """
+    return idaapi.validate_idb_names()
 
 def Exit(code):
     """
@@ -2245,8 +2251,12 @@ def GetOpnd(ea, n):
         0 - the first operand
         1 - the second operand
 
-    @return: the current text representation of operand
+    @return: the current text representation of operand or ""
     """
+    
+    if not isCode(idaapi.get_flags_novalue(ea)):
+        return ""
+
     res = idaapi.ua_outop2(ea, n)
 
     if not res:
@@ -6931,7 +6941,10 @@ def SetType(ea, newtype):
     @return: 1-ok, 0-failed.
     """
     if newtype is not '':
-        pt = ParseType(newtype, 0)[1:]
+        pt = ParseType(newtype, 0)
+        if pt is None:
+          # parsing failed
+          return None
     else:
         pt = None
     return ApplyType(ea, pt, TINFO_DEFINITE)
@@ -8131,6 +8144,13 @@ def CheckTraceFile(filename):
     @param filename: trace file
     """
     return idaapi.is_valid_trace_file(filename)
+
+def DiffTraceFile(filename):
+    """
+    Diff current trace buffer against given trace
+    @param filename: trace file
+    """
+    return idaapi.diff_trace_file(filename)
 
 def ClearTraceFile(filename):
     """

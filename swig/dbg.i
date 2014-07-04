@@ -22,6 +22,8 @@ typedef struct
 %ignore bpt_t::write;
 %ignore bpt_t::erase;
 %ignore bpt_t::cndbody;
+%ignore bpt_t::get_cnd_elang;
+%ignore bpt_t::set_cnd_elang;
 %rename (get_manual_regions) py_get_manual_regions;
 %ignore set_manual_regions;
 %ignore inform_idc_about_debthread;
@@ -45,6 +47,7 @@ static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas);
 %extend bpt_t
 {
   PyObject *condition;
+  PyObject *elang;
 }
 %{
 PyObject *bpt_t_condition_get(bpt_t *bpt)
@@ -56,6 +59,27 @@ void bpt_t_condition_set(bpt_t *bpt, PyObject *val)
 {
   if ( PyString_Check(val) )
     bpt->cndbody = PyString_AsString(val);
+  else
+    PyErr_SetString(PyExc_ValueError, "expected a string");
+}
+
+PyObject *bpt_t_elang_get(bpt_t *bpt)
+{
+  return PyString_FromString(bpt->get_cnd_elang());
+}
+
+void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
+{
+  if ( PyString_Check(val) )
+  {
+    char *cval = PyString_AsString(val);
+    if ( !bpt->set_cnd_elang(cval) )
+      PyErr_SetString(PyExc_ValueError, "too many extlangs");
+  }
+  else
+  {
+    PyErr_SetString(PyExc_ValueError, "expected a string");
+  }
 }
 %}
 %inline %{

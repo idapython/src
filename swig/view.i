@@ -14,16 +14,33 @@ class py_customidamemo_t;
 class lookup_info_t
 {
 public:
-  void add(TForm *form, TCustomControl *view, py_customidamemo_t *py_view)
+  struct entry_t
   {
-    QASSERT(0, form != NULL && view != NULL && py_view != NULL
-            && !find_by_form(NULL, NULL, form)
-            && !find_by_view(NULL, NULL, view)
-            && !find_by_py_view(NULL, NULL, py_view));
+    entry_t() : form(NULL), view(NULL), py_view(NULL) {}
+  private:
+    TForm *form;
+    TCustomControl *view;
+    py_customidamemo_t *py_view;
+    friend class lookup_info_t;
+  };
+
+  entry_t &new_entry(py_customidamemo_t *py_view)
+  {
+    QASSERT(30454, py_view != NULL && !find_by_py_view(NULL, NULL, py_view));
     entry_t &e = entries.push_back();
+    e.py_view = py_view;
+    return e;
+  }
+
+  void commit(entry_t &e, TForm *form, TCustomControl *view)
+  {
+    QASSERT(30455, &e >= entries.begin() && &e < entries.end());
+    QASSERT(30456, form != NULL && view != NULL && e.py_view != NULL
+                && !find_by_form(NULL, NULL, form)
+                && !find_by_view(NULL, NULL, view)
+                && find_by_py_view(NULL, NULL, e.py_view));
     e.form = form;
     e.view = view;
-    e.py_view = py_view;
   }
 
 #define FIND_BY__BODY(crit, res1, res2)                                 \
@@ -61,12 +78,6 @@ public:
   }
 
 private:
-  struct entry_t
-  {
-    TForm *form;
-    TCustomControl *view;
-    py_customidamemo_t *py_view;
-  };
   typedef qvector<entry_t> entries_t;
   entries_t entries;
 };
@@ -130,6 +141,8 @@ class py_customidamemo_t
 
   static void ensure_view_callbacks_installed();
   int cb_flags;
+  // number of arguments for OnViewClick implementation
+  int ovc_num_args;
 
 protected:
   ref_t self;
@@ -198,6 +211,7 @@ public:
   void on_view_switched(tcc_renderer_type_t rt);
   void on_view_mouse_over(const view_mouse_event_t *event);
   inline bool has_callback(int flag) { return (cb_flags & flag) != 0; }
+  int get_py_method_arg_count(char *method_name);
 };
 
 //-------------------------------------------------------------------------
@@ -207,6 +221,7 @@ py_customidamemo_t::py_customidamemo_t()
 {
   PYGLOG("%p: py_customidamemo_t()\n", this);
   ensure_view_callbacks_installed();
+  ovc_num_args = -1;
 }
 
 //-------------------------------------------------------------------------
@@ -401,7 +416,7 @@ PyObject *py_customidamemo_t::create_groups(PyObject *_groups_infos)
     {
       newref_t node(PySequence_GetItem(nodes.o, k));
       if ( PyInt_Check(node.o) )
-        gi.nodes.insert(PyInt_AsLong(node.o));
+        gi.nodes.add_unique(PyInt_AsLong(node.o));
     }
     if ( !gi.nodes.empty() )
     {
@@ -409,18 +424,18 @@ PyObject *py_customidamemo_t::create_groups(PyObject *_groups_infos)
       gis.push_back(gi);
     }
   }
-  intset_t groups;
+  intvec_t groups;
   if ( gis.empty() || !viewer_create_groups(view, &groups, gis) || groups.empty() )
     Py_RETURN_NONE;
 
   PyObject *py_groups = PyList_New(0);
-  for ( intset_t::const_iterator it = groups.begin(); it != groups.end(); ++it )
+  for ( intvec_t::const_iterator it = groups.begin(); it != groups.end(); ++it )
     PyList_Append(py_groups, PyInt_FromLong(long(*it)));
   return py_groups;
 }
 
 //-------------------------------------------------------------------------
-static void pynodes_to_idanodes(intset_t *idanodes, ref_t pynodes)
+static void pynodes_to_idanodes(intvec_t *idanodes, ref_t pynodes)
 {
   Py_ssize_t sz = PySequence_Size(pynodes.o);
   for ( Py_ssize_t i = 0; i < sz; ++i )
@@ -428,7 +443,7 @@ static void pynodes_to_idanodes(intset_t *idanodes, ref_t pynodes)
     newref_t item(PySequence_GetItem(pynodes.o, i));
     if ( !PyInt_Check(item.o) )
       continue;
-    idanodes->insert(PyInt_AsLong(item.o));
+    idanodes->add_unique(PyInt_AsLong(item.o));
   }
 }
 
@@ -439,7 +454,7 @@ PyObject *py_customidamemo_t::delete_groups(PyObject *_groups, PyObject *_new_cu
     Py_RETURN_NONE;
   borref_t groups(_groups);
   borref_t new_current(_new_current);
-  intset_t ida_groups;
+  intvec_t ida_groups;
   pynodes_to_idanodes(&ida_groups, groups);
   if ( ida_groups.empty() )
     Py_RETURN_NONE;
@@ -459,7 +474,7 @@ PyObject *py_customidamemo_t::set_groups_visibility(PyObject *_groups, PyObject 
   borref_t groups(_groups);
   borref_t expand(_expand);
   borref_t new_current(_new_current);
-  intset_t ida_groups;
+  intvec_t ida_groups;
   pynodes_to_idanodes(&ida_groups, groups);
   if ( ida_groups.empty() )
     Py_RETURN_NONE;
@@ -496,6 +511,23 @@ void py_customidamemo_t::unbind()
   PyObject_SetAttrString(self.o, S_M_THIS, py_cobj.o);
   self = newref_t(NULL);
   view = NULL;
+}
+
+//-------------------------------------------------------------------------
+int py_customidamemo_t::get_py_method_arg_count(char *method_name)
+{
+  newref_t method(PyObject_GetAttrString(self.o, method_name));
+  if ( method != NULL && PyCallable_Check(method.o) )
+  {
+    newref_t fc(PyObject_GetAttrString(method.o, "func_code"));
+    if ( fc != NULL )
+    {
+      newref_t ac(PyObject_GetAttrString(fc.o, "co_argcount"));
+      if ( ac != NULL )
+        return PyInt_AsLong(ac.o);
+    }
+  }
+  return -1;
 }
 
 //-------------------------------------------------------------------------
@@ -603,12 +635,26 @@ void py_customidamemo_t::on_view_popup()
 void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
 {
   CHK_EVT(GRBASE_HAVE_VIEW_CLICK);
-  newref_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_CLICK,
-                  "iii",
-                  event->x, event->y, event->state));
+  if ( ovc_num_args < 0 )
+    ovc_num_args = get_py_method_arg_count((char*)S_ON_VIEW_CLICK);
+  if ( ovc_num_args == 5 )
+  {
+    newref_t result(
+            PyObject_CallMethod(
+                    self.o,
+                    (char *)S_ON_VIEW_CLICK,
+                    "iiii",
+                    event->x, event->y, event->state, event->button));
+  }
+  else
+  {
+    newref_t result(
+            PyObject_CallMethod(
+                    self.o,
+                    (char *)S_ON_VIEW_CLICK,
+                    "iii",
+                    event->x, event->y, event->state));
+  }
   CHK_RES();
 }
 
@@ -958,7 +1004,8 @@ bool py_idaview_t::Bind(PyObject *self)
   else
   {
     py_view = new py_idaview_t();
-    lookup_info.add(tform, v, py_view);
+    lookup_info_t::entry_t &e = lookup_info.new_entry(py_view);
+    lookup_info.commit(e, tform, v);
   }
 
   // Finally, bind:

@@ -25,10 +25,12 @@
 %inline %{
 static PyObject *type##_create()
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyCObject_FromVoidPtr(new type(), NULL);
 }
 static bool type##_destroy(PyObject *py_obj)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_obj) )
     return false;
   delete (type *)PyCObject_AsVoidPtr(py_obj);
@@ -36,11 +38,14 @@ static bool type##_destroy(PyObject *py_obj)
 }
 static type *type##_get_clink(PyObject *self)
 {
+  PYW_GIL_CHECK_LOCKED_SCOPE();
   return (type *)pyobj_get_clink(self);
 }
 static PyObject *type##_get_clink_ptr(PyObject *self)
 {
-  return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG)pyobj_get_clink(self));
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  return PyLong_FromUnsignedLongLong(
+          (unsigned PY_LONG_LONG)pyobj_get_clink(self));
 }
 %}
 %enddef
@@ -2267,6 +2272,12 @@ class object_t(object):
         return getattr(self, idx)
 
 # -----------------------------------------------------------------------
+def _bounded_getitem_iterator(self):
+    """Helper function, to be set as __iter__ method for qvector-, or array-based classes."""
+    for i in range(len(self)):
+        yield self[i]
+
+# -----------------------------------------------------------------------
 class plugin_t(pyidc_opaque_object_t):
     """Base class for all scripted plugins."""
     pass
@@ -2332,72 +2343,79 @@ class PyIdc_cvt_int64__(pyidc_cvt_helper__):
 
 # -----------------------------------------------------------------------
 # qstrvec_t clinked object
-# class qstrvec_t(py_clinked_object_t):
-#     """Class representing an qstrvec_t"""
+class _qstrvec_t(py_clinked_object_t):
+    """
+    WARNING: It is very unlikely an IDAPython user should ever, ever
+    have to use this type. It should only be used for IDAPython internals.
 
-#     def __init__(self, items=None):
-#         py_clinked_object_t.__init__(self)
-#         # Populate the list if needed
-#         if items:
-#             self.from_list(items)
+    For example, in py_askusingform.py, we ctypes-expose to the IDA
+    kernel & UI a qstrvec instance, in case a DropdownListControl is
+    constructed.
+    That's because that's what AskUsingForm expects, and we have no
+    choice but to make a DropdownListControl hold a qstrvec_t.
+    This is, afaict, the only situation where a Python
+    _qstrvec_t is required.
+    """
 
-#     def _create_clink(self):
-#         return _idaapi.qstrvec_t_create()
+    def __init__(self, items=None):
+        py_clinked_object_t.__init__(self)
+        # Populate the list if needed
+        if items:
+            self.from_list(items)
 
-#     def _del_clink(self, lnk):
-#         return _idaapi.qstrvec_t_destroy(lnk)
+    def _create_clink(self):
+        return _idaapi.qstrvec_t_create()
 
-#     def _get_clink_ptr(self):
-#         return _idaapi.qstrvec_t_get_clink_ptr(self)
+    def _del_clink(self, lnk):
+        return _idaapi.qstrvec_t_destroy(lnk)
 
-#     def assign(self, other):
-#         """Copies the contents of 'other' to 'self'"""
-#         return _idaapi.qstrvec_t_assign(self, other)
+    def _get_clink_ptr(self):
+        return _idaapi.qstrvec_t_get_clink_ptr(self)
 
-#     def __setitem__(self, idx, s):
-#         """Sets string at the given index"""
-#         return _idaapi.qstrvec_t_set(self, idx, s)
+    def assign(self, other):
+        """Copies the contents of 'other' to 'self'"""
+        return _idaapi.qstrvec_t_assign(self, other)
 
-#     def __getitem__(self, idx):
-#         """Gets the string at the given index"""
-#         return _idaapi.qstrvec_t_get(self, idx)
+    def __setitem__(self, idx, s):
+        """Sets string at the given index"""
+        return _idaapi.qstrvec_t_set(self, idx, s)
 
-#     def __get_size(self):
-#         return _idaapi.qstrvec_t_size(self)
+    def __getitem__(self, idx):
+        """Gets the string at the given index"""
+        return _idaapi.qstrvec_t_get(self, idx)
 
-#     size = property(__get_size)
-#     """Returns the count of elements"""
+    def __get_size(self):
+        return _idaapi.qstrvec_t_size(self)
 
-#     def addressof(self, idx):
-#         """Returns the address (as number) of the qstring at the given index"""
-#         return _idaapi.qstrvec_t_addressof(self, idx)
+    size = property(__get_size)
+    """Returns the count of elements"""
 
-#     def add(self, s):
-#         """Add a string to the vector"""
-#         return _idaapi.qstrvec_t_add(self, s)
+    def addressof(self, idx):
+        """Returns the address (as number) of the qstring at the given index"""
+        return _idaapi.qstrvec_t_addressof(self, idx)
 
+    def add(self, s):
+        """Add a string to the vector"""
+        return _idaapi.qstrvec_t_add(self, s)
 
-#     def from_list(self, lst):
-#         """Populates the vector from a Python string list"""
-#         return _idaapi.qstrvec_t_from_list(self, lst)
+    def from_list(self, lst):
+        """Populates the vector from a Python string list"""
+        return _idaapi.qstrvec_t_from_list(self, lst)
 
+    def clear(self, qclear=False):
+        """
+        Clears all strings from the vector.
+        @param qclear: Just reset the size but do not actually free the memory
+        """
+        return _idaapi.qstrvec_t_clear(self, qclear)
 
-#     def clear(self, qclear=False):
-#         """
-#         Clears all strings from the vector.
-#         @param qclear: Just reset the size but do not actually free the memory
-#         """
-#         return _idaapi.qstrvec_t_clear(self, qclear)
+    def insert(self, idx, s):
+        """Insert a string into the vector"""
+        return _idaapi.qstrvec_t_insert(self, idx, s)
 
-
-#     def insert(self, idx, s):
-#         """Insert a string into the vector"""
-#         return _idaapi.qstrvec_t_insert(self, idx, s)
-
-
-#     def remove(self, idx):
-#         """Removes a string from the vector"""
-#         return _idaapi.qstrvec_t_remove(self, idx)
+    def remove(self, idx):
+        """Removes a string from the vector"""
+        return _idaapi.qstrvec_t_remove(self, idx)
 
 # -----------------------------------------------------------------------
 class PyIdc_cvt_refclass__(pyidc_cvt_helper__):
@@ -2678,6 +2696,12 @@ class __IDAPython_Completion_Util(object):
 # Instantiate a completion object
 IDAPython_Completion = __IDAPython_Completion_Util()
 
+def _listify_types(*classes):
+    for cls in classes:
+        cls.__getitem__ = cls.at
+        cls.__len__ = cls.size
+        cls.__iter__ = _bounded_getitem_iterator
+
 
 
 # The general callback format of notify_when() is:
@@ -2744,9 +2768,12 @@ NW_REMOVE     = 0x0010
 %include "fixup.i"
 %include "frame.i"
 %include "funcs.i"
+%include "typeinf.i"
 #ifdef WITH_HEXRAYS
   %include "hexrays.i"
 #endif
+
+SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)
 
 %inline %{
 
@@ -2852,12 +2879,9 @@ def RunPythonStatement(stmt):
 #</pydoc>
 */
 
-/*
 //---------------------------------------------------------------------------
-// qstrvec_t wrapper
+// qstrvec_t wrapper (INTERNAL! Don't expose. See py_idaapi.py)
 //---------------------------------------------------------------------------
-DECLARE_PY_CLINKED_OBJECT(qstrvec_t);
-
 static bool qstrvec_t_assign(PyObject *self, PyObject *other)
 {
   qstrvec_t *lhs = qstrvec_t_get_clink(self);
@@ -2959,7 +2983,7 @@ static bool qstrvec_t_remove(PyObject *self, size_t idx)
   sv->erase(sv->begin()+idx);
   return true;
 }
-*/
+
 //---------------------------------------------------------------------------
 
 
@@ -3006,7 +3030,6 @@ static bool notify_when(int when, PyObject *py_callable)
 %include "srarea.i"
 %include "strlist.i"
 %include "struct.i"
-%include "typeinf.i"
 %include "ua.i"
 %include "xref.i"
 %include "view.i"

@@ -8,7 +8,7 @@ try:
     from _idaapi import set_script_timeout
     import idaapi
     from idaapi import py_clinked_object_t
-    from idaapi import qstrvec_t
+    from idaapi import _qstrvec_t
     stdalone = False
 except:
     stdalone = True
@@ -50,7 +50,7 @@ try:
         from py_choose2 import *
         py_clinked_object_t = idaapi.py_clinked_object_t
         textctrl_info_t     = idaapi.textctrl_info_t
-        qstrvec_t           = idaapi.qstrvec_t
+        _qstrvec_t          = idaapi._qstrvec_t
 
     _idaapi.BADADDR = 0xFFFFFFFF
     _idaapi.MAXSTR  = 1024
@@ -776,7 +776,7 @@ class Form(object):
             Form.Control.free(self)
 
 
-    class DropdownListControl(InputControl, qstrvec_t):
+    class DropdownListControl(InputControl, _qstrvec_t):
         """
         Dropdown control
         This control allows manipulating a dropdown control
@@ -803,7 +803,7 @@ class Form(object):
                 hlp)
 
             # Init the associated qstrvec
-            qstrvec_t.__init__(self, items)
+            _qstrvec_t.__init__(self, items)
 
             # Remember if readonly or not
             self.readonly = readonly
@@ -814,7 +814,7 @@ class Form(object):
                 val_addr      = addressof(self.__selval)
             else:
                 # Create an strvec with one qstring
-                self.__selval = qstrvec_t([selval])
+                self.__selval = _qstrvec_t([selval])
                 # Get address of the first element
                 val_addr      = self.__selval.addressof(0)
 

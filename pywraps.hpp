@@ -59,40 +59,6 @@
 #define CIP_OK_OPAQUE    2 // Success, but the data pointed to by the PyObject* is an opaque object.
 
 //---------------------------------------------------------------------------
-// Helper macro to create C counterparts of Python py_clinked_object_t object
-#ifdef __PYWRAPS__
-#define DECLARE_PY_CLINKED_OBJECT(type)                        \
-  static PyObject *type##_create()                             \
-  {                                                            \
-    PYW_GIL_CHECK_LOCKED_SCOPE();                              \
-    return PyCObject_FromVoidPtr(new type(), NULL);            \
-  }                                                            \
-  static bool type##_destroy(PyObject *py_obj)                 \
-  {                                                            \
-    PYW_GIL_CHECK_LOCKED_SCOPE();                              \
-    if ( !PyCObject_Check(py_obj) )                            \
-      return false;                                            \
-    delete (type *)PyCObject_AsVoidPtr(py_obj);                \
-    return true;                                               \
-  }                                                            \
-  static type *type##_get_clink(PyObject *self)                \
-  {                                                            \
-    PYW_GIL_CHECK_LOCKED_SCOPE();                              \
-    return (type *)pyobj_get_clink(self);                      \
-  }                                                            \
-  static PyObject *type##_get_clink_ptr(PyObject *self)        \
-  {                                                            \
-    PYW_GIL_CHECK_LOCKED_SCOPE();                              \
-    return PyLong_FromUnsignedLongLong(                        \
-      (unsigned PY_LONG_LONG)pyobj_get_clink(self));           \
-  }
-#else
-// SWIG does not expand macros and thus those definitions won't be wrapped
-// Use DECLARE_PY_CLINKED_OBJECT(type) inside the .i file
-#define DECLARE_PY_CLINKED_OBJECT(type)
-#endif // __PYWRAPS__
-
-//---------------------------------------------------------------------------
 class gil_lock_t
 {
 private:
@@ -366,5 +332,7 @@ bool pywraps_check_autoscripts(char *buf, size_t bufsize);
 // [De]Initializes PyWraps
 bool init_pywraps();
 void deinit_pywraps();
+
+void hexrays_clear_python_cfuncptr_t_references(void);
 
 #endif
