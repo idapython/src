@@ -1330,8 +1330,8 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
     case ui_add_menu_item:
       if ( hexdsp == NULL )
       {
-        const char *name = va_arg(va, char *);
-        name = va_arg(va, char *); // Drop 'menupath'. Look for 'name'.
+        (void)va_arg(va, char *); // Drop 'menupath'
+        const char *name = va_arg(va, char *); // Look for 'name'.
         if ( streq(name, "Jump to pseudocode") )
         {
           init_hexrays_plugin(0);
