@@ -750,6 +750,14 @@ def ProcessUiActions(actions, flags=0):
     helper = __process_ui_actions_helper(actions, flags)
     return False if len(helper) < 1 else idaapi.execute_ui_requests((helper,))
 
+# ----------------------------------------------------------------------------
+def IsBatchMode():
+    """
+    Checks if batch mode is enabled
+
+    @return: True if batch mode is enabled and False otherwise
+    """
+    return idaapi.cvar.batch != 0
 
 # -----------------------------------------------------------------------
 class peutils_t(object):
