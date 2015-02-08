@@ -399,8 +399,7 @@ def build_plugin(
         platform_macros.append("WITH_HEXRAYS")
         SWIG_OPTIONS += ' -DWITH_HEXRAYS '
 
-    platform_macros.append("DEBUG")
-#    platform_macros.append("NDEBUG")
+    platform_macros.append("NDEBUG")
 
     if not '--no-early-load' in sys.argv:
         platform_macros.append("PLUGINFIX")
