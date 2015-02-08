@@ -111,6 +111,7 @@
 %ignore is_embedded_dbfile_ext;
 %ignore cpp_namespaces;
 %ignore max_trusted_idb_count;
+%ignore no_disk_space_handler;
 
 %ignore mem2base;
 %rename (mem2base) py_mem2base;

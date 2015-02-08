@@ -344,7 +344,7 @@ Dropdown list test
 
 # --------------------------------------------------------------------------
 def test_dropdown(execute=True):
-    """Test the combobox controls"""
+    """Test the combobox controls, in a modal dialog"""
     f = MyForm3()
     f, args = f.Compile()
     if execute:
@@ -359,6 +359,18 @@ def test_dropdown(execute=True):
         print "Readonly: %s" % f.cbReadonly.value
 
     f.Free()
+
+# --------------------------------------------------------------------------
+tdn_form = None
+def test_dropdown_nomodal():
+    """Test the combobox controls, in a non-modal form"""
+    global tdn_form
+    if tdn_form is None:
+        tdn_form = MyForm3()
+        tdn_form.modal = False
+        tdn_form.openform_flags = idaapi.PluginForm.FORM_TAB
+        tdn_form, _ = tdn_form.Compile()
+    tdn_form.Open()
 
 #</pycode(ex_askusingform)>
 

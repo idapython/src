@@ -137,12 +137,16 @@ class py_customidamemo_t
     GRBASE_HAVE_CLOSE            = 0x080,
     GRBASE_HAVE_VIEW_SWITCHED    = 0x100,
     GRBASE_HAVE_VIEW_MOUSE_OVER  = 0x200,
+    GRBASE_HAVE_VIEW_MOUSE_MOVED = 0x400,
   };
 
   static void ensure_view_callbacks_installed();
   int cb_flags;
-  // number of arguments for OnViewClick implementation
-  int ovc_num_args;
+  // number of arguments for:
+  int ovc_num_args;   // OnViewClick implementation
+  int ovdc_num_args;  // OnViewDblclick implementation
+  int ovmo_num_args;  // OnViewMouseOver implementation
+  int ovmm_num_args;  // OnViewMouseMoved implementation
 
 protected:
   ref_t self;
@@ -176,11 +180,15 @@ protected:
   bool collect_pyobject_callbacks(PyObject *self);
   virtual void collect_class_callbacks_ids(callbacks_ids_t *out);
 
+  void install_custom_viewer_handlers();
+
   // Bi-directionally bind/unbind the Python object and this controller.
   bool bind(PyObject *_self, TCustomControl *view);
   void unbind();
 
   static lookup_info_t lookup_info;
+  friend TForm *pycim_get_tform(PyObject *self);
+  friend TCustomControl *pycim_get_tcustom_control(PyObject *self);
 
 public:
   py_customidamemo_t();
@@ -210,8 +218,16 @@ public:
   void on_view_close();
   void on_view_switched(tcc_renderer_type_t rt);
   void on_view_mouse_over(const view_mouse_event_t *event);
+  void on_view_mouse_moved(const view_mouse_event_t *event);
   inline bool has_callback(int flag) { return (cb_flags & flag) != 0; }
   int get_py_method_arg_count(char *method_name);
+
+  // View events that are bound with 'set_custom_viewer_handler()'.
+  static void idaapi s_on_view_mouse_moved(
+          TCustomControl *cv,
+          int shift,
+          view_mouse_event_t *e,
+          void *ud);
 };
 
 //-------------------------------------------------------------------------
@@ -222,6 +238,9 @@ py_customidamemo_t::py_customidamemo_t()
   PYGLOG("%p: py_customidamemo_t()\n", this);
   ensure_view_callbacks_installed();
   ovc_num_args = -1;
+  ovdc_num_args = -1;
+  ovmo_num_args = -1;
+  ovmm_num_args = -1;
 }
 
 //-------------------------------------------------------------------------
@@ -261,7 +280,7 @@ void py_customidamemo_t::ensure_view_callbacks_installed()
                 py_view->on_view_keydown(key, state);
               }
               break;
-            case view_popup:
+            case obsolete_view_popup:
               py_view->on_view_popup();
               break;
             case view_click:
@@ -514,6 +533,18 @@ void py_customidamemo_t::unbind()
 }
 
 //-------------------------------------------------------------------------
+void idaapi py_customidamemo_t::s_on_view_mouse_moved(
+        TCustomControl *cv,
+        int shift,
+        view_mouse_event_t *e,
+        void *ud)
+{
+  PYW_GIL_GET;
+  py_customidamemo_t *_this = (py_customidamemo_t *) ud;
+  _this->on_view_mouse_moved(e);
+}
+
+//-------------------------------------------------------------------------
 int py_customidamemo_t::get_py_method_arg_count(char *method_name)
 {
   newref_t method(PyObject_GetAttrString(self.o, method_name));
@@ -543,6 +574,7 @@ void py_customidamemo_t::collect_class_callbacks_ids(callbacks_ids_t *out)
   out->add(S_ON_CLOSE, GRBASE_HAVE_CLOSE);
   out->add(S_ON_VIEW_SWITCHED, GRBASE_HAVE_VIEW_SWITCHED);
   out->add(S_ON_VIEW_MOUSE_OVER, GRBASE_HAVE_VIEW_MOUSE_OVER);
+  out->add(S_ON_VIEW_MOUSE_MOVED, GRBASE_HAVE_VIEW_MOUSE_MOVED);
 }
 
 //-------------------------------------------------------------------------
@@ -566,9 +598,22 @@ bool py_customidamemo_t::collect_pyobject_callbacks(PyObject *o)
     if ( have > 0 && attr != NULL )
       cb_flags |= have;
   }
+
   return true;
 }
 
+//-------------------------------------------------------------------------
+void py_customidamemo_t::install_custom_viewer_handlers()
+{
+  if ( has_callback(GRBASE_HAVE_VIEW_MOUSE_MOVED) )
+  {
+    // Set user-data
+    set_custom_viewer_handler(view, CVH_USERDATA, (void *)this);
+
+    //
+    set_custom_viewer_handler(view, CVH_MOUSEMOVE, (void *)s_on_view_mouse_moved);
+  }
+}
 
 //-------------------------------------------------------------------------
 #define CHK_EVT(flag_needed)                                \
@@ -576,10 +621,22 @@ bool py_customidamemo_t::collect_pyobject_callbacks(PyObject *o)
     return;                                                 \
   PYW_GIL_CHECK_LOCKED_SCOPE()
 
+
 #ifdef PYGDBG_ENABLED
-#define CHK_RES() PYGLOG("%s: return code: %p\n", __FUNCTION__, result.o)
+#define CHK_RES()                                               \
+  do                                                            \
+  {                                                             \
+    PYGLOG("%s: return code: %p\n", __FUNCTION__, result.o);    \
+    if (PyErr_Occurred())                                       \
+      PyErr_Print();                                            \
+  } while ( false )
 #else
-#define CHK_RES()
+#define CHK_RES()                                               \
+  do                                                            \
+  {                                                             \
+    if (PyErr_Occurred())                                       \
+      PyErr_Print();                                            \
+  } while ( false )
 #endif
 
 //-------------------------------------------------------------------------
@@ -632,12 +689,32 @@ void py_customidamemo_t::on_view_popup()
 }
 
 //-------------------------------------------------------------------------
+static PyObject *build_renderer_pos_swig_proxy(const view_mouse_event_t *event)
+{
+  return SWIG_NewPointerObj(
+          SWIG_as_voidptr(&event->renderer_pos),
+          SWIGTYPE_p_renderer_pos_info_t,
+          0);
+}
+
+//-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
 {
   CHK_EVT(GRBASE_HAVE_VIEW_CLICK);
   if ( ovc_num_args < 0 )
     ovc_num_args = get_py_method_arg_count((char*)S_ON_VIEW_CLICK);
-  if ( ovc_num_args == 5 )
+  if ( ovc_num_args == 6 )
+  {
+    PyObject *rpos = build_renderer_pos_swig_proxy(event);
+    newref_t result(
+            PyObject_CallMethod(
+                    self.o,
+                    (char *)S_ON_VIEW_CLICK,
+                    "iiiiO",
+                    event->x, event->y, event->state, event->button, rpos));
+    CHK_RES();
+  }
+  else if ( ovc_num_args == 5 )
   {
     newref_t result(
             PyObject_CallMethod(
@@ -645,6 +722,7 @@ void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
                     (char *)S_ON_VIEW_CLICK,
                     "iiii",
                     event->x, event->y, event->state, event->button));
+    CHK_RES();
   }
   else
   {
@@ -654,21 +732,37 @@ void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
                     (char *)S_ON_VIEW_CLICK,
                     "iii",
                     event->x, event->y, event->state));
+    CHK_RES();
   }
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_dblclick(const view_mouse_event_t *event)
 {
   CHK_EVT(GRBASE_HAVE_VIEW_DBLCLICK);
-  newref_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_DBLCLICK,
-                  "iii",
-                  event->x, event->y, event->state));
-  CHK_RES();
+  if ( ovdc_num_args < 0 )
+    ovdc_num_args = get_py_method_arg_count((char*)S_ON_VIEW_DBLCLICK);
+  if ( ovdc_num_args == 5 )
+  {
+    PyObject *rpos = build_renderer_pos_swig_proxy(event);
+    newref_t result(
+            PyObject_CallMethod(
+                    self.o,
+                    (char *)S_ON_VIEW_DBLCLICK,
+                    "iiiO",
+                    event->x, event->y, event->state, rpos));
+    CHK_RES();
+  }
+  else
+  {
+    newref_t result(
+            PyObject_CallMethod(
+                    self.o,
+                    (char *)S_ON_VIEW_DBLCLICK,
+                    "iii",
+                    event->x, event->y, event->state));
+    CHK_RES();
+  }
 }
 
 //-------------------------------------------------------------------------
@@ -700,37 +794,81 @@ void py_customidamemo_t::on_view_switched(tcc_renderer_type_t rt)
 }
 
 //-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_mouse_over(const view_mouse_event_t *event)
+static ref_t build_current_graph_item_tuple(int *out_icode, const view_mouse_event_t *event)
 {
-  CHK_EVT(GRBASE_HAVE_VIEW_MOUSE_OVER);
-  if ( event->rtype == TCCRT_GRAPH || event->rtype == TCCRT_PROXIMITY )
+  const selection_item_t *item = event->location.item;
+  ref_t tuple;
+  if ( (event->rtype == TCCRT_GRAPH || event->rtype == TCCRT_PROXIMITY)
+    && item != NULL )
   {
-    const selection_item_t *item = event->location.item;
-    int icode;
-    ref_t tuple;
-    if ( item != NULL )
+    if ( item->is_node )
     {
-      if ( item->is_node )
-      {
-        icode = 1;
-        tuple = newref_t(Py_BuildValue("(i)", item->node));
-      }
-      else
-      {
-        icode = 2;
-        tuple = newref_t(Py_BuildValue("(ii)", item->elp.e.src, item->elp.e.dst));
-      }
+      *out_icode = 1;
+      tuple = newref_t(Py_BuildValue("(i)", item->node));
     }
     else
     {
-      icode = 0;
-      tuple = newref_t(Py_BuildValue("()"));
+      *out_icode = 2;
+      tuple = newref_t(Py_BuildValue("(ii)", item->elp.e.src, item->elp.e.dst));
     }
+  }
+  else
+  {
+    *out_icode = 0;
+    tuple = newref_t(Py_BuildValue("()"));
+  }
+  return tuple;
+}
+
+//-------------------------------------------------------------------------
+void py_customidamemo_t::on_view_mouse_over(const view_mouse_event_t *event)
+{
+  CHK_EVT(GRBASE_HAVE_VIEW_MOUSE_OVER);
+  if ( ovmo_num_args < 0 )
+    ovmo_num_args = get_py_method_arg_count((char*)S_ON_VIEW_MOUSE_OVER);
+  if ( event->rtype != TCCRT_GRAPH && event->rtype != TCCRT_PROXIMITY )
+    return;
+
+  int icode;
+  ref_t tuple = build_current_graph_item_tuple(&icode, event);
+  if ( ovmo_num_args == 7 )
+  {
+    PyObject *rpos = build_renderer_pos_swig_proxy(event);
+    newref_t result(PyObject_CallMethod(
+                            self.o,
+                            (char *)S_ON_VIEW_MOUSE_OVER,
+                            "iiiiOO",
+                            event->x, event->y, event->state, icode, tuple.o, rpos));
+    CHK_RES();
+  }
+  else
+  {
     newref_t result(PyObject_CallMethod(
                             self.o,
                             (char *)S_ON_VIEW_MOUSE_OVER,
                             "iiiiO",
                             event->x, event->y, event->state, icode, tuple.o));
+    CHK_RES();
+  }
+}
+
+//-------------------------------------------------------------------------
+void py_customidamemo_t::on_view_mouse_moved(const view_mouse_event_t *event)
+{
+  CHK_EVT(GRBASE_HAVE_VIEW_MOUSE_MOVED);
+  if ( ovmm_num_args < 0 )
+    ovmm_num_args = get_py_method_arg_count((char*)S_ON_VIEW_MOUSE_MOVED);
+
+  int icode;
+  ref_t tuple = build_current_graph_item_tuple(&icode, event);
+  if ( ovmm_num_args == 7 )
+  {
+    PyObject *rpos = build_renderer_pos_swig_proxy(event);
+    newref_t result(PyObject_CallMethod(
+                            self.o,
+                            (char *)S_ON_VIEW_MOUSE_MOVED,
+                            "iiiiOO",
+                            event->x, event->y, event->state, icode, tuple.o, rpos));
     CHK_RES();
   }
 }
@@ -747,6 +885,10 @@ void py_customidamemo_t::on_view_mouse_over(const view_mouse_event_t *event)
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
     return
+#define CHK_THIS_OR_NULL()                                              \
+  GET_THIS();                                                           \
+  if ( _this == NULL )                                                  \
+    return NULL;
 #define CHK_THIS_OR_NONE()                                              \
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
@@ -828,7 +970,28 @@ PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject 
   return _this->set_groups_visibility(groups, expand, new_current);
 }
 
+//-------------------------------------------------------------------------
+TForm *pycim_get_tform(PyObject *self)
+{
+  CHK_THIS_OR_NULL();
+  TForm *form = NULL;
+  if ( !py_customidamemo_t::lookup_info.find_by_py_view(&form, NULL, _this) )
+    return NULL;
+  return form;
+}
+
+//-------------------------------------------------------------------------
+TCustomControl *pycim_get_tcustom_control(PyObject *self)
+{
+  CHK_THIS_OR_NULL();
+  TCustomControl *tcc = NULL;
+  if ( !py_customidamemo_t::lookup_info.find_by_py_view(NULL, &tcc, _this) )
+    return NULL;
+  return tcc;
+}
+
 #undef CHK_THIS_OR_NONE
+#undef CHK_THIS_OR_NULL
 #undef CHK_THIS
 #undef GET_THIS
 
@@ -850,6 +1013,8 @@ void pygc_set_current_renderer_type(PyObject *self, PyObject *py_rt);
 PyObject *pygc_create_groups(PyObject *self, PyObject *groups_infos);
 PyObject *pygc_delete_groups(PyObject *self, PyObject *groups, PyObject *new_current);
 PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject *expand, PyObject *new_current);
+TForm *pycim_get_tform(PyObject *self);
+TCustomControl *pycim_get_tcustom_control(PyObject *self);
 //</inline(py_view_base)>
 %}
 
@@ -959,6 +1124,23 @@ class CustomIDAMemo(object):
         """
         return _idaapi.pygc_set_groups_visibility(self, groups, expand, new_current)
 
+    def GetTForm(self):
+        """
+        Return the TForm hosting this view.
+
+        @return: The TForm that hosts this view, or None.
+        """
+        return _idaapi.pycim_get_tform(self)
+
+    def GetTCustomControl(self):
+        """
+        Return the TCustomControl underlying this view.
+
+        @return: The TCustomControl underlying this view, or None.
+        """
+        return _idaapi.pycim_get_tcustom_control(self)
+
+
 #</pycode(py_view_base)>
 %}
 
@@ -970,6 +1152,7 @@ class py_idaview_t : public py_customidamemo_t
 
 public:
   static bool Bind(PyObject *self);
+  static bool Unbind(PyObject *self);
 };
 
 //-------------------------------------------------------------------------
@@ -1015,10 +1198,22 @@ bool py_idaview_t::Bind(PyObject *self)
   if ( ok )
   {
     ok = py_view->collect_pyobject_callbacks(self);
-    if ( !ok )
+    if ( ok )
+      py_view->install_custom_viewer_handlers();
+    else
       delete py_view;
   }
   return ok;
+}
+
+//-------------------------------------------------------------------------
+bool py_idaview_t::Unbind(PyObject *self)
+{
+  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  if ( _this == NULL )
+    return false;
+  _this->unbind();
+  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -1027,12 +1222,19 @@ bool pyidag_bind(PyObject *self)
   return py_idaview_t::Bind(self);
 }
 
+//-------------------------------------------------------------------------
+bool pyidag_unbind(PyObject *self)
+{
+  return py_idaview_t::Unbind(self);
+}
+
 //</code(py_idaview)>
 %}
 
 %inline %{
 //<inline(py_idaview)>
 bool pyidag_bind(PyObject *self);
+bool pyidag_unbind(PyObject *self);
 //</inline(py_idaview)>
 %}
 
@@ -1051,5 +1253,9 @@ class IDAViewWrapper(CustomIDAMemo):
 
     def Bind(self):
         return _idaapi.pyidag_bind(self)
+
+    def Unbind(self):
+        return _idaapi.pyidag_unbind(self)
+
 #</pycode(py_idaview)>
 %}

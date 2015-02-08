@@ -29,6 +29,7 @@ try:
         _idaapi.CHOOSER_POPUP_MENU = 1
         pywraps = object_t()
         pywraps.py_get_AskUsingForm = lambda: 0
+        pywraps.py_get_OpenForm = lambda: 0
 
         class Choose2(object):
             CH_MULTI = 1
@@ -891,7 +892,7 @@ class Form(object):
     def __init__(self, form, controls):
         """
         Contruct a Form class.
-        This class wraps around AskUsingForm() and provides an easier / alternative syntax for describing forms.
+        This class wraps around AskUsingForm() or OpenForm() and provides an easier / alternative syntax for describing forms.
         The form control names are wrapped inside the opening and closing curly braces and the control themselves are
         defined and instantiated via various form controls (subclasses of Form).
 
@@ -907,6 +908,15 @@ class Form(object):
 
         self.title = None
         """The Form title. It will be filled when the form is compiled"""
+
+        self.modal = True
+        """By default, forms are modal"""
+
+        self.openform_flags = 0
+        """
+        If non-modal, these flags will be passed to OpenForm.
+        This is an OR'ed combination of the PluginForm.FORM_* values.
+        """
 
 
     def Free(self):
@@ -1039,6 +1049,11 @@ class Form(object):
         """
         # First argument is the form string
         args = [None]
+
+        # Second argument, if form is not modal, is the set of flags
+        if not self.modal:
+            args.append(self.openform_flags | 0x80) # Add FORM_QWIDGET
+
         ctrlcnt = 1
 
         # Reset all group control internal flags
@@ -1121,6 +1136,22 @@ class Form(object):
 
             ctrlcnt += 1
 
+        # If no FormChangeCb instance was passed, and thus there's no '%/'
+        # in the resulting form string, let's provide a minimal one, so that
+        # we will retrieve 'p_fa', and thus actions that rely on it will work.
+        if form.find(Form.FT_FORMCHG) < 0:
+            form = form + Form.FT_FORMCHG
+            fccb = Form.FormChangeCb(lambda *args: 1)
+            self.Add("___dummyfchgcb", fccb)
+            # Regardless of the actual position of '%/' in the form
+            # string, a formchange callback _must_ be right after
+            # the form string.
+            if self.modal:
+                inspos = 1
+            else:
+                inspos = 2
+            args.insert(inspos, fccb.get_arg())
+
         # Patch in the final form string
         args[0] = form
 
@@ -1157,16 +1188,32 @@ class Form(object):
         return self.__args is not None
 
 
-    def Execute(self):
-        """
-        Displays a compiled form.
-        @return: 1 - ok ; 0 - cancel
-        """
+    def _ChkCompiled(self):
         if not self.Compiled():
             raise SyntaxError("Form is not compiled")
 
-        # Call AskUsingForm()
+
+    def Execute(self):
+        """
+        Displays a modal dialog containing the compiled form.
+        @return: 1 - ok ; 0 - cancel
+        """
+        self._ChkCompiled()
+        if not self.modal:
+            raise SyntaxError("Form is not modal. Open() should be instead")
+
         return AskUsingForm(*self.__args)
+
+
+    def Open(self):
+        """
+        Opens a widget containing the compiled form.
+        """
+        self._ChkCompiled()
+        if self.modal:
+            raise SyntaxError("Form is modal. Execute() should be instead")
+
+        OpenForm(*self.__args)
 
 
     def EnableField(self, ctrl, enable):
@@ -1311,15 +1358,18 @@ try:
     # Setup the numeric argument size
     Form.NumericArgument.DefI64 = _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
     AskUsingForm__ = ctypes.CFUNCTYPE(ctypes.c_long)(_idaapi.py_get_AskUsingForm())
+    OpenForm__ = ctypes.CFUNCTYPE(ctypes.c_long)(_idaapi.py_get_OpenForm())
 except:
     def AskUsingForm__(*args):
         warning("AskUsingForm() needs ctypes library in order to work")
         return 0
+    def OpenForm__(*args):
+        warning("OpenForm() needs ctypes library in order to work")
 
 
 def AskUsingForm(*args):
     """
-    Calls the AskUsingForm()
+    Calls AskUsingForm()
     @param: Compiled Arguments obtain through the Form.Compile() function
     @return: 1 = ok, 0 = cancel
     """
@@ -1327,6 +1377,15 @@ def AskUsingForm(*args):
     r = AskUsingForm__(*args)
     set_script_timeout(old)
     return r
+
+def OpenForm(*args):
+    """
+    Calls OpenForm()
+    @param: Compiled Arguments obtain through the Form.Compile() function
+    """
+    old = set_script_timeout(0)
+    r = OpenForm__(*args)
+    set_script_timeout(old)
 
 
 #</pycode(py_kernwin)>
@@ -1671,7 +1730,7 @@ Dropdown list test
 
 # --------------------------------------------------------------------------
 def test_dropdown(execute=True):
-    """Test the combobox controls"""
+    """Test the combobox controls, in a modal dialog"""
     f = MyForm3()
     f, args = f.Compile()
     if execute:
@@ -1686,6 +1745,18 @@ def test_dropdown(execute=True):
         print "Readonly: %s" % f.cbReadonly.value
 
     f.Free()
+
+# --------------------------------------------------------------------------
+tdn_form = None
+def test_dropdown_nomodal():
+    """Test the combobox controls, in a non-modal form"""
+    global tdn_form
+    if tdn_form is None:
+        tdn_form = MyForm3()
+        tdn_form.modal = False
+        tdn_form.openform_flags = idaapi.PluginForm.FORM_TAB
+        tdn_form, _ = tdn_form.Compile()
+    tdn_form.Open()
 
 #</pycode(ex_askusingform)>
 # --------------------------------------------------------------------------

@@ -16,9 +16,27 @@ import idautils
 import idaapi
 import idc
 
-import traceback
-
 NETNODE_NAME = '$ hexrays-inverted-if'
+
+inverter_actname = "vds3:invert"
+
+class invert_action_handler_t(idaapi.action_handler_t):
+    def __init__(self, inverter):
+        idaapi.action_handler_t.__init__(self)
+        self.inverter = inverter
+
+    def activate(self, ctx):
+        vdui = idaapi.get_tform_vdui(ctx.form)
+        self.inverter.invert_if_event(vdui)
+        return 1
+
+    def update(self, ctx):
+        vdui = idaapi.get_tform_vdui(ctx.form)
+        if vdui:
+            return idaapi.AST_ENABLE_FOR_FORM
+        else:
+            return idaapi.AST_DISABLE_FOR_FORM
+
 
 class hexrays_callback_info(object):
 
@@ -123,14 +141,12 @@ class hexrays_callback_info(object):
     def invert_if_event(self, vu):
 
         cfunc = vu.cfunc.__deref__()
-
         i = self.find_if_statement(vu)
         if not i:
             return False
 
         if self.invert_if(cfunc, i):
             vu.refresh_ctext()
-
             self.add_location(i.ea)
 
         return True
@@ -157,39 +173,27 @@ class hexrays_callback_info(object):
 
         return
 
-    def menu_callback(self):
-        try:
-            self.invert_if_event(self.vu)
-        except:
-            traceback.print_exc()
-        return 0
-
     def event_callback(self, event, *args):
 
-        try:
-            if event == idaapi.hxe_keyboard:
-                vu, keycode, shift = args
+        if event == idaapi.hxe_populating_popup:
+            form, phandle, vu = args
+            res = idaapi.attach_action_to_popup(vu.ct, None, inverter_actname)
 
-                if idaapi.lookup_key_code(keycode, shift, True) == idaapi.get_key_code("I") and shift == 0:
-                    if self.invert_if_event(vu):
-                        return 1
-
-            elif event == idaapi.hxe_right_click:
-                self.vu,  = args
-                idaapi.add_custom_viewer_popup_item(self.vu.ct, "Invert then/else", "I", self.menu_callback)
-
-            elif event == idaapi.hxe_maturity:
-                cfunc, maturity = args
-
-                if maturity == idaapi.CMAT_FINAL:
-                    self.restore(cfunc)
-        except:
-            traceback.print_exc()
+        elif event == idaapi.hxe_maturity:
+            cfunc, maturity = args
+            if maturity == idaapi.CMAT_FINAL:
+                self.restore(cfunc)
 
         return 0
 
 if idaapi.init_hexrays_plugin():
     i = hexrays_callback_info()
+    idaapi.register_action(
+        idaapi.action_desc_t(
+            inverter_actname,
+            "Invert then/else",
+            invert_action_handler_t(i),
+            "I"))
     idaapi.install_hexrays_callback(i.event_callback)
 else:
     print 'invert-if: hexrays is not available.'

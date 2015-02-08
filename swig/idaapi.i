@@ -17,9 +17,72 @@
 #pragma SWIG nowarn=454 // Setting a pointer/reference variable may leak memory
 
 %constant size_t SIZE_MAX = size_t(-1);
+%{
+
+#ifndef USE_DANGEROUS_FUNCTIONS
+  #define USE_DANGEROUS_FUNCTIONS 1
+#endif
+
+#include <pro.h>
+
+void raise_python_stl_bad_alloc(const std::bad_alloc &ba)
+{
+  Py_INCREF(PyExc_MemoryError);
+  PyErr_SetString(PyExc_MemoryError, "Out of memory (bad_alloc)");
+}
+
+void raise_python_unknown_exception()
+{
+  Py_INCREF(PyExc_RuntimeError);
+  PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
+}
+
+void raise_python_stl_exception(const std::exception &e)
+{
+  const char *what = e.what();
+  if ( what == NULL || what[0] == '\0' )
+  {
+    raise_python_unknown_exception();
+  }
+  else
+  {
+    Py_INCREF(PyExc_RuntimeError);
+    PyErr_SetString(PyExc_RuntimeError, what);
+  }
+}
+%}
+
+%define %exception_set_default_handlers()
+%exception {
+    try
+    {
+      $action
+    }
+    catch ( const std::bad_alloc &ba ) { raise_python_stl_bad_alloc(ba); SWIG_fail; }
+    catch ( const std::exception &e ) { raise_python_stl_exception(e); SWIG_fail; }
+    catch (...) { raise_python_unknown_exception(); SWIG_fail; }
+}
+%enddef
+%exception_set_default_handlers();
 
 // Enable automatic docstring generation
 %feature(autodoc,0);
+
+%{
+/* strnlen() arrived on OSX at v10.7. Provide it ourselves if needed. */
+#ifdef __MAC__
+#ifndef MAC_OS_X_VERSION_10_7
+#define MAC_OS_X_VERSION_10_7 1070
+#endif
+#if (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7)
+inline size_t strnlen(const char *s, size_t maxlen)
+{
+  const char *found = (const char *) memchr(s, 0, maxlen);
+  return found != NULL ? size_t(found - s) : maxlen;
+}
+#endif
+#endif
+%}
 
 %define SWIG_DECLARE_PY_CLINKED_OBJECT(type)
 %inline %{
@@ -58,10 +121,6 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 
 %{
 #include <Python.h>
-
-#ifndef USE_DANGEROUS_FUNCTIONS
-  #define USE_DANGEROUS_FUNCTIONS 1
-#endif
 
 #ifdef HAVE_SSIZE_T
 #define _SSIZE_T_DEFINED 1
@@ -102,6 +161,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 #include "strlist.hpp"
 #include "struct.hpp"
 #include "typeinf.hpp"
+#include "registry.hpp"
 #include "ua.hpp"
 #include "xref.hpp"
 #include "ieee.h"
@@ -173,323 +233,6 @@ struct scfld_t
 #define FT_NOT_FOUND         -1
 #define FT_BAD_TYPE          -2
 #define FT_OK                1
-
-// //-----------------------------------------------------------------------
-// class pycvt_t
-// {
-//   struct attr_t
-//   {
-//     qstring str;
-//     uint64 u64;
-//     // User is responsible to release this attribute when done
-//     PyObject *py_obj;
-//   };
-
-//   //-----------------------------------------------------------------------
-//   static int get_attr(
-//     PyObject *py_obj,
-//     const char *attrname,
-//     int ft,
-//     attr_t &val)
-//   {
-//     ref_t py_attr(PyW_TryGetAttrString(py_obj, attrname));
-//     if ( py_attr == NULL )
-//       return FT_NOT_FOUND;
-
-//     int cvt = FT_OK;
-//     if ( ft == FT_STR || ft == FT_CHAR && PyString_Check(py_attr.o) )
-//       val.str = PyString_AsString(py_attr.o);
-//     else if ( (ft > FT_FIRST_NUM && ft < FT_LAST_NUM) && PyW_GetNumber(py_attr.o, &val.u64) )
-//       ; // nothing to be done
-//     // A string array?
-//     else if ( (ft == FT_STRARR || ft == FT_NUM16ARR || ft == FT_CHRARR_STATIC )
-//       && (PyList_CheckExact(py_attr.o) || PyW_IsSequenceType(py_attr.o)) )
-//     {
-//       // Return a reference to the attribute
-//       val.py_obj = py_attr.o;
-//       // Do not decrement the reference to this attribute
-//       py_attr = NULL;
-//     }
-//     else
-//       cvt = FT_BAD_TYPE;
-//     return cvt;
-//   }
-
-//   //-----------------------------------------------------------------------
-//   static int idaapi make_str_list_cb(
-//     PyObject *py_item,
-//     Py_ssize_t index,
-//     void *ud)
-//   {
-//     if ( !PyString_Check(py_item) )
-//       return CIP_FAILED;
-//     char **a = (char **)ud;
-//     a[index] = qstrdup(PyString_AsString(py_item));
-//     return CIP_OK;
-//   }
-
-//   //-----------------------------------------------------------------------
-//   // Converts an IDC list of strings to a C string list
-//   static Py_ssize_t str_list_to_str_arr(
-//     PyObject *py_list,
-//     char ***arr)
-//   {
-//     // Take the size
-//     Py_ssize_t size = pyvar_walk_list(py_list);
-
-//     // Allocate a buffer
-//     char **a = (char **)qalloc((size + 1) * sizeof(char *));
-
-//     // Walk and populate
-//     size = pyvar_walk_list(py_list, make_str_list_cb, a);
-
-//     // Make the list NULL terminated
-//     a[size] = NULL;
-
-//     // Return the list to the user
-//     *arr = a;
-
-//     // Return the size of items processed
-//     return size;
-//   }
-
-//   //-----------------------------------------------------------------------
-//   typedef qvector<uint64> uint64vec_t;
-//   static int idaapi make_int_list(
-//     PyObject *py_item,
-//     Py_ssize_t /*index*/,
-//     void *ud)
-//   {
-//     uint64 val;
-//     if ( !PyW_GetNumber(py_item, &val) )
-//       return CIP_FAILED;
-//     uint64vec_t *vec = (uint64vec_t *)ud;
-//     vec->push_back(val);
-//     return CIP_OK;
-//   }
-
-// public:
-//   //-----------------------------------------------------------------------
-//   // Frees a NULL terminated list of fields
-//   static void free_fields(
-//     const scfld_t *fields,
-//     void *store_area)
-//   {
-//     for ( int i=0; ; i++ )
-//     {
-//       // End of list?
-//       const scfld_t &fd = fields[i];
-//       if ( fd.field_name == NULL )
-//         break;
-
-//       void *store = (void *)((char *)store_area + fd.field_offs);
-//       int ft = fd.field_type & ~FT_VALUE_MASK;
-//       switch ( ft )
-//       {
-//       case FT_STR:      // Simple string
-//         {
-//           char **s = (char **)store;
-//           if ( *s != NULL )
-//           {
-//             qfree(*s);
-//             *s = NULL;
-//           }
-//         }
-//         break;
-
-//       case FT_STRARR:   // Array of strings
-//         {
-//           char ***op = (char ***)store, **p = *op;
-//           while ( *p != NULL )
-//             qfree((void *)*p++);
-//           qfree(*op);
-//           *op = NULL;
-//         }
-//         break;
-
-//       case FT_NUM16ARR:
-//         {
-//           uint16 **arr = (uint16 **)store;
-//           if ( *arr != NULL )
-//           {
-//             qfree(*arr);
-//             *arr = NULL;
-//           }
-//         }
-//         break;
-//       }
-//     }
-//   }
-
-//   //-----------------------------------------------------------------------
-//   // Converts from a C structure to Python
-//   static int from_c(
-//     const scfld_t *fields,
-//     void *read_area,
-//     PyObject *py_obj)
-//   {
-//     PyObject *py_attr;
-//     int i;
-//     bool ok = false;
-//     for ( i=0; ; i++ )
-//     {
-//       // End of list?
-//       const scfld_t &fd = fields[i];
-//       if ( fd.field_name == NULL )
-//       {
-//         ok = true;
-//         break;
-//       }
-
-//       // Point to structure member
-//       int ft = fd.field_type & ~FT_VALUE_MASK;
-//       void *read = (void *)((char *)read_area + fd.field_offs);
-//       // Create the python attribute properly
-//       if ( ft > FT_FIRST_NUM && ft < FT_LAST_NUM )
-//       {
-//         if ( ft == FT_NUM16 )
-//           py_attr = Py_BuildValue("H", *(uint16 *)read);
-//         else if ( ft == FT_NUM32 )
-//           py_attr = Py_BuildValue("I", *(uint32 *)read);
-//         else if ( ft == FT_INT )
-//           py_attr = Py_BuildValue("i", *(int *)read);
-//         else if ( ft == FT_SIZET )
-//           py_attr = Py_BuildValue(PY_FMT64,*(size_t *)read);
-//         else if ( ft == FT_SSIZET )
-//           py_attr = Py_BuildValue(PY_SFMT64,*(ssize_t *)read);
-//       }
-//       else if ( ft == FT_STR || ft == FT_CHAR )
-//       {
-//         if ( ft == FT_STR )
-//           py_attr = PyString_FromString(*(char **)read);
-//         else
-//           py_attr = Py_BuildValue("c", *(char *)read);
-//       }
-//       else if ( ft == FT_STRARR )
-//       {
-//         char **arr = *(char ***)read;
-//         py_attr = PyList_New(0);
-//         while ( *arr != NULL )
-//           PyList_Append(py_attr, PyString_FromString(*arr++));
-//       }
-//       else
-//         continue;
-//       PyObject_SetAttrString(py_obj, fd.field_name, py_attr);
-//       Py_XDECREF(py_attr);
-//     }
-//     return ok ? -1 : i;
-//   }
-
-//   //-----------------------------------------------------------------------
-//   // Converts fields from IDC and field description into a C structure
-//   // If 'use_extlang' is specified, then the passed idc_obj is considered
-//   // to be an opaque object and thus can be queried only through extlang
-//   static int from_script(
-//     const scfld_t *fields,
-//     void *store_area,
-//     PyObject *py_obj)
-//   {
-//     int i;
-//     bool ok = false;
-//     attr_t attr;
-//     for ( i=0; ; i++ )
-//     {
-//       // End of list?
-//       const scfld_t &fd = fields[i];
-//       if ( fd.field_name == NULL )
-//       {
-//         ok = true;
-//         break;
-//       }
-
-//       // Get field type
-//       int ft = fd.field_type & ~FT_VALUE_MASK;
-
-//       // Point to structure member
-//       void *store = (void *)((char *)store_area + fd.field_offs);
-
-//       // Retrieve attribute and type
-//       int cvt = get_attr(py_obj, fd.field_name, ft, attr);
-
-//       // Attribute not found?
-//       if ( cvt == FT_NOT_FOUND )
-//       {
-//         // Skip optional fields
-//         if ( fd.is_optional )
-//           continue;
-//         break;
-//       }
-
-//       if ( ft == FT_STR )
-//         *(char **)store = qstrdup(attr.str.c_str());
-//       else if ( ft == FT_NUM32 )
-//         *(uint32 *)store = uint32(attr.u64);
-//       else if ( ft == FT_NUM16 )
-//         *(uint16 *)store = attr.u64 & 0xffff;
-//       else if ( ft == FT_INT )
-//         *(int *)store = int(attr.u64);
-//       else if ( ft == FT_SIZET )
-//         *(size_t *)store = size_t(attr.u64);
-//       else if ( ft == FT_SSIZET )
-//         *(ssize_t *)store = ssize_t(attr.u64);
-//       else if ( ft == FT_CHAR )
-//         *(char *)store = *attr.str.c_str();
-//       else if ( ft == FT_STRARR )
-//       {
-//         str_list_to_str_arr(attr.py_obj, (char ***)store);
-//         Py_DECREF(attr.py_obj);
-//       }
-//       else if ( ft == FT_CHRARR_STATIC )
-//       {
-//         size_t sz = (fd.field_type & FT_VALUE_MASK) >> 16;
-//         if ( sz == 0 )
-//           break;
-//         uint64vec_t w;
-//         char *a = (char *) store;
-//         if ( pyvar_walk_list(attr.py_obj, make_int_list, &w) )
-//         {
-//           sz = qmin(w.size(), sz);
-//           for ( size_t i=0; i < sz; i++ )
-//             a[i] = w[i] & 0xFF;
-//         }
-//       }
-//       else if ( ft == FT_NUM16ARR )
-//       {
-//         uint64vec_t w;
-//         if ( pyvar_walk_list(attr.py_obj, make_int_list, &w) > 0 )
-//         {
-//           size_t max_sz = (fd.field_type & FT_VALUE_MASK) >> 16;
-//           bool zero_term;
-//           if ( max_sz == 0 )
-//           {
-//             zero_term = true;
-//             max_sz = w.size();
-//           }
-//           else
-//           {
-//             zero_term = false;
-//             max_sz = qmin(max_sz, w.size());
-//           }
-//           // Allocate as much as we parsed elements
-//           // Add one more element if list was zero terminated
-//           uint16 *a = (uint16 *)qalloc(sizeof(uint16) * (max_sz + (zero_term ? 1 : 0))) ;
-//           for ( size_t i=0; i < max_sz; i++ )
-//             a[i] = w[i] & 0xFF;
-
-//           if ( zero_term )
-//             a[max_sz] = 0;
-//           *(uint16 **)store = a;
-//         }
-//       }
-//       else
-//       {
-//         // Unsupported field type!
-//         break;
-//       }
-//     }
-//     return ok ? -1 : i;
-//   }
-// };
 
 //-------------------------------------------------------------------------
 Py_ssize_t pyvar_walk_list(
@@ -1165,9 +908,6 @@ bool pyw_convert_idc_args(
     {
       // PyTuple_SetItem() steals the reference.
       py_obj.incref();
-      if ( cvt == CIP_OK_OPAQUE )
-        // We want opaque objects to still exist even when the tuple is gone.
-        py_obj.incref();
       QASSERT(30412, PyTuple_SetItem(py_tuple.o, i, py_obj.o) == 0);
     }
     else
@@ -1254,6 +994,7 @@ static const char S_ON_VIEW_DBLCLICK[]       = "OnViewDblclick";
 static const char S_ON_VIEW_CURPOS[]         = "OnViewCurpos";
 static const char S_ON_VIEW_SWITCHED[]       = "OnViewSwitched";
 static const char S_ON_VIEW_MOUSE_OVER[]     = "OnViewMouseOver";
+static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 
 
 #ifdef __PYWRAPS__
@@ -2693,7 +2434,7 @@ class __IDAPython_Completion_Util(object):
 
         return s
 
-# Instantiate a completion object
+# Instantiate an IDAPython command completion object (for use with IDA's CLI bar)
 IDAPython_Completion = __IDAPython_Completion_Util()
 
 def _listify_types(*classes):
@@ -2775,6 +2516,17 @@ NW_REMOVE     = 0x0010
 
 SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)
 
+%{
+PyObject *qstrvec2pylist(qstrvec_t &vec)
+{
+  size_t n = vec.size();
+  PyObject *py_list = PyList_New(n);
+  for ( size_t i=0; i < n; ++i )
+    PyList_SetItem(py_list, i, PyString_FromString(vec[i].c_str()));
+  return py_list;
+}
+%}
+
 %inline %{
 
 //<inline(py_idaapi)>
@@ -2797,12 +2549,7 @@ static PyObject *py_parse_command_line(const char *cmdline)
   qstrvec_t args;
   if ( parse_command_line3(cmdline, &args, NULL, LP_PATH_WITH_ARGS) == 0 )
     Py_RETURN_NONE;
-
-  PyObject *py_list = PyList_New(args.size());
-  for ( size_t i=0; i<args.size(); i++ )
-    PyList_SetItem(py_list, i, PyString_FromString(args[i].c_str()));
-
-  return py_list;
+  return qstrvec2pylist(args);
 }
 
 //-------------------------------------------------------------------------
@@ -3035,3 +2782,4 @@ static bool notify_when(int when, PyObject *py_callable)
 %include "view.i"
 %include "graph.i"
 %include "fpro.i"
+%include "registry.i"

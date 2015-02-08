@@ -16,8 +16,10 @@ REQUIREMENTS
  - Python [2.5.1, 2.6.1, 2.7]
    http://www.python.org/
 
- - Simplified Wrapper Interface Generator (SWIG) [2.0]
+ - Simplified Wrapper Interface Generator (SWIG) [2.0.12]
    http://www.swig.org/
+   Hex-Rays cannot guarantee support for IDAPython
+   versions built with other versions of SWIG.
 
  - Unix utilities (GNU patch on Windows):
    http://www.research.att.com/sw/tools/uwin/ or

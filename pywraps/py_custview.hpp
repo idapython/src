@@ -134,6 +134,9 @@ public:
 };
 
 //---------------------------------------------------------------------------
+// FIXME: This should inherit py_view_base.hpp's py_customidamemo_t,
+// just like py_graph.hpp's py_graph_t does.
+// There should be a way to "merge" the two mechanisms; they are similar.
 class customviewer_t
 {
 protected:
@@ -165,13 +168,6 @@ private:
   static size_t _global_popup_id;
   qstring _curline;
   intvec_t _installed_popups;
-
-  static bool idaapi s_popup_cb(void *ud)
-  {
-    PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
-    return _this->on_popup();
-  }
 
   static bool idaapi s_popup_menu_cb(void *ud)
   {
@@ -271,6 +267,10 @@ private:
   }
 
 public:
+
+  inline TForm *get_tform() { return _form; }
+  inline TCustomControl *get_tcustom_control() { return _cv; }
+
   //
   // All the overridable callbacks
   //
@@ -1111,6 +1111,22 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
   DECL_THIS;
   return _this == NULL ? false : _this->edit_line(nline, py_sl);
 }
+
+//-------------------------------------------------------------------------
+TForm *pyscv_get_tform(PyObject *py_this)
+{
+  DECL_THIS;
+  return _this == NULL ? NULL : _this->get_tform();
+}
+
+//-------------------------------------------------------------------------
+TCustomControl *pyscv_get_tcustom_control(PyObject *py_this)
+{
+  DECL_THIS;
+  return _this == NULL ? NULL : _this->get_tcustom_control();
+}
+
+
 #undef DECL_THIS
 //</inline(py_custviewer)>
 //---------------------------------------------------------------------------

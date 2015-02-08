@@ -403,22 +403,22 @@ CF_HLL  = 0x10000 #  Instruction may be present in a high level language functio
 
 #
 # op_t.type
-#                  Description                          Data field
-o_void     =  0 #  No Operand                           ----------
-o_reg      =  1 #  General Register (al,ax,es,ds...)    reg
-o_mem      =  2 #  Direct Memory Reference  (DATA)      addr
-o_phrase   =  3 #  Memory Ref [Base Reg + Index Reg]    phrase
-o_displ    =  4 #  Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
-o_imm      =  5 #  Immediate Value                      value
-o_far      =  6 #  Immediate Far Address  (CODE)        addr
-o_near     =  7 #  Immediate Near Address (CODE)        addr
-o_idpspec0 =  8 #  IDP specific type
-o_idpspec1 =  9 #  IDP specific type
-o_idpspec2 = 10 #  IDP specific type
-o_idpspec3 = 11 #  IDP specific type
-o_idpspec4 = 12 #  IDP specific type
-o_idpspec5 = 13 #  IDP specific type
-o_last     = 14 #  first unused type
+#                 Description                          Data field
+o_void     =  0 # No Operand                           ----------
+o_reg      =  1 # General Register (al,ax,es,ds...)    reg
+o_mem      =  2 # Direct Memory Reference  (DATA)      addr
+o_phrase   =  3 # Memory Ref [Base Reg + Index Reg]    phrase
+o_displ    =  4 # Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
+o_imm      =  5 # Immediate Value                      value
+o_far      =  6 # Immediate Far Address  (CODE)        addr
+o_near     =  7 # Immediate Near Address (CODE)        addr
+o_idpspec0 =  8 # Processor specific type
+o_idpspec1 =  9 # Processor specific type
+o_idpspec2 = 10 # Processor specific type
+o_idpspec3 = 11 # Processor specific type
+o_idpspec4 = 12 # Processor specific type
+o_idpspec5 = 13 # Processor specific type
+                # There can be more processor specific types
 
 #
 # op_t.dtyp
@@ -485,7 +485,7 @@ class processor_t(pyidc_opaque_object_t):
         short processor names similar to the one in ph.psnames.
         This method can be overridden to return to the kernel a different IDP description.
         """
-        return self.plnames[0] + ':' + ':'.join(self.psnames)
+        return '\x01'.join(map(lambda t: '\x01'.join(t), zip(self.plnames, self.psnames)))
 
     def get_uFlag(self):
         """Use this utility function to retrieve the 'uFlag' global variable"""

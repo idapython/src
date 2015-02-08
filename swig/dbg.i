@@ -28,6 +28,20 @@ typedef struct
 %ignore set_manual_regions;
 %ignore inform_idc_about_debthread;
 %ignore is_dbgmem_valid;
+
+%rename (list_bptgrps) py_list_bptgrps;
+%apply qstring *result { qstring *grp_name };
+%ignore qvector<bpt_t>::operator==;
+%ignore qvector<bpt_t>::operator!=;
+%ignore qvector<bpt_t>::find;
+%ignore qvector<bpt_t>::has;
+%ignore qvector<bpt_t>::del;
+%ignore qvector<bpt_t>::add_unique;
+%template(bpt_vec_t) qvector<bpt_t>;
+
+%ignore internal_get_sreg_base;
+%rename (internal_get_sreg_base) py_internal_get_sreg_base;
+
 // We want ALL wrappers around what is declared in dbg.hpp
 // to release the GIL when calling into the IDA api: those
 // might be very long operations, that even require some
@@ -384,6 +398,64 @@ int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
   }
   return code;
 }
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def py_list_bptgrps():
+    """
+    Returns list of breakpoint group names
+    @return: A list of strings or None on failure
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_list_bptgrps()
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  qstrvec_t args;
+  if ( list_bptgrps(&args) == 0 )
+    Py_RETURN_NONE;
+  return qstrvec2pylist(args);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def move_bpt_to_grp():
+    """
+    Sets new group for the breakpoint
+    """
+    pass
+#</pydoc>
+*/
+static void move_bpt_to_grp(bpt_t *bpt, const char *grp_name)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  set_bpt_group(*bpt, grp_name);
+}
+
+/*
+#<pydoc>
+def internal_get_sreg_base():
+    """
+    Get the sreg base, for the given thread.
+
+    @return: The sreg base, or BADADDR on failure.
+    """
+    pass
+#</pydoc>
+*/
+static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  ea_t answer;
+  return internal_get_sreg_base(tid, sreg_value, &answer) < 1
+    ? BADADDR
+    : answer;
+}
+
 //</inline(py_dbg)>
 
 %}

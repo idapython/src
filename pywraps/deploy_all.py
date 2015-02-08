@@ -143,6 +143,12 @@ deploys = {
         "tgt" : "../swig/lines.i"
         },
 
+    "registry" : {
+        "tag" : "py_registry",
+        "src" : ["py_registry.hpp"],
+        "tgt" : "../swig/registry.i"
+        },
+
     "pc_win32_appcall" : {
         "tag" : "appcalltest",
         "src" : ["py_appcall.py"],
@@ -153,6 +159,12 @@ deploys = {
         "tag" : "ex_custdata",
         "src" : ["../examples/ex_custdata.py"],
         "tgt" : "../../../tests/input/pc_win32_custdata1.pe.hints"
+        },
+
+    "ex_choose2" : {
+        "tag" : "py_choose2ex1",
+        "src" : ["py_choose2.py"],
+        "tgt" : "../examples/ex_choose2.py"
         },
 
     "ex_formchooser" : {

@@ -1,3 +1,30 @@
+//-------------------------------------------------------------------------
+// For some reason, SWIG converts char arrays by computing the size
+// from the end of the array, and stops when it encounters a '\0'.
+// That doesn't work for us, as our API doesn't guarantee that
+// bytes past the length we are interested in will be zeroed-out.
+// In other words, the following code should *never* be present
+// in idaapi_include.cpp:
+// -------------------------
+//  while (size && (<name-of-variable>[size - 1] == '\0')) --size;
+// -------------------------
+//
+%typemap(out) char [ANY], const char[ANY]
+{
+  %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
+}
+
+%typemap(varout) char [ANY], const char[ANY]
+{
+  %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
+}
+
+
+%typemap(out) ssize_t
+{
+  $result = PyLong_FromLongLong($1);
+}
+
 //---------------------------------------------------------------------
 // Convert an incoming Python list to a tid_t[] array
 %typemap(in) tid_t[ANY](tid_t temp[$1_dim0]) {
@@ -37,10 +64,6 @@
 
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
     $1 = ($1_ltype) qalloc(MAXSTR+1);
-}
-
-%typemap(out) ssize_t {
-    /* REMOVING ssize_t return value in $symname */
 }
 
 %typemap(argout) (TYPEMAP,SIZE) {
@@ -88,9 +111,6 @@
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
     $1 = (char *) qalloc(MAXSPECSIZE+1);
 }
-%typemap(out) ssize_t {
-    /* REMOVING ssize_t return value in $symname */
-}
 %typemap(argout) (TYPEMAP,SIZE) {
     Py_XDECREF(resultobj);
     if (result > 0)
@@ -114,9 +134,6 @@
 }
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
     $1 = (char *) qalloc(MAXSPECSIZE+1);
-}
-%typemap(out) ssize_t {
-    /* REMOVING ssize_t return value in $symname */
 }
 %typemap(argout) (TYPEMAP,SIZE) {
     Py_XDECREF(resultobj);
@@ -166,8 +183,6 @@
     }
     $1 = $input;
 }
-
-// Convert ea_t
 %typemap(in) ea_t
 {
   uint64 $1_temp;
@@ -178,6 +193,10 @@
   }
   $1 = ea_t($1_temp);
 }
+// Use PyLong_FromUnsignedLongLong, because 'long' is 4 bytes on
+// windows, and thus the ea_t would be truncated at the
+// PyLong_FromUnsignedLong(unsigned int) call time.
+%typemap(out) ea_t "$result = PyLong_FromUnsignedLongLong($1);"
 
 //---------------------------------------------------------------------
 //                            IN qstring
@@ -208,6 +227,15 @@
 %apply qstring { _qstring<char> }
 %apply qstring* { _qstring<char>* }
 
+//---------------------------------------------------------------------
+//                      varargs (mostly kernwin.hpp)
+//---------------------------------------------------------------------
+// This is used for functions like warning(), info() and so on
+%typemap(in) (const char *format, ...)
+{
+    $1 = "%s";                                /* Fix format string to %s */
+    $2 = (void *) PyString_AsString($input);  /* Get string argument */
+};
 
 #ifdef __EA64__
 %apply longlong  *INOUT { sval_t *value };
@@ -221,6 +249,14 @@
 %apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
 #endif
 
+%apply qstring *result { qstring *label };
+%apply qstring *result { qstring *shortcut };
+%apply qstring *result { qstring *tooltip };
+%apply int *OUTPUT { int *icon };
+%apply int *OUTPUT { action_state_t *state };
+%apply bool *OUTPUT { bool *checkable };
+%apply bool *OUTPUT { bool *checked };
+%apply bool *OUTPUT { bool *visibility };
 
 //-------------------------------------------------------------------------
 // The following is to be used to expose an array of items

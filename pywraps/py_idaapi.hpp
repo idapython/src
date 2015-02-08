@@ -69,6 +69,7 @@ static const char S_ON_VIEW_DBLCLICK[]       = "OnViewDblclick";
 static const char S_ON_VIEW_CURPOS[]         = "OnViewCurpos";
 static const char S_ON_VIEW_SWITCHED[]       = "OnViewSwitched";
 static const char S_ON_VIEW_MOUSE_OVER[]     = "OnViewMouseOver";
+static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 
 
 #ifdef __PYWRAPS__
@@ -623,7 +624,6 @@ void *pyobj_get_clink(PyObject *pyobj)
 }
 
 //</code(py_idaapi)>
-
 //<inline(py_idaapi)>
 //------------------------------------------------------------------------
 /*
@@ -644,12 +644,7 @@ static PyObject *py_parse_command_line(const char *cmdline)
   qstrvec_t args;
   if ( parse_command_line3(cmdline, &args, NULL, LP_PATH_WITH_ARGS) == 0 )
     Py_RETURN_NONE;
-
-  PyObject *py_list = PyList_New(args.size());
-  for ( size_t i=0; i<args.size(); i++ )
-    PyList_SetItem(py_list, i, PyString_FromString(args[i].c_str()));
-
-  return py_list;
+  return qstrvec2pylist(args);
 }
 
 //-------------------------------------------------------------------------

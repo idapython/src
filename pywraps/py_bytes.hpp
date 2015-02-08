@@ -153,15 +153,21 @@ ACFOPT_ESCAPE   = 0x00000010 # for ACFOPT_ASCII, convert non-printable
 
 def get_ascii_contents2(ea, len, type, flags = ACFOPT_ASCII):
   """
-  Get contents of ascii string
-  This function returns the displayed part of the string
+  Get bytes contents at location, possibly converted.
   It works even if the string has not been created in the database yet.
+
+  Note that this will <b>always</b> return a simple string of bytes
+  (i.e., a 'str' instance), and not a string of unicode characters.
+
+  If you want auto-conversion to unicode strings (that is: real strings),
+  you should probably be using the idautils.Strings class.
 
   @param ea: linear address of the string
   @param len: length of the string in bytes (including terminating 0)
-  @param type: type of the string
-  @param flags: combination of ACFOPT_...
-  @return: string contents (not including terminating 0) or None
+  @param type: type of the string. Represents both the character encoding,
+               <u>and</u> the 'type' of string at the given location.
+  @param flags: combination of ACFOPT_..., to perform output conversion.
+  @return: a bytes-filled str object.
   """
   pass
 #</pydoc>
@@ -177,7 +183,7 @@ static PyObject *py_get_ascii_contents2(
     return NULL;
 
   size_t used_size;
-  if ( !get_ascii_contents2(ea, len, type, buf, len+1, &used_size) )
+  if ( !get_ascii_contents2(ea, len, type, buf, len+1, &used_size, flags) )
   {
     qfree(buf);
     Py_RETURN_NONE;

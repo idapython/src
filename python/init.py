@@ -28,9 +28,8 @@ class IDAPythonStdOut:
     Dummy file-like class that receives stout and stderr
     """
     def write(self, text):
-        # Swap out the unprintable characters
-        text = text.decode('ascii', 'replace').encode('ascii', 'replace')
-        # Print to IDA message window
+        # NB: in case 'text' is Unicode, msg() will decode it
+        # and call umsg() to print it
         _idaapi.msg(text)
 
     def flush(self):

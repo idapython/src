@@ -14,7 +14,6 @@ op_t *op_t_get_clink(PyObject *self)
 {
   return (op_t *)pyobj_get_clink(self);
 }
-
 //</code(py_ua)>
 
 //-------------------------------------------------------------------------
@@ -327,6 +326,49 @@ bool py_out_name_expr(
     off = BADADDR;
 
   return op == NULL ? false : out_name_expr(*op, ea, off);
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def construct_macro(insn):
+    """
+    See ua.hpp's construct_macro().
+    """
+    pass
+#</pydoc>
+*/
+bool py_construct_macro(bool enable, PyObject *build_macro)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  if ( !PyCallable_Check(build_macro) )
+    return false;
+
+  static qstack<ref_t> macro_builders;
+
+  macro_builders.push(newref_t(build_macro));
+  struct ida_local lambda_t
+  {
+    static bool idaapi call_build_macro(insn_t &s, bool may_go_forward)
+    {
+      PyObject *py_builder = macro_builders.top().o;
+      newref_t pyres = PyObject_CallFunction(
+              py_builder, "O",
+              may_go_forward ? Py_True : Py_False);
+      PyW_ShowCbErr("build_macro");
+      if ( pyres.o == NULL || pyres.o == Py_None )
+        return false;
+      insn_t *_s = insn_t_get_clink(pyres.o);
+      if ( _s == NULL )
+        return false;
+      s = *_s;
+      return true;
+    }
+  };
+  bool res = construct_macro(enable, lambda_t::call_build_macro);
+  macro_builders.pop();
+  return res;
 }
 
 //-------------------------------------------------------------------------

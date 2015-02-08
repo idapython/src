@@ -375,6 +375,56 @@ private:
     }
   }
 
+  bool split_chooser_caption(qstring *out_title, qstring *out_caption, const char *caption) const
+  {
+    if ( get_embedded() != NULL )
+    {
+      // For embedded chooser, the "caption" will be overloaded to encode
+      // the AskUsingForm's title, caption and embedded chooser id
+      // Title:EmbeddedChooserID:Caption
+
+      char title_buf[MAXSTR];
+      const char *ptitle;
+
+      static const char delimiter[] = ":";
+      char temp[MAXSTR];
+      qstrncpy(temp, caption, sizeof(temp));
+
+      char *ctx;
+      char *p = qstrtok(temp, delimiter, &ctx);
+      if ( p == NULL )
+        return false;
+
+      // Copy the title
+      char title_str[MAXSTR];
+      qstrncpy(title_str, p, sizeof(title_str));
+
+      // Copy the echooser ID
+      p = qstrtok(NULL, delimiter, &ctx);
+      if ( p == NULL )
+        return false;
+
+      char id_str[10];
+      qstrncpy(id_str, p, sizeof(id_str));
+
+      // Form the new title of the form: "AskUsingFormTitle:EchooserId"
+      qsnprintf(title_buf, sizeof(title_buf), "%s:%s", title_str, id_str);
+
+      // Adjust the title
+      *out_title = title_buf;
+
+      // Adjust the caption
+      p = qstrtok(NULL, delimiter, &ctx);
+      *out_caption = caption + (p - temp);
+    }
+    else
+    {
+      *out_title = title;
+      *out_caption = caption;
+    }
+    return true;
+  }
+
 public:
   //------------------------------------------------------------------------
   // Public methods
@@ -420,68 +470,24 @@ public:
   }
 
   int add_command(
-    const char *caption,
-    int flags=0,
-    int menu_index=-1,
-    int icon=-1)
+          const char *_caption,
+          int flags=0,
+          int menu_index=-1,
+          int icon=-1)
   {
     if ( menu_cb_idx >= MAX_CHOOSER_MENU_COMMANDS )
       return -1;
 
-    // For embedded chooser, the "caption" will be overloaded to encode
-    // the AskUsingForm's title, caption and embedded chooser id
-    // Title:EmbeddedChooserID:Caption
-    char title_buf[MAXSTR];
-    const char *ptitle;
-
-    // Embedded chooser?
-    if ( get_embedded() != NULL )
-    {
-      static const char delimiter[] = ":";
-      char temp[MAXSTR];
-      qstrncpy(temp, caption, sizeof(temp));
-
-      char *p = strtok(temp, delimiter);
-      if ( p == NULL )
-        return -1;
-
-      // Copy the title
-      char title_str[MAXSTR];
-      qstrncpy(title_str, p, sizeof(title_str));
-
-      // Copy the echooser ID
-      p = strtok(NULL, delimiter);
-      if ( p == NULL )
-        return -1;
-
-      char id_str[10];
-      qstrncpy(id_str, p, sizeof(id_str));
-
-      // Form the new title of the form: "AskUsingFormTitle:EchooserId"
-      qsnprintf(title_buf, sizeof(title_buf), "%s:%s", title_str, id_str);
-
-      // Adjust the title
-      ptitle = title_buf;
-
-      // Adjust the caption
-      p = strtok(NULL, delimiter);
-      caption += (p - temp);
-    }
-    else
-    {
-      ptitle = title.c_str();
-    }
-
-    if ( !add_chooser_command(
-                 ptitle,
-                 caption,
-                 menu_cbs[menu_cb_idx],
-                 menu_index,
-                 icon,
-                 flags))
-    {
+    qstring title, caption;
+    if ( !split_chooser_caption(&title, &caption, _caption)
+      || !add_chooser_command(
+              title.c_str(),
+              caption.c_str(),
+              menu_cbs[menu_cb_idx],
+              menu_index,
+              icon,
+              flags) )
       return -1;
-    }
 
     return menu_cb_idx++;
   }
@@ -862,17 +868,14 @@ PyObject *choose2_get_embedded(PyObject *self)
 
 //------------------------------------------------------------------------
 int choose2_add_command(
-    PyObject *self,
-    const char *caption,
-    int flags=0,
-    int menu_index=-1,
-    int icon=-1)
+        PyObject *self,
+        const char *caption,
+        int flags=0,
+        int menu_index=-1,
+        int icon=-1)
 {
   py_choose2_t *c2 = choose2_find_instance(self);
-  if ( c2 != NULL )
-    return c2->add_command(caption, flags, menu_index, icon);
-  else
-    return -2;
+  return c2 == NULL ? -2 : c2->add_command(caption, flags, menu_index, icon);
 }
 
 //------------------------------------------------------------------------

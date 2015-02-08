@@ -8,6 +8,7 @@ class py_idaview_t : public py_customidamemo_t
 
 public:
   static bool Bind(PyObject *self);
+  static bool Unbind(PyObject *self);
 };
 
 //-------------------------------------------------------------------------
@@ -53,10 +54,22 @@ bool py_idaview_t::Bind(PyObject *self)
   if ( ok )
   {
     ok = py_view->collect_pyobject_callbacks(self);
-    if ( !ok )
+    if ( ok )
+      py_view->install_custom_viewer_handlers();
+    else
       delete py_view;
   }
   return ok;
+}
+
+//-------------------------------------------------------------------------
+bool py_idaview_t::Unbind(PyObject *self)
+{
+  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  if ( _this == NULL )
+    return false;
+  _this->unbind();
+  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -65,12 +78,19 @@ bool pyidag_bind(PyObject *self)
   return py_idaview_t::Bind(self);
 }
 
+//-------------------------------------------------------------------------
+bool pyidag_unbind(PyObject *self)
+{
+  return py_idaview_t::Unbind(self);
+}
+
 //</code(py_idaview)>
 
 //--------------------------------------------------------------------------
 
 //<inline(py_idaview)>
 bool pyidag_bind(PyObject *self);
+bool pyidag_unbind(PyObject *self);
 //</inline(py_idaview)>
 
 #endif // __PY_IDA_VIEW__

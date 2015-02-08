@@ -4,6 +4,7 @@
 %ignore RootNode;
 %ignore for_all_supvals;
 %ignore netErrorHandler;
+%ignore netNoDiskSpaceHandler;
 %ignore netnode_key_count;
 
 %ignore netnode_check;

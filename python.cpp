@@ -288,9 +288,27 @@ static void PythonEvalOrExec(
     }
     else
     {
-      qstring result_str;
-      if ( py_result.o != Py_None && PyW_ObjectToString(py_result.o, &result_str) )
-        msg("%s\n", result_str.c_str());
+      if ( py_result.o != Py_None )
+      {
+        bool ok = false;
+        if ( PyUnicode_Check(py_result.o) )
+        {
+          newref_t py_result_utf8(PyUnicode_AsUTF8String(py_result.o));
+          ok = py_result_utf8 != NULL;
+          if ( ok )
+            umsg("%s\n", PyString_AS_STRING(py_result_utf8.o));
+        }
+        else
+        {
+          qstring result_str;
+          ok = PyW_ObjectToString(py_result.o, &result_str);
+          if ( ok )
+            msg("%s\n", result_str.c_str());
+        }
+
+        if ( !ok )
+          msg("*** IDAPython: Couldn't convert evaluation result\n");
+      }
     }
   }
 }
@@ -419,8 +437,9 @@ static int PyRunFile(const char *FileName)
   // C runtime library could not be loaded. So we check the disk space before
   // calling it.
   char curdir[QMAXPATH];
-  if ( _getcwd(curdir, sizeof(curdir)) == NULL
-    || getdspace(curdir) == 0 )
+  // check if the current directory is accessible. if not, qgetcwd won't return
+  qgetcwd(curdir, sizeof(curdir));
+  if ( getdspace(curdir) == 0 )
   {
     warning("No free disk space on %s, python will not be available", curdir);
     return 0;
@@ -428,7 +447,7 @@ static int PyRunFile(const char *FileName)
 #endif
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e1776
+  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e605
   PyObject *globals = GetMainGlobals();
   if ( globals == NULL || file_obj == NULL )
   {
@@ -704,6 +723,18 @@ bool idaapi IDAPython_extlang_run(
 }
 
 //-------------------------------------------------------------------------
+static void wrap_in_function(qstring *out, const qstring &body, const char *name)
+{
+  out->sprnt("def %s():\n", name);
+  // dont copy trailing whitespace
+  int i = body.length()-1;
+  while ( i >= 0 && qisspace(body.at(i)) )
+    i--;
+  out->append(body.substr(0, i+1));
+  out->replace("\n", "\n    ");
+}
+
+//-------------------------------------------------------------------------
 // Compile callback for Python external language evaluator
 bool idaapi IDAPython_extlang_compile(
   const char *name,
@@ -722,11 +753,9 @@ bool idaapi IDAPython_extlang_compile(
     // try compiling as a list of statements
     // wrap them into a function
     handle_python_error(errbuf, errbufsize);
-    qstring expr_copy = expr;
-    expr_copy.replace("\n", "\n    ");
-    qstring qexpr;
-	qexpr.sprnt("def %s():\n    %s", name, expr_copy.c_str());
-    code = (PyCodeObject *)Py_CompileString(qexpr.c_str(), "<string>", Py_file_input);
+    qstring func;
+    wrap_in_function(&func, expr, name);
+    code = (PyCodeObject *)Py_CompileString(func.c_str(), "<string>", Py_file_input);
     if ( code == NULL )
     {
       handle_python_error(errbuf, errbufsize);
@@ -1200,7 +1229,7 @@ bool idaapi IDAPYthon_cli_complete_line(
   if ( py_complete == NULL )
     return false;
 
-  newref_t py_ret(PyObject_CallFunction(py_complete.o, "sisi", prefix, n, line, x)); //lint !e1776
+  newref_t py_ret(PyObject_CallFunction(py_complete.o, "sisi", prefix, n, line, x)); //lint !e605
 
   // Swallow the error
   PyW_GetError(completion);
@@ -1294,7 +1323,24 @@ void convert_idc_args()
     PyObject_SetAttrString(py_mod.o, S_IDC_ARGS_VARNAME, py_args.o);
 }
 
+#ifdef WITH_HEXRAYS
+//-------------------------------------------------------------------------
+static bool is_hexrays_plugin(const plugin_info_t *pinfo)
+{
+  bool is_hx = false;
+  if ( pinfo != NULL && pinfo->entry != NULL )
+  {
+    const plugin_t *p = pinfo->entry;
+    if ( streq(p->wanted_name, "Hex-Rays Decompiler") )
+      is_hx = true;
+  }
+  return is_hx;
+}
+#endif
+
+
 //------------------------------------------------------------------------
+//lint -esym(715,va) Symbol not referenced
 static int idaapi on_ui_notification(void *, int code, va_list va)
 {
 #ifdef WITH_HEXRAYS
@@ -1323,16 +1369,10 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
       break;
 
 #ifdef WITH_HEXRAYS
-      // FIXME: HACK! THERE SHOULD BE A UI (or IDB?) NOTIFICATION
-      // WHEN A PLUGIN GETS [UN]LOADED!
-      // In the meantime, we're checking to see whether the Hex-Rays
-      // plugin gets loaded/pulled away.
-    case ui_add_menu_item:
+    case ui_plugin_loaded:
       if ( hexdsp == NULL )
       {
-        (void)va_arg(va, char *); // Drop 'menupath'
-        const char *name = va_arg(va, char *); // Look for 'name'.
-        if ( streq(name, "Jump to pseudocode") )
+        if ( is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
         {
           init_hexrays_plugin(0);
           if ( hexdsp != NULL )
@@ -1341,14 +1381,13 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
       }
       break;
 
-    case ui_del_menu_item:
+    case ui_plugin_unloading:
       {
         if ( hexdsp != NULL )
         {
           // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
           // are cleared right away.
-          const char *menupath = va_arg(va, char *);
-          if ( streq(menupath, "Jump/Jump to pseudocode") )
+          if ( is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
           {
             hexrays_clear_python_cfuncptr_t_references();
             hexdsp = NULL;

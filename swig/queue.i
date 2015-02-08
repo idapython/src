@@ -2,7 +2,7 @@
 %ignore QueueGet;
 
 // Kernel-only & unexported symbols
-%ignore QueueDel;
+%ignore QueueDel(ea_t);
 %ignore init_queue;
 %ignore save_queue;
 %ignore term_queue;

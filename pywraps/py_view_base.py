@@ -104,4 +104,21 @@ class CustomIDAMemo(object):
         """
         return _idaapi.pygc_set_groups_visibility(self, groups, expand, new_current)
 
+    def GetTForm(self):
+        """
+        Return the TForm hosting this view.
+
+        @return: The TForm that hosts this view, or None.
+        """
+        return _idaapi.pycim_get_tform(self)
+
+    def GetTCustomControl(self):
+        """
+        Return the TCustomControl underlying this view.
+
+        @return: The TCustomControl underlying this view, or None.
+        """
+        return _idaapi.pycim_get_tcustom_control(self)
+
+
 #</pycode(py_view_base)>

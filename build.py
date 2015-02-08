@@ -24,19 +24,23 @@ from distutils import sysconfig
 VERBOSE = True
 
 IDA_MAJOR_VERSION = 6
-IDA_MINOR_VERSION = 6
+IDA_MINOR_VERSION = 7
 
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
 else:
-    IDA_SDK = os.path.join("..", "swigsdk-versions", ("%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)))
+    IDA_SDK = os.path.join("..", "..", "include")
+    if not os.path.exists(IDA_SDK):
+      IDA_SDK = os.path.join("..", "swigsdk-versions", ("%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)))
+    assert os.path.exists(IDA_SDK), "Could not find IDA SDK include path"
+
 
 # End of user configurable options
 
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 7
-VERSION_PATCH  = 0
+VERSION_PATCH  = 1
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -89,7 +93,7 @@ BINDIST_MANIFEST = [
     "examples/structure.py",
     "examples/ex_gdl_qflow_chart.py",
     "examples/ex_strings.py",
-    "examples/ex_add_menu_item.py",
+    "examples/ex_actions.py",
     "examples/ex_func_chooser.py",
     "examples/ex_choose2.py",
     "examples/ex_debug_names.py",
@@ -157,7 +161,6 @@ SRCDIST_MANIFEST = [
     "swig/graph.i",
     "swig/fpro.i",
     "swig/hexrays.i",
-    "tools/gendocs.py",
 ]
 
 # -----------------------------------------------------------------------
@@ -396,7 +399,8 @@ def build_plugin(
         platform_macros.append("WITH_HEXRAYS")
         SWIG_OPTIONS += ' -DWITH_HEXRAYS '
 
-    platform_macros.append("NDEBUG")
+    platform_macros.append("DEBUG")
+#    platform_macros.append("NDEBUG")
 
     if not '--no-early-load' in sys.argv:
         platform_macros.append("PLUGINFIX")
@@ -410,6 +414,13 @@ def build_plugin(
     if VERBOSE: print swigcmd
     res =  os.system(swigcmd)
     assert res == 0, "Failed to build the wrapper with SWIG"
+
+    # If we are running on windows, we have to patch some directors'
+    # virtual methods, so they have the right calling convention.
+    # Without that, compilation just won't succeed.
+    if platform == "win32":
+        res = os.system("python patch_directors_cc.py -f idaapi.h")
+        assert res == 0, "Failed to patch directors' calling conventions"
 
     # Compile the wrapper
     res = builder.compile("idaapi",

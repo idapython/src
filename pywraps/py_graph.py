@@ -70,10 +70,9 @@ class GraphViewer(CustomIDAMemo):
 
     def AddCommand(self, title, hotkey):
         """
-        Adds a menu command to the graph. Call this command after the graph is shown (with Show()).
-        Once a command is added, a command id is returned. The commands are handled inside the OnCommand() handler
-
-        @return: 0 on failure or the command id
+        Deprecated: Use
+          - register_action()
+          - attach_action_to_popup()
         """
         return _idaapi.pyg_add_command(self, title, hotkey)
 
@@ -155,9 +154,8 @@ class GraphViewer(CustomIDAMemo):
 #
 #    def OnCommand(self, cmd_id):
 #        """
-#        Triggered when a menu command is selected through the menu or its hotkey
-#        @return: None
+#        Deprecated
 #        """
-#        print "command:", cmd_id
+#        pass
 #</pydoc>
 #</pycode(py_graph)>

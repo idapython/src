@@ -57,6 +57,7 @@
 %ignore cexpr_t::cexpr_t(mbl_array_t *mba, const lvar_t &v);
 %ignore lvar_t::is_promoted_arg;
 %ignore lvar_t::lvar_t;
+%ignore vdloc_t::is_fpu_mreg;
 %ignore strtype_info_t::find_strmem;
 %ignore file_printer_t::_print;
 %ignore file_printer_t;
@@ -120,51 +121,72 @@ public:
     cexpr_t *cexpr const { return (cexpr_t *)self; }
 };
 
-#define CITEM_MEMBER_REF(name) \
-    name##_t *name const { return self->##name; }
-
 //---------------------------------------------------------------------
 // swig doesn't very much like the way the union is done in this class so we need to wrap all these up.
-%extend cinsn_t {
-    CITEM_MEMBER_REF(cblock)
-    CITEM_MEMBER_REF(cexpr)
-    CITEM_MEMBER_REF(cif)
-    CITEM_MEMBER_REF(cfor)
-    CITEM_MEMBER_REF(cwhile)
-    CITEM_MEMBER_REF(cdo)
-    CITEM_MEMBER_REF(cswitch)
-    CITEM_MEMBER_REF(creturn)
-    CITEM_MEMBER_REF(cgoto)
-    CITEM_MEMBER_REF(casm)
-};
+#define CITEM_MEMBER_REF(name)                                          \
+  c##name##_t *c##name const { if ( self->op == cit_##name ) { return self->c##name; } else { return NULL; } }
 
+%extend cinsn_t {
+  CITEM_MEMBER_REF(block);
+  CITEM_MEMBER_REF(expr);
+  CITEM_MEMBER_REF(if);
+  CITEM_MEMBER_REF(for);
+  CITEM_MEMBER_REF(while);
+  CITEM_MEMBER_REF(do);
+  CITEM_MEMBER_REF(switch);
+  CITEM_MEMBER_REF(return);
+  CITEM_MEMBER_REF(goto);
+  CITEM_MEMBER_REF(asm);
+};
+#undef CITEM_MEMBER_REF
+
+//-------------------------------------------------------------------------
 #define CEXPR_MEMBER_REF(type, name) \
-    type name const { return self->##name; }
+  type name const { return self->##name; }
+
+#define CEXPR_CONDITIONAL_MEMBER_REF(type, name, condition, default_value) \
+  type name const { if ( condition ) { return self->##name; } else { return default_value; } }
 
 %extend cexpr_t {
-    CEXPR_MEMBER_REF(cnumber_t*, n)
-    CEXPR_MEMBER_REF(fnumber_t*, fpc)
-    const var_ref_t& v { return self->v; }
-    CEXPR_MEMBER_REF(ea_t, obj_ea)
-    CEXPR_MEMBER_REF(int, refwidth)
-    CEXPR_MEMBER_REF(cexpr_t*, x)
-    CEXPR_MEMBER_REF(cexpr_t*, y)
-    CEXPR_MEMBER_REF(carglist_t*, a)
-    CEXPR_MEMBER_REF(int, m)
-    CEXPR_MEMBER_REF(cexpr_t*, z)
-    CEXPR_MEMBER_REF(int, ptrsize)
-    CEXPR_MEMBER_REF(cinsn_t*, insn)
-    CEXPR_MEMBER_REF(char*, helper)
-    CEXPR_MEMBER_REF(char*, string)
+  CEXPR_CONDITIONAL_MEMBER_REF(cnumber_t*, n, self->op == cot_num, NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(fnumber_t*, fpc, self->op == cot_fnum, NULL);
+  var_ref_t* v const { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
+  CEXPR_CONDITIONAL_MEMBER_REF(ea_t, obj_ea, self->op == cot_obj, BADADDR);
+  CEXPR_MEMBER_REF(int, refwidth);
+  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, x, op_uses_x(self->op), NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, y, op_uses_y(self->op), NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(carglist_t*, a, self->op == cot_call, NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(int, m, self->op == cot_memptr || self->op == cot_memref, 0);
+  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, z, op_uses_z(self->op), NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(int, ptrsize, self->op == cot_ptr || self->op == cot_memptr, 0);
+  CEXPR_MEMBER_REF(cinsn_t*, insn);
+  CEXPR_CONDITIONAL_MEMBER_REF(char*, helper, self->op == cot_helper, NULL);
+  CEXPR_CONDITIONAL_MEMBER_REF(char*, string, self->op == cot_str, NULL);
 };
+
+#undef CEXPR_CONDITIONAL_MEMBER_REF
+#undef CEXPR_MEMBER_REF
+
+//-------------------------------------------------------------------------
+#define CTREE_ITEM_MEMBER_REF(type, name)                               \
+  type name const { return self->##name; }
+
+#define CTREE_CONDITIONAL_ITEM_MEMBER_REF(type, name, wanted_citype)     \
+  type name const { if ( self->citype == wanted_citype ) { return self->##name; } else { return NULL; } }
 
 %extend ctree_item_t {
-    CEXPR_MEMBER_REF(citem_t *, it)
-    CEXPR_MEMBER_REF(lvar_t*, l)
-    CEXPR_MEMBER_REF(cfunc_t*, f)
-    const treeloc_t& loc { return self->loc; }
+  CTREE_ITEM_MEMBER_REF(citem_t *, it);
+  CTREE_CONDITIONAL_ITEM_MEMBER_REF(cexpr_t*, e, VDI_EXPR);
+  CTREE_CONDITIONAL_ITEM_MEMBER_REF(cinsn_t*, i, VDI_EXPR);
+  CTREE_CONDITIONAL_ITEM_MEMBER_REF(lvar_t*, l, VDI_LVAR);
+  CTREE_CONDITIONAL_ITEM_MEMBER_REF(cfunc_t*, f, VDI_FUNC);
+  treeloc_t* loc const { if ( self->citype == VDI_TAIL ) { return &self->loc; } else { return NULL; } }
 };
 
+#undef CTREE_CONDITIONAL_ITEM_MEMBER_REF
+#undef CTREE_ITEM_MEMBER_REF
+
+//-------------------------------------------------------------------------
 /* for qvector instanciations where the class is a pointer (cinsn_t, citem_t) we need
    to fix the at() return type, otherwise swig mistakenly thinks it is "cinsn_t *&" and nonsense ensues. */
 %extend qvector< cinsn_t *> {
@@ -303,28 +325,20 @@ void delete_qstring_printer_t(qstring_printer_t *qs)
 //---------------------------------------------------------------------
 static int hexrays_python_call(ref_t fct, ref_t args)
 {
-    PYW_GIL_GET;
+  PYW_GIL_GET;
 
-    int result;
-    int ecode1 = 0 ;
-
-    newref_t resultobj(PyEval_CallObject(fct.o, args.o));
-    if ( resultobj == NULL )
-    {
-        msg("IDAPython: Hex-rays python callback raised an exception.\n");
-
-        // we can't do much else than clear the exception since this was not called from Python.
-        // XXX: print stack trace?
-        PyErr_Clear();
-        return 0;
-    }
-
-    ecode1 = SWIG_AsVal_int(resultobj.o, &result);
-    if (SWIG_IsOK(ecode1))
-        return result;
-
-    msg("IDAPython: Hex-rays python callback returned non-integer; value ignored.\n");
+  newref_t resultobj(PyEval_CallObject(fct.o, args.o));
+  if (PyErr_Occurred())
+  {
+    PyErr_Print();
     return 0;
+  }
+
+  int result;
+  if ( SWIG_IsOK(SWIG_AsVal_int(resultobj.o, &result)) )
+    return result;
+  msg("IDAPython: Hex-rays python callback returned non-integer; value ignored.\n");
+  return 0;
 }
 
 //---------------------------------------------------------------------
@@ -342,179 +356,195 @@ static bool idaapi __python_custom_viewer_popup_item_callback(void *ud)
 //---------------------------------------------------------------------
 static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_list va)
 {
-    PYW_GIL_GET;
+  PYW_GIL_GET;
 
-    int ret;
-    borref_t fct((PyObject *)ud);
-    switch(event)
-    {
-        case hxe_maturity:
-            ///< Ctree maturity level is being changed.
-            ///< cfunc_t *cfunc
-            ///< ctree_maturity_t new_maturity
-            {
-                cfunc_t *arg0 = va_arg(va, cfunc_t *);
-                ctree_maturity_t arg1 = va_argi(va, ctree_maturity_t);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
-                newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_interr:
-            ///< Internal error has occurred.
-            ///< int errcode
-            {
-                int arg0 = va_argi(va, int);
-                newref_t args(Py_BuildValue("(ii)", event, arg0));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
+  int ret;
+  borref_t fct((PyObject *)ud);
+  switch(event)
+  {
+    case hxe_maturity:
+      ///< Ctree maturity level is being changed.
+      ///< cfunc_t *cfunc
+      ///< ctree_maturity_t new_maturity
+      {
+        cfunc_t *arg0 = va_arg(va, cfunc_t *);
+        ctree_maturity_t arg1 = va_argi(va, ctree_maturity_t);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
+        newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_interr:
+      ///< Internal error has occurred.
+      ///< int errcode
+      {
+        int arg0 = va_argi(va, int);
+        newref_t args(Py_BuildValue("(ii)", event, arg0));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
 
-        case hxe_print_func:
-            ///< Printing ctree and generating text.
-            ///< cfunc_t *cfunc
-            ///< vc_printer_t *vp
-            ///< Returns: 1 if text has been generated by the plugin
-            {
-                cfunc_t *arg0 = va_arg(va, cfunc_t *);
-                vc_printer_t *arg1 = va_arg(va, vc_printer_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
-                newref_t arg1obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg1), SWIGTYPE_p_vc_printer_t, 0 ));
-                newref_t args(Py_BuildValue("(iOO)", event, arg0obj.o, arg1obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
+    case hxe_print_func:
+      ///< Printing ctree and generating text.
+      ///< cfunc_t *cfunc
+      ///< vc_printer_t *vp
+      ///< Returns: 1 if text has been generated by the plugin
+      {
+        cfunc_t *arg0 = va_arg(va, cfunc_t *);
+        vc_printer_t *arg1 = va_arg(va, vc_printer_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
+        newref_t arg1obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg1), SWIGTYPE_p_vc_printer_t, 0 ));
+        newref_t args(Py_BuildValue("(iOO)", event, arg0obj.o, arg1obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
 
-        // User interface related events:
-        case hxe_open_pseudocode:
-            ///< New pseudocode view has been opened.
-            ///< vdui_t *vu
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_switch_pseudocode:
-            ///< Existing pseudocode view has been reloaded
-            ///< with a new function. Its text has not been
-            ///< refreshed yet, only cfunc and mba pointers are ready.
-            ///< vdui_t *vu
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_refresh_pseudocode:
-            ///< Existing pseudocode text has been refreshed.
-            ///< vdui_t *vu
-            ///< See also hxe_text_ready, which happens earlier
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_close_pseudocode:
-            ///< Pseudocode view is being closed.
-            ///< vdui_t *vu
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_keyboard:
-            ///< Keyboard has been hit.
-            ///< vdui_t *vu
-            ///< int key_code (VK_...)
-            ///< int shift_state
-            ///< Should return: 1 if the event has been handled
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                int arg1 = va_argi(va, int);
-                int arg2 = va_argi(va, int);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iOii)", event, arg0obj.o, arg1, arg2));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_right_click:
-            ///< Mouse right click. We can add menu items now.
-            ///< vdui_t *vu
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_double_click:
-            ///< Mouse double click.
-            ///< vdui_t *vu
-            ///< int shift_state
-            ///< Should return: 1 if the event has been handled
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                int arg1 = va_argi(va, int);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_curpos:
-            ///< Current cursor position has been changed.
-            ///< (for example, by left-clicking or using keyboard)
-            ///< vdui_t *vu
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_create_hint:
-            ///< Create a hint for the current item.
-            ///< vdui_t *vu
-            ///< qstring *result_hint
-            ///< int *implines
-            ///< Possible return values:
-            ///<  0: the event has not been handled
-            ///<  1: hint has been created (should set *implines to nonzero as well)
-            ///<  2: hint has been created but the standard hints must be
-            ///<     appended by the decompiler
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        case hxe_text_ready:
-            ///< Decompiled text is ready.
-            ///< vdui_t *vu
-            ///< This event can be used to modify the output text (sv).
-            ///< The text uses regular color codes (see lines.hpp)
-            ///< COLOR_ADDR is used to store pointers to ctree elements
-            {
-                vdui_t *arg0 = va_arg(va, vdui_t *);
-                newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
-                newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-                ret = hexrays_python_call(fct, args);
-            }
-            break;
-        default:
-            //~ msg("IDAPython: Unknown event `%u' occured\n", event);
-            ret = 0;
-            break;
-    }
+      // User interface related events:
+    case hxe_open_pseudocode:
+      ///< New pseudocode view has been opened.
+      ///< vdui_t *vu
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_switch_pseudocode:
+      ///< Existing pseudocode view has been reloaded
+      ///< with a new function. Its text has not been
+      ///< refreshed yet, only cfunc and mba pointers are ready.
+      ///< vdui_t *vu
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_refresh_pseudocode:
+      ///< Existing pseudocode text has been refreshed.
+      ///< vdui_t *vu
+      ///< See also hxe_text_ready, which happens earlier
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_close_pseudocode:
+      ///< Pseudocode view is being closed.
+      ///< vdui_t *vu
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_keyboard:
+      ///< Keyboard has been hit.
+      ///< vdui_t *vu
+      ///< int key_code (VK_...)
+      ///< int shift_state
+      ///< Should return: 1 if the event has been handled
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        int arg1 = va_argi(va, int);
+        int arg2 = va_argi(va, int);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iOii)", event, arg0obj.o, arg1, arg2));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_right_click:
+      ///< Mouse right click. We can add menu items now.
+      ///< vdui_t *vu
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_double_click:
+      ///< Mouse double click.
+      ///< vdui_t *vu
+      ///< int shift_state
+      ///< Should return: 1 if the event has been handled
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        int arg1 = va_argi(va, int);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_curpos:
+      ///< Current cursor position has been changed.
+      ///< (for example, by left-clicking or using keyboard)
+      ///< vdui_t *vu
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_create_hint:
+      ///< Create a hint for the current item.
+      ///< vdui_t *vu
+      ///< qstring *result_hint
+      ///< int *implines
+      ///< Possible return values:
+      ///<  0: the event has not been handled
+      ///<  1: hint has been created (should set *implines to nonzero as well)
+      ///<  2: hint has been created but the standard hints must be
+      ///<     appended by the decompiler
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_text_ready:
+      ///< Decompiled text is ready.
+      ///< vdui_t *vu
+      ///< This event can be used to modify the output text (sv).
+      ///< The text uses regular color codes (see lines.hpp)
+      ///< COLOR_ADDR is used to store pointers to ctree elements
+      {
+        vdui_t *arg0 = va_arg(va, vdui_t *);
+        newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
+        ret = hexrays_python_call(fct, args);
+      }
+      break;
+    case hxe_populating_popup:
+      ///< Populating popup menu. We can add menu items now.
+      ///< TForm *form
+      ///< TPopupMenu *popup_handle
+      ///< vdui_t *vu
+      {
+        TForm *form = va_arg(va, TForm *);
+        TPopupMenu *pp = va_arg(va, TPopupMenu*);
+        vdui_t *vdui = va_arg(va, vdui_t *);
+        newref_t py_form(SWIG_NewPointerObj(SWIG_as_voidptr(form), SWIGTYPE_p_Forms__TForm, 0));
+        newref_t py_popup(SWIG_NewPointerObj(SWIG_as_voidptr(pp), SWIGTYPE_p_Menus__TPopupMenu, 0));
+        newref_t py_vdui(SWIG_NewPointerObj(SWIG_as_voidptr(vdui), SWIGTYPE_p_vdui_t, 0 ));
+        newref_t py_args(Py_BuildValue("(iOOO)", event, py_form.o, py_popup.o, py_vdui.o));
+        ret = hexrays_python_call(fct, py_args);
+      }
+      break;
+    default:
+      //~ msg("IDAPython: Unknown event `%u' occured\n", event);
+      ret = 0;
+      break;
+  }
 
-    return ret;
+  return ret;
 }
 
 %}
@@ -677,17 +707,37 @@ cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf);
 %python_callback_in(PyObject *custom_viewer_popup_item_callback);
 
 %ignore cexpr_t::get_1num_op(const cexpr_t **, const cexpr_t **) const;
+%ignore cexpr_t::find_ptr_or_array(bool) const;
+
 #pragma SWIG nowarn=503
 %warnfilter(514) user_lvar_visitor_t; // Director base class 'x' has no virtual destructor.
 %warnfilter(514) ctree_visitor_t;     // ditto
 %warnfilter(514) ctree_parentee_t;    // ditto
 %warnfilter(514) cfunc_parentee_t;    // ditto
 %warnfilter(473) user_lvar_visitor_t::get_info_mapping_for_saving; // Returning a pointer or reference in a director method is not recommended.
+
 %feature("director") ctree_visitor_t;
 %feature("director") ctree_parentee_t;
 %feature("director") cfunc_parentee_t;
 %feature("director") user_lvar_visitor_t;
+
+// http://www.swig.org/Doc2.0/SWIGDocumentation.html#Python_nn36
+// http://www.swig.org/Doc2.0/SWIGDocumentation.html#Customization_exception_special_variables
+%define %possible_director_exc(Method)
+%exception Method {
+  try {
+    $action
+  } catch ( Swig::DirectorException & ) {
+    // A DirectorException might be raised in deeper layers.
+    SWIG_fail;
+  }
+}
+%enddef
+%possible_director_exc(ctree_visitor_t::apply_to)
+%possible_director_exc(ctree_visitor_t::apply_to_exprs)
 %include "hexrays.hpp"
+%exception; // Delete & restore handlers
+%exception_set_default_handlers();
 
 %pythoncode %{
 
@@ -1099,7 +1149,7 @@ _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
 _map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, (int, long))
 _map_as_dict(user_unions_t, 'user_unions', (int, long), intvec_t)
-_map_as_dict(eamap_t, 'eamap', int, cinsnptrvec_t)
+_map_as_dict(eamap_t, 'eamap', long, cinsnptrvec_t)
 #_map_as_dict(boundaries_t, 'boundaries', cinsn_t, areaset_t)
 
 %}

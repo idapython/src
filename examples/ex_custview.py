@@ -7,6 +7,18 @@ import idc
 from idaapi import simplecustviewer_t
 #<pycode(py_custviewerex1)>
 
+class say_something_handler_t(idaapi.action_handler_t):
+    def __init__(self, thing):
+        idaapi.action_handler_t.__init__(self)
+        self.thing = thing
+
+    def activate(self, ctx):
+        print self.thing
+
+    def update(self, ctx):
+        return idaapi.AST_ENABLE_ALWAYS
+
+
 # -----------------------------------------------------------------------
 class mycv_t(simplecustviewer_t):
     def Create(self, sn=None):
@@ -18,8 +30,6 @@ class mycv_t(simplecustviewer_t):
         # Create the customviewer
         if not simplecustviewer_t.Create(self, title):
             return False
-        self.menu_hello = self.AddPopupMenu("Hello")
-        self.menu_world = self.AddPopupMenu("World")
 
         for i in xrange(0, 100):
             self.AddLine("Line %d" % i)
@@ -120,13 +130,6 @@ class mycv_t(simplecustviewer_t):
             return False
         return True
 
-    def OnPopup(self):
-        """
-        Context menu popup is about to be shown. Create items dynamically if you wish
-        @return: Boolean. True if you handled the event
-        """
-        print "OnPopup"
-
     def OnHint(self, lineno):
         """
         Hint requested for the given line number.
@@ -136,22 +139,6 @@ class mycv_t(simplecustviewer_t):
             - None: if no hint available
         """
         return (1, "OnHint, line=%d" % lineno)
-
-    def OnPopupMenu(self, menu_id):
-        """
-        A context (or popup) menu item was executed.
-        @param menu_id: ID previously registered with AddPopupMenu()
-        @return: Boolean
-        """
-        print "OnPopupMenu, menu_id=%d" % menu_id
-        if menu_id == self.menu_hello:
-            print "Hello"
-        elif menu_id == self.menu_world:
-            print "World"
-        else:
-            # Unhandled
-            return False
-        return True
 
 # -----------------------------------------------------------------------
 try:
@@ -169,7 +156,16 @@ def show_win():
         print "Failed to create!"
         return None
     x.Show()
+    tcc = x.GetTCustomControl()
+
+    # Register actions
+    for thing in ["Hello", "World"]:
+        actname = "custview:say_%s" % thing
+        idaapi.register_action(
+            idaapi.action_desc_t(actname, "Say %s" % thing, say_something_handler_t(thing)))
+        idaapi.attach_action_to_popup(tcc, None, actname)
     return x
+
 mycv = show_win()
 if not mycv:
     del mycv

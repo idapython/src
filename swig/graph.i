@@ -35,13 +35,16 @@ protected:
 private:
   enum
   {
-    GRCODE_HAVE_USER_HINT       = 0x00010000,
-    GRCODE_HAVE_CLICKED         = 0x00020000,
-    GRCODE_HAVE_DBL_CLICKED     = 0x00040000,
-    GRCODE_HAVE_GOTFOCUS        = 0x00080000,
-    GRCODE_HAVE_LOSTFOCUS       = 0x00100000,
-    GRCODE_HAVE_CHANGED_CURRENT = 0x00200000,
-    GRCODE_HAVE_COMMAND         = 0x00400000
+    GRCODE_HAVE_USER_HINT        = 0x00010000,
+    GRCODE_HAVE_CLICKED          = 0x00020000,
+    GRCODE_HAVE_DBL_CLICKED      = 0x00040000,
+    GRCODE_HAVE_GOTFOCUS         = 0x00080000,
+    GRCODE_HAVE_LOSTFOCUS        = 0x00100000,
+    GRCODE_HAVE_CHANGED_CURRENT  = 0x00200000,
+    GRCODE_HAVE_COMMAND          = 0x00400000,
+    GRCODE_HAVE_CREATING_GROUP   = 0x00800000,
+    GRCODE_HAVE_DELETING_GROUP   = 0x01000000,
+    GRCODE_HAVE_GROUP_VISIBILITY = 0x02000000,
   };
   struct nodetext_cache_t
   {
@@ -145,6 +148,7 @@ private:
     // Check return value to OnRefresh() call
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t ret(PyObject_CallMethod(self.o, (char *)S_ON_COMMAND, "n", id));
+    PyW_ShowCbErr(S_ON_COMMAND);
   }
 
   // Refresh user-defined graph node number and edges
@@ -192,6 +196,7 @@ private:
                     (char *)S_ON_CLICK,
                     "i",
                     item2->n));
+    PyW_ShowCbErr(S_ON_CLICK);
     return result == NULL || !PyObject_IsTrue(result.o);
   }
 
@@ -213,29 +218,38 @@ private:
                     (char *)S_ON_DBL_CLICK,
                     "i",
                     item->node));
+    PyW_ShowCbErr(S_ON_DBL_CLICK);
     return result == NULL || !PyObject_IsTrue(result.o);
   }
 
   // a graph viewer got focus
   void on_gotfocus(graph_viewer_t * /*view*/)
   {
+    if ( self.o == NULL )
+      return;
+
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_ACTIVATE,
                     NULL));
+    PyW_ShowCbErr(S_ON_ACTIVATE);
   }
 
   // a graph viewer lost focus
   void on_lostfocus(graph_viewer_t * /*view*/)
   {
+    if ( self.o == NULL )
+      return;
+
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_DEACTIVATE,
                     NULL));
+    PyW_ShowCbErr(S_ON_DEACTIVATE);
   }
 
   // a new graph node became the current node
@@ -254,6 +268,7 @@ private:
                     (char *)S_ON_SELECT,
                     "i",
                     curnode));
+    PyW_ShowCbErr(S_ON_SELECT);
     return !(result != NULL && PyObject_IsTrue(result.o));
   }
 
@@ -261,7 +276,6 @@ private:
   int on_creating_group(mutable_graph_t *my_g, intvec_t *my_nodes)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    printf("my_g: %p; my_nodes: %p\n", my_g, my_nodes);
     newref_t py_nodes(PyList_New(my_nodes->size()));
     int i;
     intvec_t::const_iterator p;
@@ -273,6 +287,7 @@ private:
                     (char *)S_ON_CREATING_GROUP,
                     "O",
                     py_nodes.o));
+    PyW_ShowCbErr(S_ON_CREATING_GROUP);
     return (py_result == NULL || !PyInt_Check(py_result.o)) ? 1 : PyInt_AsLong(py_result.o);
   }
 
@@ -302,6 +317,10 @@ private:
 
   void jump_to_node(int nid)
   {
+    ref_t nodes(PyW_TryGetAttrString(self.o, S_M_NODES));
+    if ( nid >= PyList_Size(nodes.o) )
+      return;
+
     viewer_center_on(view, nid);
     int x, y;
 
@@ -345,6 +364,7 @@ private:
       if ( pview != NULL )
         viewer_fit_window(pview);
       bind(self, pview);
+      install_custom_viewer_handlers();
       refresh();
       lookup_info.commit(e, form, view);
     }
@@ -382,13 +402,16 @@ public:
     cmdid_pyg.clear(this);
   }
 
-  static void SelectNode(PyObject *self, int /*nid*/)
+  static void SelectNode(PyObject *self, int nid)
   {
+    if ( nid < 0 )
+      return;
+
     py_graph_t *_this = view_extract_this<py_graph_t>(self);
     if ( _this == NULL || !lookup_info.find_by_py_view(NULL, NULL, _this) )
       return;
 
-    _this->jump_to_node(0);
+    _this->jump_to_node(nid);
   }
 
   static Py_ssize_t AddCommand(PyObject *self, const char *title, const char *hotkey)
@@ -468,6 +491,9 @@ void py_graph_t::collect_class_callbacks_ids(callbacks_ids_t *out)
   out->add(S_ON_SELECT, GRCODE_HAVE_CHANGED_CURRENT);
   out->add(S_ON_ACTIVATE, GRCODE_HAVE_GOTFOCUS);
   out->add(S_ON_DEACTIVATE, GRCODE_HAVE_LOSTFOCUS);
+  out->add(S_ON_CREATING_GROUP, GRCODE_HAVE_CREATING_GROUP);
+  out->add(S_ON_DELETING_GROUP, GRCODE_HAVE_DELETING_GROUP);
+  out->add(S_ON_GROUP_VISIBILITY, GRCODE_HAVE_GROUP_VISIBILITY);
 }
 
 //-------------------------------------------------------------------------
@@ -479,6 +505,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
   // Check return value to OnRefresh() call
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t ret(PyObject_CallMethod(self.o, (char *)S_ON_REFRESH, NULL));
+  PyW_ShowCbErr(S_ON_REFRESH);
   if ( ret != NULL && PyObject_IsTrue(ret.o) )
   {
     // Refer to the nodes
@@ -550,6 +577,7 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
   // Not cached, call Python
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_GETTEXT, "i", node));
+  PyW_ShowCbErr(S_ON_GETTEXT);
   if ( result == NULL )
     return false;
 
@@ -597,6 +625,7 @@ int py_graph_t::on_user_hint(mutable_graph_t *, int mousenode, int /*mouseedge_s
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_HINT, "i", mousenode));
+  PyW_ShowCbErr(S_ON_HINT);
   bool ok = result != NULL && PyString_Check(result.o);
   if ( ok )
     *hint = qstrdup(PyString_AsString(result.o));
@@ -650,7 +679,10 @@ int py_graph_t::gr_callback(int code, va_list va)
         ret = on_dblclicked(view, item);
       }
       else
-        ret = 1; // ignore
+        ret = 0; // We don't want to ignore the double click, but rather
+                 // fallback to the default behavior (e.g., double-clicking
+                 // on an edge will to jump to the node on the other side
+                 // of that edge.)
       break;
       //
     case grcode_gotfocus:
@@ -701,27 +733,42 @@ int py_graph_t::gr_callback(int code, va_list va)
       break;
       //
     case grcode_creating_group:      // a group is being created
+      if ( has_callback(GRCODE_HAVE_CREATING_GROUP) )
       {
         mutable_graph_t *g = va_arg(va, mutable_graph_t*);
         intvec_t *nodes = va_arg(va, intvec_t*);
         ret = on_creating_group(g, nodes);
       }
+      else
+      {
+        ret = 0; // Ok to create
+      }
       break;
       //
     case grcode_deleting_group:      // a group is being deleted
+      if ( has_callback(GRCODE_HAVE_DELETING_GROUP) )
       {
         mutable_graph_t *g = va_arg(va, mutable_graph_t*);
         int old_group = va_arg(va, int);
         ret = on_deleting_group(g, old_group);
       }
+      else
+      {
+        ret = 0; // Ok to delete
+      }
       break;
       //
     case grcode_group_visibility:    // a group is being collapsed/uncollapsed
+      if ( has_callback(GRCODE_HAVE_GROUP_VISIBILITY) )
       {
         mutable_graph_t *g = va_arg(va, mutable_graph_t*);
         int group = va_arg(va, int);
         bool expand = bool(va_arg(va, int));
         ret = on_group_visibility(g, group, expand);
+      }
+      else
+      {
+        ret = 0; // Ok.
       }
       break;
       //
@@ -844,10 +891,9 @@ class GraphViewer(CustomIDAMemo):
 
     def AddCommand(self, title, hotkey):
         """
-        Adds a menu command to the graph. Call this command after the graph is shown (with Show()).
-        Once a command is added, a command id is returned. The commands are handled inside the OnCommand() handler
-
-        @return: 0 on failure or the command id
+        Deprecated: Use
+          - register_action()
+          - attach_action_to_popup()
         """
         return _idaapi.pyg_add_command(self, title, hotkey)
 
@@ -929,10 +975,9 @@ class GraphViewer(CustomIDAMemo):
 #
 #    def OnCommand(self, cmd_id):
 #        """
-#        Triggered when a menu command is selected through the menu or its hotkey
-#        @return: None
+#        Deprecated
 #        """
-#        print "command:", cmd_id
+#        pass
 #</pydoc>
 #</pycode(py_graph)>
 %}

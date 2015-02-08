@@ -32,7 +32,7 @@ DP_INSIDE         = 0x0010
 # this flag alone cannot be used to determine orientation
 DP_BEFORE         = 0x0020
 # used with combination of other flags
-DP_RAW            = 0x0040
+DP_TAB            = 0x0040
 DP_FLOATING       = 0x0080
 
 # ----------------------------------------------------------------------
@@ -82,6 +82,17 @@ def askseg(defval, format):
         return sel
     else:
         return None
+
+# ----------------------------------------------------------------------
+class action_handler_t:
+    def __init__(self):
+        pass
+
+    def activate(self, ctx):
+	return 0
+
+    def update(self, ctx):
+        pass
 
 #</pycode(py_kernwin)>
 

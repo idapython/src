@@ -374,8 +374,8 @@ def DecodePreviousInstruction(ea):
     @param ea: address to decode
     @return: None or a new insn_t instance
     """
-    inslen = idaapi.decode_prev_insn(ea)
-    if inslen == 0:
+    prev_addr = idaapi.decode_prev_insn(ea)
+    if prev_addr == idaapi.BADADDR:
         return None
 
     return idaapi.cmd.copy()
@@ -462,7 +462,8 @@ def GetInputFileMD5():
 
 class Strings(object):
     """
-    Returns the string list.
+    Allows iterating over the string list. The set of strings will not be modified.
+    , unless asked explicitly at setup()-time..
 
     Example:
         s = Strings()
@@ -483,8 +484,34 @@ class Strings(object):
             self.length = si.length
             """string length"""
 
+        def is_1_byte_encoding(self):
+            return not self.is_2_bytes_encoding() and not self.is_4_bytes_encoding()
+
+        def is_2_bytes_encoding(self):
+            return (self.type & 7) in [idaapi.ASCSTR_UTF16, idaapi.ASCSTR_ULEN2, idaapi.ASCSTR_ULEN4]
+
+        def is_4_bytes_encoding(self):
+            return (self.type & 7) == idaapi.ASCSTR_UTF32
+
+        def _toseq(self, as_unicode):
+            if self.is_2_bytes_encoding():
+                conv = idaapi.ACFOPT_UTF16
+                pyenc = "utf-16"
+            elif self.is_4_bytes_encoding():
+                conv = idaapi.ACFOPT_UTF8
+                pyenc = "utf-8"
+            else:
+                conv = idaapi.ACFOPT_ASCII
+                pyenc = 'ascii'
+            strbytes = idaapi.get_ascii_contents2(self.ea, self.length, self.type, conv)
+            return unicode(strbytes, pyenc, 'replace') if as_unicode else strbytes
+
         def __str__(self):
-            return idc.GetString(self.ea, self.length, self.type)
+            return self._toseq(False)
+
+        def __unicode__(self):
+            return self._toseq(True)
+
 
     STR_C       = 0x0001
     """C-style ASCII string"""
@@ -505,8 +532,7 @@ class Strings(object):
         """Clears the strings list cache"""
         self.refresh(0, 0) # when ea1=ea2 the kernel will clear the cache
 
-
-    def __init__(self, default_setup = True):
+    def __init__(self, default_setup = False):
         """
         Initializes the Strings enumeration helper class
 
@@ -515,9 +541,10 @@ class Strings(object):
         self.size = 0
         if default_setup:
             self.setup()
+        else:
+            self.refresh()
 
         self._si  = idaapi.string_info_t()
-
 
     def refresh(self, ea1=None, ea2=None):
         """Refreshes the strings list"""
@@ -750,14 +777,6 @@ def ProcessUiActions(actions, flags=0):
     helper = __process_ui_actions_helper(actions, flags)
     return False if len(helper) < 1 else idaapi.execute_ui_requests((helper,))
 
-# ----------------------------------------------------------------------------
-def IsBatchMode():
-    """
-    Checks if batch mode is enabled
-
-    @return: True if batch mode is enabled and False otherwise
-    """
-    return idaapi.cvar.batch != 0
 
 # -----------------------------------------------------------------------
 class peutils_t(object):

@@ -13,4 +13,8 @@ class IDAViewWrapper(CustomIDAMemo):
 
     def Bind(self):
         return _idaapi.pyidag_bind(self)
+
+    def Unbind(self):
+        return _idaapi.pyidag_unbind(self)
+
 #</pycode(py_idaview)>

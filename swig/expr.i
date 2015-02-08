@@ -38,6 +38,7 @@
 %ignore idc_stacksize;
 %ignore idc_calldepth;
 %ignore expr_printf;
+%ignore expr_uprintf;
 %ignore expr_sprintf;
 %ignore expr_printfer;
 %ignore init_idc;

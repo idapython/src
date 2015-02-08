@@ -93,6 +93,18 @@ public:
   } while ( false )
 
 
+//-------------------------------------------------------------------------
+struct exc_report_t
+{
+  ~exc_report_t()
+  {
+    if ( PyErr_Occurred() )
+      PyErr_Print();
+  }
+};
+#define PYW_GIL_GET_AND_REPORT_ERROR PYW_GIL_GET; exc_report_t exc;
+
+
 //------------------------------------------------------------------------
 // All the exported functions from PyWraps are forward declared here
 insn_t *insn_t_get_clink(PyObject *self);
@@ -125,25 +137,38 @@ struct ref_t
   ~ref_t() { decref(); }
   ref_t &operator=(const ref_t &other)
   {
-    decref();
+    // We *must* first (possibly) set & incref the other object,
+    // because decref() might call the Python's deallocator, which
+    // might have side-effects, that might affect this ref_t
+    // instance.
+    // If that's too many 'might' to your taste, let me illustrate.
+    //
+    // py_plgform.hpp's 'plgform_t' holds a 'ref_t' instance, named 'py_obj'.
+    // If the actual, Qt widget wrapped by that plgform_t gets destroyed,
+    // plgform_t::unhook() will be called, which will assign an
+    // empty ref_t instance to its 'py_obj'.
+    // That will decrement the refcount, and might call the deallocator:
+    // the plgform_t::destroy static function.
+    // That function will 'delete' the plgform_t object.
+    // But, in the ~plgform_t() destructor, the 'py_obj' object will be
+    // destroyed too: decreasing once again the refcnt (which now falls to -1).
+    // At this point, all hell breaks loose (or is allowed to).
+    PyObject *was = o;
     o = other.o;
     incref();
+    if ( was != NULL )
+      Py_DECREF(was);
     return *this;
   }
 
   void incref() const { if ( o != NULL ) Py_INCREF(o); }
-  void decref() const { if ( o != NULL ) Py_DECREF(o); }
+  void decref() const { if ( o != NULL ) { QASSERT(30469, o->ob_refcnt > 0); Py_DECREF(o); } }
 
   bool operator==(PyObject *other) const { return o == other; }
   bool operator!=(PyObject *other) const { return ! ((*this) == other); }
 
   bool operator==(const ref_t &other) const { return o == other.o; }
   bool operator!=(const ref_t &other) const { return ! ((*this) == other); }
-
-  // operator PyObject *() const { return o; }
-  // PyObject *operator ->() const { return o; }
-  // PyObject &operator *() const { return *o; }
-  //protected:
 };
 
 //-------------------------------------------------------------------------
@@ -317,6 +342,21 @@ bool PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
 
 // Converts a Python list to a qstrvec
 bool PyW_PyListToStrVec(PyObject *py_list, qstrvec_t &strvec);
+
+//-------------------------------------------------------------------------
+PyObject *qstrvec2pylist(qstrvec_t &vec);
+
+//-------------------------------------------------------------------------
+inline bool PyWStringOrNone_Check(PyObject *tp)
+{
+  return tp == Py_None || PyString_Check(tp);
+}
+
+//-------------------------------------------------------------------------
+inline const p_list * PyW_Fields(PyObject *tp)
+{
+  return tp == Py_None ? NULL : (const p_list *) PyString_AsString(tp);
+}
 
 //---------------------------------------------------------------------------
 //

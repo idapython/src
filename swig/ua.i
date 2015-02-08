@@ -18,7 +18,6 @@
 %ignore out_insert;
 %ignore get_immval;
 %ignore get_spoiled_reg;
-%ignore construct_macro;
 %ignore decode_preceding_insn;
 %ignore init_ua;
 %ignore term_ua;
@@ -29,6 +28,9 @@
 
 %ignore get_immval;
 %ignore ua_stkvar;
+
+%ignore construct_macro;
+%rename (construct_macro) py_construct_macro;
 
 %include "ua.hpp"
 
@@ -352,6 +354,49 @@ bool py_out_name_expr(
     off = BADADDR;
 
   return op == NULL ? false : out_name_expr(*op, ea, off);
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def construct_macro(insn):
+    """
+    See ua.hpp's construct_macro().
+    """
+    pass
+#</pydoc>
+*/
+bool py_construct_macro(bool enable, PyObject *build_macro)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  if ( !PyCallable_Check(build_macro) )
+    return false;
+
+  static qstack<ref_t> macro_builders;
+
+  macro_builders.push(newref_t(build_macro));
+  struct ida_local lambda_t
+  {
+    static bool idaapi call_build_macro(insn_t &s, bool may_go_forward)
+    {
+      PyObject *py_builder = macro_builders.top().o;
+      newref_t pyres = PyObject_CallFunction(
+              py_builder, "O",
+              may_go_forward ? Py_True : Py_False);
+      PyW_ShowCbErr("build_macro");
+      if ( pyres.o == NULL || pyres.o == Py_None )
+        return false;
+      insn_t *_s = insn_t_get_clink(pyres.o);
+      if ( _s == NULL )
+        return false;
+      s = *_s;
+      return true;
+    }
+  };
+  bool res = construct_macro(enable, lambda_t::call_build_macro);
+  macro_builders.pop();
+  return res;
 }
 
 //-------------------------------------------------------------------------
@@ -913,7 +958,6 @@ op_t *op_t_get_clink(PyObject *self)
 {
   return (op_t *)pyobj_get_clink(self);
 }
-
 //</code(py_ua)>
 %}
 
@@ -1323,22 +1367,22 @@ CF_HLL  = 0x10000 #  Instruction may be present in a high level language functio
 
 #
 # op_t.type
-#                  Description                          Data field
-o_void     =  0 #  No Operand                           ----------
-o_reg      =  1 #  General Register (al,ax,es,ds...)    reg
-o_mem      =  2 #  Direct Memory Reference  (DATA)      addr
-o_phrase   =  3 #  Memory Ref [Base Reg + Index Reg]    phrase
-o_displ    =  4 #  Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
-o_imm      =  5 #  Immediate Value                      value
-o_far      =  6 #  Immediate Far Address  (CODE)        addr
-o_near     =  7 #  Immediate Near Address (CODE)        addr
-o_idpspec0 =  8 #  IDP specific type
-o_idpspec1 =  9 #  IDP specific type
-o_idpspec2 = 10 #  IDP specific type
-o_idpspec3 = 11 #  IDP specific type
-o_idpspec4 = 12 #  IDP specific type
-o_idpspec5 = 13 #  IDP specific type
-o_last     = 14 #  first unused type
+#                 Description                          Data field
+o_void     =  0 # No Operand                           ----------
+o_reg      =  1 # General Register (al,ax,es,ds...)    reg
+o_mem      =  2 # Direct Memory Reference  (DATA)      addr
+o_phrase   =  3 # Memory Ref [Base Reg + Index Reg]    phrase
+o_displ    =  4 # Memory Reg [Base Reg + Index Reg + Displacement] phrase+addr
+o_imm      =  5 # Immediate Value                      value
+o_far      =  6 # Immediate Far Address  (CODE)        addr
+o_near     =  7 # Immediate Near Address (CODE)        addr
+o_idpspec0 =  8 # Processor specific type
+o_idpspec1 =  9 # Processor specific type
+o_idpspec2 = 10 # Processor specific type
+o_idpspec3 = 11 # Processor specific type
+o_idpspec4 = 12 # Processor specific type
+o_idpspec5 = 13 # Processor specific type
+                # There can be more processor specific types
 
 #
 # op_t.dtyp
@@ -1405,7 +1449,7 @@ class processor_t(pyidc_opaque_object_t):
         short processor names similar to the one in ph.psnames.
         This method can be overridden to return to the kernel a different IDP description.
         """
-        return self.plnames[0] + ':' + ':'.join(self.psnames)
+        return '\x01'.join(map(lambda t: '\x01'.join(t), zip(self.plnames, self.psnames)))
 
     def get_uFlag(self):
         """Use this utility function to retrieve the 'uFlag' global variable"""

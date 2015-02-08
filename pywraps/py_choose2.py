@@ -54,6 +54,8 @@ class Choose2(object):
     CH_ATTRS        = 0x10
     CH_NOIDB        = 0x20
     """use the chooser even without an open database, same as x0=-2"""
+    CH_UTF8         = 0x40
+    """string encoding is utf-8"""
 
     CH_BUILTIN_MASK = 0xF80000
 
@@ -162,12 +164,11 @@ class Choose2(object):
                    icon = -1,
 				   emb=None):
         """
-        Adds a new chooser command
-        Save the returned value and later use it in the OnCommand handler
-
-        @return: Returns a negative value on failure or the command index
+        Deprecated: Use
+          - register_action()
+          - attach_action_to_menu()
+          - attach_action_to_popup()
         """
-
         # Use the 'emb' as a sentinel. It will be passed the correct value from the EmbeddedChooserControl
         if self.embedded and ((emb is None) or (emb != 2002)):
             raise RuntimeError("Please add a command through EmbeddedChooserControl.AddCommand()")
@@ -275,6 +276,24 @@ class Choose2(object):
 #</pycode(py_kernwin)>
 
 # -----------------------------------------------------------------------
+#<pycode(py_choose2ex1)>
+
+
+class chooser_handler_t(idaapi.action_handler_t):
+    def __init__(self, thing):
+        idaapi.action_handler_t.__init__(self)
+        self.thing = thing
+
+    def activate(self, ctx):
+        sel = []
+        for i in xrange(len(ctx.chooser_selection)):
+            sel.append(str(ctx.chooser_selection.at(i)))
+        print "command %s selected @ %s" % (self.thing, ", ".join(sel))
+
+    def update(self, ctx):
+        return idaapi.AST_ENABLE_FOR_FORM if idaapi.is_chooser_tform(ctx.form_type) else idaapi.AST_DISABLE_FOR_FORM
+
+
 class MyChoose2(Choose2):
 
     def __init__(self, title, nb = 5, flags=0, width=None, height=None, embedded=False, modal=False):
@@ -328,15 +347,6 @@ class MyChoose2(Choose2):
         print("refresh %d" % n)
         return n
 
-    def OnCommand(self, n, cmd_id):
-        if cmd_id == self.cmd_a:
-            print "command A selected @", n
-        elif cmd_id == self.cmd_b:
-            print "command B selected @", n
-        else:
-            print "Unknown command:", cmd_id, "@", n
-        return 1
-
     def OnGetIcon(self, n):
         r = self.items[n]
         t = self.icon + r[1].count("*")
@@ -344,14 +354,7 @@ class MyChoose2(Choose2):
         return t
 
     def show(self):
-        t = self.Show(self.modal)
-        if t < 0:
-            return False
-        if not self.modal:
-            self.cmd_a = self.AddCommand("command A")
-            self.cmd_b = self.AddCommand("command B")
-        print("Show() returned: %d\n" % t)
-        return True
+        return self.Show(self.modal) >= 0
 
     def make_item(self):
         r = [str(self.n), "func_%04d" % self.n]
@@ -369,6 +372,9 @@ def test_choose2(modal=False):
     global c
     c = MyChoose2("Choose2 - sample 1", nb=10, modal=modal)
     r = c.show()
+    form = idaapi.get_current_tform()
+    for thing in ["A", "B"]:
+        idaapi.attach_action_to_popup(form, None, "choose2:act%s" % thing)
 
 # -----------------------------------------------------------------------
 def test_choose2_embedded():
@@ -386,5 +392,17 @@ def test_choose2_embedded():
 
 # -----------------------------------------------------------------------
 if __name__ == '__main__':
+
+    # Register actions
+    for thing in ["A", "B"]:
+        actname = "choose2:act%s" % thing
+        idaapi.register_action(
+            idaapi.action_desc_t(
+                actname,
+                "command %s" % thing,
+                chooser_handler_t(thing)))
+
     #test_choose2_embedded()
     test_choose2(False)
+
+#</pycode(py_choose2ex1)>

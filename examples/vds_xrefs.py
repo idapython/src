@@ -221,7 +221,10 @@ class XrefsForm(idaapi.PluginForm):
                 addresses.append(parent.ea)
 
                 self.functions.append(cfunc.entry_ea)
-                self.items.append((parent.ea, idc.GetFunctionName(cfunc.entry_ea), self.get_decompiled_line(cfunc, int(parent.ea))))
+                self.items.append((
+                        parent.ea,
+                        idc.GetFunctionName(cfunc.entry_ea),
+                        self.get_decompiled_line(cfunc, parent.ea)))
 
 
         return []
@@ -260,57 +263,62 @@ class XrefsForm(idaapi.PluginForm):
     def OnClose(self, form):
         pass
 
+
+class show_xrefs_ah_t(idaapi.action_handler_t):
+    def __init__(self):
+        idaapi.action_handler_t.__init__(self)
+        self.sel = None
+
+    def activate(self, ctx):
+        vu = idaapi.get_tform_vdui(ctx.form)
+        if not vu or not self.sel:
+            print "No vdui? Strange, since this action should be enabled only for pseudocode views."
+            return 0
+
+        form = XrefsForm(self.sel)
+        form.Show()
+        return 1
+
+    def update(self, ctx):
+        vu = idaapi.get_tform_vdui(ctx.form)
+        if not vu:
+            return idaapi.AST_DISABLE_FOR_FORM
+        else:
+            vu.get_current_item(idaapi.USE_KEYBOARD)
+            item = vu.item
+            self.sel = None
+            if item.citype == idaapi.VDI_EXPR and item.it.to_specific_type.opname in ('obj', 'memref', 'memptr'):
+                # if an expression is selected. verify that it's either a cot_obj, cot_memref or cot_memptr
+                self.sel = item.it.to_specific_type
+
+            elif item.citype == idaapi.VDI_FUNC:
+                # if the function itself is selected, show xrefs to it.
+                self.sel = item.f
+
+            return idaapi.AST_ENABLE if self.sel else idaapi.AST_DISABLE
+
 class hexrays_callback_info(object):
 
     def __init__(self):
-        self.vu = None
         return
-
-    def show_xrefs(self, vu):
-
-        vu.get_current_item(idaapi.USE_KEYBOARD)
-        item = vu.item
-
-        sel = None
-        if item.citype == idaapi.VDI_EXPR and item.it.to_specific_type.opname in ('obj', 'memref', 'memptr'):
-            # if an expression is selected. verify that it's either a cot_obj, cot_memref or cot_memptr
-            sel = item.it.to_specific_type
-
-        elif item.citype == idaapi.VDI_FUNC:
-            # if the function itself is selected, show xrefs to it.
-            sel = item.f
-        else:
-            return False
-
-        form = XrefsForm(sel)
-        form.Show()
-        return True
-
-    def menu_callback(self):
-        self.show_xrefs(self.vu)
-        return 0
 
     def event_callback(self, event, *args):
 
         try:
-            if event == idaapi.hxe_keyboard:
-                vu, keycode, shift = args
-
-                if idaapi.lookup_key_code(keycode, shift, True) == idaapi.get_key_code("X") and shift == 0:
-                    if self.show_xrefs(vu):
-                        return 1
-
-            elif event == idaapi.hxe_right_click:
-                self.vu = args[0]
-                idaapi.add_custom_viewer_popup_item(self.vu.ct, "Xrefs", "X", self.menu_callback)
-
+            if event == idaapi.hxe_populating_popup:
+                form, phandle, vu = args
+                idaapi.attach_action_to_popup(form, phandle, "vdsxrefs:show", None)
         except:
             traceback.print_exc()
 
         return 0
 
 if idaapi.init_hexrays_plugin():
-    i = hexrays_callback_info()
-    idaapi.install_hexrays_callback(i.event_callback)
+    adesc = idaapi.action_desc_t('vdsxrefs:show', 'Show xrefs', show_xrefs_ah_t(), "Ctrl+X")
+    if idaapi.register_action(adesc):
+        i = hexrays_callback_info()
+        idaapi.install_hexrays_callback(i.event_callback)
+    else:
+        print "Couldn't register action."
 else:
-    print 'invert-if: hexrays is not available.'
+    print 'hexrays is not available.'

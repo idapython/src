@@ -2,6 +2,7 @@
 %ignore enumerate_files;
 %rename (enumerate_files) py_enumerate_files;
 %ignore enumerate_system_files;
+%ignore enumerate_sorted_files;
 %ignore ioport_bit_t;
 %ignore ioport_bits_t;
 %ignore ioport_t;

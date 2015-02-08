@@ -221,6 +221,72 @@ def readsel2(view, p0, p1):
 //------------------------------------------------------------------------
 /*
 #<pydoc>
+def umsg(text):
+    """
+    Prints text into IDA's Output window
+
+    @param text: text to print
+                 Can be Unicode, or string in UTF-8 encoding
+    @return: number of bytes printed
+    """
+    pass
+#</pydoc>
+*/
+static PyObject* py_umsg(PyObject *o)
+{
+  PyObject* utf8 = NULL;
+  if ( PyUnicode_Check(o) )
+  {
+    utf8 = PyUnicode_AsUTF8String(o);
+    o = utf8;
+  }
+  else if ( !PyString_Check(o) )
+  {
+    PyErr_SetString(PyExc_TypeError, "A unicode or UTF-8 string expected");
+    return NULL;
+  }
+  int rc;
+  Py_BEGIN_ALLOW_THREADS;
+  rc = umsg("%s", PyString_AsString(o));
+  Py_END_ALLOW_THREADS;
+  Py_XDECREF(utf8);
+  return PyInt_FromLong(rc);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def msg(text):
+    """
+    Prints text into IDA's Output window
+
+    @param text: text to print
+                 Can be Unicode, or string in local encoding
+    @return: number of bytes printed
+    """
+    pass
+#</pydoc>
+*/
+static PyObject* py_msg(PyObject *o)
+{
+  if ( PyUnicode_Check(o) )
+    return py_umsg(o);
+
+  if ( !PyString_Check(o) )
+  {
+    PyErr_SetString(PyExc_TypeError, "A string expected");
+    return NULL;
+  }
+  int rc;
+  Py_BEGIN_ALLOW_THREADS;
+  rc = msg("%s", PyString_AsString(o));
+  Py_END_ALLOW_THREADS;
+  return PyInt_FromLong(rc);
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
 def asktext(max_text, defval, prompt):
     """
     Asks for a long text
@@ -299,18 +365,17 @@ PyObject *py_str2user(const char *str)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def process_ui_action(name, flags):
+def process_ui_action(name):
     """
     Invokes an IDA UI action by name
 
     @param name:  action name
-    @param flags: Reserved. Must be zero
     @return: Boolean
     """
     pass
 #</pydoc>
 */
-static bool py_process_ui_action(const char *name, int flags)
+static bool py_process_ui_action(const char *name, int flags = 0)
 {
   return process_ui_action(name, flags, NULL);
 }
@@ -319,12 +384,7 @@ static bool py_process_ui_action(const char *name, int flags)
 /*
 #<pydoc>
 def del_menu_item(menu_ctx):
-    """
-    Deletes a menu item previously added with add_menu_item()
-
-    @param menu_ctx: value returned by add_menu_item()
-    @return: Boolean
-    """
+    """Deprecated. Use detach_menu_item()/unregister_action() instead."""
     pass
 #</pydoc>
 */
@@ -337,7 +397,6 @@ static bool py_del_menu_item(PyObject *py_ctx)
   py_add_del_menu_item_ctx *ctx = (py_add_del_menu_item_ctx *)PyCObject_AsVoidPtr(py_ctx);
 
   bool ok = del_menu_item(ctx->menupath.c_str());
-
   if ( ok )
   {
     Py_DECREF(ctx->cb_data);
@@ -455,21 +514,7 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
 /*
 #<pydoc>
 def add_menu_item(menupath, name, hotkey, flags, callback, args):
-    """
-    Adds a menu item
-
-    @param menupath: path to the menu item after or before which the insertion will take place
-    @param name: name of the menu item (~x~ is used to denote Alt-x hot letter)
-    @param hotkey: hotkey for the menu item (may be empty)
-    @param flags: one of SETMENU_... consts
-    @param callback: function which gets called when the user selects the menu item.
-               The function callback is of the form:
-               def callback(*args):
-                  pass
-    @param args: tuple containing the arguments
-
-    @return: None or a menu context (to be used by del_menu_item())
-    """
+    """Deprecated. Use register_action()/attach_menu_item() instead."""
     pass
 #</pydoc>
 */
@@ -816,6 +861,45 @@ class UI_Hooks(object):
         """
         pass
 
+    def updating_actions(self, ctx):
+        """
+        The UI is about to batch-update some actions.
+
+        @param ctx: The action_update_ctx_t instance
+        @return: Ignored
+        """
+        pass
+
+    def updated_actions(self):
+        """
+        The UI is done updating actions.
+
+        @return: Ignored
+        """
+        pass
+
+    def populating_tform_popup(self, form, popup):
+        """
+        The UI is populating the TForm's popup menu.
+        Now is a good time to call idaapi.attach_action_to_popup()
+
+        @param form: The form
+        @param popup: The popup menu.
+        @return: Ignored
+        """
+        pass
+
+    def finish_populating_tform_popup(self, form, popup):
+        """
+        The UI is about to be done populating the TForm's popup menu.
+        Now is a good time to call idaapi.attach_action_to_popup()
+
+        @param form: The form
+        @param popup: The popup menu.
+        @return: Ignored
+        """
+        pass
+
     def term(self):
         """
         IDA is terminated and the database is already closed.
@@ -873,7 +957,242 @@ public:
     PYW_GIL_CHECK_LOCKED_SCOPE();
     Py_RETURN_NONE;
   };
+
+  virtual void current_tform_changed(TForm * /*form*/, TForm * /*previous_form*/)
+  {
+  }
+
+  virtual void updating_actions(action_update_ctx_t *ctx)
+  {
+  }
+
+  virtual void updated_actions()
+  {
+  }
+
+  virtual void populating_tform_popup(TForm * /*form*/, TPopupMenu * /*popup*/)
+  {
+  }
+
+  virtual void finish_populating_tform_popup(TForm * /*form*/, TPopupMenu * /*popup*/)
+  {
+  }
 };
+
+//-------------------------------------------------------------------------
+bool py_register_action(action_desc_t *desc)
+{
+  bool ok = register_action(*desc);
+  if ( ok )
+  {
+    // Success. We are managing this handler from now on,
+    // and must prevent it from being destroyed.
+    py_action_handlers[desc->name] = desc->handler;
+    // Let's set this to NULL, so when the wrapping Python action_desc_t
+    // instance is deleted, it doesn't try to delete the handler (See
+    // kernwin.i's action_desc_t::~action_desc_t()).
+    desc->handler = NULL;
+  }
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+bool py_unregister_action(const char *name)
+{
+  bool ok = unregister_action(name);
+  if ( ok )
+  {
+    py_action_handler_t *handler =
+      (py_action_handler_t *) py_action_handlers[name];
+    delete handler;
+    py_action_handlers.erase(name);
+  }
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+bool py_attach_dynamic_action_to_popup(
+        TForm *form,
+        TPopupMenu *popup_handle,
+        action_desc_t *desc,
+        const char *popuppath = NULL,
+        int flags = 0)
+{
+  bool ok = attach_dynamic_action_to_popup(
+          form, popup_handle, *desc, popuppath, flags);
+  if ( ok )
+    // Set the handler to null, so the desc won't destroy
+    // it, as it noticed ownership was taken by IDA.
+    // In addition, we don't need to register into the
+    // 'py_action_handlers', because IDA will destroy the
+    // handler as soon as the popup menu is closed.
+    desc->handler = NULL;
+  return ok;
+}
+
+// This is similar to a twinline_t, with improved memory management:
+// twinline_t has a dummy destructor, that performs no cleanup.
+struct disasm_line_t
+{
+  disasm_line_t() : at(NULL) {}
+  ~disasm_line_t() { qfree(at); }
+  disasm_line_t(const disasm_line_t &other) { *this = other; }
+  disasm_line_t &operator=(const disasm_line_t &other)
+  {
+    qfree(at);
+    at = other.at == NULL ? NULL : other.at->clone();
+    return *this;
+  }
+  place_t *at;
+  qstring line;
+  color_t prefix_color;
+  bgcolor_t bg_color;
+  bool is_default;
+};
+DECLARE_TYPE_AS_MOVABLE(disasm_line_t);
+typedef qvector<disasm_line_t> disasm_text_t;
+
+//-------------------------------------------------------------------------
+void py_gen_disasm_text(ea_t ea1, ea_t ea2, disasm_text_t &text, bool truncate_lines)
+{
+  text_t _text;
+  gen_disasm_text(ea1, ea2, _text, truncate_lines);
+  for ( size_t i = 0, n = _text.size(); i < n; ++i )
+  {
+    const twinline_t &tl = _text[i];
+    disasm_line_t &dl = text.push_back();
+    dl.at = tl.at;           // Transfer ownership
+    dl.line.inject(tl.line); // Transfer ownership
+  }
+}
+
+//-------------------------------------------------------------------------
+// Although 'TCustomControl*' and 'TForm*' instances can both be used
+// for attach_action_to_popup() at a binary-level, IDAPython SWIG bindings
+// require that a 'TForm *' wrapper be passed to wrap_attach_action_to_popup().
+// Thus, we provide another attach_action_to_popup() version, that
+// accepts a 'TCustomControl' as first argument.
+//
+// Since user-created GraphViewer are created like so:
+// +-------- PluginForm ----------+
+// |+----- TCustomControl -------+|
+// ||                            ||
+// ||                            ||
+// ||                            ||
+// ||                            ||
+// ||                            ||
+// |+----------------------------+|
+// +------------------------------+
+// The user cannot use GetTForm(), and use that to attach
+// an action to, because that'll attach the action to the PluginForm
+// instance.
+// Instead, the user must use GetTCustomControl(), and call
+// this function below with it.
+bool attach_action_to_popup(
+        TCustomControl *tcc,
+        TPopupMenu *popup_handle,
+        const char *name,
+        const char *popuppath = NULL,
+        int flags = 0)
+{
+  return attach_action_to_popup((TForm*) tcc, popup_handle, name, popuppath, flags);
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def set_nav_colorizer(callback):
+    """
+    Set a new colorizer for the navigation band.
+
+    The 'callback' is a function of 2 arguments:
+       - ea (the EA to colorize for)
+       - nbytes (the number of bytes at that EA)
+    and must return a 'long' value.
+
+    The previous colorizer is returned, allowing
+    the new 'callback' to use 'call_nav_colorizer'
+    with it.
+
+    Note that the previous colorizer is returned
+    only the first time set_nav_colorizer() is called:
+    due to the way the colorizers API is defined in C,
+    it is impossible to chain more than 2 colorizers
+    in IDAPython: the original, IDA-provided colorizer,
+    and a user-provided one.
+
+    Example: colorizer inverting the color provided by the IDA colorizer:
+        def my_colorizer(ea, nbytes):
+            global ida_colorizer
+            orig = idaapi.call_nav_colorizer(ida_colorizer, ea, nbytes)
+            return long(~orig)
+
+        ida_colorizer = idaapi.set_nav_colorizer(my_colorizer)
+    """
+    pass
+#</pydoc>
+*/
+nav_colorizer_t *py_set_nav_colorizer(PyObject *new_py_colorizer)
+{
+  static ref_t py_colorizer;
+  struct ida_local lambda_t
+  {
+    static uint32 idaapi call_py_colorizer(ea_t ea, asize_t nbytes)
+    {
+      PYW_GIL_GET;
+
+      if ( py_colorizer == NULL ) // Shouldn't happen.
+        return 0;
+      newref_t pyres = PyObject_CallFunction(
+              py_colorizer.o, "KK",
+              (unsigned long long) ea,
+              (unsigned long long) nbytes);
+      PyW_ShowCbErr("nav_colorizer");
+      if ( pyres.o == NULL )
+        return 0;
+      if ( !PyLong_Check(pyres.o) )
+      {
+        static bool warned = false;
+        if ( !warned )
+        {
+          msg("WARNING: set_nav_colorizer() callback must return a 'long'.\n");
+          warned = true;
+        }
+        return 0;
+      }
+      return PyLong_AsLong(pyres.o);
+    }
+  };
+
+  bool need_install = py_colorizer == NULL;
+  py_colorizer = borref_t(new_py_colorizer);
+  return need_install
+    ? set_nav_colorizer(lambda_t::call_py_colorizer)
+    : NULL;
+}
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def call_nav_colorizer(colorizer, ea, nbytes):
+    """
+    To be used with the IDA-provided colorizer, that is
+    returned as result of the first call to set_nav_colorizer().
+
+    This is a trivial trampoline, so that SWIG can generate a
+    wrapper that will do the types checking.
+    """
+    pass
+#</pydoc>
+*/
+uint32 py_call_nav_colorizer(
+        nav_colorizer_t *col,
+        ea_t ea,
+        asize_t nbytes)
+{
+  return col(ea, nbytes);
+}
+
 //</inline(py_kernwin)>
 
 //---------------------------------------------------------------------------
@@ -932,6 +1251,44 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
         }
         break;
       }
+
+      case ui_current_tform_changed:
+        {
+          TForm *form = va_arg(va, TForm *);
+          TForm *prev_form = va_arg(va, TForm *);
+          proxy->current_tform_changed(form, prev_form);
+        }
+        break;
+
+      case ui_updating_actions:
+        {
+          action_update_ctx_t *ctx = va_arg(va, action_update_ctx_t *);
+          proxy->updating_actions(ctx);
+        }
+        break;
+
+
+      case ui_updated_actions:
+        {
+          proxy->updated_actions();
+        }
+        break;
+
+      case ui_populating_tform_popup:
+        {
+          TForm *form = va_arg(va, TForm *);
+          TPopupMenu *popup = va_arg(va, TPopupMenu *);
+          proxy->populating_tform_popup(form, popup);
+        }
+        break;
+
+      case ui_finish_populating_tform_popup:
+        {
+          TForm *form = va_arg(va, TForm *);
+          TPopupMenu *popup = va_arg(va, TPopupMenu *);
+          proxy->finish_populating_tform_popup(form, popup);
+        }
+        break;
     }
   }
   catch (Swig::DirectorException &e)

@@ -748,6 +748,10 @@ public:
   {
   }
 
+  virtual void auto_empty_finally()
+  {
+  }
+
   virtual int rename(ea_t ea, const char *new_name)
   {
     return 0;
@@ -774,6 +778,15 @@ public:
 
   virtual void load_idasgn(const char *short_sig_name)
   {
+  }
+
+  virtual void auto_empty()
+  {
+  }
+
+  virtual int auto_queue_empty(atype_t type)
+  {
+    return 1; // Keep the queue empty.
   }
 
   virtual void add_func(func_t *func)
@@ -834,38 +847,38 @@ public:
     return unhook_from_notification_point(HT_IDB, IDB_Callback, this);
   }
   // Hook functions to override in Python
-  virtual int byte_patched(ea_t /*ea*/) { return 0; };
-  virtual int cmt_changed(ea_t, bool /*repeatable_cmt*/) { return 0; };
+  virtual int byte_patched(ea_t /*ea*/) { return 0; }
+  virtual int cmt_changed(ea_t, bool /*repeatable_cmt*/) { return 0; }
   virtual int area_cmt_changed(areacb_t * /*areas*/, area_t * /*area*/, const char * /*cmt*/, bool /*repeatable*/) { return 0; }
-  virtual int ti_changed(ea_t /*ea*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; };
-  virtual int op_ti_changed(ea_t /*ea*/, int /*n*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; };
-  virtual int op_type_changed(ea_t /*ea*/, int /*n*/) { return 0; };
-  virtual int enum_created(enum_t /*id*/) { return 0; };
-  virtual int enum_deleted(enum_t /*id*/) { return 0; };
-  virtual int enum_bf_changed(enum_t /*id*/) { return 0; };
-  virtual int enum_renamed(enum_t /*id*/) { return 0; };
-  virtual int enum_cmt_changed(enum_t /*id*/) { return 0; };
-  virtual int enum_member_created(enum_t /*id*/, const_t cid) { return 0; };
-  virtual int enum_member_deleted(enum_t /*id*/, const_t cid) { return 0; };
-  virtual int struc_created(tid_t /*struc_id*/) { return 0; };
-  virtual int struc_deleted(tid_t /*struc_id*/) { return 0; };
-  virtual int struc_renamed(struc_t * /*sptr*/) { return 0; };
-  virtual int struc_expanded(struc_t * /*sptr*/) { return 0; };
-  virtual int struc_cmt_changed(tid_t /*struc_id*/) { return 0; };
-  virtual int struc_member_created(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
-  virtual int struc_member_deleted(struc_t * /*sptr*/, tid_t /*member_id*/, ea_t /*offset*/) { return 0; };
-  virtual int struc_member_renamed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
-  virtual int struc_member_changed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; };
-  virtual int thunk_func_created(func_t * /*pfn*/) { return 0; };
-  virtual int func_tail_appended(func_t * /*pfn*/, func_t * /*tail*/) { return 0; };
-  virtual int func_tail_removed(func_t * /*pfn*/, ea_t /*tail_ea*/) { return 0; };
-  virtual int tail_owner_changed(func_t * /*tail*/, ea_t /*owner_func*/) { return 0; };
-  virtual int func_noret_changed(func_t * /*pfn*/) { return 0; };
-  virtual int segm_added(segment_t * /*s*/) { return 0; };
-  virtual int segm_deleted(ea_t /*startEA*/) { return 0; };
-  virtual int segm_start_changed(segment_t * /*s*/) { return 0; };
-  virtual int segm_end_changed(segment_t * /*s*/) { return 0; };
-  virtual int segm_moved(ea_t /*from*/, ea_t /*to*/, asize_t /*size*/) { return 0; };
+  virtual int ti_changed(ea_t /*ea*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; }
+  virtual int op_ti_changed(ea_t /*ea*/, int /*n*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; }
+  virtual int op_type_changed(ea_t /*ea*/, int /*n*/) { return 0; }
+  virtual int enum_created(enum_t /*id*/) { return 0; }
+  virtual int enum_deleted(enum_t /*id*/) { return 0; }
+  virtual int enum_bf_changed(enum_t /*id*/) { return 0; }
+  virtual int enum_renamed(enum_t /*id*/) { return 0; }
+  virtual int enum_cmt_changed(enum_t /*id*/) { return 0; }
+  virtual int enum_member_created(enum_t /*id*/, const_t cid) { return 0; }
+  virtual int enum_member_deleted(enum_t /*id*/, const_t cid) { return 0; }
+  virtual int struc_created(tid_t /*struc_id*/) { return 0; }
+  virtual int struc_deleted(tid_t /*struc_id*/) { return 0; }
+  virtual int struc_renamed(struc_t * /*sptr*/) { return 0; }
+  virtual int struc_expanded(struc_t * /*sptr*/) { return 0; }
+  virtual int struc_cmt_changed(tid_t /*struc_id*/) { return 0; }
+  virtual int struc_member_created(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
+  virtual int struc_member_deleted(struc_t * /*sptr*/, tid_t /*member_id*/, ea_t /*offset*/) { return 0; }
+  virtual int struc_member_renamed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
+  virtual int struc_member_changed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
+  virtual int thunk_func_created(func_t * /*pfn*/) { return 0; }
+  virtual int func_tail_appended(func_t * /*pfn*/, func_t * /*tail*/) { return 0; }
+  virtual int func_tail_removed(func_t * /*pfn*/, ea_t /*tail_ea*/) { return 0; }
+  virtual int tail_owner_changed(func_t * /*tail*/, ea_t /*owner_func*/) { return 0; }
+  virtual int func_noret_changed(func_t * /*pfn*/) { return 0; }
+  virtual int segm_added(segment_t * /*s*/) { return 0; }
+  virtual int segm_deleted(ea_t /*startEA*/) { return 0; }
+  virtual int segm_start_changed(segment_t * /*s*/) { return 0; }
+  virtual int segm_end_changed(segment_t * /*s*/) { return 0; }
+  virtual int segm_moved(ea_t /*from*/, ea_t /*to*/, asize_t /*size*/) { return 0; }
 };
 
 //</inline(py_idp)>
@@ -951,6 +964,12 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
         break;
       }
 
+    case processor_t::auto_empty_finally:
+      {
+        proxy->auto_empty_finally();
+        break;
+      }
+
     case processor_t::rename:
       {
         ea_t ea = va_arg(va, ea_t);
@@ -997,6 +1016,19 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
       {
         const char *short_sig_name = va_arg(va, const char *);
         proxy->load_idasgn(short_sig_name);
+        break;
+      }
+
+    case processor_t::auto_empty:
+      {
+        proxy->auto_empty();
+        break;
+      }
+
+    case processor_t::auto_queue_empty:
+      {
+        atype_t type = va_arg(va, atype_t);
+        ret = proxy->auto_queue_empty(type);
         break;
       }
 

@@ -71,7 +71,6 @@
 %ignore argloc_t::dstr;
 
 %ignore extract_pstr;
-%ignore extract_name;
 %ignore skipName;
 %ignore extract_comment;
 %ignore skipComment;
@@ -180,43 +179,78 @@
 %{
 //<code(py_typeinf)>
 //-------------------------------------------------------------------------
-// A set of tinfo_t objects that were created from IDAPython.
+// A set of tinfo_t & details objects that were created from IDAPython.
 // This is necessary in order to clear all the "type details" that are
 // associated, in the kernel, with the tinfo_t instances.
 //
 // Unfortunately the IDAPython plugin has to terminate _after_ the IDB is
 // closed, but the "type details" must be cleared _before_ the IDB is closed.
-static qvector<tinfo_t*> python_tinfos;
+static qvector<tinfo_t*> py_tinfo_t_vec;
+static qvector<ptr_type_data_t*> py_ptr_type_data_t_vec;
+static qvector<array_type_data_t*> py_array_type_data_t_vec;
+static qvector<func_type_data_t*> py_func_type_data_t_vec;
+static qvector<udt_type_data_t*> py_udt_type_data_t_vec;
+
+static void __clear(tinfo_t *inst) { inst->clear(); }
+static void __clear(ptr_type_data_t *inst) { inst->obj_type.clear(); inst->closure.clear(); }
+static void __clear(array_type_data_t *inst) { inst->elem_type.clear(); }
+static void __clear(func_type_data_t *inst) { inst->clear(); inst->rettype.clear(); }
+static void __clear(udt_type_data_t *inst) { inst->clear(); }
+
 void til_clear_python_tinfo_t_instances(void)
 {
-  // Pre-emptive strike: clear all the python-exposed tinfo_t instances: if that
-  // were not done here, ~tinfo_t() calls happening as part of the python shutdown
-  // process will try and clear() their details. ..but the kernel's til-related
-  // functions will already have deleted those details at that point.
-  for ( size_t i = 0, n = python_tinfos.size(); i < n; ++i )
-    python_tinfos[i]->clear();
-  // NOTE: Don't clear() the array of pointers. All the python-exposed tinfo_t
+  // Pre-emptive strike: clear all the python-exposed tinfo_t
+  // (& related types) instances: if that were not done here,
+  // ~tinfo_t() calls happening as part of the python shutdown
+  // process will try and clear() their details. ..but the kernel's
+  // til-related functions will already have deleted those details
+  // at that point.
+  //
+  // NOTE: Don't clear() the arrays of pointers. All the python-exposed
   // instances will be deleted through the python shutdown/ref-decrementing
   // process anyway (which will cause til_deregister_..() calls), and the
   // entries will be properly pulled out of the vector when that happens.
+#define BATCH_CLEAR(Type)                                               \
+  do                                                                    \
+  {                                                                     \
+    for ( size_t i = 0, n = py_##Type##_vec.size(); i < n; ++i )        \
+      __clear(py_##Type##_vec[i]);                                      \
+  } while ( false )
+
+  BATCH_CLEAR(tinfo_t);
+  BATCH_CLEAR(ptr_type_data_t);
+  BATCH_CLEAR(array_type_data_t);
+  BATCH_CLEAR(func_type_data_t);
+  BATCH_CLEAR(udt_type_data_t);
+#undef BATCH_CLEAR
 }
 
-void til_register_python_tinfo_t_instance(tinfo_t *tif)
-{
-  // Let's add_unique() it, because every reference to an object's
-  // tinfo_t property will end up trying to register it.
-  python_tinfos.add_unique(tif);
-}
-
-void til_deregister_python_tinfo_t_instance(tinfo_t *tif)
-{
-  qvector<tinfo_t*>::iterator found = python_tinfos.find(tif);
-  if ( found != python_tinfos.end() )
-  {
-    tif->clear();
-    python_tinfos.erase(found);
+#define DEF_REG_UNREG_REFCOUNTED(Type)                                  \
+  void til_register_python_##Type##_instance(Type *inst)                \
+  {                                                                     \
+    /* Let's add_unique() it, because in the case of tinfo_t, every reference*/ \
+    /* to an object's tinfo_t property will end up trying to register it. */ \
+    py_##Type##_vec.add_unique(inst);                                   \
+  }                                                                     \
+                                                                        \
+  void til_deregister_python_##Type##_instance(Type *inst)              \
+  {                                                                     \
+    qvector<Type*>::iterator found = py_##Type##_vec.find(inst);        \
+    if ( found != py_##Type##_vec.end() )                               \
+    {                                                                   \
+      __clear(inst);                                                    \
+      /* tif->clear();*/                                                \
+      py_##Type##_vec.erase(found);                                     \
+    }                                                                   \
   }
-}
+
+DEF_REG_UNREG_REFCOUNTED(tinfo_t);
+DEF_REG_UNREG_REFCOUNTED(ptr_type_data_t);
+DEF_REG_UNREG_REFCOUNTED(array_type_data_t);
+DEF_REG_UNREG_REFCOUNTED(func_type_data_t);
+DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
+
+#undef DEF_REG_UNREG_REFCOUNTED
 
 //</code(py_typeinf)>
 %}
@@ -244,6 +278,34 @@ void til_deregister_python_tinfo_t_instance(tinfo_t *tif)
   }
 }
 %ignore tinfo_t::~tinfo_t(void);
+
+//---------------------------------------------------------------------
+// NOTE: This will ***NOT*** work for tinfo_t objects. Those must
+// be created and owned (or not) according to the kind of access.
+// To implement that, we use typemaps (see typeconv.i).
+%define %simple_tinfo_t_container_lifecycle(Type, CtorSig, ParamsList)
+%extend Type {
+  Type CtorSig
+  {
+    Type *inst = new Type ParamsList;
+    til_register_python_##Type##_instance(inst);
+    return inst;
+  }
+
+  ~Type(void)
+  {
+    til_deregister_python_##Type##_instance($self);
+    delete $self;
+  }
+}
+%enddef
+%simple_tinfo_t_container_lifecycle(ptr_type_data_t, (tinfo_t c=tinfo_t(), uchar bps=0), (c, bps));
+%simple_tinfo_t_container_lifecycle(array_type_data_t, (size_t b=0, size_t n=0), (b, n));
+%simple_tinfo_t_container_lifecycle(func_type_data_t, (), ());
+%simple_tinfo_t_container_lifecycle(udt_type_data_t, (), ());
+
+%template(funcargvec_t)   qvector<funcarg_t>;
+%template(udtmembervec_t) qvector<udt_member_t>;
 
 %include "typeinf.hpp"
 
@@ -324,9 +386,9 @@ PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
 def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
     """
     Apply the specified type to the address
-    @param ti: Type info. 'idaapi.cvar.idati' can be passed.
+    @param ti: Type info library. 'idaapi.cvar.idati' can be used.
     @param py_type: type string
-    @param py_fields: type fields
+    @param py_fields: fields string (may be empty or None)
     @param ea: the address of the object
     @param flags: combination of TINFO_... constants or 0
     @return: Boolean
@@ -337,17 +399,44 @@ def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
 static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_t ea, int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
   }
   const type_t *type   = (const type_t *) PyString_AsString(py_type);
-  const p_list *fields = (const p_list *) PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
   bool rc;
   Py_BEGIN_ALLOW_THREADS;
-  tinfo_t tif;
-  rc = tif.deserialize(ti, &type, &fields, NULL) && apply_tinfo2(ea, tif, flags);
+  struc_t *sptr;
+  member_t *mptr = get_member_by_id(ea, &sptr);
+  if ( type[0] == '\0' )
+  {
+    if ( mptr != NULL )
+    {
+      rc = mptr->has_ti();
+      if ( rc )
+        del_member_tinfo(sptr, mptr);
+    }
+    else
+    {
+      rc = has_ti(ea);
+      if ( rc )
+        del_tinfo2(ea);
+    }
+  }
+  else
+  {
+    tinfo_t tif;
+    rc = tif.deserialize(ti, &type, &fields, NULL);
+    if ( rc )
+    {
+      if ( mptr != NULL )
+        rc = set_member_tinfo2(sptr, mptr, 0, tif, 0);
+      else
+        rc = apply_tinfo2(ea, tif, flags);
+    }
+  }
   Py_END_ALLOW_THREADS;
   return rc;
 }
@@ -395,7 +484,7 @@ PyObject *py_unpack_object_from_idb(
   int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -407,7 +496,7 @@ PyObject *py_unpack_object_from_idb(
 
   // Unpack
   type_t *type   = (type_t *) PyString_AsString(py_type);
-  p_list *fields = (p_list *) PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -445,7 +534,7 @@ def unpack_object_from_bv(ti, tp, fields, bytes, pio_flags = 0):
     Returns the error_t returned by idaapi.pack_object_to_idb
     @param ti: Type info. 'idaapi.cvar.idati' can be passed.
     @param tp: type string
-    @param fields: type fields
+    @param fields: fields string (may be empty or None)
     @param bytes: the bytes to unpack
     @param pio_flags: flags used while unpacking
     @return:
@@ -463,7 +552,7 @@ PyObject *py_unpack_object_from_bv(
   int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) && !PyString_Check(py_bytes) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) || !PyString_Check(py_bytes) )
   {
     PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
     return NULL;
@@ -475,7 +564,7 @@ PyObject *py_unpack_object_from_bv(
 
   // Get type strings
   type_t *type   = (type_t *) PyString_AsString(py_type);
-  p_list *fields = (p_list *) PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
 
   // Make a byte vector
   bytevec_t bytes;
@@ -519,7 +608,7 @@ def pack_object_to_idb(obj, ti, tp, fields, ea, pio_flags = 0):
     Returns the error_t returned by idaapi.pack_object_to_idb
     @param ti: Type info. 'idaapi.cvar.idati' can be passed.
     @param tp: type string
-    @param fields: type fields
+    @param fields: fields string (may be empty or None)
     @param ea: ea to be used while packing
     @param pio_flags: flags used while unpacking
     """
@@ -535,7 +624,7 @@ PyObject *py_pack_object_to_idb(
   int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -553,7 +642,7 @@ PyObject *py_pack_object_to_idb(
 
   // Get type strings
   type_t *type   = (type_t *)PyString_AsString(py_type);
-  p_list *fields = (p_list *)PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
   // error_t err;
@@ -572,7 +661,7 @@ def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
     Packs a typed object to a string
     @param ti: Type info. 'idaapi.cvar.idati' can be passed.
     @param tp: type string
-    @param fields: type fields
+    @param fields: fields string (may be empty or None)
     @param base_ea: base ea used to relocate the pointers in the packed object
     @param pio_flags: flags used while unpacking
     @return:
@@ -592,7 +681,7 @@ PyObject *py_pack_object_to_bv(
   int pio_flags=0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -610,7 +699,7 @@ PyObject *py_pack_object_to_bv(
 
   // Get type strings
   type_t *type   = (type_t *)PyString_AsString(py_type);
-  p_list *fields = (p_list *)PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
   relobj_t bytes;
@@ -754,7 +843,7 @@ int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *name, int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) && !PyString_Check(py_fields) )
+  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
   {
     PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
     return NULL;
@@ -766,7 +855,7 @@ PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *nam
 
   qstring res;
   const type_t *type   = (type_t *)PyString_AsString(py_type);
-  const p_list *fields = (p_list *)PyString_AsString(py_fields);
+  const p_list *fields = PyW_Fields(py_fields);
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
   tinfo_t tif;

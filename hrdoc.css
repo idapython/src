@@ -1,0 +1,334 @@
+
+a { text-decoration: none; }
+a:link {color: #0033CC}
+a:visited {color: #0033CC}
+a:hover {color: #0099FF}
+a:active {color: #0033CC}
+
+h3
+{
+  margin-top: 22px;
+}
+
+p
+{
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 12px;
+}
+
+
+body
+{
+	background-color:#ffffff;
+	font-family: Verdana;
+	font-size: 12px;
+}
+
+.pre
+{
+  font-family: FixedSys, Courier, Monospace;
+  white-space: pre;
+  color: #0000A0;
+  display: inline;
+}
+
+.checkpoint
+{
+  font-weight: bold;
+  background-color: #FFFF80;
+}
+
+.hi     /* highlight */
+{
+        display: inline;
+	background-color: #FFFF70;
+}
+
+/*---------------------- The main page, not used now -------------------*/
+
+#main
+{
+	margin: 0 auto 0 auto;
+        position: relative;
+	background-image:url(/images/main.jpg);
+	width: 845px;
+	height: 568px;
+	color:#0033CC;
+	font-family: Verdana;
+        font-style: italic;
+        border: 1px solid blue;
+}
+
+#logo
+{
+        position: absolute;
+        right: 10px;
+        top: 15px;
+	background-image: url(/images/bigname.png);
+        width: 357px;
+        height: 78px;
+}
+
+#menu
+{
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+}
+
+#menu li
+{
+        display: block;
+        list-style-type: none;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+}
+
+#menu a, #action a
+{
+        margin: 0px 0px 0px 0px;
+        padding-left: 8px;
+        padding-right: 8px;
+        display: block;
+        width: 140px;
+}
+
+#action a
+{
+        margin: 0px 0px 0px 0px;
+        padding-left: 8px;
+        padding-right: 8px;
+        display: block;
+        width: 100%;
+}
+
+#menu li a:hover, #action:hover
+{
+	background-image: url(/images/bigbutton.jpg);
+        color: white;
+}
+
+#menu a:hover, #action a:hover { color:#0033CC }
+
+#action
+{
+	position: absolute;
+        top: 300px;
+        left: 600px;
+        display: block;
+        width:220px;
+        padding-right: 8px;
+        border: 2px solid red;
+}
+
+
+/*--------------------------------------------------------------------------*/
+#regular-page
+{
+	margin: 0 auto;
+	padding: 0;
+	width: 800px;
+        display: block;
+        border: 1px solid blue;
+        position: relative;
+}
+
+#navmenu
+{
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 4px 0px;
+        position: relative;
+        background-color: #000000;
+        height: 28px;
+}
+
+#navigation
+{
+        text-align: center;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+#navigation li
+{
+	display: inline;
+	list-style-type: none;
+}
+
+#navigation a
+{
+        width: 99px;
+        height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 6px 0px 2px 0px;
+        position: absolute;
+        font-weight: bold;
+	display: inline;
+}
+
+#b1 { left:   0px; }
+#b2 { left: 99px; }
+#b3 { left: 198px; }
+#b4 { left: 297px; }
+#b5 { left: 396px; }
+#b6 { left: 495px; }
+#b7 { left: 594px; }
+#b8 { left: 693px; }
+
+#navigation li a
+{
+        color: #77BBFF;
+}
+
+#navigation li a:hover
+{
+        color: white;
+}
+
+#navigation a:hover
+{
+	background-image:url(/images/bigbutton.jpg);
+}
+
+#header
+{
+        display: block;
+	background-image:url(/images/header.jpg);
+        background-repeat: no-repeat;
+        background-color: #000000;
+        height: 160px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+        position: relative;
+}
+
+#header-text
+{
+	margin: 0px 0px 0px 0px;
+	font-size: 24px;
+/*        font-style: italic;*/
+        color: #77BBFF;
+        position: absolute;
+        bottom: 1px;
+        right: 10px;
+        padding-right: 5px;
+        text-align: right;
+}
+
+#col1, #col2
+{
+        padding: 10px 7px 10px 7px;
+}
+
+#col1
+{
+        float: left;
+        width: 170px;
+	font-size: 24px;
+        font-style: italic;
+}
+
+#col2
+{
+        float: right;
+        width: 600px;
+        border-left: 1px solid #0000FF;
+}
+
+#bmenu
+{
+        color: #77BBFF;
+	text-align: center;
+	font-size: 10px;
+        clear: both;
+        list-style-type: none;
+        margin-bottom: 2px;
+}
+
+#bmenu li
+{
+        display: inline;
+}
+
+#footer
+{
+        color: #77BBFF;
+	text-align: center;
+	font-size: 10px;
+        clear: both;
+        margin-top: 0px;
+        padding-left: 2px;
+        padding-bottom: 2px;
+}
+
+#footer a:link {color: #0099FF}
+#footer a:visited {color: #0099FF}
+#footer a:hover {color: #0033CC}
+
+/*------ User Manual ------------------------------------------------------*/
+
+#manual h1
+{
+  font-family: "Trebuchet MS", Trebuchet, Verdana, Arial, sans-serif;
+  font-size: 22px;
+  background: #bfffbf;
+  text-align: center;
+}
+
+#manual h3
+{
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+  background: #bfffff;
+}
+
+#manual
+{
+  padding: 0;
+  font-family: "Trebuchet MS", Trebuchet, Verdana, Arial, sans-serif;
+  font-size: medium;
+  width: 570px;
+}
+
+/*------ Comparison Page --------------------------------------------------*/
+
+.compare
+{
+  border-top: 1px solid blue;
+}
+
+.cmphdr
+{
+  font-size: 22px;
+  text-align: center;
+  padding: 10px 7px 10px 7px;
+}
+
+.cmptext
+{
+  white-space: pre;
+  font-family: FixedSys, Courier, Monospace;
+  font-size: x-small;
+  color: blue;
+  background: white;
+}
+
+.cmpasm
+{
+  background: #DDEEFF;
+}
+
+.cmpc
+{
+  background: #EEFFEE;
+}
+
+.cmptell
+{
+  padding: 10px 7px 10px 7px;
+  clear: both;
+  font-size: small;
+  width: 600px;
+}
+

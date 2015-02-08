@@ -29,4 +29,6 @@
 %ignore calc_frame_offset;
 %ignore add_stkvar;
 
+%template(xreflist_t) qvector<xreflist_entry_t>;
+
 %include "frame.hpp"

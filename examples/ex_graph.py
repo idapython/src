@@ -3,11 +3,24 @@
 # in Python
 # (c) Hex-Rays
 #
-from idaapi import GraphViewer
+from idaapi import *
+
+class GraphCloser(action_handler_t):
+    def __init__(self, graph):
+        action_handler_t.__init__(self)
+        self.graph = graph
+
+    def activate(self, ctx):
+        self.graph.Close()
+
+    def update(self, ctx):
+        return AST_ENABLE_ALWAYS
+
 
 class MyGraph(GraphViewer):
     def __init__(self, funcname, result):
-        GraphViewer.__init__(self, "call graph of " + funcname)
+        self.title = "call graph of " + funcname
+        GraphViewer.__init__(self, self.title)
         self.funcname = funcname
         self.result = result
 
@@ -23,24 +36,14 @@ class MyGraph(GraphViewer):
     def OnGetText(self, node_id):
         return str(self[node_id])
 
-    def OnCommand(self, cmd_id):
-        """
-        Triggered when a menu command is selected through the menu or its hotkey
-        @return: None
-        """
-        if self.cmd_close == cmd_id:
-            self.Close()
-            return
-
-        print "command:", cmd_id
-
     def Show(self):
         if not GraphViewer.Show(self):
             return False
-        self.cmd_close = self.AddCommand("Close", "F2")
-        if self.cmd_close == 0:
-            print "Failed to add popup menu item!"
+        actname = "graph_closer:%s" % self.title
+        register_action(action_desc_t(actname, "Close %s" % self.title, GraphCloser(self)))
+        attach_action_to_popup(self.GetTCustomControl(), None, actname)
         return True
+
 
 def show_graph():
     f = idaapi.get_func(here())

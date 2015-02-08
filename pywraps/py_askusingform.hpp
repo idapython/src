@@ -126,7 +126,7 @@ static void formchgcbfa_refresh_field(size_t p_fa, int fid)
 }
 
 //---------------------------------------------------------------------------
-static void formchgcbfa_close(size_t p_fa, int fid, int close_normally)
+static void formchgcbfa_close(size_t p_fa, int close_normally)
 {
   DECLARE_FORM_ACTIONS;
   fa->close(close_normally);
@@ -360,6 +360,12 @@ static size_t py_get_AskUsingForm()
   // implementation through which the call well go will first
   // unblock other threads. No need to do it ourselves.
   return (size_t)AskUsingForm_c;
+}
+
+static size_t py_get_OpenForm()
+{
+  // See comments above.
+  return (size_t)OpenForm_c;
 }
 
 //</inline(py_kernwin)>
