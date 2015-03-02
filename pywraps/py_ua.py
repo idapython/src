@@ -485,7 +485,7 @@ class processor_t(pyidc_opaque_object_t):
         short processor names similar to the one in ph.psnames.
         This method can be overridden to return to the kernel a different IDP description.
         """
-        return '\x01'.join(map(lambda t: '\x01'.join(t), zip(self.plnames, self.psnames)))
+        return self.plnames[0] + ':' + ':'.join(self.psnames)
 
     def get_uFlag(self):
         """Use this utility function to retrieve the 'uFlag' global variable"""
