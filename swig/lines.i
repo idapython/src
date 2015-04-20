@@ -51,6 +51,7 @@
 %ignore align_down_to_stack;
 %ignore align_up_to_stack;
 %ignore remove_spaces;
+%ignore prepare_ghost_copy_desc;
 %ignore bgcolors;
 
 %ignore set_user_defined_prefix;

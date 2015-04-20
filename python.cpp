@@ -115,14 +115,14 @@ int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 
 //-------------------------------------------------------------------------
 // Helper routines to make Python script execution breakable from IDA
-static int    ninsns = 0;      // number of times trace function was called
-static bool   box_displayed;  // has the wait box been displayed?
+static int ninsns = 0;      // number of times trace function was called
+static bool box_displayed;  // has the wait box been displayed?
 static time_t start_time;   // the start time of the execution
-static int    script_timeout = 2;
-static bool   g_ui_ready = false;
-static bool   g_alert_auto_scripts = true;
-static bool   g_remove_cwd_sys_path = false;
-static bool   g_use_local_python    = false;
+static int script_timeout = 2;
+static bool g_ui_ready = false;
+static bool g_alert_auto_scripts = true;
+static bool g_remove_cwd_sys_path = false;
+static bool g_use_local_python = false;
 
 static void end_execution(void);
 static void begin_execution(void);
@@ -204,6 +204,20 @@ static void end_execution()
 }
 
 //-------------------------------------------------------------------------
+pycall_res_t::pycall_res_t(PyObject *pyo)
+  : result(pyo)
+{
+  PYGLOG("return code: %p\n", result.o);
+}
+
+//-------------------------------------------------------------------------
+pycall_res_t::~pycall_res_t()
+{
+  if (PyErr_Occurred())
+    PyErr_Print();
+}
+
+//-------------------------------------------------------------------------
 //lint -esym(714,disable_script_timeout) Symbol not referenced
 void disable_script_timeout()
 {
@@ -235,7 +249,7 @@ static void handle_python_error(
       size_t errbufsize,
       bool clear_error = true)
 {
-  if ( errbufsize > 0 )
+  if ( errbufsize > 0 && errbuf != NULL )
     errbuf[0] = '\0';
 
   // No exception?
@@ -243,7 +257,7 @@ static void handle_python_error(
     return;
 
   qstring s;
-  if ( PyW_GetError(&s, clear_error) )
+  if ( PyW_GetError(&s, clear_error) && errbuf != NULL )
     qstrncpy(errbuf, s.c_str(), errbufsize);
 }
 
@@ -392,7 +406,8 @@ const char *idaapi set_python_options(
       }
       else if ( qstrcmp(keyword, "USE_LOCAL_PYTHON") == 0 )
       {
-        g_use_local_python = *(uval_t *)value != 0;
+        msg("\"USE_LOCAL_PYTHON\" is deprecated. IDA will always use "
+            "its own Python libraries if directory python/lib/ exists.\n");
         break;
       }
     }
@@ -403,7 +418,7 @@ const char *idaapi set_python_options(
 
 //-------------------------------------------------------------------------
 // Check for the presence of a file in IDADIR/python and complain on error
-bool CheckScriptFiles()
+static bool check_python_dir()
 {
   static const char *const script_files[] =
   {
@@ -412,9 +427,9 @@ bool CheckScriptFiles()
     "idaapi.py",
     "idautils.py"
   };
+  char filepath[QMAXPATH];
   for ( size_t i=0; i<qnumber(script_files); i++ )
   {
-    char filepath[QMAXPATH];
     qmakepath(filepath, sizeof(filepath), g_idapython_dir, script_files[i], NULL);
     if ( !qfileexist(filepath) )
     {
@@ -422,6 +437,16 @@ bool CheckScriptFiles()
       return false;
     }
   }
+
+  qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", NULL);
+  if ( qisdir(filepath) )
+  {
+#ifdef _DEBUG
+    msg("Found \"%s\"; assuming local Python.\n", filepath);
+#endif
+    g_use_local_python = true;
+  }
+
   return true;
 }
 
@@ -1234,7 +1259,7 @@ bool idaapi IDAPYthon_cli_complete_line(
   // Swallow the error
   PyW_GetError(completion);
 
-  bool ok = py_ret != NULL && PyString_Check(py_ret.o) != 0;
+  bool ok = py_ret != NULL && PyString_Check(py_ret.o);
   if ( ok )
     *completion = PyString_AS_STRING(py_ret.o);
   return ok;
@@ -1365,6 +1390,14 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
         convert_idc_args();
         if ( g_run_when == run_on_db_open )
           RunScript(g_run_script);
+      }
+      break;
+
+    case ui_term:
+      {
+        PYW_GIL_GET;
+        // Let's make sure there are no non-Free()d forms.
+        free_compiled_form_instances();
       }
       break;
 
@@ -1504,7 +1537,7 @@ bool IDAPython_Init(void)
   qstrncpy(g_idapython_dir, idadir(PYTHON_DIR_NAME), sizeof(g_idapython_dir));
 
   // Check for the presence of essential files
-  if ( !CheckScriptFiles() )
+  if ( !check_python_dir() )
     return false;
 
   char tmp[QMAXPATH];
@@ -1554,7 +1587,20 @@ bool IDAPython_Init(void)
   }
 
   if ( g_use_local_python )
+  {
+    // Set the program name:
+    // "This is used by Py_GetPath() and some other functions below to find the
+    //  Python run-time libraries relative to the interpreter executable".
+    // <https://docs.python.org/2/c-api/init.html#c.Py_SetProgramName>
+    //
+    // Note:
+    // "The argument should point to a zero-terminated character string
+    //  in static storage whose contents will not change for the duration
+    //  of the program's execution"
+    static qstring pname = idadir("");
+    Py_SetProgramName(pname.begin());
     Py_SetPythonHome(g_idapython_dir);
+  }
 
   // don't import "site" right now
   Py_NoSiteFlag = 1;

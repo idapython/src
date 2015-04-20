@@ -375,4 +375,27 @@ void deinit_pywraps();
 
 void hexrays_clear_python_cfuncptr_t_references(void);
 
+void free_compiled_form_instances(void);
+
+//#define PYGDBG_ENABLED
+#ifdef PYGDBG_ENABLED
+#define PYGLOG(...) msg(__VA_ARGS__)
+#else
+#define PYGLOG(...)
+#endif
+
+//-------------------------------------------------------------------------
+struct pycall_res_t
+{
+  pycall_res_t(PyObject *pyo);
+  ~pycall_res_t();
+
+  inline bool success() const { return result.o != NULL; }
+
+  newref_t result;
+
+private:
+  pycall_res_t(); // No.
+};
+
 #endif

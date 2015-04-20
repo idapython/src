@@ -3632,7 +3632,7 @@ def GetSegmentAttr(segea, attr):
     seg = idaapi.getseg(segea)
     assert seg, "could not find segment at 0x%x" % segea
     if attr in [ SEGATTR_ES, SEGATTR_CS, SEGATTR_SS, SEGATTR_DS, SEGATTR_FS, SEGATTR_GS ]:
-        return idaapi.get_defsr(seg, _SEGATTRMAP[attr])
+        return idaapi.get_defsr(seg, _SEGATTRMAP[attr][1])
     else:
         return _IDC_GetAttr(seg, _SEGATTRMAP, attr)
 
@@ -3651,7 +3651,7 @@ def SetSegmentAttr(segea, attr, value):
     seg = idaapi.getseg(segea)
     assert seg, "could not find segment at 0x%x" % segea
     if attr in [ SEGATTR_ES, SEGATTR_CS, SEGATTR_SS, SEGATTR_DS, SEGATTR_FS, SEGATTR_GS ]:
-        idaapi.set_defsr(seg, _SEGATTRMAP[attr], value)
+        idaapi.set_defsr(seg, _SEGATTRMAP[attr][1], value)
     else:
         _IDC_SetAttr(seg, _SEGATTRMAP, attr, value)
     return seg.update()
@@ -3995,7 +3995,11 @@ def SaveFile(filepath, pos, ea, size):
 
     @return: 0 - error, 1 - ok
     """
-    of = idaapi.fopenM(filepath)
+    if ( os.path.isfile(filepath) ):
+        of = idaapi.fopenM(filepath)
+    else:
+        of = idaapi.fopenWB(filepath)
+
 
     if of:
         retval = idaapi.base2file(of, pos, ea, ea+size)
@@ -5582,6 +5586,23 @@ def SetMemberComment(sid, member_offset, comment, repeatable):
         return 0
 
     return idaapi.set_member_cmt(m, comment, repeatable)
+
+
+def ExpandStruc(sid, offset, delta, recalc):
+    """
+    Expand or shrink a structure type
+    @param id: structure type ID
+    @param offset: offset in the structure
+    @param delta: how many bytes to add or remove
+    @param recalc: recalculate the locations where the structure
+                               type is used
+    @return: != 0 - ok
+    """
+    s = idaapi.get_struc(sid)
+    if not s:
+        return 0
+
+    return idaapi.expand_struc(s, offset, delta, recalc)
 
 
 def GetFchunkAttr(ea, attr):

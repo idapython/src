@@ -11,15 +11,15 @@
 // param: user parameter passed to enum_import_names()
 // return: 1-ok, 0-stop enumeration
 static int idaapi py_import_enum_cb(
-  ea_t ea,
-  const char *name,
-  uval_t ord,
-  void *param)
+        ea_t ea,
+        const char *name,
+        uval_t ord,
+        void *param)
 {
   // If no name, try to get the name associated with the 'ea'. It may be coming from IDS
-  char name_buf[MAXSTR];
-  if ( name == NULL )
-    name = get_true_name(BADADDR, ea, name_buf, sizeof(name_buf));
+  qstring name_buf;
+  if ( name == NULL && get_true_name(&name_buf, ea) > 0 )
+    name = name_buf.begin();
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_name;

@@ -13,6 +13,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     patches = [
+        # misc
+        "virtual int idaapi print",
+
         # user_lvar_visitor_t
         "virtual int idaapi handle_retrieved_info",
         "virtual int idaapi handle_retrieved_mapping",

@@ -252,6 +252,7 @@
 %apply qstring *result { qstring *label };
 %apply qstring *result { qstring *shortcut };
 %apply qstring *result { qstring *tooltip };
+%apply qstring *result { qstring *out };
 %apply int *OUTPUT { int *icon };
 %apply int *OUTPUT { action_state_t *state };
 %apply bool *OUTPUT { bool *checkable };

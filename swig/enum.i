@@ -4,7 +4,8 @@
 %ignore save_enums;
 %ignore term_enums;
 %ignore set_enum_flag;
-%ignore sync_from_enum;;
+%ignore sync_from_enum;
+%ignore get_enum_name(tid_t);
 %ignore del_all_enum_members;
 %ignore get_selected_enum;
 %ignore add_selected_enum;

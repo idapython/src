@@ -14,6 +14,7 @@
 %ignore netnode_next;
 %ignore netnode_prev;
 %ignore netnode_name;
+%ignore netnode_get_name;
 %ignore netnode_rename;
 %ignore netnode_valobj;
 %ignore netnode_valstr;

@@ -194,7 +194,7 @@ def dbg_get_registers():
     Basically, it returns an array of structure similar to to idd.hpp / register_info_t
     @return:
         None if no debugger is loaded
-        tuple(name, flags, class, dtyp, bit_strings, bit_strings_default_mask)
+        tuple(name, flags, class, dtyp, bit_strings, default_bit_strings_mask)
         The bit_strings can be a tuple of strings or None (if the register does not have bit_strings)
     """
     pass
@@ -211,7 +211,7 @@ static PyObject *dbg_get_registers()
 
   for ( int i=0; i<dbg->registers_size; i++ )
   {
-    register_info_t &ri = dbg->registers[i];
+    register_info_t &ri = dbg->registers(i);
     PyObject *py_bits;
 
     // Does this register have bit strings?
@@ -232,7 +232,7 @@ static PyObject *dbg_get_registers()
       py_bits = Py_None;
     }
 
-    // name, flags, class, dtyp, bit_strings, bit_strings_default_mask
+    // name, flags, class, dtyp, bit_strings, default_bit_strings_mask
     PyList_SetItem(py_list, i,
       Py_BuildValue("(sIIINI)",
         ri.name,
@@ -240,7 +240,7 @@ static PyObject *dbg_get_registers()
         (unsigned int)ri.register_class,
         (unsigned int)ri.dtyp,
         py_bits,
-        (unsigned int)ri.bit_strings_default));
+        (unsigned int)ri.default_bit_strings_mask));
   }
   return py_list;
 }
