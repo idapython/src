@@ -189,18 +189,6 @@ bool py_add_stkvar3(PyObject *py_op, PyObject *py_v, int flags)
 
 //-------------------------------------------------------------------------
 /*
-header: frame.hpp
-// Calculate offset of stack variable in the frame structure
-//      pfn - pointer to function (can't be NULL!)
-//      x   - reference to instruction operand
-//      v   - value of variable offset in the instruction
-// returns: offset of stack variable in the frame structure (0..n)
-
-ea_t calc_frame_offset(func_t *pfn, const op_t *x, sval_t v);
-*/
-
-//-------------------------------------------------------------------------
-/*
 header: typeinf.hpp
 #<pydoc>
 def apply_type_to_stkarg(op, v, type, name):
@@ -1449,7 +1437,7 @@ class processor_t(pyidc_opaque_object_t):
         short processor names similar to the one in ph.psnames.
         This method can be overridden to return to the kernel a different IDP description.
         """
-        return self.plnames[0] + ':' + ':'.join(self.psnames)
+        return '\x01'.join(map(lambda t: '\x01'.join(t), zip(self.plnames, self.psnames)))
 
     def get_uFlag(self):
         """Use this utility function to retrieve the 'uFlag' global variable"""

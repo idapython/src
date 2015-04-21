@@ -2,6 +2,8 @@
 %ignore init_structs;
 %ignore save_structs;
 %ignore term_structs;
+%ignore get_struc_name(tid_t);
+%ignore get_member_name2(tid_t);
 
 %ignore sync_from_struc;
 

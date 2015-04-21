@@ -2,13 +2,6 @@
 %{
 //<code(py_view_base)>
 
-//#define PYGDBG_ENABLED
-#ifdef PYGDBG_ENABLED
-#define PYGLOG(...) msg(__VA_ARGS__)
-#else
-#define PYGLOG(...)
-#endif
-
 //-------------------------------------------------------------------------
 class py_customidamemo_t;
 class lookup_info_t
@@ -184,7 +177,7 @@ protected:
 
   // Bi-directionally bind/unbind the Python object and this controller.
   bool bind(PyObject *_self, TCustomControl *view);
-  void unbind();
+  void unbind(bool clear_view);
 
   static lookup_info_t lookup_info;
   friend TForm *pycim_get_tform(PyObject *self);
@@ -247,7 +240,7 @@ py_customidamemo_t::py_customidamemo_t()
 py_customidamemo_t::~py_customidamemo_t()
 {
   PYGLOG("%p: ~py_customidamemo_t()\n", this);
-  unbind();
+  unbind(true);
   lookup_info.del_by_py_view(this);
 }
 
@@ -520,7 +513,7 @@ bool py_customidamemo_t::bind(PyObject *_self, TCustomControl *view)
 }
 
 //-------------------------------------------------------------------------
-void py_customidamemo_t::unbind()
+void py_customidamemo_t::unbind(bool clear_view)
 {
   if ( self == NULL )
     return;
@@ -529,7 +522,8 @@ void py_customidamemo_t::unbind()
   newref_t py_cobj(PyCObject_FromVoidPtr(NULL, NULL));
   PyObject_SetAttrString(self.o, S_M_THIS, py_cobj.o);
   self = newref_t(NULL);
-  view = NULL;
+  if ( clear_view )
+    view = NULL;
 }
 
 //-------------------------------------------------------------------------
@@ -621,71 +615,49 @@ void py_customidamemo_t::install_custom_viewer_handlers()
     return;                                                 \
   PYW_GIL_CHECK_LOCKED_SCOPE()
 
-
-#ifdef PYGDBG_ENABLED
-#define CHK_RES()                                               \
-  do                                                            \
-  {                                                             \
-    PYGLOG("%s: return code: %p\n", __FUNCTION__, result.o);    \
-    if (PyErr_Occurred())                                       \
-      PyErr_Print();                                            \
-  } while ( false )
-#else
-#define CHK_RES()                                               \
-  do                                                            \
-  {                                                             \
-    if (PyErr_Occurred())                                       \
-      PyErr_Print();                                            \
-  } while ( false )
-#endif
-
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_activated()
 {
   CHK_EVT(GRBASE_HAVE_VIEW_ACTIVATED);
-  newref_t result(
+  pycall_res_t result(
           PyObject_CallMethod(
                   self.o,
                   (char *)S_ON_VIEW_ACTIVATED,
                   NULL));
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_deactivated()
 {
   CHK_EVT(GRBASE_HAVE_VIEW_DEACTIVATED);
-  newref_t result(
+  pycall_res_t result(
           PyObject_CallMethod(
                   self.o,
                   (char *)S_ON_VIEW_DEACTIVATED,
                   NULL));
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_keydown(int key, int state)
 {
   CHK_EVT(GRBASE_HAVE_KEYDOWN);
-  newref_t result(
+  pycall_res_t result(
           PyObject_CallMethod(
                   self.o,
                   (char *)S_ON_VIEW_KEYDOWN,
                   "ii",
                   key, state));
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_popup()
 {
   CHK_EVT(GRBASE_HAVE_POPUP);
-  newref_t result(
+  pycall_res_t result(
           PyObject_CallMethod(
                   self.o,
                   (char *)S_ON_POPUP,
                   NULL));
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
@@ -706,33 +678,30 @@ void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
   if ( ovc_num_args == 6 )
   {
     PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    newref_t result(
+    pycall_res_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_VIEW_CLICK,
                     "iiiiO",
                     event->x, event->y, event->state, event->button, rpos));
-    CHK_RES();
   }
   else if ( ovc_num_args == 5 )
   {
-    newref_t result(
+    pycall_res_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_VIEW_CLICK,
                     "iiii",
                     event->x, event->y, event->state, event->button));
-    CHK_RES();
   }
   else
   {
-    newref_t result(
+    pycall_res_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_VIEW_CLICK,
                     "iii",
                     event->x, event->y, event->state));
-    CHK_RES();
   }
 }
 
@@ -745,23 +714,21 @@ void py_customidamemo_t::on_view_dblclick(const view_mouse_event_t *event)
   if ( ovdc_num_args == 5 )
   {
     PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    newref_t result(
+    pycall_res_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_VIEW_DBLCLICK,
                     "iiiO",
                     event->x, event->y, event->state, rpos));
-    CHK_RES();
   }
   else
   {
-    newref_t result(
+    pycall_res_t result(
             PyObject_CallMethod(
                     self.o,
                     (char *)S_ON_VIEW_DBLCLICK,
                     "iii",
                     event->x, event->y, event->state));
-    CHK_RES();
   }
 }
 
@@ -769,28 +736,25 @@ void py_customidamemo_t::on_view_dblclick(const view_mouse_event_t *event)
 void py_customidamemo_t::on_view_curpos()
 {
   CHK_EVT(GRBASE_HAVE_VIEW_CURPOS);
-  newref_t result(
+  pycall_res_t result(
           PyObject_CallMethod(
                   self.o,
                   (char *)S_ON_VIEW_CURPOS,
                   NULL));
-  CHK_RES();
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_close()
 {
   CHK_EVT(GRBASE_HAVE_CLOSE);
-  newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, NULL));
-  CHK_RES();
+  pycall_res_t result(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, NULL));
 }
 
 //-------------------------------------------------------------------------
 void py_customidamemo_t::on_view_switched(tcc_renderer_type_t rt)
 {
   CHK_EVT(GRBASE_HAVE_VIEW_SWITCHED);
-  newref_t result(PyObject_CallMethod(self.o, (char *)S_ON_VIEW_SWITCHED, "i", int(rt)));
-  CHK_RES();
+  pycall_res_t result(PyObject_CallMethod(self.o, (char *)S_ON_VIEW_SWITCHED, "i", int(rt)));
 }
 
 //-------------------------------------------------------------------------
@@ -834,21 +798,19 @@ void py_customidamemo_t::on_view_mouse_over(const view_mouse_event_t *event)
   if ( ovmo_num_args == 7 )
   {
     PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    newref_t result(PyObject_CallMethod(
+    pycall_res_t result(PyObject_CallMethod(
                             self.o,
                             (char *)S_ON_VIEW_MOUSE_OVER,
                             "iiiiOO",
                             event->x, event->y, event->state, icode, tuple.o, rpos));
-    CHK_RES();
   }
   else
   {
-    newref_t result(PyObject_CallMethod(
+    pycall_res_t result(PyObject_CallMethod(
                             self.o,
                             (char *)S_ON_VIEW_MOUSE_OVER,
                             "iiiiO",
                             event->x, event->y, event->state, icode, tuple.o));
-    CHK_RES();
   }
 }
 
@@ -864,17 +826,15 @@ void py_customidamemo_t::on_view_mouse_moved(const view_mouse_event_t *event)
   if ( ovmm_num_args == 7 )
   {
     PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    newref_t result(PyObject_CallMethod(
+    pycall_res_t result(PyObject_CallMethod(
                             self.o,
                             (char *)S_ON_VIEW_MOUSE_MOVED,
                             "iiiiOO",
                             event->x, event->y, event->state, icode, tuple.o, rpos));
-    CHK_RES();
   }
 }
 
 
-#undef CHK_RES
 #undef CHK_EVT
 
 //-------------------------------------------------------------------------
@@ -1212,7 +1172,7 @@ bool py_idaview_t::Unbind(PyObject *self)
   py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
   if ( _this == NULL )
     return false;
-  _this->unbind();
+  _this->unbind(true);
   return true;
 }
 

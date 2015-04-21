@@ -39,7 +39,6 @@
 %ignore get_unk_type_bit;
 %ignore tns;
 
-%ignore til_t::base;
 %ignore til_t::syms;
 %ignore til_t::types;
 %ignore til_t::macros;
@@ -82,7 +81,17 @@
 %ignore h2ti_warning;
 %ignore parse_type;
 %ignore parse_types;
+// We want to handle 'get_named_type()' in a special way,
+// but not tinfo_t::get_named_type().
+//  http://stackoverflow.com/questions/27417884/how-do-i-un-ignore-a-specific-method-on-a-templated-class-in-swig
 %ignore get_named_type;
+%rename (get_named_type) py_get_named_type;
+%ignore get_named_type64;
+%rename (get_named_type64) py_get_named_type64;
+%rename ("%s") tinfo_t::get_named_type;
+
+%rename (print_decls) py_print_decls;
+%ignore print_decls;
 
 %ignore set_named_type;
 %ignore get_named_type_size;
@@ -255,6 +264,15 @@ DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
 //</code(py_typeinf)>
 %}
 
+%extend til_t {
+
+  til_t *base(int n)
+  {
+    return (n < 0 || n >= $self->nbases) ? NULL : $self->base[n];
+  }
+}
+
+
 %extend tinfo_t {
 
   bool deserialize(
@@ -263,6 +281,18 @@ DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
           const p_list *fields,
           const p_list *cmts = NULL)
   {
+    return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
+  }
+
+  bool deserialize(
+          const til_t *til,
+          const char *_type,
+          const char *_fields,
+          const char *_cmts = NULL)
+  {
+    const type_t *type = (const type_t *) _type;
+    const p_list *fields = (const p_list *) _fields;
+    const p_list *cmts = (const p_list *) _cmts;
     return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
   }
 
@@ -306,6 +336,9 @@ DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
 
 %template(funcargvec_t)   qvector<funcarg_t>;
 %template(udtmembervec_t) qvector<udt_member_t>;
+
+%feature("director") text_sink_t;
+%warnfilter(514) text_sink_t; // Director base class 'x' has no virtual destructor.
 
 %include "typeinf.hpp"
 
@@ -878,6 +911,97 @@ char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
   qstrncpy(buf, name, bufsize);
   return true;
 }
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_named_type(til, name, ntf_flags):
+    """
+    Get a type data by its name.
+    @param til: the type library
+    @param name: the type name
+    @param ntf_flags: a combination of NTF_* constants
+    @return:
+        None on failure
+        tuple(code, type_str, fields_str, cmt, field_cmts, sclass, value) on success
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
+{
+  const type_t *type = NULL;
+  const p_list *fields = NULL, *field_cmts = NULL;
+  const char *cmt = NULL;
+  sclass_t sclass = sc_unk;
+  uint32 value = 0;
+  int code = get_named_type(til, name, ntf_flags, &type, &fields, &cmt, &field_cmts, &sclass, &value);
+  if ( code == 0 )
+    Py_RETURN_NONE;
+  PyObject *tuple = PyTuple_New(7);
+  int idx = 0;
+#define ADD(Expr) PyTuple_SetItem(tuple, idx++, (Expr))
+#define ADD_OR_NONE(Cond, Expr)                 \
+  do                                            \
+  {                                             \
+    if ( Cond )                                 \
+    {                                           \
+      ADD(Expr);                                \
+    }                                           \
+    else                                        \
+    {                                           \
+      Py_INCREF(Py_None);                       \
+      ADD(Py_None);                             \
+    }                                           \
+  } while ( false )
+
+  ADD(PyInt_FromLong(long(code)));
+  ADD(PyString_FromString((const char *) type));
+  ADD_OR_NONE(fields != NULL, PyString_FromString((const char *) fields));
+  ADD_OR_NONE(cmt != NULL, PyString_FromString(cmt));
+  ADD_OR_NONE(field_cmts != NULL, PyString_FromString((const char *) field_cmts));
+  ADD(PyInt_FromLong(long(sclass)));
+  ADD(PyLong_FromUnsignedLong(long(value)));
+#undef ADD_OR_NONE
+#undef ADD
+  return tuple;
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_named_type64(const til_t *til, const char *name, int ntf_flags)
+{
+  return py_get_named_type(til, name, ntf_flags | NTF_64BIT);
+}
+
+//-------------------------------------------------------------------------
+int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint32 flags)
+{
+  if ( !PyList_Check(py_ordinals) )
+  {
+    PyErr_SetString(PyExc_ValueError, "'ordinals' must be a list");
+    return 0;
+  }
+
+  Py_ssize_t nords = PyList_Size(py_ordinals);
+  ordvec_t ordinals;
+  ordinals.reserve(size_t(nords));
+  for ( Py_ssize_t i = 0; i < nords; ++i )
+  {
+    borref_t item(PyList_GetItem(py_ordinals, i));
+    if ( item == NULL
+      || (!PyInt_Check(item.o) && !PyLong_Check(item.o)) )
+    {
+      qstring msg;
+      msg.sprnt("ordinals[%d] is not a valid value", int(i));
+      PyErr_SetString(PyExc_ValueError, msg.begin());
+      return 0;
+    }
+    uint32 ord = PyInt_Check(item.o) ? PyInt_AsLong(item.o) : PyLong_AsLong(item.o);
+    ordinals.push_back(ord);
+  }
+  return print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags);
+}
+
 //</inline(py_typeinf)>
 til_t *load_til(const char *tildir, const char *name)
 {

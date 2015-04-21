@@ -933,6 +933,9 @@ class Form(object):
         # (Note that we are not removing the form control attributes, no need)
         self._reset()
 
+        # Unregister, so we don't try and free it again at closing-time.
+        _idaapi.py_unregister_compiled_form(self)
+
 
     def _reset(self):
         """
@@ -1175,6 +1178,9 @@ class Form(object):
 
         # Compile form and get args
         self.__args = self.CompileEx(self.form)
+
+        # Register this form, to make sure it will be freed at closing-time.
+        _idaapi.py_register_compiled_form(self)
 
         return (self, self.__args)
 

@@ -405,7 +405,7 @@ static PyObject *ph_get_operand_info(
               tid,
               _py_getreg,
               regvalues.begin(),
-              &opinf) != 0 )
+              &opinf) > 0 )
     {
       break;
     }
@@ -1598,7 +1598,7 @@ static const regval_t *idaapi _py_getreg(
 {
   for ( int i=dbg->registers_size - 1; i >= 0; i-- )
   {
-    if ( stricmp(name, dbg->registers[i].name) == 0 )
+    if ( strieq(name, dbg->registers(i).name) )
       return &regvals[i];
   }
   static regval_t rv;

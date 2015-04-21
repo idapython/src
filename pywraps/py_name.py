@@ -49,4 +49,6 @@ class NearestName:
             raise StopIteration
         return self._get_item(index)
 
+extract_name = extract_name2
+
 #</pycode(py_name)>

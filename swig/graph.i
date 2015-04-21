@@ -459,7 +459,7 @@ public:
       else
       {
         // unbind so we are rebound
-        py_graph->unbind();
+        py_graph->unbind(false);
         py_graph->refresh_needed = true;
       }
       if ( py_graph->initialize(self, title.c_str()) < 0 )

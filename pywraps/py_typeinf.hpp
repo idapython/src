@@ -137,12 +137,12 @@ def print_type(ea, one_line):
 */
 static PyObject *py_print_type(ea_t ea, bool one_line)
 {
-  char buf[64*MAXSTR];
+  qstring out;
   int flags = PRTYPE_SEMI | (one_line ? PRTYPE_1LINE : PRTYPE_MULTI);
-  bool ok = print_type2(ea, buf, sizeof(buf), one_line ? PRTYPE_1LINE : PRTYPE_MULTI);
+  bool ok = print_type3(&out, ea, one_line ? PRTYPE_1LINE : PRTYPE_MULTI);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
-    return PyString_FromString(buf);
+    return PyString_FromString(out.begin());
   Py_RETURN_NONE;
 }
 
@@ -559,6 +559,97 @@ char idc_get_local_type_name(int ordinal, char *buf, size_t bufsize)
   qstrncpy(buf, name, bufsize);
   return true;
 }
+
+//-------------------------------------------------------------------------
+/*
+#<pydoc>
+def get_named_type(til, name, ntf_flags):
+    """
+    Get a type data by its name.
+    @param til: the type library
+    @param name: the type name
+    @param ntf_flags: a combination of NTF_* constants
+    @return:
+        None on failure
+        tuple(code, type_str, fields_str, cmt, field_cmts, sclass, value) on success
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
+{
+  const type_t *type = NULL;
+  const p_list *fields = NULL, *field_cmts = NULL;
+  const char *cmt = NULL;
+  sclass_t sclass = sc_unk;
+  uint32 value = 0;
+  int code = get_named_type(til, name, ntf_flags, &type, &fields, &cmt, &field_cmts, &sclass, &value);
+  if ( code == 0 )
+    Py_RETURN_NONE;
+  PyObject *tuple = PyTuple_New(7);
+  int idx = 0;
+#define ADD(Expr) PyTuple_SetItem(tuple, idx++, (Expr))
+#define ADD_OR_NONE(Cond, Expr)                 \
+  do                                            \
+  {                                             \
+    if ( Cond )                                 \
+    {                                           \
+      ADD(Expr);                                \
+    }                                           \
+    else                                        \
+    {                                           \
+      Py_INCREF(Py_None);                       \
+      ADD(Py_None);                             \
+    }                                           \
+  } while ( false )
+
+  ADD(PyInt_FromLong(long(code)));
+  ADD(PyString_FromString((const char *) type));
+  ADD_OR_NONE(fields != NULL, PyString_FromString((const char *) fields));
+  ADD_OR_NONE(cmt != NULL, PyString_FromString(cmt));
+  ADD_OR_NONE(field_cmts != NULL, PyString_FromString((const char *) field_cmts));
+  ADD(PyInt_FromLong(long(sclass)));
+  ADD(PyLong_FromUnsignedLong(long(value)));
+#undef ADD_OR_NONE
+#undef ADD
+  return tuple;
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_named_type64(const til_t *til, const char *name, int ntf_flags)
+{
+  return py_get_named_type(til, name, ntf_flags | NTF_64BIT);
+}
+
+//-------------------------------------------------------------------------
+int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint32 flags)
+{
+  if ( !PyList_Check(py_ordinals) )
+  {
+    PyErr_SetString(PyExc_ValueError, "'ordinals' must be a list");
+    return 0;
+  }
+
+  Py_ssize_t nords = PyList_Size(py_ordinals);
+  ordvec_t ordinals;
+  ordinals.reserve(size_t(nords));
+  for ( Py_ssize_t i = 0; i < nords; ++i )
+  {
+    borref_t item(PyList_GetItem(py_ordinals, i));
+    if ( item == NULL
+      || (!PyInt_Check(item.o) && !PyLong_Check(item.o)) )
+    {
+      qstring msg;
+      msg.sprnt("ordinals[%d] is not a valid value", int(i));
+      PyErr_SetString(PyExc_ValueError, msg.begin());
+      return 0;
+    }
+    uint32 ord = PyInt_Check(item.o) ? PyInt_AsLong(item.o) : PyLong_AsLong(item.o);
+    ordinals.push_back(ord);
+  }
+  return print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags);
+}
+
 //</inline(py_typeinf)>
 
 //<code(py_typeinf)>

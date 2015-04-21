@@ -12,6 +12,8 @@ typedef struct
 %ignore get_manual_regions;
 %ignore internal_appcall;
 %ignore internal_cleanup_appcall;
+%ignore change_bptlocs;
+%ignore movbpt_info_t;
 
 %ignore source_file_t;
 %ignore source_item_t;

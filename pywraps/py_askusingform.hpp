@@ -2,6 +2,19 @@
 #define __PY_ASKUSINGFORM__
 
 //<code(py_kernwin)>
+void free_compiled_form_instances(void)
+{
+  while ( !py_compiled_form_vec.empty() )
+  {
+    const ref_t &ref = py_compiled_form_vec[0];
+    qstring title;
+    if ( !PyW_GetStringAttr(ref.o, "title", &title) )
+      title = "<unknown title>";
+    msg("WARNING: Form \"%s\" was not Free()d. Force-freeing.\n", title.c_str());
+    // Will call 'py_unregister_compiled_form()', and thus trim the vector down.
+    newref_t unused(PyObject_CallMethod(ref.o, (char *)"Free", "()"));
+  }
+}
 //</code(py_kernwin)>
 
 //---------------------------------------------------------------------------
@@ -366,6 +379,21 @@ static size_t py_get_OpenForm()
 {
   // See comments above.
   return (size_t)OpenForm_c;
+}
+
+static qvector<ref_t> py_compiled_form_vec;
+static void py_register_compiled_form(PyObject *py_form)
+{
+  ref_t ref = borref_t(py_form);
+  if ( !py_compiled_form_vec.has(ref) )
+    py_compiled_form_vec.push_back(ref);
+}
+
+static void py_unregister_compiled_form(PyObject *py_form)
+{
+  ref_t ref = borref_t(py_form);
+  if ( py_compiled_form_vec.has(ref) )
+    py_compiled_form_vec.del(ref);
 }
 
 //</inline(py_kernwin)>

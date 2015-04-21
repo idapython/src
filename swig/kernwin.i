@@ -184,6 +184,10 @@ void refresh_lists(void)
 
 SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
+%{
+static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
+%}
+
 %inline %{
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
@@ -1822,6 +1826,21 @@ static size_t py_get_OpenForm()
   return (size_t)OpenForm_c;
 }
 
+static qvector<ref_t> py_compiled_form_vec;
+static void py_register_compiled_form(PyObject *py_form)
+{
+  ref_t ref = borref_t(py_form);
+  if ( !py_compiled_form_vec.has(ref) )
+    py_compiled_form_vec.push_back(ref);
+}
+
+static void py_unregister_compiled_form(PyObject *py_form)
+{
+  ref_t ref = borref_t(py_form);
+  if ( py_compiled_form_vec.has(ref) )
+    py_compiled_form_vec.del(ref);
+}
+
 //</inline(py_kernwin)>
 %}
 
@@ -2184,14 +2203,14 @@ private:
 
     // Call Python
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    newref_t list(PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1));
-    if ( list == NULL )
+    pycall_res_t list(PyObject_CallMethod(self, (char *)S_ON_GET_LINE, "i", lineno - 1));
+    if ( list.result == NULL )
       return;
 
     // Go over the List returned by Python and convert to C strings
     for ( int i=ncols-1; i>=0; i-- )
     {
-      borref_t item(PyList_GetItem(list.o, Py_ssize_t(i)));
+      borref_t item(PyList_GetItem(list.result.o, Py_ssize_t(i)));
       if ( item == NULL )
         continue;
 
@@ -2204,30 +2223,30 @@ private:
   size_t on_get_size()
   {
     PYW_GIL_GET;
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL));
-    if ( pyres == NULL )
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL));
+    if ( pyres.result == NULL )
       return 0;
 
-    return PyInt_AsLong(pyres.o);
+    return PyInt_AsLong(pyres.result.o);
   }
 
   void on_refreshed()
   {
     PYW_GIL_GET;
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL));
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_REFRESHED, NULL));
   }
 
   void on_select(const intvec_t &intvec)
   {
     PYW_GIL_GET;
     ref_t py_list(PyW_IntVecToPyList(intvec));
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_SELECT, "O", py_list.o));
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_SELECTION_CHANGE, "O", py_list.o));
   }
 
   void on_close()
   {
     PYW_GIL_GET;
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
 
     // Delete this instance if none modal and not embedded
     if ( !is_modal() && get_embedded() == NULL )
@@ -2237,37 +2256,37 @@ private:
   int on_delete_line(int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_DELETE_LINE,
                     "i",
                     IS_CHOOSER_EVENT(lineno) ? lineno : lineno-1));
-    return pyres == NULL ? 1 : PyInt_AsLong(pyres.o);
+    return pyres.result == NULL ? 1 : PyInt_AsLong(pyres.result.o);
   }
 
   int on_refresh(int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_REFRESH,
                     "i",
                     lineno - 1));
-    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o) + 1;
+    return pyres.result == NULL ? lineno : PyInt_AsLong(pyres.result.o) + 1;
   }
 
   void on_insert_line()
   {
     PYW_GIL_GET;
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL));
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_INSERT_LINE, NULL));
   }
 
   void on_enter(int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_SELECT_LINE,
@@ -2278,7 +2297,7 @@ private:
   void on_edit_line(int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_EDIT_LINE,
@@ -2289,40 +2308,40 @@ private:
   int on_command(int cmd_id, int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_COMMAND,
                     "ii",
                     lineno - 1,
                     cmd_id));
-    return pyres == NULL ? lineno : PyInt_AsLong(pyres.o);
+    return pyres.result == NULL ? lineno : PyInt_AsLong(pyres.result.o);
   }
 
   int on_get_icon(int lineno)
   {
     PYW_GIL_GET;
-    newref_t pyres(
+    pycall_res_t pyres(
             PyObject_CallMethod(
                     self,
                     (char *)S_ON_GET_ICON,
                     "i",
                     lineno - 1));
-    return PyInt_AsLong(pyres.o);
+    return PyInt_AsLong(pyres.result.o);
   }
 
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
   {
     PYW_GIL_GET;
-    newref_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1));
-    if ( pyres != NULL )
+    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_LINE_ATTR, "i", lineno - 1));
+    if ( pyres.result != NULL )
     {
-      if ( PyList_Check(pyres.o) )
+      if ( PyList_Check(pyres.result.o) )
       {
         PyObject *item;
-        if ( (item = PyList_GetItem(pyres.o, 0)) != NULL )
+        if ( (item = PyList_GetItem(pyres.result.o, 0)) != NULL )
           attr->color = PyInt_AsLong(item);
-        if ( (item = PyList_GetItem(pyres.o, 1)) != NULL )
+        if ( (item = PyList_GetItem(pyres.result.o, 1)) != NULL )
           attr->flags = PyInt_AsLong(item);
       }
     }
@@ -2376,6 +2395,51 @@ private:
       *out_caption = caption;
     }
     return true;
+  }
+
+  // This must be called at the end of create(), when many dependencies
+  // have been computed (title, widths, popup_names, [cb_]flags, ...)
+  void fill_chooser_info(
+          chooser_info_t *out,
+          int deflt,
+          int desired_width,
+          int desired_height,
+          int icon)
+  {
+    memset(out, 0, sizeof(*out));
+    out->obj         = this;
+    out->cb          = sizeof(*out);
+    out->title       = title.c_str();
+    out->columns     = widths.size();
+    out->deflt       = deflt;
+    out->flags       = flags;
+    out->width       = desired_width;
+    out->height      = desired_height;
+    out->icon        = icon;
+    out->popup_names = popup_names;
+    out->widths      = widths.begin();
+    out->destroyer   = s_destroy;
+    out->getl        = s_getl;
+    out->sizer       = s_sizer;
+    out->del         = (cb_flags & CHOOSE2_HAVE_DEL) != 0     ? s_del      : NULL;
+    out->edit        = (cb_flags & CHOOSE2_HAVE_EDIT) != 0    ? s_edit     : NULL;
+    out->enter       = (cb_flags & CHOOSE2_HAVE_ENTER) != 0   ? s_enter    : NULL;
+    out->get_icon    = (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL;
+    out->ins         = (cb_flags & CHOOSE2_HAVE_INS) != 0     ? s_ins      : NULL;
+    out->update      = (cb_flags & CHOOSE2_HAVE_UPDATE) != 0  ? s_update   : NULL;
+    out->get_attrs   = NULL;
+    out->initializer = NULL;
+    // Fill callbacks that are only present in idaq
+    if ( is_idaq() )
+    {
+      out->select = (cb_flags & CHOOSE2_HAVE_SELECT)   != 0 ? s_select    : NULL;
+      out->refresh = (cb_flags & CHOOSE2_HAVE_REFRESHED)!= 0 ? s_refreshed : NULL;
+    }
+    else
+    {
+      out->select = NULL;
+      out->refresh = NULL;
+    }
   }
 
 public:
@@ -2583,82 +2647,24 @@ public:
 
     // Check if *embedded
     ref_t emb_attr(PyW_TryGetAttrString(self, S_EMBEDDED));
+    int rc;
     if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
     {
       // Create an embedded chooser structure
-      embedded               = new chooser_info_t();
-      embedded->obj          = this;
-      embedded->cb           = sizeof(chooser_info_t);
-      embedded->title        = title.c_str();
-      embedded->columns      = ncols;
-      embedded->deflt        = deflt;
-      embedded->flags        = flags;
-      embedded->width        = pts[0]; // Take x1
-      embedded->height       = pts[1]; // Take y1
-      embedded->icon         = icon;
-      embedded->popup_names  = popup_names;
-      embedded->widths       = widths.begin();
-      embedded->destroyer    = s_destroy;
-      embedded->getl         = s_getl;
-      embedded->sizer        = s_sizer;
-      embedded->del          = (cb_flags & CHOOSE2_HAVE_DEL) != 0     ? s_del      : NULL;
-      embedded->edit         = (cb_flags & CHOOSE2_HAVE_EDIT) != 0    ? s_edit     : NULL;
-      embedded->enter        = (cb_flags & CHOOSE2_HAVE_ENTER) != 0   ? s_enter    : NULL;
-      embedded->get_icon     = (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL;
-      embedded->ins          = (cb_flags & CHOOSE2_HAVE_INS) != 0     ? s_ins      : NULL;
-      embedded->update       = (cb_flags & CHOOSE2_HAVE_UPDATE) != 0  ? s_update   : NULL;
-      embedded->get_attrs    = NULL;
-      // Fill callbacks that are only present in idaq
-      if ( is_idaq() )
-      {
-        embedded->select     = (cb_flags & CHOOSE2_HAVE_SELECT)   != 0 ? s_select    : NULL;
-        embedded->refresh    = (cb_flags & CHOOSE2_HAVE_REFRESHED)!= 0 ? s_refreshed : NULL;
-      }
-      else
-      {
-        embedded->select       = NULL;
-        embedded->refresh      = NULL;
-      }
+      embedded = new chooser_info_t();
+      fill_chooser_info(embedded, deflt, pts[0], pts[1], icon);
+      rc = 1; // success
     }
-
-    // Create the chooser (if not embedded)
-    int r;
-    if ( embedded == NULL )
-    {
-      r = ::choose2(
-        flags,
-        pts[0], pts[1], pts[2], pts[3],
-        this,
-        ncols,
-        &widths[0],
-        s_sizer,
-        s_getl,
-        title.c_str(),
-        icon,
-        deflt,
-        (cb_flags & CHOOSE2_HAVE_DEL)    != 0 ? s_del     : NULL,
-        (cb_flags & CHOOSE2_HAVE_INS)    != 0 ? s_ins     : NULL,
-        (cb_flags & CHOOSE2_HAVE_UPDATE) != 0 ? s_update  : NULL,
-        (cb_flags & CHOOSE2_HAVE_EDIT)   != 0 ? s_edit    : NULL,
-        (cb_flags & CHOOSE2_HAVE_ENTER)  != 0 ? s_enter   : NULL,
-        s_destroy,
-        popup_names,
-        (cb_flags & CHOOSE2_HAVE_GETICON) != 0 ? s_get_icon : NULL);
-
-      clear_popup_names();
-
-      // Modal chooser return the index of the selected item
-      if ( is_modal() )
-        r--;
-    }
-    // Embedded chooser?
     else
     {
-      // Return success
-      r = 1;
+      chooser_info_t ci;
+      fill_chooser_info(&ci, deflt, -1, -1, icon);
+      rc = choose3(&ci);
+      clear_popup_names();
+      if ( is_modal() )
+        --rc; // modal chooser return the index of the selected item
     }
-
-    return r;
+    return rc;
   }
 
   inline PyObject *get_self()
@@ -2839,6 +2845,19 @@ PyObject *choose2_find(const char *title)
 }
 
 
+void free_compiled_form_instances(void)
+{
+  while ( !py_compiled_form_vec.empty() )
+  {
+    const ref_t &ref = py_compiled_form_vec[0];
+    qstring title;
+    if ( !PyW_GetStringAttr(ref.o, "title", &title) )
+      title = "<unknown title>";
+    msg("WARNING: Form \"%s\" was not Free()d. Force-freeing.\n", title.c_str());
+    // Will call 'py_unregister_compiled_form()', and thus trim the vector down.
+    newref_t unused(PyObject_CallMethod(ref.o, (char *)"Free", "()"));
+  }
+}
 //</code(py_kernwin)>
 
 %}
@@ -5682,6 +5701,9 @@ class Form(object):
         # (Note that we are not removing the form control attributes, no need)
         self._reset()
 
+        # Unregister, so we don't try and free it again at closing-time.
+        _idaapi.py_unregister_compiled_form(self)
+
 
     def _reset(self):
         """
@@ -5924,6 +5946,9 @@ class Form(object):
 
         # Compile form and get args
         self.__args = self.CompileEx(self.form)
+
+        # Register this form, to make sure it will be freed at closing-time.
+        _idaapi.py_register_compiled_form(self)
 
         return (self, self.__args)
 
