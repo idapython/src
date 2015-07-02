@@ -52,6 +52,7 @@ PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 S_EA64         = 'ea64'
 S_WITH_HEXRAYS = 'with-hexrays'
 S_NO_OPT       = 'no-opt'
+S_DEBUG        = 'debug'
 
 # Swig command-line parameters
 SWIG_OPTIONS = '-modern -python -threads -c++ -w451 -shadow -D__GNUC__'
@@ -170,11 +171,13 @@ def parse_options(args):
     no_opt       = '--' + S_NO_OPT       in sys.argv
     ea64         = '--' + S_EA64         in sys.argv
     with_hexrays = '--' + S_WITH_HEXRAYS in sys.argv
+    debug        = '--' + S_DEBUG        in sys.argv
 
     return {
             S_EA64: ea64,
             S_WITH_HEXRAYS: with_hexrays,
-            S_NO_OPT: no_opt
+            S_NO_OPT: no_opt,
+            S_DEBUG: debug
            }
 
 # -----------------------------------------------------------------------
@@ -374,7 +377,10 @@ def build_plugin(
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
-        if not options[S_NO_OPT]:
+        if options[S_DEBUG]:
+            builder.compiler_parameters += " /Zi"
+            builder.linker_parameters += " /DEBUG"
+        if not options[S_NO_OPT] and not options[S_DEBUG]:
             builder.compiler_parameters += " -Ox"
     # Platform-specific settings for the Mac OS X build
     elif platform == "macosx":
@@ -576,6 +582,9 @@ def main():
         return usage()
     elif '--doc' in sys.argv:
         return gen_docs(z = '--zip' in sys.argv)
+
+    if '--debug' in sys.argv:
+        debug = True
 
     # Parse options
     options = parse_options(sys.argv)
