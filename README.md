@@ -13,10 +13,7 @@ Availability
 ------------
 
 Latest stable versions of IDAPython are available from
-  http://code.google.com/p/idapython/downloads/list
-
-Development builds are available from
-  http://code.google.com/p/idapython/
+  https://github.com/idapython/src
 
 
 Resources
@@ -25,11 +22,15 @@ Resources
 The full function cross-reference is readable online at
   http://www.hex-rays.com/idapro/idapython_docs/
 
-Bugs and enhancement requests should be submitted to
-  http://code.google.com/p/idapython/issues/list
-
 Mailing list for the project is hosted by Google Groups at
   http://groups.google.com/group/idapython
+
+
+Found a bug?
+------------
+
+Users with an IDA license that is still under support are
+encouraged to report bugs to <support@hex-rays.com>.
 
 
 Contributing
