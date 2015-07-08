@@ -1,9 +1,6 @@
-------------------------------------------------------
-IDAPython - Python plugin for Interactive Disassembler
-------------------------------------------------------
-
-What is IDAPython?
-------------------
+IDAPython
+=========
+### Python plugin for Interactive Disassembler
 
 IDAPython is an IDA plugin which makes it possible to write scripts
 for IDA in the Python programming language. IDAPython provides full
@@ -33,6 +30,17 @@ Bugs and enhancement requests should be submitted to
 
 Mailing list for the project is hosted by Google Groups at
   http://groups.google.com/group/idapython
+
+
+Contributing
+------------
+
+This page really is only a read-only version of the source code we
+host internally at http://www.hex-rays.com, and pull requests will
+not be honored.
+
+However, we will gladly accept patches & suggestions. Please send
+those to <support@hex-rays.com>.
 
 
 Installation from binaries
