@@ -26,24 +26,6 @@ Mailing list for the project is hosted by Google Groups at
   http://groups.google.com/group/idapython
 
 
-Found a bug?
-------------
-
-Users with an IDA license that is still under support are
-encouraged to report bugs to <support@hex-rays.com>.
-
-
-Contributing
-------------
-
-This page really is only a read-only version of the source code we
-host internally at http://www.hex-rays.com, and pull requests will
-not be honored.
-
-However, we will gladly accept patches & suggestions. Please send
-those to <support@hex-rays.com>.
-
-
 Installation from binaries
 --------------------------
 
@@ -51,6 +33,7 @@ Installation from binaries
 2. Copy the whole "python" directory to %IDADIR%
 3. Copy the contents of the "plugins" directory to the %IDADIR%\plugins\
 4. Copy "python.cfg" to %IDADIR%\cfg
+
 
 Usage
 -----
