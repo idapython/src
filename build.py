@@ -69,9 +69,9 @@ IDA_SDK = args.ida_sdk
 assert os.path.exists(IDA_SDK), "Could not find IDA SDK include path (looked in: \"%s\")" % IDA_SDK
 
 SWIG_BIN = args.swig_bin or "swig"
-SWIG_INC = ""
+SWIG_INC = []
 if args.swig_inc:
-    SWIG_INC = " ".join(map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep)))
+    SWIG_INC = map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep))
 
 # End of user configurable options
 
@@ -88,7 +88,8 @@ PYTHON_MINOR_VERSION = int(platform.python_version()[2])
 PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 
 # Swig command-line parameters
-SWIG_OPTIONS = '-modern -python -threads -c++ -w451 -shadow -D__GNUC__ %s' % SWIG_INC
+SWIG_OPTIONS = ['-modern', '-python', '-threads', '-c++', '-w451', '-shadow', '-D__GNUC__']
+SWIG_OPTIONS.extend(SWIG_INC)
 
 # Common macros for all compilations
 COMMON_MACROS = [
@@ -197,6 +198,13 @@ SRCDIST_MANIFEST = [
     "swig/hexrays.i",
 ]
 
+def run(proc_argv):
+    import subprocess
+    if args.verbose:
+        print "Running subprocess with argv: %s" % proc_argv
+    subprocess.check_call(proc_argv)
+    return 0
+
 # -----------------------------------------------------------------------
 class BuilderBase:
     """ Base class for builders """
@@ -212,93 +220,82 @@ class BuilderBase:
         allmacros.extend(COMMON_MACROS)
         allmacros.extend(self.basemacros)
         allmacros.extend(macros)
-        macrostring = self._build_command_string(allmacros, self.macro_delimiter)
+        defines_argv = self._build_command_string(allmacros, self.define_directive)
 
         allincludes = []
         allincludes.extend(COMMON_INCLUDES)
         allincludes.extend(includes)
-        includestring = self._build_command_string(allincludes, self.include_delimiter)
+        includes_argv = self._build_command_string(allincludes, self.include_directive)
 
         if not objectname:
             objectname = source + self.object_extension
 
-        cmdstring = "%s %s %s %s %s %s" % (self.compiler,
-                                           self.compiler_parameters,
-                                           self.compiler_out_string(objectname),
-                                           self.compiler_in_string(source + self.source_extension),
-                                           includestring,
-                                           macrostring)
-
-        if args.verbose:
-            print cmdstring
-        return os.system(cmdstring)
+        argv = [self.compiler]
+        argv.extend(self.compiler_parameters)
+        argv.extend(self.compiler_out_string(objectname))
+        argv.extend(self.compiler_in_string(source + self.source_extension))
+        argv.extend(includes_argv)
+        argv.extend(defines_argv)
+        return run(argv)
 
 
     def link(self, objects, outfile, libpaths=[], libraries=[], extra_parameters=None):
         """ Link the binary from objects and libraries """
-        cmdstring = "%s %s %s" % (self.linker,
-                                  self.linker_parameters,
-                                  self.linker_out_string(outfile))
 
-        for objectfile in objects:
-            cmdstring = "%s %s" % (cmdstring, objectfile + self.object_extension)
-        for libpath in libpaths:
-            cmdstring = "%s %s%s" % (cmdstring, self.libpath_delimiter, libpath)
-        for library in libraries:
-            cmdstring = "%s %s" % (cmdstring, library)
-        if extra_parameters:
-            cmdstring = "%s %s" % (cmdstring, extra_parameters)
+        argv = [self.linker]
+        argv.extend(self.linker_parameters)
+        argv.extend(self.linker_out_string(outfile))
+        argv.extend(map(lambda o: o + self.object_extension, objects))
+        argv.extend(map(lambda l: "%s%s" % (self.libpath_directive, l), libpaths))
+        argv.extend(libraries)
+        argv.extend(extra_parameters)
+        return run(argv)
 
-        if args.verbose:
-            print cmdstring
-        return os.system(cmdstring)
 
-    def _build_command_string(self, macros, argument_delimiter):
-        macrostring = ""
-
-        for item in macros:
-            if type(item) == types.TupleType:
-                macrostring += '%s%s="%s" ' % (argument_delimiter, item[0], item[1])
+    def _build_command_string(self, tokens, directive):
+        out = []
+        for token in tokens:
+            if type(token) == types.TupleType:
+                out.append('%s%s=%s' % (directive, token[0], token[1]))
             else:
-                macrostring += '%s%s ' % (argument_delimiter, item)
-
-        return macrostring
+                out.append('%s%s' % (directive, token))
+        return out
 
 
 # -----------------------------------------------------------------------
 class GCCBuilder(BuilderBase):
     """ Generic GCC compiler class """
     def __init__(self):
-        self.include_delimiter = "-I"
-        self.macro_delimiter = "-D"
-        self.libpath_delimiter = "-L"
-        self.compiler_parameters = "-fpermissive -Wno-write-strings"
-        self.linker_parameters = "-shared"
+        self.include_directive = "-I"
+        self.define_directive = "-D"
+        self.libpath_directive = "-L"
+        self.compiler_parameters = ["-m32", "-fpermissive", "-Wno-write-strings"]
+        self.linker_parameters = ["-m32", "-shared"]
         self.basemacros = [ ]
-        self.compiler = "g++ -m32"
-        self.linker = "g++ -m32"
+        self.compiler = "g++"
+        self.linker = "g++"
         self.source_extension = ".cpp"
         self.object_extension = ".o"
 
     def compiler_in_string(self, filename):
-        return "-c %s" % filename
+        return ["-c", filename]
 
     def compiler_out_string(self, filename):
-        return "-o %s" % filename
+        return ["-o", filename]
 
     def linker_out_string(self, filename):
-        return "-o %s" % filename
+        return ["-o", filename]
 
 
 # -----------------------------------------------------------------------
 class MSVCBuilder(BuilderBase):
     """ Generic Visual C compiler class """
     def __init__(self):
-        self.include_delimiter = "/I"
-        self.macro_delimiter = "/D"
-        self.libpath_delimiter = "/LIBPATH:"
-        self.compiler_parameters = "/nologo /EHsc"
-        self.linker_parameters = "/nologo /dll /export:PLUGIN"
+        self.include_directive = "/I"
+        self.define_directive = "/D"
+        self.libpath_directive = "/LIBPATH:"
+        self.compiler_parameters = ["/nologo", "/EHsc"]
+        self.linker_parameters = ["/nologo", "/dll", "/export:PLUGIN"]
         self.basemacros = [ "WIN32",
                             "_USRDLL",
                             "__NT__" ]
@@ -308,13 +305,13 @@ class MSVCBuilder(BuilderBase):
         self.object_extension = ".obj"
 
     def compiler_in_string(self, filename):
-        return "/c %s" % filename
+        return ["/c", filename]
 
     def compiler_out_string(self, filename):
-        return "/Fo%s" % filename
+        return ["/Fo%s" % filename]
 
     def linker_out_string(self, filename):
-        return "/out:%s" % filename
+        return ["/out:%s" % filename]
 
 # -----------------------------------------------------------------------
 def build_distribution(manifest, distrootdir, ea64, nukeold):
@@ -379,34 +376,34 @@ def build_plugin(
         builder = GCCBuilder()
         platform_macros = [ "__LINUX__" ]
         python_libpath = os.path.join(sysconfig.EXEC_PREFIX, "lib")
-        python_library = "-Bdynamic -lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
+        python_library = ["-Bdynamic", "-lpython%d.%d" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)]
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_linux_gcc_64" or "x86_linux_gcc_32")
         ida_lib = ""
-        extra_link_parameters = " -s"
-        builder.compiler_parameters += " -O2"
+        extra_link_parameters = ["-s"]
+        builder.compiler_parameters.append("-O2")
     # Platform-specific settings for the Windows build
     elif platform == "win32":
         builder = MSVCBuilder()
         platform_macros = [ "__NT__" ]
         python_libpath = os.path.join(sysconfig.EXEC_PREFIX, "libs")
-        python_library = "python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)
+        python_library = ["python%d%d.lib" % (PYTHON_MAJOR_VERSION, PYTHON_MINOR_VERSION)]
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_win_vc_64" or "x86_win_vc_32")
         ida_lib = "ida.lib"
-        SWIG_OPTIONS += " -D__NT__ "
-        extra_link_parameters = ""
+        SWIG_OPTIONS.append("-D__NT__")
+        extra_link_parameters = []
         if not args.debug:
-            builder.compiler_parameters += " -Ox"
+            builder.compiler_parameters.append("-Ox")
     # Platform-specific settings for the Mac OS X build
     elif platform == "macosx":
         builder = GCCBuilder()
-        builder.linker_parameters = "-dynamiclib"
+        builder.linker_parameters.append("-dynamiclib")
         platform_macros = [ "__MAC__" ]
         python_libpath = "."
-        python_library = "-framework Python"
+        python_library = ["-framework", "Python"]
         ida_libpath = os.path.join(idasdkdir, "lib", ea64 and "x86_mac_gcc_64" or "x86_mac_gcc_32")
         ida_lib = ea64 and "-lida64" or "-lida"
-        extra_link_parameters = " -s"
-        builder.compiler_parameters += " -O3"
+        extra_link_parameters = ["-s"]
+        builder.compiler_parameters.append("-O3")
 
     assert builder, "Unknown platform! No idea how to build here..."
 
@@ -417,7 +414,7 @@ def build_plugin(
     # Build with Hex-Rays decompiler
     if with_hexrays:
         platform_macros.append("WITH_HEXRAYS")
-        SWIG_OPTIONS += ' -DWITH_HEXRAYS '
+        SWIG_OPTIONS.append('-DWITH_HEXRAYS')
 
     platform_macros.append("NDEBUG")
 
@@ -428,18 +425,22 @@ def build_plugin(
     #platform_macros.append("NO_OBSOLETE_FUNCS")
 
     # Build the wrapper from the interface files
-    ea64flag = ea64 and "-D__EA64__" or ""
-    swigcmd = "%s %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_BIN, SWIG_OPTIONS, ea64flag, ida_include_directory)
-    if args.verbose:
-        print swigcmd
-    res =  os.system(swigcmd)
+    swig_argv = [SWIG_BIN]
+    swig_argv.extend(SWIG_OPTIONS)
+    swig_argv.extend(["-Iswig", "-o", "idaapi.cpp"])
+    if ea64:
+        swig_argv.append("-D__EA64__")
+    swig_argv.append("-I%s" % ida_include_directory)
+    swig_argv.append("idaapi.i")
+#    swigcmd = "%s %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_BIN, SWIG_OPTIONS, ea64flag, ida_include_directory)
+    res = run(swig_argv)
     assert res == 0, "Failed to build the wrapper with SWIG"
 
     # If we are running on windows, we have to patch some directors'
     # virtual methods, so they have the right calling convention.
     # Without that, compilation just won't succeed.
     if platform == "win32":
-        res = os.system("python patch_directors_cc.py -f idaapi.h")
+        res = run(["python", "patch_directors_cc.py", "-f", "idaapi.h"])
         assert res == 0, "Failed to patch directors' calling conventions"
 
     # Compile the wrapper
@@ -455,10 +456,13 @@ def build_plugin(
     assert res == 0, "Failed to build the main plugin object"
 
     # Link the final binary
+    libs = []
+    libs.extend(python_library)
+    libs.append(ida_lib)
     res =  builder.link( ["idaapi", "python"],
                          plugin_name,
                          [ python_libpath, ida_libpath ],
-                         [ python_library, ida_lib ],
+                         libs,
                          extra_link_parameters)
     assert res == 0, "Failed to link the plugin binary"
 
