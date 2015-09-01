@@ -59,7 +59,7 @@ Notes:
 parser.add_argument("--ida-sdk", type=str, help="Path to the IDA SDK", default=IDA_SDK)
 parser.add_argument("--swig-bin", type=str, help="Path to the SWIG binary", default="")
 parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes directory(ies)", default="")
-parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings", default=False, action="store_true")
+parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--ea64", help="Build 64-bit EA version of the plugin", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
