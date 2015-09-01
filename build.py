@@ -20,27 +20,65 @@ import zipfile
 import glob
 from distutils import sysconfig
 
-# Start of user configurable options
-VERBOSE = True
+from argparse import ArgumentParser, RawTextHelpFormatter
 
+# Start of user configurable options
 IDA_MAJOR_VERSION = 6
 IDA_MINOR_VERSION = 8
 
+IDA_SDK = ""
 if 'IDA' in os.environ:
     IDA_SDK = os.environ['IDA']
 else:
-    IDA_SDK = os.path.join("..", "..", "include")
-    if not os.path.exists(IDA_SDK):
-      IDA_SDK = os.path.join("..", "swigsdk-versions", ("%d.%d" % (IDA_MAJOR_VERSION, IDA_MINOR_VERSION)))
-    assert os.path.exists(IDA_SDK), "Could not find IDA SDK include path"
+    candidate = os.path.join("..", "..", "include")
+    if os.path.exists(candidate):
+        IDA_SDK = candidate
 
+parser = ArgumentParser(epilog="""
+Since a very specific version of SWiG is expected in order to produce reliable
+bindings, and if your platform doesn't provide that version by default and you
+had to build/install it yourself, you will have to specify '--swig-bin' and
+'--swig-inc' arguments.
+
+For example, this is how to build against IDA 6.8 on linux, with a SWiG 2.0.12
+installation located in /opt/my-swig/:
+
+python build.py --ida-sdk /path/to/idasdk68/ \\
+    --swig-bin /opt/my-swig/bin/swig \\
+    --swig-inc /opt/my-swig/share/swig/2.0.12/python/:/opt/my-swig/share/swig/2.0.12
+
+Notes:
+ * '--swig-inc' here has 2 path components, separated by the platform's
+   path separator; i.e., ':' in this case (if you were building on Windows,
+   you would have to use ';'.)
+ * SWiG can be tricky to deal with when specifying input paths. The path
+   to the '.../2.0.12/python/' subdirectory should be placed before the
+   more global '.../2.0.12/' directory.
+""",
+                        formatter_class=RawTextHelpFormatter)
+parser.add_argument("--ida-sdk", type=str, help="Path to the IDA SDK", default=IDA_SDK)
+parser.add_argument("--swig-bin", type=str, help="Path to the SWIG binary", default="")
+parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes directory(ies)", default="")
+parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings", default=False, action="store_true")
+parser.add_argument("--ea64", help="Build 64-bit EA version of the plugin", default=False, action="store_true")
+parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
+parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
+args = parser.parse_args()
+
+IDA_SDK = args.ida_sdk
+assert os.path.exists(IDA_SDK), "Could not find IDA SDK include path (looked in: \"%s\")" % IDA_SDK
+
+SWIG_BIN = args.swig_bin or "swig"
+SWIG_INC = ""
+if args.swig_inc:
+    SWIG_INC = " ".join(map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep)))
 
 # End of user configurable options
 
 # IDAPython version
 VERSION_MAJOR  = 1
 VERSION_MINOR  = 7
-VERSION_PATCH  = 0
+VERSION_PATCH  = 2
 
 # Determine Python version
 PYTHON_MAJOR_VERSION = int(platform.python_version()[0])
@@ -49,12 +87,8 @@ PYTHON_MINOR_VERSION = int(platform.python_version()[2])
 # Find Python headers
 PYTHON_INCLUDE_DIRECTORY = sysconfig.get_config_var('INCLUDEPY')
 
-S_EA64         = 'ea64'
-S_WITH_HEXRAYS = 'with-hexrays'
-S_NO_OPT       = 'no-opt'
-
 # Swig command-line parameters
-SWIG_OPTIONS = '-modern -python -threads -c++ -w451 -shadow -D__GNUC__'
+SWIG_OPTIONS = '-modern -python -threads -c++ -w451 -shadow -D__GNUC__ %s' % SWIG_INC
 
 # Common macros for all compilations
 COMMON_MACROS = [
@@ -72,7 +106,7 @@ COMMON_INCLUDES = [ ".", "swig" ]
 # -----------------------------------------------------------------------
 # List files for the binary distribution
 BINDIST_MANIFEST = [
-    "README.txt",
+    "README.md",
     "COPYING.txt",
     "CHANGES.txt",
     "AUTHORS.txt",
@@ -164,20 +198,6 @@ SRCDIST_MANIFEST = [
 ]
 
 # -----------------------------------------------------------------------
-def parse_options(args):
-    """Parse arguments and returned a dictionary of options"""
-
-    no_opt       = '--' + S_NO_OPT       in sys.argv
-    ea64         = '--' + S_EA64         in sys.argv
-    with_hexrays = '--' + S_WITH_HEXRAYS in sys.argv
-
-    return {
-            S_EA64: ea64,
-            S_WITH_HEXRAYS: with_hexrays,
-            S_NO_OPT: no_opt
-           }
-
-# -----------------------------------------------------------------------
 class BuilderBase:
     """ Base class for builders """
     def __init__(self):
@@ -209,7 +229,7 @@ class BuilderBase:
                                            includestring,
                                            macrostring)
 
-        if VERBOSE:
+        if args.verbose:
             print cmdstring
         return os.system(cmdstring)
 
@@ -229,7 +249,8 @@ class BuilderBase:
         if extra_parameters:
             cmdstring = "%s %s" % (cmdstring, extra_parameters)
 
-        if VERBOSE: print cmdstring
+        if args.verbose:
+            print cmdstring
         return os.system(cmdstring)
 
     def _build_command_string(self, macros, argument_delimiter):
@@ -299,12 +320,11 @@ class MSVCBuilder(BuilderBase):
 def build_distribution(manifest, distrootdir, ea64, nukeold):
     """ Create a distibution to a directory and a ZIP file """
     # (Re)create the output directory
-    if os.path.exists(distrootdir):
-        if nukeold:
-            shutil.rmtree(distrootdir)
-            os.makedirs(distrootdir)
-    else:
-            os.makedirs(distrootdir)
+    if args.verbose:
+        print "Distribution is in: %s" % distrootdir
+    if nukeold and os.path.exists(distrootdir):
+        shutil.rmtree(distrootdir)
+    os.makedirs(distrootdir)
 
     # Also make a ZIP archive of the build
     zippath = distrootdir + ".zip"
@@ -341,14 +361,13 @@ def build_plugin(
         platform,
         idasdkdir,
         plugin_name,
-        options):
+        ea64):
     """ Build the plugin from the SWIG wrapper and plugin main source """
 
     global SWIG_OPTIONS
 
     # Get the arguments
-    ea64         = options[S_EA64]
-    with_hexrays = options[S_WITH_HEXRAYS]
+    with_hexrays = args.with_hexrays
 
     # Path to the IDA SDK headers
     ida_include_directory = os.path.join(idasdkdir, "include")
@@ -374,7 +393,7 @@ def build_plugin(
         ida_lib = "ida.lib"
         SWIG_OPTIONS += " -D__NT__ "
         extra_link_parameters = ""
-        if not options[S_NO_OPT]:
+        if not args.debug:
             builder.compiler_parameters += " -Ox"
     # Platform-specific settings for the Mac OS X build
     elif platform == "macosx":
@@ -409,8 +428,9 @@ def build_plugin(
 
     # Build the wrapper from the interface files
     ea64flag = ea64 and "-D__EA64__" or ""
-    swigcmd = "swig %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_OPTIONS, ea64flag, ida_include_directory)
-    if VERBOSE: print swigcmd
+    swigcmd = "%s %s -Iswig -o idaapi.cpp %s -I%s idaapi.i" % (SWIG_BIN, SWIG_OPTIONS, ea64flag, ida_include_directory)
+    if args.verbose:
+        print swigcmd
     res =  os.system(swigcmd)
     assert res == 0, "Failed to build the wrapper with SWIG"
 
@@ -465,8 +485,7 @@ def detect_platform(ea64):
     return (system, platform_string, plugin_name)
 
 # -----------------------------------------------------------------------
-def build_binary_package(options, nukeold):
-    ea64 = options[S_EA64]
+def build_binary_package(ea64, nukeold):
     system, platform_string, plugin_name = detect_platform(ea64)
     BINDISTDIR = "idapython-%d.%d.%d_ida%d.%d_py%d.%d_%s" % (VERSION_MAJOR,
                                                              VERSION_MINOR,
@@ -477,7 +496,7 @@ def build_binary_package(options, nukeold):
                                                              PYTHON_MINOR_VERSION,
                                                              platform_string)
     # Build the plugin
-    build_plugin(platform_string, IDA_SDK, plugin_name, options)
+    build_plugin(platform_string, IDA_SDK, plugin_name, ea64)
 
     # Build the binary distribution
     binmanifest = []
@@ -577,18 +596,16 @@ def main():
     elif '--doc' in sys.argv:
         return gen_docs(z = '--zip' in sys.argv)
 
-    # Parse options
-    options = parse_options(sys.argv)
-    ea64 = options[S_EA64]
+    # # Parse options
+    # options = parse_options(sys.argv)
+    # ea64 = options[S_EA64]
 
     # Always build the non __EA64__ version
-    options[S_EA64] = False
-    build_binary_package(options, nukeold=True)
+    build_binary_package(ea64=False, nukeold=True)
 
     # Rebuild package with __EA64__ if needed
-    if ea64:
-        options[S_EA64] = True
-        build_binary_package(options, nukeold=False)
+    if args.ea64:
+        build_binary_package(ea64=True, nukeold=False)
 
     # Always build the source package
     build_source_package()
