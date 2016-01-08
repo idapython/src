@@ -26,10 +26,10 @@ all:
 	@echo "Not building Python for Linux x64"
 else
 
+IDAPYTHON_DIR=$(shell pwd)
 PROC=python
 STRIPOBJS=idaapi.cpp
 API_CONTENTS=api_contents.txt
-CFGFILE=python.cfg
 
 IDA_INCLUDE=../../include
 
@@ -38,6 +38,10 @@ ST_SWIG=$(STAGING)/swig
 ST_SDK=$(STAGING)/idasdk
 ST_PYW=$(STAGING)/pywraps
 ST_PARSED_HEADERS=$(STAGING)/parsed_notifications/xml
+
+# ATM, 'dist' in in staging/, but that will change since
+# staging directories will be $(SYSDIR)-dependent
+DIST=$(STAGING)/dist
 
 ifdef __NT__
   SYSNAME=win
@@ -65,6 +69,17 @@ ADDITIONAL_GOALS=pyfiles config $(TEST_IDC)
 __USE_RTTI__=1
 include ../plugin.mak
 
+# used python version
+PYTHON_VERSION_MAJOR?=2
+PYTHON_VERSION_MINOR?=7
+
+# IDAPython version
+IDAPYTHON_VERSION_MAJOR=6
+IDAPYTHON_VERSION_MINOR=9
+IDAPYTHON_VERSION_PATCH=0
+PACKAGE_NAME="idapython-$(IDAPYTHON_VERSION_MAJOR).$(IDAPYTHON_VERSION_MINOR).$(IDAPYTHON_VERSION_PATCH)-python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)-$(SYSNAME).zip"
+
+
 # HIJACK the $(I) variable to point to our staging SDK
 I=$(ST_SDK)/
 
@@ -72,10 +87,6 @@ ifdef __CODE_CHECKER__
   ADDITIONAL_GOALS:=$(filter-out pyfiles config $(TEST_IDC),$(ADDITIONAL_GOALS))
   OBJS:=$(filter-out $(OBJ1),$(OBJS))
 endif
-
-# used python version
-PYTHON_VERSION_MAJOR?=2
-PYTHON_VERSION_MINOR?=7
 
 # output directory for python scripts
 
@@ -135,7 +146,7 @@ SWIGFLAGS=$(_SWIGFLAGS) $(SWIGINCLUDES)
 
 ADDITIONAL_LIBS=$(PYTHONLIB)
 
-.PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python
+.PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python dist dist_dirs dist_bin dist_cfg package
 config: $(C)python.cfg
 
 clean:
@@ -165,7 +176,7 @@ $(SCRIPTDIR)/lib/%: precompiled/lib/%
 	cp $< $@
 	@chmod +w $@
 
-$(C)python.cfg: $(CFGFILE)
+$(C)python.cfg: python.cfg
 	$(CP) $? $@
 
 $(R)$(PYTHONLIBNAME): $(PYDIR)/$(PYTHONLIBNAME)
@@ -355,6 +366,26 @@ ifneq ($(wildcard ../../tests),)
 	@$(IDA_CMD) $(BATCH_SWITCH) -S"test_idc.py $^" -t -L$(F)idctest.log> /dev/null || \
 	  (echo "ERROR: The IDAPython IDC interface is incomplete. IDA log:" && cat $(F)idctest.log && false)
 endif
+
+dist_dirs:
+	-@if [ ! -d "$(DIST)/plugins" ] ; then mkdir -p 2>/dev/null $(DIST)/plugins ; fi
+
+DIST_OTHER_SOURCES=python.cfg README.md AUTHORS.txt CHANGES.txt COPYING.txt STATUS.txt
+DIST_OTHER_TARGETS=$(DIST_OTHER_SOURCES:%=$(DIST)/%)
+$(DIST)/%: % | dist_dirs
+	@$(CP) $^ $@ && chmod +rw $@
+
+dist_bin: $(BINARY) | dist_dirs
+	$(CP) $? $(DIST)/plugins/
+
+dist: $(BINARY) pyfiles $(DIST_OTHER_TARGETS) | dist_bin dist_cfg
+	# rsync -a docs $(DIST)/
+	rsync -a examples $(DIST)/
+	rsync -a python $(DIST)/
+
+package:
+	(cd $(DIST) && zip -r $(IDAPYTHON_DIR)/$(PACKAGE_NAME) *)
+
 
 # MAKEDEP dependency list ------------------
 $(F)idaapi$(O)  : $(F)idaapi_include.cpp $(I)allins.hpp $(I)area.hpp        \

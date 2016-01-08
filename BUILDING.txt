@@ -43,6 +43,12 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
    '.../idasdk69'
    and run 'make' to make sure it compiles
 
+Note: the path you unpack the IDA SDK into cannot contain white spaces,
+   or special characters (such as '(', etc...)
+Note: on Windows, you will also have to
+   - copy .../idasdk69/lib/x86_win_vc_32 -> .../idasdk69/lib/x86_win_vc_32_opt
+   - copy .../idasdk69/lib/x86_win_vc_64 -> .../idasdk69/lib/x86_win_vc_64_opt
+
 2. Place these IDAPython sources into the SDK directory, such that the file:
    '.../idasdk69/plugins/idapython/BUILDING.txt' exists
 
