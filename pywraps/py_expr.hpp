@@ -92,7 +92,7 @@ static bool pyw_unregister_idc_func(size_t ctxptr)
   // Unregister the function
   py_idcfunc_ctx_t *ctx = (py_idcfunc_ctx_t *)ctxptr;
   bool ok = set_idc_func_ex(ctx->name.c_str(), NULL, NULL, 0);
-  
+
   // Delete the context
   delete ctx;
 
@@ -113,7 +113,7 @@ static bool py_set_idc_func_ex(
 // Compile* functions return false when error so the return
 // value must be negated for the error string to be returned
 bool CompileEx_wrap(
-    const char *file, 
+    const char *file,
     bool del_macros,
     char *errbuf, size_t errbufsize)
 {

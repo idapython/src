@@ -32,25 +32,22 @@ REQUIREMENTS
  - Microsoft Visual C on Windows [Microsoft Visual C++ 2008 Express Edition]
    http://msdn.microsoft.com/vstudio/express/visualc/
 
+ - Cygwin (requires GNU make)
 
 BUILDING
 --------
 
 Make sure all the needed tools (compiler, swig) are on the PATH.
 
-1. Unpack the IDAPython source and IDA SDK into the following
-   directory structure:
+1. Unpack the IDA SDK into:
+   '.../idasdk69'
+   and run 'make' to make sure it compiles
 
-   swigsdk-versions/x.y/          - A supported version of the IDA SDK
-   idapython/                     - IDAPython source code
+2. Place these IDAPython sources into the SDK directory, such that the file:
+   '.../idasdk69/plugins/idapython/BUILDING.txt' exists
 
 Note: To build with Hex-Rays decompiler support, please copy hexrays.hpp from
       the decompiler SDK folder into IDA's include folder (in the SDK).
-
-2. On Mac OS X copy libida.dylib from the IDA install directory to
-   swigsdk-versions/x.y/lib/x86_mac_gcc_32/
-    and libida64.dylib to
-   swigsdk-versions/x.y/lib/x86_mac_gcc_64/
 
 3. Build the plugin
 

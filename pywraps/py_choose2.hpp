@@ -1,7 +1,7 @@
 #ifndef __PY_CHOOSE2__
 #define __PY_CHOOSE2__
 
-//<code(py_kernwin)>
+//<code(py_choose2)>
 
 //------------------------------------------------------------------------
 // Some defines
@@ -133,7 +133,7 @@ private:
     return (uint32)thisobj->on_get_size();
   }
 
-  static void idaapi s_getl(void *obj, uint32 n, char * const *arrptr)
+  static void idaapi s_getl(void *obj, uint32 n, char *const *arrptr)
   {
     thisobj->on_get_line(int(n), arrptr);
   }
@@ -210,7 +210,7 @@ private:
     }
   }
 
-  void on_get_line(int lineno, char * const *line_arr)
+  void on_get_line(int lineno, char *const *line_arr)
   {
     // Called from s_getl, which itself can be called from the kernel. Ensure GIL
     PYW_GIL_GET;
@@ -355,7 +355,7 @@ private:
                     (char *)S_ON_GET_ICON,
                     "i",
                     lineno - 1));
-    return PyInt_AsLong(pyres.result.o);
+    return pyres.result == NULL ? -1 : PyInt_AsLong(pyres.result.o);
   }
 
   void on_get_line_attr(int lineno, chooser_item_attrs_t *attr)
@@ -460,8 +460,8 @@ private:
     // Fill callbacks that are only present in idaq
     if ( is_idaq() )
     {
-      out->select = (cb_flags & CHOOSE2_HAVE_SELECT)   != 0 ? s_select    : NULL;
-      out->refresh = (cb_flags & CHOOSE2_HAVE_REFRESHED)!= 0 ? s_refreshed : NULL;
+      out->select  = (cb_flags & CHOOSE2_HAVE_SELECT)    != 0 ? s_select    : NULL;
+      out->refresh = (cb_flags & CHOOSE2_HAVE_REFRESHED) != 0 ? s_refreshed : NULL;
     }
     else
     {
@@ -599,7 +599,7 @@ public:
 
     // Get *x1,y1,x2,y2
     int pts[4];
-    static const char *pt_attrs[qnumber(pts)] = {"x1", "y1", "x2", "y2"};
+    static const char *pt_attrs[qnumber(pts)] = { "x1", "y1", "x2", "y2" };
     for ( size_t i=0; i < qnumber(pts); i++ )
     {
       ref_t pt_attr(PyW_TryGetAttrString(self, pt_attrs[i]));
@@ -616,19 +616,19 @@ public:
       unsigned int have; // 0 = mandatory callback
     } callbacks[] =
     {
-      {S_ON_GET_SIZE,      0},
-      {S_ON_GET_LINE,      0},
-      {S_ON_CLOSE,         0},
-      {S_ON_EDIT_LINE,        CHOOSE2_HAVE_EDIT},
-      {S_ON_INSERT_LINE,      CHOOSE2_HAVE_INS},
-      {S_ON_DELETE_LINE,      CHOOSE2_HAVE_DEL},
-      {S_ON_REFRESH,          CHOOSE2_HAVE_UPDATE}, // update()
-      {S_ON_SELECT_LINE,      CHOOSE2_HAVE_ENTER}, // enter()
-      {S_ON_COMMAND,          CHOOSE2_HAVE_COMMAND},
-      {S_ON_GET_LINE_ATTR,    CHOOSE2_HAVE_GETATTR},
-      {S_ON_GET_ICON,         CHOOSE2_HAVE_GETICON},
-      {S_ON_SELECTION_CHANGE, CHOOSE2_HAVE_SELECT},
-      {S_ON_REFRESHED,        CHOOSE2_HAVE_REFRESHED},
+      { S_ON_GET_SIZE,      0 },
+      { S_ON_GET_LINE,      0 },
+      { S_ON_CLOSE,         0 },
+      { S_ON_EDIT_LINE,        CHOOSE2_HAVE_EDIT },
+      { S_ON_INSERT_LINE,      CHOOSE2_HAVE_INS },
+      { S_ON_DELETE_LINE,      CHOOSE2_HAVE_DEL },
+      { S_ON_REFRESH,          CHOOSE2_HAVE_UPDATE }, // update()
+      { S_ON_SELECT_LINE,      CHOOSE2_HAVE_ENTER }, // enter()
+      { S_ON_COMMAND,          CHOOSE2_HAVE_COMMAND },
+      { S_ON_GET_LINE_ATTR,    CHOOSE2_HAVE_GETATTR },
+      { S_ON_GET_ICON,         CHOOSE2_HAVE_GETICON },
+      { S_ON_SELECTION_CHANGE, CHOOSE2_HAVE_SELECT },
+      { S_ON_REFRESHED,        CHOOSE2_HAVE_REFRESHED },
     };
     cb_flags = 0;
     for ( int i=0; i<qnumber(callbacks); i++ )
@@ -828,7 +828,7 @@ PyObject *choose2_get_embedded_selection(PyObject *self)
   intvec_t &intvec = *c2->get_sel_vec();
 
   // Make 0-based
-  for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+  for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it )
     (*it)--;
 
   ref_t ret(PyW_IntVecToPyList(intvec));
@@ -843,14 +843,14 @@ PyObject *choose2_get_embedded(PyObject *self)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   py_choose2_t *c2 = choose2_find_instance(self);
-  chooser_info_t *embedded;
-
-  if ( c2 == NULL || (embedded = c2->get_embedded()) == NULL )
+  if ( c2 == NULL )
     Py_RETURN_NONE;
-  else
-    return Py_BuildValue("(KK)",
-                         PY_ULONG_LONG(embedded),
-                         PY_ULONG_LONG(c2->get_sel_vec()));
+
+  chooser_info_t *embedded = c2->get_embedded();
+  if ( embedded == NULL )
+    Py_RETURN_NONE;
+
+  return Py_BuildValue("(KK)", PTR2U64(embedded), PTR2U64(c2->get_sel_vec()));
 }
 
 //------------------------------------------------------------------------
@@ -871,10 +871,10 @@ PyObject *choose2_find(const char *title)
   py_choose2_t *c2 = py_choose2_t::find_chooser(title);
   return c2 == NULL ? NULL : c2->get_self();
 }
-//</code(py_kernwin)>
+//</code(py_choose2)>
 
 //---------------------------------------------------------------------------
-//<inline(py_kernwin)>
+//<inline(py_choose2)>
 PyObject *choose2_find(const char *title);
 int choose2_add_command(PyObject *self, const char *caption, int flags, int menu_index, int icon);
 void choose2_refresh(PyObject *self);
@@ -883,7 +883,7 @@ int choose2_create(PyObject *self, bool embedded);
 void choose2_activate(PyObject *self);
 PyObject *choose2_get_embedded(PyObject *self);
 PyObject *choose2_get_embedded_selection(PyObject *self);
-//</inline(py_kernwin)>
+//</inline(py_choose2)>
 
 //---------------------------------------------------------------------------
 // Testing functions. They belong to PyWraps and won't be copied to IDAPython

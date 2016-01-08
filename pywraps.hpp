@@ -5,7 +5,6 @@
 // Types
 #ifndef PYUL_DEFINED
   #define PYUL_DEFINED
-  typedef unsigned PY_LONG_LONG PY_ULONG_LONG;
   #ifdef __EA64__
     typedef unsigned PY_LONG_LONG pyul_t;
     typedef PY_LONG_LONG pyl_t;
@@ -14,6 +13,30 @@
     typedef long pyl_t;
   #endif
 #endif
+
+
+// "A pointer can be explicitly converted to any integral type large
+//  enough to hold it. The mapping function is implementation-defined."
+//                                                           — C++03
+// => G++ (and probably MSVC) will typically first sign-extend the pointer.
+//
+// int bar(void *p) { return foo(uint64(p)); }
+//
+// translates to:
+//
+// mov    0x8(%ebp),%eax
+// mov    %eax,%edx
+// sar    $0x1f,%edx     ; <---- boom!
+// mov    %eax,(%esp)
+// mov    %edx,0x4(%esp)
+// call   2d <_Z3barPv+0x16>
+
+#ifdef __X64__
+#define PTR2U64(Binding) (uint64(Binding))
+#else
+#define PTR2U64(Binding) (uint64(uint32(Binding)))
+#endif
+
 
 #ifdef __EA64__
   #define PY_FMT64  "K"
@@ -165,10 +188,10 @@ struct ref_t
   void decref() const { if ( o != NULL ) { QASSERT(30469, o->ob_refcnt > 0); Py_DECREF(o); } }
 
   bool operator==(PyObject *other) const { return o == other; }
-  bool operator!=(PyObject *other) const { return ! ((*this) == other); }
+  bool operator!=(PyObject *other) const { return !((*this) == other); }
 
   bool operator==(const ref_t &other) const { return o == other.o; }
-  bool operator!=(const ref_t &other) const { return ! ((*this) == other); }
+  bool operator!=(const ref_t &other) const { return !((*this) == other); }
 };
 
 //-------------------------------------------------------------------------
@@ -283,9 +306,6 @@ bool PyW_GetError(char *buf, size_t bufsz, bool clear_err = true);
 // If an error occured (it calls PyGetError) it displays it and return TRUE
 // This function is used when calling callbacks
 bool PyW_ShowCbErr(const char *cb_name);
-
-// Utility function to create a class instance whose constructor takes zero arguments
-ref_t create_idaapi_class_instance0(const char *clsname);
 
 // Utility function to create linked class instances
 ref_t create_idaapi_linked_class_instance(const char *clsname, void *lnk);

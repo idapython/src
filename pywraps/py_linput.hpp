@@ -2,7 +2,7 @@
 #define __PY_IDA_LINPUT__
 
 //--------------------------------------------------------------------------
-//<inline(py_diskio)>
+//<inline(py_linput)>
 /*
 #<pydoc>
 class loader_input_t(pyidc_opaque_object_t):
@@ -412,6 +412,6 @@ public:
     return Py_BuildValue("c", ch);
   }
 };
-//</inline(py_diskio)>
+//</inline(py_linput)>
 
 #endif

@@ -30,8 +30,10 @@
 #include <diskio.hpp>
 #include <loader.hpp>
 #include <kernwin.hpp>
+#include <ida_highlighter.hpp>
 
 #ifdef WITH_HEXRAYS
+//-V::730 Not all members of a class are initialized inside the constructor
 #include <hexrays.hpp>
 hexdsp_t *hexdsp = NULL;
 #endif
@@ -213,7 +215,7 @@ pycall_res_t::pycall_res_t(PyObject *pyo)
 //-------------------------------------------------------------------------
 pycall_res_t::~pycall_res_t()
 {
-  if (PyErr_Occurred())
+  if ( PyErr_Occurred() )
     PyErr_Print();
 }
 
@@ -380,41 +382,12 @@ static error_t idaapi idc_runpythonstatement(
 }
 
 //--------------------------------------------------------------------------
-const char *idaapi set_python_options(
-    const char *keyword,
-    int value_type,
-    const void *value)
+static const cfgopt_t opts[] =
 {
-  do
-  {
-    if ( value_type == IDPOPT_NUM )
-    {
-      if ( qstrcmp(keyword, "SCRIPT_TIMEOUT") == 0 )
-      {
-        script_timeout = int(*(uval_t *)value);
-        break;
-      }
-      else if ( qstrcmp(keyword, "ALERT_AUTO_SCRIPTS") == 0 )
-      {
-        g_alert_auto_scripts = *(uval_t *)value != 0;
-        break;
-      }
-      else if ( qstrcmp(keyword, "REMOVE_CWD_SYS_PATH") == 0 )
-      {
-        g_remove_cwd_sys_path = *(uval_t *)value != 0;
-        break;
-      }
-      else if ( qstrcmp(keyword, "USE_LOCAL_PYTHON") == 0 )
-      {
-        msg("\"USE_LOCAL_PYTHON\" is deprecated. IDA will always use "
-            "its own Python libraries if directory python/lib/ exists.\n");
-        break;
-      }
-    }
-    return IDPOPT_BADKEY;
-  } while (false);
-  return IDPOPT_OK;
-}
+  cfgopt_t("SCRIPT_TIMEOUT", &script_timeout, 0, INT_MAX),
+  cfgopt_t("ALERT_AUTO_SCRIPTS", &g_alert_auto_scripts, true),
+  cfgopt_t("REMOVE_CWD_SYS_PATH", &g_remove_cwd_sys_path, true),
+};
 
 //-------------------------------------------------------------------------
 // Check for the presence of a file in IDADIR/python and complain on error
@@ -438,12 +411,18 @@ static bool check_python_dir()
     }
   }
 
+  // on linux, PyQt needs to drop python/lib/python2.7/lib-dynload/sip.so,
+  // thus we can't rely on the mere presence of 'lib'. However, we know
+  // the bundled python drops python/lib/python27.zip. Let's look for that.
+#ifdef __LINUX__
+  qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", "python27.zip", NULL);
+  if ( qfileexist(filepath) )
+#else
   qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", NULL);
   if ( qisdir(filepath) )
-  {
-#ifdef _DEBUG
-    msg("Found \"%s\"; assuming local Python.\n", filepath);
 #endif
+  {
+    deb(IDA_DEBUG_PLUGIN, "Found \"%s\"; assuming local Python.\n", filepath);
     g_use_local_python = true;
   }
 
@@ -577,10 +556,12 @@ static bool IDAPython_ExecFile(
   strrpl(script, '\\', '/');
 
   newref_t py_script(PyString_FromString(script));
+  borref_t py_false(Py_False);
   newref_t py_ret(PyObject_CallFunctionObjArgs(
     py_execscript.o,
     py_script.o,
     GetMainGlobals(),
+    py_false.o,
     NULL));
 
   // Failure at this point means the script was interrupted
@@ -597,7 +578,7 @@ static bool IDAPython_ExecFile(
   }
 
   bool ok = false;
-  if ( !interrupted  )
+  if ( !interrupted )
   {
     PyObject *ret_o;
     if ( want_tuple )
@@ -822,9 +803,9 @@ ERR:
 //-------------------------------------------------------------------------
 // Compile callback for Python external language evaluator
 bool idaapi IDAPython_extlang_compile_file(
-  const char *filename,
-  char *errbuf,
-  size_t errbufsize)
+        const char *filename,
+        char *errbuf,
+        size_t errbufsize)
 {
   PYW_GIL_GET;
   begin_execution();
@@ -836,10 +817,10 @@ bool idaapi IDAPython_extlang_compile_file(
 //-------------------------------------------------------------------------
 // Load processor module callback for Python external language evaluator
 static bool idaapi IDAPython_extlang_loadprocmod(
-  const char *filename,
-  idc_value_t *procobj,
-  char *errbuf,
-  size_t errbufsize)
+        const char *filename,
+        idc_value_t *procobj,
+        char *errbuf,
+        size_t errbufsize)
 {
   PYW_GIL_GET;
   begin_execution();
@@ -1162,6 +1143,38 @@ bool idaapi IDAPython_extlang_call_method(
 }
 
 //-------------------------------------------------------------------------
+struct python_highlighter_t : public ida_syntax_highlighter_t
+{
+  python_highlighter_t() : ida_syntax_highlighter_t()
+  {
+    open_strconst = '"';
+    close_strconst = '"';
+    open_chrconst = '\'';
+    close_chrconst = '\'';
+    escape_char = '\\';
+    preprocessor_char = char(1);
+    literal_closer = '\0';
+    text_color = HF_DEFAULT;
+    comment_color = HF_COMMENT;
+    string_color = HF_STRING;
+    preprocessor_color = HF_KEYWORD1;
+    style = HF_DEFAULT;
+    set_open_cmt("#");
+    add_multi_line_comment("\"\"\"", "\"\"\"");
+    add_multi_line_comment("'''", "'''");
+    add_keywords(
+      "and|as|assert|break|class|continue|def|"
+      "del|elif|else|except|exec|finally|"
+      "for|from|global|if|import|in|"
+      "is|lambda|not|or|pass|print|"
+      "raise|return|try|while|with|yield|"
+      "None|True|False",HF_KEYWORD1);
+    add_keywords("self", HF_KEYWORD2);
+    add_keywords("def", HF_KEYWORD3);
+  }
+};
+static python_highlighter_t python_highlighter;
+
 const extlang_t extlang_python =
 {
     sizeof(extlang_t),
@@ -1179,6 +1192,7 @@ const extlang_t extlang_python =
     IDAPython_extlang_run_statements,
     IDAPython_extlang_loadprocmod,
     IDAPython_extlang_unloadprocmod,
+    &python_highlighter
 };
 
 //-------------------------------------------------------------------------
@@ -1334,7 +1348,7 @@ void convert_idc_args()
   if ( idc_args != NULL )
   {
     idc_value_t attr;
-    char attr_name[20] = {"0"};
+    char attr_name[20] = { "0" };
     for ( int i=1; VarGetAttr(idc_args, attr_name, &attr) == eOk; i++ )
     {
       PyList_Insert(py_args.o, i, PyString_FromString(attr.c_str()));
@@ -1575,7 +1589,7 @@ bool IDAPython_Init(void)
 #endif
 
   // Read configuration value
-  read_user_config_file("python.cfg", set_python_options, NULL);
+  read_config_file("python.cfg", opts, qnumber(opts));
   if ( g_alert_auto_scripts )
   {
     if ( pywraps_check_autoscripts(tmp, sizeof(tmp))

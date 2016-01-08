@@ -13,15 +13,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     patches = [
-        # misc
+        # text_sink_t
         "virtual int idaapi print",
 
-        # user_lvar_visitor_t
-        "virtual int idaapi handle_retrieved_info",
-        "virtual int idaapi handle_retrieved_mapping",
-        "virtual int idaapi get_info_qty_for_saving",
-        "virtual bool idaapi get_info_for_saving",
-        "virtual lvar_mapping_t const *idaapi get_info_mapping_for_saving",
+        # user_lvar_modifier_t
+        "virtual bool idaapi modify_lvars",
 
         # ctree_visitor_t
         "virtual int idaapi visit_insn",
@@ -40,6 +36,30 @@ if __name__ == "__main__":
         "virtual int idaapi visit_expr",
         "virtual int idaapi leave_insn",
         "virtual int idaapi leave_expr",
+
+        # enum_member_visitor_t
+        "virtual int idaapi visit_enum_member",
+
+        # struct_field_visitor_t
+        "virtual int idaapi visit_field",
+
+        # tinfo_visitor_t
+        "virtual int idaapi visit_type",
+
+        # aloc_visitor_t
+        "virtual int idaapi visit_location",
+
+        # const_aloc_visitor_t
+        "virtual int idaapi visit_location",
+
+        # area_visitor2_t
+        "virtual int idaapi visit_area",
+
+        # highlighter_cbs_t
+        "virtual void idaapi set_style",
+        "virtual int32 idaapi prev_block_state",
+        "virtual int32 idaapi cur_block_state",
+        "virtual void idaapi set_block_state",
         ]
 
     path = opts.path

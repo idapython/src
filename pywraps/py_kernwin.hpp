@@ -232,9 +232,9 @@ def umsg(text):
     pass
 #</pydoc>
 */
-static PyObject* py_umsg(PyObject *o)
+static PyObject *py_umsg(PyObject *o)
 {
-  PyObject* utf8 = NULL;
+  PyObject *utf8 = NULL;
   if ( PyUnicode_Check(o) )
   {
     utf8 = PyUnicode_AsUTF8String(o);
@@ -267,7 +267,7 @@ def msg(text):
     pass
 #</pydoc>
 */
-static PyObject* py_msg(PyObject *o)
+static PyObject *py_msg(PyObject *o)
 {
   if ( PyUnicode_Check(o) )
     return py_umsg(o);
@@ -463,51 +463,125 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
   idc_func_name.sprnt("py_hotkeycb_%p", pyfunc);
 
   // Can add the hotkey?
-  if ( add_idc_hotkey(hotkey, idc_func_name.c_str()) == IDCHK_OK ) do
+  if ( add_idc_hotkey(hotkey, idc_func_name.c_str()) == IDCHK_OK )
   {
-    // Generate global variable name
-    qstring idc_gvarname;
-    idc_gvarname.sprnt("_g_pyhotkey_ref_%p", pyfunc);
+    do
+    {
+      // Generate global variable name
+      qstring idc_gvarname;
+      idc_gvarname.sprnt("_g_pyhotkey_ref_%p", pyfunc);
 
-    // Now add the global variable
-    idc_value_t *gvar = add_idc_gvar(idc_gvarname.c_str());
-    if ( gvar == NULL )
-      break;
+      // Now add the global variable
+      idc_value_t *gvar = add_idc_gvar(idc_gvarname.c_str());
+      if ( gvar == NULL )
+        break;
 
-    // The function body will call a registered IDC function that
-    // will take a global variable that wraps a PyCallable as a pvoid
-    qstring idc_func;
-    idc_func.sprnt("static %s() { %s(%s); }",
-      idc_func_name.c_str(),
-      S_PYINVOKE0,
-      idc_gvarname.c_str());
+      // The function body will call a registered IDC function that
+      // will take a global variable that wraps a PyCallable as a pvoid
+      qstring idc_func;
+      idc_func.sprnt("static %s() { %s(%s); }",
+        idc_func_name.c_str(),
+        S_PYINVOKE0,
+        idc_gvarname.c_str());
 
-    // Compile the IDC condition
-    char errbuf[MAXSTR];
-    if ( !CompileLineEx(idc_func.c_str(), errbuf, sizeof(errbuf)) )
-      break;
+      // Compile the IDC condition
+      char errbuf[MAXSTR];
+      if ( !CompileLineEx(idc_func.c_str(), errbuf, sizeof(errbuf)) )
+        break;
 
-    // Create new context
-    // Define context
-    py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t();
+      // Create new context
+      // Define context
+      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t();
 
-    // Remember the hotkey
-    ctx->hotkey = hotkey;
+      // Remember the hotkey
+      ctx->hotkey = hotkey;
 
-    // Take reference to the callable
-    ctx->pyfunc = pyfunc;
-    Py_INCREF(pyfunc);
+      // Take reference to the callable
+      ctx->pyfunc = pyfunc;
+      Py_INCREF(pyfunc);
 
-    // Bind IDC variable w/ the PyCallable
-    gvar->set_pvoid(pyfunc);
+      // Bind IDC variable w/ the PyCallable
+      gvar->set_pvoid(pyfunc);
 
-    // Return the context
-    return PyCObject_FromVoidPtr(ctx, NULL);
-  } while (false);
-
+      // Return the context
+      return PyCObject_FromVoidPtr(ctx, NULL);
+    } while (false);
+  }
   // Cleanup
   del_idc_hotkey(hotkey);
   Py_RETURN_NONE;
+}
+
+//------------------------------------------------------------------------
+static PyObject *py_take_database_snapshot(snapshot_t *ss)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  qstring err_msg;
+
+  bool b = take_database_snapshot(ss, &err_msg);
+
+  // Return (b, err_msg)
+  return Py_BuildValue("(Ns)", PyBool_FromLong(b), err_msg.empty() ? NULL : err_msg.c_str());
+}
+
+//------------------------------------------------------------------------
+static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
+{
+  PYW_GIL_GET;
+
+  // userdata is a tuple of ( func, args )
+  // func and args are borrowed references from userdata
+  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
+  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+
+  // Create arguments tuple for python function
+  PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
+
+  // Call the python function
+  newref_t result(PyEval_CallObject(func, cb_args));
+
+  // Free cb_args and userdata
+  Py_DECREF(cb_args);
+  Py_DECREF(userdata);
+
+  // We cannot raise an exception in the callback, just print it.
+  if ( result == NULL )
+    PyErr_Print();
+}
+static PyObject *py_restore_database_snapshot(
+  const snapshot_t *ss,
+  PyObject *pyfunc_or_none,
+  PyObject *pytuple_or_none)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  // If there is no callback, just call the function directly
+  if ( pyfunc_or_none == Py_None )
+    return PyBool_FromLong(restore_database_snapshot(ss, NULL, NULL));
+
+  // Create a new tuple or increase reference to pytuple_or_none
+  if ( pytuple_or_none == Py_None )
+  {
+    pytuple_or_none = PyTuple_New(0);
+    if ( pytuple_or_none == NULL )
+      return NULL;
+  }
+  else
+  {
+    Py_INCREF(pytuple_or_none);
+  }
+
+  // Create callback data tuple (use 'N' for pytuple_or_none, since its
+  // reference has already been incremented)
+  PyObject *cb_data = Py_BuildValue("(ON)", pyfunc_or_none, pytuple_or_none);
+
+  bool b = restore_database_snapshot(ss, py_ss_restore_callback, (void *) cb_data);
+
+  if ( !b )
+    Py_DECREF(cb_data);
+
+  return PyBool_FromLong(b);
 }
 
 //------------------------------------------------------------------------
@@ -931,52 +1005,85 @@ public:
     return unhook_from_notification_point(HT_UI, UI_Callback, this);
   }
 
-  virtual int preprocess(const char * /*name*/)
+  static int handle_get_ea_hint_output(PyObject *o, ea_t, char *buf, size_t bufsize)
   {
-    return 0;
+    int rc = 0;
+    char *_buf;
+    Py_ssize_t _len;
+    if ( o != NULL && PyString_Check(o) && PyString_AsStringAndSize(o, &_buf, &_len) != -1 )
+    {
+      qstrncpy(buf, _buf, qmin(_len, bufsize));
+      rc = 1;
+    }
+    Py_XDECREF(o);
+    return rc;
   }
 
-  virtual void postprocess()
+  static int handle_hint_output(PyObject *o, int *important_lines, qstring *hint)
   {
+    int rc = 0;
+    if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
+    {
+      borref_t el0(PyTuple_GetItem(o, 0));
+      char *_buf;
+      Py_ssize_t _len;
+      if ( el0 != NULL
+        && PyString_Check(el0.o)
+        && PyString_AsStringAndSize(el0.o, &_buf, &_len) != -1
+        && _len > 0 )
+      {
+        borref_t el1(PyTuple_GetItem(o, 1));
+        if ( el1 != NULL && PyInt_Check(el1.o) )
+        {
+          long lns = PyInt_AsLong(el1.o);
+          if ( lns > 0 )
+          {
+            *important_lines = lns;
+            hint->append(_buf, _len);
+            rc = 1;
+          }
+        }
+      }
+    }
+    return rc;
   }
 
-  virtual void saving()
+  static int handle_hint_output(PyObject *o, ea_t, int, int *important_lines, qstring *hint)
   {
+    return handle_hint_output(o, important_lines, hint);
   }
 
-  virtual void saved()
+  static int handle_hint_output(PyObject *o, TCustomControl *, place_t *, int *important_lines, qstring *hint)
   {
+    return handle_hint_output(o, important_lines, hint);
   }
 
-  virtual void term()
-  {
-  }
-
-  virtual PyObject *get_ea_hint(ea_t /*ea*/)
-  {
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    Py_RETURN_NONE;
-  };
-
-  virtual void current_tform_changed(TForm * /*form*/, TForm * /*previous_form*/)
-  {
-  }
-
-  virtual void updating_actions(action_update_ctx_t *ctx)
-  {
-  }
-
-  virtual void updated_actions()
-  {
-  }
-
-  virtual void populating_tform_popup(TForm * /*form*/, TPopupMenu * /*popup*/)
-  {
-  }
-
-  virtual void finish_populating_tform_popup(TForm * /*form*/, TPopupMenu * /*popup*/)
-  {
-  }
+  // hookgenUI:methods
+virtual void range() {}
+virtual void idcstart() {}
+virtual void idcstop() {}
+virtual void suspend() {}
+virtual void resume() {}
+virtual void saving() {}
+virtual void saved() {}
+virtual void term() {}
+virtual int debugger_menu_change(bool enable) {qnotused(enable); return 1;}
+virtual void tform_visible(TForm * form, void * HWND) {qnotused(form); qnotused(HWND); }
+virtual void tform_invisible(TForm * form, void * HWND) {qnotused(form); qnotused(HWND); }
+virtual PyObject * get_ea_hint(ea_t ea) {qnotused(ea); Py_RETURN_NONE;}
+virtual PyObject * get_item_hint(ea_t ea, int max_lines) {qnotused(ea); qnotused(max_lines); Py_RETURN_NONE;}
+virtual PyObject * get_custom_viewer_hint(TCustomControl* viewer, place_t * place) {qnotused(viewer); qnotused(place); Py_RETURN_NONE;}
+virtual void database_inited(int is_new_database, const char * idc_script) {qnotused(is_new_database); qnotused(idc_script); }
+virtual void ready_to_run() {}
+virtual void preprocess(const char * name) {qnotused(name); }
+virtual void postprocess() {}
+virtual void updating_actions(action_update_ctx_t * ctx) {qnotused(ctx); }
+virtual void updated_actions() {}
+virtual void populating_tform_popup(TForm * form, TPopupMenu * popup_handle) {qnotused(form); qnotused(popup_handle); }
+virtual void finish_populating_tform_popup(TForm * form, TPopupMenu * popup_handle) {qnotused(form); qnotused(popup_handle); }
+virtual void plugin_loaded(const plugin_info_t * plugin_info) {qnotused(plugin_info); }
+virtual void plugin_unloading(const plugin_info_t * plugin_info) {qnotused(plugin_info); }
+virtual void current_tform_changed(TForm * form, TForm * prev_form) {qnotused(form); qnotused(prev_form); }
 };
 
 //-------------------------------------------------------------------------
@@ -1167,8 +1274,8 @@ nav_colorizer_t *py_set_nav_colorizer(PyObject *new_py_colorizer)
   bool need_install = py_colorizer == NULL;
   py_colorizer = borref_t(new_py_colorizer);
   return need_install
-    ? set_nav_colorizer(lambda_t::call_py_colorizer)
-    : NULL;
+       ? set_nav_colorizer(lambda_t::call_py_colorizer)
+       : NULL;
 }
 
 //-------------------------------------------------------------------------
@@ -1192,13 +1299,10 @@ uint32 py_call_nav_colorizer(
 {
   return col(ea, nbytes);
 }
-
 //</inline(py_kernwin)>
 
 //---------------------------------------------------------------------------
 //<code(py_kernwin)>
-//---------------------------------------------------------------------------
-
 //---------------------------------------------------------------------------
 int idaapi UI_Callback(void *ud, int notification_code, va_list va)
 {
@@ -1208,87 +1312,190 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
   int ret = 0;
   try
   {
-    switch (notification_code)
+    switch ( notification_code )
     {
-      case ui_preprocess:
-      {
-        const char *name = va_arg(va, const char *);
-        return proxy->preprocess(name);
-      }
+      // hookgenUI:notifications
+case ui_range:
+{
+  proxy->range();
+}
+break;
 
-      case ui_postprocess:
-        proxy->postprocess();
-        break;
+case ui_idcstart:
+{
+  proxy->idcstart();
+}
+break;
 
-      case ui_saving:
-        proxy->saving();
-        break;
+case ui_idcstop:
+{
+  proxy->idcstop();
+}
+break;
 
-      case ui_saved:
-        proxy->saved();
-        break;
+case ui_suspend:
+{
+  proxy->suspend();
+}
+break;
 
-      case ui_term:
-        proxy->term();
-        break;
+case ui_resume:
+{
+  proxy->resume();
+}
+break;
 
-      case ui_get_ea_hint:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        char *buf = va_arg(va, char *);
-        size_t sz = va_arg(va, size_t);
-        char *_buf;
-        Py_ssize_t _len;
+case ui_saving:
+{
+  proxy->saving();
+}
+break;
 
-        PYW_GIL_CHECK_LOCKED_SCOPE();
-        PyObject *py_str = proxy->get_ea_hint(ea);
-        if ( py_str != NULL
-          && PyString_Check(py_str)
-          && PyString_AsStringAndSize(py_str, &_buf, &_len) != - 1 )
-        {
-          qstrncpy(buf, _buf, qmin(_len, sz));
-          ret = 1;
-        }
-        break;
-      }
+case ui_saved:
+{
+  proxy->saved();
+}
+break;
 
-      case ui_current_tform_changed:
-        {
-          TForm *form = va_arg(va, TForm *);
-          TForm *prev_form = va_arg(va, TForm *);
-          proxy->current_tform_changed(form, prev_form);
-        }
-        break;
+case ui_term:
+{
+  proxy->term();
+}
+break;
 
-      case ui_updating_actions:
-        {
-          action_update_ctx_t *ctx = va_arg(va, action_update_ctx_t *);
-          proxy->updating_actions(ctx);
-        }
-        break;
+case ui_debugger_menu_change:
+{
+  bool enable = bool(va_arg(va, int));
+  ret = proxy->debugger_menu_change(enable);
+}
+break;
 
+case ui_tform_visible:
+{
+  TForm * form = va_arg(va, TForm *);
+  void * HWND = va_arg(va, void *);
+  proxy->tform_visible(form, HWND);
+}
+break;
 
-      case ui_updated_actions:
-        {
-          proxy->updated_actions();
-        }
-        break;
+case ui_tform_invisible:
+{
+  TForm * form = va_arg(va, TForm *);
+  void * HWND = va_arg(va, void *);
+  proxy->tform_invisible(form, HWND);
+}
+break;
 
-      case ui_populating_tform_popup:
-        {
-          TForm *form = va_arg(va, TForm *);
-          TPopupMenu *popup = va_arg(va, TPopupMenu *);
-          proxy->populating_tform_popup(form, popup);
-        }
-        break;
+case ui_get_ea_hint:
+{
+  ea_t ea = va_arg(va, ea_t);
+  char * buf = va_arg(va, char *);
+  size_t bufsize = va_arg(va, size_t);
+  PyObject * _tmp = proxy->get_ea_hint(ea);
+  ret = UI_Hooks::handle_get_ea_hint_output(_tmp, ea, buf, bufsize);
+}
+break;
 
-      case ui_finish_populating_tform_popup:
-        {
-          TForm *form = va_arg(va, TForm *);
-          TPopupMenu *popup = va_arg(va, TPopupMenu *);
-          proxy->finish_populating_tform_popup(form, popup);
-        }
-        break;
+case ui_get_item_hint:
+{
+  ea_t ea = va_arg(va, ea_t);
+  int max_lines = va_arg(va, int);
+  int * important_lines = va_arg(va, int *);
+  qstring * hint = va_arg(va, qstring *);
+  PyObject * _tmp = proxy->get_item_hint(ea, max_lines);
+  ret = UI_Hooks::handle_hint_output(_tmp, ea, max_lines, important_lines, hint);
+}
+break;
+
+case ui_get_custom_viewer_hint:
+{
+  TCustomControl* viewer = va_arg(va, TCustomControl*);
+  place_t * place = va_arg(va, place_t *);
+  int * important_lines = va_arg(va, int *);
+  qstring * hint = va_arg(va, qstring *);
+  PyObject * _tmp = proxy->get_custom_viewer_hint(viewer, place);
+  ret = UI_Hooks::handle_hint_output(_tmp, viewer, place, important_lines, hint);
+}
+break;
+
+case ui_database_inited:
+{
+  int is_new_database = va_arg(va, int);
+  const char * idc_script = va_arg(va, const char *);
+  proxy->database_inited(is_new_database, idc_script);
+}
+break;
+
+case ui_ready_to_run:
+{
+  proxy->ready_to_run();
+}
+break;
+
+case ui_preprocess:
+{
+  const char * name = va_arg(va, const char *);
+  proxy->preprocess(name);
+}
+break;
+
+case ui_postprocess:
+{
+  proxy->postprocess();
+}
+break;
+
+case ui_updating_actions:
+{
+  action_update_ctx_t * ctx = va_arg(va, action_update_ctx_t *);
+  proxy->updating_actions(ctx);
+}
+break;
+
+case ui_updated_actions:
+{
+  proxy->updated_actions();
+}
+break;
+
+case ui_populating_tform_popup:
+{
+  TForm * form = va_arg(va, TForm *);
+  TPopupMenu * popup_handle = va_arg(va, TPopupMenu *);
+  proxy->populating_tform_popup(form, popup_handle);
+}
+break;
+
+case ui_finish_populating_tform_popup:
+{
+  TForm * form = va_arg(va, TForm *);
+  TPopupMenu * popup_handle = va_arg(va, TPopupMenu *);
+  proxy->finish_populating_tform_popup(form, popup_handle);
+}
+break;
+
+case ui_plugin_loaded:
+{
+  const plugin_info_t * plugin_info = va_arg(va, const plugin_info_t *);
+  proxy->plugin_loaded(plugin_info);
+}
+break;
+
+case ui_plugin_unloading:
+{
+  const plugin_info_t * plugin_info = va_arg(va, const plugin_info_t *);
+  proxy->plugin_unloading(plugin_info);
+}
+break;
+
+case ui_current_tform_changed:
+{
+  TForm * form = va_arg(va, TForm *);
+  TForm * prev_form = va_arg(va, TForm *);
+  proxy->current_tform_changed(form, prev_form);
+}
+break;
+
     }
   }
   catch (Swig::DirectorException &e)

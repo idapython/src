@@ -41,18 +41,46 @@
 
     for (i =0; i < len; i++)
     {
-        PyObject *o = PySequence_GetItem($input,i);
-        if (!PyLong_Check(o))
+        newref_t item(PySequence_GetItem($input,i));
+        if (!PyLong_Check(item.o))
         {
-            Py_XDECREF(o);
             PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
             return NULL;
         }
 
-        temp[i] = PyLong_AsUnsignedLong(o);
-        Py_DECREF(o);
+        temp[i] = PyLong_AsUnsignedLong(item.o);
     }
     $1 = &temp[0];
+}
+
+//-------------------------------------------------------------------------
+// Same, but with non-fixed sized arrays.
+%typemap(in) (const tid_t *path, int plen) (qvector<tid_t> temp) {
+    if (!PySequence_Check($input))
+    {
+        PyErr_SetString(PyExc_TypeError,"Expecting a sequence");
+        return NULL;
+    }
+    int plen = PySequence_Length($input);
+    if ( plen <= 0 )
+    {
+        PyErr_SetString(PyExc_TypeError, "Sequence must have at least 1 item");
+        return NULL;
+    }
+    temp.resize(plen);
+    for ( int i =0; i < plen; ++i )
+    {
+        newref_t item(PySequence_GetItem($input,i));
+        if (!PyLong_Check(item.o))
+        {
+            PyErr_SetString(PyExc_ValueError,"Expecting a sequence of long integers");
+            return NULL;
+        }
+
+        temp[i] = PyLong_AsUnsignedLong(item.o);
+    }
+    $1 = temp.begin();
+    $2 = int(temp.size());
 }
 
 //---------------------------------------------------------------------
@@ -174,11 +202,51 @@
 }
 
 //---------------------------------------------------------------------
+// md5/sha256 hash retrieval
+%typemap(in, numinputs=0) uchar hash[ANY] (uchar temp[$1_dim0])
+{
+  $1 = temp;
+}
+
+%typemap(argout) uchar hash[ANY]
+{
+    Py_XDECREF(resultobj);
+    if (result)
+    {
+        char buf[2*$1_dim0 + 1];
+        get_hex_string(buf, sizeof(buf), $1, $1_dim0);
+        resultobj = PyString_FromString(buf);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+}
+
 // Check that the argument is a callable Python object
 //---------------------------------------------------------------------
 %typemap(in) PyObject *pyfunc {
     if (!PyCallable_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expected a callable object");
+        return NULL;
+    }
+    $1 = $input;
+}
+// Check that the argument is None or a callable Python object
+//---------------------------------------------------------------------
+%typemap(in) PyObject *pyfunc_or_none {
+    if ($input != Py_None && !PyCallable_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected None or a callable object");
+        return NULL;
+    }
+    $1 = $input;
+}
+// Check that the argument is None or a tuple
+//---------------------------------------------------------------------
+%typemap(in) PyObject *tuple_or_none {
+    if ($input != Py_None && !PyTuple_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected None or a tuple");
         return NULL;
     }
     $1 = $input;
@@ -197,6 +265,9 @@
 // windows, and thus the ea_t would be truncated at the
 // PyLong_FromUnsignedLong(unsigned int) call time.
 %typemap(out) ea_t "$result = PyLong_FromUnsignedLongLong($1);"
+
+%typemap(in) qtime64_t "$1 = PyLong_AsUnsignedLongLong($input);"
+%typemap(out) qtime64_t "$result = PyLong_FromUnsignedLongLong($1);"
 
 //---------------------------------------------------------------------
 //                            IN qstring
@@ -238,14 +309,16 @@
 };
 
 #ifdef __EA64__
-%apply longlong  *INOUT { sval_t *value };
-%apply ulonglong *INOUT { ea_t   *addr };
-%apply ulonglong *INOUT { sel_t  *sel };
+%apply longlong  *INOUT { sval_t  *value };
+%apply longlong  *INOUT { adiff_t *disp };
+%apply ulonglong *INOUT { ea_t    *addr };
+%apply ulonglong *INOUT { sel_t   *sel };
 %apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
 #else
-%apply int          *INOUT { sval_t *value };
-%apply unsigned int *INOUT { ea_t   *addr };
-%apply unsigned int *INOUT { sel_t  *sel };
+%apply int          *INOUT { sval_t  *value };
+%apply int          *INOUT { adiff_t *disp };
+%apply unsigned int *INOUT { ea_t    *addr };
+%apply unsigned int *INOUT { sel_t   *sel };
 %apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
 #endif
 

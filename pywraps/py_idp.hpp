@@ -34,8 +34,8 @@ static PyObject *AssembleLine(
   int inslen;
   char buf[MAXSTR];
   bool ok = false;
-  if (ph.notify != NULL &&
-    (inslen = ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0)
+  if ( ph.notify != NULL
+    && (inslen = ph.notify(ph.assemble, ea, cs, ip, use32, line, buf)) > 0 )
   {
     ok = true;
   }
@@ -74,10 +74,10 @@ bool assemble(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   bool rc = false;
   Py_BEGIN_ALLOW_THREADS;
-  if (ph.notify != NULL)
+  if ( ph.notify != NULL )
   {
     inslen = ph.notify(ph.assemble, ea, cs, ip, use32, line, buf);
-    if (inslen > 0)
+    if ( inslen > 0 )
     {
       patch_many_bytes(ea, buf, inslen);
       rc = true;
@@ -685,6 +685,13 @@ class IDP_Hooks(object):
 //---------------------------------------------------------------------------
 // IDP hooks
 //---------------------------------------------------------------------------
+
+// Necessary forward declarations; idp.hpp itself doesn't need them.
+struct mblock_t;
+struct proc_def;
+struct set_elf_reloc_t;
+struct libfunc_t;
+
 int idaapi IDP_Callback(void *ud, int notification_code, va_list va);
 class IDP_Hooks
 {
@@ -704,120 +711,157 @@ public:
     return unhook_from_notification_point(HT_IDP, IDP_Callback, this);
   }
 
-  virtual bool custom_ana()
+  static int bool_to_cmdsize(bool in) { return in ? (1 + cmd.size) : 0; }
+  static int bool_to_2or0(bool in) { return in ? 2 : 0; }
+  static int cm_t_to_int(cm_t cm) { return int(cm); }
+  static int handle_custom_mnem_output(PyObject *o, char *buf, size_t bufsize)
   {
-    return false;
+    int rc = 0;
+    if ( o != NULL && PyString_Check(o) )
+    {
+      qstrncpy(buf, PyString_AS_STRING(o), bufsize);
+      rc = 2;
+    }
+    Py_XDECREF(o);
+    return rc;
+  }
+  static int handle_assemble_output(PyObject *o, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/, uchar *bin)
+  {
+    int rc = 0;
+    if ( o != NULL && PyString_Check(o) )
+    {
+      char *s;
+      Py_ssize_t len = 0;
+      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
+      {
+        if ( len > MAXSTR )
+          len = MAXSTR;
+        memcpy(bin, s, len);
+      }
+      rc = int(len);
+    }
+    Py_XDECREF(o);
+    return rc;
   }
 
-  virtual bool custom_out()
-  {
-    return false;
-  }
-
-  virtual bool custom_emu()
-  {
-    return false;
-  }
-
-  virtual bool custom_outop(PyObject *py_op)
-  {
-    return false;
-  }
-
-  virtual PyObject *custom_mnem()
-  {
-    Py_RETURN_NONE;
-  }
-
-  virtual int is_sane_insn(int no_crefs)
-  {
-    return 0;
-  }
-
-  virtual int may_be_func(int state)
-  {
-    return 0;
-  }
-
-  virtual int closebase()
-  {
-    return 0;
-  }
-
-  virtual void savebase()
-  {
-  }
-
-  virtual void auto_empty_finally()
-  {
-  }
-
-  virtual int rename(ea_t ea, const char *new_name)
-  {
-    return 0;
-  }
-
-  virtual void renamed(ea_t ea, const char *new_name, bool local_name)
-  {
-  }
-
-  virtual int undefine(ea_t ea)
-  {
-    return 0;
-  }
-
-  virtual int make_code(ea_t ea, asize_t size)
-  {
-    return 0;
-  }
-
-  virtual int make_data(ea_t ea, flags_t flags, tid_t tid, asize_t len)
-  {
-    return 0;
-  }
-
-  virtual void load_idasgn(const char *short_sig_name)
-  {
-  }
-
-  virtual void auto_empty()
-  {
-  }
-
-  virtual int auto_queue_empty(atype_t type)
-  {
-    return 1; // Keep the queue empty.
-  }
-
-  virtual void add_func(func_t *func)
-  {
-  }
-
-  virtual int del_func(func_t *func)
-  {
-    return 0;
-  }
-
-  virtual int is_call_insn(ea_t /*ea*/)
-  {
-    return 0;
-  }
-
-  virtual int is_ret_insn(ea_t /*ea*/, bool /*strict*/)
-  {
-    return 0;
-  }
-
-  virtual PyObject *assemble(
-      ea_t /*ea*/,
-      ea_t /*cs*/,
-      ea_t /*ip*/,
-      bool /*use32*/,
-      const char * /*line*/)
-  {
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    Py_RETURN_NONE;
-  }
+  // hookgenIDP:methods
+virtual int init(const char * idp_modname) {qnotused(idp_modname); return 0;}
+virtual int term() {return 0;}
+virtual int newprc(int pnum) {qnotused(pnum); return 0;}
+virtual int newasm(int asmnum) {qnotused(asmnum); return 0;}
+virtual int newfile(char * fname) {qnotused(fname); return 0;}
+virtual int oldfile(char * fname) {qnotused(fname); return 0;}
+virtual int newbinary(char * filename, uint32 fileoff, ea_t basepara, ea_t binoff, uint32 nbytes) {qnotused(filename); qnotused(fileoff); qnotused(basepara); qnotused(binoff); qnotused(nbytes); return 0;}
+virtual int endbinary(bool ok) {qnotused(ok); return 0;}
+virtual int newseg(segment_t * seg) {qnotused(seg); return 0;}
+virtual PyObject * assemble(ea_t ea, ea_t cs, ea_t ip, bool use32, const char * line) {qnotused(ea); qnotused(cs); qnotused(ip); qnotused(use32); qnotused(line); Py_RETURN_NONE;}
+virtual int obsolete_makemicro(mblock_t * block) {qnotused(block); return 0;}
+virtual int outlabel(ea_t ea, const char * colored_name) {qnotused(ea); qnotused(colored_name); return 0;}
+virtual int rename(ea_t ea, const char * new_name) {qnotused(ea); qnotused(new_name); return 0;}
+virtual int may_show_sreg(ea_t current_ea) {qnotused(current_ea); return 0;}
+virtual int closebase() {return 0;}
+virtual void load_idasgn(const char * short_sig_name) {qnotused(short_sig_name); }
+virtual int coagulate(ea_t start_ea) {qnotused(start_ea); return 0;}
+virtual void auto_empty() {}
+virtual int auto_queue_empty(atype_t type) {qnotused(type); return 0;}
+virtual void func_bounds(int * possible_return_code, func_t * pfn, ea_t max_func_end_ea) {qnotused(possible_return_code); qnotused(pfn); qnotused(max_func_end_ea); }
+virtual int may_be_func(int state) {qnotused(state); return 0;}
+virtual int is_sane_insn(int no_crefs) {qnotused(no_crefs); return 0;}
+virtual int is_jump_func(func_t * pfn, ea_t * jump_target, ea_t * func_pointer) {qnotused(pfn); qnotused(jump_target); qnotused(func_pointer); return 0;}
+virtual int gen_regvar_def(regvar_t * v) {qnotused(v); return 0;}
+virtual int setsgr(ea_t startEA, ea_t endEA, int regnum, sel_t value, sel_t old_value, uchar tag) {qnotused(startEA); qnotused(endEA); qnotused(regnum); qnotused(value); qnotused(old_value); qnotused(tag); return 0;}
+virtual int set_compiler() {return 0;}
+virtual int is_basic_block_end(bool call_insn_stops_block) {qnotused(call_insn_stops_block); return 0;}
+virtual int reglink() {return 0;}
+virtual void get_vxd_name(int vxdnum, int funcnum, char * outbuf) {qnotused(vxdnum); qnotused(funcnum); qnotused(outbuf); }
+virtual bool custom_ana() {return false;}
+virtual bool custom_out() {return false;}
+virtual bool custom_emu() {return false;}
+virtual bool custom_outop(PyObject * op) {qnotused(op); return false;}
+virtual PyObject * custom_mnem() {Py_RETURN_NONE;}
+virtual int undefine(ea_t ea) {qnotused(ea); return 0;}
+virtual int make_code(ea_t ea, asize_t size) {qnotused(ea); qnotused(size); return 0;}
+virtual int make_data(ea_t ea, flags_t flags, tid_t tid, asize_t len) {qnotused(ea); qnotused(flags); qnotused(tid); qnotused(len); return 0;}
+virtual int moving_segm(segment_t * seg, ea_t to, int flags) {qnotused(seg); qnotused(to); qnotused(flags); return 0;}
+virtual void move_segm(ea_t from, segment_t * seg) {qnotused(from); qnotused(seg); }
+virtual int is_call_insn(ea_t ea) {qnotused(ea); return 0;}
+virtual int is_ret_insn(ea_t ea, bool strict) {qnotused(ea); qnotused(strict); return 0;}
+virtual int get_stkvar_scale_factor() {return 0;}
+virtual int create_flat_group(ea_t image_base, int bitness, sel_t dataseg_sel) {qnotused(image_base); qnotused(bitness); qnotused(dataseg_sel); return 0;}
+virtual void kernel_config_loaded() {}
+virtual int might_change_sp(ea_t ea) {qnotused(ea); return 0;}
+virtual int is_alloca_probe(ea_t ea) {qnotused(ea); return 0;}
+virtual int out_3byte(ea_t dataea, uint32 value, bool analyze_only) {qnotused(dataea); qnotused(value); qnotused(analyze_only); return 0;}
+virtual int get_reg_name(int reg, size_t width, char * buf, size_t bufsize, int reghi) {qnotused(reg); qnotused(width); qnotused(buf); qnotused(bufsize); qnotused(reghi); return 0;}
+virtual void savebase() {}
+virtual void gen_asm_or_lst(bool starting, FILE * fp, bool is_asm, int flags, gen_outline_t ** outline) {qnotused(starting); qnotused(fp); qnotused(is_asm); qnotused(flags); qnotused(outline); }
+virtual int out_src_file_lnnum() {return 0;}
+virtual int get_autocmt(char * buf, size_t bufsize) {qnotused(buf); qnotused(bufsize); return 0;}
+virtual int is_insn_table_jump() {return 0;}
+virtual void auto_empty_finally() {}
+virtual int loader_finished(linput_t * li, uint16 neflags, const char * filetypename) {qnotused(li); qnotused(neflags); qnotused(filetypename); return 0;}
+virtual int loader_elf_machine(linput_t * li, int machine_type, const char ** p_procname, proc_def ** p_pd, set_elf_reloc_t * set_reloc) {qnotused(li); qnotused(machine_type); qnotused(p_procname); qnotused(p_pd); qnotused(set_reloc); return 0;}
+virtual int is_indirect_jump() {return 0;}
+virtual int verify_noreturn(func_t * pfn) {qnotused(pfn); return 0;}
+virtual int verify_sp(func_t * pfn) {qnotused(pfn); return 0;}
+virtual void renamed(ea_t ea, const char * new_name, bool local_name) {qnotused(ea); qnotused(new_name); qnotused(local_name); }
+virtual void add_func(func_t * pfn) {qnotused(pfn); }
+virtual int del_func(func_t * pfn) {qnotused(pfn); return 0;}
+virtual int set_func_start(func_t * pfn, ea_t new_start) {qnotused(pfn); qnotused(new_start); return 0;}
+virtual int set_func_end(func_t * pfn, ea_t new_end) {qnotused(pfn); qnotused(new_end); return 0;}
+virtual int treat_hindering_item(ea_t hindering_item_ea, flags_t new_item_flags, ea_t new_item_ea, asize_t new_item_length) {qnotused(hindering_item_ea); qnotused(new_item_flags); qnotused(new_item_ea); qnotused(new_item_length); return 0;}
+virtual int str2reg(const char * regname) {qnotused(regname); return 0;}
+virtual int create_switch_xrefs(ea_t jumpea, switch_info_ex_t * si) {qnotused(jumpea); qnotused(si); return 0;}
+virtual int calc_switch_cases(ea_t insn_ea, switch_info_ex_t * si, casevec_t * casevec, eavec_t * targets) {qnotused(insn_ea); qnotused(si); qnotused(casevec); qnotused(targets); return 0;}
+virtual void determined_main(ea_t main) {qnotused(main); }
+virtual void preprocess_chart(qflow_chart_t * fc) {qnotused(fc); }
+virtual int get_bg_color(ea_t ea, bgcolor_t color) {qnotused(ea); qnotused(color); return 0;}
+virtual int validate_flirt_func(ea_t start_ea, const char * funcname) {qnotused(start_ea); qnotused(funcname); return 0;}
+virtual int get_operand_string(int opnum, char * buf, size_t buflen) {qnotused(opnum); qnotused(buf); qnotused(buflen); return 0;}
+virtual int add_cref(ea_t from, ea_t to, cref_t type) {qnotused(from); qnotused(to); qnotused(type); return 0;}
+virtual int add_dref(ea_t from, ea_t to, dref_t type) {qnotused(from); qnotused(to); qnotused(type); return 0;}
+virtual int del_cref(ea_t from, ea_t to, bool expand) {qnotused(from); qnotused(to); qnotused(expand); return 0;}
+virtual int del_dref(ea_t from, ea_t to) {qnotused(from); qnotused(to); return 0;}
+virtual int coagulate_dref(ea_t from, ea_t to, bool may_define, ea_t * code_ea) {qnotused(from); qnotused(to); qnotused(may_define); qnotused(code_ea); return 0;}
+virtual int register_custom_fixup(const char * name) {qnotused(name); return 0;}
+virtual int custom_refinfo(ea_t ea, int numop, ea_t * opval, const refinfo_t* ri, char * buf, size_t bufsize, ea_t * target, ea_t * fullvalue, ea_t from, int getn_flags) {qnotused(ea); qnotused(numop); qnotused(opval); qnotused(ri); qnotused(buf); qnotused(bufsize); qnotused(target); qnotused(fullvalue); qnotused(from); qnotused(getn_flags); return 0;}
+virtual int set_proc_options(const char * options) {qnotused(options); return 0;}
+virtual int adjust_libfunc_ea(const idasgn_t * sig, const libfunc_t * libfun, ea_t * ea) {qnotused(sig); qnotused(libfun); qnotused(ea); return 0;}
+virtual void extlang_changed(int kind, const extlang_t * el) {qnotused(kind); qnotused(el); }
+virtual int delay_slot_insn(ea_t * ea) {qnotused(ea); return 0;}
+virtual int obsolete_get_operand_info() {return 0;}
+virtual int get_jump_target(ea_t ea, int tid, processor_t::regval_getter_t getreg, const regval_t * regvalues, ea_t * target) {qnotused(ea); qnotused(tid); qnotused(getreg); qnotused(regvalues); qnotused(target); return 0;}
+virtual int calc_step_over(ea_t ip, ea_t * target) {qnotused(ip); qnotused(target); return 0;}
+virtual int get_macro_insn_head(ea_t ip, ea_t * head) {qnotused(ip); qnotused(head); return 0;}
+virtual int get_dbr_opnum(ea_t ea, int * opnum) {qnotused(ea); qnotused(opnum); return 0;}
+virtual int insn_reads_tbit(ea_t ea, processor_t::regval_getter_t getreg, const regval_t * regvalues) {qnotused(ea); qnotused(getreg); qnotused(regvalues); return 0;}
+virtual int get_operand_info(ea_t ea, int n, int thread_id, processor_t::regval_getter_t getreg, const regval_t * regvalues, idd_opinfo_t * opinf) {qnotused(ea); qnotused(n); qnotused(thread_id); qnotused(getreg); qnotused(regvalues); qnotused(opinf); return 0;}
+virtual int calc_next_eas(bool over, ea_t * res, int * nsubcalls) {qnotused(over); qnotused(res); qnotused(nsubcalls); return 0;}
+virtual int clean_tbit(ea_t ea, processor_t::regval_getter_t getreg, const regval_t * regvalues) {qnotused(ea); qnotused(getreg); qnotused(regvalues); return 0;}
+virtual int get_reg_info2(const char * regname, const char ** main_regname, bitrange_t * bitrange) {qnotused(regname); qnotused(main_regname); qnotused(bitrange); return 0;}
+virtual void setup_til() {}
+virtual int based_ptr(unsigned ptrt, const char ** ptrname) {qnotused(ptrt); qnotused(ptrname); return 0;}
+virtual int max_ptr_size() {return 0;}
+virtual int get_default_enum_size(cm_t cm) {qnotused(cm); return 0;}
+virtual int calc_cdecl_purged_bytes2() {return 0;}
+virtual int get_stkarg_offset2() {return 0;}
+virtual int til_for_file() {return 0;}
+virtual int equal_reglocs(argloc_t * a1, argloc_t * a2) {qnotused(a1); qnotused(a2); return 0;}
+virtual int decorate_name3(qstring * outbuf, const char * name, bool mangle, int cc) {qnotused(outbuf); qnotused(name); qnotused(mangle); qnotused(cc); return 0;}
+virtual int calc_retloc3(const tinfo_t * rettype, cm_t cc, argloc_t * retloc) {qnotused(rettype); qnotused(cc); qnotused(retloc); return 0;}
+virtual int calc_varglocs3(const func_type_data_t * ftd, regobjs_t * regs, relobj_t * stkargs, int nfixed) {qnotused(ftd); qnotused(regs); qnotused(stkargs); qnotused(nfixed); return 0;}
+virtual int calc_arglocs3(func_type_data_t * fti) {qnotused(fti); return 0;}
+virtual int use_stkarg_type3(ea_t ea, const funcarg_t * arg) {qnotused(ea); qnotused(arg); return 0;}
+virtual int use_regarg_type3(int * idx, ea_t ea, const funcargvec_t * rargs) {qnotused(idx); qnotused(ea); qnotused(rargs); return 0;}
+virtual int use_arg_types3(ea_t ea, func_type_data_t * fti, funcargvec_t * rargs) {qnotused(ea); qnotused(fti); qnotused(rargs); return 0;}
+virtual int calc_purged_bytes3(int * p_purged_bytes, const func_type_data_t * fti) {qnotused(p_purged_bytes); qnotused(fti); return 0;}
+virtual int shadow_args_size(int * shadow_args_size, func_t * pfn) {qnotused(shadow_args_size); qnotused(pfn); return 0;}
+virtual int get_varcall_regs3(callregs_t * regs) {qnotused(regs); return 0;}
+virtual int get_fastcall_regs3(callregs_t * regs) {qnotused(regs); return 0;}
+virtual int get_thiscall_regs3(callregs_t * regs) {qnotused(regs); return 0;}
+virtual int get_func_cvtarg_map(const func_type_data_t * fti, intvec_t * argnums) {qnotused(fti); qnotused(argnums); return 0;}
+virtual int get_simd_types(const simd_info_t * simd_attrs, const argloc_t * argloc, simd_info_vec_t * out, bool create_tifs) {qnotused(simd_attrs); qnotused(argloc); qnotused(out); qnotused(create_tifs); return 0;}
+virtual int loader() {return 0;}
 };
 
 enum areacb_type_t
@@ -828,59 +872,6 @@ enum areacb_type_t
   AREACB_TYPE_HIDDEN_AREA,
   AREACB_TYPE_SRAREA,
 };
-
-//---------------------------------------------------------------------------
-// IDB hooks
-//---------------------------------------------------------------------------
-int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
-class IDB_Hooks
-{
-public:
-  virtual ~IDB_Hooks() { unhook(); };
-
-  bool hook()
-  {
-    return hook_to_notification_point(HT_IDB, IDB_Callback, this);
-  }
-  bool unhook()
-  {
-    return unhook_from_notification_point(HT_IDB, IDB_Callback, this);
-  }
-  // Hook functions to override in Python
-  virtual int byte_patched(ea_t /*ea*/) { return 0; }
-  virtual int cmt_changed(ea_t, bool /*repeatable_cmt*/) { return 0; }
-  virtual int area_cmt_changed(areacb_t * /*areas*/, area_t * /*area*/, const char * /*cmt*/, bool /*repeatable*/) { return 0; }
-  virtual int ti_changed(ea_t /*ea*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; }
-  virtual int op_ti_changed(ea_t /*ea*/, int /*n*/, const type_t * /*type*/, const p_list * /*fnames*/) { return 0; }
-  virtual int op_type_changed(ea_t /*ea*/, int /*n*/) { return 0; }
-  virtual int enum_created(enum_t /*id*/) { return 0; }
-  virtual int enum_deleted(enum_t /*id*/) { return 0; }
-  virtual int enum_bf_changed(enum_t /*id*/) { return 0; }
-  virtual int enum_renamed(enum_t /*id*/) { return 0; }
-  virtual int enum_cmt_changed(enum_t /*id*/) { return 0; }
-  virtual int enum_member_created(enum_t /*id*/, const_t cid) { return 0; }
-  virtual int enum_member_deleted(enum_t /*id*/, const_t cid) { return 0; }
-  virtual int struc_created(tid_t /*struc_id*/) { return 0; }
-  virtual int struc_deleted(tid_t /*struc_id*/) { return 0; }
-  virtual int struc_renamed(struc_t * /*sptr*/) { return 0; }
-  virtual int struc_expanded(struc_t * /*sptr*/) { return 0; }
-  virtual int struc_cmt_changed(tid_t /*struc_id*/) { return 0; }
-  virtual int struc_member_created(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
-  virtual int struc_member_deleted(struc_t * /*sptr*/, tid_t /*member_id*/, ea_t /*offset*/) { return 0; }
-  virtual int struc_member_renamed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
-  virtual int struc_member_changed(struc_t * /*sptr*/, member_t * /*mptr*/) { return 0; }
-  virtual int thunk_func_created(func_t * /*pfn*/) { return 0; }
-  virtual int func_tail_appended(func_t * /*pfn*/, func_t * /*tail*/) { return 0; }
-  virtual int func_tail_removed(func_t * /*pfn*/, ea_t /*tail_ea*/) { return 0; }
-  virtual int tail_owner_changed(func_t * /*tail*/, ea_t /*owner_func*/) { return 0; }
-  virtual int func_noret_changed(func_t * /*pfn*/) { return 0; }
-  virtual int segm_added(segment_t * /*s*/) { return 0; }
-  virtual int segm_deleted(ea_t /*startEA*/) { return 0; }
-  virtual int segm_start_changed(segment_t * /*s*/) { return 0; }
-  virtual int segm_end_changed(segment_t * /*s*/) { return 0; }
-  virtual int segm_moved(ea_t /*from*/, ea_t /*to*/, asize_t /*size*/) { return 0; }
-};
-
 //</inline(py_idp)>
 
 //-------------------------------------------------------------------------
@@ -896,496 +887,943 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
   {
     switch ( notification_code )
     {
-    case processor_t::custom_ana:
-      ret = proxy->custom_ana() ? 1 + cmd.size : 0;
-      break;
+      // hookgenIDP:notifications
+case processor_t::init:
+{
+  const char * idp_modname = va_arg(va, const char *);
+  ret = proxy->init(idp_modname);
+}
+break;
 
-    case processor_t::custom_out:
-      ret = proxy->custom_out() ? 2 : 0;
-      break;
+case processor_t::term:
+{
+  ret = proxy->term();
+}
+break;
 
-    case processor_t::custom_emu:
-      ret = proxy->custom_emu() ? 2 : 0;
-      break;
+case processor_t::newprc:
+{
+  int pnum = va_arg(va, int);
+  ret = proxy->newprc(pnum);
+}
+break;
 
-    case processor_t::custom_outop:
-      {
-        op_t *op = va_arg(va, op_t *);
-        ref_t py_obj(create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op));
-        if ( py_obj == NULL )
-          break;
-        ret = proxy->custom_outop(py_obj.o) ? 2 : 0;
-        break;
-      }
+case processor_t::newasm:
+{
+  int asmnum = va_arg(va, int);
+  ret = proxy->newasm(asmnum);
+}
+break;
 
-    case processor_t::custom_mnem:
-      {
-        PYW_GIL_CHECK_LOCKED_SCOPE();
-        PyObject *py_ret = proxy->custom_mnem();
-        if ( py_ret != NULL && PyString_Check(py_ret) )
-        {
-          char *outbuffer = va_arg(va, char *);
-          size_t bufsize  = va_arg(va, size_t);
+case processor_t::newfile:
+{
+  char * fname = va_arg(va, char *);
+  ret = proxy->newfile(fname);
+}
+break;
 
-          qstrncpy(outbuffer, PyString_AS_STRING(py_ret), bufsize);
-          ret = 2;
-        }
-        else
-        {
-          ret = 0;
-        }
-        Py_XDECREF(py_ret);
-        break;
-      }
+case processor_t::oldfile:
+{
+  char * fname = va_arg(va, char *);
+  ret = proxy->oldfile(fname);
+}
+break;
 
-    case processor_t::is_sane_insn:
-      {
-        int no_crefs = va_arg(va, int);
-        ret = proxy->is_sane_insn(no_crefs);
-        break;
-      }
+case processor_t::newbinary:
+{
+  char * filename = va_arg(va, char *);
+  uint32 fileoff = va_arg(va, uint32);
+  ea_t basepara = va_arg(va, ea_t);
+  ea_t binoff = va_arg(va, ea_t);
+  uint32 nbytes = va_arg(va, uint32);
+  ret = proxy->newbinary(filename, fileoff, basepara, binoff, nbytes);
+}
+break;
 
-    case processor_t::may_be_func:
-      {
-        int state = va_arg(va, int);
-        ret = proxy->may_be_func(state);
-        break;
-      }
+case processor_t::endbinary:
+{
+  bool ok = bool(va_arg(va, int));
+  ret = proxy->endbinary(ok);
+}
+break;
 
-    case processor_t::closebase:
-      {
-        proxy->closebase();
-        break;
-      }
+case processor_t::newseg:
+{
+  segment_t * seg = va_arg(va, segment_t *);
+  ret = proxy->newseg(seg);
+}
+break;
 
-    case processor_t::savebase:
-      {
-        proxy->savebase();
-        break;
-      }
+case processor_t::assemble:
+{
+  ea_t ea = va_arg(va, ea_t);
+  ea_t cs = va_arg(va, ea_t);
+  ea_t ip = va_arg(va, ea_t);
+  bool use32 = bool(va_arg(va, int));
+  const char * line = va_arg(va, const char *);
+  uchar * bin = va_arg(va, uchar *);
+  PyObject * _tmp = proxy->assemble(ea, cs, ip, use32, line);
+  ret = IDP_Hooks::handle_assemble_output(_tmp, ea, cs, ip, use32, line, bin);
+}
+break;
 
-    case processor_t::auto_empty_finally:
-      {
-        proxy->auto_empty_finally();
-        break;
-      }
+case processor_t::obsolete_makemicro:
+{
+  mblock_t * block = va_arg(va, mblock_t *);
+  ret = proxy->obsolete_makemicro(block);
+}
+break;
 
-    case processor_t::rename:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        const char *new_name = va_arg(va, const char *);
-        ret = proxy->rename(ea, new_name);
-        break;
-      }
+case processor_t::outlabel:
+{
+  ea_t ea = va_arg(va, ea_t);
+  const char * colored_name = va_arg(va, const char *);
+  ret = proxy->outlabel(ea, colored_name);
+}
+break;
 
-    case processor_t::renamed:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        const char *new_name = va_arg(va, const char *);
-        bool local_name = va_argi(va, bool);
-        proxy->renamed(ea, new_name, local_name);
-        break;
-      }
+case processor_t::rename:
+{
+  ea_t ea = va_arg(va, ea_t);
+  const char * new_name = va_arg(va, const char *);
+  int flags = va_arg(va, int);
+  qnotused(flags);
+  ret = proxy->rename(ea, new_name);
+}
+break;
 
-    case processor_t::undefine:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        ret = proxy->undefine(ea);
-        break;
-      }
+case processor_t::may_show_sreg:
+{
+  ea_t current_ea = va_arg(va, ea_t);
+  ret = proxy->may_show_sreg(current_ea);
+}
+break;
 
-    case processor_t::make_code:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        asize_t size = va_arg(va, asize_t);
-        ret = proxy->make_code(ea, size);
-        break;
-      }
+case processor_t::closebase:
+{
+  ret = proxy->closebase();
+}
+break;
 
-    case processor_t::make_data:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        flags_t flags = va_arg(va, flags_t);
-        tid_t tid = va_arg(va, tid_t);
-        asize_t len = va_arg(va, asize_t);
-        ret = proxy->make_data(ea, flags, tid, len);
-        break;
-      }
+case processor_t::load_idasgn:
+{
+  const char * short_sig_name = va_arg(va, const char *);
+  proxy->load_idasgn(short_sig_name);
+}
+break;
 
-    case processor_t::load_idasgn:
-      {
-        const char *short_sig_name = va_arg(va, const char *);
-        proxy->load_idasgn(short_sig_name);
-        break;
-      }
+case processor_t::coagulate:
+{
+  ea_t start_ea = va_arg(va, ea_t);
+  ret = proxy->coagulate(start_ea);
+}
+break;
 
-    case processor_t::auto_empty:
-      {
-        proxy->auto_empty();
-        break;
-      }
+case processor_t::auto_empty:
+{
+  proxy->auto_empty();
+}
+break;
 
-    case processor_t::auto_queue_empty:
-      {
-        atype_t type = va_arg(va, atype_t);
-        ret = proxy->auto_queue_empty(type);
-        break;
-      }
+case processor_t::auto_queue_empty:
+{
+  atype_t type = va_arg(va, atype_t);
+  ret = proxy->auto_queue_empty(type);
+}
+break;
 
-    case processor_t::add_func:
-      {
-        func_t *func = va_arg(va, func_t *);
-        proxy->add_func(func);
-        break;
-      }
+case processor_t::func_bounds:
+{
+  int * possible_return_code = va_arg(va, int *);
+  func_t * pfn = va_arg(va, func_t *);
+  ea_t max_func_end_ea = va_arg(va, ea_t);
+  proxy->func_bounds(possible_return_code, pfn, max_func_end_ea);
+}
+break;
 
-    case processor_t::del_func:
-      {
-        func_t *func = va_arg(va, func_t *);
-        ret = proxy->del_func(func);
-        break;
-      }
+case processor_t::may_be_func:
+{
+  int state = va_arg(va, int);
+  ret = proxy->may_be_func(state);
+}
+break;
 
-    case processor_t::is_call_insn:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        ret = proxy->is_call_insn(ea);
-        break;
-      }
+case processor_t::is_sane_insn:
+{
+  int no_crefs = va_arg(va, int);
+  ret = proxy->is_sane_insn(no_crefs);
+}
+break;
 
-    case processor_t::is_ret_insn:
-      {
-        ea_t ea = va_arg(va, ea_t);
-        bool strict = va_argi(va, bool);
-        ret = proxy->is_ret_insn(ea, strict);
-        break;
-      }
+case processor_t::is_jump_func:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ea_t * jump_target = va_arg(va, ea_t *);
+  ea_t * func_pointer = va_arg(va, ea_t *);
+  ret = proxy->is_jump_func(pfn, jump_target, func_pointer);
+}
+break;
 
-    case processor_t::assemble:
-      {
-        ea_t ea     = va_arg(va, ea_t);
-        ea_t cs     = va_arg(va, ea_t);
-        ea_t ip     = va_arg(va, ea_t);
-        bool use32  = va_argi(va, bool);
-        const char *line = va_arg(va, const char *);
-        // Extract user buffer (we hardcode the MAXSTR size limit)
-        uchar *bin = va_arg(va, uchar *);
-        // Call python
-        PYW_GIL_CHECK_LOCKED_SCOPE();
-        PyObject *py_buffer = proxy->assemble(ea, cs, ip, use32, line);
-        if ( py_buffer != NULL && PyString_Check(py_buffer) )
-        {
-          char *s;
-          Py_ssize_t len;
-          if ( PyString_AsStringAndSize(py_buffer, &s, &len) != -1 )
-          {
-            if ( len > MAXSTR )
-              len = MAXSTR;
-            memcpy(bin, s, len);
-            ret = len;
-          }
-        }
-        // ret = 0 otherwise
-        Py_XDECREF(py_buffer);
-        break;
-      }
-      //      validate_flirt_func,    // flirt has recognized a library function
-      //      // this callback can be used by a plugin or proc module
-      //      // to intercept it and validate such a function
-      //      // args: ea_t start_ea
-      //      //       const char *funcname
-      //      // returns: -1-do not create a function,
-      //      //           1-function is validated
-      //      // the idp module is allowed to modify 'cmd'
-      //      set_func_start,         // Function chunk start address will be changed
-      //      // args: func_t *pfn
-      //      //       ea_t new_start
-      //      // Returns: 1-ok,<=0-do not change
-      //      set_func_end,           // Function chunk end address will be changed
-      //      // args: func_t *pfn
-      //      //       ea_t new_end
-      //      // Returns: 1-ok,<=0-do not change
-      //    outlabel,               // The kernel is going to generate an instruction
-      //      // label line or a function header
-      //      // args:
-      //      //   ea_t ea -
-      //      //   const char *colored_name -
-      //      // If returns value <=0, then the kernel should
-      //      // not generate the label
-      //      may_show_sreg,          // The kernel wants to display the segment registers
-      //      // in the messages window.
-      //      // arg - ea_t current_ea
-      //      // if this function returns 0
-      //      // then the kernel will not show
-      //      // the segment registers.
-      //      // (assuming that the module have done it)
-      //      coagulate,              // Try to define some unexplored bytes
-      //      // This notification will be called if the
-      //      // kernel tried all possibilities and could
-      //      // not find anything more useful than to
-      //      // convert to array of bytes.
-      //      // The module can help the kernel and convert
-      //      // the bytes into something more useful.
-      //      // arg:
-      //      //      ea_t start_ea
-      //      // returns: number of converted bytes + 1
-      //      auto_empty,             // Info: all analysis queues are empty
-      //      // args: none
-      //      // returns: none
-      //      // This callback is called once when the
-      //      // initial analysis is finished. If the queue is
-      //      // not empty upon the return from this callback,
-      //      // it will be called later again.
-      //      // See also auto_empty_finally.
-      //      auto_queue_empty,       // One analysis queue is empty
-      //      // args: atype_t type
-      //      // returns: 1-yes, keep the queue empty
-      //      //        <=0-no, the queue is not empty anymore
-      //      // This callback can be called many times, so
-      //      // only the autoMark() functions can be used from it
-      //      // (other functions may work but it is not tested)
-      //      func_bounds,            // find_func_bounds() finished its work
-      //      // The module may fine tune the function bounds
-      //      // args: int *possible_return_code
-      //      //       func_t *pfn
-      //      //       ea_t max_func_end_ea (from the kernel's point of view)
-      //      // returns: none
-      //      is_jump_func,           // is the function a trivial "jump" function?
-      //      // args:  func_t *pfn
-      //      //        ea_t *jump_target
-      //      //        ea_t *func_pointer
-      //      // returns: 0-no, 1-don't know, 2-yes, see jump_target
-      //      // and func_pointer
-      //      gen_regvar_def,         // generate register variable definition line
-      //      // args:  regvar_t *v
-      //      // returns: 0-ok
-      //      setsgr,                 // The kernel has changed a segment register value
-      //      // args:  ea_t startEA
-      //      //        ea_t endEA
-      //      //        int regnum
-      //      //        sel_t value
-      //      //        sel_t old_value
-      //      //        uchar tag (SR_... values)
-      //      // returns: 1-ok, 0-error
-      //      set_compiler,           // The kernel has changed the compiler information
-      //      // (inf.cc structure)
-      //      is_basic_block_end,     // Is the current instruction end of a basic block?
-      //      // This function should be defined for processors
-      //      // with delayed jump slots. The current instruction
-      //      // is stored in 'cmd'
-      //      // args:  bool call_insn_stops_block
-      //      // returns: 1-unknown, 0-no, 2-yes
-      //      reglink,                // IBM PC only, ignore it
-      //      get_vxd_name,           // IBM PC only, ignore it
-      //      // Get Vxd function name
-      //      // args: int vxdnum
-      //      //       int funcnum
-      //      //       char *outbuf
-      //      // returns: nothing
-      //
-      //
-      //      moving_segm,            // May the kernel move the segment?
-      //      // args: segment_t - segment to move
-      //      //       ea_t to   - new segment start address
-      //      // returns: 1-yes, <=0-the kernel should stop
-      //      move_segm,              // A segment is moved
-      //      // Fix processor dependent address sensitive information
-      //      // args: ea_t from  - old segment address
-      //      //       segment_t* - moved segment
-      //      // returns: nothing
-      //
-      //
-      //      get_stkvar_scale_factor,// Should stack variable references be multiplied by
-      //      // a coefficient before being used in the stack frame?
-      //      // Currently used by TMS320C55 because the references into
-      //      // the stack should be multiplied by 2
-      //      // Returns: scaling factor
-      //      // Note: PR_SCALE_STKVARS should be set to use this callback
-      //
-      //      create_flat_group,      // Create special segment representing the flat group
-      //      // (to use for PC mainly)
-      //      // args - ea_t image_base, int bitness, sel_t dataseg_sel
-      //
-      //      kernel_config_loaded,   // This callback is called when ida.cfg is parsed
-      //      // args - none, returns - nothing
-      //
-      //      might_change_sp,        // Does the instruction at 'ea' modify the stack pointer?
-      //      // args: ea_t ea
-      //      // returns: 1-yes, 0-false
-      //      // (not used yet)
-      //
-      //      is_alloca_probe,        // Does the function at 'ea' behave as __alloca_probe?
-      //      // args: ea_t ea
-      //      // returns: 2-yes, 1-false
-      //
-      //      out_3byte,              // Generate text representation of 3byte data
-      //      // init_out_buffer() is called before this function
-      //      // and all Out... function can be used.
-      //      // uFlag contains the flags.
-      //      // This callback might be implemented by the processor
-      //      // module to generate custom representation of 3byte data.
-      //      // args:
-      //      // ea_t dataea - address of the data item
-      //      // uint32 value - value to output
-      //      // bool analyze_only - only create xrefs if necessary
-      //      //              do not generate text representation
-      //      // returns: 2-yes, 1-false
-      //
-      //      get_reg_name,           // Generate text representation of a register
-      //      // int reg        - internal register number as defined in the processor module
-      //      // size_t width   - register width in bytes
-      //      // char *buf      - output buffer
-      //      // size_t bufsize - size of output buffer
-      //      // int reghi      - if not -1 then this function will return the register pair
-      //      // returns: -1 if error, strlen(buf)+2 otherwise
-      //      // Most processor modules do not need to implement this callback
-      //      // It is useful only if ph.regNames[reg] does not provide
-      //      // the correct register names
-      //      // save its local data
-      //      out_src_file_lnnum,     // Callback: generate analog of
-      //      //   #line "file.c" 123
-      //      // directive.
-      //      // const char *file - source file (may be NULL)
-      //      // size_t lnnum     - line number
-      //      // returns: 2-directive has been generated
-      //      get_autocmt,            // Callback: get dynamic auto comment
-      //      // Will be called if the autocomments are enabled
-      //      // and the comment retrieved from ida.int starts with
-      //      // '$!'. 'cmd' is contains valid info.
-      //      // char *buf  - output buffer
-      //      // size_t bufsize - output buffer size
-      //      // returns: 2-new comment has been generated
-      //      //          1-callback has not been handled
-      //      //            the buffer must not be changed in this case
-      //      is_insn_table_jump,     // Callback: determine if instruction is a table jump or call
-      //      // If CF_JUMP bit can not describe all kinds of table
-      //      // jumps, please define this callback.
-      //      // It will be called for insns with CF_JUMP bit set.
-      //      // input: cmd structure contains the current instruction
-      //      // returns: 1-yes, 0-no
-      //      auto_empty_finally,     // Info: all analysis queues are empty definitively
-      //      // args: none
-      //      // returns: none
-      //      // This callback is called only once.
-      //      // See also auto_empty.
-      //      loader_finished,        // Event: external file loader finished its work
-      //      // linput_t *li
-      //      // uint16 neflags
-      //      // const char *filetypename
-      //      // Use this event to augment the existing loader functionality
-      //      loader_elf_machine,     // Event: ELF loader machine type checkpoint
-      //      // linput_t *li
-      //      // int machine_type
-      //      // const char **p_procname
-      //      // proc_def **p_pd (see ldr\elf.h)
-      //      // set_elf_reloc_t *set_reloc
-      //      // A plugin check the machine_type. If it is the desired one,
-      //      // the the plugin fills p_procname with the processor name.
-      //      // p_pd is used to handle relocations, otherwise can be left untouched
-      //      // set_reloc can be later used by the plugin to specify relocations
-      //      // returns: e_machine value (if it is different from the
-      //      // original e_machine value, procname and p_pd will be ignored
-      //      // and the new value will be used)
-      //      // This event occurs for each loaded ELF file
-      //      is_indirect_jump,       // Callback: determine if instruction is an indrect jump
-      //      // If CF_JUMP bit can not describe all jump types
-      //      // jumps, please define this callback.
-      //      // input: cmd structure contains the current instruction
-      //      // returns: 1-use CF_JUMP, 2-no, 3-yes
-      //      verify_noreturn,        // The kernel wants to set 'noreturn' flags for a function
-      //      // func_t *pfn
-      //      // Returns: 1-ok, any other value-do not set 'noreturn' flag
-      //      verify_sp,              // All function instructions have been analyzed
-      //      // Now the processor module can analyze the stack pointer
-      //      // for the whole function
-      //      // input: func_t *pfn
-      //      // Returns: 1-ok, 0-bad stack pointer
-      //      treat_hindering_item,   // An item hinders creation of another item
-      //      // args: ea_t hindering_item_ea
-      //      //       flags_t new_item_flags (0 for code)
-      //      //       ea_t new_item_ea
-      //      //       asize_t new_item_length
-      //      // Returns: 1-no reaction, <=0-the kernel may delete the hindering item
-      //      str2reg,                // Convert a register name to a register number
-      //      // args: const char *regname
-      //      // Returns: register number + 2
-      //      // The register number is the register index in the regNames array
-      //      // Most processor modules do not need to implement this callback
-      //      // It is useful only if ph.regNames[reg] does not provide
-      //      // the correct register names
-      //      create_switch_xrefs,    // Create xrefs for a custom jump table
-      //      // in: ea_t jumpea;        - address of the jump insn
-      //      //     switch_info_ex_t *; - switch information
-      //      // returns: must return 2
-      //      calc_switch_cases,      // Calculate case values and targets for a custom jump table
-      //      // in:  ea_t insn_ea - address of the 'indirect jump' instruction
-      //      //      switch_info_ex_t *si      - switch information
-      //      //      casevec_t *casevec - vector of case values...
-      //      //      evec_t *targets - ...and corresponding target addresses
-      //      // casevec and targets may be NULL
-      //      // returns: 2-ok, 1-failed
-      //      determined_main,        // The main() function has been determined
-      //      // in:  ea_t main - address of the main() function
-      //      // returns: none
-      //      preprocess_chart,       // gui has retrieved a function flow chart
-      //      // in: qflow_chart_t *fc
-      //      // returns: none
-      //      // Plugins may modify the flow chart in this callback
-      //      get_bg_color,           // Get item background color
-      //      // in: ea_t ea, bgcolor_t *color
-      //      // Returns: 1-not implemented, 2-color set
-      //      // Plugins can hook this callback to color disassembly lines
-      //      // dynamically
-      //      get_operand_string,     // Request text string for operand (cli, java, ...)
-      //      // args: int opnum
-      //      //       char *buf
-      //      //       size_t buflen
-      //      // (cmd structure must contain info for the desired insn)
-      //      // opnum is the operand number; -1 means any string operand
-      //      // returns: 1 - no string (or empty string)
-      //      //         >1 - original string length with terminating zero
-      //
-      //      // the following 5 events are very low level
-      //      // take care of possible recursion
-      //      add_cref,               // a code reference is being created
-      //      // args: ea_t from, ea_t to, cref_t type
-      //      // returns: <0 - cancel cref creation
-      //      add_dref,               // a data reference is being created
-      //      // args: ea_t from, ea_t to, dref_t type
-      //      // returns: <0 - cancel dref creation
-      //      del_cref,               // a code reference is being deleted
-      //      // args: ea_t from, ea_t to, bool expand
-      //      // returns: <0 - cancel cref deletion
-      //      del_dref,               // a data reference is being deleted
-      //      // args: ea_t from, ea_t to
-      //      // returns: <0 - cancel dref deletion
-      //      coagulate_dref,         // data reference is being analyzed
-      //      // args: ea_t from, ea_t to, bool may_define, ea_t *code_ea
-      //      // plugin may correct code_ea (e.g. for thumb mode refs, we clear the last bit)
-      //      // returns: <0 - cancel dref analysis
-      //      custom_fixup,           // mutipurpose notification for FIXUP_CUSTOM
-      //      // args: cust_fix oper, ea_t ea, const fixup_data_t*, ... (see cust_fix)
-      //      // returns: 1 - no accepted (fixup ignored by ida)
-      //      //         >1 - accepted (see cust_fix)
-      //      off_preproc,            // called from get_offset_expr, when refinfo_t
-      //      // contain flag REFINFO_PREPROC. Normally this
-      //      // notification used in a combination with custom_fixup
-      //      // args: ea_t ea, int numop, ea_t* opval, const refinfo_t* ri,
-      //      //       char* buf, size_t bufsize, ea_t* target,
-      //      // ea_t* fullvalue, ea_t from, int getn_flags
-      //      // returns: 2 - buf filled as simple expression
-      //      //          3 - buf filled as complex expression
-      //      //          4 - apply standard processing (with - possible - changed values)
-      //      //     others - can't convert to offset expression
-      //
-      //      set_proc_options,       // called if the user specified an option string in the command line:
-      //      //  -p<processor name>:<options>
-      //      // can be used for e.g. setting a processor subtype
-      //      // also called if option string is passed to set_processor_type()
-      //      // and IDC's SetProcessorType()
-      //      // args: const char * options
-      //      // returns: <0 - bad option string
-      //
+case processor_t::gen_regvar_def:
+{
+  regvar_t * v = va_arg(va, regvar_t *);
+  ret = proxy->gen_regvar_def(v);
+}
+break;
+
+case processor_t::setsgr:
+{
+  ea_t startEA = va_arg(va, ea_t);
+  ea_t endEA = va_arg(va, ea_t);
+  int regnum = va_arg(va, int);
+  sel_t value = va_arg(va, sel_t);
+  sel_t old_value = va_arg(va, sel_t);
+  uchar tag = uchar(va_arg(va, int));
+  ret = proxy->setsgr(startEA, endEA, regnum, value, old_value, tag);
+}
+break;
+
+case processor_t::set_compiler:
+{
+  ret = proxy->set_compiler();
+}
+break;
+
+case processor_t::is_basic_block_end:
+{
+  bool call_insn_stops_block = bool(va_arg(va, int));
+  ret = proxy->is_basic_block_end(call_insn_stops_block);
+}
+break;
+
+case processor_t::reglink:
+{
+  ret = proxy->reglink();
+}
+break;
+
+case processor_t::get_vxd_name:
+{
+  int vxdnum = va_arg(va, int);
+  int funcnum = va_arg(va, int);
+  char * outbuf = va_arg(va, char *);
+  proxy->get_vxd_name(vxdnum, funcnum, outbuf);
+}
+break;
+
+case processor_t::custom_ana:
+{
+  bool _tmp = proxy->custom_ana();
+  ret = IDP_Hooks::bool_to_cmdsize(_tmp);
+}
+break;
+
+case processor_t::custom_out:
+{
+  bool _tmp = proxy->custom_out();
+  ret = IDP_Hooks::bool_to_2or0(_tmp);
+}
+break;
+
+case processor_t::custom_emu:
+{
+  bool _tmp = proxy->custom_emu();
+  ret = IDP_Hooks::bool_to_2or0(_tmp);
+}
+break;
+
+case processor_t::custom_outop:
+{
+  op_t * op = va_arg(va, op_t *);
+  ref_t clinked_op = create_idaapi_linked_class_instance(S_PY_OP_T_CLSNAME, op);
+  if ( clinked_op == NULL )
+    break;
+  bool _tmp = proxy->custom_outop(clinked_op.o);
+  ret = IDP_Hooks::bool_to_2or0(_tmp);
+}
+break;
+
+case processor_t::custom_mnem:
+{
+  char * buf = va_arg(va, char *);
+  size_t bufsize = va_arg(va, size_t);
+  PyObject * _tmp = proxy->custom_mnem();
+  ret = IDP_Hooks::handle_custom_mnem_output(_tmp, buf, bufsize);
+}
+break;
+
+case processor_t::undefine:
+{
+  ea_t ea = va_arg(va, ea_t);
+  ret = proxy->undefine(ea);
+}
+break;
+
+case processor_t::make_code:
+{
+  ea_t ea = va_arg(va, ea_t);
+  asize_t size = va_arg(va, asize_t);
+  ret = proxy->make_code(ea, size);
+}
+break;
+
+case processor_t::make_data:
+{
+  ea_t ea = va_arg(va, ea_t);
+  flags_t flags = va_arg(va, flags_t);
+  tid_t tid = va_arg(va, tid_t);
+  asize_t len = va_arg(va, asize_t);
+  ret = proxy->make_data(ea, flags, tid, len);
+}
+break;
+
+case processor_t::moving_segm:
+{
+  segment_t * seg = va_arg(va, segment_t *);
+  ea_t to = va_arg(va, ea_t);
+  int flags = va_arg(va, int);
+  ret = proxy->moving_segm(seg, to, flags);
+}
+break;
+
+case processor_t::move_segm:
+{
+  ea_t from = va_arg(va, ea_t);
+  segment_t * seg = va_arg(va, segment_t *);
+  proxy->move_segm(from, seg);
+}
+break;
+
+case processor_t::is_call_insn:
+{
+  ea_t ea = va_arg(va, ea_t);
+  ret = proxy->is_call_insn(ea);
+}
+break;
+
+case processor_t::is_ret_insn:
+{
+  ea_t ea = va_arg(va, ea_t);
+  bool strict = bool(va_arg(va, int));
+  ret = proxy->is_ret_insn(ea, strict);
+}
+break;
+
+case processor_t::get_stkvar_scale_factor:
+{
+  ret = proxy->get_stkvar_scale_factor();
+}
+break;
+
+case processor_t::create_flat_group:
+{
+  ea_t image_base = va_arg(va, ea_t);
+  int bitness = va_arg(va, int);
+  sel_t dataseg_sel = va_arg(va, sel_t);
+  ret = proxy->create_flat_group(image_base, bitness, dataseg_sel);
+}
+break;
+
+case processor_t::kernel_config_loaded:
+{
+  proxy->kernel_config_loaded();
+}
+break;
+
+case processor_t::might_change_sp:
+{
+  ea_t ea = va_arg(va, ea_t);
+  ret = proxy->might_change_sp(ea);
+}
+break;
+
+case processor_t::is_alloca_probe:
+{
+  ea_t ea = va_arg(va, ea_t);
+  ret = proxy->is_alloca_probe(ea);
+}
+break;
+
+case processor_t::out_3byte:
+{
+  ea_t dataea = va_arg(va, ea_t);
+  uint32 value = va_arg(va, uint32);
+  bool analyze_only = bool(va_arg(va, int));
+  ret = proxy->out_3byte(dataea, value, analyze_only);
+}
+break;
+
+case processor_t::get_reg_name:
+{
+  int reg = va_arg(va, int);
+  size_t width = va_arg(va, size_t);
+  char * buf = va_arg(va, char *);
+  size_t bufsize = va_arg(va, size_t);
+  int reghi = va_arg(va, int);
+  ret = proxy->get_reg_name(reg, width, buf, bufsize, reghi);
+}
+break;
+
+case processor_t::savebase:
+{
+  proxy->savebase();
+}
+break;
+
+case processor_t::gen_asm_or_lst:
+{
+  bool starting = bool(va_arg(va, int));
+  FILE * fp = va_arg(va, FILE *);
+  bool is_asm = bool(va_arg(va, int));
+  int flags = va_arg(va, int);
+  gen_outline_t ** outline = va_arg(va, gen_outline_t **);
+  proxy->gen_asm_or_lst(starting, fp, is_asm, flags, outline);
+}
+break;
+
+case processor_t::out_src_file_lnnum:
+{
+  ret = proxy->out_src_file_lnnum();
+}
+break;
+
+case processor_t::get_autocmt:
+{
+  char * buf = va_arg(va, char *);
+  size_t bufsize = va_arg(va, size_t);
+  ret = proxy->get_autocmt(buf, bufsize);
+}
+break;
+
+case processor_t::is_insn_table_jump:
+{
+  ret = proxy->is_insn_table_jump();
+}
+break;
+
+case processor_t::auto_empty_finally:
+{
+  proxy->auto_empty_finally();
+}
+break;
+
+case processor_t::loader_finished:
+{
+  linput_t * li = va_arg(va, linput_t *);
+  uint16 neflags = uint16(va_arg(va, int));
+  const char * filetypename = va_arg(va, const char *);
+  ret = proxy->loader_finished(li, neflags, filetypename);
+}
+break;
+
+case processor_t::loader_elf_machine:
+{
+  linput_t * li = va_arg(va, linput_t *);
+  int machine_type = va_arg(va, int);
+  const char ** p_procname = va_arg(va, const char **);
+  proc_def ** p_pd = va_arg(va, proc_def **);
+  set_elf_reloc_t * set_reloc = va_arg(va, set_elf_reloc_t *);
+  ret = proxy->loader_elf_machine(li, machine_type, p_procname, p_pd, set_reloc);
+}
+break;
+
+case processor_t::is_indirect_jump:
+{
+  ret = proxy->is_indirect_jump();
+}
+break;
+
+case processor_t::verify_noreturn:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ret = proxy->verify_noreturn(pfn);
+}
+break;
+
+case processor_t::verify_sp:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ret = proxy->verify_sp(pfn);
+}
+break;
+
+case processor_t::renamed:
+{
+  ea_t ea = va_arg(va, ea_t);
+  const char * new_name = va_arg(va, const char *);
+  bool local_name = bool(va_arg(va, int));
+  proxy->renamed(ea, new_name, local_name);
+}
+break;
+
+case processor_t::add_func:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  proxy->add_func(pfn);
+}
+break;
+
+case processor_t::del_func:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ret = proxy->del_func(pfn);
+}
+break;
+
+case processor_t::set_func_start:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ea_t new_start = va_arg(va, ea_t);
+  ret = proxy->set_func_start(pfn, new_start);
+}
+break;
+
+case processor_t::set_func_end:
+{
+  func_t * pfn = va_arg(va, func_t *);
+  ea_t new_end = va_arg(va, ea_t);
+  ret = proxy->set_func_end(pfn, new_end);
+}
+break;
+
+case processor_t::treat_hindering_item:
+{
+  ea_t hindering_item_ea = va_arg(va, ea_t);
+  flags_t new_item_flags = va_arg(va, flags_t);
+  ea_t new_item_ea = va_arg(va, ea_t);
+  asize_t new_item_length = va_arg(va, asize_t);
+  ret = proxy->treat_hindering_item(hindering_item_ea, new_item_flags, new_item_ea, new_item_length);
+}
+break;
+
+case processor_t::str2reg:
+{
+  const char * regname = va_arg(va, const char *);
+  ret = proxy->str2reg(regname);
+}
+break;
+
+case processor_t::create_switch_xrefs:
+{
+  ea_t jumpea = va_arg(va, ea_t);
+  switch_info_ex_t * si = va_arg(va, switch_info_ex_t *);
+  ret = proxy->create_switch_xrefs(jumpea, si);
+}
+break;
+
+case processor_t::calc_switch_cases:
+{
+  ea_t insn_ea = va_arg(va, ea_t);
+  switch_info_ex_t * si = va_arg(va, switch_info_ex_t *);
+  casevec_t * casevec = va_arg(va, casevec_t *);
+  eavec_t * targets = va_arg(va, eavec_t *);
+  ret = proxy->calc_switch_cases(insn_ea, si, casevec, targets);
+}
+break;
+
+case processor_t::determined_main:
+{
+  ea_t main = va_arg(va, ea_t);
+  proxy->determined_main(main);
+}
+break;
+
+case processor_t::preprocess_chart:
+{
+  qflow_chart_t * fc = va_arg(va, qflow_chart_t *);
+  proxy->preprocess_chart(fc);
+}
+break;
+
+case processor_t::get_bg_color:
+{
+  ea_t ea = va_arg(va, ea_t);
+  bgcolor_t color = va_arg(va, bgcolor_t);
+  ret = proxy->get_bg_color(ea, color);
+}
+break;
+
+case processor_t::validate_flirt_func:
+{
+  ea_t start_ea = va_arg(va, ea_t);
+  const char * funcname = va_arg(va, const char *);
+  ret = proxy->validate_flirt_func(start_ea, funcname);
+}
+break;
+
+case processor_t::get_operand_string:
+{
+  int opnum = va_arg(va, int);
+  char * buf = va_arg(va, char *);
+  size_t buflen = va_arg(va, size_t);
+  ret = proxy->get_operand_string(opnum, buf, buflen);
+}
+break;
+
+case processor_t::add_cref:
+{
+  ea_t from = va_arg(va, ea_t);
+  ea_t to = va_arg(va, ea_t);
+  cref_t type = cref_t(va_arg(va, int));
+  ret = proxy->add_cref(from, to, type);
+}
+break;
+
+case processor_t::add_dref:
+{
+  ea_t from = va_arg(va, ea_t);
+  ea_t to = va_arg(va, ea_t);
+  dref_t type = dref_t(va_arg(va, int));
+  ret = proxy->add_dref(from, to, type);
+}
+break;
+
+case processor_t::del_cref:
+{
+  ea_t from = va_arg(va, ea_t);
+  ea_t to = va_arg(va, ea_t);
+  bool expand = bool(va_arg(va, int));
+  ret = proxy->del_cref(from, to, expand);
+}
+break;
+
+case processor_t::del_dref:
+{
+  ea_t from = va_arg(va, ea_t);
+  ea_t to = va_arg(va, ea_t);
+  ret = proxy->del_dref(from, to);
+}
+break;
+
+case processor_t::coagulate_dref:
+{
+  ea_t from = va_arg(va, ea_t);
+  ea_t to = va_arg(va, ea_t);
+  bool may_define = bool(va_arg(va, int));
+  ea_t * code_ea = va_arg(va, ea_t *);
+  ret = proxy->coagulate_dref(from, to, may_define, code_ea);
+}
+break;
+
+case processor_t::register_custom_fixup:
+{
+  const char * name = va_arg(va, const char *);
+  ret = proxy->register_custom_fixup(name);
+}
+break;
+
+case processor_t::custom_refinfo:
+{
+  ea_t ea = va_arg(va, ea_t);
+  int numop = va_arg(va, int);
+  ea_t * opval = va_arg(va, ea_t *);
+  const refinfo_t* ri = va_arg(va, const refinfo_t*);
+  char * buf = va_arg(va, char *);
+  size_t bufsize = va_arg(va, size_t);
+  ea_t * target = va_arg(va, ea_t *);
+  ea_t * fullvalue = va_arg(va, ea_t *);
+  ea_t from = va_arg(va, ea_t);
+  int getn_flags = va_arg(va, int);
+  ret = proxy->custom_refinfo(ea, numop, opval, ri, buf, bufsize, target, fullvalue, from, getn_flags);
+}
+break;
+
+case processor_t::set_proc_options:
+{
+  const char * options = va_arg(va, const char *);
+  ret = proxy->set_proc_options(options);
+}
+break;
+
+case processor_t::adjust_libfunc_ea:
+{
+  const idasgn_t * sig = va_arg(va, const idasgn_t *);
+  const libfunc_t * libfun = va_arg(va, const libfunc_t *);
+  ea_t * ea = va_arg(va, ea_t *);
+  ret = proxy->adjust_libfunc_ea(sig, libfun, ea);
+}
+break;
+
+case processor_t::extlang_changed:
+{
+  int kind = va_arg(va, int);
+  const extlang_t * el = va_arg(va, const extlang_t *);
+  proxy->extlang_changed(kind, el);
+}
+break;
+
+case processor_t::delay_slot_insn:
+{
+  ea_t * ea = va_arg(va, ea_t *);
+  ret = proxy->delay_slot_insn(ea);
+}
+break;
+
+case processor_t::obsolete_get_operand_info:
+{
+  ret = proxy->obsolete_get_operand_info();
+}
+break;
+
+case processor_t::get_jump_target:
+{
+  ea_t ea = va_arg(va, ea_t);
+  int tid = va_arg(va, int);
+  processor_t::regval_getter_t getreg = va_arg(va, processor_t::regval_getter_t);
+  const regval_t * regvalues = va_arg(va, const regval_t *);
+  ea_t * target = va_arg(va, ea_t *);
+  ret = proxy->get_jump_target(ea, tid, getreg, regvalues, target);
+}
+break;
+
+case processor_t::calc_step_over:
+{
+  ea_t ip = va_arg(va, ea_t);
+  ea_t * target = va_arg(va, ea_t *);
+  ret = proxy->calc_step_over(ip, target);
+}
+break;
+
+case processor_t::get_macro_insn_head:
+{
+  ea_t ip = va_arg(va, ea_t);
+  ea_t * head = va_arg(va, ea_t *);
+  ret = proxy->get_macro_insn_head(ip, head);
+}
+break;
+
+case processor_t::get_dbr_opnum:
+{
+  ea_t ea = va_arg(va, ea_t);
+  int * opnum = va_arg(va, int *);
+  ret = proxy->get_dbr_opnum(ea, opnum);
+}
+break;
+
+case processor_t::insn_reads_tbit:
+{
+  ea_t ea = va_arg(va, ea_t);
+  processor_t::regval_getter_t getreg = va_arg(va, processor_t::regval_getter_t);
+  const regval_t * regvalues = va_arg(va, const regval_t *);
+  ret = proxy->insn_reads_tbit(ea, getreg, regvalues);
+}
+break;
+
+case processor_t::get_operand_info:
+{
+  ea_t ea = va_arg(va, ea_t);
+  int n = va_arg(va, int);
+  int thread_id = va_arg(va, int);
+  processor_t::regval_getter_t getreg = va_arg(va, processor_t::regval_getter_t);
+  const regval_t * regvalues = va_arg(va, const regval_t *);
+  idd_opinfo_t * opinf = va_arg(va, idd_opinfo_t *);
+  ret = proxy->get_operand_info(ea, n, thread_id, getreg, regvalues, opinf);
+}
+break;
+
+case processor_t::calc_next_eas:
+{
+  bool over = bool(va_arg(va, int));
+  ea_t * res = va_arg(va, ea_t *);
+  int * nsubcalls = va_arg(va, int *);
+  ret = proxy->calc_next_eas(over, res, nsubcalls);
+}
+break;
+
+case processor_t::clean_tbit:
+{
+  ea_t ea = va_arg(va, ea_t);
+  processor_t::regval_getter_t getreg = va_arg(va, processor_t::regval_getter_t);
+  const regval_t * regvalues = va_arg(va, const regval_t *);
+  ret = proxy->clean_tbit(ea, getreg, regvalues);
+}
+break;
+
+case processor_t::get_reg_info2:
+{
+  const char * regname = va_arg(va, const char *);
+  const char ** main_regname = va_arg(va, const char **);
+  bitrange_t * bitrange = va_arg(va, bitrange_t *);
+  ret = proxy->get_reg_info2(regname, main_regname, bitrange);
+}
+break;
+
+case processor_t::setup_til:
+{
+  proxy->setup_til();
+}
+break;
+
+case processor_t::based_ptr:
+{
+  unsigned ptrt = va_arg(va, unsigned);
+  const char ** ptrname = va_arg(va, const char **);
+  ret = proxy->based_ptr(ptrt, ptrname);
+}
+break;
+
+case processor_t::max_ptr_size:
+{
+  ret = proxy->max_ptr_size();
+}
+break;
+
+case processor_t::get_default_enum_size:
+{
+  cm_t cm = cm_t(va_arg(va, int));
+  ret = proxy->get_default_enum_size(cm);
+}
+break;
+
+case processor_t::calc_cdecl_purged_bytes2:
+{
+  ret = proxy->calc_cdecl_purged_bytes2();
+}
+break;
+
+case processor_t::get_stkarg_offset2:
+{
+  ret = proxy->get_stkarg_offset2();
+}
+break;
+
+case processor_t::til_for_file:
+{
+  ret = proxy->til_for_file();
+}
+break;
+
+case processor_t::equal_reglocs:
+{
+  argloc_t * a1 = va_arg(va, argloc_t *);
+  argloc_t * a2 = va_arg(va, argloc_t *);
+  ret = proxy->equal_reglocs(a1, a2);
+}
+break;
+
+case processor_t::decorate_name3:
+{
+  qstring * outbuf = va_arg(va, qstring *);
+  const char * name = va_arg(va, const char *);
+  bool mangle = bool(va_arg(va, int));
+  cm_t cc = cm_t(va_arg(va, int));
+  ret = proxy->decorate_name3(outbuf, name, mangle, IDP_Hooks::cm_t_to_int(cc));
+}
+break;
+
+case processor_t::calc_retloc3:
+{
+  const tinfo_t * rettype = va_arg(va, const tinfo_t *);
+  cm_t cc = cm_t(va_arg(va, int));
+  argloc_t * retloc = va_arg(va, argloc_t *);
+  ret = proxy->calc_retloc3(rettype, cc, retloc);
+}
+break;
+
+case processor_t::calc_varglocs3:
+{
+  const func_type_data_t * ftd = va_arg(va, const func_type_data_t *);
+  regobjs_t * regs = va_arg(va, regobjs_t *);
+  relobj_t * stkargs = va_arg(va, relobj_t *);
+  int nfixed = va_arg(va, int);
+  ret = proxy->calc_varglocs3(ftd, regs, stkargs, nfixed);
+}
+break;
+
+case processor_t::calc_arglocs3:
+{
+  func_type_data_t * fti = va_arg(va, func_type_data_t *);
+  ret = proxy->calc_arglocs3(fti);
+}
+break;
+
+case processor_t::use_stkarg_type3:
+{
+  ea_t ea = va_arg(va, ea_t);
+  const funcarg_t * arg = va_arg(va, const funcarg_t *);
+  ret = proxy->use_stkarg_type3(ea, arg);
+}
+break;
+
+case processor_t::use_regarg_type3:
+{
+  int * idx = va_arg(va, int *);
+  ea_t ea = va_arg(va, ea_t);
+  const funcargvec_t * rargs = va_arg(va, const funcargvec_t *);
+  ret = proxy->use_regarg_type3(idx, ea, rargs);
+}
+break;
+
+case processor_t::use_arg_types3:
+{
+  ea_t ea = va_arg(va, ea_t);
+  func_type_data_t * fti = va_arg(va, func_type_data_t *);
+  funcargvec_t * rargs = va_arg(va, funcargvec_t *);
+  ret = proxy->use_arg_types3(ea, fti, rargs);
+}
+break;
+
+case processor_t::calc_purged_bytes3:
+{
+  int * p_purged_bytes = va_arg(va, int *);
+  const func_type_data_t * fti = va_arg(va, const func_type_data_t *);
+  ret = proxy->calc_purged_bytes3(p_purged_bytes, fti);
+}
+break;
+
+case processor_t::shadow_args_size:
+{
+  int * shadow_args_size = va_arg(va, int *);
+  func_t * pfn = va_arg(va, func_t *);
+  ret = proxy->shadow_args_size(shadow_args_size, pfn);
+}
+break;
+
+case processor_t::get_varcall_regs3:
+{
+  callregs_t * regs = va_arg(va, callregs_t *);
+  ret = proxy->get_varcall_regs3(regs);
+}
+break;
+
+case processor_t::get_fastcall_regs3:
+{
+  callregs_t * regs = va_arg(va, callregs_t *);
+  ret = proxy->get_fastcall_regs3(regs);
+}
+break;
+
+case processor_t::get_thiscall_regs3:
+{
+  callregs_t * regs = va_arg(va, callregs_t *);
+  ret = proxy->get_thiscall_regs3(regs);
+}
+break;
+
+case processor_t::get_func_cvtarg_map:
+{
+  const func_type_data_t * fti = va_arg(va, const func_type_data_t *);
+  intvec_t * argnums = va_arg(va, intvec_t *);
+  ret = proxy->get_func_cvtarg_map(fti, argnums);
+}
+break;
+
+case processor_t::get_simd_types:
+{
+  const simd_info_t * simd_attrs = va_arg(va, const simd_info_t *);
+  const argloc_t * argloc = va_arg(va, const argloc_t *);
+  simd_info_vec_t * out = va_arg(va, simd_info_vec_t *);
+  bool create_tifs = bool(va_arg(va, int));
+  ret = proxy->get_simd_types(simd_attrs, argloc, out, create_tifs);
+}
+break;
+
+case processor_t::loader:
+{
+  ret = proxy->loader();
+}
+break;
+
     }
   }
   catch (Swig::DirectorException &e)
@@ -1396,199 +1834,6 @@ int idaapi IDP_Callback(void *ud, int notification_code, va_list va)
       PyErr_Print();
   }
   return ret;
-}
-
-//---------------------------------------------------------------------------
-int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
-{
-  // This hook gets called from the kernel. Ensure we hold the GIL.
-  PYW_GIL_GET;
-
-  class IDB_Hooks *proxy = (class IDB_Hooks *)ud;
-  ea_t ea, ea2;
-  bool repeatable_cmt;
-  type_t *type;
-  p_list *fnames;
-  int n;
-  enum_t id;
-  const_t cid;
-  tid_t struc_id;
-  struc_t *sptr;
-  member_t *mptr;
-  tid_t member_id;
-  func_t *pfn;
-  func_t *tail;
-  segment_t *seg;
-  asize_t size;
-
-  try {
-    switch (notification_code)
-    {
-      case idb_event::byte_patched:
-        ea = va_arg(va, ea_t);
-        return proxy->byte_patched(ea);
-
-      case idb_event::cmt_changed:
-        ea = va_arg(va, ea_t);
-        repeatable_cmt = va_arg(va, int);
-        return proxy->cmt_changed(ea, repeatable_cmt);
-
-      case idb_event::area_cmt_changed:
-        {
-          areacb_t *cb = va_arg(va, areacb_t*);
-          area_t *area = va_arg(va, area_t*);
-          const char *cmt = va_arg(va, char*);
-          repeatable_cmt = va_arg(va, int);
-          return proxy->area_cmt_changed(cb, area, cmt, repeatable_cmt);
-        }
-
-      case idb_event::ti_changed:
-        ea = va_arg(va, ea_t);
-        type = va_arg(va, type_t *);
-        fnames = va_arg(va, p_list *);
-        return proxy->ti_changed(ea, type, fnames);
-
-      case idb_event::op_ti_changed:
-        ea = va_arg(va, ea_t);
-        n = va_arg(va, int);
-        type = va_arg(va, type_t *);
-        fnames = va_arg(va, p_list *);
-        return proxy->op_ti_changed(ea, n, type, fnames);
-
-      case idb_event::op_type_changed:
-        ea = va_arg(va, ea_t);
-        n = va_arg(va, int);
-        return proxy->op_type_changed(ea, n);
-
-      case idb_event::enum_created:
-        id = va_arg(va, enum_t);
-        return proxy->enum_created(id);
-
-      case idb_event::enum_deleted:
-        id = va_arg(va, enum_t);
-        return proxy->enum_deleted(id);
-
-      case idb_event::enum_bf_changed:
-        id = va_arg(va, enum_t);
-        return proxy->enum_bf_changed(id);
-
-      case idb_event::enum_cmt_changed:
-        id = va_arg(va, enum_t);
-        return proxy->enum_cmt_changed(id);
-
-#ifdef NO_OBSOLETE_FUNCS
-      case idb_event::enum_member_created:
-#else
-      case idb_event::enum_const_created:
-#endif
-        id = va_arg(va, enum_t);
-        cid = va_arg(va, const_t);
-        return proxy->enum_member_created(id, cid);
-
-#ifdef NO_OBSOLETE_FUNCS
-      case idb_event::enum_member_deleted:
-#else
-      case idb_event::enum_const_deleted:
-#endif
-        id = va_arg(va, enum_t);
-        cid = va_arg(va, const_t);
-        return proxy->enum_member_deleted(id, cid);
-
-      case idb_event::struc_created:
-        struc_id = va_arg(va, tid_t);
-        return proxy->struc_created(struc_id);
-
-      case idb_event::struc_deleted:
-        struc_id = va_arg(va, tid_t);
-        return proxy->struc_deleted(struc_id);
-
-      case idb_event::struc_renamed:
-        sptr = va_arg(va, struc_t *);
-        return proxy->struc_renamed(sptr);
-
-      case idb_event::struc_expanded:
-        sptr = va_arg(va, struc_t *);
-        return proxy->struc_expanded(sptr);
-
-      case idb_event::struc_cmt_changed:
-        struc_id = va_arg(va, tid_t);
-        return proxy->struc_cmt_changed(struc_id);
-
-      case idb_event::struc_member_created:
-        sptr = va_arg(va, struc_t *);
-        mptr = va_arg(va, member_t *);
-        return proxy->struc_member_created(sptr, mptr);
-
-      case idb_event::struc_member_deleted:
-        sptr = va_arg(va, struc_t *);
-        member_id = va_arg(va, tid_t);
-        ea        = va_arg(va, ea_t);
-        return proxy->struc_member_deleted(sptr, member_id, ea);
-
-      case idb_event::struc_member_renamed:
-        sptr = va_arg(va, struc_t *);
-        mptr = va_arg(va, member_t *);
-        return proxy->struc_member_renamed(sptr, mptr);
-
-      case idb_event::struc_member_changed:
-        sptr = va_arg(va, struc_t *);
-        mptr = va_arg(va, member_t *);
-        return proxy->struc_member_changed(sptr, mptr);
-
-      case idb_event::thunk_func_created:
-        pfn = va_arg(va, func_t *);
-        return proxy->thunk_func_created(pfn);
-
-      case idb_event::func_tail_appended:
-        pfn = va_arg(va, func_t *);
-        tail = va_arg(va, func_t *);
-        return proxy->func_tail_appended(pfn, tail);
-
-      case idb_event::func_tail_removed:
-        pfn = va_arg(va, func_t *);
-        ea = va_arg(va, ea_t);
-        return proxy->func_tail_removed(pfn, ea);
-
-      case idb_event::tail_owner_changed:
-        tail = va_arg(va, func_t *);
-        ea = va_arg(va, ea_t);
-        return proxy->tail_owner_changed(tail, ea);
-
-      case idb_event::func_noret_changed:
-        pfn = va_arg(va, func_t *);
-        return proxy->func_noret_changed(pfn);
-
-      case idb_event::segm_added:
-        seg = va_arg(va, segment_t *);
-        return proxy->segm_added(seg);
-
-      case idb_event::segm_deleted:
-        ea = va_arg(va, ea_t);
-        return proxy->segm_deleted(ea);
-
-      case idb_event::segm_start_changed:
-        seg = va_arg(va, segment_t *);
-        return proxy->segm_start_changed(seg);
-
-      case idb_event::segm_end_changed:
-        seg = va_arg(va, segment_t *);
-        return proxy->segm_end_changed(seg);
-
-      case idb_event::segm_moved:
-        ea = va_arg(va, ea_t);
-        ea2 = va_arg(va, ea_t);
-        size = va_arg(va, asize_t);
-        return proxy->segm_moved(ea, ea2, size);
-    }
-  }
-  catch (Swig::DirectorException &e)
-  {
-    msg("Exception in IDB Hook function: %s\n", e.getMessage());
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    if (PyErr_Occurred())
-      PyErr_Print();
-  }
-  return 0;
 }
 
 //-------------------------------------------------------------------------

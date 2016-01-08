@@ -4,4 +4,3 @@
 %ignore set_entry_name;
 
 %include "entry.hpp"
-

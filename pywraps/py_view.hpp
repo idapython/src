@@ -1,8 +1,5 @@
-#ifndef __PY_VIEW_BASE__
-#define __PY_VIEW_BASE__
 
-//<code(py_view_base)>
-
+//<code(py_view)>
 //-------------------------------------------------------------------------
 class py_customidamemo_t;
 class lookup_info_t
@@ -145,15 +142,6 @@ class py_customidamemo_t
 protected:
   ref_t self;
   TCustomControl *view;
-  // This is called after having modified the
-  // node properties in the IDB. In case an
-  // implementation is performing some caching,
-  // this is a chance to update that cache.
-  // If 'ni' is NULL, then the node info was deleted.
-  virtual void node_info_modified(
-          int /*n*/,
-          const node_info_t * /*ni*/,
-          uint32 /*flags*/) {}
 
   struct callback_id_t
   {
@@ -332,7 +320,6 @@ void py_customidamemo_t::set_node_info(
   int idx = PyInt_AsLong(py_idx.o);
   uint32 flgs = PyLong_AsLong(py_fl.o);
   viewer_set_node_info(view, idx, ni, flgs);
-  node_info_modified(idx, &ni, flgs);
 }
 
 //-------------------------------------------------------------------------
@@ -353,7 +340,6 @@ void py_customidamemo_t::set_nodes_infos(PyObject *dict)
     convert_node_info(&ni, &flags, value);
     int idx = PyInt_AsLong(key.o);
     viewer_set_node_info(view, idx, ni, flags);
-    node_info_modified(idx, &ni, flags);
   }
 }
 
@@ -381,7 +367,6 @@ void py_customidamemo_t::del_nodes_infos(PyObject *py_nodes)
       continue;
     int idx = PyInt_AsLong(item.o);
     viewer_del_node_info(view, idx);
-    node_info_modified(idx, NULL, 0);
   }
 }
 
@@ -584,9 +569,9 @@ bool py_customidamemo_t::collect_pyobject_callbacks(PyObject *o)
     ref_t attr(PyW_TryGetAttrString(o, cbid.name.c_str()));
     int have = cbid.have;
     // Mandatory fields not present?
-    if ( (attr == NULL && have <= 0 )
+    if ( (attr == NULL && have <= 0)
          // Mandatory callback fields present but not callable?
-         || (attr != NULL && have >= 0 && PyCallable_Check(attr.o) == 0))
+      || (attr != NULL && have >= 0 && PyCallable_Check(attr.o) == 0) )
     {
       return false;
     }
@@ -845,7 +830,7 @@ void py_customidamemo_t::on_view_mouse_moved(const view_mouse_event_t *event)
 #define CHK_THIS()                                                      \
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
-    return
+    return;
 #define CHK_THIS_OR_NULL()                                              \
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
@@ -958,9 +943,94 @@ TCustomControl *pycim_get_tcustom_control(PyObject *self)
 
 //-------------------------------------------------------------------------
 lookup_info_t py_customidamemo_t::lookup_info;
-//</code(py_view_base)>
 
-//<inline(py_view_base)>
+//-------------------------------------------------------------------------
+//                                py_idaview_t
+//-------------------------------------------------------------------------
+class py_idaview_t : public py_customidamemo_t
+{
+  typedef py_customidamemo_t inherited;
+
+public:
+  static bool Bind(PyObject *self);
+  static bool Unbind(PyObject *self);
+};
+
+//-------------------------------------------------------------------------
+bool py_idaview_t::Bind(PyObject *self)
+{
+  // Already a py_idaview_t associated to this object?
+  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  if ( _this != NULL )
+    return false;
+
+  qstring title;
+  if ( !PyW_GetStringAttr(self, S_M_TITLE, &title) )
+    return false;
+
+  // Get the IDAView associated to this TForm
+  TForm *tform = find_tform(title.c_str());
+  if ( tform == NULL )
+    return false;
+  TCustomControl *v = get_tform_idaview(tform);
+  if ( v == NULL )
+    return false;
+
+  // Get unique py_idaview_t associated to that tform
+  py_idaview_t *py_view;
+  TCustomControl *found_view;
+  if ( lookup_info.find_by_form(&found_view, (py_customidamemo_t**) &py_view, tform) )
+  {
+    // If we have a py_idaview_t for that form, ensure it has
+    // the expected view.
+    QASSERT(30451, found_view == v);
+  }
+  else
+  {
+    py_view = new py_idaview_t();
+    lookup_info_t::entry_t &e = lookup_info.new_entry(py_view);
+    lookup_info.commit(e, tform, v);
+  }
+
+  // Finally, bind:
+  //  py_idaview_t <=> IDAViewWrapper
+  //  py_idaview_t  => TCustomControl
+  bool ok = py_view->bind(self, v);
+  if ( ok )
+  {
+    ok = py_view->collect_pyobject_callbacks(self);
+    if ( ok )
+      py_view->install_custom_viewer_handlers();
+    else
+      delete py_view;
+  }
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+bool py_idaview_t::Unbind(PyObject *self)
+{
+  py_idaview_t *_this = view_extract_this<py_idaview_t>(self);
+  if ( _this == NULL )
+    return false;
+  _this->unbind(true);
+  return true;
+}
+
+//-------------------------------------------------------------------------
+bool pyidag_bind(PyObject *self)
+{
+  return py_idaview_t::Bind(self);
+}
+
+//-------------------------------------------------------------------------
+bool pyidag_unbind(PyObject *self)
+{
+  return py_idaview_t::Unbind(self);
+}
+//</code(py_view)>
+
+//<inline(py_view)>
 void pygc_refresh(PyObject *self);
 void pygc_set_node_info(PyObject *self, PyObject *py_node_idx, PyObject *py_node_info, PyObject *py_flags);
 void pygc_set_nodes_infos(PyObject *self, PyObject *values);
@@ -973,9 +1043,10 @@ PyObject *pygc_delete_groups(PyObject *self, PyObject *groups, PyObject *new_cur
 PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject *expand, PyObject *new_current);
 TForm *pycim_get_tform(PyObject *self);
 TCustomControl *pycim_get_tcustom_control(PyObject *self);
-//</inline(py_view_base)>
 
-
-
-#endif // __PY_VIEW_BASE__
-
+//-------------------------------------------------------------------------
+//                                py_idaview_t
+//-------------------------------------------------------------------------
+bool pyidag_bind(PyObject *self);
+bool pyidag_unbind(PyObject *self);
+//</inline(py_view)>

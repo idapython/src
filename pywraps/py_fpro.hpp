@@ -1,7 +1,7 @@
-#ifndef __PY_IDA_QFILE__
-#define __PY_IDA_QFILE__
+#ifndef __PY_IDA_FPRO__
+#define __PY_IDA_FPRO__
 
-//<inline(py_qfile)>
+//<inline(py_fpro)>
 /*
 #<pydoc>
 class qfile_t(pyidc_opaque_object_t):
@@ -402,6 +402,6 @@ public:
     return rc;
   }
 };
-//</inline(py_qfile)>
+//</inline(py_fpro)>
 
 #endif

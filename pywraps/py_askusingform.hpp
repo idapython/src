@@ -1,7 +1,8 @@
 #ifndef __PY_ASKUSINGFORM__
 #define __PY_ASKUSINGFORM__
 
-//<code(py_kernwin)>
+//<code(py_askusingform)>
+static qvector<ref_t> py_compiled_form_vec;
 void free_compiled_form_instances(void)
 {
   while ( !py_compiled_form_vec.empty() )
@@ -15,10 +16,10 @@ void free_compiled_form_instances(void)
     newref_t unused(PyObject_CallMethod(ref.o, (char *)"Free", "()"));
   }
 }
-//</code(py_kernwin)>
+//</code(py_askusingform)>
 
 //---------------------------------------------------------------------------
-//<inline(py_kernwin)>
+//<inline(py_askusingform)>
 #define DECLARE_FORM_ACTIONS form_actions_t *fa = (form_actions_t *)p_fa;
 
 //---------------------------------------------------------------------------
@@ -26,7 +27,7 @@ static bool textctrl_info_t_assign(PyObject *self, PyObject *other)
 {
   textctrl_info_t *lhs = textctrl_info_t_get_clink(self);
   textctrl_info_t *rhs = textctrl_info_t_get_clink(other);
-  if (lhs == NULL || rhs == NULL)
+  if ( lhs == NULL || rhs == NULL )
     return false;
 
   *lhs = *rhs;
@@ -220,10 +221,10 @@ static PyObject *formchgcbfa_get_field_value(
     {
       intvec_t intvec;
       // Returned as 1-base
-      if (fa->get_chooser_value(fid, &intvec))
+      if ( fa->get_chooser_value(fid, &intvec) )
       {
         // Make 0-based
-        for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+        for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it )
           (*it)--;
         ref_t l(PyW_IntVecToPyList(intvec));
         l.incref();
@@ -347,7 +348,7 @@ static bool formchgcbfa_set_field_value(
         break;
 
       // Make 1-based
-      for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it)
+      for ( intvec_t::iterator it=intvec.begin(); it != intvec.end(); ++it )
         (*it)++;
 
       return fa->set_chooser_value(fid, &intvec);
@@ -381,7 +382,6 @@ static size_t py_get_OpenForm()
   return (size_t)OpenForm_c;
 }
 
-static qvector<ref_t> py_compiled_form_vec;
 static void py_register_compiled_form(PyObject *py_form)
 {
   ref_t ref = borref_t(py_form);
@@ -396,6 +396,6 @@ static void py_unregister_compiled_form(PyObject *py_form)
     py_compiled_form_vec.del(ref);
 }
 
-//</inline(py_kernwin)>
+//</inline(py_askusingform)>
 
 #endif // __PY_ASKUSINGFORM__

@@ -176,7 +176,7 @@ PyObject *py_unpack_object_from_idb(
   borref_t py_fields_ref(py_fields);
 
   // Unpack
-  type_t *type   = (type_t *) PyString_AsString(py_type);
+  type_t *type = (type_t *) PyString_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
   idc_value_t idc_obj;
   error_t err;
@@ -244,7 +244,7 @@ PyObject *py_unpack_object_from_bv(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  type_t *type   = (type_t *) PyString_AsString(py_type);
+  type_t *type = (type_t *) PyString_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Make a byte vector
@@ -322,7 +322,7 @@ PyObject *py_pack_object_to_idb(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  type_t *type   = (type_t *)PyString_AsString(py_type);
+  type_t *type = (type_t *)PyString_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
@@ -379,7 +379,7 @@ PyObject *py_pack_object_to_bv(
   borref_t py_fields_ref(py_fields);
 
   // Get type strings
-  type_t *type   = (type_t *)PyString_AsString(py_type);
+  type_t *type = (type_t *)PyString_AsString(py_type);
   const p_list *fields = PyW_Fields(py_fields);
 
   // Pack
@@ -409,8 +409,8 @@ int idc_parse_types(const char *input, int flags)
 {
   int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
 
-  if ((flags & 1) != 0)
-      hti |= HTI_FIL;
+  if ( (flags & 1) != 0 )
+    hti |= HTI_FIL;
 
   return parse_decls(idati, input, (flags & 2) == 0 ? msg : NULL, hti);
 }
@@ -471,7 +471,7 @@ char *idc_get_type(ea_t ea, char *buf, size_t bufsize)
 //-------------------------------------------------------------------------
 int idc_set_local_type(int ordinal, const char *dcl, int flags)
 {
-  if (dcl == NULL || dcl[0] == '\0')
+  if ( dcl == NULL || dcl[0] == '\0' )
   {
     if ( !del_numbered_type(idati, ordinal) )
         return 0;
@@ -650,6 +650,25 @@ int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint
   return print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags);
 }
 
+//-------------------------------------------------------------------------
+til_t *load_til(const char *tildir, const char *name)
+{
+  char errbuf[MAXSTR];
+  til_t *res = load_til(tildir, name, errbuf, sizeof(errbuf));
+  if ( res == NULL )
+    PyErr_SetString(PyExc_RuntimeError, errbuf);
+  return res;
+}
+
+//-------------------------------------------------------------------------
+til_t *load_til_header_wrap(const char *tildir, const char *name)
+{
+  char errbuf[MAXSTR];
+  til_t *res = load_til_header(tildir, name, errbuf, sizeof(errbuf));
+  if ( res == NULL )
+    PyErr_SetString(PyExc_RuntimeError, errbuf);
+  return res;
+}
 //</inline(py_typeinf)>
 
 //<code(py_typeinf)>

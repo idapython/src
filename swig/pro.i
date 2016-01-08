@@ -115,6 +115,10 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 
 void qvector<uval_t>::grow(const unsigned int &x=0);
 %ignore qvector<uval_t>::grow;
+
+void qvector<long long>::grow(const long long &x=0);
+%ignore qvector<long long>::grow;
+
 %ignore qvector::at(size_t);
 
 // simpleline_t doesn't implement '=='. Therefore, all these cannot be present in the instantiated template.
@@ -140,16 +144,20 @@ void qvector<uval_t>::grow(const unsigned int &x=0);
   //    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_unsigned_int, 0 |  0 );
   // instead of that:
   //    resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(*result));
-  inline const T& __getitem__(size_t i) const throw(std::out_of_range) {
+  inline const T& __getitem__(size_t i) const {
     if (i >= $self->size() || i < 0)
       throw std::out_of_range("out of bounds access");
     return $self->at(i);
   }
 
-  inline void __setitem__(size_t i, const T& v) throw(std::out_of_range) {
+  inline void __setitem__(size_t i, const T& v) {
     if (i >= $self->size() || i < 0)
       throw std::out_of_range("out of bounds access");
     $self->at(i) = v;
+  }
+
+  inline const T&at(size_t i) {
+    return __getitem__(i);
   }
 
   %pythoncode {
@@ -158,15 +166,17 @@ void qvector<uval_t>::grow(const unsigned int &x=0);
 }
 
 //---------------------------------------------------------------------
-%template(uvalvec_t) qvector<uval_t>; // unsigned values
-%template(intvec_t)  qvector<int>;
-%template(boolvec_t) qvector<bool>;
-%template(casevec_t) qvector<qvector<sval_t> >; // signed values
-%template(strvec_t)  qvector<simpleline_t>;
+%template(uvalvec_t)  qvector<uval_t>; // unsigned values
+%template(intvec_t)   qvector<int>;
+%template(int64vec_t) qvector<long long>; // for EA64 svalvec_t objects
+%template(boolvec_t)  qvector<bool>;
+%template(casevec_t)  qvector<qvector<sval_t> >; // signed values
+%template(strvec_t)   qvector<simpleline_t>;
 
 %pythoncode %{
 _listify_types(uvalvec_t,
                intvec_t,
+               int64vec_t,
                boolvec_t,
                casevec_t,
                strvec_t)

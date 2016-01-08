@@ -2,7 +2,7 @@
 #define __PY_CHOOSE__
 
 //---------------------------------------------------------------------------
-//<inline(py_kernwin)>
+//<inline(py_choose)>
 //---------------------------------------------------------------------------
 uint32 idaapi choose_sizer(void *self)
 {
@@ -23,7 +23,7 @@ char *idaapi choose_getl(void *self, uint32 n, char *buf)
                   n));
 
   const char *res;
-  if (pyres == NULL || (res = PyString_AsString(pyres.o)) == NULL )
+  if ( pyres == NULL || (res = PyString_AsString(pyres.o)) == NULL )
     qstrncpy(buf, "<Empty>", MAXSTR);
   else
     qstrncpy(buf, res, MAXSTR);
@@ -73,6 +73,6 @@ uint32 choose_choose(
 
   return r;
 }
-//</inline(py_kernwin)>
+//</inline(py_choose)>
 
 #endif // __PY_CHOOSE__

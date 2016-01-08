@@ -49,7 +49,17 @@ class PluginForm(object):
 
         @param ctx: Context. Reference to a module that already imported SIP and QtGui modules
         """
-        return ctx.sip.wrapinstance(ctx.sip.voidptr(form).__int__(), ctx.QtGui.QWidget)
+        if type(form).__name__ == "SwigPyObject":
+            ptr_l = long(form)
+        else:
+            ptr_l = form
+        for key, modname in [("sip", "sip"), ("QtWidgets", "PyQt5.QtWidgets")]:
+            if not hasattr(ctx, key):
+                print "Note: FormToPyQtWidget: importing '%s' module into %s" % (key, ctx)
+                import importlib
+                setattr(ctx, key, importlib.import_module(modname))
+        vptr = ctx.sip.voidptr(ptr_l)
+        return ctx.sip.wrapinstance(vptr.__int__(), ctx.QtWidgets.QWidget)
 
 
     @staticmethod

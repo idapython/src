@@ -32,13 +32,13 @@ deploys = {
     "custview" : {
         "tag" : "py_custviewer",
         "src" : ["py_custview.py","py_custview.hpp"],
-        "tgt" : "../swig/kernwin.i"
+        "tgt" : "../swig/kernwin.i.in"
         },
 
     "plgform" : {
         "tag" : "py_plgform",
         "src" : ["py_plgform.hpp","py_plgform.py"],
-        "tgt" : "../swig/kernwin.i"
+        "tgt" : "../swig/kernwin.i.in"
         },
 
     "expr" : {
@@ -50,7 +50,7 @@ deploys = {
     "cli" : {
         "tag" : "py_cli",
         "src" : ["py_cli.py","py_cli.hpp"],
-        "tgt" : "../swig/kernwin.i"
+        "tgt" : "../swig/kernwin.i.in"
         },
 
     "Loader" : {
@@ -62,7 +62,7 @@ deploys = {
     "kernwin, choose2, askusingform" : {
         "tag" : "py_kernwin",
         "src" : ["py_kernwin.hpp","py_kernwin.py","py_choose.hpp","py_choose2.hpp","py_choose2.py","py_askusingform.hpp","py_askusingform.py"],
-        "tgt" : "../swig/kernwin.i"
+        "tgt" : "../swig/kernwin.i.in"
         },
 
     "idd" : {
@@ -86,7 +86,7 @@ deploys = {
     "dbg" : {
         "tag" : "py_dbg",
         "src" : ["py_dbg.hpp"],
-        "tgt" : "../swig/dbg.i"
+        "tgt" : "../swig/dbg.i.in"
         },
 
     "linput/diskio" : {
@@ -134,7 +134,7 @@ deploys = {
     "idp" : {
         "tag" : "py_idp",
         "src" : ["py_idp.hpp"],
-        "tgt" : "../swig/idp.i"
+        "tgt" : "../swig/idp.i.in"
         },
 
     "lines" : {
@@ -147,6 +147,12 @@ deploys = {
         "tag" : "py_registry",
         "src" : ["py_registry.hpp"],
         "tgt" : "../swig/registry.i"
+        },
+
+    "struct" : {
+        "tag" : "py_struct",
+        "src" : ["py_struct.hpp"],
+        "tgt" : "../swig/struct.i"
         },
 
     "pc_win32_appcall" : {

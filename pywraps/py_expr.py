@@ -136,34 +136,3 @@ def set_idc_func_ex(name, fp=None, args=(), flags=0):
                 flags)
 
 #</pycode(py_expr)>
-
-# --------------------------------------------------------------------------
-def test1():
-    global MY_IDC_FUNC
-    try:
-        # Already registered?
-        MY_IDC_FUNC
-        # Unregister
-        print("Unregistering function")
-        set_idc_func_ex(MY_IDC_FUNC)
-    except:
-        MY_IDC_FUNC = "pysum"
-
-    ok = set_idc_func_ex(MY_IDC_FUNC, my_idc_sum, (idaapi.VT_LONG, idaapi.VT_LONG), 0)
-    if not ok:
-        del MY_IDC_FUNC
-
-
-#</pycode(ex_expr)>
-
-# --------------------------------------------------------------------------
-#<pycode(ex_expr)>
-def py_power(n, e):
-    return n ** e
-
-ok = set_idc_func_ex("pow", py_power, (idaapi.VT_LONG, idaapi.VT_LONG), 0)
-if ok:
-    print("Now the pow() will be present IDC!")
-else:
-    print("Failed to register pow() IDC function")
-#</pycode(ex_expr)>

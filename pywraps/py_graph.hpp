@@ -7,26 +7,6 @@ class py_graph_t : public py_customidamemo_t
   typedef py_customidamemo_t inherited;
 
 protected:
-
-  virtual void node_info_modified(int n, const node_info_t *ni, uint32 flags)
-  {
-    if ( ni == NULL )
-    {
-      node_cache.erase(n);
-    }
-    else
-    {
-      nodetext_cache_t *c = node_cache.get(n);
-      if ( c != NULL )
-      {
-        if ( (flags & NIF_TEXT) == NIF_TEXT )
-          c->text = ni->text;
-        if ( (flags & NIF_BG_COLOR) == NIF_BG_COLOR )
-          c->bgcolor = ni->bg_color;
-      }
-    }
-  }
-
   void collect_class_callbacks_ids(callbacks_ids_t *out);
 
 private:
@@ -47,9 +27,9 @@ private:
   {
     qstring text;
     bgcolor_t bgcolor;
-    nodetext_cache_t(const nodetext_cache_t &rhs): text(rhs.text), bgcolor(rhs.bgcolor) { }
-    nodetext_cache_t(const char *t, bgcolor_t c): text(t), bgcolor(c) { }
-    nodetext_cache_t() { }
+    nodetext_cache_t(const nodetext_cache_t &rhs): text(rhs.text), bgcolor(rhs.bgcolor) {}
+    nodetext_cache_t(const char *t, bgcolor_t c): text(t), bgcolor(c) {}
+    nodetext_cache_t() {}
   };
 
   class nodetext_cache_map_t: public std::map<int, nodetext_cache_t>
@@ -94,7 +74,7 @@ private:
     void clear(py_graph_t *pyg)
     {
       iterator e = end();
-      for (iterator it=begin();it!=end();)
+      for ( iterator it=begin(); it!=end(); )
       {
         if ( it->second == pyg )
         {
@@ -356,13 +336,15 @@ private:
       char grnode[MAXSTR];
       qsnprintf(grnode, sizeof(grnode), "$ pygraph %s", title);
       id.create(grnode);
+      // pre-bind 'self', so that 'on_user_refresh()' can complete
+      this->self = borref_t(self);
       graph_viewer_t *pview = create_graph_viewer(form, id, s_callback, this, 0);
+      this->self = ref_t();
       open_tform(form, FORM_TAB | FORM_MENU | FORM_QWIDGET);
       if ( pview != NULL )
         viewer_fit_window(pview);
       bind(self, pview);
       install_custom_viewer_handlers();
-      refresh();
       lookup_info.commit(e, form, view);
     }
     else
@@ -376,7 +358,7 @@ private:
 
   Py_ssize_t add_command(const char *title, const char *hotkey)
   {
-    if ( !has_callback(GRCODE_HAVE_COMMAND) || view == NULL)
+    if ( !has_callback(GRCODE_HAVE_COMMAND) || view == NULL )
       return 0;
     Py_ssize_t cmd_id = cmdid_pyg.id();
     bool ok = viewer_add_menu_item(view, title, s_menucb, (void *)cmd_id, hotkey, 0);
@@ -496,7 +478,7 @@ void py_graph_t::collect_class_callbacks_ids(callbacks_ids_t *out)
 //-------------------------------------------------------------------------
 void py_graph_t::on_user_refresh(mutable_graph_t *g)
 {
-  if ( !refresh_needed || self == NULL /* Happens at creation-time */ )
+  if ( !refresh_needed )
     return;
 
   // Check return value to OnRefresh() call
@@ -658,7 +640,7 @@ int py_graph_t::gr_callback(int code, va_list va)
       {
         graph_viewer_t *view     = va_arg(va, graph_viewer_t *);
         selection_item_t *item = va_arg(va, selection_item_t *);
-        graph_item_t    *gitem = va_arg(va, graph_item_t *);
+        graph_item_t *gitem    = va_arg(va, graph_item_t *);
         ret = on_clicked(view, item, gitem);
       }
       else

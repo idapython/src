@@ -26,7 +26,7 @@ if pywraps_there:
     _idaapi.get_custom_data_type          = pywraps.get_custom_data_type
 
 # -----------------------------------------------------------------------
-#<pycode(py_bytes)>
+#<pycode(py_custdata)>
 DTP_NODUP = 0x0001
 
 class data_type_t(object):
@@ -243,5 +243,5 @@ def unregister_data_types_and_formats(formats):
     ok = __walk_types_and_formats(formats, __unreg_type, __unreg_format, False)
     return 1 if ok else -1
 
-#</pycode(py_bytes)>
+#</pycode(py_custdata)>
 # -----------------------------------------------------------------------

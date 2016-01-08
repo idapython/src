@@ -17,7 +17,7 @@ class BasicBlock(object):
         self.type  = self._fc._q.calc_block_type(self.id)
         """Block type (check fc_block_type_t enum)"""
 
-    
+
     def preds(self):
         """
         Iterates the predecessors list
@@ -26,7 +26,7 @@ class BasicBlock(object):
         for i in xrange(0, self._fc._q.npred(self.id)):
             yield self._fc[q.pred(self.id, i)]
 
-    
+
     def succs(self):
         """
         Iterates the successors list
@@ -50,16 +50,16 @@ class FlowChart(object):
         """
         if (f is None) and (bounds is None or type(bounds) != types.TupleType):
             raise Exception("Please specifiy either a function or start/end pair")
-        
+
         if bounds is None:
             bounds = (BADADDR, BADADDR)
-            
+
         # Create the flowchart
         self._q = qflow_chart_t("", f, bounds[0], bounds[1], flags)
-    
+
     size = property(lambda self: self._q.size())
     """Number of blocks in the flow chart"""
-    
+
 
     def refresh():
         """Refreshes the flow chart"""
@@ -67,13 +67,13 @@ class FlowChart(object):
 
 
     def _getitem(self, index):
-        return BasicBlock(index, self._q[index], self)        
-    
-    
+        return BasicBlock(index, self._q[index], self)
+
+
     def __iter__(self):
         return (self._getitem(index) for index in xrange(0, self.size))
-    
-    
+
+
     def __getitem__(self, index):
         """
         Returns a basic block
@@ -82,7 +82,7 @@ class FlowChart(object):
         """
         if index >= self.size:
             raise KeyError
-        else:    
+        else:
             return self._getitem(index)
 
 #</pycode(py_gdl)>

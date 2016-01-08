@@ -55,8 +55,14 @@
 %ignore cexpr_t::contains_expr;
 %ignore cexpr_t::contains_expr;
 %ignore cexpr_t::cexpr_t(mbl_array_t *mba, const lvar_t &v);
+%ignore cexpr_t::is_type_partial;
+%ignore cexpr_t::set_type_partial;
 %ignore lvar_t::is_promoted_arg;
 %ignore lvar_t::lvar_t;
+%ignore lvar_t::is_partialy_typed;
+%ignore lvar_t::set_partialy_typed;
+%ignore lvar_t::clr_partialy_typed;
+%ignore lvar_t::force_lvar_type;
 %ignore vdloc_t::is_fpu_mreg;
 %ignore strtype_info_t::find_strmem;
 %ignore file_printer_t::_print;
@@ -66,7 +72,7 @@
 %extend cfunc_t {
     %immutable argidx;
 
-   qstring __str__() {
+   qstring __str__() const {
      qstring qs;
      qstring_printer_t p($self, qs, 0);
      $self->print_func(p);
@@ -293,9 +299,15 @@ class qlist_cinsn_t_iterator {};
 %template(qlist_cinsn_t) qlist<cinsn_t>;
 %template(qvector_carg_t) qvector<carg_t>;
 %template(qvector_ccase_t) qvector<ccase_t>;
+%template(lvar_saved_infos_t) qvector<lvar_saved_info_t>;
 
 %extend citem_cmt_t {
     const char *c_str() const { return self->c_str(); }
+
+    const char *__str__() const
+    {
+      return $self->c_str();
+    }
 };
 
 void qswap(cinsn_t &a, cinsn_t &b);
@@ -710,16 +722,6 @@ cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf);
 %ignore cexpr_t::find_ptr_or_array(bool) const;
 
 #pragma SWIG nowarn=503
-%warnfilter(514) user_lvar_visitor_t; // Director base class 'x' has no virtual destructor.
-%warnfilter(514) ctree_visitor_t;     // ditto
-%warnfilter(514) ctree_parentee_t;    // ditto
-%warnfilter(514) cfunc_parentee_t;    // ditto
-%warnfilter(473) user_lvar_visitor_t::get_info_mapping_for_saving; // Returning a pointer or reference in a director method is not recommended.
-
-%feature("director") ctree_visitor_t;
-%feature("director") ctree_parentee_t;
-%feature("director") cfunc_parentee_t;
-%feature("director") user_lvar_visitor_t;
 
 // http://www.swig.org/Doc2.0/SWIGDocumentation.html#Python_nn36
 // http://www.swig.org/Doc2.0/SWIGDocumentation.html#Customization_exception_special_variables
@@ -791,7 +793,8 @@ _listify_types(cinsnptrvec_t,
                qvector_carg_t,
                qvector_ccase_t,
                hexwarns_t,
-               history_t)
+               history_t,
+               lvar_saved_infos_t)
 
 def citem_to_specific_type(self):
     """ cast the citem_t object to its more specific type, either cexpr_t or cinsn_t. """

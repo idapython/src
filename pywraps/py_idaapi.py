@@ -435,7 +435,7 @@ def IDAPython_FormatExc(etype, value, tb, limit=None):
 
 
 # ------------------------------------------------------------
-def IDAPython_ExecScript(script, g):
+def IDAPython_ExecScript(script, g, print_error=True):
     """
     Run the specified script.
     It also addresses http://code.google.com/p/idapython/issues/detail?id=42
@@ -458,7 +458,8 @@ def IDAPython_ExecScript(script, g):
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
-        print(PY_COMPILE_ERR)
+        if print_error:
+            print(PY_COMPILE_ERR)
     finally:
         # Restore state
         g['__file__'] = old__file__
@@ -467,7 +468,7 @@ def IDAPython_ExecScript(script, g):
     return PY_COMPILE_ERR
 
 # ------------------------------------------------------------
-def IDAPython_LoadProcMod(script, g):
+def IDAPython_LoadProcMod(script, g, print_error=True):
     """
     Load processor module.
     """
@@ -497,7 +498,8 @@ def IDAPython_LoadProcMod(script, g):
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
-        print(PY_COMPILE_ERR)
+        if print_error:
+            print(PY_COMPILE_ERR)
     finally:
         if fp: fp.close()
 
@@ -506,7 +508,7 @@ def IDAPython_LoadProcMod(script, g):
     return (PY_COMPILE_ERR, procobj)
 
 # ------------------------------------------------------------
-def IDAPython_UnLoadProcMod(script, g):
+def IDAPython_UnLoadProcMod(script, g, print_error=True):
     """
     Unload processor module.
     """
@@ -598,8 +600,23 @@ IDAPython_Completion = __IDAPython_Completion_Util()
 
 def _listify_types(*classes):
     for cls in classes:
-        cls.__getitem__ = cls.at
+        cls.at = cls.__getitem__ # '__getitem__' has bounds checkings
         cls.__len__ = cls.size
         cls.__iter__ = _bounded_getitem_iterator
+
+# The general callback format of notify_when() is:
+#    def notify_when_callback(nw_code)
+# In the case of NW_OPENIDB, the callback is:
+#    def notify_when_callback(nw_code, is_old_database)
+NW_OPENIDB    = 0x0001
+"""Notify when the database is opened. Its callback is of the form: def notify_when_callback(nw_code, is_old_database)"""
+NW_CLOSEIDB   = 0x0002
+"""Notify when the database is closed. Its callback is of the form: def notify_when_callback(nw_code)"""
+NW_INITIDA    = 0x0004
+"""Notify when the IDA starts. Its callback is of the form: def notify_when_callback(nw_code)"""
+NW_TERMIDA    = 0x0008
+"""Notify when the IDA terminates. Its callback is of the form: def notify_when_callback(nw_code)"""
+NW_REMOVE     = 0x0010
+"""Use this flag with other flags to uninstall a notifywhen callback"""
 
 #</pycode(py_idaapi)>

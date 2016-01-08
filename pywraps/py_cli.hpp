@@ -267,7 +267,7 @@ public:
     return;
   }
 };
-py_cli_t *py_cli_t::py_clis[MAX_PY_CLI] = {NULL};
+py_cli_t *py_cli_t::py_clis[MAX_PY_CLI] = { NULL };
 #define DECL_PY_CLI_CB(CBN) { s_execute_line##CBN, s_complete_line##CBN, s_keydown##CBN }
 const py_cli_cbs_t py_cli_t::py_cli_cbs[MAX_PY_CLI] =
 {

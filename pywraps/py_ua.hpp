@@ -186,7 +186,7 @@ bool py_apply_type_to_stkarg(
   uint64 v;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *op = op_t_get_clink(py_op);
-  if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type))
+  if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type) )
   {
     return false;
   }
@@ -393,7 +393,7 @@ static bool op_t_assign(PyObject *self, PyObject *other)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   op_t *lhs = op_t_get_clink(self);
   op_t *rhs = op_t_get_clink(other);
-  if (lhs == NULL || rhs == NULL)
+  if ( lhs == NULL || rhs == NULL )
     return false;
 
   *lhs = *rhs;
@@ -406,7 +406,7 @@ static bool insn_t_assign(PyObject *self, PyObject *other)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   insn_t *lhs = insn_t_get_clink(self);
   insn_t *rhs = insn_t_get_clink(other);
-  if (lhs == NULL || rhs == NULL)
+  if ( lhs == NULL || rhs == NULL )
     return false;
 
   *lhs = *rhs;

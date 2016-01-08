@@ -1,9 +1,7 @@
 #ifndef __PY_IDA_CUSTDATA__
 #define __PY_IDA_CUSTDATA__
 
-//<code(py_bytes)>
-
-//------------------------------------------------------------------------
+//<code(py_custdata)>
 class py_custom_data_type_t
 {
   data_type_t dt;
@@ -247,7 +245,7 @@ private:
                     operand_num));
 
     // Error while calling the function?
-    if ( PyW_ShowCbErr(S_SCAN) || py_result == NULL)
+    if ( PyW_ShowCbErr(S_SCAN) || py_result == NULL )
       return false;
 
     bool ok = false;
@@ -494,10 +492,10 @@ static PyObject *py_data_format_to_py_dict(const data_format_t *df)
     S_MENU_NAME, df->menu_name == NULL ? "" : df->menu_name,
     S_HOTKEY, df->hotkey == NULL ? "" : df->hotkey);
 }
-//</code(py_bytes)>
+//</code(py_custdata)>
 
 //------------------------------------------------------------------------
-//<inline(py_bytes)>
+//<inline(py_custdata)>
 
 //------------------------------------------------------------------------
 /*
@@ -678,6 +676,6 @@ static PyObject *py_get_custom_data_type(int dtid)
   return py_data_type_to_py_dict(dt);
 }
 
-//</inline(py_bytes)>
+//</inline(py_custdata)>
 
 #endif

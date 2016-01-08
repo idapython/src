@@ -294,7 +294,7 @@ static bool switch_info_ex_t_assign(PyObject *self, PyObject *other)
 {
   switch_info_ex_t *lhs = switch_info_ex_t_get_clink(self);
   switch_info_ex_t *rhs = switch_info_ex_t_get_clink(other);
-  if (lhs == NULL || rhs == NULL)
+  if ( lhs == NULL || rhs == NULL )
     return false;
 
   *lhs = *rhs;

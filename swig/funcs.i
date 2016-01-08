@@ -29,90 +29,17 @@
 
 %ignore get_idasgn_desc;
 %rename (get_idasgn_desc) py_get_idasgn_desc;
+%rename (get_idasgn_desc_with_matches) py_get_idasgn_desc_with_matches;
 
 %ignore get_func_cmt;
 %rename (get_func_cmt) py_get_func_cmt;
 
 %include "funcs.hpp"
 
-%inline %{
-#ifndef FUNC_STATICDEF
-#define FUNC_STATICDEF  0x00000008
-#endif
-%}
-
 %clear(char *buf);
 %clear(char *optlibs);
 
 %inline %{
-//-----------------------------------------------------------------------
-/*
-#<pydoc>
-def get_fchunk_referer(ea, idx):
-    pass
-#</pydoc>
-*/
-static ea_t get_fchunk_referer(ea_t ea, size_t idx)
-{
-    func_t *pfn = get_fchunk(ea);
-    func_parent_iterator_t dummy(pfn); // read referer info
-    if (idx >= pfn->refqty || pfn->referers == NULL)
-      return BADADDR;
-    else
-      return pfn->referers[idx];
-}
-
-//-----------------------------------------------------------------------
-/*
-#<pydoc>
-def get_idasgn_desc(n):
-    """
-    Get information about a signature in the list.
-    It returns both: the name of the signature, and names of the
-    optional libraries
-
-    @param n: number of signature in the list (0..get_idasgn_qty()-1)
-    @return: None on failure or tuple(signame, optlibs)
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_get_idasgn_desc(int n)
-{
-  char signame[MAXSTR];
-  char optlibs[MAXSTR];
-
-  if ( get_idasgn_desc(n, signame, sizeof(signame), optlibs, sizeof(optlibs)) == -1 )
-    Py_RETURN_NONE;
-  else
-    return Py_BuildValue("(ss)", signame, optlibs);
-}
-
-//-----------------------------------------------------------------------
-/*
-#<pydoc>
-def get_func_cmt(fn, repeatable):
-    """
-    Retrieve function comment
-    @param fn: function instance
-    @param repeatable: retrieve repeatable or non-repeatable comments
-    @return: None on failure or the comment
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_get_func_cmt(func_t *fn, bool repeatable)
-{
-  char *s = get_func_cmt(fn, repeatable);
-  if ( s == NULL )
-  {
-    Py_RETURN_NONE;
-  }
-  else
-  {
-    PyObject *py_s = PyString_FromString(s);
-    qfree(s);
-    return py_s;
-  }
-}
+//<inline(py_funcs)>
+//</inline(py_funcs)>
 %}

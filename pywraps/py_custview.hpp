@@ -1,6 +1,6 @@
 #ifndef __PYWRAPS_CUSTVIEWER__
 #define __PYWRAPS_CUSTVIEWER__
-//<code(py_custviewer)>
+//<code(py_custview)>
 //---------------------------------------------------------------------------
 // Base class for all custviewer place_t providers
 class custviewer_data_t
@@ -145,6 +145,8 @@ protected:
   TCustomControl *_cv;
   custviewer_data_t *_data;
   int _features;
+  custom_viewer_handlers_t handlers;
+
   enum
   {
     HAVE_HINT     = 0x0001,
@@ -160,8 +162,8 @@ private:
   {
     size_t menu_id;
     customviewer_t *cv;
-    cvw_popupctx_t(): menu_id(0), cv(NULL) { }
-    cvw_popupctx_t(size_t mid, customviewer_t *v): menu_id(mid), cv(v) { }
+    cvw_popupctx_t(): menu_id(0), cv(NULL) {}
+    cvw_popupctx_t(size_t mid, customviewer_t *v): menu_id(mid), cv(v) {}
   };
   typedef std::map<unsigned int, cvw_popupctx_t> cvw_popupmap_t;
   static cvw_popupmap_t _global_popup_map;
@@ -282,10 +284,10 @@ public:
   virtual bool on_dblclick(int /*shift*/) { return false; }
 
   // OnCurorPositionChanged
-  virtual void on_curpos_changed() { }
+  virtual void on_curpos_changed() {}
 
   // OnHostFormClose
-  virtual void on_close() { }
+  virtual void on_close() {}
 
   // OnKeyDown
   virtual bool on_keydown(int /*vk_key*/, int /*shift*/) { return false; }
@@ -434,9 +436,10 @@ public:
     if ( _cv != NULL )
       set_custom_viewer_popup_menu(_cv, NULL);
 
-    for (intvec_t::iterator it=_installed_popups.begin(), it_end=_installed_popups.end();
-         it != it_end;
-         ++it)
+    intvec_t::iterator it, it_end;
+    for ( it=_installed_popups.begin(), it_end=_installed_popups.end();
+          it != it_end;
+          ++it )
     {
       _global_popup_map.erase(*it);
     }
@@ -451,11 +454,9 @@ public:
     size_t menu_id = _global_popup_id + 1;
 
     // Overlap / already exists?
-    if (_cv == NULL || // No custviewer?
-        // Overlap?
-        menu_id == 0 ||
-        // Already exists?
-        _global_popup_map.find(menu_id) != _global_popup_map.end())
+    if ( _cv == NULL  // No custviewer?
+      || menu_id == 0 // Overlap?
+      || _global_popup_map.find(menu_id) != _global_popup_map.end() ) // Already exists?
     {
       return 0;
     }
@@ -488,6 +489,24 @@ public:
     _form     = form;
     _features = features;
 
+    //
+    // Prepare handlers
+    //
+    if ( (features & HAVE_KEYDOWN) != 0 )
+      handlers.keyboard = s_cv_keydown;
+
+    if ( (features & HAVE_POPUP) != 0 )
+      handlers.popup = s_cv_popup;
+
+    if ( (features & HAVE_CLICK) != 0 )
+      handlers.click = s_cv_click;
+
+    if ( (features & HAVE_DBLCLICK) != 0 )
+      handlers.dblclick = s_cv_dblclick;
+
+    if ( (features & HAVE_CURPOS) != 0 )
+      handlers.curpos = s_cv_curpos;
+
     // Create the viewer
     _cv = create_custom_viewer(
       title,
@@ -495,29 +514,10 @@ public:
       _data->get_min(),
       _data->get_max(),
       _data->get_min(),
-      0,
-      _data->get_ud());
-
-    // Set user-data
-    set_custom_viewer_handler(_cv, CVH_USERDATA, (void *)this);
-
-    //
-    // Set other optional callbacks
-    //
-    if ( (features & HAVE_KEYDOWN) != 0 )
-      set_custom_viewer_handler(_cv, CVH_KEYDOWN, (void *)s_cv_keydown);
-
-    if ( (features & HAVE_POPUP) != 0 )
-      set_custom_viewer_handler(_cv, CVH_POPUP, (void *)s_cv_popup);
-
-    if ( (features & HAVE_DBLCLICK) != 0 )
-      set_custom_viewer_handler(_cv, CVH_DBLCLICK, (void *)s_cv_dblclick);
-
-    if ( (features & HAVE_CURPOS) != 0 )
-      set_custom_viewer_handler(_cv, CVH_CURPOS, (void *)s_cv_curpos);
-
-    if ( (features & HAVE_CLICK) != 0 )
-      set_custom_viewer_handler(_cv, CVH_CLICK, (void *)s_cv_click);
+      (const renderer_info_t *) NULL,
+      _data->get_ud(),
+      &handlers,
+      this);
 
     // Hook to UI notifications (for TForm close event)
     hook_to_notification_point(HT_UI, s_ui_cb, this);
@@ -568,10 +568,10 @@ private:
 
     sl.line = PyString_AsString(py_val);
 
-    if ( (sz > 1) && (py_val = PyTuple_GetItem(py, 1)) && PyLong_Check(py_val)  )
+    if ( (sz > 1) && (py_val = PyTuple_GetItem(py, 1)) && PyLong_Check(py_val) )
       sl.color = color_t(PyLong_AsUnsignedLong(py_val));
 
-    if ( (sz > 2) && (py_val = PyTuple_GetItem(py, 2)) && PyLong_Check(py_val)  )
+    if ( (sz > 2) && (py_val = PyTuple_GetItem(py, 2)) && PyLong_Check(py_val) )
       sl.bgcolor = PyLong_AsUnsignedLong(py_val);
 
     return true;
@@ -816,13 +816,13 @@ public:
       int feature;
     } const cbtable[] =
     {
-      {S_ON_CLICK,              HAVE_CLICK},
-      {S_ON_CLOSE,              HAVE_CLOSE},
-      {S_ON_HINT,               HAVE_HINT},
-      {S_ON_KEYDOWN,            HAVE_KEYDOWN},
-      {S_ON_POPUP,              HAVE_POPUP},
-      {S_ON_DBL_CLICK,          HAVE_DBLCLICK},
-      {S_ON_CURSOR_POS_CHANGED, HAVE_CURPOS}
+      { S_ON_CLICK,              HAVE_CLICK },
+      { S_ON_CLOSE,              HAVE_CLOSE },
+      { S_ON_HINT,               HAVE_HINT },
+      { S_ON_KEYDOWN,            HAVE_KEYDOWN },
+      { S_ON_POPUP,              HAVE_POPUP },
+      { S_ON_DBL_CLICK,          HAVE_DBLCLICK },
+      { S_ON_CURSOR_POS_CHANGED, HAVE_CURPOS }
     };
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -901,13 +901,13 @@ public:
   }
 };
 
-//</code(py_custviewer)>
+//</code(py_custview)>
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
-//<inline(py_custviewer)>
+//<inline(py_custview)>
 //
 // Pywraps Simple Custom Viewer functions
 //
@@ -1128,6 +1128,6 @@ TCustomControl *pyscv_get_tcustom_control(PyObject *py_this)
 
 
 #undef DECL_THIS
-//</inline(py_custviewer)>
+//</inline(py_custview)>
 //---------------------------------------------------------------------------
 #endif // __PYWRAPS_CUSTVIEWER__
