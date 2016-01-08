@@ -379,6 +379,10 @@ $(DIST_BINARY): $(BINARY) | dist_dirs
 	$(CP) $? $@
 ifdef __LINUX__
 	strip $@
+else
+  ifdef __MAC__
+	strip -x $@
+  endif
 endif
 
 dist: $(BINARY) pyfiles $(DIST_OTHER_TARGETS) $(DIST_BINARY) dist_cfg | dist_dirs
