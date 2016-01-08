@@ -84,7 +84,6 @@ ifeq ($(OUT_OF_TREE_BUILD),)
   DEPLOY_INIT_PY=$(SCRIPTDIR)/init.py
   DEPLOY_IDC_PY=$(SCRIPTDIR)/idc.py
   DEPLOY_IDAUTILS_PY=$(SCRIPTDIR)/idautils.py
-  DEPLOY_PYTHON_CFG=$(C)python.cfg
   TEST_IDC=test_idc
 else
   SCRIPTDIR=python
@@ -166,7 +165,7 @@ $(SCRIPTDIR)/lib/%: precompiled/lib/%
 	cp $< $@
 	@chmod +w $@
 
-$(DEPLOY_PYTHON_CFG): $(CFGFILE)
+$(C)python.cfg: $(CFGFILE)
 	$(CP) $? $@
 
 $(R)$(PYTHONLIBNAME): $(PYDIR)/$(PYTHONLIBNAME)
