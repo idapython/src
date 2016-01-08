@@ -145,7 +145,7 @@ SWIGFLAGS=$(_SWIGFLAGS) $(SWIGINCLUDES)
 
 ADDITIONAL_LIBS=$(PYTHONLIB)
 
-.PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python dist dist_dirs dist_bin dist_cfg package
+.PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python dist dist_dirs dist_cfg package
 config: $(C)python.cfg
 
 clean:
@@ -374,10 +374,14 @@ DIST_OTHER_TARGETS=$(DIST_OTHER_SOURCES:%=$(DIST)/%)
 $(DIST)/%: % | dist_dirs
 	@$(CP) $^ $@ && chmod +rw $@
 
-dist_bin: $(BINARY) | dist_dirs
-	$(CP) $? $(DIST)/plugins/
+DIST_BINARY=$(DIST)/plugins/$(PROC)$(PLUGIN)
+$(DIST_BINARY): $(BINARY) | dist_dirs
+	$(CP) $? $@
+ifdef __LINUX__
+	strip $@
+endif
 
-dist: $(BINARY) pyfiles $(DIST_OTHER_TARGETS) | dist_bin dist_cfg
+dist: $(BINARY) pyfiles $(DIST_OTHER_TARGETS) $(DIST_BINARY) dist_cfg | dist_dirs
 	# rsync -a docs $(DIST)/
 	rsync -a examples $(DIST)/
 	rsync -a python $(DIST)/
