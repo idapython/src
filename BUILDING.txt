@@ -41,21 +41,33 @@ Make sure all the needed tools (compiler, swig) are on the PATH.
 
 1. Unpack the IDA SDK into:
    '.../idasdk69'
-   and run 'make' to make sure it compiles
 
 Note: the path you unpack the IDA SDK into cannot contain white spaces,
    or special characters (such as '(', etc...)
+
+
+2. Making sure the SDK compiles:
+   If you are on:
+    - Windows: set environment variable __NT__=1
+    - Linux: set environment variable __LINUX__=1
+    - Mac OSX: set environment variable __MAC__=1
+
+   then, run 'make'
+
+
+3. Place the IDAPython sources into the SDK directory, such that the file:
+   '.../idasdk69/plugins/idapython/BUILDING.txt' exists
+
+Note: To build with Hex-Rays decompiler support, you will need to copy
+   .../ida_install/plugins/hexrays_sdk/include/hexrays.hpp -> .../idasdk69/include/hexrays.hpp
+
 Note: on Windows, you will also have to
    - copy .../idasdk69/lib/x86_win_vc_32 -> .../idasdk69/lib/x86_win_vc_32_opt
    - copy .../idasdk69/lib/x86_win_vc_64 -> .../idasdk69/lib/x86_win_vc_64_opt
+   This is a kludge, which we will solve for the next version
 
-2. Place these IDAPython sources into the SDK directory, such that the file:
-   '.../idasdk69/plugins/idapython/BUILDING.txt' exists
 
-Note: To build with Hex-Rays decompiler support, please copy hexrays.hpp from
-      the decompiler SDK folder into IDA's include folder (in the SDK).
-
-3. Build the plugin
+4. Build the plugin
 
    python build.py
 
@@ -64,9 +76,12 @@ Note: To build with Hex-Rays decompiler support, please copy hexrays.hpp from
 
    Run 'build.py --help' for more information.
 
-4. Install the components as described in README.txt
 
-See build.py for build details and possible tweaks.
+5. Install the components as described in README.md
+
+
+MISC
+----
 
 On 64 bits distributions, you may need to compile Python to generate a 32bit
 version of the interpreter:

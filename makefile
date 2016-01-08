@@ -26,7 +26,6 @@ all:
 	@echo "Not building Python for Linux x64"
 else
 
-IDAPYTHON_DIR=$(shell pwd)
 PROC=python
 STRIPOBJS=idaapi.cpp
 API_CONTENTS=api_contents.txt
@@ -77,7 +76,7 @@ PYTHON_VERSION_MINOR?=7
 IDAPYTHON_VERSION_MAJOR=6
 IDAPYTHON_VERSION_MINOR=9
 IDAPYTHON_VERSION_PATCH=0
-PACKAGE_NAME="idapython-$(IDAPYTHON_VERSION_MAJOR).$(IDAPYTHON_VERSION_MINOR).$(IDAPYTHON_VERSION_PATCH)-python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)-$(SYSNAME).zip"
+PACKAGE_NAME=idapython-$(IDAPYTHON_VERSION_MAJOR).$(IDAPYTHON_VERSION_MINOR).$(IDAPYTHON_VERSION_PATCH)-python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)-$(SYSNAME).zip
 
 
 # HIJACK the $(I) variable to point to our staging SDK
@@ -384,7 +383,7 @@ dist: $(BINARY) pyfiles $(DIST_OTHER_TARGETS) | dist_bin dist_cfg
 	rsync -a python $(DIST)/
 
 package:
-	(cd $(DIST) && zip -r $(IDAPYTHON_DIR)/$(PACKAGE_NAME) *)
+	(cd $(DIST) && zip -r ../../$(PACKAGE_NAME) *)
 
 
 # MAKEDEP dependency list ------------------
