@@ -359,7 +359,7 @@ endif
 
 # MAKEDEP dependency list ------------------
 $(F)idaapi$(O)  : $(F)idaapi_include.cpp $(I)allins.hpp $(I)area.hpp        \
-	          $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp $(I)dbg.hpp    \
+	          $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp $(I)dbg.hpp   \
 	          $(I)diskio.hpp $(I)entry.hpp $(I)enum.hpp $(I)err.h       \
 	          $(I)expr.hpp $(I)fixup.hpp $(I)fpro.h $(I)frame.hpp       \
 	          $(I)funcs.hpp $(I)gdl.hpp $(I)graph.hpp $(I)ida.hpp       \

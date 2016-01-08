@@ -69,6 +69,8 @@ def main():
         env["SWIGINCLUDES"] = " ".join(map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep)))
     if args.with_hexrays:
         env["HAS_HEXRAYS"] = "1"
+    if not args.debug:
+        env["NDEBUG"] = "1"
     if args.python_home:
         env["IDAPYTHON_PYTHONHOME"] = args.python_home
     if args.verbose:
