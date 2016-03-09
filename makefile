@@ -94,6 +94,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
   DEPLOY_INIT_PY=$(SCRIPTDIR)/init.py
   DEPLOY_IDC_PY=$(SCRIPTDIR)/idc.py
   DEPLOY_IDAUTILS_PY=$(SCRIPTDIR)/idautils.py
+  DEPLOY_PYTHON_CFG=$(C)python.cfg
   TEST_IDC=test_idc
 else
   SCRIPTDIR=python

@@ -17,30 +17,51 @@ class GraphCloser(action_handler_t):
         return AST_ENABLE_ALWAYS
 
 
+class ColorChanger(action_handler_t):
+    def __init__(self, graph):
+        action_handler_t.__init__(self)
+        self.graph = graph
+
+    def activate(self, ctx):
+        self.graph.color = self.graph.color ^ 0xffffff
+        self.graph.Refresh()
+        return 1
+
+    def update(self, ctx):
+        return AST_ENABLE_ALWAYS
+
+
 class MyGraph(GraphViewer):
     def __init__(self, funcname, result):
         self.title = "call graph of " + funcname
         GraphViewer.__init__(self, self.title)
         self.funcname = funcname
         self.result = result
+        self.color = 0xff00ff
 
     def OnRefresh(self):
         self.Clear()
-        id = self.AddNode(self.funcname)
+        id = self.AddNode((self.funcname, self.color))
         for x in self.result.keys():
-            callee = self.AddNode(x)
+            callee = self.AddNode((x, self.color))
             self.AddEdge(id, callee)
 
         return True
 
     def OnGetText(self, node_id):
-        return str(self[node_id])
+        return self[node_id]
 
     def Show(self):
         if not GraphViewer.Show(self):
             return False
+        # graph closer
         actname = "graph_closer:%s" % self.title
-        register_action(action_desc_t(actname, "Close %s" % self.title, GraphCloser(self)))
+        register_action(action_desc_t(actname, "Close: %s" % self.title, GraphCloser(self)))
+        attach_action_to_popup(self.GetTCustomControl(), None, actname)
+
+        # color changer
+        actname = "color_changer:%s" % self.title
+        register_action(action_desc_t(actname, "Change colors: %s" % self.title, ColorChanger(self)))
         attach_action_to_popup(self.GetTCustomControl(), None, actname)
         return True
 

@@ -1757,7 +1757,7 @@ static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
   if ( sv == NULL || idx >= sv->size() )
     Py_RETURN_NONE;
   else
-    return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG)&sv->at(idx));
+    return PyLong_FromUnsignedLongLong(size_t(&sv->at(idx)));
 }
 
 

@@ -338,5 +338,26 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
        : answer;
 }
 
+//-------------------------------------------------------------------------
+static PyObject *py_get_tev_reg_mem(int tev, int reg)
+{
+  tev_info_t ti;
+  memreg_infos_t mis;
+  bool ok = get_tev_info(tev, &ti)
+         && get_insn_tev_reg_mem(tev, &mis)
+         && reg >= 0 && reg < mis.size();
+  if ( ok )
+  {
+    PyObject *py_str = PyString_FromStringAndSize(
+            (const char *) mis[reg].bytes.begin(),
+            mis[reg].bytes.size());
+    return py_str;
+  }
+  else
+  {
+    Py_RETURN_NONE;
+  }
+}
+
 //</inline(py_dbg)>
 #endif

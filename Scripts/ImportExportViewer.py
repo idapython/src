@@ -3,14 +3,14 @@
 # - enumerate imports
 # - enumerate entrypoints
 # - Use PluginForm class
-# - Use PySide with PluginForm to create a Python UI
+# - Use PyQt with PluginForm to create a Python UI
 #
 # (c) Hex-Rays
 #
 import idaapi
 import idautils
 from idaapi import PluginForm
-from PySide import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 
 # --------------------------------------------------------------------------
 class ImpExpForm_t(PluginForm):
@@ -51,24 +51,24 @@ class ImpExpForm_t(PluginForm):
         self.tree.clear()
 
         # Build imports
-        root = QtGui.QTreeWidgetItem(self.tree)
+        root = QtWidgets.QTreeWidgetItem(self.tree)
         root.setText(0, "Imports")
 
         for dll_name, imp_entries in self.BuildImports().items():
-            imp_dll = QtGui.QTreeWidgetItem(root)
+            imp_dll = QtWidgets.QTreeWidgetItem(root)
             imp_dll.setText(0, dll_name)
 
             for imp_ea, imp_name, imp_ord in imp_entries:
-                item = QtGui.QTreeWidgetItem(imp_dll)
+                item = QtWidgets.QTreeWidgetItem(imp_dll)
                 item.setText(0, "%s [0x%08x]" %(imp_name, imp_ea))
 
 
         # Build exports
-        root = QtGui.QTreeWidgetItem(self.tree)
+        root = QtWidgets.QTreeWidgetItem(self.tree)
         root.setText(0, "Exports")
 
         for exp_i, exp_ord, exp_ea, exp_name in self.BuildExports():
-            item = QtGui.QTreeWidgetItem(root)
+            item = QtWidgets.QTreeWidgetItem(root)
             item.setText(0, "%s [#%d] [0x%08x]" % (exp_name, exp_ord, exp_ea))
 
 
@@ -78,15 +78,15 @@ class ImpExpForm_t(PluginForm):
         """
 
         # Get parent widget
-        self.parent = self.FormToPySideWidget(form)
+        self.parent = self.FormToPyQtWidget(form)
 
         # Create tree control
-        self.tree = QtGui.QTreeWidget()
+        self.tree = QtWidgets.QTreeWidget()
         self.tree.setHeaderLabels(("Names",))
         self.tree.setColumnWidth(0, 100)
 
         # Create layout
-        layout = QtGui.QVBoxLayout()
+        layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.tree)
 
         self.PopulateTree()

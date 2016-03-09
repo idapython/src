@@ -695,35 +695,29 @@ struct libfunc_t;
 int idaapi IDP_Callback(void *ud, int notification_code, va_list va);
 class IDP_Hooks
 {
-public:
-  virtual ~IDP_Hooks()
-  {
-    unhook();
-  }
-
-  bool hook()
-  {
-    return hook_to_notification_point(HT_IDP, IDP_Callback, this);
-  }
-
-  bool unhook()
-  {
-    return unhook_from_notification_point(HT_IDP, IDP_Callback, this);
-  }
-
+  friend int idaapi IDP_Callback(void *ud, int notification_code, va_list va);
   static int bool_to_cmdsize(bool in) { return in ? (1 + cmd.size) : 0; }
   static int bool_to_2or0(bool in) { return in ? 2 : 0; }
   static int cm_t_to_int(cm_t cm) { return int(cm); }
+  static bool _handle_string_output(PyObject *o, char *buf, size_t bufsize)
+  {
+    bool is_str = o != NULL && PyString_Check(o);
+    if ( is_str && buf != NULL )
+      qstrncpy(buf, PyString_AS_STRING(o), bufsize);
+    Py_XDECREF(o);
+    return is_str;
+  }
+  static bool _handle_qstring_output(PyObject *o, qstring *buf)
+  {
+    bool is_str = o != NULL && PyString_Check(o);
+    if ( is_str && buf != NULL )
+      buf->append(PyString_AS_STRING(o));
+    Py_XDECREF(o);
+    return is_str;
+  }
   static int handle_custom_mnem_output(PyObject *o, char *buf, size_t bufsize)
   {
-    int rc = 0;
-    if ( o != NULL && PyString_Check(o) )
-    {
-      qstrncpy(buf, PyString_AS_STRING(o), bufsize);
-      rc = 2;
-    }
-    Py_XDECREF(o);
-    return rc;
+    return _handle_string_output(o, buf, bufsize) ? 2 : 0;
   }
   static int handle_assemble_output(PyObject *o, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/, uchar *bin)
   {
@@ -743,7 +737,33 @@ public:
     Py_XDECREF(o);
     return rc;
   }
+  static int handle_get_reg_name_output(PyObject *o, int /*reg*/, size_t /*width*/, char *buf, size_t bufsize, int /*reghi*/)
+  {
+    int rc = 0;
+    if ( _handle_string_output(o, buf, bufsize) )
+      rc = qstrlen(buf) + 2;
+    return rc;
+  }
+  static int handle_decorate_name3_output(PyObject *o, qstring *outbuf, const char * /*name*/, bool /*mangle*/, int /*cc*/)
+  {
+    return _handle_qstring_output(o, outbuf) ? 2 : 0;
+  }
 
+public:
+  virtual ~IDP_Hooks()
+  {
+    unhook();
+  }
+
+  bool hook()
+  {
+    return hook_to_notification_point(HT_IDP, IDP_Callback, this);
+  }
+
+  bool unhook()
+  {
+    return unhook_from_notification_point(HT_IDP, IDP_Callback, this);
+  }
   // hookgenIDP:methods
 virtual int init(const char * idp_modname) {qnotused(idp_modname); return 0;}
 virtual int term() {return 0;}
@@ -792,7 +812,7 @@ virtual void kernel_config_loaded() {}
 virtual int might_change_sp(ea_t ea) {qnotused(ea); return 0;}
 virtual int is_alloca_probe(ea_t ea) {qnotused(ea); return 0;}
 virtual int out_3byte(ea_t dataea, uint32 value, bool analyze_only) {qnotused(dataea); qnotused(value); qnotused(analyze_only); return 0;}
-virtual int get_reg_name(int reg, size_t width, char * buf, size_t bufsize, int reghi) {qnotused(reg); qnotused(width); qnotused(buf); qnotused(bufsize); qnotused(reghi); return 0;}
+virtual PyObject * get_reg_name(int reg, size_t width, int reghi) {qnotused(reg); qnotused(width); qnotused(reghi); Py_RETURN_NONE;}
 virtual void savebase() {}
 virtual void gen_asm_or_lst(bool starting, FILE * fp, bool is_asm, int flags, gen_outline_t ** outline) {qnotused(starting); qnotused(fp); qnotused(is_asm); qnotused(flags); qnotused(outline); }
 virtual int out_src_file_lnnum() {return 0;}
@@ -847,7 +867,7 @@ virtual int calc_cdecl_purged_bytes2() {return 0;}
 virtual int get_stkarg_offset2() {return 0;}
 virtual int til_for_file() {return 0;}
 virtual int equal_reglocs(argloc_t * a1, argloc_t * a2) {qnotused(a1); qnotused(a2); return 0;}
-virtual int decorate_name3(qstring * outbuf, const char * name, bool mangle, int cc) {qnotused(outbuf); qnotused(name); qnotused(mangle); qnotused(cc); return 0;}
+virtual PyObject * decorate_name3(const char * name, bool mangle, int cc) {qnotused(name); qnotused(mangle); qnotused(cc); Py_RETURN_NONE;}
 virtual int calc_retloc3(const tinfo_t * rettype, cm_t cc, argloc_t * retloc) {qnotused(rettype); qnotused(cc); qnotused(retloc); return 0;}
 virtual int calc_varglocs3(const func_type_data_t * ftd, regobjs_t * regs, relobj_t * stkargs, int nfixed) {qnotused(ftd); qnotused(regs); qnotused(stkargs); qnotused(nfixed); return 0;}
 virtual int calc_arglocs3(func_type_data_t * fti) {qnotused(fti); return 0;}
@@ -1260,7 +1280,8 @@ case processor_t::get_reg_name:
   char * buf = va_arg(va, char *);
   size_t bufsize = va_arg(va, size_t);
   int reghi = va_arg(va, int);
-  ret = proxy->get_reg_name(reg, width, buf, bufsize, reghi);
+  PyObject * _tmp = proxy->get_reg_name(reg, width, reghi);
+  ret = IDP_Hooks::handle_get_reg_name_output(_tmp, reg, width, buf, bufsize, reghi);
 }
 break;
 
@@ -1707,7 +1728,8 @@ case processor_t::decorate_name3:
   const char * name = va_arg(va, const char *);
   bool mangle = bool(va_arg(va, int));
   cm_t cc = cm_t(va_arg(va, int));
-  ret = proxy->decorate_name3(outbuf, name, mangle, IDP_Hooks::cm_t_to_int(cc));
+  PyObject * _tmp = proxy->decorate_name3(name, mangle, IDP_Hooks::cm_t_to_int(cc));
+  ret = IDP_Hooks::handle_decorate_name3_output(_tmp, outbuf, name, mangle, cc);
 }
 break;
 

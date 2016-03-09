@@ -1715,11 +1715,7 @@ def GetInputMD5():
 
     @return: MD5 string or None on error
     """
-    ua = idaapi.uchar_array(16)
-    if idaapi.retrieve_input_file_md5(ua.cast()):
-        return "".join(["%02X" % ua[i] for i in xrange(16)])
-    else:
-        return None
+    return idaapi.retrieve_input_file_md5()
 
 
 def GetFlags(ea):
@@ -2032,7 +2028,7 @@ def GetReg(ea, reg):
     @return: the value of the segment register or -1 on error
 
     @note: The segment registers in 32bit program usually contain selectors,
-           so to get paragraph pointed by the segment register you need to
+           so to get paragraph pointed to by the segment register you need to
            call AskSelector() function.
     """
     reg = idaapi.str2reg(reg);
@@ -2598,6 +2594,8 @@ LFLG_64BIT      = 0x04    #              64-bit program?
 LFLG_DBG_NOPATH = 0x08    #              do not store input full path
 LFLG_SNAPSHOT   = 0x10    #              is memory snapshot?
                           #              in debugger process options
+LFLG_8ALIGN4    = 0x40    #              4 byte alignment for 8byte scalars
+                          #              (__int64/double) inside structures
 INF_DEMNAMES    = 14      # char;    display demangled names as:
 DEMNAM_CMNT  = 0          #              comments
 DEMNAM_NAME  = 1          #              regular names
@@ -2822,6 +2820,9 @@ INF_SIZEOF_LONG  = 190
 INF_SIZEOF_LLONG = 191
 INF_CHANGE_COUNTER = 192 # database change counter; keeps track of byte and segment modifications
 INF_SIZEOF_LDBL  = 196   # uchar;  sizeof(long double)
+INF_REFCMTS     = 221    # uchar; number of comment lines to generate for refs
+                         # to ASCII string or demangled name
+                         # 0 - such comments won't be generated at all
 
 # Redefine these offsets for 64-bit version
 if __EA64__:
@@ -2895,7 +2896,8 @@ if __EA64__:
     INF_SIZEOF_LONG          = 274
     INF_SIZEOF_LLONG         = 275
     INF_CHANGE_COUNTER       = 276
-    INF_SIZEOF_LBDL          = 280
+    INF_SIZEOF_LDBL          = 280
+    INF_REFCMTS              = 305
 
 _INFMAP = {
 INF_VERSION     : (False, 'version'),      # short;   Version of database
@@ -7050,6 +7052,38 @@ PT_HIGH  =  0x0080  # assume high level prototypes
 PT_LOWER =  0x0100  # lower the function prototypes
 
 
+def PrintLocalTypes(ordinals, flags):
+    """
+    Print types in a format suitable for use in a header file
+
+    @param ordinals: comma-separated list of type ordinals
+    @param flags: combination of PDF_... constants or 0
+
+    @return: string containing the type definitions
+    """
+    class def_sink(idaapi.text_sink_t):
+
+        def __init__(self):
+            idaapi.text_sink_t.__init__(self)
+            self.text = ""
+
+        def _print(self, defstr):
+            self.text += defstr
+            return 0
+
+    sink = def_sink()
+    py_ordinals = map(lambda l : int(l), ordinals.split(","))
+    idaapi.print_decls(sink, idaapi.cvar.idati, py_ordinals, flags)
+
+    return sink.text
+
+
+PDF_INCL_DEPS  = 0x1  # include dependencies
+PDF_DEF_FWD    = 0x2  # allow forward declarations
+PDF_DEF_BASE   = 0x4  # include base types: __int8, __int16, etc..
+PDF_HEADER_CMT = 0x8  # prepend output with a descriptive comment
+
+
 def GetMaxLocalType():
     """
     Get number of local types + 1
@@ -8038,8 +8072,7 @@ def SetBptAttr(address, bptattr, value):
         if bptattr == BPTATTR_FLAGS:
             bpt.flags = value
 
-        idaapi.update_bpt(bpt)
-        return True
+        return idaapi.update_bpt(bpt)
 
 def SetBptCndEx(ea, cnd, is_lowcnd):
     """
@@ -8281,14 +8314,20 @@ def GetTevRegVal(tev, reg):
 
 def GetTevRegMemQty(tev):
     """
-    Return the number of memory addresses recorded for the specified event
+    Return the number of blobs of memory recorded, for the specified event
+
+    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
+
     @param tev: event number
     """
     return idaapi.get_tev_reg_mem_qty(tev)
 
 def GetTevRegMem(tev, idx):
     """
-    Return the memory pointed by 'index' for the specified event
+    Return the blob of memory pointed to by 'index', for the specified event
+
+    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
+
     @param tev: event number
     @param idx: memory address index
     """
@@ -8296,7 +8335,10 @@ def GetTevRegMem(tev, idx):
 
 def GetTevRegMemEa(tev, idx):
     """
-    Return the address pointed by 'index' for the specified event
+    Return the address of the blob of memory pointed to by 'index' for the specified event
+
+    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
+
     @param tev: event number
     @param idx: memory address index
     """

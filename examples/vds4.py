@@ -68,51 +68,22 @@ def run():
         idaapi.user_numforms_free(numforms)
 
     # Display user-defined local variable information
-    # First defined the visitor class
-    class dump_lvar_info_t(idaapi.user_lvar_visitor_t):
+    lvinf = idaapi.lvar_uservec_t()
+    if idaapi.restore_user_lvar_settings(lvinf, entry_ea):
+        print "------- User defined local variable information\n"
+        for lv in lvinf.lvvec:
+            print "Lvar defined at %x" % (lv.ll.defea, )
 
-        def __init__(self):
-            idaapi.user_lvar_visitor_t.__init__(self)
-            self.displayed_header = False
-            return
+            if len(str(lv.name)):
+                print "  Name: %s" % (str(lv.name), )
 
-        def get_info_qty_for_saving(self):
-            return 0
+            if len(str(lv.type)):
+                #~ print_type_to_one_line(buf, sizeof(buf), idati, .c_str());
+                print "  Type: %s" % (str(lv.type), )
 
-        def get_info_for_saving(self, lv):
-            return False
+            if len(str(lv.cmt)):
+                print "  Comment: %s" % (str(lv.cmt), )
 
-        def handle_retrieved_info(self, lv):
-
-            try:
-                if not self.displayed_header:
-                    self.displayed_header = True;
-                    print "------- User defined local variable information"
-
-                print "Lvar defined at %x" % (lv.ll.defea, )
-
-                if len(str(lv.name)):
-                    print "  Name: %s" % (str(lv.name), )
-
-                if len(str(lv.type)):
-                    #~ print_type_to_one_line(buf, sizeof(buf), idati, .c_str());
-                    print "  Type: %s" % (str(lv.type), )
-
-                if len(str(lv.cmt)):
-                    print "  Comment: %s" % (str(lv.cmt), )
-            except:
-                traceback.print_exc()
-            return 0
-
-        def handle_retrieved_mapping(self, lm):
-            return 0
-
-        def get_info_mapping_for_saving(self):
-            return None
-
-    # Now iterate over all user definitions
-    dli = dump_lvar_info_t();
-    idaapi.restore_user_lvar_settings(entry_ea, dli)
 
     return
 

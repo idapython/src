@@ -4,7 +4,6 @@
 #
 from idaapi import NW_OPENIDB, NW_CLOSEIDB, NW_TERMIDA, NW_REMOVE, COLSTR, cli_t
 
-#<pycode(ex_cli_ex1)>
 class mycli_t(cli_t):
     flags = 0
     sname = "pycli"
@@ -59,7 +58,6 @@ class mycli_t(cli_t):
         """
         print "OnCompleteLine: prefix=%s n=%d line=%s prefix_start=%d" % (prefix, n, line, prefix_start)
         return None
-#</pycode(ex_cli_ex1)>
 
 
 # -----------------------------------------------------------------------

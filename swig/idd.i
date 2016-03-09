@@ -10,6 +10,14 @@
 %ignore gdecode_t;
 %apply unsigned char { char dtyp };
 
+%ignore qvector<exception_info_t>::operator==;
+%ignore qvector<exception_info_t>::operator!=;
+%ignore qvector<exception_info_t>::find;
+%ignore qvector<exception_info_t>::has;
+%ignore qvector<exception_info_t>::del;
+%ignore qvector<exception_info_t>::add_unique;
+%template(excvec_t) qvector<exception_info_t>;
+
 %include "idd.hpp"
 
 %clear(char dtyp);

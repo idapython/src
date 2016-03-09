@@ -15,17 +15,7 @@ import idc
 
 import traceback
 
-try:
-    from PyQt4 import QtCore, QtGui
-    print 'Using PyQt'
-except:
-    print 'PyQt not available'
-
-    try:
-        from PySide import QtGui, QtCore
-        print 'Using PySide'
-    except:
-        print 'PySide not available'
+from PyQt5 import QtCore, QtWidgets
 
 XREF_EA = 0
 XREF_STRUC_MEMBER = 1
@@ -78,10 +68,7 @@ class XrefsForm(idaapi.PluginForm):
     def OnCreate(self, form):
 
         # Get parent widget
-        try:
-            self.parent = self.FormToPySideWidget(form)
-        except:
-            self.parent = self.FormToPyQtWidget(form)
+        self.parent = self.FormToPyQtWidget(form)
 
         self.populate_form()
 
@@ -93,16 +80,16 @@ class XrefsForm(idaapi.PluginForm):
 
     def populate_form(self):
         # Create layout
-        layout = QtGui.QVBoxLayout()
+        layout = QtWidgets.QVBoxLayout()
 
-        layout.addWidget(QtGui.QLabel(self.__name))
-        self.table = QtGui.QTableWidget()
+        layout.addWidget(QtWidgets.QLabel(self.__name))
+        self.table = QtWidgets.QTableWidget()
         layout.addWidget(self.table)
 
         self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Address"))
-        self.table.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Function"))
-        self.table.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Line"))
+        self.table.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem("Address"))
+        self.table.setHorizontalHeaderItem(1, QtWidgets.QTableWidgetItem("Function"))
+        self.table.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem("Line"))
 
         self.table.setColumnWidth(0, 80)
         self.table.setColumnWidth(1, 150)
@@ -110,8 +97,8 @@ class XrefsForm(idaapi.PluginForm):
 
         self.table.cellDoubleClicked.connect(self.double_clicked)
 
-        #~ self.table.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
-        self.table.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows )
+        #~ self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows )
         self.parent.setLayout(layout)
 
         self.populate_table()
@@ -244,13 +231,13 @@ class XrefsForm(idaapi.PluginForm):
         i = 0
         for item in self.items:
             address, func, line = item
-            item = QtGui.QTableWidgetItem('0x%x' % (address, ))
+            item = QtWidgets.QTableWidgetItem('0x%x' % (address, ))
             item.setFlags(item.flags() ^ QtCore.Qt.ItemIsEditable)
             self.table.setItem(i, 0, item)
-            item = QtGui.QTableWidgetItem(func)
+            item = QtWidgets.QTableWidgetItem(func)
             item.setFlags(item.flags() ^ QtCore.Qt.ItemIsEditable)
             self.table.setItem(i, 1, item)
-            item = QtGui.QTableWidgetItem(line)
+            item = QtWidgets.QTableWidgetItem(line)
             item.setFlags(item.flags() ^ QtCore.Qt.ItemIsEditable)
             self.table.setItem(i, 2, item)
 

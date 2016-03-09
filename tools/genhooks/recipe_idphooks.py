@@ -82,7 +82,26 @@ recipe = {
             "cc" : {
                 "type" : "int",
                 "convertor" : "IDP_Hooks::cm_t_to_int",
-            }
+            },
+            "outbuf" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_decorate_name3_output",
+            "convertor_pass_args" : True,
         }
-    }
+    },
+    "get_reg_name" : {
+        "params" : {
+            "buf"     : { "suppress_for_call" : True, },
+            "bufsize" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_get_reg_name_output",
+            "convertor_pass_args" : True,
+        }
+    },
 }

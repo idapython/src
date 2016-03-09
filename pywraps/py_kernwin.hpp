@@ -427,11 +427,16 @@ bool py_del_hotkey(PyObject *pyctx)
     return false;
 
   py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCObject_AsVoidPtr(pyctx);
-  if ( !del_idc_hotkey(ctx->hotkey.c_str()) )
+  if ( ctx == NULL || !del_idc_hotkey(ctx->hotkey.c_str()) )
     return false;
 
   Py_DECREF(ctx->pyfunc);
   delete ctx;
+  // Here we must ensure that the python object is invalidated.
+  // This is to avoid the possibility of this function being called again
+  // with the same ctx, which would contain a pointer to a deleted object.
+  PyCObject_SetVoidPtr(pyctx, NULL);
+
   return true;
 }
 
@@ -826,6 +831,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     virtual idaapi ~py_ui_request_t()
     {
+      PYW_GIL_GET;
       py_callables.clear();
     }
   };

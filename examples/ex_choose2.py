@@ -1,9 +1,6 @@
 import idaapi
 from idaapi import Choose2
 
-#<pycode(py_choose2ex1)>
-
-
 class chooser_handler_t(idaapi.action_handler_t):
     def __init__(self, thing):
         idaapi.action_handler_t.__init__(self)
@@ -129,5 +126,3 @@ if __name__ == '__main__':
 
     #test_choose2_embedded()
     test_choose2(False)
-
-#</pycode(py_choose2ex1)>

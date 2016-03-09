@@ -44,6 +44,8 @@ typedef struct
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
 
+%rename (get_tev_reg_mem) py_get_tev_reg_mem;
+
 // We want ALL wrappers around what is declared in dbg.hpp
 // to release the GIL when calling into the IDA api: those
 // might be very long operations, that even require some

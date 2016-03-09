@@ -9,13 +9,10 @@ import re
 import os
 
 major, minor, micro, _, _ = sys.version_info
+if major < 2 or minor < 7:
+    raise Exception("Expected Python version 2.7.x, but got %s.%s.%s (from %s)" % (major, minor, micro, sys.executable))
 
-try:
-  from argparse import ArgumentParser
-except:
-  print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
-  raise
-
+from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument("-t", "--template", required=True)
 parser.add_argument("-o", "--output", required=True)

@@ -39,7 +39,7 @@ void idaapi choose_enter(void *self, uint32 n)
 
 //---------------------------------------------------------------------------
 uint32 choose_choose(
-    void *self,
+    PyObject *self,
     int flags,
     int x0,int y0,
     int x1,int y1,
@@ -48,14 +48,14 @@ uint32 choose_choose(
     int icon)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t pytitle(PyObject_GetAttrString((PyObject *)self, "title"));
+  newref_t pytitle(PyObject_GetAttrString(self, "title"));
   const char *title = pytitle != NULL ? PyString_AsString(pytitle.o) : "Choose";
 
   int r = choose(
     flags,
     x0, y0,
     x1, y1,
-    self,
+    (void*) self,
     width,
     choose_sizer,
     choose_getl,

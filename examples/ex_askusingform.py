@@ -4,7 +4,6 @@
 #
 from idaapi import Form
 
-#<pycode(ex_askusingform)>
 # --------------------------------------------------------------------------
 class TestEmbeddedChooserClass(Choose2):
     """
@@ -371,8 +370,6 @@ def test_dropdown_nomodal():
         tdn_form.openform_flags = idaapi.PluginForm.FORM_TAB
         tdn_form, _ = tdn_form.Compile()
     tdn_form.Open()
-
-#</pycode(ex_askusingform)>
 
 
 # --------------------------------------------------------------------------

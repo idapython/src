@@ -90,6 +90,8 @@
 %rename (get_named_type64) py_get_named_type64;
 %rename ("%s") tinfo_t::get_named_type;
 
+%ignore udt_type_data_t::is_last_baseclass;
+
 %rename (print_decls) py_print_decls;
 %ignore print_decls;
 

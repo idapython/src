@@ -5,8 +5,8 @@
 import idaapi
 import idc
 from idaapi import simplecustviewer_t
-#<pycode(py_custviewerex1)>
 
+# -----------------------------------------------------------------------
 class say_something_handler_t(idaapi.action_handler_t):
     def __init__(self, thing):
         idaapi.action_handler_t.__init__(self)
@@ -179,5 +179,3 @@ def make_many(n):
         v.Show()
         L.append(v)
     return L
-
-#</pycode(py_custviewerex1)>

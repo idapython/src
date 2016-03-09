@@ -4,7 +4,6 @@
 #
 from idaapi import set_idc_func_ex
 
-#<pycode(ex_expr)>
 def py_power(n, e):
     return n ** e
 
@@ -13,4 +12,3 @@ if ok:
     print("Now the pow() will be present IDC!")
 else:
     print("Failed to register pow() IDC function")
-#</pycode(ex_expr)>
