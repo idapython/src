@@ -1,11 +1,4 @@
-// Ignore kernel only & unexported symbols
-%ignore netlink;
-
 %ignore RootNode;
-%ignore for_all_supvals;
-%ignore netErrorHandler;
-%ignore netNoDiskSpaceHandler;
-%ignore netnode_key_count;
 
 %ignore netnode_check;
 %ignore netnode_kill;
@@ -90,6 +83,8 @@
 %ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, char tag);
 %ignore netnode::operator nodeidx_t;
 %ignore netnode::validate_names;
+
+%constant nodeidx_t BADNODE = nodeidx_t(-1);
 
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
 %rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, char tag=htag);

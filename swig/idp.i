@@ -1,3 +1,10 @@
+%{
+#include <idp.hpp>
+#include <idd.hpp>
+#include <dbg.hpp>
+#include <auto.hpp>
+#include <fixup.hpp>
+%}
 // Ignore the following symbols
 %ignore WorkReg;
 %ignore AbstractRegister;
@@ -20,15 +27,9 @@
 %ignore read_config;
 %ignore read_config_file;
 %ignore read_config_string;
-%ignore read_kernel_config_file;
-%ignore split_path_envvar;
-%ignore get_user_idadirs;
-%ignore find_cfg_files;
 %ignore cfgopt_t;
 %ignore cfgopt_t__apply;
 %ignore parse_config_value;
-%ignore get_idptype_and_data;
-
 
 %ignore s_preline;
 %ignore ca_operation_t;
@@ -42,36 +43,10 @@
 %ignore instruc_t;
 %ignore processor_t;
 %ignore ph;
-%ignore IDB_Callback;
 %ignore IDP_Callback;
 %ignore _py_getreg;
-%ignore free_processor_module;
-%ignore cfg_compiler_changed;
-
-%ignore gen_idb_event;
-%ignore print_spec_entry;
 
 %include "idp.hpp"
-
-%extend areacb_t {
-  areacb_type_t get_type()
-  {
-    areacb_type_t t = AREACB_TYPE_UNKNOWN;
-    if ( $self == &funcs )
-      t = AREACB_TYPE_FUNC;
-    else if ( $self == &segs )
-      t = AREACB_TYPE_SEGMENT;
-    else if ( $self == &hidden_areas )
-      t = AREACB_TYPE_HIDDEN_AREA;
-    return t;
-  }
-}
-
-%ignore IDP_Hooks::bool_to_cmdsize;
-%ignore IDP_Hooks::bool_to_2or0;
-%ignore IDP_Hooks::cm_t_to_int;
-%ignore IDP_Hooks::handle_custom_mnem_output;
-%ignore IDP_Hooks::handle_assemble_output;
 
 %inline %{
 //<inline(py_idp)>
@@ -81,4 +56,29 @@
 %{
 //<code(py_idp)>
 //</code(py_idp)>
+%}
+
+%pythoncode %{
+#<pycode(py_idp)>
+#</pycode(py_idp)>
+%}
+
+
+//-------------------------------------------------------------------------
+//                               IDB_Hooks
+//-------------------------------------------------------------------------
+%{
+#include <enum.hpp>
+%}
+
+%ignore IDB_Callback;
+
+%inline %{
+//<inline(py_idp_idbhooks)>
+//</inline(py_idp_idbhooks)>
+%}
+
+%{
+//<code(py_idp_idbhooks)>
+//</code(py_idp_idbhooks)>
 %}

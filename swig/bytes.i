@@ -1,13 +1,8 @@
-// Make get_any_cmt() work
-%apply unsigned char *OUTPUT { color_t *cmttype };
+%{
+#include <bytes.hpp>
+%}
 
-// For get_enum_id()
-%apply unsigned char *OUTPUT { uchar *serial };
-
-// get_[first|last]_serial_enum_member() won't take serials as input; it'll be present as output
-%apply unsigned char *OUTPUT { uchar *out_serial };
-// get_[next|prev]_serial_enum_member() take serials as input, and have the result present as output
-%apply unsigned char *INOUT { uchar *in_out_serial };
+%import "area.i"
 
 // Unexported and kernel-only declarations
 %ignore FlagsEnable;
@@ -22,7 +17,6 @@
 %ignore is_first_visea;
 %ignore is_last_visea;
 %ignore is_visible_finally;
-%ignore invalidate_visea_cache;
 %ignore fluFlags;
 %ignore setFlbits;
 %ignore clrFlbits;
@@ -36,44 +30,11 @@
 %ignore del_code_comments;
 %ignore doFlow;
 %ignore noFlow;
-%ignore doRef;
-%ignore noRef;
 %ignore coagulate;
-%ignore coagulate_dref;
-%ignore init_hidden_areas;
-%ignore save_hidden_areas;
-%ignore term_hidden_areas;
-%ignore check_move_args;
-%ignore movechunk;
-%ignore lock_dbgmem_config;
-%ignore unlock_dbgmem_config;
-%ignore set_op_type_no_event;
-%ignore shuffle_tribytes;
-%ignore set_stroff_path;
-%ignore del_stroff_path;
-%ignore set_enum_id;
-%ignore del_enum_id;
-%ignore enum_encode;
-%ignore enum_decode;
-%ignore mark_dirty_tof;
-%ignore validate_tofs;
-%ignore set_flags_nomark;
-%ignore set_flbits_nomark;
-%ignore clr_flbits_nomark;
-%ignore ida_vpagesize;
-%ignore ida_vpages;
-%ignore ida_npagesize;
-%ignore ida_npages;
-%ignore max_cache_count;
 
-%ignore fpnum_digits;
-%ignore fpnum_length;
 %ignore FlagsInit;
 %ignore FlagsTerm;
 %ignore FlagsReset;
-%ignore init_flags;
-%ignore term_flags;
-%ignore reset_flags;
 %ignore flush_flags;
 %ignore get_flags_linput;
 %ignore data_type_t;
@@ -125,4 +86,19 @@
 %pythoncode %{
 #<pycode(py_bytes)>
 #</pycode(py_bytes)>
+%}
+
+%{
+//<code(py_bytes_custdata)>
+//</code(py_bytes_custdata)>
+%}
+
+%inline %{
+//<inline(py_bytes_custdata)>
+//</inline(py_bytes_custdata)>
+%}
+
+%pythoncode %{
+#<pycode(py_bytes_custdata)>
+#</pycode(py_bytes_custdata)>
 %}

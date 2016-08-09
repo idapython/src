@@ -12,4 +12,8 @@ def get_type_size0(ti, tp):
     """
     return calc_type_size(ti, tp)
 
+import ida_idaapi
+ida_idaapi._listify_types(
+    reginfovec_t)
+
 #</pycode(py_typeinf)>

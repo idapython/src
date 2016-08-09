@@ -1,4 +1,6 @@
 #<pycode(py_gdl)>
+import _ida_idaapi
+import types
 # -----------------------------------------------------------------------
 class BasicBlock(object):
     """Basic block class. It is returned by the Flowchart class"""
@@ -52,7 +54,7 @@ class FlowChart(object):
             raise Exception("Please specifiy either a function or start/end pair")
 
         if bounds is None:
-            bounds = (BADADDR, BADADDR)
+            bounds = (_ida_idaapi.BADADDR, _ida_idaapi.BADADDR)
 
         # Create the flowchart
         self._q = qflow_chart_t("", f, bounds[0], bounds[1], flags)
@@ -61,7 +63,7 @@ class FlowChart(object):
     """Number of blocks in the flow chart"""
 
 
-    def refresh():
+    def refresh(self):
         """Refreshes the flow chart"""
         self._q.refresh()
 

@@ -32,13 +32,8 @@
 #include <kernwin.hpp>
 #include <ida_highlighter.hpp>
 
-#ifdef WITH_HEXRAYS
-//-V::730 Not all members of a class are initialized inside the constructor
-#include <hexrays.hpp>
-hexdsp_t *hexdsp = NULL;
-#endif
-
 #include "pywraps.hpp"
+#include "pywraps.cpp"
 
 //-------------------------------------------------------------------------
 // Defines and constants
@@ -54,7 +49,6 @@ hexdsp_t *hexdsp = NULL;
 #define S_IDAPYTHON                              "IDAPython"
 #define S_INIT_PY                                "init.py"
 static const char S_IDC_ARGS_VARNAME[] =         "ARGV";
-static const char S_MAIN[] =                     "__main__";
 static const char S_IDC_RUNPYTHON_STATEMENT[] =  "RunPythonStatement";
 static const char S_IDAPYTHON_DATA_NODE[] =      "IDAPython_Data";
 
@@ -80,9 +74,9 @@ static char g_idapython_dir[QMAXPATH];
 //-------------------------------------------------------------------------
 // Prototypes and forward declarations
 
-// Alias to SWIG_Init
-//lint -esym(526,init_idaapi) not defined
-extern "C" void init_idaapi(void);
+// // Alias to SWIG_Init
+// //lint -esym(526,init_idaapi) not defined
+// extern "C" void init_idaapi(void);
 
 // Plugin run() callback
 void idaapi run(int arg);
@@ -117,40 +111,186 @@ int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 
 //-------------------------------------------------------------------------
 // Helper routines to make Python script execution breakable from IDA
-static int ninsns = 0;      // number of times trace function was called
-static bool box_displayed;  // has the wait box been displayed?
-static time_t start_time;   // the start time of the execution
-static int script_timeout = 2;
 static bool g_ui_ready = false;
 static bool g_alert_auto_scripts = true;
 static bool g_remove_cwd_sys_path = false;
 static bool g_use_local_python = false;
+static bool g_autoimport_compat_idaapi = true;
 
-static void end_execution(void);
-static void begin_execution(void);
+// Allowing the user to interrupt a script is not entirely trivial.
+// Imagine the following script, that is run in an IDB that uses
+// an IDAPython processor module (important!) :
+// ---
+// while True:
+//     gen_disasm_text(ea, ea + 4, dtext, False)
+// ---
+// This script will call the processor module's out/outop functions in
+// order to generate the text. If the processor module behaves
+// correctly (i.e., doesn't take forever to generate said text), if the
+// user presses 'Cancel' once the wait dialog box shows, what we want
+// to cancel is _this_ script above: we don't want to interrupt the
+// processor module while it's doing its thing!
+// In order to do that, we will have to remember the time-of-entry of
+// various entry points:
+//  - IDAPython_extlang_compile_file
+//  - IDAPython_RunStatement
+//  - ... and more importantly in this case:
+//  - IDAPython_extlang_call_method (called by the IDA kernel to generate text)
+//
+// Of course, in case the processor module's out/outop misbehaves, we still
+// want the ability to cancel that operation. The following code allows for
+// that, too.
+
+//-------------------------------------------------------------------------
+struct exec_entry_t
+{
+  time_t etime;
+  exec_entry_t() { etime = time(NULL); }
+};
+DECLARE_TYPE_AS_MOVABLE(exec_entry_t);
+typedef qvector<exec_entry_t> exec_entries_t;
+
+//-------------------------------------------------------------------------
+struct execution_t
+{
+  exec_entries_t entries;
+  int timeout;
+  uint32 steps_before_action;
+  bool waitdialog_shown;
+
+  execution_t()
+    : timeout(2),
+      steps_before_action(0),
+      waitdialog_shown(false)
+  {
+    reset_steps();
+  }
+  void reset_steps();
+  void push();
+  void pop();
+  bool can_interrupt_current(time_t now) const;
+  void stop_tracking();
+  void sync_to_present_time();
+  void maybe_hide_waitdialog();
+  static int on_trace(PyObject *obj, _frame *frame, int what, PyObject *arg);
+};
+static execution_t execution;
+
+//#define LOG_EXEC 1
+#ifdef LOG_EXEC
+#define LEXEC(Format, ...) msg("IDAPython exec: " Format, __VA_ARGS__)
+#else
+#define LEXEC(Format, ...)
+#endif
+
+//-------------------------------------------------------------------------
+void execution_t::reset_steps()
+{
+  // we want to trace/check the time about every 10 steps. But we don't
+  // want it to be exactly 10 steps, or we might never make important
+  // checks because the tracing happens always at the wrong point.
+  // E.g., imagine the following loop:
+  // ---
+  // while True:
+  //     gen_disasm_text(ea, ea + 4, dtext, False)
+  // ---
+  // If we never hit the 'trace' callback while in the 'while True' loop
+  // but always when performing the call to the processor module's 'out/outop'
+  // then the loop will never stop. That was happening on windows (optimized.)
+  steps_before_action = 1 + rand() % 20;
+}
+
+//-------------------------------------------------------------------------
+void execution_t::push()
+{
+  if ( entries.empty() )
+    PyEval_SetTrace(execution_t::on_trace, NULL);
+  entries.push_back();
+  LEXEC("push() (now: %d entries)\n", int(entries.size()));
+}
+
+//-------------------------------------------------------------------------
+void execution_t::pop()
+{
+  entries.pop_back();
+  if ( entries.empty() )
+    stop_tracking();
+  LEXEC("pop() (now: %d entries)\n", int(entries.size()));
+}
+
+//-------------------------------------------------------------------------
+void execution_t::stop_tracking()
+{
+  PyEval_SetTrace(NULL, NULL);
+  maybe_hide_waitdialog();
+}
+
+//-------------------------------------------------------------------------
+void execution_t::sync_to_present_time()
+{
+  time_t now = time(NULL);
+  for ( size_t i = 0, n = entries.size(); i < n; ++i )
+    entries[i].etime = now;
+  maybe_hide_waitdialog();
+}
+
+//-------------------------------------------------------------------------
+void execution_t::maybe_hide_waitdialog()
+{
+  if ( waitdialog_shown )
+  {
+    hide_wait_box();
+    waitdialog_shown = false;
+  }
+}
+
+//-------------------------------------------------------------------------
+bool execution_t::can_interrupt_current(time_t now) const
+{
+  LEXEC("can_interrupt_current(): nentries: %d\n", int(entries.size()));
+  if ( entries.empty() || timeout <= 0 )
+    return false;
+  const exec_entry_t &last = entries.back();
+  bool can = (now - last.etime) > timeout;
+  LEXEC("can_interrupt_current(): last: %d, now: %d (-> %d)\n",
+        int(last.etime), int(now), can);
+  return can;
+}
 
 //------------------------------------------------------------------------
-// This callback is called on various interpreter events
-static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
+int execution_t::on_trace(PyObject *obj, _frame *frame, int what, PyObject *arg)
 {
-  if ( wasBreak() )
-  {
-    // User pressed Cancel in the waitbox; send KeyboardInterrupt exception
-    PyErr_SetString(PyExc_KeyboardInterrupt, "User interrupted");
-    return -1;
-  }
-  else if ( !box_displayed && ++ninsns > 10 )
-  {
-    // We check the timer once every 10 calls
-    ninsns = 0;
+  LEXEC("on_trace() (steps=%d, nentries=%d)\n",
+      int(execution.steps_before_action), int(execution.entries.size()));
+  // we don't want to query for time at every trace event
+  if ( execution.steps_before_action-- > 0 )
+    return 0;
 
-    // Timeout disabled or elapsed?
-    if ( script_timeout != 0 && (time(NULL) - start_time > script_timeout) )
+  execution.reset_steps();
+  time_t now = time(NULL);
+  LEXEC("on_trace()::now: %d\n", int(now));
+  bool can_interrupt = execution.can_interrupt_current(now);
+  if ( can_interrupt )
+  {
+    LEXEC("on_trace()::can_interrupt. Waitdialog shown? %d\n",
+          int(execution.waitdialog_shown));
+    if ( execution.waitdialog_shown )
     {
-      box_displayed = true;
+      if ( wasBreak() )
+      {
+        LEXEC("on_trace()::INTERRUPTING\n");
+        PyErr_SetString(PyExc_KeyboardInterrupt, "User interrupted");
+        return -1;
+      }
+    }
+    else
+    {
+      LEXEC("on_trace()::showing wait dialog\n");
       show_wait_box("Running Python script");
+      execution.waitdialog_shown = true;
     }
   }
+
 #ifdef ENABLE_PYTHON_PROFILING
   return tracefunc(obj, frame, what, arg);
 #else
@@ -162,84 +302,50 @@ static int break_check(PyObject *obj, _frame *frame, int what, PyObject *arg)
 #endif
 }
 
-//------------------------------------------------------------------------
-static void reset_execution_time()
+//-------------------------------------------------------------------------
+//lint -esym(1788, new_execution_t) is referenced only by its constructor or destructor
+struct new_execution_t
 {
-  start_time = time(NULL);
-  ninsns = 0;
-}
-
-//------------------------------------------------------------------------
-// Prepare for Python execution
-static void begin_execution()
-{
-  if ( !g_ui_ready || script_timeout == 0 )
-    return;
-
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  end_execution();
-  reset_execution_time();
-  PyEval_SetTrace(break_check, NULL);
-}
-
-//---------------------------------------------------------------------------
-static void hide_script_waitbox()
-{
-  if ( box_displayed )
+  bool created;
+  new_execution_t()
   {
-    hide_wait_box();
-    box_displayed = false;
+    created = g_ui_ready && execution.timeout > 0;
+    if ( created )
+    {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      execution.push();
+    }
   }
-}
-
-//------------------------------------------------------------------------
-// Called after Python execution finishes
-static void end_execution()
-{
-  hide_script_waitbox();
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-#ifdef ENABLE_PYTHON_PROFILING
-  PyEval_SetTrace(tracefunc, NULL);
-#else
-  PyEval_SetTrace(NULL, NULL);
-#endif
-}
-
-//-------------------------------------------------------------------------
-pycall_res_t::pycall_res_t(PyObject *pyo)
-  : result(pyo)
-{
-  PYGLOG("return code: %p\n", result.o);
-}
-
-//-------------------------------------------------------------------------
-pycall_res_t::~pycall_res_t()
-{
-  if ( PyErr_Occurred() )
-    PyErr_Print();
-}
+  ~new_execution_t()
+  {
+    if ( created )
+    {
+      PYW_GIL_CHECK_LOCKED_SCOPE();
+      execution.pop();
+    }
+  }
+};
 
 //-------------------------------------------------------------------------
 //lint -esym(714,disable_script_timeout) Symbol not referenced
-void disable_script_timeout()
+idaman void ida_export disable_script_timeout()
 {
   // Clear timeout
-  script_timeout = 0;
+  execution.timeout = 0;
 
   // Uninstall the trace function and hide the waitbox (if it was shown)
-  end_execution();
+  execution.stop_tracking();
 }
 
 //-------------------------------------------------------------------------
 //lint -esym(714,set_script_timeout) Symbol not referenced
-int set_script_timeout(int timeout)
+idaman int ida_export set_script_timeout(int timeout)
 {
   // Update the timeout
-  qswap(timeout, script_timeout);
+  qswap(timeout, execution.timeout);
 
   // Reset the execution time and hide the waitbox (so it is shown again after timeout elapses)
-  reset_execution_time();
-  hide_script_waitbox();
+  execution.sync_to_present_time();
 
   return timeout;
 }
@@ -347,16 +453,17 @@ static bool idaapi IDAPython_extlang_run_statements(
   {
     errbuf[0] = '\0';
     PyErr_Clear();
-    begin_execution();
-    newref_t result(PyRun_String(
-                            str,
-                            Py_file_input,
-                            globals,
-                            globals));
-    end_execution();
-    ok = result != NULL && !PyErr_Occurred();
-    if ( !ok )
-      handle_python_error(errbuf, errbufsize);
+    {
+      new_execution_t exec;
+      newref_t result(PyRun_String(
+                              str,
+                              Py_file_input,
+                              globals,
+                              globals));
+      ok = result != NULL && !PyErr_Occurred();
+      if ( !ok )
+        handle_python_error(errbuf, errbufsize);
+    }
   }
   if ( !ok && errbuf[0] == '\0' )
     qstrncpy(errbuf, "internal error", errbufsize);
@@ -384,9 +491,10 @@ static error_t idaapi idc_runpythonstatement(
 //--------------------------------------------------------------------------
 static const cfgopt_t opts[] =
 {
-  cfgopt_t("SCRIPT_TIMEOUT", &script_timeout, 0, INT_MAX),
+  cfgopt_t("SCRIPT_TIMEOUT", &execution.timeout, 0, INT_MAX),
   cfgopt_t("ALERT_AUTO_SCRIPTS", &g_alert_auto_scripts, true),
   cfgopt_t("REMOVE_CWD_SYS_PATH", &g_remove_cwd_sys_path, true),
+  cfgopt_t("AUTOIMPORT_COMPAT_IDAAPI", &g_autoimport_compat_idaapi, true),
 };
 
 //-------------------------------------------------------------------------
@@ -397,11 +505,11 @@ static bool check_python_dir()
   {
     S_IDC_MODNAME ".py",
     S_INIT_PY,
-    "idaapi.py",
+    "ida_idaapi.py",
     "idautils.py"
   };
   char filepath[QMAXPATH];
-  for ( size_t i=0; i<qnumber(script_files); i++ )
+  for ( size_t i=0; i < qnumber(script_files); i++ )
   {
     qmakepath(filepath, sizeof(filepath), g_idapython_dir, script_files[i], NULL);
     if ( !qfileexist(filepath) )
@@ -417,14 +525,11 @@ static bool check_python_dir()
 #ifdef __LINUX__
   qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", "python27.zip", NULL);
   if ( qfileexist(filepath) )
-#else
-  qmakepath(filepath, sizeof(filepath), g_idapython_dir, "lib", NULL);
-  if ( qisdir(filepath) )
-#endif
   {
     deb(IDA_DEBUG_PLUGIN, "Found \"%s\"; assuming local Python.\n", filepath);
     g_use_local_python = true;
   }
+#endif // __LINUX__
 
   return true;
 }
@@ -490,9 +595,10 @@ void IDAPython_RunStatement(void)
 
   if ( asktext(sizeof(statement), statement, statement, "ACCEPT TABS\nEnter Python expressions") != NULL )
   {
-    begin_execution();
-    PyRun_SimpleString(statement);
-    end_execution();
+    {
+      new_execution_t exec;
+      PyRun_SimpleString(statement);
+    }
 
     // Store the statement to the database
     history.setblob(statement, strlen(statement) + 1, 0, 'A');
@@ -547,7 +653,7 @@ static bool IDAPython_ExecFile(
   ref_t py_execscript(get_idaapi_attr(idaapi_script));
   if ( py_execscript == NULL )
   {
-    qsnprintf(errbuf, errbufsz, "Could not find idaapi.%s ?!", idaapi_script);
+    qsnprintf(errbuf, errbufsz, "Could not find %s.%s ?!", S_IDA_IDAAPI_MODNAME, idaapi_script);
     return false;
   }
 
@@ -627,14 +733,15 @@ static bool IDAPython_ExecFile(
 // Execute the Python script from the plugin
 static bool RunScript(const char *script)
 {
-  begin_execution();
-
   char errbuf[MAXSTR];
-  bool ok = IDAPython_ExecFile(script, errbuf, sizeof(errbuf));
+  bool ok;
+  {
+    new_execution_t exec;
+    ok = IDAPython_ExecFile(script, errbuf, sizeof(errbuf));
+  }
   if ( !ok )
     warning("IDAPython: error executing '%s':\n%s", script, errbuf);
 
-  end_execution();
   return ok;
 }
 
@@ -648,7 +755,7 @@ static bool parse_py_modname(
   char *modname,
   char *attrname,
   size_t sz,
-  const char *defmod = S_IDAAPI_MODNAME)
+  const char *defmod = S_IDA_IDAAPI_MODNAME)
 {
   const char *p = strchr(full_name, '.');
   if ( p == NULL )
@@ -808,10 +915,8 @@ bool idaapi IDAPython_extlang_compile_file(
         size_t errbufsize)
 {
   PYW_GIL_GET;
-  begin_execution();
-  bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize);
-  end_execution();
-  return ok;
+  new_execution_t exec;
+  return IDAPython_ExecFile(filename, errbuf, errbufsize);
 }
 
 //-------------------------------------------------------------------------
@@ -823,14 +928,16 @@ static bool idaapi IDAPython_extlang_loadprocmod(
         size_t errbufsize)
 {
   PYW_GIL_GET;
-  begin_execution();
-  bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_LOADPROCMOD, procobj, true);
+  bool ok;
+  {
+    new_execution_t exec;
+    ok = IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_LOADPROCMOD, procobj, true);
+  }
   if ( ok && procobj->is_zero() )
   {
     errbuf[0] = '\0';
     ok = false;
   }
-  end_execution();
   return ok;
 }
 
@@ -842,10 +949,8 @@ static bool idaapi IDAPython_extlang_unloadprocmod(
   size_t errbufsize)
 {
   PYW_GIL_GET;
-  begin_execution();
-  bool ok = IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_UNLOADPROCMOD);
-  end_execution();
-  return ok;
+  new_execution_t exec;
+  return IDAPython_ExecFile(filename, errbuf, errbufsize, S_IDAAPI_UNLOADPROCMOD);
 }
 
 //-------------------------------------------------------------------------
@@ -1076,9 +1181,10 @@ bool idaapi IDAPython_extlang_calcexpr(
   ref_t result;
   if ( ok )
   {
-    begin_execution();
-    result = newref_t(PyRun_String(expr, Py_eval_input, globals, globals));
-    end_execution();
+    {
+      new_execution_t exec;
+      result = newref_t(PyRun_String(expr, Py_eval_input, globals, globals));
+    }
     ok = return_python_result(rv, result, errbuf, errbufsize);
   }
   return ok;
@@ -1105,7 +1211,8 @@ bool idaapi IDAPython_extlang_call_method(
   // Behave like run()
   else if ( idc_obj == NULL && method_name != NULL )
   {
-      return IDAPython_extlang_run(method_name, nargs, args, result, errbuf, errbufsize);
+    new_execution_t exec;
+    return IDAPython_extlang_run(method_name, nargs, args, result, errbuf, errbufsize);
   }
 
   // Holds conversion status of input object
@@ -1135,8 +1242,11 @@ bool idaapi IDAPython_extlang_call_method(
     if ( !ok )
       break;
 
-    newref_t py_res(PyObject_CallObject(py_method.o, pargs.empty() ? NULL : pargs[0].o));
-    ok = return_python_result(result, py_res, errbuf, errbufsize);
+    {
+      new_execution_t exec;
+      newref_t py_res(PyObject_CallObject(py_method.o, pargs.empty() ? NULL : pargs[0].o));
+      ok = return_python_result(result, py_res, errbuf, errbufsize);
+    }
   } while ( false );
 
   return ok;
@@ -1196,7 +1306,7 @@ const extlang_t extlang_python =
 };
 
 //-------------------------------------------------------------------------
-void enable_extlang_python(bool enable)
+idaman void ida_export enable_extlang_python(bool enable)
 {
   if ( enable )
     select_extlang(&extlang_python);
@@ -1247,9 +1357,10 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
     line = s.c_str();
   } while (false);
 
-  begin_execution();
-  PythonEvalOrExec(line);
-  end_execution();
+  {
+    new_execution_t exec;
+    PythonEvalOrExec(line);
+  }
 
   return true;
 }
@@ -1294,20 +1405,12 @@ static const cli_t cli_python =
 
 //-------------------------------------------------------------------------
 // Control the Python CLI status
-void enable_python_cli(bool enable)
+idaman void ida_export enable_python_cli(bool enable)
 {
   if ( enable )
       install_command_interpreter(&cli_python);
   else
       remove_command_interpreter(&cli_python);
-}
-
-//-------------------------------------------------------------------------
-// Prints the IDAPython copyright banner
-void py_print_banner()
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyRun_SimpleString("print_banner()");
 }
 
 //------------------------------------------------------------------------
@@ -1362,37 +1465,25 @@ void convert_idc_args()
     PyObject_SetAttrString(py_mod.o, S_IDC_ARGS_VARNAME, py_args.o);
 }
 
-#ifdef WITH_HEXRAYS
-//-------------------------------------------------------------------------
-static bool is_hexrays_plugin(const plugin_info_t *pinfo)
-{
-  bool is_hx = false;
-  if ( pinfo != NULL && pinfo->entry != NULL )
-  {
-    const plugin_t *p = pinfo->entry;
-    if ( streq(p->wanted_name, "Hex-Rays Decompiler") )
-      is_hx = true;
-  }
-  return is_hx;
-}
-#endif
-
-
 //------------------------------------------------------------------------
 //lint -esym(715,va) Symbol not referenced
-static int idaapi on_ui_notification(void *, int code, va_list va)
+static int idaapi on_ui_notification(void *, int code, va_list)
 {
-#ifdef WITH_HEXRAYS
-  qnotused(va);
-#endif
   switch ( code )
   {
-    case ui_ready_to_run:
+    case ui_term:
       {
         PYW_GIL_GET; // This hook gets called from the kernel. Ensure we hold the GIL.
-        g_ui_ready = true;
-        py_print_banner();
+        // Let's make sure there are no non-Free()d forms.
+        free_compiled_form_instances();
+      }
+      break;
 
+    case ui_ready_to_run:
+      {
+        PYW_GIL_GET; // See above
+        g_ui_ready = true;
+        PyRun_SimpleString("print_banner()");
         if ( g_run_when == run_on_ui_ready )
           RunScript(g_run_script);
       }
@@ -1400,49 +1491,12 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
 
     case ui_database_inited:
       {
-        PYW_GIL_GET; // This hook gets called from the kernel. Ensure we hold the GIL.
+        PYW_GIL_GET; // See above
         convert_idc_args();
         if ( g_run_when == run_on_db_open )
           RunScript(g_run_script);
       }
       break;
-
-    case ui_term:
-      {
-        PYW_GIL_GET;
-        // Let's make sure there are no non-Free()d forms.
-        free_compiled_form_instances();
-      }
-      break;
-
-#ifdef WITH_HEXRAYS
-    case ui_plugin_loaded:
-      if ( hexdsp == NULL )
-      {
-        if ( is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
-        {
-          init_hexrays_plugin(0);
-          if ( hexdsp != NULL )
-            msg("IDAPython Hex-Rays bindings initialized.\n");
-        }
-      }
-      break;
-
-    case ui_plugin_unloading:
-      {
-        if ( hexdsp != NULL )
-        {
-          // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
-          // are cleared right away.
-          if ( is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
-          {
-            hexrays_clear_python_cfuncptr_t_references();
-            hexdsp = NULL;
-          }
-        }
-      }
-      break;
-#endif
 
     default:
       break;
@@ -1452,7 +1506,6 @@ static int idaapi on_ui_notification(void *, int code, va_list va)
 
 //-------------------------------------------------------------------------
 //lint -esym(526,til_clear_python_tinfo_t_instances) not defined
-extern void til_clear_python_tinfo_t_instances(void);
 static int idaapi on_idp_notification(void *, int code, va_list)
 {
   switch ( code )
@@ -1462,6 +1515,8 @@ static int idaapi on_idp_notification(void *, int code, va_list)
       // through all the tinfo_t objects that are embedded in SWIG wrappers,
       // (i.e., that were created from Python) and clear those.
       til_clear_python_tinfo_t_instances();
+      // Same thing for live python timers
+      clear_python_timer_instances();
       break;
   }
   return 0;
@@ -1498,8 +1553,9 @@ static int idaapi ui_debug_handler_cb(void *, int code, va_list)
 #endif
 
 //-------------------------------------------------------------------------
-// remove current directory (empty entry) from the sys.path
-static void sanitize_path()
+// - remove current directory (empty entry) from the sys.path
+// - add idadir("python")
+static void prepare_sys_path()
 {
   char buf[QMAXPATH];
   qstrncpy(buf, Py_GetPath(), sizeof(buf));
@@ -1517,6 +1573,9 @@ static void sanitize_path()
       newpath.append(DELIMITER);
     newpath.append(d0);
   }
+  if ( !newpath.empty() )
+    newpath.append(DELIMITER);
+  newpath.append(idadir("python"));
   PySys_SetPath(newpath.begin());
 }
 
@@ -1538,6 +1597,26 @@ static bool initsite(void)
     Py_DECREF(m);
   }
   return true;
+}
+
+//-------------------------------------------------------------------------
+static void init_ida_modules()
+{
+  // char buf[QMAXPATH];
+  // // IDA_MODULES must be passed as a define
+  // qstrncpy(buf, IDA_MODULES, sizeof(buf));
+  // char *ctx;
+  // for ( char *module = qstrtok(buf, ",", &ctx);
+  //       module != NULL;
+  //       module = qstrtok(NULL, DELIMITER, &ctx) )
+  // {
+  //   deb(IDA_DEBUG_PLUGIN, "Initializing \"ida_%s\"\n", module);
+  // }
+
+  // Load the 'ida_idaapi' module, that contains some important bits of code
+  // ref_t ida_idaapi(PyW_TryImportModule(S_PY_IDA_IDAAPI_MODNAME));
+
+  // ref_t sys(PyW_TryImportModule("sys"));
 }
 
 //-------------------------------------------------------------------------
@@ -1629,7 +1708,7 @@ bool IDAPython_Init(void)
   }
 
   // remove current directory
-  sanitize_path();
+  prepare_sys_path();
 
   // import "site"
   if ( !g_use_local_python && !initsite() )
@@ -1642,8 +1721,7 @@ bool IDAPython_Init(void)
   if ( !PyEval_ThreadsInitialized() )
     PyEval_InitThreads();
 
-  // Init the SWIG wrapper
-  init_idaapi();
+  init_ida_modules();
 
 #ifdef Py_DEBUG
   msg("HexraysPython: Python compiled with DEBUG enabled.\n");
@@ -1654,13 +1732,23 @@ bool IDAPython_Init(void)
           tmp,
           sizeof(tmp),
           "IDAPYTHON_VERSION=(%d, %d, %d, '%s', %d)\n"
-          "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n",
+          "IDAPYTHON_REMOVE_CWD_SYS_PATH = %s\n"
+          "IDAPYTHON_DYNLOAD_BASE = r\"%s\"\n"
+          "IDAPYTHON_DYNLOAD_RELPATH = \"ida_%d\"\n"
+          "IDAPYTHON_COMPAT_AUTOIMPORT_MODULES = %s\n",
           VER_MAJOR,
           VER_MINOR,
           VER_PATCH,
           VER_STATUS,
           VER_SERIAL,
-          g_remove_cwd_sys_path ? "True" : "False");
+          g_remove_cwd_sys_path ? "True" : "False",
+          idadir(NULL),
+#ifdef __EA64__
+          64,
+#else
+          32,
+#endif
+          g_autoimport_compat_idaapi ? "True" : "False");
   PyRun_SimpleString(tmp);
 
   // Install extlang. Needs to be done before running init.py

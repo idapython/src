@@ -1,7 +1,11 @@
+%{
+#include <ua.hpp>
+#include <frame.hpp>
+%}
+
 %ignore insn_t;
 %ignore op_t;
 %ignore cmd;
-%ignore ua_out;
 %ignore showAsChar;
 %ignore out_real;
 %ignore init_output_buffer;
@@ -19,12 +23,7 @@
 %ignore get_immval;
 %ignore get_spoiled_reg;
 %ignore decode_preceding_insn;
-%ignore init_ua;
-%ignore term_ua;
 %ignore term_uaterm_ua;
-%ignore get_equal_items;
-%ignore get_equal_itemsget_equal_items;
-%ignore ua_use_fixup;
 
 %ignore get_immval;
 %ignore ua_stkvar;
@@ -44,14 +43,14 @@
 %rename (ua_add_off_drefs2) py_ua_add_off_drefs2;
 %rename (decode_preceding_insn) py_decode_preceding_insn;
 
-%inline %{
-//<inline(py_ua)>
-//</inline(py_ua)>
-%}
-
 %{
 //<code(py_ua)>
 //</code(py_ua)>
+%}
+
+%inline %{
+//<inline(py_ua)>
+//</inline(py_ua)>
 %}
 
 %pythoncode %{

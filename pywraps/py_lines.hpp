@@ -114,23 +114,31 @@ PyObject *py_tag_remove(const char *instr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   size_t sz = strlen(instr);
-  char *buf = new char[sz + 5];
-  if ( buf == NULL )
-    Py_RETURN_NONE;
-
-  ssize_t r = tag_remove(instr, buf, sz);
-  PyObject *res;
-  if ( r < 0 )
+  // Can't call tag_remove() with a size of 0; debug builds will INTERR 1270
+  if ( sz > 0 )
   {
-    Py_INCREF(Py_None);
-    res = Py_None;
+    char *buf = new char[sz + 5];
+    if ( buf == NULL )
+      Py_RETURN_NONE;
+
+    ssize_t r = tag_remove(instr, buf, sz);
+    PyObject *res;
+    if ( r < 0 )
+    {
+      Py_INCREF(Py_None);
+      res = Py_None;
+    }
+    else
+    {
+      res = PyString_FromString(buf);
+    }
+    delete [] buf;
+    return res;
   }
   else
   {
-    res = PyString_FromString(buf);
+    return PyString_FromString("");
   }
-  delete [] buf;
-  return res;
 }
 
 //-------------------------------------------------------------------------
@@ -194,7 +202,7 @@ PyObject *py_generate_disassembly(
   int nlines = generate_disassembly(ea, lines, max_lines, &lnnum, as_stack);
 
   newref_t py_tuple(PyTuple_New(nlines));
-  for ( int i=0; i<nlines; i++ )
+  for ( int i=0; i < nlines; i++ )
   {
     const char *s = lines[i];
     size_t line_len = strlen(s);

@@ -50,6 +50,7 @@ Form Test
 {FormChangeCb}
 This is a string: +{cStr1}+
 This is an address: +{cAddr1}+
+This is some HTML: +{cHtml1}+
 
 Escape\{control}
 This is a string: '{cStr2}'
@@ -85,6 +86,7 @@ The end!
 """, {
             'cStr1': Form.StringLabel("Hello"),
             'cStr2': Form.StringLabel("StringTest"),
+            'cHtml1': Form.StringLabel("<span style='color: red'>Is this red?<span>", tp=Form.FT_HTML_LABEL),
             'cAddr1': Form.NumericLabel(0x401000, Form.FT_ADDR),
             'cVal1' : Form.NumericLabel(99, Form.FT_HEX),
             'iStr1': Form.StringInput(),

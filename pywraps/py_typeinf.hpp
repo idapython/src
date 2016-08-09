@@ -669,82 +669,88 @@ til_t *load_til_header_wrap(const char *tildir, const char *name)
     PyErr_SetString(PyExc_RuntimeError, errbuf);
   return res;
 }
+
+//-------------------------------------------------------------------------
+/*
+header: typeinf.hpp
+#<pydoc>
+def apply_type_to_stkarg(op, v, type, name):
+    """
+    Apply type information to a stack variable
+
+    @param op: reference to instruction operand
+    @param v: immediate value in the operand (usually op.addr)
+    @param type: type string. Retrieve from idc.ParseType("type string", flags)[1]
+    @param name: stack variable name
+
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
+bool py_apply_type_to_stkarg(
+    PyObject *py_op,
+    PyObject *py_uv,
+    PyObject *py_type,
+    const char *name)
+{
+  uint64 v;
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  op_t *op = op_t_get_clink(py_op);
+  if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type) )
+  {
+    return false;
+  }
+  else
+  {
+    const type_t *t = (type_t *) PyString_AsString(py_type);
+    tinfo_t tif;
+    tif.deserialize(idati, &t);
+    borref_t br(py_op);
+    bool rc;
+    Py_BEGIN_ALLOW_THREADS;
+    rc = apply_tinfo_to_stkarg(*op, uval_t(v), tif, name);
+    Py_END_ALLOW_THREADS;
+    return rc;
+  }
+}
 //</inline(py_typeinf)>
 
 //<code(py_typeinf)>
 //-------------------------------------------------------------------------
-// A set of tinfo_t & details objects that were created from IDAPython.
-// This is necessary in order to clear all the "type details" that are
-// associated, in the kernel, with the tinfo_t instances.
-//
-// Unfortunately the IDAPython plugin has to terminate _after_ the IDB is
-// closed, but the "type details" must be cleared _before_ the IDB is closed.
-static qvector<tinfo_t*> py_tinfo_t_vec;
-static qvector<ptr_type_data_t*> py_ptr_type_data_t_vec;
-static qvector<array_type_data_t*> py_array_type_data_t_vec;
-static qvector<func_type_data_t*> py_func_type_data_t_vec;
-static qvector<udt_type_data_t*> py_udt_type_data_t_vec;
-
-static void __clear(tinfo_t *inst) { inst->clear(); }
-static void __clear(ptr_type_data_t *inst) { inst->obj_type.clear(); inst->closure.clear(); }
-static void __clear(array_type_data_t *inst) { inst->elem_type.clear(); }
-static void __clear(func_type_data_t *inst) { inst->clear(); inst->rettype.clear(); }
-static void __clear(udt_type_data_t *inst) { inst->clear(); }
-
-void til_clear_python_tinfo_t_instances(void)
+inline const p_list * PyW_Fields(PyObject *tp)
 {
-  // Pre-emptive strike: clear all the python-exposed tinfo_t
-  // (& related types) instances: if that were not done here,
-  // ~tinfo_t() calls happening as part of the python shutdown
-  // process will try and clear() their details. ..but the kernel's
-  // til-related functions will already have deleted those details
-  // at that point.
-  //
-  // NOTE: Don't clear() the arrays of pointers. All the python-exposed
-  // instances will be deleted through the python shutdown/ref-decrementing
-  // process anyway (which will cause til_deregister_..() calls), and the
-  // entries will be properly pulled out of the vector when that happens.
-#define BATCH_CLEAR(Type)                                               \
-  do                                                                    \
-  {                                                                     \
-    for ( size_t i = 0, n = py_##Type##_vec.size(); i < n; ++i )        \
-      __clear(py_##Type##_vec[i]);                                      \
-  } while ( false )
-
-  BATCH_CLEAR(tinfo_t);
-  BATCH_CLEAR(ptr_type_data_t);
-  BATCH_CLEAR(array_type_data_t);
-  BATCH_CLEAR(func_type_data_t);
-  BATCH_CLEAR(udt_type_data_t);
-#undef BATCH_CLEAR
+  return tp == Py_None ? NULL : (const p_list *) PyString_AsString(tp);
 }
 
-#define DEF_REG_UNREG_REFCOUNTED(Type)                                  \
-  void til_register_python_##Type##_instance(Type *inst)                \
-  {                                                                     \
-    /* Let's add_unique() it, because in the case of tinfo_t, every reference*/ \
-    /* to an object's tinfo_t property will end up trying to register it. */ \
-    py_##Type##_vec.add_unique(inst);                                   \
-  }                                                                     \
-                                                                        \
-  void til_deregister_python_##Type##_instance(Type *inst)              \
-  {                                                                     \
-    qvector<Type*>::iterator found = py_##Type##_vec.find(inst);        \
-    if ( found != py_##Type##_vec.end() )                               \
-    {                                                                   \
-      __clear(inst);                                                    \
-      /* tif->clear();*/                                                \
-      py_##Type##_vec.erase(found);                                     \
-    }                                                                   \
-  }
-
-DEF_REG_UNREG_REFCOUNTED(tinfo_t);
-DEF_REG_UNREG_REFCOUNTED(ptr_type_data_t);
-DEF_REG_UNREG_REFCOUNTED(array_type_data_t);
-DEF_REG_UNREG_REFCOUNTED(func_type_data_t);
-DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
-
-#undef DEF_REG_UNREG_REFCOUNTED
+//-------------------------------------------------------------------------
+// tuple(type_str, fields_str, field_cmts) on success
+static PyObject *py_tinfo_t_serialize(
+        const tinfo_t *tif,
+        int sudt_flags)
+{
+  qtype type, fields, fldcmts;
+  if ( !tif->serialize(&type, &fields, &fldcmts, sudt_flags) )
+    Py_RETURN_NONE;
+  PyObject *tuple = PyTuple_New(3);
+  int ctr = 0;
+#define ADD(Thing)                                              \
+  do                                                            \
+  {                                                             \
+    PyObject *o = Py_None;                                      \
+    if ( (Thing).empty() )                                      \
+      Py_INCREF(Py_None);                                       \
+    else                                                        \
+      o = PyString_FromString((const char *) (Thing).begin());  \
+    PyTuple_SetItem(tuple, ctr, o);                             \
+    ++ctr;                                                      \
+  } while ( false )
+  ADD(type);
+  ADD(fields);
+  ADD(fldcmts);
+#undef ADD
+  return tuple;
+}
 
 //</code(py_typeinf)>
 

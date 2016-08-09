@@ -1,6 +1,32 @@
 #ifndef __PY_KERNWIN__
 #define __PY_KERNWIN__
 
+
+//------------------------------------------------------------------------
+//<decls(py_kernwin)>
+//------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+// Context structure used by add|del_menu_item()
+struct py_add_del_menu_item_ctx
+{
+  qstring menupath;
+  PyObject *cb_data;
+};
+
+//---------------------------------------------------------------------------
+// Context structure used by add|del_idc_hotkey()
+struct py_idchotkey_ctx_t
+{
+  qstring hotkey;
+  PyObject *pyfunc;
+};
+
+//------------------------------------------------------------------------
+//</decls(py_kernwin)>
+//------------------------------------------------------------------------
+
+
 //------------------------------------------------------------------------
 //<inline(py_kernwin)>
 //------------------------------------------------------------------------
@@ -41,27 +67,20 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
 
       // Timer has been unregistered?
       if ( ret == -1 )
-      {
-        // Free the context
-        Py_DECREF(ctx->pycallback);
-        delete ctx;
-      }
+        python_timer_del(ctx);
       return ret;
     };
   };
 
-  py_timer_ctx_t *ctx = new py_timer_ctx_t();
-  ctx->pycallback = py_callback;
-  Py_INCREF(py_callback);
+  py_timer_ctx_t *ctx = python_timer_new(py_callback);
   ctx->timer_id = register_timer(
-    interval,
-    tmr_t::callback,
-    ctx);
+          interval,
+          tmr_t::callback,
+          ctx);
 
   if ( ctx->timer_id == NULL )
   {
-    Py_DECREF(py_callback);
-    delete ctx;
+    python_timer_del(ctx);
     Py_RETURN_NONE;
   }
   return PyCObject_FromVoidPtr(ctx, NULL);
@@ -89,12 +108,11 @@ static PyObject *py_unregister_timer(PyObject *py_timerctx)
     Py_RETURN_FALSE;
 
   py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCObject_AsVoidPtr(py_timerctx);
-  if ( !unregister_timer(ctx->timer_id) )
+  if ( ctx == NULL || !unregister_timer(ctx->timer_id) )
     Py_RETURN_FALSE;
 
-  Py_DECREF(ctx->pycallback);
-  delete ctx;
-
+  python_timer_del(ctx);
+  PyCObject_SetVoidPtr(py_timerctx, NULL);
   Py_RETURN_TRUE;
 }
 
@@ -693,8 +711,6 @@ def execute_sync(callable, reqf):
     If the current thread not the main thread, then the call is queued and
     executed afterwards.
 
-    @note: The Python version of execute_sync() cannot be called from a different thread
-           for the time being.
     @param callable: A python callable object
     @param reqf: one of MFF_ flags
     @return: -1 or the return value of the callable
@@ -823,9 +839,9 @@ static bool py_execute_ui_requests(PyObject *py_list)
     bool init(PyObject *py_list)
     {
       Py_ssize_t count = pyvar_walk_list(
-        py_list,
-        s_py_list_walk_cb,
-        this);
+              py_list,
+              s_py_list_walk_cb,
+              this);
       return count > 0;
     }
 
@@ -1065,31 +1081,6 @@ public:
   }
 
   // hookgenUI:methods
-virtual void range() {}
-virtual void idcstart() {}
-virtual void idcstop() {}
-virtual void suspend() {}
-virtual void resume() {}
-virtual void saving() {}
-virtual void saved() {}
-virtual void term() {}
-virtual int debugger_menu_change(bool enable) {qnotused(enable); return 1;}
-virtual void tform_visible(TForm * form, void * HWND) {qnotused(form); qnotused(HWND); }
-virtual void tform_invisible(TForm * form, void * HWND) {qnotused(form); qnotused(HWND); }
-virtual PyObject * get_ea_hint(ea_t ea) {qnotused(ea); Py_RETURN_NONE;}
-virtual PyObject * get_item_hint(ea_t ea, int max_lines) {qnotused(ea); qnotused(max_lines); Py_RETURN_NONE;}
-virtual PyObject * get_custom_viewer_hint(TCustomControl* viewer, place_t * place) {qnotused(viewer); qnotused(place); Py_RETURN_NONE;}
-virtual void database_inited(int is_new_database, const char * idc_script) {qnotused(is_new_database); qnotused(idc_script); }
-virtual void ready_to_run() {}
-virtual void preprocess(const char * name) {qnotused(name); }
-virtual void postprocess() {}
-virtual void updating_actions(action_update_ctx_t * ctx) {qnotused(ctx); }
-virtual void updated_actions() {}
-virtual void populating_tform_popup(TForm * form, TPopupMenu * popup_handle) {qnotused(form); qnotused(popup_handle); }
-virtual void finish_populating_tform_popup(TForm * form, TPopupMenu * popup_handle) {qnotused(form); qnotused(popup_handle); }
-virtual void plugin_loaded(const plugin_info_t * plugin_info) {qnotused(plugin_info); }
-virtual void plugin_unloading(const plugin_info_t * plugin_info) {qnotused(plugin_info); }
-virtual void current_tform_changed(TForm * form, TForm * prev_form) {qnotused(form); qnotused(prev_form); }
 };
 
 //-------------------------------------------------------------------------
@@ -1121,6 +1112,15 @@ bool py_unregister_action(const char *name)
     py_action_handlers.erase(name);
   }
   return ok;
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_registered_actions()
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  qstrvec_t actions;
+  get_registered_actions(&actions);
+  return qstrvec2pylist(actions);
 }
 
 //-------------------------------------------------------------------------
@@ -1277,11 +1277,12 @@ nav_colorizer_t *py_set_nav_colorizer(PyObject *new_py_colorizer)
     }
   };
 
-  bool need_install = py_colorizer == NULL;
+  // Always perform the call to set_nav_colorizer(): that has side-effects
+  // (e.g., updating the legend.)
+  bool first_install = py_colorizer == NULL;
   py_colorizer = borref_t(new_py_colorizer);
-  return need_install
-       ? set_nav_colorizer(lambda_t::call_py_colorizer)
-       : NULL;
+  nav_colorizer_t *prev = set_nav_colorizer(lambda_t::call_py_colorizer);
+  return first_install ? prev : NULL;
 }
 
 //-------------------------------------------------------------------------
@@ -1321,187 +1322,6 @@ int idaapi UI_Callback(void *ud, int notification_code, va_list va)
     switch ( notification_code )
     {
       // hookgenUI:notifications
-case ui_range:
-{
-  proxy->range();
-}
-break;
-
-case ui_idcstart:
-{
-  proxy->idcstart();
-}
-break;
-
-case ui_idcstop:
-{
-  proxy->idcstop();
-}
-break;
-
-case ui_suspend:
-{
-  proxy->suspend();
-}
-break;
-
-case ui_resume:
-{
-  proxy->resume();
-}
-break;
-
-case ui_saving:
-{
-  proxy->saving();
-}
-break;
-
-case ui_saved:
-{
-  proxy->saved();
-}
-break;
-
-case ui_term:
-{
-  proxy->term();
-}
-break;
-
-case ui_debugger_menu_change:
-{
-  bool enable = bool(va_arg(va, int));
-  ret = proxy->debugger_menu_change(enable);
-}
-break;
-
-case ui_tform_visible:
-{
-  TForm * form = va_arg(va, TForm *);
-  void * HWND = va_arg(va, void *);
-  proxy->tform_visible(form, HWND);
-}
-break;
-
-case ui_tform_invisible:
-{
-  TForm * form = va_arg(va, TForm *);
-  void * HWND = va_arg(va, void *);
-  proxy->tform_invisible(form, HWND);
-}
-break;
-
-case ui_get_ea_hint:
-{
-  ea_t ea = va_arg(va, ea_t);
-  char * buf = va_arg(va, char *);
-  size_t bufsize = va_arg(va, size_t);
-  PyObject * _tmp = proxy->get_ea_hint(ea);
-  ret = UI_Hooks::handle_get_ea_hint_output(_tmp, ea, buf, bufsize);
-}
-break;
-
-case ui_get_item_hint:
-{
-  ea_t ea = va_arg(va, ea_t);
-  int max_lines = va_arg(va, int);
-  int * important_lines = va_arg(va, int *);
-  qstring * hint = va_arg(va, qstring *);
-  PyObject * _tmp = proxy->get_item_hint(ea, max_lines);
-  ret = UI_Hooks::handle_hint_output(_tmp, ea, max_lines, important_lines, hint);
-}
-break;
-
-case ui_get_custom_viewer_hint:
-{
-  TCustomControl* viewer = va_arg(va, TCustomControl*);
-  place_t * place = va_arg(va, place_t *);
-  int * important_lines = va_arg(va, int *);
-  qstring * hint = va_arg(va, qstring *);
-  PyObject * _tmp = proxy->get_custom_viewer_hint(viewer, place);
-  ret = UI_Hooks::handle_hint_output(_tmp, viewer, place, important_lines, hint);
-}
-break;
-
-case ui_database_inited:
-{
-  int is_new_database = va_arg(va, int);
-  const char * idc_script = va_arg(va, const char *);
-  proxy->database_inited(is_new_database, idc_script);
-}
-break;
-
-case ui_ready_to_run:
-{
-  proxy->ready_to_run();
-}
-break;
-
-case ui_preprocess:
-{
-  const char * name = va_arg(va, const char *);
-  proxy->preprocess(name);
-}
-break;
-
-case ui_postprocess:
-{
-  proxy->postprocess();
-}
-break;
-
-case ui_updating_actions:
-{
-  action_update_ctx_t * ctx = va_arg(va, action_update_ctx_t *);
-  proxy->updating_actions(ctx);
-}
-break;
-
-case ui_updated_actions:
-{
-  proxy->updated_actions();
-}
-break;
-
-case ui_populating_tform_popup:
-{
-  TForm * form = va_arg(va, TForm *);
-  TPopupMenu * popup_handle = va_arg(va, TPopupMenu *);
-  proxy->populating_tform_popup(form, popup_handle);
-}
-break;
-
-case ui_finish_populating_tform_popup:
-{
-  TForm * form = va_arg(va, TForm *);
-  TPopupMenu * popup_handle = va_arg(va, TPopupMenu *);
-  proxy->finish_populating_tform_popup(form, popup_handle);
-}
-break;
-
-case ui_plugin_loaded:
-{
-  const plugin_info_t * plugin_info = va_arg(va, const plugin_info_t *);
-  proxy->plugin_loaded(plugin_info);
-}
-break;
-
-case ui_plugin_unloading:
-{
-  const plugin_info_t * plugin_info = va_arg(va, const plugin_info_t *);
-  proxy->plugin_unloading(plugin_info);
-}
-break;
-
-case ui_current_tform_changed:
-{
-  TForm * form = va_arg(va, TForm *);
-  TForm * prev_form = va_arg(va, TForm *);
-  proxy->current_tform_changed(form, prev_form);
-}
-break;
-
     }
   }
   catch (Swig::DirectorException &e)

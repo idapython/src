@@ -3,23 +3,10 @@
 
 //-------------------------------------------------------------------------
 //<code(py_ua)>
-//-------------------------------------------------------------------------
-insn_t *insn_t_get_clink(PyObject *self)
-{
-  return (insn_t *)pyobj_get_clink(self);
-}
-
-//-------------------------------------------------------------------------
-op_t *op_t_get_clink(PyObject *self)
-{
-  return (op_t *)pyobj_get_clink(self);
-}
 //</code(py_ua)>
 
 //-------------------------------------------------------------------------
 //<inline(py_ua)>
-
-//-------------------------------------------------------------------------
 /*
 #<pydoc>
 def init_output_buffer(size = MAXSTR):
@@ -99,109 +86,6 @@ flags_t py_OutValue(PyObject *x, int outflags=0)
     return 0;
 
   return OutValue(*op, outflags);
-}
-
-//-------------------------------------------------------------------------
-/*
-#<pydoc>
-def get_stkvar(op, v):
-    """
-    Get pointer to stack variable
-    @param op: reference to instruction operand
-    @param v: immediate value in the operand (usually op.addr)
-    @return:
-        - None on failure
-        - tuple(member_t, actval)
-          where actval: actual value used to fetch stack variable
-    """
-    pass
-#</pydoc>
-*/
-PyObject *py_get_stkvar(PyObject *py_op, PyObject *py_v)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  op_t *op = op_t_get_clink(py_op);
-  uint64 v;
-  if ( op == NULL || !PyW_GetNumber(py_v, &v) )
-    Py_RETURN_NONE;
-
-  sval_t actval;
-  member_t *member = get_stkvar(*op, sval_t(v), &actval);
-  if ( member == NULL )
-    Py_RETURN_NONE;
-
-  return Py_BuildValue("(O" PY_SFMT64 ")",
-    SWIG_NewPointerObj(SWIG_as_voidptr(member), SWIGTYPE_p_member_t, 0),
-    pyl_t(actval));
-}
-
-//-------------------------------------------------------------------------
-/*
-header: frame.hpp
-#<pydoc>
-def add_stkvar3(op, v, flags):
-    """
-    Automatically add stack variable if doesn't exist
-    Processor modules should use ua_stkvar2()
-    @param op: reference to instruction operand
-    @param v: immediate value in the operand (usually op.addr)
-    @param flags: combination of STKVAR_... constants
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
-bool py_add_stkvar3(PyObject *py_op, PyObject *py_v, int flags)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  op_t *op = op_t_get_clink(py_op);
-  uint64 v;
-  return ( op == NULL || !PyW_GetNumber(py_v, &v) || !add_stkvar3(*op, sval_t(v), flags)) ? false : true;
-}
-
-//-------------------------------------------------------------------------
-/*
-header: typeinf.hpp
-#<pydoc>
-def apply_type_to_stkarg(op, v, type, name):
-    """
-    Apply type information to a stack variable
-
-    @param op: reference to instruction operand
-    @param v: immediate value in the operand (usually op.addr)
-    @param type: type string. Retrieve from idc.ParseType("type string", flags)[1]
-    @param name: stack variable name
-
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
-bool py_apply_type_to_stkarg(
-    PyObject *py_op,
-    PyObject *py_uv,
-    PyObject *py_type,
-    const char *name)
-{
-  uint64 v;
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  op_t *op = op_t_get_clink(py_op);
-  if ( op == NULL || !PyW_GetNumber(py_uv, &v) || !PyString_Check(py_type) )
-  {
-    return false;
-  }
-  else
-  {
-    const type_t *t = (type_t *) PyString_AsString(py_type);
-    tinfo_t tif;
-    tif.deserialize(idati, &t);
-    borref_t br(py_op);
-    bool rc;
-    Py_BEGIN_ALLOW_THREADS;
-    rc = apply_tinfo_to_stkarg(*op, uval_t(v), tif, name);
-    Py_END_ALLOW_THREADS;
-    return rc;
-  }
 }
 
 //-------------------------------------------------------------------------

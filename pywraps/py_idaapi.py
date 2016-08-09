@@ -5,7 +5,7 @@ try:
 except:
     pywraps_there = False
 
-import _idaapi
+import _ida_idaapi
 import random
 import operator
 import datetime
@@ -242,82 +242,6 @@ class PyIdc_cvt_int64__(pyidc_cvt_helper__):
     def __rdiv__(self, other): return self.__op(3, other, True)
 
 # -----------------------------------------------------------------------
-# qstrvec_t clinked object
-class _qstrvec_t(py_clinked_object_t):
-    """
-    WARNING: It is very unlikely an IDAPython user should ever, ever
-    have to use this type. It should only be used for IDAPython internals.
-
-    For example, in py_askusingform.py, we ctypes-expose to the IDA
-    kernel & UI a qstrvec instance, in case a DropdownListControl is
-    constructed.
-    That's because that's what AskUsingForm expects, and we have no
-    choice but to make a DropdownListControl hold a qstrvec_t.
-    This is, afaict, the only situation where a Python
-    _qstrvec_t is required.
-    """
-
-    def __init__(self, items=None):
-        py_clinked_object_t.__init__(self)
-        # Populate the list if needed
-        if items:
-            self.from_list(items)
-
-    def _create_clink(self):
-        return _idaapi.qstrvec_t_create()
-
-    def _del_clink(self, lnk):
-        return _idaapi.qstrvec_t_destroy(lnk)
-
-    def _get_clink_ptr(self):
-        return _idaapi.qstrvec_t_get_clink_ptr(self)
-
-    def assign(self, other):
-        """Copies the contents of 'other' to 'self'"""
-        return _idaapi.qstrvec_t_assign(self, other)
-
-    def __setitem__(self, idx, s):
-        """Sets string at the given index"""
-        return _idaapi.qstrvec_t_set(self, idx, s)
-
-    def __getitem__(self, idx):
-        """Gets the string at the given index"""
-        return _idaapi.qstrvec_t_get(self, idx)
-
-    def __get_size(self):
-        return _idaapi.qstrvec_t_size(self)
-
-    size = property(__get_size)
-    """Returns the count of elements"""
-
-    def addressof(self, idx):
-        """Returns the address (as number) of the qstring at the given index"""
-        return _idaapi.qstrvec_t_addressof(self, idx)
-
-    def add(self, s):
-        """Add a string to the vector"""
-        return _idaapi.qstrvec_t_add(self, s)
-
-    def from_list(self, lst):
-        """Populates the vector from a Python string list"""
-        return _idaapi.qstrvec_t_from_list(self, lst)
-
-    def clear(self, qclear=False):
-        """
-        Clears all strings from the vector.
-        @param qclear: Just reset the size but do not actually free the memory
-        """
-        return _idaapi.qstrvec_t_clear(self, qclear)
-
-    def insert(self, idx, s):
-        """Insert a string into the vector"""
-        return _idaapi.qstrvec_t_insert(self, idx, s)
-
-    def remove(self, idx):
-        """Removes a string from the vector"""
-        return _idaapi.qstrvec_t_remove(self, idx)
-
-# -----------------------------------------------------------------------
 class PyIdc_cvt_refclass__(pyidc_cvt_helper__):
     """Helper class for representing references to immutable objects"""
     def __init__(self, v):
@@ -344,7 +268,8 @@ def as_cstr(val):
 def as_unicode(s):
     """Convenience function to convert a string into appropriate unicode format"""
     # use UTF16 big/little endian, depending on the environment?
-    return unicode(s).encode("UTF-16" + ("BE" if _idaapi.cvar.inf.mf else "LE"))
+    import _ida_ida
+    return unicode(s).encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.mf else "LE"))
 
 # -----------------------------------------------------------------------
 def as_uint32(v):
@@ -618,5 +543,128 @@ NW_TERMIDA    = 0x0008
 """Notify when the IDA terminates. Its callback is of the form: def notify_when_callback(nw_code)"""
 NW_REMOVE     = 0x0010
 """Use this flag with other flags to uninstall a notifywhen callback"""
+
+# -----------------------------------------------------------------------
+#                           CustomIDAMemo
+# -----------------------------------------------------------------------
+class CustomIDAMemo(object):
+    def Refresh(self):
+        """
+        Refreshes the graph. This causes the OnRefresh() to be called
+        """
+        ida_idaapi.pygc_refresh(self)
+
+    def GetCurrentRendererType(self):
+        return ida_idaapi.pygc_get_current_renderer_type(self)
+
+    def SetCurrentRendererType(self, rtype):
+        """
+        Set the current view's renderer.
+
+        @param rtype: The renderer type. Should be one of the idaapi.TCCRT_* values.
+        """
+        ida_idaapi.pygc_set_current_renderer_type(self, rtype)
+
+    def SetNodeInfo(self, node_index, node_info, flags):
+        """
+        Set the properties for the given node.
+
+        Example usage (set second nodes's bg color to red):
+          inst = ...
+          p = idaapi.node_info_t()
+          p.bg_color = 0x00ff0000
+          inst.SetNodeInfo(1, p, idaapi.NIF_BG_COLOR)
+
+        @param node_index: The node index.
+        @param node_info: An idaapi.node_info_t instance.
+        @param flags: An OR'ed value of NIF_* values.
+        """
+        ida_idaapi.pygc_set_node_info(self, node_index, node_info, flags)
+
+    def SetNodesInfos(self, values):
+        """
+        Set the properties for the given nodes.
+
+        Example usage (set first three nodes's bg color to purple):
+          inst = ...
+          p = idaapi.node_info_t()
+          p.bg_color = 0x00ff00ff
+          inst.SetNodesInfos({0 : p, 1 : p, 2 : p})
+
+        @param values: A dictionary of 'int -> node_info_t' objects.
+        """
+        ida_idaapi.pygc_set_nodes_infos(self, values)
+
+    def GetNodeInfo(self, node):
+        """
+        Get the properties for the given node.
+
+        @param node: The index of the node.
+        @return: A tuple (bg_color, frame_color, ea, text), or None.
+        """
+        return ida_idaapi.pygc_get_node_info(self, node)
+
+    def DelNodesInfos(self, *nodes):
+        """
+        Delete the properties for the given node(s).
+
+        @param nodes: A list of node IDs
+        """
+        return ida_idaapi.pygc_del_nodes_infos(self, nodes)
+
+    def CreateGroups(self, groups_infos):
+        """
+        Send a request to modify the graph by creating a
+        (set of) group(s), and perform an animation.
+
+        Each object in the 'groups_infos' list must be of the format:
+        {
+          "nodes" : [<int>, <int>, <int>, ...] # The list of nodes to group
+          "text" : <string>                    # The synthetic text for that group
+        }
+
+        @param groups_infos: A list of objects that describe those groups.
+        @return: A [<int>, <int>, ...] list of group nodes, or None (failure).
+        """
+        return ida_idaapi.pygc_create_groups(self, groups_infos)
+
+    def DeleteGroups(self, groups, new_current = -1):
+        """
+        Send a request to delete the specified groups in the graph,
+        and perform an animation.
+
+        @param groups: A list of group node numbers.
+        @param new_current: A node to focus on after the groups have been deleted
+        @return: True on success, False otherwise.
+        """
+        return ida_idaapi.pygc_delete_groups(self, groups, new_current)
+
+    def SetGroupsVisibility(self, groups, expand, new_current = -1):
+        """
+        Send a request to expand/collapse the specified groups in the graph,
+        and perform an animation.
+
+        @param groups: A list of group node numbers.
+        @param expand: True to expand the group, False otherwise.
+        @param new_current: A node to focus on after the groups have been expanded/collapsed.
+        @return: True on success, False otherwise.
+        """
+        return ida_idaapi.pygc_set_groups_visibility(self, groups, expand, new_current)
+
+    def GetTForm(self):
+        """
+        Return the TForm hosting this view.
+
+        @return: The TForm that hosts this view, or None.
+        """
+        return ida_idaapi.pycim_get_tform(self)
+
+    def GetTCustomControl(self):
+        """
+        Return the TCustomControl underlying this view.
+
+        @return: The TCustomControl underlying this view, or None.
+        """
+        return ida_idaapi.pycim_get_tcustom_control(self)
 
 #</pycode(py_idaapi)>

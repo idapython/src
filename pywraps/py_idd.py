@@ -4,6 +4,13 @@ NO_PROCESS = 0xFFFFFFFF
 NO_THREAD  = 0
 
 import types
+import _ida_idaapi
+import _ida_dbg
+import _ida_typeinf
+import _ida_name
+import _ida_bytes
+import _ida_ida
+import ida_idaapi
 
 # -----------------------------------------------------------------------
 class Appcall_array__(object):
@@ -39,7 +46,7 @@ class Appcall_array__(object):
     def unpack(self, buf, as_list=True):
         """Unpacks an array back into a list or an object"""
         # take the value from the special ref object
-        if isinstance(buf, PyIdc_cvt_refclass__):
+        if isinstance(buf, ida_idaapi.PyIdc_cvt_refclass__):
             buf = buf.value
 
         # we can only unpack from strings
@@ -118,9 +125,9 @@ class Appcall_callable__(object):
         # Do the Appcall (use the wrapped version)
         e_obj = None
         try:
-            r = _idaapi.appcall(
+            r = _ida_idd.appcall(
                self.ea,
-               _idaapi.get_current_thread(),
+               _ida_dbg.get_current_thread(),
                self.type,
                self.fields,
                arg_list)
@@ -148,7 +155,7 @@ class Appcall_callable__(object):
     def __get_size(self):
         if self.__type == None:
             return -1
-        r = _idaapi.calc_type_size(_idaapi.cvar.idati, self.__type)
+        r = _ida_typeinf.calc_type_size(_ida_typeinf.cvar.idati, self.__type)
         if not r:
             return -1
         return r
@@ -181,9 +188,9 @@ class Appcall_callable__(object):
             src = self.ea
 
         if type(src) == types.StringType:
-            return _idaapi.unpack_object_from_bv(_idaapi.cvar.idati, self.type, self.fields, src, flags)
+            return _ida_typeinf.unpack_object_from_bv(_ida_typeinf.cvar.idati, self.type, self.fields, src, flags)
         else:
-            return _idaapi.unpack_object_from_idb(_idaapi.cvar.idati, self.type, self.fields, src, flags)
+            return _ida_typeinf.unpack_object_from_idb(_ida_typeinf.cvar.idati, self.type, self.fields, src, flags)
 
     def store(self, obj, dest_ea=None, base_ea=0, flags=0):
         """
@@ -199,15 +206,15 @@ class Appcall_callable__(object):
 
         # no ea passed? thus pack to a string
         if dest_ea is None:
-            return _idaapi.pack_object_to_bv(obj,
-                                             _idaapi.cvar.idati,
+            return _ida_typeinf.pack_object_to_bv(obj,
+                                             _ida_typeinf.cvar.idati,
                                              self.type,
                                              self.fields,
                                              base_ea,
                                              flags)
         else:
-            return _idaapi.pack_object_to_idb(obj,
-                                              _idaapi.cvar.idati,
+            return _ida_typeinf.pack_object_to_idb(obj,
+                                              _ida_typeinf.cvar.idati,
                                               self.type,
                                               self.fields,
                                               dest_ea,
@@ -266,11 +273,11 @@ class Appcall__(object):
 
         # a string? try to resolve it
         if type(name_or_ea) == types.StringType:
-            ea = _idaapi.get_name_ea(_idaapi.BADADDR, name_or_ea)
+            ea = _ida_name.get_name_ea(_ida_idaapi.BADADDR, name_or_ea)
         else:
             ea = name_or_ea
         # could not resolve name or invalid address?
-        if ea == _idaapi.BADADDR or not _idaapi.isEnabled(ea):
+        if ea == _ida_idaapi.BADADDR or not _ida_bytes.isEnabled(ea):
             raise ValueError, "Undefined function " + name_or_ea
         return ea
 
@@ -292,7 +299,7 @@ class Appcall__(object):
         if flags is None:
             flags = 1 | 2 | 4 # PT_SIL | PT_NDC | PT_TYP
 
-        result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, prototype, flags)
+        result = _ida_typeinf.idc_parse_decl(_ida_typeinf.cvar.idati, prototype, flags)
         if result is None:
             raise ValueError, "Could not parse type: " + prototype
 
@@ -303,7 +310,7 @@ class Appcall__(object):
         """Allows you to call functions as if they were member functions (by returning a callable object)"""
         # resolve and raise exception on error
         ea = self.__name_or_ea(name_or_ea)
-        if ea == _idaapi.BADADDR:
+        if ea == _ida_idaapi.BADADDR:
             raise ValueError, "Undefined function " + name
         # Return the callable method
         return Appcall_callable__(ea)
@@ -321,7 +328,7 @@ class Appcall__(object):
         Returns the numeric value of a given name string.
         If the name could not be resolved then the default value will be returned
         """
-        t, v = _idaapi.get_name_value(_idaapi.BADADDR, name)
+        t, v = _ida_name.get_name_value(_ida_idaapi.BADADDR, name)
         if t == 0: # NT_NONE
           v = default
         return v
@@ -329,7 +336,7 @@ class Appcall__(object):
     @staticmethod
     def int64(v):
         """Whenever a 64bit number is needed use this method to construct an object"""
-        return PyIdc_cvt_int64__(v)
+        return ida_idaapi.PyIdc_cvt_int64__(v)
 
     @staticmethod
     def byref(val):
@@ -338,7 +345,7 @@ class Appcall__(object):
         Currently we support references to int/strings
         Objects need not be passed by reference (this will be done automatically)
         """
-        return PyIdc_cvt_refclass__(val)
+        return ida_idaapi.PyIdc_cvt_refclass__(val)
 
     @staticmethod
     def buffer(str = None, size = 0, fill="\x00"):
@@ -358,15 +365,15 @@ class Appcall__(object):
     @staticmethod
     def obj(**kwds):
         """Returns an empty object or objects with attributes as passed via its keywords arguments"""
-        return object_t(**kwds)
+        return ida_idaapi.object_t(**kwds)
 
     @staticmethod
     def cstr(val):
-        return as_cstr(val)
+        return ida_idaapi.as_cstr(val)
 
     @staticmethod
     def unicode(s):
-        return as_unicode(s)
+        return ida_idaapi.as_unicode(s)
 
     @staticmethod
     def array(type_name):
@@ -382,7 +389,7 @@ class Appcall__(object):
         @return: Appcall object or raises ValueError exception
         """
         # parse the type
-        result = _idaapi.idc_parse_decl(_idaapi.cvar.idati, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
+        result = _ida_typeinf.idc_parse_decl(_ida_typeinf.cvar.idati, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
         if result is None:
             raise ValueError, "Could not parse type: " + typestr
         # Return the callable method with type info
@@ -392,18 +399,18 @@ class Appcall__(object):
     def set_appcall_options(opt):
         """Method to change the Appcall options globally (not per Appcall)"""
         old_opt = Appcall__.get_appcall_options()
-        _idaapi.cvar.inf.appcall_options = opt
+        _ida_ida.cvar.inf.appcall_options = opt
         return old_opt
 
     @staticmethod
     def get_appcall_options():
         """Return the global Appcall options"""
-        return _idaapi.cvar.inf.appcall_options
+        return _ida_ida.cvar.inf.appcall_options
 
     @staticmethod
     def cleanup_appcall(tid = 0):
         """Equivalent to IDC's CleanupAppcall()"""
-        return _idaapi.cleanup_appcall(tid)
+        return _ida_idd.cleanup_appcall(tid)
 
 Appcall = Appcall__()
 #</pycode(py_idd)>

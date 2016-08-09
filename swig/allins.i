@@ -1,3 +1,7 @@
+%{
+#include <allins.hpp>
+%}
+
 // Ignore the unnedded externals
 %ignore Instructions;
 

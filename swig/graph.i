@@ -1,3 +1,6 @@
+%{
+#include <graph.hpp>
+%}
 %ignore mutable_graph_t;
 %ignore graph_visitor_t;
 %ignore abstract_graph_t;

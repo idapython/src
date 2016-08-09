@@ -1,3 +1,15 @@
+%{
+#include <kernwin.hpp>
+%}
+
+%{
+#ifdef __NT__
+idaman __declspec(dllimport) plugin_t PLUGIN;
+#else
+extern plugin_t PLUGIN;
+#endif
+%}
+
 // Ignore the va_list functions
 %ignore AskUsingForm_cv;
 %ignore AskUsingForm_c;
@@ -17,6 +29,9 @@
 %ignore choose_idasgn;
 %rename (choose_idasgn) py_choose_idasgn;
 
+%ignore get_chooser_data;
+%rename (get_chooser_data) py_get_chooser_data;
+
 %rename (del_hotkey) py_del_hotkey;
 %rename (add_hotkey) py_add_hotkey;
 
@@ -26,7 +41,6 @@
 %ignore umsg;
 %rename (umsg) py_umsg;
 
-%ignore textctrl_info_t;
 %ignore vinfo;
 %ignore UI_Callback;
 %ignore vnomem;
@@ -38,13 +52,6 @@
 %ignore askyn_v;
 %ignore add_custom_viewer_popup_item;
 %ignore create_custom_viewer;
-%extend qvector< snapshot_t *> {
-    snapshot_t *at(size_t n) { return self->at(n); }
-};
-%ignore qvector< snapshot_t *>::at(size_t) const;
-%ignore qvector< snapshot_t *>::at(size_t);
-%ignore qvector< snapshot_t *>::grow;
-%template(qvector_snapshotvec_t) qvector<snapshot_t *>;
 %ignore take_database_snapshot;
 %rename (take_database_snapshot) py_take_database_snapshot;
 %ignore restore_database_snapshot;
@@ -79,6 +86,8 @@
 %rename (unregister_action) py_unregister_action;
 %ignore attach_dynamic_action_to_popup;
 %rename (attach_dynamic_action_to_popup) py_attach_dynamic_action_to_popup;
+%ignore get_registered_actions;
+%rename (get_registered_actions) py_get_registered_actions;
 
 %include "typemaps.i"
 
@@ -130,19 +139,8 @@
 %ignore place_t__deserialize;
 
 %ignore register_place_class;
-%ignore register_enumplace;
-%ignore register_idaplace;
-%ignore register_simpleline_place;
-%ignore register_structplace;
-%ignore unregister_place_class;
-%ignore unregister_place_classes_with_owner;
-%ignore unregister_enumplace;
-%ignore unregister_idaplace;
-%ignore unregister_simpleline_place;
-%ignore unregister_structplace;
 %ignore register_loc_converter;
 %ignore lookup_loc_converter;
-%ignore unregister_loc_converters_for_class;
 
 %feature("director") UI_Hooks;
 
@@ -211,10 +209,16 @@ void refresh_lists(void)
 # This is for get_cursor()
 %apply int *OUTPUT {int *x, int *y};
 
+%ignore textctrl_info_t;
 SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %{
 static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
+%}
+
+%{
+//<decls(py_kernwin)>
+//</decls(py_kernwin)>
 %}
 
 %inline %{
@@ -312,4 +316,134 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 %pythoncode %{
 #<pycode(py_kernwin)>
 #</pycode(py_kernwin)>
+%}
+
+//-------------------------------------------------------------------------
+//                                choose
+//-------------------------------------------------------------------------
+%inline %{
+//<inline(py_kernwin_choose)>
+//</inline(py_kernwin_choose)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_choose)>
+#</pycode(py_kernwin_choose)>
+%}
+
+//-------------------------------------------------------------------------
+//                                choose2
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_choose2)>
+//</code(py_kernwin_choose2)>
+%}
+
+%inline %{
+//<inline(py_kernwin_choose2)>
+//</inline(py_kernwin_choose2)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_choose2)>
+#</pycode(py_kernwin_choose2)>
+%}
+
+//-------------------------------------------------------------------------
+//                               askusingform
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_askusingform)>
+//</code(py_kernwin_askusingform)>
+%}
+
+%inline %{
+//<inline(py_kernwin_askusingform)>
+//</inline(py_kernwin_askusingform)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_askusingform)>
+#</pycode(py_kernwin_askusingform)>
+%}
+
+
+//-------------------------------------------------------------------------
+//                                    cli_t
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_cli)>
+//</code(py_kernwin_cli)>
+%}
+
+%inline %{
+//<inline(py_kernwin_cli)>
+//</inline(py_kernwin_cli)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_cli)>
+#</pycode(py_kernwin_cli)>
+%}
+
+//-------------------------------------------------------------------------
+%init %{
+//<init(py_kernwin_askusingform)>
+//</init(py_kernwin_askusingform)>
+%}
+
+
+//-------------------------------------------------------------------------
+//                               IDAView
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_idaview)>
+//</code(py_kernwin_idaview)>
+
+%}
+
+%inline %{
+//<inline(py_kernwin_idaview)>
+//</inline(py_kernwin_idaview)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_idaview)>
+#</pycode(py_kernwin_idaview)>
+%}
+
+//-------------------------------------------------------------------------
+//                          simplecustviewer_t
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_custview)>
+//</code(py_kernwin_custview)>
+%}
+
+%inline %{
+//<inline(py_kernwin_custview)>
+//</inline(py_kernwin_custview)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_custview)>
+#</pycode(py_kernwin_custview)>
+%}
+
+//-------------------------------------------------------------------------
+//                              PluginForm
+//-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_plgform)>
+//</code(py_kernwin_plgform)>
+%}
+
+%inline %{
+//<inline(py_kernwin_plgform)>
+//</inline(py_kernwin_plgform)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_plgform)>
+#</pycode(py_kernwin_plgform)>
 %}

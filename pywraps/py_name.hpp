@@ -16,7 +16,7 @@ PyObject *py_get_debug_names(ea_t ea1, ea_t ea2)
   PyObject *dict = Py_BuildValue("{}");
   if ( dict != NULL )
   {
-    for ( ea_name_vec_t::iterator it=names.begin(); it!=names.end(); ++it )
+    for ( ea_name_vec_t::iterator it=names.begin(); it != names.end(); ++it )
     {
       PyDict_SetItem(dict,
                      Py_BuildValue(PY_FMT64, it->ea),

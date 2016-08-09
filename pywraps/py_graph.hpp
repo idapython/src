@@ -7,7 +7,7 @@ class py_graph_t : public py_customidamemo_t
   typedef py_customidamemo_t inherited;
 
 protected:
-  void collect_class_callbacks_ids(callbacks_ids_t *out);
+  void collect_class_callbacks_ids(pycim_callbacks_ids_t *out);
 
 private:
   enum
@@ -74,7 +74,7 @@ private:
     void clear(py_graph_t *pyg)
     {
       iterator e = end();
-      for ( iterator it=begin(); it!=end(); )
+      for ( iterator it=begin(); it != end(); )
       {
         if ( it->second == pyg )
         {
@@ -104,7 +104,7 @@ private:
   // static callback
   static int idaapi s_callback(void *obj, int code, va_list va)
   {
-    QASSERT(30453, py_customidamemo_t::lookup_info.find_by_py_view(NULL, NULL, (py_graph_t *) obj));
+    QASSERT(30453, pycim_lookup_info.find_by_py_view(NULL, NULL, (py_graph_t *) obj));
     PYW_GIL_GET;
     return ((py_graph_t *)obj)->gr_callback(code, va);
   }
@@ -288,7 +288,7 @@ private:
   void show()
   {
     TForm *form;
-    if ( lookup_info.find_by_py_view(&form, NULL, this) )
+    if ( pycim_lookup_info.find_by_py_view(&form, NULL, this) )
       open_tform(form, FORM_TAB|FORM_MENU|FORM_QWIDGET);
   }
 
@@ -330,7 +330,7 @@ private:
     TForm *form = create_tform(title, &hwnd);
     if ( hwnd != NULL ) // Created new tform
     {
-      lookup_info_t::entry_t &e = lookup_info.new_entry(this);
+      lookup_entry_t &e = pycim_lookup_info.new_entry(this);
       // get a unique graph id
       netnode id;
       char grnode[MAXSTR];
@@ -345,7 +345,7 @@ private:
         viewer_fit_window(pview);
       bind(self, pview);
       install_custom_viewer_handlers();
-      lookup_info.commit(e, form, view);
+      pycim_lookup_info.commit(e, form, view);
     }
     else
     {
@@ -387,7 +387,7 @@ public:
       return;
 
     py_graph_t *_this = view_extract_this<py_graph_t>(self);
-    if ( _this == NULL || !lookup_info.find_by_py_view(NULL, NULL, _this) )
+    if ( _this == NULL || !pycim_lookup_info.find_by_py_view(NULL, NULL, _this) )
       return;
 
     _this->jump_to_node(nid);
@@ -396,7 +396,7 @@ public:
   static Py_ssize_t AddCommand(PyObject *self, const char *title, const char *hotkey)
   {
     py_graph_t *_this = view_extract_this<py_graph_t>(self);
-    if ( _this == NULL || !lookup_info.find_by_py_view(NULL, NULL, _this) )
+    if ( _this == NULL || !pycim_lookup_info.find_by_py_view(NULL, NULL, _this) )
       return 0;
 
     return _this->add_command(title, hotkey);
@@ -406,7 +406,7 @@ public:
   {
     TForm *form;
     py_graph_t *_this = view_extract_this<py_graph_t>(self);
-    if ( _this == NULL || !lookup_info.find_by_py_view(&form, NULL, _this) )
+    if ( _this == NULL || !pycim_lookup_info.find_by_py_view(&form, NULL, _this) )
       return;
     close_tform(form, FORM_CLOSE_LATER);
   }
@@ -429,7 +429,7 @@ public:
       graph_viewer_t *found_view;
       TForm *form = find_tform(title.c_str());
       if ( form != NULL )
-        lookup_info.find_by_form(&found_view, (py_customidamemo_t**) &py_graph, form);
+        pycim_lookup_info.find_by_form(&found_view, (py_customidamemo_t**) &py_graph, form);
 
       if ( py_graph == NULL )
       {
@@ -456,7 +456,7 @@ public:
 };
 
 //-------------------------------------------------------------------------
-void py_graph_t::collect_class_callbacks_ids(callbacks_ids_t *out)
+void py_graph_t::collect_class_callbacks_ids(pycim_callbacks_ids_t *out)
 {
   inherited::collect_class_callbacks_ids(out);
   out->add(S_ON_REFRESH, 0);
@@ -507,7 +507,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
         node_cache.clear();
 
         // Get the edges
-        for ( int i=(int)PyList_Size(edges.o)-1; i>=0; i-- )
+        for ( int i=(int)PyList_Size(edges.o)-1; i >= 0; i-- )
         {
           // Each list item is a sequence (id1, id2)
           borref_t item(PyList_GetItem(edges.o, i));
@@ -517,7 +517,7 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           // Get and validate each of the two elements in the sequence
           int edge_ids[2];
           int j;
-          for ( j=0; j<qnumber(edge_ids); j++ )
+          for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
             if ( id == NULL || !PyInt_Check(id.o) )

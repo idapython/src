@@ -1,3 +1,10 @@
+%{
+#include <typeinf.hpp>
+#include <struct.hpp>
+%}
+
+%import "idp.i"
+
 // Most of these could be wrapped if needed
 %ignore get_cc;
 %ignore get_cc_type_size;
@@ -68,6 +75,7 @@
 %ignore perform_funcarg_conversion;
 %ignore get_argloc_info;
 %ignore argloc_t::dstr;
+%ignore argpart_t::copy_from;
 
 %ignore extract_pstr;
 %ignore skipName;
@@ -90,12 +98,20 @@
 %rename (get_named_type64) py_get_named_type64;
 %rename ("%s") tinfo_t::get_named_type;
 
-%ignore udt_type_data_t::is_last_baseclass;
-
 %rename (print_decls) py_print_decls;
 %ignore print_decls;
 
-%ignore set_named_type;
+// let's get rid of this one, without prohibiting tinfo_t::set_named_type()
+%ignore set_named_type(
+        til_t *,
+        const char *,
+        int,
+        const type_t *,
+        const p_list *,
+        const char *,
+        const p_list *,
+        const sclass_t *,
+        const uint32 *);
 %ignore get_named_type_size;
 
 %ignore decorate_name;
@@ -173,19 +189,14 @@
 
 // Kernel-only symbols
 %ignore build_anon_type_name;
-%ignore enum_type_data_t::is_signed;
-%ignore enum_type_data_t::is_unsigned;
-%ignore enum_type_data_t::get_sign;
 %ignore bitfield_type_data_t::serialize;
 %ignore func_type_data_t::serialize;
 %ignore func_type_data_t::deserialize;
-%ignore enum_type_data_t::get_enum_base_type;
-%ignore enum_type_data_t::serialize_enum;
-%ignore enum_type_data_t::deserialize_enum;
 %ignore valstr_deprecated_t;
 %ignore valinfo_deprecated_t;
 %ignore valstr_deprecated2_t;
 %ignore valinfo_deprecated2_t;
+%ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
 
 %ignore custloc_desc_t;
 %ignore install_custom_argloc;
@@ -206,6 +217,12 @@
 }
 
 %extend tinfo_t {
+
+  PyObject *serialize(
+          int sudt_flags=SUDT_FAST|SUDT_TRUNC) const
+  {
+    return py_tinfo_t_serialize($self, sudt_flags);
+  }
 
   bool deserialize(
           const til_t *til,
@@ -274,6 +291,7 @@
 
 %template(funcargvec_t)   qvector<funcarg_t>;
 %template(udtmembervec_t) qvector<udt_member_t>;
+%template(reginfovec_t)   qvector<reg_info_t>;
 
 %include "typeinf.hpp"
 

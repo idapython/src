@@ -1,17 +1,16 @@
+%{
+#include <enum.hpp>
+%}
 // Kernel only & unexported symbols
 %ignore enums;
 %ignore init_enums;
 %ignore save_enums;
 %ignore term_enums;
 %ignore set_enum_flag;
-%ignore sync_from_enum;
 %ignore get_enum_name(tid_t);
-%ignore del_all_enum_members;
 %ignore get_selected_enum;
 %ignore add_selected_enum;
 %ignore unmark_selected_enums;
-%ignore is_good_bmask;
-%ignore get_bmask_enum;
 %ignore ENUM_REVERSE;
 %ignore ENUM_SELMEMS;
 %ignore ENUM_QTY_IDX;

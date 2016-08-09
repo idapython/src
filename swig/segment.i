@@ -1,4 +1,7 @@
 // Ignore functions with callbacks
+
+%import "area.i"
+
 %ignore enumerate_selectors;
 %ignore enumerate_segments_with_selector;
 
@@ -8,13 +11,6 @@
 %ignore term_groups;
 %ignore vset_segm_name;
 %ignore get_segm_expr;
-%ignore get_based_segm_expr;
-%ignore createSegmentation;
-%ignore initSegment;
-%ignore save_segments;
-%ignore termSegment;
-%ignore DeleteAllSegments;
-%ignore delete_debug_segments;
 %ignore is_debugger_segm;
 %ignore is_ephemeral_segm;
 %ignore correct_address;

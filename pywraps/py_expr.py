@@ -1,29 +1,4 @@
 # --------------------------------------------------------------------------
-import os
-import sys
-
-import idaapi
-import _idaapi
-from sys import getrefcount
-import gc
-
-try:
-    import pywraps
-    pywraps_there = True
-    _idaapi.pyw_register_idc_func   = pywraps.pyw_register_idc_func
-    _idaapi.pyw_unregister_idc_func = pywraps.pyw_unregister_idc_func
-    _idaapi.py_get_call_idc_func    = pywraps.py_get_call_idc_func
-    _idaapi.py_set_idc_func_ex      = pywraps.py_set_idc_func_ex
-
-
-except Exception as e:
-    pywraps_there = False
-    print("exception: %s" % str(e))
-
-
-print("Using PyWraps: %s" % pywraps_there)
-
-# --------------------------------------------------------------------------
 #<pycode(py_expr)>
 try:
     import types
@@ -34,13 +9,13 @@ try:
 
     # A trampoline function that is called from idcfunc_t that will
     # call the Python callback with the argv and r properly serialized to python
-    call_idc_func__ = ctypes.CFUNCTYPE(ctypes.c_long)(_idaapi.py_get_call_idc_func())
+    call_idc_func__ = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_expr.py_get_call_idc_func())
 except:
     def call_idc_func__(*args):
         warning("IDC extensions need ctypes library in order to work")
         return 0
     try:
-        _IDCFUNC_CB_T = CFUNCTYPE(c_int, c_void_p, c_void_p)
+        _IDCFUNC_CB_T = CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p)
     except:
         _IDCFUNC_CB_T = None
 
@@ -107,7 +82,7 @@ def set_idc_func_ex(name, fp=None, args=(), flags=0):
         del __IDC_FUNC_CTXS[name]
 
         # Delete the context and unregister the function
-        return _idaapi.pyw_unregister_idc_func(f.ctxptr)
+        return _ida_expr.pyw_unregister_idc_func(f.ctxptr)
 
     # Registering a function that is already registered?
     if f is not None:
@@ -118,7 +93,7 @@ def set_idc_func_ex(name, fp=None, args=(), flags=0):
     args = "".join([chr(x) for x in args])
 
     # Create a context
-    ctxptr = _idaapi.pyw_register_idc_func(name, args, fp)
+    ctxptr = _ida_expr.pyw_register_idc_func(name, args, fp)
     if ctxptr == 0:
         return False
 
@@ -129,7 +104,7 @@ def set_idc_func_ex(name, fp=None, args=(), flags=0):
     __IDC_FUNC_CTXS[name] = f
 
     # Register IDC function with a callback
-    return _idaapi.py_set_idc_func_ex(
+    return _ida_expr.py_set_idc_func_ex(
                 name,
                 f.fp_ptr,
                 args,

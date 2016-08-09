@@ -1,6 +1,11 @@
-%ignore nmSerEA;
-%ignore nmSerN;
-%ignore maxSerialName;
+%{
+#include <nalt.hpp>
+#include <name.hpp>
+#include <expr.hpp>
+#include <loader.hpp>
+#include "../../../pywraps.hpp"
+%}
+
 %ignore get_import_module_name;
 %rename (get_import_module_name) py_get_import_module_name;
 %ignore NALT_EA;
@@ -14,8 +19,6 @@
 %ignore get_strid;
 %ignore _set_strid;
 %ignore _del_strid;
-%ignore set_strid;
-%ignore del_strid;
 %ignore xrefpos_t;
 %ignore get_xrefpos;
 %ignore set_xrefpos;
@@ -142,9 +145,6 @@
 %rename (get_switch_info_ex)  py_get_switch_info_ex;
 %rename (set_switch_info_ex)  py_set_switch_info_ex;
 %rename (del_switch_info_ex)  py_del_switch_info_ex;
-%rename (create_switch_xrefs) py_create_switch_xrefs;
-%rename (create_switch_table) py_create_switch_table;
-%rename (calc_switch_cases)   py_calc_switch_cases;
 
 %inline %{
 //<inline(py_nalt)>

@@ -12,7 +12,6 @@
 %ignore set_idc_getattr;
 %ignore set_idc_setattr;
 %ignore set_idc_func_ex;
-%ignore run_statements_idc;
 %ignore VarLong;
 %ignore VarNum;
 %ignore extlang_get_attr_exists;
@@ -35,25 +34,10 @@
 %ignore ExecuteFile;
 %ignore set_idc_func_body;
 %ignore get_idc_func_body;
-%ignore idc_stacksize;
-%ignore idc_calldepth;
-%ignore expr_printf;
-%ignore expr_uprintf;
-%ignore expr_sprintf;
-%ignore expr_printfer;
-%ignore init_idc;
-%ignore term_idc;
-%ignore create_default_idc_classes;
-%ignore notify_extlang_changed;
-%ignore insn_to_idc;
-%ignore find_builtin_idc_func;
-%ignore idc_mutex;
-%ignore idc_lx;
 %ignore idc_vars;
-%ignore idc_resolve_label;
-%ignore idc_resolver_ea;
 %ignore setup_lowcnd_regfuncs;
 %ignore syntax_highlighter_t;
+%ignore get_idptype_and_data;
 %cstring_output_maxstr_none(char *errbuf, size_t errbufsize);
 
 %ignore CompileEx;

@@ -1,3 +1,6 @@
+%{
+#include <search.hpp>
+%}
 %apply int * OUTPUT { int *opnum };
 
 %ignore search;

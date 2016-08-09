@@ -2,9 +2,6 @@
 %ignore ANODE2;
 %ignore AREA_LONG_COMMENT_TAG;
 %ignore area_visitor_t;
-%ignore areacb_t_link_dont_load;
-%ignore add_area_from_cache;
-%ignore areacb_t_valid_push_back;
 
 // Ignore the private members in areacb_t
 %ignore areacb_t::areasCode;
@@ -37,4 +34,23 @@
 %ignore areaset_t::move_chunk;
 %ignore areaset_t::check_move_args;
 
+%inline %{
+//<inline(py_area)>
+//</inline(py_area)>
+%}
+
 %include "area.hpp"
+
+%extend areacb_t {
+  areacb_type_t get_type()
+  {
+    areacb_type_t t = AREACB_TYPE_UNKNOWN;
+    if ( $self == &funcs )
+      t = AREACB_TYPE_FUNC;
+    else if ( $self == &segs )
+      t = AREACB_TYPE_SEGMENT;
+    else if ( $self == &hidden_areas )
+      t = AREACB_TYPE_HIDDEN_AREA;
+    return t;
+  }
+}

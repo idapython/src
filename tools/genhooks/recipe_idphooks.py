@@ -3,6 +3,9 @@
 recipe = {
     "last_cb_before_debugger" : {"ignore" : True},
     "last_cb_before_type_callbacks" : {"ignore" : True},
+    "get_operand_info" : {"ignore" : True},
+    "obsolete_get_operand_info" : {"ignore" : True},
+    "loader_elf_machine" : {"ignore" : True},
     "custom_ana" : {
         "return" : {
             "type" : "bool",
@@ -29,6 +32,7 @@ recipe = {
             "op" : {
                 "type" : "PyObject *",
                 "clinked" : {
+                    "module_define" : "S_IDA_UA_MODNAME",
                     "class_define" : "S_PY_OP_T_CLSNAME",
                 },
             },

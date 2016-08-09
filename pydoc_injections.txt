@@ -1,0 +1,214 @@
+### Processing allins.i
+### Processing area.i
+### Processing auto.i
+### Processing bytes.i
+fix_fun: found info for visit_patched_bytes
+fix_fun: found info for nextthat
+fix_fun: found info for get_many_bytes
+fix_fun: found info for get_ascii_contents2
+fix_fun: found info for get_ascii_contents
+fix_fun: found info for register_custom_data_type
+fix_fun: found info for unregister_custom_data_type
+fix_fun: found info for register_custom_data_format
+fix_fun: found info for unregister_custom_data_format
+fix_fun: found info for get_custom_data_format
+fix_fun: found info for get_custom_data_type
+### Processing dbg.i
+fix_fun: found info for get_manual_regions
+fix_fun: found info for dbg_is_loaded
+fix_fun: found info for refresh_debugger_memory
+fix_fun: found info for move_bpt_to_grp
+fix_fun: found info for internal_get_sreg_base
+### Processing diskio.i
+fix_fun: found info for enumerate_files
+### Processing entry.i
+### Processing enum.i
+### Processing expr.i
+### Processing fixup.i
+### Processing fpro.i
+fix_class: found info for qfile_t
+fix_method: found info for __init__
+fix_method: found info for opened
+fix_method: found info for open
+fix_method: found info for tmpfile
+fix_method: found info for seek
+fix_method: found info for tell
+fix_method: found info for readbytes
+fix_method: found info for read
+fix_method: found info for gets
+fix_method: found info for writebytes
+fix_method: found info for write
+fix_method: found info for flush
+fix_method: found info for put_char
+### Processing frame.i
+fix_fun: found info for add_stkvar3
+fix_fun: found info for get_stkvar
+### Processing funcs.i
+fix_fun: found info for get_fchunk_referer
+fix_fun: found info for get_idasgn_desc
+fix_fun: found info for get_idasgn_desc_with_matches
+fix_fun: found info for get_func_cmt
+### Processing gdl.i
+### Processing graph.i
+### Processing hexrays.i
+### Processing ida.i
+### Processing idaapi.i
+fix_fun: found info for get_inf_structure
+fix_fun: found info for set_script_timeout
+fix_fun: found info for disable_script_timeout
+fix_fun: found info for enable_extlang_python
+fix_fun: found info for notify_when
+fix_class: found info for loader_input_t
+fix_method: found info for __init__
+fix_method: found info for open
+fix_method: found info for set_linput
+fix_method: found info for from_fp
+fix_method: found info for open_memory
+fix_method: found info for seek
+fix_method: found info for tell
+fix_method: found info for getz
+fix_method: found info for gets
+fix_method: found info for read
+fix_method: found info for opened
+fix_method: found info for readbytes
+fix_method: found info for file2base
+fix_method: found info for get_char
+### Processing idd.i
+fix_fun: found info for dbg_get_registers
+fix_fun: found info for dbg_get_thread_sreg_base
+fix_fun: found info for dbg_read_memory
+fix_fun: found info for dbg_write_memory
+fix_fun: found info for dbg_get_name
+fix_fun: found info for dbg_get_memory_info
+fix_fun: found info for dbg_can_query
+### Processing idp.i
+fix_fun: found info for AssembleLine
+fix_fun: found info for assemble
+fix_fun: found info for ph_get_id
+fix_fun: found info for ph_get_version
+fix_fun: found info for ph_get_flag
+fix_fun: found info for ph_get_cnbits
+fix_fun: found info for ph_get_dnbits
+fix_fun: found info for ph_get_regFirstSreg
+fix_fun: found info for ph_get_regLastSreg
+fix_fun: found info for ph_get_segreg_size
+fix_fun: found info for ph_get_regCodeSreg
+fix_fun: found info for ph_get_regDataSreg
+fix_fun: found info for ph_get_high_fixup_bits
+fix_fun: found info for ph_get_icode_return
+fix_fun: found info for ph_get_instruc_start
+fix_fun: found info for ph_get_instruc_end
+fix_fun: found info for ph_get_tbyte_size
+fix_fun: found info for ph_get_instruc
+fix_fun: found info for ph_get_regnames
+fix_fun: found info for ph_get_operand_info
+fix_class: found info for IDP_Hooks
+fix_method: found info for hook
+fix_method: found info for unhook
+fix_method: found info for assemble
+fix_method: found info for rename
+fix_method: found info for closebase
+fix_method: found info for load_idasgn
+fix_method: found info for may_be_func
+fix_method: found info for is_sane_insn
+fix_method: found info for custom_ana
+fix_method: found info for custom_out
+fix_method: found info for custom_emu
+fix_method: found info for custom_outop
+fix_method: found info for custom_mnem
+fix_method: found info for undefine
+fix_method: found info for make_code
+fix_method: found info for make_data
+fix_method: found info for is_call_insn
+fix_method: found info for is_ret_insn
+fix_method: found info for savebase
+fix_method: found info for renamed
+fix_method: found info for add_func
+fix_method: found info for del_func
+### Processing ints.i
+### Processing kernwin.i
+fix_fun: found info for register_timer
+fix_fun: found info for unregister_timer
+fix_fun: found info for choose_idasgn
+fix_fun: found info for get_highlighted_identifier
+fix_fun: found info for umsg
+fix_fun: found info for msg
+fix_fun: found info for asktext
+fix_fun: found info for str2ea
+fix_fun: found info for str2user
+fix_fun: found info for process_ui_action
+fix_fun: found info for del_menu_item
+fix_fun: found info for del_hotkey
+fix_fun: found info for add_hotkey
+fix_fun: found info for add_menu_item
+fix_fun: found info for execute_sync
+fix_fun: found info for execute_ui_requests
+fix_class: found info for UI_Hooks
+fix_method: found info for hook
+fix_method: found info for unhook
+fix_method: found info for saving
+fix_method: found info for saved
+fix_method: found info for term
+fix_method: found info for get_ea_hint
+fix_method: found info for preprocess
+fix_method: found info for postprocess
+fix_method: found info for updating_actions
+fix_method: found info for updated_actions
+fix_method: found info for populating_tform_popup
+fix_method: found info for finish_populating_tform_popup
+fix_fun: found info for set_nav_colorizer
+fix_fun: found info for call_nav_colorizer
+fix_fun: found info for set_dock_pos
+fix_fun: found info for free_custom_icon
+fix_fun: found info for is_idaq
+fix_fun: found info for readsel2
+### Processing lines.i
+fix_fun: found info for set_user_defined_prefix
+fix_fun: found info for tag_remove
+fix_fun: found info for generate_disassembly
+### Processing loader.i
+fix_fun: found info for mem2base
+fix_fun: found info for load_plugin
+fix_fun: found info for run_plugin
+### Processing moves.i
+### Processing nalt.i
+fix_fun: found info for get_import_module_name
+fix_fun: found info for get_switch_info_ex
+fix_fun: found info for set_switch_info_ex
+fix_fun: found info for del_switch_info_ex
+fix_fun: found info for enum_import_names
+### Processing name.i
+### Processing netnode.i
+### Processing offset.i
+### Processing pro.i
+### Processing queue.i
+### Processing registry.i
+### Processing search.i
+### Processing segment.i
+### Processing srarea.i
+### Processing strlist.i
+### Processing struct.i
+### Processing typeinf.i
+fix_fun: found info for calc_type_size
+fix_fun: found info for apply_type
+fix_fun: found info for print_type
+fix_fun: found info for unpack_object_from_bv
+fix_fun: found info for pack_object_to_idb
+fix_fun: found info for pack_object_to_bv
+fix_fun: found info for get_named_type
+fix_fun: found info for apply_type_to_stkarg
+### Processing ua.i
+fix_fun: found info for init_output_buffer
+fix_fun: found info for term_output_buffer
+fix_fun: found info for decode_preceding_insn
+fix_fun: found info for OutValue
+fix_fun: found info for OutImmChar
+fix_fun: found info for ua_stkvar2
+fix_fun: found info for ua_add_off_drefs
+fix_fun: found info for ua_add_off_drefs2
+fix_fun: found info for out_name_expr
+fix_fun: found info for construct_macro
+### Processing xref.i
+fix_fun: found info for create_switch_xrefs
+fix_fun: found info for calc_switch_cases
+fix_fun: found info for create_switch_table

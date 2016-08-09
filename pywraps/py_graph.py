@@ -1,5 +1,6 @@
 #<pycode(py_graph)>
-class GraphViewer(CustomIDAMemo):
+import ida_idaapi
+class GraphViewer(ida_idaapi.CustomIDAMemo):
     """This class wraps the user graphing facility provided by the graph.hpp file"""
     def __init__(self, title, close_open = False):
         """
@@ -50,7 +51,7 @@ class GraphViewer(CustomIDAMemo):
         Closes the graph.
         It is possible to call Show() again (which will recreate the graph)
         """
-        _idaapi.pyg_close(self)
+        _ida_graph.pyg_close(self)
 
     def Show(self):
         """
@@ -59,14 +60,14 @@ class GraphViewer(CustomIDAMemo):
         @return: Boolean
         """
         if self._close_open:
-            frm = _idaapi.find_tform(self._title)
+            frm = _ida_kernwin.find_tform(self._title)
             if frm:
-                _idaapi.close_tform(frm, 0)
-        return _idaapi.pyg_show(self)
+                _ida_kernwin.close_tform(frm, 0)
+        return _ida_graph.pyg_show(self)
 
     def Select(self, node_id):
         """Selects a node on the graph"""
-        _idaapi.pyg_select_node(self, node_id)
+        _ida_graph.pyg_select_node(self, node_id)
 
     def AddCommand(self, title, hotkey):
         """
@@ -74,7 +75,7 @@ class GraphViewer(CustomIDAMemo):
           - register_action()
           - attach_action_to_popup()
         """
-        return _idaapi.pyg_add_command(self, title, hotkey)
+        return _ida_graph.pyg_add_command(self, title, hotkey)
 
     def OnRefresh(self):
         """

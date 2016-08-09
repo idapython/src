@@ -40,6 +40,7 @@ parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes d
 parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
 parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found", default=None)
+parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
 args = parser.parse_args()
 
@@ -58,6 +59,8 @@ def run(proc_argv, env=None):
 def main():
 
     argv = ["make"]
+    if args.parallel:
+        argv.append("-j")
     env = os.environ.copy()
     env["OUT_OF_TREE_BUILD"] = "1"
     if args.swig_bin:
@@ -79,9 +82,7 @@ def main():
             if "__EA64__" in env:
                 del env["__EA64__"]
         print "\n### Building EAsize=%d(bit) version of the plugin" % (64 if ea64 else 32)
-        run(argv + ["dist"], env=env) # 'dist' depends on build phases
-    print "\n### Packaging"
-    run(argv + ["package"], env=env)
+        run(argv, env=env)
 
 # -----------------------------------------------------------------------
 if __name__ == "__main__":

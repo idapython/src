@@ -1,5 +1,6 @@
+
 from idaapi import PluginForm
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 import sip
 
 class MyPluginFormClass(PluginForm):
@@ -15,12 +16,12 @@ class MyPluginFormClass(PluginForm):
 
     def PopulateForm(self):
         # Create layout
-        layout = QtGui.QVBoxLayout()
+        layout = QtWidgets.QVBoxLayout()
 
         layout.addWidget(
-            QtGui.QLabel("Hello from <font color=red>PyQt</font>"))
+            QtWidgets.QLabel("Hello from <font color=red>PyQt</font>"))
         layout.addWidget(
-            QtGui.QLabel("Hello from <font color=blue>IDAPython</font>"))
+            QtWidgets.QLabel("Hello from <font color=blue>IDAPython</font>"))
 
         self.parent.setLayout(layout)
 

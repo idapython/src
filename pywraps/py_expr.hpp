@@ -44,9 +44,10 @@ static error_t py_call_idc_func(
                              pargs.empty() ? NULL : pargs[0].o));
 
   error_t err;
-  if ( PyW_GetError(errbuf, sizeof(errbuf)) )
+  qstring qerrbuf;
+  if ( PyW_GetError(&qerrbuf) )
   {
-    err = PyW_CreateIdcException(r, errbuf);
+    err = PyW_CreateIdcException(r, qerrbuf.c_str());
   }
   else
   {

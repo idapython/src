@@ -12,11 +12,7 @@
 %ignore add_long_cmt_v;
 %ignore describex;
 // Kernel-only and unexported symbols
-%ignore init_sourcefiles;
 %ignore save_sourcefiles;
-%ignore term_sourcefiles;
-%ignore move_sourcefiles;
-%ignore gen_xref_lines;
 %ignore ml_getcmt_t;
 %ignore ml_getnam_t;
 %ignore ml_genxrf_t;
@@ -29,29 +25,13 @@
 %ignore save_line_in_array;
 %ignore init_lines_array;
 %ignore finish_makeline;
-%ignore finish_makeline_ex;
-%ignore generate_many_lines_ex;
-%ignore MakeNull_ex;
-%ignore gen_labeled_line;
-%ignore gen_lname_line;
 %ignore makeline_producer_t;
-%ignore set_makeline_producer;
 %ignore closing_comment;
 %ignore close_comment;
-%ignore copy_extra_cmts;
-%ignore gen_extra_cmts;
-%ignore Dumper;
 %ignore init_lines;
 %ignore save_lines;
-%ignore term_lines;
-%ignore gl_namedone;
-%ignore data_as_stack;
-%ignore unhide_hint_text;
-%ignore calc_stack_alignment;
 %ignore align_down_to_stack;
 %ignore align_up_to_stack;
-%ignore remove_spaces;
-%ignore prepare_ghost_copy_desc;
 %ignore bgcolors;
 
 %ignore set_user_defined_prefix;

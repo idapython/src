@@ -2,7 +2,7 @@ import bisect
 
 #<pycode(py_name)>
 
-class NearestName:
+class NearestName(object):
     """
     Utility class to help find the nearest name in a given ea/name dictionary
     """

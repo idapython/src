@@ -1,8 +1,14 @@
+%{
+#include <diskio.hpp>
+#include <expr.hpp>
+#include <loader.hpp>
+#include "../../../pywraps.hpp"
+%}
+
 // TODO: These could be wrapped
 %ignore enumerate_files;
 %rename (enumerate_files) py_enumerate_files;
 %ignore enumerate_system_files;
-%ignore enumerate_sorted_files;
 %ignore ioport_bit_t;
 %ignore ioport_bits_t;
 %ignore ioport_t;
@@ -29,9 +35,6 @@
 %ignore qlfile;
 %ignore make_linput;
 %ignore unmake_linput;
-%ignore create_remote_linput;
-%ignore make_filehandle_linput;
-%ignore get_default_userdir;
 
 // FIXME: These should be wrapped for completeness
 %ignore eread;

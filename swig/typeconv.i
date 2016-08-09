@@ -366,7 +366,7 @@ struct wrapped_array_t {
   }
 
   %pythoncode {
-    __iter__ = _bounded_getitem_iterator
+    __iter__ = ida_idaapi._bounded_getitem_iterator
   }
 }
 
@@ -410,3 +410,55 @@ struct wrapped_array_t {
 #else
 #error Ensure tinfo_t wrapping is compatible with this version of SWIG
 #endif
+
+// Convert all of these
+%cstring_output_maxstr_none(char *buf, size_t bufsize);
+%binary_output_or_none(void *buf, size_t bufsize);
+%binary_output_with_size(void *buf, size_t *bufsize);
+
+// Accept single Python string for const void * + size input arguments
+// For example: put_many_bytes() and patch_many_bytes()
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
+%apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
+%apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
+
+// Create wrapper classes for basic type arrays
+%array_class(uchar, uchar_array);
+%array_class(tid_t, tid_array);
+%array_class(ea_t, ea_array);
+%array_class(sel_t, sel_array);
+%array_class(uval_t, uval_array);
+%pointer_class(int, int_pointer);
+%pointer_class(ea_t, ea_pointer);
+%pointer_class(sval_t, sval_pointer);
+%pointer_class(sel_t, sel_pointer);
+
+
+%{
+PyObject *qstrvec2pylist(qstrvec_t &vec)
+{
+  size_t n = vec.size();
+  PyObject *py_list = PyList_New(n);
+  for ( size_t i=0; i < n; ++i )
+    PyList_SetItem(py_list, i, PyString_FromString(vec[i].c_str()));
+  return py_list;
+}
+%}
+
+//---------------------------------------------------------------------
+%typemap(out) uint64 {
+$result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+}
+
+//---------------------------------------------------------------------
+%typemap(in) uint64
+{
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected an uint64 type");
+    return NULL;
+  }
+  $1 = $1_temp;
+}

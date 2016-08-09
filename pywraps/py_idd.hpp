@@ -10,31 +10,6 @@ static bool dbg_can_query()
 }
 
 //-------------------------------------------------------------------------
-static PyObject *meminfo_vec_t_to_py(meminfo_vec_t &areas)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  PyObject *py_list = PyList_New(areas.size());
-  meminfo_vec_t::const_iterator it, it_end(areas.end());
-  Py_ssize_t i = 0;
-  for ( it=areas.begin(); it!=it_end; ++it, ++i )
-  {
-    const memory_info_t &mi = *it;
-    // startEA endEA name sclass sbase bitness perm
-    PyList_SetItem(py_list, i,
-      Py_BuildValue("(" PY_FMT64 PY_FMT64 "ss" PY_FMT64 "II)",
-        pyul_t(mi.startEA),
-        pyul_t(mi.endEA),
-        mi.name.c_str(),
-        mi.sclass.c_str(),
-        pyul_t(mi.sbase),
-        (unsigned int)(mi.bitness),
-        (unsigned int)mi.perm));
-  }
-  return py_list;
-}
-
-//-------------------------------------------------------------------------
 PyObject *py_appcall(
   ea_t func_ea,
   thid_t tid,
@@ -56,7 +31,7 @@ PyObject *py_appcall(
   Py_ssize_t nargs = PyList_Size(arg_list);
   idc_args.resize(nargs);
   bool ok = true;
-  for ( Py_ssize_t i=0; i<nargs; i++ )
+  for ( Py_ssize_t i=0; i < nargs; i++ )
   {
     // Get argument
     borref_t py_item(PyList_GetItem(arg_list, i));
@@ -93,7 +68,7 @@ PyObject *py_appcall(
         "----------------\n");
 
     qstring s;
-    for ( Py_ssize_t i=0; i<nargs; i++ )
+    for ( Py_ssize_t i=0; i < nargs; i++ )
     {
       VarPrint(&s, &idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
@@ -139,7 +114,7 @@ PyObject *py_appcall(
     msg("return variables:\n"
         "-----------------\n");
     qstring s;
-    for ( Py_ssize_t i=0; i<nargs; i++ )
+    for ( Py_ssize_t i=0; i < nargs; i++ )
     {
       VarPrint(&s, &idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
@@ -148,7 +123,7 @@ PyObject *py_appcall(
   }
 
   // Convert IDC values back to Python values
-  for ( Py_ssize_t i=0; i<nargs; i++ )
+  for ( Py_ssize_t i=0; i < nargs; i++ )
   {
     // Get argument
     borref_t py_item(PyList_GetItem(arg_list, i));
@@ -167,7 +142,6 @@ PyObject *py_appcall(
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
     return NULL;
   }
-  QASSERT(30413, py_result.o->ob_refcnt == 1);
   if ( (debug & IDA_DEBUG_APPCALL) != 0 )
   {
     msg("return var:\n"
@@ -207,7 +181,7 @@ static PyObject *dbg_get_registers()
 
   PyObject *py_list = PyList_New(dbg->registers_size);
 
-  for ( int i=0; i<dbg->registers_size; i++ )
+  for ( int i=0; i < dbg->registers_size; i++ )
   {
     register_info_t &ri = dbg->registers(i);
     PyObject *py_bits;
@@ -218,7 +192,7 @@ static PyObject *dbg_get_registers()
     {
       int nbits = (int)b2a_width((int)get_dtyp_size(ri.dtyp), 0) * 4;
       py_bits = PyList_New(nbits);
-      for ( int i=0; i<nbits; i++ )
+      for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
         PyList_SetItem(py_bits, i, PyString_FromString(s == NULL ? "" : s));

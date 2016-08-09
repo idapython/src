@@ -291,8 +291,8 @@ def gen_notifications(out):
 
             pass_expr = pname
             if clinked:
-                out.write("  ref_t clinked_%s = create_idaapi_linked_class_instance(%s, %s);\n" %
-                          (pname, clinked["class_define"], pname))
+                out.write("  ref_t clinked_%s = create_linked_class_instance(%s, %s, %s);\n" %
+                          (pname, clinked["module_define"], clinked["class_define"], pname))
                 out.write("  if ( clinked_%s == NULL )\n" % pname)
                 out.write("    break;\n")
                 pass_expr = "clinked_%s.o" % pname

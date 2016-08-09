@@ -1,4 +1,6 @@
-
+%{
+#include <registry.hpp>
+%}
 %ignore reg_bin_op;
 %ignore reg_str_op;
 %ignore reg_int_op;

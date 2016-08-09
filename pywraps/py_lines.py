@@ -1,7 +1,8 @@
 #<pycode(py_lines)>
+import _ida_idaapi
 
 # ---------------- Color escape sequence defitions -------------------------
-COLOR_ADDR_SIZE = 16 if _idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL else 8
+COLOR_ADDR_SIZE = 16 if _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL else 8
 SCOLOR_FG_MAX   = '\x28'             #  Max color number
 SCOLOR_OPND1    = chr(cvar.COLOR_ADDR+1)  #  Instruction operand 1
 SCOLOR_OPND2    = chr(cvar.COLOR_ADDR+2)  #  Instruction operand 2
@@ -12,7 +13,7 @@ SCOLOR_OPND6    = chr(cvar.COLOR_ADDR+6)  #  Instruction operand 6
 SCOLOR_UTF8     = chr(cvar.COLOR_ADDR+10) #  Following text is UTF-8 encoded
 
 # ---------------- Line prefix colors --------------------------------------
-PALETTE_SIZE   =  (cvar.COLOR_FG_MAX+_idaapi.COLOR_BG_MAX)
+PALETTE_SIZE   =  (cvar.COLOR_FG_MAX+_ida_lines.COLOR_BG_MAX)
 
 def requires_color_esc(c):
     """
