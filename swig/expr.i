@@ -52,6 +52,10 @@
 %ignore CompileLineEx;
 %ignore CompileLine;
 %rename (CompileLine) CompileLine_wrap;
+
+%nonnul_argument_prototype(
+        bool CompileLine_wrap(const char *nonnul_line, char *errbuf, size_t errbufsize),
+        const char *nonnul_line);
 %{
 //<code(py_expr)>
 //</code(py_expr)>

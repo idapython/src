@@ -52,12 +52,22 @@
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
 
+%thread;
+
+%nonnul_argument_prototype(
+        inline bool idaapi load_debugger(const char *nonnul_dbgname, bool use_remote),
+        const char *nonnul_dbgname);
+%nonnul_argument_prototype(
+        inline void idaapi set_debugger_event_cond(const char *nonnul_cond),
+        const char *nonnul_cond);
+%nonnul_argument_prototype(
+        inline bool idaapi diff_trace_file(const char *nonnul_filename),
+        const char *nonnul_filename);
 
 // We want ALL wrappers around what is declared in dbg.hpp
 // to release the GIL when calling into the IDA api: those
 // might be very long operations, that even require some
 // network traffic.
-%thread;
 %include "dbg.hpp"
 %nothread;
 %ignore DBG_Callback;

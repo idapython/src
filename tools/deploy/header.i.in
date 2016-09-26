@@ -626,6 +626,12 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 {
     $1 = "%s";                                /* Fix format string to %s */
     $2 = (void *) PyString_AsString($input);  /* Get string argument */
+    /* Note: we cannot rely on 'nonnul_argument_prototype' for */
+    /* these, since we fiddle with the arguments number */
+    if ( $2 == NULL )
+      SWIG_exception_fail(
+              SWIG_ValueError,
+              "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 };
 
 // Help SWIG to figure out the ulonglong type
@@ -820,6 +826,25 @@ using Forms::TForm;
 %apply unsigned char *OUTPUT { uchar *out_serial };
 // get_[next|prev]_serial_enum_member() take serials as input, and have the result present as output
 %apply unsigned char *INOUT { uchar *in_out_serial };
+
+%define %nonnul_argument_prototype(PROTO, ARGSIG)
+/* first, define the typemap */
+%typemap(check) (ARGSIG)
+{
+  if ( $1 == NULL )
+    SWIG_exception_fail(SWIG_ValueError, "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+/* Then, redeclare prototype. Note that we want this prototype _only_ seen */
+/* by SWiG, but not by the later compile phase: because of the defines */
+/* in pro.h, 'idaapi', 'ida_export', etc... will disappear, causing */
+/* VisualStudio to exit with a "same prototype, different modifiers" error. */
+%inline %{
+#ifndef _MSC_VER
+  PROTO;
+#endif
+%}
+%enddef
+
 
 %{
 #include <expr.hpp>

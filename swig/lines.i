@@ -62,6 +62,10 @@
 //</code(py_lines)>
 %}
 
+%nonnul_argument_prototype(
+        PyObject *py_tag_remove(const char *nonnul_instr),
+        const char *nonnul_instr);
+
 %inline %{
 //<inline(py_lines)>
 //</inline(py_lines)>

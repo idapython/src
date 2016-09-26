@@ -362,12 +362,7 @@ public:
   //--------------------------------------------------------------------------
   bool refresh_current()
   {
-    int x, y;
-    place_t *pl = get_place(false, &x, &y);
-    if ( pl == NULL )
-      return false;
-
-    return jumpto(pl, x, y);
+    return refresh();
   }
 
   //--------------------------------------------------------------------------

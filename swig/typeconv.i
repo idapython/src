@@ -298,16 +298,6 @@
 %apply qstring { _qstring<char> }
 %apply qstring* { _qstring<char>* }
 
-//---------------------------------------------------------------------
-//                      varargs (mostly kernwin.hpp)
-//---------------------------------------------------------------------
-// This is used for functions like warning(), info() and so on
-%typemap(in) (const char *format, ...)
-{
-    $1 = "%s";                                /* Fix format string to %s */
-    $2 = (void *) PyString_AsString($input);  /* Get string argument */
-};
-
 #ifdef __EA64__
 %apply longlong  *INOUT { sval_t  *value };
 %apply longlong  *INOUT { adiff_t *disp };

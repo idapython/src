@@ -9,5 +9,8 @@
 %ignore unregister_custom_fixup;
 %ignore set_custom_fixup;
 
-%include "fixup.hpp"
+%nonnul_argument_prototype(
+        idaman void ida_export set_fixup(ea_t source, const fixup_data_t *nonnul_fp),
+        const fixup_data_t *nonnul_fp);
 
+%include "fixup.hpp"

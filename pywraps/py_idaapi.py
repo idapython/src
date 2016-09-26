@@ -34,20 +34,27 @@ def require(modulename, package=None):
     module doesn't exist, it 'import's it, and if it does exist,
     'reload()'s it.
 
+    The importing module (i.e., the module calling require()) will have
+    the loaded module bound to its globals(), under the name 'modulename'.
+    (If require() is called from the command line, the importing module
+    will be '__main__'.)
+
     For more information, see: <http://www.hexblog.com/?p=749>.
     """
+    import inspect
+    frame_obj, filename, line_number, function_name, lines, index = inspect.stack()[1]
+    importer_module = inspect.getmodule(frame_obj)
+    if importer_module is None: # No importer module; called from command line
+        importer_module = sys.modules['__main__']
     if modulename in sys.modules.keys():
         reload(sys.modules[modulename])
+        m = sys.modules[modulename]
     else:
         import importlib
-        import inspect
         m = importlib.import_module(modulename, package)
-        frame_obj, filename, line_number, function_name, lines, index = inspect.stack()[1]
-        importer_module = inspect.getmodule(frame_obj)
-        if importer_module is None: # No importer module; called from command line
-            importer_module = sys.modules['__main__']
-        setattr(importer_module, modulename, m)
         sys.modules[modulename] = m
+    setattr(importer_module, modulename, m)
+
 
 # -----------------------------------------------------------------------
 

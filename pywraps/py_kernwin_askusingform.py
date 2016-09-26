@@ -231,6 +231,9 @@ class Form(object):
             self.id = 0
             """Automatically assigned control ID"""
 
+            self.input_field_index = None
+            """If this control is an input field, once Compile() returns this will hold its index. This is used only to compute the possible STARTITEM index"""
+
             self.arg = None
             """Control argument value. This could be one element or a list/tuple (for multiple args per control)"""
 
@@ -259,6 +262,11 @@ class Form(object):
             # Release the parent form reference
             self.form = None
 
+        def is_input_field(self):
+            """
+            Return True if this field acts as an input
+            """
+            return False
 
     #
     # Label controls
@@ -326,6 +334,9 @@ class Form(object):
 
         def get_tag(self):
             return "%s%d" % (self.tag, self.id)
+
+        def is_input_field(self):
+            return True
 
 
     class ChkGroupItemControl(GroupItemControl):
@@ -465,6 +476,9 @@ class Form(object):
                 self.switdh,
                 ":" if self.hlp is None else self.hlp)
 
+        def is_input_field(self):
+            return True
+
 
     class NumericInput(InputControl, NumericArgument):
         """
@@ -584,6 +598,9 @@ class Form(object):
                 swidth,
                 hlp)
             self.arg = _FORMCB_T(lambda view, code, h=handler: h(code))
+
+        def is_input_field(self):
+            return False
 
 
     class FormChangeCb(Control):
@@ -981,8 +998,10 @@ class Form(object):
 
         The form controls are wrapped inside curly braces: {ControlName}.
 
-        A special operator can be used to return the ID of a given control by its name: {id:ControlName}.
+        A special operator can be used to return the index of a given control by its name: {id:ControlName}.
         This is useful when you use the STARTITEM form keyword to set the initially focused control.
+        (note that, technically, the index is not the same as the ID; that's because STARTITEM
+        uses raw, 0-based indexes rather than control IDs to determine the focused widget.)
 
         @param form: Compiles the form and returns the arguments needed to be passed to AskUsingForm()
         """
@@ -1000,32 +1019,53 @@ class Form(object):
             if isinstance(ctrl, Form.GroupControl):
                 ctrl._reset()
 
-        p = 0
-        while True:
+        def next_control(form, p, first_pass):
             i1 = form.find("{", p)
-            # No more items?
-            if i1 == -1:
-                break
-
-            # Check if escaped
-            if (i1 != 0) and form[i1-1] == "\\":
-                # Remove escape sequence and restart search
-                form = form[:i1-1] + form[i1:]
-
-                # Skip current marker
-                p = i1
-
-                # Continue search
-                continue
-
+            if i1 < 0:
+                return form, None, None, None
+            if form[i1 - 1] == '\\' and i1 > 0:
+                if first_pass:
+                    return next_control(form, i1 + 1, first_pass)
+                else:
+                    # Remove escape sequence and restart search
+                    form = form[:i1 - 1] + form[i1:]
+                    return next_control(form, i1, first_pass)
             i2 = form.find("}", i1)
-            if i2 == -1:
+            if i2 < 0:
                 raise SyntaxError("No matching closing brace '}'")
-
-            # Parse control name
-            ctrlname = form[i1+1:i2]
+            ctrlname = form[i1 + 1:i2]
             if not ctrlname:
                 raise ValueError("Control %d has an invalid name!" % ctrlcnt)
+            return form, i1, i2, ctrlname
+
+
+        last_input_field_index = 0
+        # First pass: assign input_field_index values to controls
+        p = 0
+        while True:
+            form, i1, i2, ctrlname = next_control(form, p, first_pass=True)
+            if ctrlname is None:
+                break
+            p = i2
+
+            if ctrlname.startswith("id:"):
+                continue
+
+            ctrl = self.__controls.get(ctrlname, None)
+            if ctrl is None:
+                raise ValueError("No matching control '%s'" % ctrlname)
+
+            # If this control is an input, assign its index
+            if ctrl.is_input_field():
+                ctrl.input_field_index = last_input_field_index
+                last_input_field_index += 1
+
+
+        p = 0
+        while True:
+            form, i1, i2, ctrlname = next_control(form, p, first_pass=False)
+            if ctrlname is None:
+                break
 
             # Is it the IDOF operator?
             if ctrlname.startswith("id:"):
@@ -1042,7 +1082,7 @@ class Form(object):
 
             # Replace control name by tag
             if idfunc:
-                tag = str(ctrl.id)
+                tag = str(ctrl.input_field_index if ctrl.input_field_index is not None else ctrl.id)
             else:
                 tag = ctrl.get_tag()
             taglen = len(tag)

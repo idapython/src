@@ -163,8 +163,8 @@ fix_fun: found info for free_custom_icon
 fix_fun: found info for is_idaq
 fix_fun: found info for readsel2
 ### Processing lines.i
-fix_fun: found info for set_user_defined_prefix
 fix_fun: found info for tag_remove
+fix_fun: found info for set_user_defined_prefix
 fix_fun: found info for generate_disassembly
 ### Processing loader.i
 fix_fun: found info for mem2base

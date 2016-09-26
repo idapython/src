@@ -46,6 +46,10 @@
 %ignore IDP_Callback;
 %ignore _py_getreg;
 
+%nonnul_argument_prototype(
+        static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
+        const char *nonnul_line);
+
 %include "idp.hpp"
 
 %inline %{

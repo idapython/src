@@ -47,6 +47,7 @@ import ida_idp
 import ida_kernwin
 import ida_lines
 import ida_loader
+import ida_moves
 import ida_nalt
 import ida_name
 import ida_netnode
@@ -8420,43 +8421,6 @@ def SetColor(ea, what, color):
             return bool(seg.update())
         else:
             return False
-
-
-#--------------------------------------------------------------------------
-#                               X M L
-#--------------------------------------------------------------------------
-
-def SetXML(path, name, value):
-    """
-    Set or update one or more XML values.
-
-    @param path: XPath expression of elements where to create value(s)
-    @param name: name of the element/attribute
-                 (use @XXX for an attribute) to create.
-                 If 'name' is empty, the elements or
-                 attributes returned by XPath are directly
-                 updated to contain the new 'value'.
-    @param value: value of the element/attribute
-
-    @return: success (True or False)
-    """
-    return idaapi.set_xml(path, name, value)
-
-
-def GetXML(path):
-    """
-    Get one XML value.
-
-    @param path: XPath expression to an element
-                 or attribute whose value is requested
-
-    @return: the value, None if failed
-    """
-    v = idaapi.value_t()
-    if idaapi.get_xml(path):
-        return v.str
-    else:
-        return None
 
 
 #----------------------------------------------------------------------------

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # TODO:
 # * auto_queue_empty must return 1 by default. How should
 #   that be specified? In idp.hpp, or in a specific, 'recipe' file?

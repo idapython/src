@@ -23,10 +23,12 @@ import ida_kernwin
 import ida_loader
 import ida_nalt
 import ida_name
+import ida_netnode
 import ida_segment
 import ida_strlist
 import ida_ua
 import ida_xref
+
 import idc
 import types
 import os

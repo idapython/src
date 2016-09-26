@@ -144,6 +144,34 @@ def check_cpp(opts):
             "nostring" : " --size;",
             },
 
+        "_wrap_warning__varargs__" : {
+            "nullptrcheck" : 1, # 1st arg
+            "mustcall" : "PyString_AsString",
+        },
+        "_wrap_error__varargs__" : {
+            "nullptrcheck" : 1,
+            "mustcall" : "PyString_AsString",
+        },
+        "_wrap_tag_remove" : {
+            "nullptrcheck" : 1,
+        },
+        "_wrap_CompileLine" : {
+            "nullptrcheck" : 1,
+        },
+        "_wrap_set_fixup" : {
+            "nullptrcheck" : 2,
+        },
+        "_wrap_get_member_size" : {
+            "nullptrcheck" : 1,
+        },
+        "_wrap_load_debugger" : {
+            "nullptrcheck" : 1,
+            "string" : ["SWIG_PYTHON_THREAD_BEGIN_ALLOW", "SWIG_PYTHON_THREAD_END_ALLOW"],
+        },
+        "_wrap_AssembleLine" : {
+            "nullptrcheck" : 5,
+        },
+
         # no autoEnabled present
         "SWIG_init" : {
             "nostring" : "autoEnabled",
@@ -297,6 +325,10 @@ def check_cpp(opts):
                         look_for_stuff(chk["string"], False)
                     if "nostring" in chk:
                         look_for_stuff(chk["nostring"], False, lookForPresence=False)
+                    if "nullptrcheck" in chk:
+                        look_for_stuff('"invalid null pointer " "in method \'" "%s" "\', argument " "%d""' % (
+                            fname.replace("_wrap_", "").replace("__varargs__", ""),
+                            chk["nullptrcheck"]), False)
 
     # Ensure all functions were spotted.
     for fname in functions_coherence.keys():

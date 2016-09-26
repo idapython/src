@@ -48,6 +48,10 @@
   }
 }
 
+%nonnul_argument_prototype(
+        asize_t get_member_size(const member_t *nonnul_mptr),
+        const member_t *nonnul_mptr);
+
 //-------------------------------------------------------------------------
 %include "struct.hpp"
 // Add a get_member() member function to struc_t.
