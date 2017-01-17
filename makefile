@@ -50,6 +50,14 @@ DONT_ERASE_LIB=1
 include ../plugin.mak
 include ../pyplg.mak
 
+# allmake.unx defines 'CP' as 'qcp.sh' which is an internal tool providing
+# support for the '-u' flag on OSX. However, since this makefile is part
+# of the public release of IDAPython, we cannot rely on it (we do not use
+# that flag in IDAPython anyway)
+ifdef __MAC__
+  CP=cp -f
+endif
+
 PLUGIN_SCRIPT=
 ifdef __LINUX__
   OUTDLLOPTS=-Wl,-soname,$(notdir $(BINARY))
