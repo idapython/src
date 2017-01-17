@@ -5,6 +5,7 @@
 fix_fun: found info for visit_patched_bytes
 fix_fun: found info for nextthat
 fix_fun: found info for get_many_bytes
+fix_fun: found info for get_many_bytes_ex
 fix_fun: found info for get_ascii_contents2
 fix_fun: found info for get_ascii_contents
 fix_fun: found info for register_custom_data_type

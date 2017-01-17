@@ -24,12 +24,15 @@
 %ignore get_spoiled_reg;
 %ignore decode_preceding_insn;
 %ignore term_uaterm_ua;
+%ignore get_operand_immvals;
 
 %ignore get_immval;
 %ignore ua_stkvar;
 
 %ignore construct_macro;
 %rename (construct_macro) py_construct_macro;
+%ignore get_dtyp_by_size;
+%rename (get_dtyp_by_size) py_get_dtyp_by_size;
 
 %include "ua.hpp"
 
@@ -42,6 +45,7 @@
 %rename (ua_add_off_drefs) py_ua_add_off_drefs;
 %rename (ua_add_off_drefs2) py_ua_add_off_drefs2;
 %rename (decode_preceding_insn) py_decode_preceding_insn;
+%rename (get_operand_immvals) py_get_operand_immvals;
 
 %{
 //<code(py_ua)>

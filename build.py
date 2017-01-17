@@ -39,7 +39,7 @@ parser.add_argument("--swig-bin", type=str, help="Path to the SWIG binary", defa
 parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes directory(ies)", default=None)
 parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
-parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found", default=None)
+parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found (linux only)", default=None)
 parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
 args = parser.parse_args()
@@ -72,7 +72,7 @@ def main():
     if not args.debug:
         env["NDEBUG"] = "1"
     if args.python_home:
-        env["IDAPYTHON_PYTHONHOME"] = args.python_home
+        env["LINUX_PYTHON_HOME"] = args.python_home
     if args.verbose:
         argv.append("-d")
     for ea64 in [False, True]:

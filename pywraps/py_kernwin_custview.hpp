@@ -542,6 +542,23 @@ private:
   PyObject *py_self, *py_this, *py_last_link;
   int features;
 
+  //-------------------------------------------------------------------------
+  static bool get_color(uint32 *out, ref_t obj)
+  {
+    bool ok = PyLong_Check(obj.o);
+    if ( ok )
+    {
+      *out = uint32(PyLong_AsUnsignedLong(obj.o));
+    }
+    else
+    {
+      ok = PyInt_Check(obj.o);
+      if ( ok )
+        *out = uint32(PyInt_AsLong(obj.o));
+    }
+    return ok;
+  }
+
   //--------------------------------------------------------------------------
   // Convert a tuple (String, [color, [bgcolor]]) to a simpleline_t
   static bool py_to_simpleline(PyObject *py, simpleline_t &sl)
@@ -562,13 +579,11 @@ private:
       return false;
 
     sl.line = PyString_AsString(py_val);
-
-    if ( (sz > 1) && (py_val = PyTuple_GetItem(py, 1)) && PyLong_Check(py_val) )
-      sl.color = color_t(PyLong_AsUnsignedLong(py_val));
-
-    if ( (sz > 2) && (py_val = PyTuple_GetItem(py, 2)) && PyLong_Check(py_val) )
-      sl.bgcolor = PyLong_AsUnsignedLong(py_val);
-
+    uint32 col;
+    if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
+      sl.color = color_t(col);
+    if ( sz > 2 && get_color(&col, borref_t(PyTuple_GetItem(py, 2))) )
+      sl.bgcolor = bgcolor_t(col);
     return true;
   }
 

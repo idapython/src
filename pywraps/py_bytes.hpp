@@ -141,6 +141,59 @@ static PyObject *py_get_many_bytes(ea_t ea, unsigned int size)
 //---------------------------------------------------------------------------
 /*
 #<pydoc>
+def get_many_bytes_ex(ea, size, mask):
+    """
+    Get the specified number of bytes of the program into the buffer.
+    @param ea: program address
+    @param size: number of bytes to return
+    @return: None or (string buffer, string mask)
+    """
+    pass
+#</pydoc>
+*/
+static PyObject *py_get_many_bytes_ex(ea_t ea, unsigned int size)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  do
+  {
+    if ( size <= 0 )
+      break;
+
+    // Allocate memory via Python
+    newref_t py_buf(PyString_FromStringAndSize(NULL, Py_ssize_t(size)));
+    if ( py_buf == NULL )
+      break;
+
+    bytevec_t mask;
+    mask.resize((size + 7) / 8, 0);
+
+    // Read bytes
+    int code = get_many_bytes_ex(
+            ea,
+            PyString_AsString(py_buf.o),
+            size,
+            (void *) mask.begin());
+    if ( code < 0 )
+      Py_RETURN_NONE;
+
+    // note: specify size, as '0' bytes would otherwise cut the mask short
+    newref_t py_mask(
+            PyString_FromStringAndSize(
+                    (const char *) mask.begin(),
+                    mask.size()));
+    if ( py_mask == NULL )
+      break;
+
+    py_buf.incref();
+    py_mask.incref();
+    return Py_BuildValue("(OO)", py_buf.o, py_mask.o);
+  } while ( false );
+  Py_RETURN_NONE;
+}
+
+//---------------------------------------------------------------------------
+/*
+#<pydoc>
 # Conversion options for get_ascii_contents2():
 ACFOPT_ASCII    = 0x00000000 # convert Unicode strings to ASCII
 ACFOPT_UTF16    = 0x00000001 # return UTF-16 (aka wide-char) array for Unicode strings

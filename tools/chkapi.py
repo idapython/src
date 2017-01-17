@@ -172,6 +172,13 @@ def check_cpp(opts):
             "nullptrcheck" : 5,
         },
 
+        "_wrap_get_opinfo" : {
+            "string" : ["Py_XDECREF(resultobj)", "Py_INCREF(resultobj)"],
+        },
+        "_wrap_get_typeinfo" : {
+            "string" : ["Py_XDECREF(resultobj)", "Py_INCREF(resultobj)"],
+        },
+
         # no autoEnabled present
         "SWIG_init" : {
             "nostring" : "autoEnabled",

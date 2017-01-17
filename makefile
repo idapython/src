@@ -15,17 +15,6 @@
 # uses os.path.join())
 #
 
-ifdef __X64__
-  ifdef __LINUX__
-    LINUX64=1
-  endif
-endif
-
-ifdef LINUX64
-all:
-	@echo "Not building Python for Linux x64"
-else
-
 PROC=python
 API_CONTENTS=api_contents.txt
 PYDOC_INJECTIONS=pydoc_injections.txt
@@ -37,37 +26,36 @@ DIST=$(F)dist
 ifdef __NT__
   SYSNAME=win
   MSRUNTIME=/MD
-else
 endif
+
 ifdef __LINUX__
   SYSNAME=linux
   DEFS=-D__LINUX__
   PYTHON32_LIBRARY_PATH?=/usr/lib
   PYTHON32_LIBRARY_INCLUDE=-L$(PYTHON32_LIBRARY_PATH)
 endif
+
 ifdef __BSD__
   SYSNAME=bsd
   DEFS=-D__BSD__
 endif
+
 ifdef __MAC__
   SYSNAME=mac
   DEFS=-D__MAC__
 endif
 
-# O1=idaapi
-
-# __USE_RTTI__=1
-
-
 DONT_ERASE_LIB=1
 
 include ../plugin.mak
+include ../pyplg.mak
+
 PLUGIN_SCRIPT=
 ifdef __LINUX__
-OUTDLLOPTS=-Wl,-soname,$(notdir $(BINARY))
+  OUTDLLOPTS=-Wl,-soname,$(notdir $(BINARY))
 else
   ifdef __MAC__
-  OUTDLLOPTS=-Wl,-install_name,@executable_path/plugins/$(notdir $(BINARY))
+    OUTDLLOPTS=-Wl,-install_name,@executable_path/plugins/$(notdir $(BINARY))
   endif
 endif
 
@@ -114,16 +102,27 @@ $(DEPLOY_PYDIR):
 	-@if [ ! -d "$(DEPLOY_PYDIR)" ] ; then mkdir -p 2>/dev/null $(DEPLOY_PYDIR) ; fi
 
 ifdef __NT__
-MODULE_SFX=.pyd
+  MODULE_SFX=.pyd
 else
-MODULE_SFX=.so
+  MODULE_SFX=.so
+endif
+
+ifneq ($(OUT_OF_TREE_BUILD),)
+  # envvar HAS_HEXRAYS must have been set by build.py if needed
+else
+  HAS_HEXRAYS=1 # force hexrays bindings
+endif
+ifneq ($(HAS_HEXRAYS),)
+  WITH_HEXRAYS=-DWITH_HEXRAYS
+  WITH_HEXRAYS_CHKAPI=--with-hexrays
+  HEXRAYS_MODNAME=hexrays
 endif
 
 # We are building 'MODULES_NAMES' from subvars because it appears some versions
 # of make do not deal too well with '\'s, and introduce spaces, which later is
 # problematic when substituting ' ' for ',' & passing modules list to scripts
 MNAMES_0=allins area auto bytes dbg diskio entry enum expr fixup
-MNAMES_1=fpro frame funcs gdl graph hexrays ida idaapi idd idp ints
+MNAMES_1=fpro frame funcs gdl graph $(HEXRAYS_MODNAME) ida idaapi idd idp ints
 MNAMES_2=kernwin lines loader moves nalt name netnode offset pro queue
 MNAMES_3=registry search segment srarea strlist struct typeinf ua xref
 MODULES_NAMES=$(MNAMES_0) $(MNAMES_1) $(MNAMES_2) $(MNAMES_3)
@@ -139,22 +138,18 @@ ALL_ST_WRAP_PY=$(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/ida_$(mod).py)
 PYTHON_MODULES=$(MODULES_NAMES:%=$(DEPLOY_PYDIR)/ida_%.py)
 
 ifdef __NT__
-MODULE_LINKIDA=
-CREATE_IMPLIB=$(RS)lib32.bat
-IDAPYTHON_IMPLIB_DEF=$(F)idapython_implib.def
-IDAPYTHON_IMPLIB_DEF_IN=tools/idapython_implib.def.in
-IDAPYTHON_IMPLIB_PATH=$(F)python.lib
-BINARY_LINKOPTS=/def:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
-RESFILES=$(IDAPYTHON_IMPLIB_DEF)
+  MODULE_LINKIDA=
+  CREATE_IMPLIB=$(RS)lib32.bat
+  IDAPYTHON_IMPLIB_DEF=$(F)idapython_implib.def
+  IDAPYTHON_IMPLIB_DEF_IN=tools/idapython_implib.def.in
+  IDAPYTHON_IMPLIB_PATH=$(F)python.lib
+  BINARY_LINKOPTS=/def:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
+  RESFILES=$(IDAPYTHON_IMPLIB_DEF)
 else
-MODULE_LINKIDA=-L$(R) $(LINKIDA) $(BINARY)
+  MODULE_LINKIDA=-L$(R) $(LINKIDA) $(BINARY)
 endif
 
 all: objdir pyfiles config $(DEPLOYED_MODULES) $(PYTHON_MODULES) $(ST_API_CONTENTS) $(IDAPYTHON_IMPLIB) $(ST_PYDOC_INJECTIONS) #$(TEST_IDC)
-
-# used python version
-PYTHON_VERSION_MAJOR?=2
-PYTHON_VERSION_MINOR?=7
 
 # IDAPython version
 IDAPYTHON_VERSION_MAJOR=6
@@ -172,17 +167,10 @@ ifdef __CODE_CHECKER__
 endif
 
 ifdef __NT__                   # os and compiler specific flags
-ifneq ($(UCRT_INCLUDE),)
-  I_UCRT_INCLUDE=/I$(UCRT_INCLUDE)
-endif
-  PYTHON_ROOT?=c:
-  PYTHON_DIR=$(PYTHON_ROOT)/python$(PYTHON_VERSION_MAJOR)$(PYTHON_VERSION_MINOR)
-  IDAPYTHON_CFLAGS=-w -Z7 /EHsc /bigobj /I$(MSVCDIR)Include $(I_UCRT_INCLUDE)
-  ifdef __X64__
-    PYTHONLIB=vcx64_python$(PYTHON_VERSION_MAJOR)$(PYTHON_VERSION_MINOR).lib -nodefaultlib:python$(PYTHON_VERSION_MAJOR)$(PYTHON_VERSION_MINOR).lib
-  else
-    PYTHONLIB=$(PYTHON_DIR)/libs/python$(PYTHON_VERSION_MAJOR)$(PYTHON_VERSION_MINOR).lib
+  ifneq ($(UCRT_INCLUDE),)
+    I_UCRT_INCLUDE=/I$(UCRT_INCLUDE)
   endif
+  IDAPYTHON_CFLAGS=$(PYTHON_CFLAGS) -w -Z7 /bigobj /I$(MSVCDIR)Include $(I_UCRT_INCLUDE)
   _SWIGFLAGS=-D__NT__ -DWIN32 -D_USRDLL -I$(PYTHON_DIR)/include
   SWIGINCLUDES?=   # nothing
   # FIXME: Cannot enable the .cfg file ATM, because there's just too many errors if I do.
@@ -190,28 +178,18 @@ endif
 else # unix/mac
   ifdef __LINUX__
     # use the precompiled 2.7
-    ifeq ($(OUT_OF_TREE_BUILD),)
-      # assign right away, so it won't be eval'd 10301829 times
-      PYDIR:=$(shell pwd)/precompiled
-      PYLIBDIR=$(PYDIR)
-      # copy these files to IDA's directory
-      PYLIBFILES:=$(shell find precompiled/lib -type f)
-      PRECOMPILED_COPY=$(R)$(PYTHONLIBNAME) $(patsubst precompiled/%,$(DEPLOY_PYDIR)/%,$(PYLIBFILES))
-    else
-      PYDIR=$(IDAPYTHON_PYTHONHOME)
-      PYLIBDIR=$(PYDIR)/lib
+    ifndef __X64__
+      ifeq ($(OUT_OF_TREE_BUILD),)
+        # copy these files to IDA's directory
+        PYLIBFILES:=$(shell find precompiled/lib -type f)
+        PRECOMPILED_COPY=$(R)$(LIBPYTHON_NAME) $(R)$(LIBPYTHON_NAME) $(patsubst precompiled/%,$(DEPLOY_PYDIR)/%,$(PYLIBFILES))
+      endif
     endif
-    PYTHON32_INCLUDE:=-I$(PYDIR)/include/python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)
-    PYTHONLIBNAME=libpython$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR).so.1.0
-    PYTHONLIB=$(PYLIBDIR)/$(PYTHONLIBNAME) -ldl
   else
-    PYVER=$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)
-    PYTHON32_INCLUDE:=$(shell python$(PYVER)-config --includes)
-    PYTHONLIB:=$(shell python$(PYVER)-config --ldflags)
     MACDEFINES=-DMACSDKVER=$(MACSDKVER)
   endif
   IDAPYTHON_CFLAGS=-w -g
-  PLATFORM_CFLAGS=$(SYS) -g $(PYTHON32_INCLUDE) $(ARCH_CFLAGS) $(PIC) -UNO_OBSOLETE_FUNCS # gcc flags
+  PLATFORM_CFLAGS=$(SYS) -g $(PYTHON_CFLAGS) $(ARCH_CFLAGS) $(PIC) -UNO_OBSOLETE_FUNCS # gcc flags
   _SWIGFLAGS=$(DEFS)
   SWIGINCLUDES?=-I$(SWIGDIR)share/swig/$(SWIG_VERSION)/python -I$(SWIGDIR)share/swig/$(SWIG_VERSION)
 endif
@@ -224,7 +202,7 @@ endif
 DEF_TYPE_TABLE=-DSWIG_TYPE_TABLE=idaapi
 SWIGFLAGS=$(_SWIGFLAGS) $(SWIGINCLUDES) $(DEF_TYPE_TABLE)
 
-ADDITIONAL_LIBS=$(PYTHONLIB)
+ADDITIONAL_LIBS=$(PYTHON_LDFLAGS)
 PUBTREE_DIR=$(F)/public_tree
 
 .PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python package public_tree
@@ -262,7 +240,7 @@ $(DEPLOY_PYDIR)/lib/%: precompiled/lib/%
 $(C)python.cfg: python.cfg
 	$(CP) $? $@
 
-$(R)$(PYTHONLIBNAME): $(PYDIR)/$(PYTHONLIBNAME)
+$(R)$(LIBPYTHON_NAME): $(PRECOMPILED_DIR)/$(LIBPYTHON_NAME)
 	$(CP) $? $@
 
 # -------------------------------------------------------------------------
@@ -302,13 +280,6 @@ $(ST_PYW)/%.hpp: pywraps/%.hpp | staging_dirs
 	@$(CP) $^ $@ && chmod +rw $@
 $(ST_PYW)/%.py: pywraps/%.py | staging_dirs
 	@$(CP) $^ $@ && chmod +rw $@
-
-
-ifneq ($(OUT_OF_TREE_BUILD),)
-    # envvar HAS_HEXRAYS must have been set by build.py if needed
-else
-    HAS_HEXRAYS=1 # force hexrays bindings
-endif
 
 
 # These require special care, as they will have to be injected w/ hooks -- this
@@ -352,15 +323,10 @@ $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
 		-R $(GENHOOKS)recipe_uihooks.py \
 		-d "ui_dbg_,ui_obsolete" -D "ui:" -s "ui_"
 
-ifneq ($(HAS_HEXRAYS),)
-  WITH_HEXRAYS=-DWITH_HEXRAYS
-  WITH_HEXRAYS_CHKAPI=--with-hexrays
-endif
-
 CFLAGS= $(CCOPT) $(PLATFORM_CFLAGS) $(MSRUNTIME) -D__EXPR_SRC -I. -I$(ST_SWIG) -I$(ST_SDK) -I$(F)   \
 	-DVER_MAJOR="1" -DVER_MINOR="7" -DVER_PATCH="0" -D__IDP__   \
 	-DUSE_STANDARD_FILE_FUNCTIONS $(IDAPYTHON_CFLAGS)           \
-	$(SWITCH64) $(ARCH_CFLAGS) $(WITH_HEXRAYS) $(DEF_TYPE_TABLE)
+	$(SWITCH64) $(SWITCHX64) $(ARCH_CFLAGS) $(WITH_HEXRAYS) $(DEF_TYPE_TABLE)
 
 ST_SWIG_HEADER=$(ST_SWIG)/header.i
 $(ST_SWIG)/header.i: tools/deploy/header.i.in tools/genswigheader.py $(ST_SDK_TARGETS) | staging_dirs
@@ -413,11 +379,14 @@ define make-module-rules
 	$(PYTHON) tools/deploy.py --pywraps $(ST_PYW) --template $$(subst $(F),,$$@) --output $$@ --module $$(subst .i,,$$(notdir $$@)) --interface-dependencies=$(subst $(_SPACE),$(_COMMA),$(SWIG_IFACE_$1))
 
     # obj/x86_linux_gcc/wrappers/X.cpp
-    $(ST_WRAP)/$1.cpp: $(ST_SWIG)/$1.i
+    $(ST_WRAP)/$1.cpp: $(ST_SWIG)/$1.i tools/patch_codegen.py
 	$(SWIG) -modern $(WITH_HEXRAYS) -python -threads -c++ -shadow \
-	  $(MACDEFINES) -D__GNUC__ $(SWIGFLAGS) $(SWITCH64) -I$(ST_SWIG) \
+	  $(MACDEFINES) -D__GNUC__ $(SWIGFLAGS) $(SWITCH64) $(SWITCHX64) -I$(ST_SWIG) \
 	  -outdir $(ST_WRAP) -o $$@ -I$(ST_SDK) $$<
 	@$(PYTHON) tools/patch_constants.py --file $(ST_WRAP)/$1.cpp
+    ifdef __X64__
+	$(PYTHON) tools/patch_codegen.py --file $(ST_WRAP)/$1.cpp --patches tools/patch_codegen/$1.py
+    endif
     ifdef __NT__
 	@$(PYTHON) tools/patch_directors_cc.py --file $(ST_WRAP)/$1.h
     endif
@@ -456,19 +425,23 @@ $(foreach mod,$(MODULES_NAMES),$(eval $(call make-module-rules,$(mod))))
 
 $(ST_API_CONTENTS): $(ALL_ST_WRAP_CPP)
 	$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(_SPACE),$(_COMMA),$(ALL_ST_WRAP_CPP)) -p $(subst $(_SPACE),$(_COMMA),$(ALL_ST_WRAP_PY)) -r $(ST_API_CONTENTS)
+ifeq ($(OUT_OF_TREE_BUILD),)
 	@(diff -w $(API_CONTENTS) $(ST_API_CONTENTS)) > /dev/null || \
 	  (echo "API CONTENTS CHANGED! update api_contents.txt or fix the API" && \
 	   echo "(New API: $(ST_API_CONTENTS)) ***" && \
 	   (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS) && false))
+endif
 
 # Check that doc injection is stable
 PYDOC_INJECTIONS_RESULTS=$(MODULES_NAMES:%=$(ST_WRAP)/ida_%.pydoc_injection)
 $(ST_PYDOC_INJECTIONS): $(PYTHON_MODULES)
 	cat $(PYDOC_INJECTIONS_RESULTS) > $@
+ifeq ($(OUT_OF_TREE_BUILD),)
 	@(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
 	  (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
 	   echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \
 	   (diff -U 1 -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS) && false))
+endif
 
 
 # Require a strict SWiG version (other versions might generate different code.)
@@ -548,4 +521,3 @@ $(F)python$(O)  : $(I)area.hpp $(I)bitrange.hpp $(I)bytes.hpp                \
 	          $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp                 \
 	          $(I)netnode.hpp $(I)pro.h $(I)segment.hpp $(I)ua.hpp      \
 	          $(I)xref.hpp python.cpp pywraps.hpp pywraps.cpp | $(ST_SDK_TARGETS)
-endif

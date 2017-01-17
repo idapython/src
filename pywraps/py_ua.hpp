@@ -244,6 +244,12 @@ bool py_construct_macro(bool enable, PyObject *build_macro)
 }
 
 //-------------------------------------------------------------------------
+static int py_get_dtyp_by_size(asize_t size)
+{
+  return int(get_dtyp_by_size(size));
+}
+
+//-------------------------------------------------------------------------
 static PyObject *insn_t_get_op_link(PyObject *py_insn_lnk, int i)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -784,6 +790,18 @@ static void op_t_set_specflag4(PyObject *self, PyObject *value)
   if ( link == NULL )
     return;
   link->specflag4 = (char)PyInt_AsLong(value);
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_operand_immvals(ea_t ea, int n)
+{
+  uvalvec_t storage;
+  storage.resize(2 * UA_MAXOP);
+  size_t cnt = get_operand_immvals(ea, n, storage.begin());
+  PyObject *result = PyList_New(cnt);
+  for ( size_t i = 0; i < cnt; ++i )
+    PyList_SetItem(result, i, Py_BuildValue(PY_FMT64, pyul_t(storage[i])));
+  return result;
 }
 
 //</inline(py_ua)>

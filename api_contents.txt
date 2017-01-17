@@ -2372,6 +2372,7 @@
                'e_exception_t_ea_set',
                'e_exception_t_info_get',
                'e_exception_t_info_set',
+               'ea2str',
                'ea_array___getitem__',
                'ea_array___setitem__',
                'ea_array_cast',

@@ -60,9 +60,10 @@ class GraphViewer(ida_idaapi.CustomIDAMemo):
         @return: Boolean
         """
         if self._close_open:
-            frm = _ida_kernwin.find_tform(self._title)
+            import ida_kernwin
+            frm = ida_kernwin.find_tform(self._title)
             if frm:
-                _ida_kernwin.close_tform(frm, 0)
+                ida_kernwin.close_tform(frm, 0)
         return _ida_graph.pyg_show(self)
 
     def Select(self, node_id):

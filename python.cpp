@@ -1476,6 +1476,10 @@ static int idaapi on_ui_notification(void *, int code, va_list)
         PYW_GIL_GET; // This hook gets called from the kernel. Ensure we hold the GIL.
         // Let's make sure there are no non-Free()d forms.
         free_compiled_form_instances();
+        // and no live python timers
+        // Note: It's ok to put this here, because 'ui_term' is guaranteed
+        // to be sent before the PLUGIN_FIX plugins are terminated.
+        clear_python_timer_instances();
       }
       break;
 
@@ -1515,8 +1519,6 @@ static int idaapi on_idp_notification(void *, int code, va_list)
       // through all the tinfo_t objects that are embedded in SWIG wrappers,
       // (i.e., that were created from Python) and clear those.
       til_clear_python_tinfo_t_instances();
-      // Same thing for live python timers
-      clear_python_timer_instances();
       break;
   }
   return 0;

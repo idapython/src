@@ -661,6 +661,7 @@ typedef          long long longlong;
 %apply qstring *result { qstring *shortcut };
 %apply qstring *result { qstring *tooltip };
 %apply qstring *result { qstring *out };
+%apply qstring *result { qstring *buf };
 %apply int *OUTPUT { int *icon };
 %apply int *OUTPUT { action_state_t *state };
 %apply bool *OUTPUT { bool *checkable };

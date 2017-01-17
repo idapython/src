@@ -272,12 +272,15 @@ def gen_notifications(out):
             qnotused = False
             clinked = None
             cast_needed = False
+            deref = None
             if "params" in recipe_data:
                 all_pdata = recipe_data["params"]
                 if pname in all_pdata:
                     pdata = all_pdata[pname]
                     if "convertor" in pdata:
                         param_convertor = pdata["convertor"]
+                    if "deref" in pdata:
+                        deref = pdata["deref"]
                     if "suppress_for_call" in pdata:
                         suppress_for_call = pdata["suppress_for_call"]
                     if "qnotused" in pdata:
@@ -288,6 +291,11 @@ def gen_notifications(out):
                         cast_needed = pdata["cast_needed"]
 
             pass_expr = pname
+            if deref:
+                pass_expr = "%s != NULL ? *(%s) : (%s)" % (
+                    pname,
+                    pname,
+                    deref["ifNULL"])
             if clinked:
                 out.write("  ref_t clinked_%s = create_linked_class_instance(%s, %s, %s);\n" %
                           (pname, clinked["module_define"], clinked["class_define"], pname))

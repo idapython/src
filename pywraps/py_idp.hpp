@@ -748,6 +748,29 @@ class IDP_Hooks
   {
     return _handle_qstring_output(o, outbuf) ? 2 : 0;
   }
+  static int handle_delay_slot_insn_output(PyObject *o, ea_t *pea, bool *pbexec, bool *pfexec)
+  {
+    if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
+    {
+      newref_t py_ea(PySequence_GetItem(o, 0));
+      newref_t py_bexec(PySequence_GetItem(o, 1));
+      newref_t py_fexec(PySequence_GetItem(o, 2));
+      uint64 nea = 0;
+      if ( PyW_GetNumber(py_ea.o, &nea, NULL)
+        && PyBool_Check(py_bexec.o)
+        && PyBool_Check(py_fexec.o) )
+      {
+        if ( pea != NULL )
+          *pea = nea;
+        if ( pbexec != NULL )
+          *pbexec = py_bexec.o == Py_True;
+        if ( pfexec != NULL )
+          *pfexec = py_fexec.o == Py_True;
+        return 2;
+      }
+    }
+    return -1;
+  }
 
 public:
   virtual ~IDP_Hooks()

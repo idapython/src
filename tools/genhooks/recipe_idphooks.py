@@ -108,4 +108,26 @@ recipe = {
             "convertor_pass_args" : True,
         }
     },
+    "delay_slot_insn" : {
+        "params" : {
+            "ea" : {
+                "type" : "ea_t",
+                "deref" : {"ifNULL" : "BADADDR"},
+            },
+            "bexec" : {
+                "type" : "bool",
+                "deref" : {"ifNULL" : "false"},
+            },
+            "fexec" : {
+                "type" : "bool",
+                "deref" : {"ifNULL" : "false"},
+            },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_delay_slot_insn_output",
+            "convertor_pass_args" : True,
+        },
+    },
 }

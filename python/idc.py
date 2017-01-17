@@ -38,7 +38,6 @@ import ida_expr
 import ida_fixup
 import ida_frame
 import ida_funcs
-import ida_funcs
 import ida_gdl
 import ida_ida
 import ida_bytes
@@ -316,7 +315,6 @@ def strlen(s):
 def xtol(s):
     raise DeprecatedIDCError, "xtol() is deprecated. Use python long() instead."
 
-
 def atoa(ea):
     """
     Convert address value to a string
@@ -325,13 +323,7 @@ def atoa(ea):
 
     @param ea: address to format
     """
-    segname = SegName(ea)
-
-    if segname == "":
-        segname = "0"
-
-    return "%s:%X" % (segname, ea)
-
+    return ida_kernwin.ea2str(ea)
 
 def ltoa(n, radix):
     raise DeprecatedIDCError, "ltoa() is deprecated. Use python string operations instead."
@@ -2508,12 +2500,11 @@ def GetStringType(ea):
 
     @return: One of ASCSTR_... constants
     """
-    ti = ida_nalt.opinfo_t()
-
-    if ida_bytes.get_opinfo(ea, 0, GetFlags(ea), ti):
-        return ti.strtype
-    else:
-        return None
+    flags = ida_bytes.getFlags(ea)
+    if ida_bytes.isASCII(flags):
+        oi = ida_nalt.opinfo_t()
+        if ida_bytes.get_opinfo(ea, 0, flags, oi):
+            return oi.strtype
 
 #      The following functions search for the specified byte
 #          ea - address to start from
@@ -2779,6 +2770,13 @@ LN_WEAK         = 0x08    #              weak names
 INF_ASCIIPREF   = 102     # char[16];ASCII names prefix
 INF_ASCIISERNUM = 118     # ulong;   serial number
 INF_ASCIIZEROES = 122     # char;    leading zeroes
+INF_TRIBYTE_ORDER = 125   # char;    order of bytes in 3-byte items
+TRIBYTE_123 = 0           #              regular most significant byte first (big endian) - default
+TRIBYTE_132 = 1
+TRIBYTE_213 = 2
+TRIBYTE_231 = 3
+TRIBYTE_312 = 4
+TRIBYTE_321 = 5           #              regular least significant byte first (little endian)
 INF_MF          = 126     # uchar;   Byte order: 1==MSB first
 INF_ORG         = 127     # char;    Generate 'org' directives?
 INF_ASSUME      = 128     # char;    Generate 'assume' directives?
@@ -2910,6 +2908,7 @@ if __EA64__:
     INF_ASCIIPREF            = 154
     INF_ASCIISERNUM          = 170
     INF_ASCIIZEROES          = 178
+    INF_TRIBYTE_ORDER        = 181
     INF_MF                   = 182
     INF_ORG                  = 183
     INF_ASSUME               = 184
@@ -2990,6 +2989,7 @@ INF_LISTNAMES   : (False, 'listnames'),    # uchar;   What names should be inclu
 INF_ASCIIPREF   : (False, 'ASCIIpref'),    # char[16];ASCII names prefix
 INF_ASCIISERNUM : (False, 'ASCIIsernum'),  # ulong;   serial number
 INF_ASCIIZEROES : (False, 'ASCIIzeroes'),  # char;    leading zeroes
+INF_TRIBYTE_ORDER:(False, 'tribyte_order'),# char;    order of bytes in 3-byte items
 INF_MF          : (False, 'mf'),           # uchar;   Byte order: 1==MSB first
 INF_ORG         : (False, 's_org'),        # char;    Generate 'org' directives?
 INF_ASSUME      : (False, 's_assume'),     # char;    Generate 'assume' directives?

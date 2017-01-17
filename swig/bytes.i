@@ -46,12 +46,23 @@
 %ignore unregister_custom_data_type;
 %ignore register_custom_data_type;
 %ignore get_many_bytes;
+%ignore get_many_bytes_ex;
 %ignore get_ascii_contents;
 %ignore get_ascii_contents2;
 %ignore get_hex_string;
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
+
+%typemap(argout) opinfo_t *buf {
+  if ( result != NULL )
+  {
+    // kludge: discard newly-constructed object; return input
+    Py_XDECREF($result);
+    $result = $input;
+    Py_INCREF($result);
+  }
+}
 
 %include "bytes.hpp"
 
@@ -71,6 +82,7 @@
 %rename (unregister_custom_data_type) py_unregister_custom_data_type;
 %rename (register_custom_data_type) py_register_custom_data_type;
 %rename (get_many_bytes) py_get_many_bytes;
+%rename (get_many_bytes_ex) py_get_many_bytes_ex;
 %rename (get_ascii_contents) py_get_ascii_contents;
 %rename (get_ascii_contents2) py_get_ascii_contents2;
 %{

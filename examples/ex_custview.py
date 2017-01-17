@@ -32,9 +32,13 @@ class mycv_t(simplecustviewer_t):
             return False
 
         for i in xrange(0, 100):
-            self.AddLine("Line %d" % i)
-
-#        self.Jump(0)
+            fg, bg = idaapi.COLOR_PREFIX, None
+            # make every 10th line a bit special
+            if i % 10 == 0:
+                fg = idaapi.COLOR_DEFAULT # i.e., white...
+                bg = 0xFFFF00             # ...on cyan
+            pfx = idaapi.COLSTR("%3d" % i, idaapi.SCOLOR_PREFIX)
+            self.AddLine("%s: Line %d" % (pfx, i), fgcolor=fg, bgcolor=bg)
 
         return True
 
