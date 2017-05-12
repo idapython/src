@@ -276,7 +276,7 @@ private:
     PYW_GIL_GET;
     pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
 
-    // Delete this instance if none modal and not embedded
+    // Delete this instance if non-modal and not embedded
     if ( !is_modal() && get_embedded() == NULL )
       delete this;
   }

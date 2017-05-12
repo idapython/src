@@ -87,7 +87,7 @@ class Choose2(object):
         """
         Activates or creates a chooser window
         @param modal: Display as modal dialog
-        @return: For modal choosers it will return the selected item index (0-based)
+        @return: For modal choosers it will return the selected item index (0-based) or -1 if no selection
         """
         if modal:
             self.flags |= Choose2.CH_MODAL
