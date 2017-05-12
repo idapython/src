@@ -26,11 +26,13 @@ class Choose(object):
     if (flags & Choose2.CH_MODAL) == 0:
       self.refhack = self
 
+
   def sizer(self):
     """
     Callback: sizer - returns the length of the list
     """
     return len(self.list)
+
 
   def getl(self, n):
     """
@@ -44,28 +46,8 @@ class Choose(object):
       return "<Empty>"
 
 
-  def ins(self):
-    pass
-
-
-  def update(self, n):
-    pass
-
-
-  def edit(self, n):
-    pass
-
-
   def enter(self, n):
     print "enter(%d) called" % n
-
-
-  def destroy(self):
-    pass
-
-
-  def get_icon(self, n):
-    pass
 
 
   def choose(self):
