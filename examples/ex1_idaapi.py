@@ -15,7 +15,7 @@ def main():
     seg = getseg(ea)
 
     # Loop from segment start to end
-    func = get_next_func(seg.startEA)
+    func = get_next_func(seg.startEA - 1)
     seg_end = seg.endEA
     while func is not None and func.startEA < seg_end:
         funcea = func.startEA
