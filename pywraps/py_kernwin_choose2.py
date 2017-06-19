@@ -207,17 +207,14 @@ class Choose2(object):
 #        Triggered when the 'Refresh' is called from the popup menu item.
 #
 #        @param n: The currently selected line (0-based) at the time of the refresh call
-#        @return: Return the number of elements
+#        @return: Return the new selected line
 #        """
 #        return self.n
 #
 #    def OnRefreshed(self):
 #        """
 #        Triggered when a refresh happens (for example due to column sorting)
-#        @param n: Line number (0-based)
-#        @return: Return the number of elements
 #        """
-#        return self.n
 #
 #    def OnCommand(self, n, cmd_id):
 #        """Return int ; check add_chooser_command()"""
