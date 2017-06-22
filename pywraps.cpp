@@ -1535,38 +1535,37 @@ bool pywraps_notify_when_t::notify_va(int slot, va_list va)
   in_notify = true;
   int old = slot == NW_OPENIDB_SLOT ? va_arg(va, int) : 0;
 
+  for ( ref_vec_t::iterator it = table[slot].begin(), it_end = table[slot].end();
+        it != it_end;
+        ++it )
   {
-    for ( ref_vec_t::iterator it = table[slot].begin(), it_end = table[slot].end();
-          it != it_end;
-          ++it )
+    // Form the notification code
+    newref_t py_code(PyInt_FromLong(1 << slot));
+    ref_t py_result;
+    switch ( slot )
     {
-      // Form the notification code
-      newref_t py_code(PyInt_FromLong(1 << slot));
-      ref_t py_result;
-      switch ( slot )
-      {
-        case NW_CLOSEIDB_SLOT:
-        case NW_INITIDA_SLOT:
-        case NW_TERMIDA_SLOT:
-          {
-            py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, NULL));
-            break;
-          }
-        case NW_OPENIDB_SLOT:
-          {
-            newref_t py_old(PyInt_FromLong(old));
-            py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, py_old.o, NULL));
-          }
+      case NW_CLOSEIDB_SLOT:
+      case NW_INITIDA_SLOT:
+      case NW_TERMIDA_SLOT:
+        {
+          py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, NULL));
           break;
-      }
-      if ( PyW_GetError(&err) || py_result == NULL )
-      {
-        PyErr_Clear();
-        warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
-        ok = false;
-      }
+        }
+      case NW_OPENIDB_SLOT:
+        {
+          newref_t py_old(PyInt_FromLong(old));
+          py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, py_old.o, NULL));
+        }
+        break;
+    }
+    if ( PyW_GetError(&err) || py_result == NULL )
+    {
+      PyErr_Clear();
+      warning("notify_when(): Error occured while notifying object.\n%s", err.c_str());
+      ok = false;
     }
   }
+
   in_notify = false;
 
   // Process any delayed notify_when() calls that
