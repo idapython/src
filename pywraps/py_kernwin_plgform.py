@@ -7,19 +7,19 @@ class PluginForm(object):
     This form can be used to host additional controls. Please check the PyQt example.
     """
 
-    FORM_MDI      = 0x01
+    WOPN_MDI      = 0x01
     """start by default as MDI (obsolete)"""
-    FORM_TAB      = 0x02
+    WOPN_TAB      = 0x02
     """attached by default to a tab"""
-    FORM_RESTORE  = 0x04
+    WOPN_RESTORE  = 0x04
     """restore state from desktop config"""
-    FORM_ONTOP    = 0x08
+    WOPN_ONTOP    = 0x08
     """form should be "ontop"""
-    FORM_MENU     = 0x10
+    WOPN_MENU     = 0x10
     """form must be listed in the windows menu (automatically set for all plugins)"""
-    FORM_CENTERED = 0x20
+    WOPN_CENTERED = 0x20
     """form will be centered on the screen"""
-    FORM_PERSIST  = 0x40
+    WOPN_PERSIST  = 0x40
     """form will persist until explicitly closed with Close()"""
 
 
@@ -32,19 +32,19 @@ class PluginForm(object):
 
     def Show(self, caption, options = 0):
         """
-		Creates the form if not was not created or brings to front if it was already created
+        Creates the form if not was not created or brings to front if it was already created
 
         @param caption: The form caption
-        @param options: One of PluginForm.FORM_ constants
+        @param options: One of PluginForm.WOPN_ constants
         """
-        options |= PluginForm.FORM_TAB|PluginForm.FORM_MENU|PluginForm.FORM_RESTORE
+        options |= PluginForm.WOPN_TAB|PluginForm.WOPN_MENU|PluginForm.WOPN_RESTORE
         return _ida_kernwin.plgform_show(self.__clink__, self, caption, options)
 
 
     @staticmethod
     def FormToPyQtWidget(form, ctx = sys.modules['__main__']):
         """
-        Use this method to convert a TForm* to a QWidget to be used by PyQt
+        Use this method to convert a TWidget* to a QWidget to be used by PyQt
 
         @param ctx: Context. Reference to a module that already imported SIP and QtGui modules
         """
@@ -64,7 +64,7 @@ class PluginForm(object):
     @staticmethod
     def FormToPySideWidget(form, ctx = sys.modules['__main__']):
         """
-        Use this method to convert a TForm* to a QWidget to be used by PySide
+        Use this method to convert a TWidget* to a QWidget to be used by PySide
 
         @param ctx: Context. Reference to a module that already imported QtGui module
         """
@@ -107,24 +107,38 @@ class PluginForm(object):
         """
         Closes the form.
 
-        @param options: Close options (FORM_SAVE, FORM_NO_CONTEXT, ...)
+        @param options: Close options (WCLS_SAVE, WCLS_NO_CONTEXT, ...)
 
         @return: None
         """
         return _ida_kernwin.plgform_close(self.__clink__, options)
 
-    FORM_SAVE           = 0x1
+    WCLS_SAVE           = 0x1
     """Save state in desktop config"""
 
-    FORM_NO_CONTEXT     = 0x2
+    WCLS_NO_CONTEXT     = 0x2
     """Don't change the current context (useful for toolbars)"""
 
-    FORM_DONT_SAVE_SIZE = 0x4
+    WCLS_DONT_SAVE_SIZE = 0x4
     """Don't save size of the window"""
 
-    FORM_CLOSE_LATER    = 0x8
+    WCLS_CLOSE_LATER    = 0x8
     """This flag should be used when Close() is called from an event handler"""
 #</pycode(py_kernwin_plgform)>
 
 plg = PluginForm()
 plg.Show("This is it")
+
+#<pycode_BC695(py_kernwin_plgform)>
+PluginForm.FORM_MDI = PluginForm.WOPN_MDI
+PluginForm.FORM_TAB = PluginForm.WOPN_TAB
+PluginForm.FORM_RESTORE = PluginForm.WOPN_RESTORE
+PluginForm.FORM_ONTOP = PluginForm.WOPN_ONTOP
+PluginForm.FORM_MENU = PluginForm.WOPN_MENU
+PluginForm.FORM_CENTERED = PluginForm.WOPN_CENTERED
+PluginForm.FORM_PERSIST = PluginForm.WOPN_PERSIST
+PluginForm.FORM_SAVE = PluginForm.WCLS_SAVE
+PluginForm.FORM_NO_CONTEXT = PluginForm.WCLS_NO_CONTEXT
+PluginForm.FORM_DONT_SAVE_SIZE = PluginForm.WCLS_DONT_SAVE_SIZE
+PluginForm.FORM_CLOSE_LATER = PluginForm.WCLS_CLOSE_LATER
+#</pycode_BC695(py_kernwin_plgform)>

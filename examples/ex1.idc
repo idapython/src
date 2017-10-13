@@ -12,22 +12,22 @@ static main()
 	auto ea, func, ref;
 
 	// Get current ea
-	ea = ScreenEA();
+	ea = get_screen_ea();
 
 	// Loop from start to end in the current segment
-	for (func=SegStart(ea); 
-			func != BADADDR && func < SegEnd(ea); 
-			func=NextFunction(func)) 
+	for (func=get_segm_start(ea); 
+			func != BADADDR && func < get_segm_end(ea); 
+			func=get_next_func(func)) 
 	{
 		// If the current address is function process it
-		if (GetFunctionFlags(func) != -1)
+		if (get_func_flags(func) != -1)
 		{
-			Message("Function %s at 0x%x\n", GetFunctionName(func), func);
+			msg("Function %s at 0x%x\n", get_func_name(func), func);
 
 			// Find all code references to func
-			for (ref=RfirstB(func); ref != BADADDR; ref=RnextB(func, ref))
+			for (ref=get_first_cref_to(func); ref != BADADDR; ref=get_next_cref_to(func, ref))
 			{
-				Message("  called from %s(0x%x)\n", GetFunctionName(ref), ref);
+				msg("  called from %s(0x%x)\n", get_func_name(ref), ref);
 			}
 
 		}

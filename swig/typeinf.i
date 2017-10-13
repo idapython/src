@@ -8,40 +8,16 @@
 // Most of these could be wrapped if needed
 %ignore get_cc;
 %ignore get_cc_type_size;
-%ignore set_argloc;
-%ignore set_dt;
-%ignore set_da;
-%ignore set_de;
-%ignore get_dt;
-%ignore get_da;
 %ignore get_de;
 %ignore skip_ptr_type_header;
 %ignore skip_array_type_header;
-%ignore unpack_object_from_idb;
-%ignore unpack_object_from_bv;
 %ignore pack_object_to_idb;
-%ignore pack_object_to_bv;
 %ignore typend;
 %ignore typlen;
 %ignore typncpy;
 %ignore tppncpy;
 %ignore typcmp;
 %ignore typdup;
-%ignore equal_types;
-%ignore resolve_typedef;
-%ignore is_resolved_type_const;
-%ignore is_resolved_type_void;
-%ignore is_resolved_type_ptr;
-%ignore is_resolved_type_func;
-%ignore is_resolved_type_array;
-%ignore is_resolved_type_complex;
-%ignore is_resolved_type_struct;
-%ignore is_resolved_type_union;
-%ignore is_resolved_type_enum;
-%ignore is_resolved_type_bitfld;
-%ignore is_castable;
-%ignore remove_constness;
-%ignore remove_pointerness;
 %ignore get_int_type_bit;
 %ignore get_unk_type_bit;
 %ignore tns;
@@ -57,17 +33,9 @@
 
 %ignore parse_subtype;
 %ignore calc_type_size;
-%ignore get_type_size;
-%ignore get_type_size0;
-%ignore skip_type;
-%ignore get_pointer_object_size;
 
 %ignore descr_t;
 
-%ignore unpack_type;
-%ignore print_type_to_one_line;
-%ignore print_type_to_many_lines;
-%ignore print_type;
 %ignore show_type;
 %ignore show_plist;
 %ignore show_bytes;
@@ -77,18 +45,17 @@
 %ignore argloc_t::dstr;
 %ignore argpart_t::copy_from;
 
-%ignore extract_pstr;
+%ignore get_numbered_type(const til_t *, uint32, const type_t **, const p_list **, const char **, const p_list **, sclass_t *);
+%rename (get_numbered_type) py_get_numbered_type;
+
 %ignore skipName;
 %ignore extract_comment;
 %ignore skipComment;
 %ignore extract_fargcmt;
 %ignore skip_argloc;
-%ignore extract_argloc;
 
 %ignore h2ti;
 %ignore h2ti_warning;
-%ignore parse_type;
-%ignore parse_types;
 // We want to handle 'get_named_type()' in a special way,
 // but not tinfo_t::get_named_type().
 //  http://stackoverflow.com/questions/27417884/how-do-i-un-ignore-a-specific-method-on-a-templated-class-in-swig
@@ -115,18 +82,9 @@
 %ignore get_named_type_size;
 
 %ignore decorate_name;
-%ignore decorate_name3;
-%ignore gen_decorate_name;
-%ignore calc_bare_name;
 %ignore calc_bare_name3;
-%ignore calc_cpp_name;
-%ignore calc_c_cpp_name;
-%ignore calc_c_cpp_name3;
-%ignore predicate_t;
-%ignore local_predicate_t;
 %ignore tinfo_predicate_t;
 %ignore local_tinfo_predicate_t;
-%ignore choose_named_type;
 %ignore get_default_align;
 %ignore align_size;
 %ignore align_size;
@@ -135,56 +93,33 @@
 %ignore get_default_enum_size;
 %ignore max_ptr_size;
 %ignore based_ptr_name_and_size;
-%ignore calc_arglocs;
 
 %ignore apply_type;
 %ignore apply_callee_type;
-%ignore guess_func_type;
-%ignore guess_type;
+%ignore get_arg_addrs;
+%rename (get_arg_addrs) py_get_arg_addrs;
 
-%ignore build_funcarg_arrays;
-%ignore free_funcarg_arrays;
-%ignore extract_func_ret_type;
 %ignore calc_names_cmts;
-%ignore resolve_complex_type;
-%ignore visit_strmems;
-%ignore foreach_strmem;
-%ignore is_type_scalar;
-%ignore get_type_signness;
-%ignore is_type_signed;
-%ignore is_type_unsigned;
-%ignore get_struct_member;
 %ignore idb_type_to_til;
 %ignore get_idb_type;
 
-%ignore apply_type_to_stkarg;
-%rename (apply_type_to_stkarg) py_apply_type_to_stkarg;
-%ignore print_type;
-%rename (print_type) py_print_type;
 %rename (calc_type_size) py_calc_type_size;
 %rename (apply_type) py_apply_type;
 
 %ignore use_regarg_type_cb;
-%ignore set_op_type_t;
 %ignore is_stkarg_load_t;
 %ignore has_delay_slot_t;
 %ignore gen_use_arg_types;
 %ignore enable_numbered_types;
 %ignore compact_numbered_types;
 
-%ignore type_pair_vec_t::add_names;
-
 %ignore callregs_t::findreg;
 
 %ignore format_data_info_t;
 %ignore valinfo_t;
-%ignore print_c_data;
 %ignore print_cdata;
-%ignore format_c_data;
 %ignore format_cdata;
-%ignore format_cdata2;
 %ignore format_c_number;
-%ignore get_enum_member_expr;
 %ignore extend_sign;
 
 // Kernel-only symbols
@@ -192,10 +127,6 @@
 %ignore bitfield_type_data_t::serialize;
 %ignore func_type_data_t::serialize;
 %ignore func_type_data_t::deserialize;
-%ignore valstr_deprecated_t;
-%ignore valinfo_deprecated_t;
-%ignore valstr_deprecated2_t;
-%ignore valinfo_deprecated2_t;
 %ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
 
 %ignore custloc_desc_t;
@@ -292,14 +223,42 @@
 %template(funcargvec_t)   qvector<funcarg_t>;
 %template(udtmembervec_t) qvector<udt_member_t>;
 %template(reginfovec_t)   qvector<reg_info_t>;
+%ignore qvector<type_attr_t>::operator==;
+%ignore qvector<type_attr_t>::operator!=;
+%ignore qvector<type_attr_t>::find;
+%ignore qvector<type_attr_t>::has;
+%ignore qvector<type_attr_t>::del;
+%ignore qvector<type_attr_t>::add_unique;
+%template(type_attrs_t)   qvector<type_attr_t>;
+
+%extend tinfo_t {
+  PyObject *get_attr(const qstring &key, bool all_attrs=true)
+  {
+    bytevec_t bv;
+    if ( $self->get_attr(key, &bv, all_attrs) )
+      return PyString_FromStringAndSize(
+              (const char *) bv.begin(),
+              bv.size());
+    else
+      Py_RETURN_NONE;
+  }
+}
+%ignore tinfo_t::get_attr;
+
+%feature("director") predicate_t;
+
+%ignore load_til;
+%rename (load_til) py_load_til;
+%ignore load_til_header;
+%rename (load_til_header) py_load_til_header;
+
+%ignore remove_tinfo_pointer;
+%rename (remove_tinfo_pointer) py_remove_tinfo_pointer;
 
 %include "typeinf.hpp"
 
 // Custom wrappers
 
-%rename (load_til) load_til_wrap;
-%rename (load_til_header) load_til_header_wrap;
-%rename (get_type_size0) py_get_type_size0;
 %rename (idc_get_type_raw) py_idc_get_type_raw;
 %rename (idc_get_local_type_raw) py_idc_get_local_type_raw;
 %rename (unpack_object_from_idb) py_unpack_object_from_idb;

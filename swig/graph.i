@@ -1,10 +1,74 @@
 %{
 #include <graph.hpp>
 %}
-%ignore mutable_graph_t;
-%ignore graph_visitor_t;
+
+// "Warning 305: Bad constant value (ignored).", on:
+// #define GCC_PUREVIRT = 0
+#pragma SWIG nowarn=305
+
+// "Warning 473: Returning a pointer or reference in a director method is not recommended."
+%warnfilter(473) mutable_graph_t::nrect;
+%warnfilter(473) place_t::clone;
+%warnfilter(473) place_t::makeplace;
+%warnfilter(473) place_t::name;
+%warnfilter(473) place_t::enter;
+
+// "Warning 517: Director class 'mutable_graph_t' can't be constructed"
+%warnfilter(517) mutable_graph_t;
+
+// most of these aren't defined/exported through graph.hpp
+%ignore abstract_graph_t::callback;
 %ignore abstract_graph_t;
+%ignore edge_info_t::add_layout_point;
+%ignore edge_infos_wrapper_t::edge_infos_wrapper_t;
+%ignore edge_infos_wrapper_t::~edge_infos_wrapper_t;
+%ignore graph_dispatcher;
+%ignore graph_item_t::operator==;
+%ignore mutable_graph_t::add_edge;
+%ignore mutable_graph_t::add_node;
+%ignore mutable_graph_t::calc_center_of;
+%ignore mutable_graph_t::change_visibility;
+%ignore mutable_graph_t::check_new_group;
+%ignore mutable_graph_t::clone;
+%ignore mutable_graph_t::del_edge;
+%ignore mutable_graph_t::del_node;
+%ignore mutable_graph_t::fix_collapsed_group_edges;
+%ignore mutable_graph_t::get_edge;
+%ignore mutable_graph_t::groups_are_present;
+%ignore mutable_graph_t::insert_simple_nodes;
+%ignore mutable_graph_t::insert_visible_nodes;
+%ignore mutable_graph_t::move_grouped_nodes;
+%ignore mutable_graph_t::move_to_same_place;
+%ignore mutable_graph_t::mutable_graph_t;
+%ignore mutable_graph_t::redo_layout;
+%ignore mutable_graph_t::refresh;
+%ignore mutable_graph_t::replace_edge;
+%ignore mutable_graph_t::resize;
+%ignore mutable_graph_t::set_nrect;
+%ignore node_ordering_t::clr;
+%ignore node_ordering_t::order;
+%ignore point_t::dstr;
+%ignore point_t::print;
+%ignore pointseq_t::dstr;
+%ignore pointseq_t::print;
+%ignore rect_t::operator<;
+%ignore selection_item_t::selection_item_t(class graph_item_t &);
+%feature("nodirector") user_graph_place_t;
+
+// Those were deprecated before they were available
+// to IDAPython, so let's keep it that way.
+%ignore viewer_add_menu_item;
+%ignore viewer_del_menu_item;
+
+%extend graph_visitor_t {
+public:
+  virtual int idaapi visit_node(int /*n*/, rect_t & /*r*/) { return 0; }
+  virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { return 0; }
+}
+
 %include "graph.hpp"
+%ignore graph_visitor_t::visit_node;
+%ignore graph_visitor_t::visit_edge;
 
 %{
 //<code(py_graph)>

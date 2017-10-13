@@ -13,12 +13,12 @@ def foo():
 
 # IDA binds hotkeys to IDC functions so a trampoline IDC function
 # must be created
-idaapi.CompileLine('static key_2() { RunPythonStatement("foo()"); }')
+idaapi.compile_idc_text('static key_2() { RunPythonStatement("foo()"); }')
 # Add the hotkey
-AddHotkey("2", 'key_2')
+add_idc_hotkey("2", 'key_2')
 
 # Press 2 to activate foo()
 
 # The hotkey can be removed with
-# DelHotkey('2')
+# del_idc_hotkey('2')
 

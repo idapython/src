@@ -8,21 +8,22 @@ ALL RIGHTS RESERVED.
 """
 
 import re
-from idaapi import Choose
+import idc
+from ida_kernwin import Choose
 
 # -----------------------------------------------------------------------
 def CmdDriverList():
-  s = Eval('WinDbgCommand("lm o");')
+  s = idc.eval('send_dbg_command("lm o");')
   if "IDC_FAILURE" in s: return False
   return s
 
 # -----------------------------------------------------------------------
 def CmdDrvObj(drvname, flag=2):
-  return Eval('WinDbgCommand("!drvobj %s %d");' % (drvname, flag))
+  return idc.eval('send_dbg_command("!drvobj %s %d");' % (drvname, flag))
 
 # -----------------------------------------------------------------------
 def CmdReloadForce():
-  s = Eval('WinDbgCommand(".reload /f");')
+  s = idc.eval('send_dbg_command(".reload /f");')
   if "IDC_FAILURE" in s: return False
   return True
 
@@ -32,12 +33,9 @@ class DispatchEntry:
     def __init__(self, addr, name):
         self.addr = addr
         self.name = name
-    def __repr__(self):
-        return "%08X: %s" % (self.addr, self.name)
 
 # -----------------------------------------------------------------------
 def GetDriverDispatch():
-
   # return a list of arrays of the form: [addr, name]
   ret_list = []
   
@@ -54,7 +52,7 @@ def GetDriverDispatch():
 
   # get driver list
   lm_out = CmdDriverList()
-  if not lm_out: 
+  if not lm_out:
     return "Failed to get driver list!"
 
   # for each line
@@ -69,7 +67,7 @@ def GetDriverDispatch():
     # execute "drvobj" command
     tbl_out = CmdDrvObj(drvname)
 
-    if not tbl_out: 
+    if not tbl_out:
       print "Failed to get driver object for", drvname
       continue
 
@@ -87,19 +85,30 @@ def GetDriverDispatch():
 # -----------------------------------------------------------------------
 # Chooser class
 class DispatchChoose(Choose):
-    def __init__(self, list, title):
-        Choose.__init__(self, list, title)
-        self.width = 250
+    def __init__(self, title, items):
+        Choose.__init__(self, title, [ ["Address", 16], ["Name", 250] ])
+        self.items = items
 
-    def enter(self, n):
-        o = self.list[n-1]
-        idc.Jump(o.addr)
+    def OnGetLine(self, n):
+        o = self.items[n]
+        line = []
+        line.append("%08X" % o.addr)
+        line.append("%s" % o.name)
+        return line
+
+    def OnGetSize(self):
+        return len(self.items)
+
+    def OnSelectLine(self, n):
+        o = self.items[n]
+        Jump(o.addr)
+        return (Choose.NOTHING_CHANGED, )
 
 # -----------------------------------------------------------------------
 # main
 r = GetDriverDispatch()
 if r:
-    c = DispatchChoose(r, "Dispatch table browser")
-    c.choose()
+    c = DispatchChoose("Dispatch table browser", r)
+    c.Show()
 else:
   print "Failed to retrieve dispatchers list!"

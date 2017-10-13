@@ -10,11 +10,6 @@
 static void _kludge_use_TPopupMenu(TPopupMenu *) {}
 %}
 %inline %{
-namespace Menus
-{
-  class TPopupMenu;
-}
-using Menus::TPopupMenu;
 static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %}
 
@@ -53,9 +48,11 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 #define AS_PRINTF(format_idx, varg_idx)
 
 %ignore vd_printer_t::vprint;
+%ignore vd_printer_t::tmpbuf;
 %ignore string_printer_t::vprint;
 %ignore vdui_t::vdui_t;
 %ignore cblock_t::find;
+%ignore citem_t::op;
 %ignore cfunc_t::cfunc_t;
 %ignore cfunc_t::sv;         // lazy member. Use get_pseudocode() instead
 %ignore cfunc_t::boundaries; // lazy member. Use get_boundaries() instead
@@ -88,6 +85,33 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore file_printer_t::_print;
 %ignore file_printer_t;
 %ignore qstring_printer_t::qstring_printer_t(const cfunc_t *, qstring &, bool);
+%rename (_replace_by) cinsn_t::replace_by;
+%rename (_replace_by) cexpr_t::replace_by;
+%ignore vcall_helper;
+%ignore vcreate_helper;
+
+%apply uchar { char ignore_micro };
+%feature("nodirector") udc_filter_t::apply;
+
+// The following must:
+//  - transfer ownership to the result object, if the argument object had it
+//    That's because we don't know when one of those functions create
+//    a new object under the hood
+%rename (_ll_lnot) lnot;
+%rename (_ll_make_ref) make_ref;
+%rename (_ll_dereference) dereference;
+
+// The following must:
+//  - mark new object as being owned
+//  - disown the 'args' object passed as parameter
+%rename (_ll_call_helper) call_helper;
+
+// The following must:
+//  - mark new object as being owned
+%rename (_ll_new_block) new_block;
+%rename (_ll_make_num) make_num;
+%rename (_ll_create_helper) create_helper;
+
 
 %extend cfunc_t {
     %immutable argidx;
@@ -120,7 +144,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %rename(dereference_uint16) operator uint16*;
 %rename(dereference_const_uint16) operator const uint16*;
 
-#if !defined(__MAC__) || (MACSDKVER >= 1060)
+#if !defined(__MAC__) || (MACSDKVER >= 1006)
 #define HAS_MAP_AT
 #endif
 
@@ -140,67 +164,223 @@ public:
 }
 #endif
 
+//-------------------------------------------------------------------------
+%typemap(check) citem_t *self
+{
+  if ( $1 == INS_EPILOG )
+    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+
+%typemap(check) cinsn_t *self
+{
+  if ( $1 == INS_EPILOG )
+    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+
+//-------------------------------------------------------------------------
+//                             citem_t
 //---------------------------------------------------------------------
 %extend citem_t {
     // define these two struct members that can be used for casting.
     cinsn_t *cinsn const { return (cinsn_t *)self; }
     cexpr_t *cexpr const { return (cexpr_t *)self; }
+
+    ctype_t _get_op() const { return self->op; }
+    void _set_op(ctype_t v) { self->op = v; }
+
+    PyObject *_obj_id() const { return PyLong_FromSize_t(size_t(self)); }
+
+    %pythoncode {
+      obj_id = property(_obj_id)
+      op = property(
+              _get_op,
+              lambda self, v: self._ensure_no_op() and self._set_op(v))
+
+      def _ensure_no_op(self):
+          if self.op not in [cot_empty, cit_empty]:
+              raise Exception("%s has op %s; cannot be modified" % (self, self.op))
+          return True
+
+      def _ensure_no_obj(self, o, attr, attr_is_acquired):
+          if attr_is_acquired and o is not None:
+              raise Exception("%s already owns attribute \"%s\" (%s); cannot be modified" % (self, attr, o))
+          return True
+
+      def _acquire_ownership(self, v, acquire):
+          if acquire and (v is not None) and not isinstance(v, (int, long)):
+              if not v.thisown:
+                  raise Exception("%s is already owned, and cannot be reused" % v)
+              v.thisown = False
+              dereg = getattr(v, "_deregister", None)
+              if dereg:
+                  dereg()
+          return True
+
+      def _maybe_disown_and_deregister(self):
+          if self.thisown:
+              self.thisown = False
+              self._deregister()
+
+      def _own_and_register(self):
+          assert(not self.thisown)
+          self.thisown = True
+          self._register()
+
+      def replace_by(self, o):
+          assert(isinstance(o, (cexpr_t, cinsn_t)))
+          o._maybe_disown_and_deregister()
+          self._replace_by(o)
+    }
 };
-
-//---------------------------------------------------------------------
-// swig doesn't very much like the way the union is done in this class so we need to wrap all these up.
-#define CITEM_MEMBER_REF(name)                                          \
-  c##name##_t *c##name const { if ( self->op == cit_##name ) { return self->c##name; } else { return NULL; } }
-
-%extend cinsn_t {
-  CITEM_MEMBER_REF(block);
-  CITEM_MEMBER_REF(expr);
-  CITEM_MEMBER_REF(if);
-  CITEM_MEMBER_REF(for);
-  CITEM_MEMBER_REF(while);
-  CITEM_MEMBER_REF(do);
-  CITEM_MEMBER_REF(switch);
-  CITEM_MEMBER_REF(return);
-  CITEM_MEMBER_REF(goto);
-  CITEM_MEMBER_REF(asm);
-
-  bool is_epilog() const { return $self == INS_EPILOG; }
-};
-#undef CITEM_MEMBER_REF
 
 //-------------------------------------------------------------------------
-#define CEXPR_MEMBER_REF(type, name) \
-  type name const { return self->##name; }
+#define ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, Setexpr) \
+  Type _get_##PName() const { return self->##PName; }                   \
+  void _set_##PName(Type _v) { self->##PName = Setexpr; }               \
+  %pythoncode {                                                         \
+    PName = property(                                                   \
+            lambda self: self._get_##PName() if Cond else Defval,       \
+            lambda self, v: Cond                                        \
+                and self._ensure_no_obj(self._get_##PName(), #PName, Acquire) \
+                and self._acquire_ownership(v, Acquire)                 \
+                and self._set_##PName(v))                               \
+      }
 
-#define CEXPR_CONDITIONAL_MEMBER_REF(type, name, condition, default_value) \
-  type name const { if ( condition ) { return self->##name; } else { return default_value; } }
+
+//---------------------------------------------------------------------
+//                               cinsn_t
+//---------------------------------------------------------------------
+#define CINSN_MEMBER_REF(Name)                                          \
+  ___MEMBER_REF_BASE(c##Name##_t*, c##Name, self.op == cit_##Name, None, True, _v)
+
+%extend cinsn_t {
+  cinsn_t(void)
+  {
+    cinsn_t *ci = new cinsn_t();
+    ci->cblock = NULL; // force clean instance
+    hexrays_register_python_clearable_instance(ci, hxclr_cinsn);
+    return ci;
+  }
+
+  ~cinsn_t(void)
+  {
+    hexrays_deregister_python_clearable_instance($self);
+    delete $self;
+  }
+
+  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
+  void _register() { hexrays_register_python_clearable_instance($self, hxclr_cinsn); }
+
+  CINSN_MEMBER_REF(block);
+  CINSN_MEMBER_REF(expr);
+  CINSN_MEMBER_REF(if);
+  CINSN_MEMBER_REF(for);
+  CINSN_MEMBER_REF(while);
+  CINSN_MEMBER_REF(do);
+  CINSN_MEMBER_REF(switch);
+  CINSN_MEMBER_REF(return);
+  CINSN_MEMBER_REF(goto);
+  CINSN_MEMBER_REF(asm);
+
+  static bool insn_is_epilog(const cinsn_t *insn) const { return insn == INS_EPILOG; }
+
+  %pythoncode {
+    def is_epilog(self):
+        return cinsn_t.insn_is_epilog(self)
+  }
+};
+%ignore cinsn_t::cinsn_t;
+#undef CINSN_MEMBER_REF
+
+//-------------------------------------------------------------------------
+//                             cexpr_t
+//-------------------------------------------------------------------------
+#define CEXPR_MEMBER_REF(Type, PName, Cond, Defval, Acquire) \
+  ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, _v)
+
+#define CEXPR_MEMBER_REF_STR(Type, PName, Cond, Defval)      \
+  ___MEMBER_REF_BASE(Type, PName, Cond, Defval, False, ::qstrdup(_v))
 
 %extend cexpr_t {
-  CEXPR_CONDITIONAL_MEMBER_REF(cnumber_t*, n, self->op == cot_num, NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(fnumber_t*, fpc, self->op == cot_fnum, NULL);
-  var_ref_t* v const { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
-  CEXPR_CONDITIONAL_MEMBER_REF(ea_t, obj_ea, self->op == cot_obj, BADADDR);
-  CEXPR_MEMBER_REF(int, refwidth);
-  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, x, op_uses_x(self->op), NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, y, op_uses_y(self->op), NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(carglist_t*, a, self->op == cot_call, NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(int, m, self->op == cot_memptr || self->op == cot_memref, 0);
-  CEXPR_CONDITIONAL_MEMBER_REF(cexpr_t*, z, op_uses_z(self->op), NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(int, ptrsize, self->op == cot_ptr || self->op == cot_memptr, 0);
-  CEXPR_MEMBER_REF(cinsn_t*, insn);
-  CEXPR_CONDITIONAL_MEMBER_REF(char*, helper, self->op == cot_helper, NULL);
-  CEXPR_CONDITIONAL_MEMBER_REF(char*, string, self->op == cot_str, NULL);
-};
+  cexpr_t(void)
+  {
+    cexpr_t *ce = new cexpr_t();
+    hexrays_register_python_clearable_instance(ce, hxclr_cexpr);
+    return ce;
+  }
 
-#undef CEXPR_CONDITIONAL_MEMBER_REF
+  ~cexpr_t(void)
+  {
+    hexrays_deregister_python_clearable_instance($self);
+    delete $self;
+  }
+
+  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
+  void _register() { hexrays_register_python_clearable_instance($self, hxclr_cexpr); }
+
+  CEXPR_MEMBER_REF(cnumber_t*, n, self.op == cot_num, None, True);
+  CEXPR_MEMBER_REF(fnumber_t*, fpc, self.op == cot_fnum, None, True);
+  var_ref_t* get_v() { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
+  void set_v(const var_ref_t *v) { if ( self->op == cot_var ) { self->v = *v; } }
+  %pythoncode {
+    v = property(lambda self: self.get_v(), lambda self, v: self.set_v(v))
+  }
+  CEXPR_MEMBER_REF(ea_t, obj_ea, self.op == cot_obj, ida_idaapi.BADADDR, False);
+  CEXPR_MEMBER_REF(int, refwidth, True, 0, False);
+  CEXPR_MEMBER_REF(cexpr_t*, x, op_uses_x(self.op), None, True);
+  CEXPR_MEMBER_REF(cexpr_t*, y, op_uses_y(self.op), None, True);
+  CEXPR_MEMBER_REF(carglist_t*, a, self.op == cot_call, None, True);
+  CEXPR_MEMBER_REF(int, m, (self.op == cot_memptr or self.op == cot_memref), 0, False);
+  CEXPR_MEMBER_REF(cexpr_t*, z, op_uses_z(self.op), None, True);
+  CEXPR_MEMBER_REF(int, ptrsize, (self.op == cot_ptr or self.op == cot_memptr), 0, False);
+  CEXPR_MEMBER_REF(cinsn_t*, insn, self.op == cot_insn, None, True);
+  CEXPR_MEMBER_REF_STR(char*, helper, self.op == cot_helper, None);
+  CEXPR_MEMBER_REF_STR(char*, string, self.op == cot_str, None);
+};
+%ignore cexpr_t::cexpr_t;
+
+#undef CEXPR_MEMBER_REF_STR
 #undef CEXPR_MEMBER_REF
 
 //-------------------------------------------------------------------------
-#define CTREE_ITEM_MEMBER_REF(type, name)                               \
-  type name const { return self->##name; }
+//                             ctree_item_t
+//-------------------------------------------------------------------------
+// FIXME: I can't enable setters, because the ctree_item_t doesn't
+// have a cleanup() function that would greatly help getting rid of
+// objects that were referenced by SWiG proxies, but which have been
+// de-owned (see cexpr_t above.)
+// #define CTREE_ITEM_MEMBER_REF(type, name)                             \
+//   type get_##name() const { return self->##name; }                    \
+//   void set_##name(type _v) { self->##name = _v; }                     \
+//   %pythoncode {                                                       \
+//     name = property(lambda self: self.get_##name(), lambda self, v: self.set_##name(v)) \
+//   }
+//
+// #define CTREE_CONDITIONAL_ITEM_MEMBER_REF(type, name, wanted_citype)  \
+//   type get_##name() const { if ( self->citype == wanted_citype ) { return self->##name; } else { return NULL; } } \
+//   void set_##name(type _v) { if ( self->citype == wanted_citype ) { self->##name = _v; } } \
+//   %pythoncode {                                                       \
+//     name = property(lambda self: self.get_##name(), lambda self, v: self.set_##name(v)) \
+//   }
 
-#define CTREE_CONDITIONAL_ITEM_MEMBER_REF(type, name, wanted_citype)     \
-  type name const { if ( self->citype == wanted_citype ) { return self->##name; } else { return NULL; } }
+#define CTREE_ITEM_MEMBER_REF(type, name)                               \
+  type _get_##name() const { return self->##name; }                     \
+  %pythoncode {                                                         \
+    name = property(lambda self: self._get_##name())                    \
+      }
+
+#define CTREE_CONDITIONAL_ITEM_MEMBER_REF(type, name, wanted_citype)    \
+  type _get_##name() const                                              \
+  {                                                                     \
+    if ( self->citype == wanted_citype )                                \
+      return self->##name;                                              \
+    else                                                                \
+      return NULL;                                                      \
+  }                                                                     \
+  %pythoncode {                                                         \
+    name = property(lambda self: self._get_##name())                    \
+      }
+
 
 %extend ctree_item_t {
   CTREE_ITEM_MEMBER_REF(citem_t *, it);
@@ -259,7 +439,13 @@ typedef qvector<simpleline_t> strvec_t;
 %template(user_unions_t) std::map<ea_t, intvec_t>;
 %template(cinsnptrvec_t) qvector<cinsn_t *>;
 %template(eamap_t) std::map<ea_t, cinsnptrvec_t>;
-%template(boundaries_t) std::map<cinsn_t *, areaset_t>;
+%template(boundaries_t) std::map<cinsn_t *, rangeset_t>;
+
+%ignore boundaries_find;
+%rename (boundaries_find) py_boundaries_find;
+%ignore boundaries_insert;
+%rename (boundaries_insert) py_boundaries_insert;
+
 // WARNING: The order here is VERY important:
 //  1) The '%extend' directive. Note that
 //    - the template name must be used, not the typedef (i.e., not 'cfuncptr_t')
@@ -269,7 +455,7 @@ typedef qvector<simpleline_t> strvec_t;
 //    - not qualifying the destructor with template parameters
 //  3) The '%template' directive, that will indeed instantiate
 //     the template for swig.
-%{ void hexrays_deregister_python_cfuncptr_t_instance(cfuncptr_t *fp); %}
+%{ void hexrays_deregister_python_clearable_instance(void *ptr); %}
 %extend qrefcnt_t<cfunc_t> {
   // The typemap above will take care of registering newly-constructed cfuncptr_t
   // instances. However, there's no such thing as a destructor typemap.
@@ -278,7 +464,7 @@ typedef qvector<simpleline_t> strvec_t;
   //       be a different destructor (which, of course, makes a ton of sense.)
   ~qrefcnt_t<cfunc_t>(void)
   {
-    hexrays_deregister_python_cfuncptr_t_instance($self);
+    hexrays_deregister_python_clearable_instance($self);
     delete $self;
   }
 }
@@ -323,6 +509,24 @@ class qlist_cinsn_t_iterator {};
 %template(qvector_ccase_t) qvector<ccase_t>;
 %template(lvar_saved_infos_t) qvector<lvar_saved_info_t>;
 
+%extend cblock_t {
+  cblock_t(void)
+  {
+    cblock_t *cb = new cblock_t();
+    hexrays_register_python_clearable_instance(cb, hxclr_cblock);
+    return cb;
+  }
+
+  ~cblock_t(void)
+  {
+    hexrays_deregister_python_clearable_instance($self);
+    delete $self;
+  }
+
+  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
+}
+%ignore cblock_t::cblock_t;
+
 %extend citem_cmt_t {
     const char *c_str() const { return self->c_str(); }
 
@@ -349,9 +553,6 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %ignore init_hexrays_plugin;
 %rename(init_hexrays_plugin) py_init_hexrays_plugin;
 
-%ignore add_custom_viewer_popup_item;
-%rename(add_custom_viewer_popup_item) py_add_custom_viewer_popup_item;
-
 %ignore install_hexrays_callback;
 %rename(install_hexrays_callback) py_install_hexrays_callback;
 
@@ -361,8 +562,8 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %ignore decompile_many;
 %rename (decompile_many) py_decompile_many;
 
-%ignore get_tform_vdui;
-%rename (get_tform_vdui) py_get_tform_vdui;
+%ignore get_widget_vdui;
+%rename (get_widget_vdui) py_get_widget_vdui;
 
 //-------------------------------------------------------------------------
 #if SWIG_VERSION == 0x20012
@@ -371,7 +572,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 {
   // ret cfuncptr_t
   cfuncptr_t *ni = new cfuncptr_t($1);
-  hexrays_register_python_cfuncptr_t_instance(ni);
+  hexrays_register_python_clearable_instance(ni, hxclr_cfuncptr);
   $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
 }
 
@@ -381,7 +582,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 {
   // ret cfuncptr_t*
   cfuncptr_t *ni = new cfuncptr_t(*($1));
-  hexrays_register_python_cfuncptr_t_instance(ni);
+  hexrays_register_python_clearable_instance(ni, hxclr_cfuncptr);
   $result = SWIG_NewPointerObj(ni, $1_descriptor, SWIG_POINTER_OWN | 0);
 }
 #else
@@ -423,6 +624,18 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %enddef
 %possible_director_exc(ctree_visitor_t::apply_to)
 %possible_director_exc(ctree_visitor_t::apply_to_exprs)
+
+%template (fnum_array) wrapped_array_t<uint16,6>;
+%extend fnumber_t {
+  wrapped_array_t<uint16,6> __get_fnum() {
+    return wrapped_array_t<uint16,6>($self->fnum);
+  }
+
+  %pythoncode {
+    fnum = property(__get_fnum)
+  }
+}
+
 
 %inline %{
 //<inline(py_hexrays)>

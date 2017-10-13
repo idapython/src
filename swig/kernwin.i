@@ -11,19 +11,21 @@ extern plugin_t PLUGIN;
 %}
 
 // Ignore the va_list functions
-%ignore AskUsingForm_cv;
-%ignore AskUsingForm_c;
-%ignore OpenForm_cv;
-%ignore OpenForm_c;
+%ignore vask_form;
+%ignore ask_form;
+%ignore open_form;
+%ignore vopen_form;
 %ignore close_form;
-%ignore vaskstr;
+%ignore vask_str;
+%ignore ask_str;
+%ignore ask_ident;
+%ignore vask_buttons;
+%ignore vask_file;
+%ignore vask_yn;
 %ignore strvec_t;
 %ignore load_custom_icon;
-%ignore vasktext;
-%ignore add_menu_item;
-%rename (add_menu_item) py_add_menu_item;
-%ignore del_menu_item;
-%rename (del_menu_item) py_del_menu_item;
+%ignore vask_text;
+%ignore ask_text;
 %ignore vwarning;
 
 %ignore choose_idasgn;
@@ -46,11 +48,6 @@ extern plugin_t PLUGIN;
 %ignore vnomem;
 %ignore vmsg;
 %ignore show_wait_box_v;
-%ignore askbuttons_cv;
-%ignore askfile_cv;
-%ignore askyn_cv;
-%ignore askyn_v;
-%ignore add_custom_viewer_popup_item;
 %ignore create_custom_viewer;
 %ignore take_database_snapshot;
 %rename (take_database_snapshot) py_take_database_snapshot;
@@ -58,7 +55,6 @@ extern plugin_t PLUGIN;
 %rename (restore_database_snapshot) py_restore_database_snapshot;
 %ignore destroy_custom_viewer;
 %ignore destroy_custom_viewerdestroy_custom_viewer;
-%ignore set_custom_viewer_popup_menu;
 %ignore set_custom_viewer_handler;
 %ignore set_custom_viewer_range;
 %ignore is_idaview;
@@ -66,24 +62,20 @@ extern plugin_t PLUGIN;
 %ignore set_custom_viewer_handlers;
 %ignore get_viewer_name;
 // Ignore these string functions. There are trivial replacements in Python.
-%ignore addblanks;
 %ignore trim;
-%ignore skipSpaces;
+%ignore skip_spaces;
 %ignore stristr;
 %ignore set_nav_colorizer;
 %rename (set_nav_colorizer) py_set_nav_colorizer;
 %rename (call_nav_colorizer) py_call_nav_colorizer;
 
-%ignore get_highlighted_identifier;
-%rename (get_highlighted_identifier) py_get_highlighted_identifier;
-
+%ignore get_highlight;
+%rename (get_highlight) py_get_highlight;
 
 %ignore action_desc_t::handler;
 %ignore action_handler_t;
 %ignore register_action;
 %rename (register_action) py_register_action;
-%ignore unregister_action;
-%rename (unregister_action) py_unregister_action;
 %ignore attach_dynamic_action_to_popup;
 %rename (attach_dynamic_action_to_popup) py_attach_dynamic_action_to_popup;
 %ignore get_registered_actions;
@@ -91,9 +83,9 @@ extern plugin_t PLUGIN;
 
 %include "typemaps.i"
 
-%rename (asktext) py_asktext;
+%rename (ask_text) py_ask_text;
+%rename (ask_str) py_ask_str;
 %rename (str2ea)  py_str2ea;
-%rename (str2user)  py_str2user;
 %ignore process_ui_action;
 %rename (process_ui_action) py_process_ui_action;
 %ignore execute_sync;
@@ -110,11 +102,13 @@ extern plugin_t PLUGIN;
 %ignore unregister_timer;
 %rename (unregister_timer) py_unregister_timer;
 
-// Make askaddr(), askseg(), and asklong() return a
+%ignore chooser_item_attrs_t::cb;
+
+// Make ask_addr(), ask_seg(), and ask_long() return a
 // tuple: (result, value)
-%rename (_asklong) asklong;
-%rename (_askaddr) askaddr;
-%rename (_askseg) askseg;
+%rename (_ask_long) ask_long;
+%rename (_ask_addr) ask_addr;
+%rename (_ask_seg) ask_seg;
 
 %ignore qvector<disasm_line_t>::operator==;
 %ignore qvector<disasm_line_t>::operator!=;
@@ -141,6 +135,9 @@ extern plugin_t PLUGIN;
 %ignore register_place_class;
 %ignore register_loc_converter;
 %ignore lookup_loc_converter;
+
+%ignore hexplace_t;
+%ignore hexplace_gen_t;
 
 %feature("director") UI_Hooks;
 
@@ -186,22 +183,20 @@ struct py_action_handler_t : public action_handler_t
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
     return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && PyInt_Check(pyres.o)) ? action_state_t(PyInt_AsLong(pyres.o)) : AST_DISABLE);
   }
+
 private:
   ref_t pyah;
   bool has_activate;
   bool has_update;
 };
 
-typedef std::map<qstring,action_handler_t*> py_action_handlers_t;
-static py_action_handlers_t py_action_handlers;
-
 %}
 
 %inline %{
-void refresh_lists(void)
+void refresh_choosers(void)
 {
   Py_BEGIN_ALLOW_THREADS;
-  callui(ui_list);
+  callui(ui_refresh_choosers);
   Py_END_ALLOW_THREADS;
 }
 %}
@@ -249,7 +244,8 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
           PyObject *handler,
           const char *shortcut = NULL,
           const char *tooltip = NULL,
-          int icon = -1)
+          int icon = -1,
+          int flags = 0)
   {
     action_desc_t *ad = new action_desc_t();
 #define DUPSTR(Prop) ad->Prop = Prop == NULL ? NULL : qstrdup(Prop)
@@ -260,6 +256,7 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 #undef DUPSTR
     ad->icon = icon;
     ad->handler = new py_action_handler_t(handler);
+    ad->flags = flags | ADF_OWN_HANDLER;
     ad->owner = &PLUGIN;
     return ad;
   }
@@ -275,6 +272,22 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
     FREESTR(tooltip);
 #undef FREESTR
     delete $self;
+  }
+}
+
+%extend action_ctx_base_t {
+
+  int _get_reg() const { return $self->reg; }
+
+#ifdef BC695
+  twidget_type_t _get_form_type() const { return $self->widget_type; }
+#endif
+
+  %pythoncode {
+    reg = property(_get_reg)
+#ifdef BC695
+    form_type = property(_get_form_type)
+#endif
   }
 }
 
@@ -319,8 +332,13 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 %}
 
 //-------------------------------------------------------------------------
-//                                choose
+//                                Choose
 //-------------------------------------------------------------------------
+%{
+//<code(py_kernwin_choose)>
+//</code(py_kernwin_choose)>
+%}
+
 %inline %{
 //<inline(py_kernwin_choose)>
 //</inline(py_kernwin_choose)>
@@ -332,39 +350,21 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 %}
 
 //-------------------------------------------------------------------------
-//                                choose2
+//                               ask_form
 //-------------------------------------------------------------------------
 %{
-//<code(py_kernwin_choose2)>
-//</code(py_kernwin_choose2)>
+//<code(py_kernwin_askform)>
+//</code(py_kernwin_askform)>
 %}
 
 %inline %{
-//<inline(py_kernwin_choose2)>
-//</inline(py_kernwin_choose2)>
+//<inline(py_kernwin_askform)>
+//</inline(py_kernwin_askform)>
 %}
 
 %pythoncode %{
-#<pycode(py_kernwin_choose2)>
-#</pycode(py_kernwin_choose2)>
-%}
-
-//-------------------------------------------------------------------------
-//                               askusingform
-//-------------------------------------------------------------------------
-%{
-//<code(py_kernwin_askusingform)>
-//</code(py_kernwin_askusingform)>
-%}
-
-%inline %{
-//<inline(py_kernwin_askusingform)>
-//</inline(py_kernwin_askusingform)>
-%}
-
-%pythoncode %{
-#<pycode(py_kernwin_askusingform)>
-#</pycode(py_kernwin_askusingform)>
+#<pycode(py_kernwin_askform)>
+#</pycode(py_kernwin_askform)>
 %}
 
 
@@ -388,8 +388,28 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 
 //-------------------------------------------------------------------------
 %init %{
-//<init(py_kernwin_askusingform)>
-//</init(py_kernwin_askusingform)>
+//<init(py_kernwin_askform)>
+//</init(py_kernwin_askform)>
+%}
+
+//-------------------------------------------------------------------------
+//                              CustomIDAMemo
+//-------------------------------------------------------------------------
+%ignore View_Callback;
+
+%inline %{
+//<inline(py_kernwin_viewhooks)>
+//</inline(py_kernwin_viewhooks)>
+%}
+
+%{
+//<code(py_kernwin_viewhooks)>
+//</code(py_kernwin_viewhooks)>
+%}
+
+%pythoncode %{
+#<pycode(py_kernwin_viewhooks)>
+#</pycode(py_kernwin_viewhooks)>
 %}
 
 

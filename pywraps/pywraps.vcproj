@@ -1082,7 +1082,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\swig\area.i"
+				RelativePath="..\swig\range.i"
 				>
 			</File>
 			<File
@@ -1118,10 +1118,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\swig\ints.i"
-				>
-			</File>
-			<File
 				RelativePath="..\swig\moves.i"
 				>
 			</File>
@@ -1154,7 +1150,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\swig\srarea.i"
+				RelativePath="..\swig\segregs.i"
 				>
 			</File>
 			<File

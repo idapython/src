@@ -57,7 +57,7 @@ class simplecustviewer_t(object):
 
     def GetSelection(self):
         """
-        Returns the selected area or None
+        Returns the selected range or None
         @return:
             - tuple(x1, y1, x2, y2)
             - None if no selection
@@ -142,42 +142,17 @@ class simplecustviewer_t(object):
     def Jump(self, lineno, x=0, y=0):
         return _ida_kernwin.pyscv_jumpto(self.__this, lineno, x, y)
 
-    def AddPopupMenu(self, title, hotkey=""):
-        """
-        Adds a popup menu item, and get its ID (for use in the OnPopupMenu() handler)
-        @param title: The name of the menu item
-        @param hotkey: Hotkey of the item or just empty
-        @return: Returns the id of the registered popup menu item
-        """
-        return _ida_kernwin.pyscv_add_popup_menu(self.__this, title, hotkey)
-
-    def ClearPopupMenu(self):
-        """
-        Clears all previously installed popup menu items.
-        Use this function if you're generating menu items on the fly (in the OnPopup() callback),
-        and before adding new items
-        """
-        _ida_kernwin.pyscv_clear_popup_menu(self.__this)
-
     def IsFocused(self):
         """Returns True if the current view is the focused view"""
         return _ida_kernwin.pyscv_is_focused(self.__this)
 
-    def GetTForm(self):
+    def GetWidget(self):
         """
-        Return the TForm hosting this view.
+        Return the TWidget underlying this view.
 
-        @return: The TForm that hosts this view, or None.
+        @return: The TWidget underlying this view, or None.
         """
-        return _ida_kernwin.pyscv_get_tform(self.__this)
-
-    def GetTCustomControl(self):
-        """
-        Return the TCustomControl underlying this view.
-
-        @return: The TCustomControl underlying this view, or None.
-        """
-        return _ida_kernwin.pyscv_get_tcustom_control(self.__this)
+        return _ida_kernwin.pyscv_get_widget(self.__this)
 
 
 

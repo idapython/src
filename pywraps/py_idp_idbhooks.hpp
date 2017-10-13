@@ -4,7 +4,7 @@
 //---------------------------------------------------------------------------
 // IDB hooks
 //---------------------------------------------------------------------------
-int idaapi IDB_Callback(void *ud, int notification_code, va_list va);
+ssize_t idaapi IDB_Callback(void *ud, int notification_code, va_list va);
 class IDB_Hooks
 {
 public:
@@ -12,11 +12,11 @@ public:
 
   bool hook()
   {
-    return hook_to_notification_point(HT_IDB, IDB_Callback, this);
+    return idapython_hook_to_notification_point(HT_IDB, IDB_Callback, this);
   }
   bool unhook()
   {
-    return unhook_from_notification_point(HT_IDB, IDB_Callback, this);
+    return idapython_unhook_from_notification_point(HT_IDB, IDB_Callback, this);
   }
 
   // hookgenIDB:methods
@@ -26,7 +26,7 @@ public:
 
 //<code(py_idp_idbhooks)>
 //---------------------------------------------------------------------------
-int idaapi IDB_Callback(void *ud, int notification_code, va_list va)
+ssize_t idaapi IDB_Callback(void *ud, int notification_code, va_list va)
 {
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;

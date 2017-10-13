@@ -90,7 +90,7 @@ of Python code from IDC
 
 * Invoking IDC from Python
 
-It is possible to use the idc.Eval() to evaluate IDC expressions from Python
+It is possible to use the idc.eval() to evaluate IDC expressions from Python
 
 * Making Python the default language
 
@@ -99,8 +99,8 @@ Python instead of IDC.
 
 In order to do that, please use the following IDC code:
 
-RunPlugin("python", 3)
+load_and_run_plugin("python", 3)
 
 To disable Python language and revert back to IDC:
-RunPlugin("python", 4)
+load_and_run_plugin("python", 4)
 

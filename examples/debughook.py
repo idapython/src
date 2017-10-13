@@ -73,7 +73,7 @@ class MyDbgHook(DBG_Hooks):
 
 
     def dbg_step_over(self):
-        eip = GetRegValue("EIP")
+        eip = get_reg_value("EIP")
         print("0x%x %s" % (eip, GetDisasm(eip)))
 
         self.steps += 1
@@ -97,7 +97,7 @@ debughook.hook()
 debughook.steps = 0
 
 # Stop at the entry point
-ep = GetLongPrm(INF_START_IP)
+ep = get_inf_attr(INF_START_IP)
 request_run_to(ep)
 
 # Step one instruction

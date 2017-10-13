@@ -11,7 +11,16 @@
 %ignore location_t::location_t(bool);
 %ignore lochist_t::is_hexrays68_compat;
 %ignore lochist_entry_t::set_place(const place_t &);
+%ignore graph_location_info_t::serialize(bytevec_t *) const;
+%ignore graph_location_info_t::deserialize(const uchar **, const uchar *);
+%ignore renderer_info_pos_t::serialize(bytevec_t *) const;
+%ignore renderer_info_pos_t::deserialize(const uchar **, const uchar *);
 
 %template(segm_move_info_vec_t) qvector<segm_move_info_t>;
+
+%inline %{
+//<inline(py_moves)>
+//</inline(py_moves)>
+%}
 
 %include "moves.hpp"

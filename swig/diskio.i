@@ -8,7 +8,6 @@
 // TODO: These could be wrapped
 %ignore enumerate_files;
 %rename (enumerate_files) py_enumerate_files;
-%ignore enumerate_system_files;
 %ignore ioport_bit_t;
 %ignore ioport_bits_t;
 %ignore ioport_t;
@@ -19,7 +18,6 @@
 %ignore free_ioports;
 %ignore lread;
 %ignore qlread;
-%ignore efilelength;
 %ignore qlgets;
 %ignore qlgetc;
 %ignore lreadbytes;
@@ -36,17 +34,38 @@
 %ignore make_linput;
 %ignore unmake_linput;
 
-// FIXME: These should be wrapped for completeness
 %ignore eread;
 %ignore ewrite;
+%ignore eseek;
+%ignore ecreate;
+%ignore openR;
+%ignore openRT;
+%ignore openM;
+// some of these functions are used in idc.py:
+// %ignore eclose;
+// %ignore fopenWT;
+// %ignore fopenWB;
+// %ignore fopenRT;
+// %ignore fopenRB;
+// %ignore fopenM;
+// %ignore fopenA;
+
+%ignore qfsize;
+%ignore echsize;
+%ignore get_free_disk_space;
+%ignore call_system;
 
 // Ignore kernel-only & unexported symbols
 %ignore get_thread_priority;
-%ignore set_thread_priority;
-%ignore checkdspace;
 %ignore lowdiskgo;
 %ignore ida_argv;
 %ignore exename;
+
+%ignore create_bytearray_linput;
+%rename (create_bytearray_linput) py_create_bytearray_linput;
+
+%ignore close_linput;
+%rename (close_linput) py_close_linput;
 
 %include "diskio.hpp"
 

@@ -110,6 +110,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
       <DisableSpecificWarnings>4102;4804;4800;4018;4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -165,6 +166,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
       <DisableSpecificWarnings>4804;4800;4018;4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -220,7 +222,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
       <DisableSpecificWarnings>4102;4005;4804;4018;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-    </ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0419</Culture>
@@ -276,6 +278,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
       <DisableSpecificWarnings>4102;4804;4800;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -318,7 +321,6 @@
     <None Include="pywraps\py_cli.py" />
     <None Include="pywraps\py_custdata.py" />
     <None Include="pywraps\py_custview.py" />
-    <None Include="pywraps\py_diskio.py" />
     <None Include="pywraps\py_expr.py" />
     <None Include="pywraps\py_gdl.py" />
     <None Include="pywraps\py_graph.py" />
@@ -333,7 +335,6 @@
     <None Include="README.txt" />
     <None Include="STATUS.txt" />
     <None Include="swig\allins.i" />
-    <None Include="swig\area.i" />
     <None Include="swig\auto.i" />
     <None Include="swig\bytes.i" />
     <None Include="swig\dbg.i" />
@@ -352,7 +353,6 @@
     <None Include="swig\idaapi.i" />
     <None Include="swig\idd.i" />
     <None Include="swig\idp.i" />
-    <None Include="swig\ints.i" />
     <None Include="swig\kernwin.i" />
     <None Include="swig\lines.i" />
     <None Include="swig\loader.i" />
@@ -363,9 +363,10 @@
     <None Include="swig\offset.i" />
     <None Include="swig\pro.i" />
     <None Include="swig\queue.i" />
+    <None Include="swig\range.i" />
     <None Include="swig\search.i" />
     <None Include="swig\segment.i" />
-    <None Include="swig\srarea.i" />
+    <None Include="swig\segregs.i" />
     <None Include="swig\strlist.i" />
     <None Include="swig\struct.i" />
     <None Include="swig\typeconv.i" />

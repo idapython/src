@@ -8,7 +8,7 @@ def main():
         print "Please suspend the debugger first!"
         return
 
-    dn = idaapi.get_debug_names(idaapi.cvar.inf.minEA, idaapi.cvar.inf.maxEA)
+    dn = idaapi.get_debug_names(idaapi.cvar.inf.min_ea, idaapi.cvar.inf.max_ea)
     for i in dn:
         print "%08x: %s" % (i, dn[i])
 

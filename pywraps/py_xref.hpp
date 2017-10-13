@@ -31,11 +31,11 @@ idaman bool ida_export py_create_switch_xrefs(
         ea_t insn_ea,
         PyObject *py_swi)
 {
-  switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
+  switch_info_t *swi = switch_info_t_get_clink(py_swi);
   if ( swi == NULL )
     return false;
 
-  create_switch_xrefs(insn_ea, swi);
+  create_switch_xrefs(insn_ea, *swi);
   return true;
 }
 
@@ -74,12 +74,12 @@ idaman cases_and_targets_t *ida_export py_calc_switch_cases(
         ea_t insn_ea,
         PyObject *py_swi)
 {
-  switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
+  switch_info_t *swi = switch_info_t_get_clink(py_swi);
   if ( swi == NULL )
     return NULL;
 
   cases_and_targets_t *ct = new cases_and_targets_t;
-  if ( !calc_switch_cases(insn_ea, swi, &ct->cases, &ct->targets) )
+  if ( !calc_switch_cases(&ct->cases, &ct->targets, insn_ea, *swi) )
   {
     delete ct;
     return NULL;
@@ -108,11 +108,11 @@ idaman bool ida_export py_create_switch_table(
         ea_t insn_ea,
         PyObject *py_swi)
 {
-  switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
+  switch_info_t *swi = switch_info_t_get_clink(py_swi);
   if ( swi == NULL )
     return false;
 
-  create_switch_table(insn_ea, swi);
+  create_switch_table(insn_ea, *swi);
   return true;
 }
 //</inline(py_xref)>

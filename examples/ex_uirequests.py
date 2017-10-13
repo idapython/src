@@ -67,7 +67,7 @@ class print_req_t(object):
 
 
 
-if idc.AskYN(1,("HIDECANCEL\nDo you want to run execute_ui_requests() example?\n"
+if idc.ask_yn(1,("HIDECANCEL\nDo you want to run execute_ui_requests() example?\n"
                 "Press NO to execute ProcessUiActions() example\n")):
     idaapi.execute_ui_requests(
        (print_req_t("Hello"), print_req_t(" world\n")) )

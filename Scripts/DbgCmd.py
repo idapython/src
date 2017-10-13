@@ -9,9 +9,9 @@ from idaapi import simplecustviewer_t
 def SendDbgCommand(cmd):
     """Sends a command to the debugger and returns the output string.
     An exception will be raised if the debugger is not running or the current debugger does not export
-    the 'SendDbgCommand' IDC command.
+    the 'send_dbg_command' IDC command.
     """
-    s = Eval('SendDbgCommand("%s");' % cmd)
+    s = idc.eval('send_dbg_command("%s");' % cmd)
     if s.startswith("IDC_FAILURE"):
         raise Exception, "Debugger command is available only when the debugger is active!"
     return s
@@ -32,7 +32,7 @@ class dbgcmd_t(simplecustviewer_t):
         return True
 
     def IssueCommand(self):
-        s = idaapi.askstr(0, self.last_cmd, "Please enter a debugger command")
+        s = idaapi.ask_str(self.last_cmd, 0, "Please enter a debugger command")
         if not s:
             return
 
@@ -47,7 +47,7 @@ class dbgcmd_t(simplecustviewer_t):
             for s in r:
                 self.AddLine(idaapi.COLSTR(s, idaapi.SCOLOR_LIBNAME))
         except:
-            self.AddLine(idaapi.COLSTR("Debugger is not active or does not export SendDbgCommand()", idaapi.SCOLOR_ERROR))
+            self.AddLine(idaapi.COLSTR("Debugger is not active or does not export send_dbg_command()", idaapi.SCOLOR_ERROR))
         self.Refresh()
 
     def ResetOutput(self):

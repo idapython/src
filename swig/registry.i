@@ -2,7 +2,8 @@
 #include <registry.hpp>
 %}
 %ignore reg_bin_op;
-%ignore reg_str_op;
+%ignore reg_str_get;
+%ignore reg_str_set;
 %ignore reg_int_op;
 %ignore _RVN_;
 %ignore REG_VAL_NAME;

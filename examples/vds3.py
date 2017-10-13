@@ -3,18 +3,13 @@
 Author: EiNSTeiN_ <einstein@g3nius.org>
 
 This is a rewrite in Python of the vds3 example that comes with hexrays sdk.
-
-
-The main difference with the original C code is that when we create the inverted
-condition object, the newly created cexpr_t instance is given to the hexrays and
-must not be freed by swig. To achieve this, we have to change the 'thisown' flag
-when appropriate. See http://www.swig.org/Doc1.3/Python.html#Python_nn35
-
 """
 
 import idautils
 import idaapi
 import idc
+
+import traceback
 
 NETNODE_NAME = '$ hexrays-inverted-if'
 
@@ -26,16 +21,14 @@ class invert_action_handler_t(idaapi.action_handler_t):
         self.inverter = inverter
 
     def activate(self, ctx):
-        vdui = idaapi.get_tform_vdui(ctx.form)
+        vdui = idaapi.get_widget_vdui(ctx.widget)
         self.inverter.invert_if_event(vdui)
         return 1
 
     def update(self, ctx):
-        vdui = idaapi.get_tform_vdui(ctx.form)
-        if vdui:
-            return idaapi.AST_ENABLE_FOR_FORM
-        else:
-            return idaapi.AST_DISABLE_FOR_FORM
+        return idaapi.AST_ENABLE_FOR_WIDGET if \
+            ctx.widget_type == idaapi.BWN_PSEUDOCODE else \
+            idaapi.AST_DISABLE_FOR_WIDGET
 
 
 class hexrays_callback_info(object):
@@ -92,7 +85,6 @@ class hexrays_callback_info(object):
         idaapi.qswap(cif.ithen, cif.ielse)
         cond = idaapi.cexpr_t(cif.expr)
         notcond = idaapi.lnot(cond)
-        cond.thisown = 0 # the new wrapper 'notcond' now holds the reference to the cexpr_t
 
         cif.expr.swap(notcond)
 
@@ -176,7 +168,7 @@ class hexrays_callback_info(object):
     def event_callback(self, event, *args):
 
         if event == idaapi.hxe_populating_popup:
-            form, phandle, vu = args
+            widget, phandle, vu = args
             res = idaapi.attach_action_to_popup(vu.ct, None, inverter_actname)
 
         elif event == idaapi.hxe_maturity:

@@ -12,8 +12,7 @@ recipe = {
     },
     "get_ea_hint" : {
         "params" : {
-            "buf"     : { "suppress_for_call" : True, },
-            "bufsize" : { "suppress_for_call" : True, },
+            "buf" : { "suppress_for_call" : True, },
         },
         "return" : {
             "type" : "PyObject *",
@@ -47,10 +46,8 @@ recipe = {
         }
     },
 
-
     "genfile_callback" : {"ignore" : True},
-    "get_chooser_item_attrs" : {"ignore" : True},
     "idp_event" : {"ignore" : True},
-    "list" : {"ignore" : True},
+    "refresh_choosers" : {"ignore" : True},
     "load_dbg_dbginfo" : {"ignore" : True},
 }

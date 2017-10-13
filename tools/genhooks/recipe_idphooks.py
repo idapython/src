@@ -1,61 +1,40 @@
 
 
 recipe = {
-    "last_cb_before_debugger" : {"ignore" : True},
-    "last_cb_before_type_callbacks" : {"ignore" : True},
-    "get_operand_info" : {"ignore" : True},
-    "obsolete_get_operand_info" : {"ignore" : True},
-    "loader_elf_machine" : {"ignore" : True},
-    "custom_ana" : {
+    "ev_last_cb_before_debugger" : {"ignore" : True},
+    "ev_last_cb_before_type_callbacks" : {"ignore" : True},
+    "ev_get_idd_opinfo" : {"ignore" : True},
+    "ev_loader_elf_machine" : {"ignore" : True},
+    "ev_ana_insn" : {
         "return" : {
             "type" : "bool",
             "default" : "false",
-            "convertor" : "IDP_Hooks::bool_to_cmdsize",
-        }
-    },
-    "custom_out" : {
-        "return" : {
-            "type" : "bool",
-            "default" : "false",
-            "convertor" : "IDP_Hooks::bool_to_2or0",
-        }
-    },
-    "custom_emu" : {
-        "return" : {
-            "type" : "bool",
-            "default" : "false",
-            "convertor" : "IDP_Hooks::bool_to_2or0",
-        }
-    },
-    "custom_outop" : {
-        "params" : {
-            "op" : {
-                "type" : "PyObject *",
-                "clinked" : {
-                    "module_define" : "S_IDA_UA_MODNAME",
-                    "class_define" : "S_PY_OP_T_CLSNAME",
-                },
-            },
-        },
-        "return" : {
-            "type" : "bool",
-            "default" : "false",
-            "convertor" : "IDP_Hooks::bool_to_2or0",
-        }
-    },
-    "custom_mnem" : {
-        "params" : {
-            "buf"     : { "suppress_for_call" : True, },
-            "bufsize" : { "suppress_for_call" : True, },
-        },
-        "return" : {
-            "type" : "PyObject *",
-            "retexpr" : "Py_RETURN_NONE",
-            "convertor" : "IDP_Hooks::handle_custom_mnem_output",
+            "convertor" : "IDP_Hooks::bool_to_insn_t_size",
             "convertor_pass_args" : True,
         }
     },
-    "rename" : {
+    "ev_out_insn" : {
+        "return" : {
+            "type" : "bool",
+            "default" : "false",
+            "convertor" : "IDP_Hooks::bool_to_1or0",
+        }
+    },
+    "ev_emu_insn" : {
+        "return" : {
+            "type" : "bool",
+            "default" : "false",
+            "convertor" : "IDP_Hooks::bool_to_1or0",
+        }
+    },
+    "ev_out_operand" : {
+        "return" : {
+            "type" : "bool",
+            "default" : "false",
+            "convertor" : "IDP_Hooks::bool_to_1or0",
+        }
+    },
+    "ev_rename" : {
         "params" : {
             "flags" : {
                 "suppress_for_call" : True,
@@ -63,12 +42,7 @@ recipe = {
             },
         },
     },
-    "savebase" : {
-        "return" : {
-            "type" : "void"
-        }
-    },
-    "assemble" : {
+    "ev_assemble" : {
         "return" : {
             "type" : "PyObject *",
             "retexpr" : "Py_RETURN_NONE",
@@ -81,13 +55,16 @@ recipe = {
             },
         },
     },
-    "decorate_name3" : {
+    "ev_decorate_name" : {
         "params" : {
             "cc" : {
                 "type" : "int",
                 "convertor" : "IDP_Hooks::cm_t_to_int",
             },
             "outbuf" : { "suppress_for_call" : True, },
+            "type" : {
+                "rename" : "optional_type",
+            }
         },
         "return" : {
             "type" : "PyObject *",
@@ -96,10 +73,9 @@ recipe = {
             "convertor_pass_args" : True,
         }
     },
-    "get_reg_name" : {
+    "ev_get_reg_name" : {
         "params" : {
             "buf"     : { "suppress_for_call" : True, },
-            "bufsize" : { "suppress_for_call" : True, },
         },
         "return" : {
             "type" : "PyObject *",
@@ -108,7 +84,7 @@ recipe = {
             "convertor_pass_args" : True,
         }
     },
-    "delay_slot_insn" : {
+    "ev_delay_slot_insn" : {
         "params" : {
             "ea" : {
                 "type" : "ea_t",
@@ -127,6 +103,30 @@ recipe = {
             "type" : "PyObject *",
             "retexpr" : "Py_RETURN_NONE",
             "convertor" : "IDP_Hooks::handle_delay_slot_insn_output",
+            "convertor_pass_args" : True,
+        },
+    },
+    "ev_use_regarg_type" : {
+        "params" : {
+            "idx" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_use_regarg_type_output",
+            "convertor_pass_args" : True,
+        },
+    },
+    "ev_demangle_name" : {
+        "params" : {
+            "outbuf" : { "suppress_for_call" : True, },
+            "res" : { "suppress_for_call" : True, },
+            "demreq" : { "cast_needed" : "int", "type" : "int" },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_demangle_name_output",
             "convertor_pass_args" : True,
         },
     },

@@ -81,7 +81,7 @@ def add_enum_value(enumval_el, name, enum_name):
         rtype = None
         rdefault = None
         rexpr = None
-        recipe_data = recipe[name] if name in recipe else {}
+        recipe_data = recipe.get(name, {})
 
         if "ignore" in recipe_data and recipe_data["ignore"]:
             return
@@ -197,6 +197,7 @@ def gen_methods(out):
                 pname = p["name"]
                 ptype = p["type"]
             suppress_for_call = False
+            final_name = pname
             if "params" in recipe_data:
                 all_pdata = recipe_data["params"]
                 if pname in all_pdata:
@@ -205,9 +206,11 @@ def gen_methods(out):
                         ptype = pdata["type"]
                     if "suppress_for_call" in pdata:
                         suppress_for_call = pdata["suppress_for_call"]
+                    if "rename" in pdata:
+                        final_name = pdata["rename"]
             if not suppress_for_call:
-                arg_strs.append("%s %s" % (ptype, pname))
-                qnotused_decls += "qnotused(%s); " % pname
+                arg_strs.append("%s %s" % (ptype, final_name))
+                qnotused_decls += "qnotused(%s); " % final_name
         text = "virtual %s %s(%s) {%s%s}\n" % (
             rdata["type"],
             method_name,
@@ -236,7 +239,7 @@ def gen_notifications(out):
             pname = p["name"]
             ptype = p["type"]
             pick_type = ptype
-            if ptype in ["bool", "char", "uchar", "uint16", "cref_t", "dref_t", "cm_t", "ui_notification_t", "dbg_notification_t"]:
+            if ptype in ["bool", "char", "uchar", "uint16", "cref_t", "dref_t", "cm_t", "ui_notification_t", "dbg_notification_t", "tcc_renderer_type_t", "range_kind_t", "demreq_type_t"]:
                 cast = ptype
                 pick_type = "int"
             else:

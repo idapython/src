@@ -40,8 +40,8 @@ def find_import_ref(dllname):
             ea = xref.frm
             f = idaapi.get_func(ea)
             if f and (f.flags & idaapi.FUNC_THUNK) != 0:
-                imports.append([f.startEA, idaapi.get_func_name(f.startEA), 0])
-                #print "\t%x %s: from a thunk, parent added %x" % (ea, name, f.startEA)
+                imports.append([f.start_ea, idaapi.get_func_name(f.start_ea), 0])
+                #print "\t%x %s: from a thunk, parent added %x" % (ea, name, f.start_ea)
                 continue
 
             # save results
@@ -54,7 +54,7 @@ def find_import_ref(dllname):
 
 # -----------------------------------------------------------------------
 def main():
-    dllname = idc.AskStr('kernel32', "Enter module name")
+    dllname = idaapi.ask_str('kernel32', 0, "Enter module name")
     if not dllname:
         print("Cancelled")
         return

@@ -17,6 +17,16 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
                   NULL));
   return (py_ret == NULL || !PyNumber_Check(py_ret.o)) ? 1 /* stop enum on failure */ : PyInt_AsLong(py_ret.o);
 }
+
+//-------------------------------------------------------------------------
+struct bytearray_linput_data_t
+{
+  linput_t *li;
+  qstring *bytes;
+};
+DECLARE_TYPE_AS_MOVABLE(bytearray_linput_data_t);
+typedef qvector<bytearray_linput_data_t> bytearray_linput_data_vec_t;
+static bytearray_linput_data_vec_t bytearray_linput_data_vec;
 //</code(py_diskio)>
 
 //<inline(py_diskio)>
@@ -59,6 +69,42 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
   } while ( false );
   Py_RETURN_NONE;
 }
+
+//-------------------------------------------------------------------------
+linput_t *py_create_bytearray_linput(const qstring &s)
+{
+  qstring *bytes = new qstring(s);
+  linput_t *li = create_bytearray_linput((const uchar *) bytes->c_str(), bytes->length());
+  if ( li != NULL )
+  {
+    bytearray_linput_data_t &ld = bytearray_linput_data_vec.push_back();
+    ld.bytes = bytes;
+    ld.li = li;
+  }
+  else
+  {
+    delete bytes;
+  }
+  return li;
+}
+
+//-------------------------------------------------------------------------
+void py_close_linput(linput_t *li)
+{
+  bytearray_linput_data_vec_t::iterator it = bytearray_linput_data_vec.begin();
+  bytearray_linput_data_vec_t::iterator end = bytearray_linput_data_vec.end();
+  for ( ; it != end; ++it )
+  {
+    if ( it->li == li )
+    {
+      delete it->bytes;
+      bytearray_linput_data_vec.erase(it);
+      break;
+    }
+  }
+  close_linput(li);
+}
+
 //</inline(py_diskio)>
 
 #endif

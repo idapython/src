@@ -1,31 +1,9 @@
 // FIXME: These should be fixed
 %ignore requires_color_esc;
-%ignore tag_on;
-%ignore tag_off;
-%ignore tag_addchr;
-%ignore tag_addstr;
-%ignore get_user_defined_prefix;
 // Ignore va_list versions
-%ignore printf_line_v;
-%ignore gen_colored_cmt_line_v;
-%ignore gen_cmt_line_v;
-%ignore add_long_cmt_v;
-%ignore describex;
+%ignore vadd_extra_line;
 // Kernel-only and unexported symbols
-%ignore save_sourcefiles;
-%ignore ml_getcmt_t;
-%ignore ml_getnam_t;
-%ignore ml_genxrf_t;
-%ignore ml_saver_t;
-%ignore setup_makeline;
-%ignore MAKELINE_NONE;
-%ignore MAKELINE_BINPREF;
-%ignore MAKELINE_VOID;
-%ignore MAKELINE_STACK;
-%ignore save_line_in_array;
-%ignore init_lines_array;
-%ignore finish_makeline;
-%ignore makeline_producer_t;
+%ignore get_last_pfxlen;
 %ignore closing_comment;
 %ignore close_comment;
 %ignore init_lines;

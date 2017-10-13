@@ -14,17 +14,18 @@ v1.0.1 - added stack segment bitness detection, thus works with 64bit processes 
 import idaapi
 import idc
 import idautils
+from ida_kernwin import Choose
 
 # -----------------------------------------------------------------------
 # class to take a copy of a segment_t
 class Seg():
     def __init__(self, s):
-        self.startEA = s.startEA
-        self.endEA   = s.endEA
-        self.perm    = s.perm
-        self.bitness = s.bitness
+        self.start_ea = s.start_ea
+        self.end_ea   = s.end_ea
+        self.perm     = s.perm
+        self.bitness  = s.bitness
     def __cmp__(self, other):
-        return cmp(self.startEA, other.startEA)
+        return cmp(self.start_ea, other.start_ea)
 
 # -----------------------------------------------------------------------
 # each item described as:
@@ -59,8 +60,10 @@ def IsPrevInsnCall(ea):
         # get the bytes
         bytes = [x for x in GetDataList(caller, len(opcodes), 1)]
         # do we have a match? is it a call instruction?
-        if bytes == opcodes and idaapi.is_call_insn(caller):
-            return caller
+        if bytes == opcodes:
+            tmp = idaapi.insn_t()
+            if idaapi.decode_insn(tmp, caller) and idaapi.is_call_insn(tmp):
+                return caller
     return None
 
 # -----------------------------------------------------------------------
@@ -77,17 +80,14 @@ def CallStackWalk(nn):
             self.caller = caller
             self.sp     = sp
             f = idaapi.get_func(caller)
-            self.displ = "%08x: " % caller
+            self.displ = ""
             if f:
-                self.displ += idc.GetFunctionName(caller)
-                t = caller - f.startEA
+                self.displ += idc.get_func_name(caller)
+                t = caller - f.start_ea
                 if t > 0: self.displ += "+" + hex(t)
             else:
                 self.displ += hex(caller)
             self.displ += " [" + hex(sp) + "]"
-
-        def __str__(self):
-            return self.displ
 
     # get stack pointer
     sp = cpu.Esp
@@ -99,7 +99,7 @@ def CallStackWalk(nn):
     word_size = 2 ** (seg.bitness + 1)
     callers = []
     sp = cpu.Esp - word_size
-    while sp < stack_seg.endEA:
+    while sp < stack_seg.end_ea:
         sp += word_size
         ptr = idautils.GetDataList(sp, 1, word_size).next()
         seg = idaapi.getseg(ptr)
@@ -121,13 +121,13 @@ def CallStackWalk(nn):
                 f = idaapi.get_func(ea)
                 if not f:
                     # create function
-                    idc.MakeFunction(ea, idaapi.BADADDR)
+                    idc.add_func(ea, idaapi.BADADDR)
 
         # get the flags
-        f = idc.GetFlags(caller)
+        f = idc.get_flags(caller)
         # no code there?
-        if not isCode(f):
-            MakeCode(caller)
+        if not is_code(f):
+            create_insn(caller)
 
         callers.append(Result(caller, sp))
     #
@@ -136,27 +136,38 @@ def CallStackWalk(nn):
 # -----------------------------------------------------------------------
 # Chooser class
 class CallStackWalkChoose(Choose):
-    def __init__(self, list, title):
-        Choose.__init__(self, list, title)
-        self.width = 250
+    def __init__(self, title, items):
+        Choose.__init__(self, title, [ ["Caller", 16], ["Display", 250] ])
+        self.items = items
 
-    def enter(self, n):
-        o = self.list[n-1]
-        idc.Jump(o.caller)
+    def OnGetLine(self, n):
+        o = self.items[n]
+        line = []
+        line.append("%X" % o.caller)
+        line.append("%s" % o.displ)
+        return line
+
+    def OnGetSize(self):
+        return len(self.items)
+
+    def OnSelectLine(self, n):
+        o = self.items[n]
+        jumpto(o.caller)
+        return (Choose.NOTHING_CHANGED, )
 
 # -----------------------------------------------------------------------
 def main():
     if not idaapi.is_debugger_on():
-        idc.Warning("Please run the process first!")
+        idc.warning("Please run the process first!")
         return
     if idaapi.get_process_state() != -1:
-        idc.Warning("Please suspend the debugger first!")
+        idc.warning("Please suspend the debugger first!")
         return
 
     # only avail from IdaPython r232
     if hasattr(idaapi, "NearestName"):
         # get all debug names
-        dn = idaapi.get_debug_names(idaapi.cvar.inf.minEA, idaapi.cvar.inf.maxEA)
+        dn = idaapi.get_debug_names(idaapi.cvar.inf.min_ea, idaapi.cvar.inf.max_ea)
         # initiate a nearest name search (using debug names)
         nn = idaapi.NearestName(dn)
     else:
@@ -164,12 +175,12 @@ def main():
 
     ret, callstack = CallStackWalk(nn)
     if ret:
-        title = "Call stack walker (thread %X)" % (GetCurrentThreadId())
+        title = "Call stack walker (thread %X)" % (get_current_thread())
         idaapi.close_chooser(title)
-        c = CallStackWalkChoose(callstack, title)
-        c.choose()
+        c = CallStackWalkChoose(title, callstack)
+        c.Show()
     else:
-        idc.Warning("Failed to walk the stack:" + callstack)
+        idc.warning("Failed to walk the stack:" + callstack)
 
 # -----------------------------------------------------------------------
 main()

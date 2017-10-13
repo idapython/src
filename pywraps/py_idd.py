@@ -155,7 +155,7 @@ class Appcall_callable__(object):
     def __get_size(self):
         if self.__type == None:
             return -1
-        r = _ida_typeinf.calc_type_size(_ida_typeinf.cvar.idati, self.__type)
+        r = _ida_typeinf.calc_type_size(None, self.__type)
         if not r:
             return -1
         return r
@@ -188,9 +188,9 @@ class Appcall_callable__(object):
             src = self.ea
 
         if type(src) == types.StringType:
-            return _ida_typeinf.unpack_object_from_bv(_ida_typeinf.cvar.idati, self.type, self.fields, src, flags)
+            return _ida_typeinf.unpack_object_from_bv(None, self.type, self.fields, src, flags)
         else:
-            return _ida_typeinf.unpack_object_from_idb(_ida_typeinf.cvar.idati, self.type, self.fields, src, flags)
+            return _ida_typeinf.unpack_object_from_idb(None, self.type, self.fields, src, flags)
 
     def store(self, obj, dest_ea=None, base_ea=0, flags=0):
         """
@@ -207,14 +207,14 @@ class Appcall_callable__(object):
         # no ea passed? thus pack to a string
         if dest_ea is None:
             return _ida_typeinf.pack_object_to_bv(obj,
-                                             _ida_typeinf.cvar.idati,
+                                             None,
                                              self.type,
                                              self.fields,
                                              base_ea,
                                              flags)
         else:
             return _ida_typeinf.pack_object_to_idb(obj,
-                                              _ida_typeinf.cvar.idati,
+                                              None,
                                               self.type,
                                               self.fields,
                                               dest_ea,
@@ -277,7 +277,7 @@ class Appcall__(object):
         else:
             ea = name_or_ea
         # could not resolve name or invalid address?
-        if ea == _ida_idaapi.BADADDR or not _ida_bytes.isEnabled(ea):
+        if ea == _ida_idaapi.BADADDR or not _ida_bytes.is_mapped(ea):
             raise ValueError, "Undefined function " + name_or_ea
         return ea
 
@@ -299,7 +299,7 @@ class Appcall__(object):
         if flags is None:
             flags = 1 | 2 | 4 # PT_SIL | PT_NDC | PT_TYP
 
-        result = _ida_typeinf.idc_parse_decl(_ida_typeinf.cvar.idati, prototype, flags)
+        result = _ida_typeinf.idc_parse_decl(None, prototype, flags)
         if result is None:
             raise ValueError, "Could not parse type: " + prototype
 
@@ -389,7 +389,7 @@ class Appcall__(object):
         @return: Appcall object or raises ValueError exception
         """
         # parse the type
-        result = _ida_typeinf.idc_parse_decl(_ida_typeinf.cvar.idati, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
+        result = _ida_typeinf.idc_parse_decl(None, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
         if result is None:
             raise ValueError, "Could not parse type: " + typestr
         # Return the callable method with type info
@@ -414,3 +414,7 @@ class Appcall__(object):
 
 Appcall = Appcall__()
 #</pycode(py_idd)>
+
+#<pycode_BC695(py_idd)>
+PROCESS_NO_THREAD=NO_THREAD
+#</pycode_BC695(py_idd)>

@@ -23,10 +23,10 @@ def main():
         # No function there, try to get the next one
         func = get_next_func(func_ea)
 
-    seg_end = seg.endEA
-    while func is not None and func.startEA < seg_end:
-        funcea = func.startEA
-        print "Function %s at 0x%x" % (GetFunctionName(funcea), funcea)
+    seg_end = seg.end_ea
+    while func is not None and func.start_ea < seg_end:
+        funcea = func.start_ea
+        print "Function %s at 0x%x" % (get_func_name(funcea), funcea)
 
         ref = get_first_cref_to(funcea)
 

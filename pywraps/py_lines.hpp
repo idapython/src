@@ -5,19 +5,18 @@
 //------------------------------------------------------------------------
 static PyObject *py_get_user_defined_prefix = NULL;
 static void idaapi s_py_get_user_defined_prefix(
-  ea_t ea,
-  int lnnum,
-  int indent,
-  const char *line,
-  char *buf,
-  size_t bufsize)
+        qstring *buf,
+        ea_t ea,
+        int lnnum,
+        int indent,
+        const char *line)
 {
   PYW_GIL_GET;
   newref_t py_ret(
           PyObject_CallFunction(
                   py_get_user_defined_prefix,
-                  PY_FMT64 "iis" PY_FMT64,
-                  ea, lnnum, indent, line, bufsize));
+                  PY_BV_EA "iis" PY_BV_SZ,
+                  bvea_t(ea), lnnum, indent, line));
 
   // Error? Display it
   // No error? Copy the buffer
@@ -27,9 +26,8 @@ static void idaapi s_py_get_user_defined_prefix(
     char *py_str;
     if ( PyString_AsStringAndSize(py_ret.o, &py_str, &py_len) != -1 )
     {
-      memcpy(buf, py_str, qmin(bufsize, py_len));
-      if ( py_len < bufsize )
-        buf[py_len] = '\0';
+      buf->qclear();
+      buf->append(py_str, py_len);
     }
   }
 }
@@ -56,7 +54,6 @@ def set_user_defined_prefix(width, callback):
                    indent and is used for instruction itself. see explanations for printf_line()
           line   - the line to be generated. the line usually contains color tags this argument
                    can be examined to decide whether to generated the prefix
-          bufsize- the maximum allowed size of the output buffer
         It returns a buffer of size < bufsize
 
     In order to remove the callback before unloading the plugin, specify the width = 0 or the callback = None
@@ -103,9 +100,7 @@ def tag_remove(colstr):
     """
     Remove color escape sequences from a string
     @param colstr: the colored string with embedded tags
-    @return:
-        None on failure
-        or a new string w/o the tags
+    @return: a new string w/o the tags
     """
     pass
 #</pydoc>
@@ -113,41 +108,18 @@ def tag_remove(colstr):
 PyObject *py_tag_remove(const char *instr)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  size_t sz = strlen(instr);
-  // Can't call tag_remove() with a size of 0; debug builds will INTERR 1270
-  if ( sz > 0 )
-  {
-    char *buf = new char[sz + 5];
-    if ( buf == NULL )
-      Py_RETURN_NONE;
-
-    ssize_t r = tag_remove(instr, buf, sz);
-    PyObject *res;
-    if ( r < 0 )
-    {
-      Py_INCREF(Py_None);
-      res = Py_None;
-    }
-    else
-    {
-      res = PyString_FromString(buf);
-    }
-    delete [] buf;
-    return res;
-  }
-  else
-  {
-    return PyString_FromString("");
-  }
+  qstring qbuf;
+  tag_remove(&qbuf, instr);
+  return PyString_FromString(qbuf.c_str());
 }
 
 //-------------------------------------------------------------------------
 PyObject *py_tag_addr(ea_t ea)
 {
-  char buf[100];
-  tag_addr(buf, buf + sizeof(buf), ea);
+  qstring tag;
+  tag_addr(&tag, ea);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyString_FromString(buf);
+  return PyString_FromString(tag.begin());
 }
 
 //-------------------------------------------------------------------------
@@ -187,35 +159,32 @@ def generate_disassembly(ea, max_lines, as_stack, notags):
 #</pydoc>
 */
 PyObject *py_generate_disassembly(
-  ea_t ea,
-  int max_lines,
-  bool as_stack,
-  bool notags)
+        ea_t ea,
+        int max_lines,
+        bool as_stack,
+        bool notags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( max_lines <= 0 )
     Py_RETURN_NONE;
 
   qstring qbuf;
-  char **lines = new char *[max_lines];
+  qstrvec_t lines;
   int lnnum;
-  int nlines = generate_disassembly(ea, lines, max_lines, &lnnum, as_stack);
+  int nlines = generate_disassembly(&lines, &lnnum, ea, max_lines, as_stack);
 
   newref_t py_tuple(PyTuple_New(nlines));
   for ( int i=0; i < nlines; i++ )
   {
-    const char *s = lines[i];
-    size_t line_len = strlen(s);
+    const qstring &l = lines[i];
+    const char *s = l.c_str();
     if ( notags )
     {
-      qbuf.resize(line_len+5);
-      tag_remove(s, &qbuf[0], line_len);
-      s = (const char *)&qbuf[0];
+      tag_remove(&qbuf, l);
+      s = qbuf.c_str();
     }
     PyTuple_SetItem(py_tuple.o, i, PyString_FromString(s));
-    qfree(lines[i]);
   }
-  delete [] lines;
   return Py_BuildValue("(iO)", lnnum, py_tuple.o);
 }
 //</inline(py_lines)>

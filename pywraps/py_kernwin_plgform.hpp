@@ -7,18 +7,18 @@ class plgform_t
 {
 private:
   ref_t py_obj;
-  TForm *form;
+  TWidget *widget;
 
-  static int idaapi s_callback(void *ud, int notification_code, va_list va)
+  static ssize_t idaapi s_callback(void *ud, int notification_code, va_list va)
   {
     // This hook gets called from the kernel. Ensure we hold the GIL.
     PYW_GIL_GET;
 
     plgform_t *_this = (plgform_t *)ud;
-    if ( notification_code == ui_tform_visible )
+    if ( notification_code == ui_widget_visible )
     {
-      TForm *form = va_arg(va, TForm *);
-      if ( form == _this->form )
+      TWidget *widget = va_arg(va, TWidget *);
+      if ( widget == _this->widget )
       {
         // Qt: QWidget*
         // G: HWND
@@ -28,21 +28,21 @@ private:
                 PyObject_CallMethod(
                         _this->py_obj.o,
                         (char *)S_ON_CREATE, "O",
-                        PyCObject_FromVoidPtr(form, NULL)));
+                        PyCObject_FromVoidPtr(widget, NULL)));
         PyW_ShowCbErr(S_ON_CREATE);
       }
     }
-    else if ( notification_code == ui_tform_invisible )
+    else if ( notification_code == ui_widget_invisible )
     {
-      TForm *form = va_arg(va, TForm *);
-      if ( form == _this->form )
+      TWidget *widget = va_arg(va, TWidget *);
+      if ( widget == _this->widget )
       {
         {
           newref_t py_result(
                   PyObject_CallMethod(
                           _this->py_obj.o,
                           (char *)S_ON_CLOSE, "O",
-                          PyCObject_FromVoidPtr(form, NULL)));
+                          PyCObject_FromVoidPtr(widget, NULL)));
           PyW_ShowCbErr(S_ON_CLOSE);
         }
         _this->unhook();
@@ -53,8 +53,8 @@ private:
 
   void unhook()
   {
-    unhook_from_notification_point(HT_UI, s_callback, this);
-    form = NULL;
+    idapython_unhook_from_notification_point(HT_UI, s_callback, this);
+    widget = NULL;
 
     // Call DECREF at last, since it may trigger __del__
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -62,24 +62,24 @@ private:
   }
 
 public:
-  plgform_t(): form(NULL)
+  plgform_t(): widget(NULL)
   {
   }
 
   bool show(
-    PyObject *obj,
-    const char *caption,
-    int options)
+          PyObject *obj,
+          const char *caption,
+          int options)
   {
     // Already displayed?
-    TForm *f = find_tform(caption);
+    TWidget *f = find_widget(caption);
     if ( f != NULL )
     {
       // Our form?
-      if ( f == form )
+      if ( f == widget )
       {
         // Switch to it
-        switchto_tform(form, true);
+        activate_widget(widget, true);
         return true;
       }
       // Fail to create
@@ -87,30 +87,27 @@ public:
     }
 
     // Create a form
-    form = create_tform(caption, NULL);
-    if ( form == NULL )
+    widget = create_empty_widget(caption);
+    if ( widget == NULL )
       return false;
 
-    if ( !hook_to_notification_point(HT_UI, s_callback, this) )
+    if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this) )
     {
-      form = NULL;
+      widget = NULL;
       return false;
     }
 
     py_obj = borref_t(obj);
 
-    if ( is_idaq() )
-      options |= FORM_QWIDGET;
-
-    this->form = form;
-    open_tform(form, options);
+    this->widget = widget;
+    display_widget(widget, options);
     return true;
   }
 
   void close(int options = 0)
   {
-    if ( form != NULL )
-      close_tform(form, options);
+    if ( widget != NULL )
+      close_widget(widget, options);
   }
 
   static PyObject *create()
@@ -135,18 +132,18 @@ static PyObject *plgform_new()
 }
 
 static bool plgform_show(
-  PyObject *py_link,
-  PyObject *py_obj,
-  const char *caption,
-  int options = FORM_TAB|FORM_MENU|FORM_RESTORE)
+        PyObject *py_link,
+        PyObject *py_obj,
+        const char *caption,
+        int options = WOPN_TAB|WOPN_MENU|WOPN_RESTORE)
 {
   DECL_PLGFORM;
   return plgform->show(py_obj, caption, options);
 }
 
 static void plgform_close(
-  PyObject *py_link,
-  int options)
+        PyObject *py_link,
+        int options)
 {
   DECL_PLGFORM;
   plgform->close(options);

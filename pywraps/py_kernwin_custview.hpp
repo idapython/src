@@ -141,8 +141,7 @@ class customviewer_t
 {
 protected:
   qstring _title;
-  TForm *_form;
-  TCustomControl *_cv;
+  TWidget *_cv;
   custviewer_data_t *_data;
   int _features;
   custom_viewer_handlers_t handlers;
@@ -166,27 +165,14 @@ private:
     cvw_popupctx_t(size_t mid, customviewer_t *v): menu_id(mid), cv(v) {}
   };
   typedef std::map<unsigned int, cvw_popupctx_t> cvw_popupmap_t;
-  static cvw_popupmap_t _global_popup_map;
   static size_t _global_popup_id;
   qstring _curline;
-  intvec_t _installed_popups;
-
-  static bool idaapi s_popup_menu_cb(void *ud)
-  {
-    size_t mid = (size_t)ud;
-    cvw_popupmap_t::iterator it = _global_popup_map.find(mid);
-    if ( it == _global_popup_map.end() )
-      return false;
-
-    PYW_GIL_GET;
-    return it->second.cv->on_popup_menu(it->second.menu_id);
-  }
 
   static bool idaapi s_cv_keydown(
-      TCustomControl * /*cv*/,
-      int vk_key,
-      int shift,
-      void *ud)
+          TWidget * /*cv*/,
+          int vk_key,
+          int shift,
+          void *ud)
   {
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
@@ -194,7 +180,7 @@ private:
   }
 
   // The popup menu is being constructed
-  static void idaapi s_cv_popup(TCustomControl * /*cv*/, void *ud)
+  static void idaapi s_cv_popup(TWidget * /*cv*/, void *ud)
   {
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
@@ -202,7 +188,7 @@ private:
   }
 
   // The user clicked
-  static bool idaapi s_cv_click(TCustomControl * /*cv*/, int shift, void *ud)
+  static bool idaapi s_cv_click(TWidget * /*cv*/, int shift, void *ud)
   {
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
@@ -210,7 +196,7 @@ private:
   }
 
   // The user double clicked
-  static bool idaapi s_cv_dblclick(TCustomControl * /*cv*/, int shift, void *ud)
+  static bool idaapi s_cv_dblclick(TWidget * /*cv*/, int shift, void *ud)
   {
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
@@ -218,7 +204,7 @@ private:
   }
 
   // Cursor position has been changed
-  static void idaapi s_cv_curpos(TCustomControl * /*cv*/, void *ud)
+  static void idaapi s_cv_curpos(TWidget * /*cv*/, void *ud)
   {
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
@@ -226,7 +212,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  static int idaapi s_ui_cb(void *ud, int code, va_list va)
+  static ssize_t idaapi s_ui_cb(void *ud, int code, va_list va)
   {
     // This hook gets called from the kernel. Ensure we hold the GIL.
     PYW_GIL_GET;
@@ -235,25 +221,25 @@ private:
     {
     case ui_get_custom_viewer_hint:
       {
-        TCustomControl *viewer = va_arg(va, TCustomControl *);
-        place_t *place         = va_arg(va, place_t *);
-        int *important_lines   = va_arg(va, int *);
-        qstring &hint          = *va_arg(va, qstring *);
+        qstring &hint = *va_arg(va, qstring *);
+        TWidget *viewer = va_arg(va, TWidget *);
+        place_t *place = va_arg(va, place_t *);
+        int *important_lines = va_arg(va, int *);
         if ( (_this->_features & HAVE_HINT) == 0 || place == NULL || _this->_cv != viewer )
           return 0;
         else
           return _this->on_hint(place, important_lines, hint) ? 1 : 0;
       }
 
-    case ui_tform_invisible:
+    case ui_widget_invisible:
       {
-        TForm *form = va_arg(va, TForm *);
-        if ( _this->_form != form )
+        TWidget *widget = va_arg(va, TWidget *);
+        if ( _this->_cv != widget )
           break;
       }
       // fallthrough...
     case ui_term:
-      unhook_from_notification_point(HT_UI, s_ui_cb, _this);
+      idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
       _this->on_close();
       _this->on_post_close();
       break;
@@ -265,13 +251,11 @@ private:
   void on_post_close()
   {
     init_vars();
-    clear_popup_menu();
   }
 
 public:
 
-  inline TForm *get_tform() { return _form; }
-  inline TCustomControl *get_tcustom_control() { return _cv; }
+  inline TWidget *get_widget() { return _cv; }
 
   //
   // All the overridable callbacks
@@ -307,7 +291,6 @@ public:
     _features = 0;
     _curline.clear();
     _cv = NULL;
-    _form = NULL;
   }
 
   customviewer_t()
@@ -322,8 +305,8 @@ public:
   //--------------------------------------------------------------------------
   void close()
   {
-    if ( _form != NULL )
-      close_tform(_form, FORM_SAVE | FORM_CLOSE_LATER);
+    if ( _cv != NULL )
+      close_widget(_cv, WCLS_SAVE | WCLS_CLOSE_LATER);
   }
 
   //--------------------------------------------------------------------------
@@ -404,12 +387,8 @@ public:
     if ( r == NULL || !notags )
       return r;
 
-    size_t sz = strlen(r);
-    if ( sz == 0 )
-      return r;
-
-    _curline.resize(sz + 5, '\0');
-    tag_remove(r, &_curline[0], sz + 1);
+    _curline = r;
+    tag_remove(&_curline);
     return _curline.c_str();
   }
 
@@ -425,63 +404,19 @@ public:
     return ::jumpto(_cv, place, x, y);
   }
 
-  //--------------------------------------------------------------------------
-  void clear_popup_menu()
-  {
-    if ( _cv != NULL )
-      set_custom_viewer_popup_menu(_cv, NULL);
-
-    intvec_t::iterator it, it_end;
-    for ( it=_installed_popups.begin(), it_end=_installed_popups.end();
-          it != it_end;
-          ++it )
-    {
-      _global_popup_map.erase(*it);
-    }
-    _installed_popups.clear();
-  }
-
-  //--------------------------------------------------------------------------
-  size_t add_popup_menu(
-    const char *title,
-    const char *hotkey)
-  {
-    size_t menu_id = _global_popup_id + 1;
-
-    // Overlap / already exists?
-    if ( _cv == NULL  // No custviewer?
-      || menu_id == 0 // Overlap?
-      || _global_popup_map.find(menu_id) != _global_popup_map.end() ) // Already exists?
-    {
-      return 0;
-    }
-    add_custom_viewer_popup_item(_cv, title, hotkey, s_popup_menu_cb, (void *)menu_id);
-
-    // Save global association
-    _global_popup_map[menu_id] = cvw_popupctx_t(menu_id, this);
-    _global_popup_id = menu_id;
-
-    // Remember what menu IDs are set with this form
-    _installed_popups.push_back(menu_id);
-    return menu_id;
-  }
-
-  //--------------------------------------------------------------------------
   bool create(const char *title, int features, custviewer_data_t *data)
   {
     // Already created? (in the instance)
-    if ( _form != NULL )
+    if ( _cv != NULL )
       return true;
 
     // Already created? (in IDA windows list)
-    HWND hwnd(NULL);
-    TForm *form = create_tform(title, &hwnd);
-    if ( hwnd == NULL )
+    TWidget *found = find_widget(title);
+    if ( found != NULL )
       return false;
 
     _title    = title;
     _data     = data;
-    _form     = form;
     _features = features;
 
     //
@@ -505,7 +440,6 @@ public:
     // Create the viewer
     _cv = create_custom_viewer(
       title,
-      (TWinControl *)_form,
       _data->get_min(),
       _data->get_max(),
       _data->get_min(),
@@ -514,8 +448,8 @@ public:
       &handlers,
       this);
 
-    // Hook to UI notifications (for TForm close event)
-    hook_to_notification_point(HT_UI, s_ui_cb, this);
+    // Hook to UI notifications (for TWidget close event)
+    idapython_hook_to_notification_point(HT_UI, s_ui_cb, this);
 
     return true;
   }
@@ -524,15 +458,14 @@ public:
   bool show()
   {
     // Closed already?
-    if ( _form == NULL )
+    if ( _cv == NULL )
       return false;
 
-    open_tform(_form, FORM_TAB|FORM_MENU|FORM_RESTORE|FORM_QWIDGET);
+    display_widget(_cv, WOPN_TAB|WOPN_MENU|WOPN_RESTORE);
     return true;
   }
 };
 
-customviewer_t::cvw_popupmap_t customviewer_t::_global_popup_map;
 size_t customviewer_t::_global_popup_id = 0;
 //---------------------------------------------------------------------------
 class py_simplecustview_t: public customviewer_t
@@ -675,8 +608,8 @@ private:
             PyObject_CallMethod(
                     py_self,
                     (char *)S_ON_HINT,
-                    PY_FMT64,
-                    pyul_t(ln)));
+                    PY_BV_SZ,
+                    bvsz_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
     bool ok = py_result != NULL && PyTuple_Check(py_result.o) && PyTuple_Size(py_result.o) == 2;
@@ -698,8 +631,8 @@ private:
             PyObject_CallMethod(
                     py_self,
                     (char *)S_ON_POPUP_MENU,
-                    PY_FMT64,
-                    pyul_t(menu_id)));
+                    PY_BV_SZ,
+                    bvsz_t(menu_id)));
     PyW_ShowCbErr(S_ON_POPUP_MENU);
     return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
@@ -776,7 +709,7 @@ public:
     PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( pl == NULL )
       Py_RETURN_NONE;
-    return Py_BuildValue("(" PY_FMT64 "ii)", pyul_t(data.to_lineno(pl)), x, y);
+    return Py_BuildValue("(" PY_BV_SZ "ii)", bvsz_t(data.to_lineno(pl)), x, y);
   }
 
   //--------------------------------------------------------------------------
@@ -815,7 +748,7 @@ public:
   bool init(PyObject *py_link, const char *title)
   {
     // Already created?
-    if ( _form != NULL )
+    if ( _cv != NULL )
       return true;
 
     // Probe callbacks
@@ -859,8 +792,7 @@ public:
   //--------------------------------------------------------------------------
   bool show()
   {
-    // Form was closed, but object already linked?
-    if ( _form == NULL && py_last_link != NULL )
+    if ( _cv == NULL && py_last_link != NULL )
     {
       // Re-create the view (with same previous parameters)
       if ( !init(py_last_link, _title.c_str()) )
@@ -876,7 +808,7 @@ public:
       return false;
 
     twinpos_t p1, p2;
-    if ( !::readsel2(_cv, &p1, &p2) )
+    if ( !::read_selection(_cv, &p1, &p2) )
       return false;
 
     if ( y1 != NULL )
@@ -896,7 +828,9 @@ public:
     PYW_GIL_CHECK_LOCKED_SCOPE();
     if ( !get_selection(&x1, &y1, &x2, &y2) )
       Py_RETURN_NONE;
-    return Py_BuildValue("(" PY_FMT64 PY_FMT64 PY_FMT64 PY_FMT64 ")", pyul_t(x1), pyul_t(y1), pyul_t(x2), pyul_t(y2));
+    return Py_BuildValue(
+            "(" PY_BV_SZ PY_BV_SZ PY_BV_SZ PY_BV_SZ ")",
+            bvsz_t(x1), bvsz_t(y1), bvsz_t(x2), bvsz_t(y2));
   }
 
   static py_simplecustview_t *get_this(PyObject *py_this)
@@ -982,19 +916,6 @@ bool pyscv_is_focused(PyObject *py_this)
   if ( _this == NULL )
     return false;
   return _this->is_focused();
-}
-
-void pyscv_clear_popup_menu(PyObject *py_this)
-{
-  DECL_THIS;
-  if ( _this != NULL )
-    _this->clear_popup_menu();
-}
-
-size_t pyscv_add_popup_menu(PyObject *py_this, const char *title, const char *hotkey)
-{
-  DECL_THIS;
-  return _this == NULL ? 0 : _this->add_popup_menu(title, hotkey);
 }
 
 size_t pyscv_count(PyObject *py_this)
@@ -1123,17 +1044,10 @@ bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 }
 
 //-------------------------------------------------------------------------
-TForm *pyscv_get_tform(PyObject *py_this)
+TWidget *pyscv_get_widget(PyObject *py_this)
 {
   DECL_THIS;
-  return _this == NULL ? NULL : _this->get_tform();
-}
-
-//-------------------------------------------------------------------------
-TCustomControl *pyscv_get_tcustom_control(PyObject *py_this)
-{
-  DECL_THIS;
-  return _this == NULL ? NULL : _this->get_tcustom_control();
+  return _this == NULL ? NULL : _this->get_widget();
 }
 
 

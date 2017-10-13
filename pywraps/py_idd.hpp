@@ -11,11 +11,11 @@ static bool dbg_can_query()
 
 //-------------------------------------------------------------------------
 PyObject *py_appcall(
-  ea_t func_ea,
-  thid_t tid,
-  PyObject *py_type,
-  PyObject *py_fields,
-  PyObject *arg_list)
+        ea_t func_ea,
+        thid_t tid,
+        PyObject *py_type,
+        PyObject *py_fields,
+        PyObject *arg_list)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
@@ -24,6 +24,10 @@ PyObject *py_appcall(
 
   const char *type   = py_type == Py_None ? NULL : PyString_AS_STRING(py_type);
   const char *fields = py_fields == Py_None ? NULL : PyString_AS_STRING(py_fields);
+  tinfo_t tif;
+  tinfo_t *ptif = NULL;
+  if ( tif.deserialize(NULL, (const type_t **)&type, (const p_list **)&fields) )
+    ptif = &tif;
 
   // Convert Python arguments into IDC values
   qvector<idc_value_t> idc_args;
@@ -70,21 +74,19 @@ PyObject *py_appcall(
     qstring s;
     for ( Py_ssize_t i=0; i < nargs; i++ )
     {
-      VarPrint(&s, &idc_args[i]);
+      print_idcv(&s, idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
       s.qclear();
     }
   }
 
   // Do Appcall
-  ret = appcall(
-    func_ea,
-    tid,
-    (type_t *)type,
-    (p_list *)fields,
-    idc_args.size(),
-    idc_args.begin(),
-    &idc_result);
+  ret = dbg_appcall(&idc_result,
+                    func_ea,
+                    tid,
+                    ptif,
+                    idc_args.begin(),
+                    idc_args.size());
 
   Py_END_ALLOW_THREADS;
 
@@ -102,9 +104,7 @@ PyObject *py_appcall(
     // An error in the Appcall? (or an exception but AppCallOptions/DEBEV is not set)
     else
     {
-      char err_str[MAXSTR];
-      qstrerror(ret, err_str, sizeof(err_str));
-      PyErr_SetString(PyExc_Exception, err_str);
+      PyErr_SetString(PyExc_Exception, qstrerror(ret));
       return NULL;
     }
   }
@@ -116,7 +116,7 @@ PyObject *py_appcall(
     qstring s;
     for ( Py_ssize_t i=0; i < nargs; i++ )
     {
-      VarPrint(&s, &idc_args[i]);
+      print_idcv(&s, idc_args[i]);
       msg("%d]\n%s\n-----------\n", int(i), s.c_str());
       s.qclear();
     }
@@ -147,7 +147,7 @@ PyObject *py_appcall(
     msg("return var:\n"
         "-----------\n");
     qstring s;
-    VarPrint(&s, &idc_result);
+    print_idcv(&s, idc_result);
     msg("%s\n-----------\n", s.c_str());
   }
   py_result.incref();
@@ -166,7 +166,7 @@ def dbg_get_registers():
     Basically, it returns an array of structure similar to to idd.hpp / register_info_t
     @return:
         None if no debugger is loaded
-        tuple(name, flags, class, dtyp, bit_strings, default_bit_strings_mask)
+        tuple(name, flags, class, dtype, bit_strings, default_bit_strings_mask)
         The bit_strings can be a tuple of strings or None (if the register does not have bit_strings)
     """
     pass
@@ -190,7 +190,7 @@ static PyObject *dbg_get_registers()
     // (Make sure it does not use custom formats because bit_string would be the format name)
     if ( ri.bit_strings != NULL && (ri.flags & REGISTER_CUSTFMT) == 0 )
     {
-      int nbits = (int)b2a_width((int)get_dtyp_size(ri.dtyp), 0) * 4;
+      int nbits = (int)b2a_width((int)get_dtype_size(ri.dtype), 0) * 4;
       py_bits = PyList_New(nbits);
       for ( int i=0; i < nbits; i++ )
       {
@@ -204,13 +204,13 @@ static PyObject *dbg_get_registers()
       py_bits = Py_None;
     }
 
-    // name, flags, class, dtyp, bit_strings, default_bit_strings_mask
+    // name, flags, class, dtype, bit_strings, default_bit_strings_mask
     PyList_SetItem(py_list, i,
       Py_BuildValue("(sIIINI)",
         ri.name,
         ri.flags,
         (unsigned int)ri.register_class,
-        (unsigned int)ri.dtyp,
+        (unsigned int)ri.dtype,
         py_bits,
         (unsigned int)ri.default_bit_strings_mask));
   }
@@ -241,10 +241,10 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
   ea_t answer;
   thid_t tid = PyInt_AsLong(py_tid);
   int sreg_value = PyInt_AsLong(py_sreg_value);
-  if ( internal_get_sreg_base(tid, sreg_value, &answer) != 1 )
+  if ( internal_get_sreg_base(&answer, tid, sreg_value) != 1 )
     Py_RETURN_NONE;
 
-  return Py_BuildValue(PY_FMT64, pyul_t(answer));
+  return Py_BuildValue(PY_BV_EA, bvea_t(answer));
 }
 
 //-------------------------------------------------------------------------
@@ -343,7 +343,7 @@ def dbg_get_memory_info():
     This function returns the memory configuration of a debugged process.
     @return:
         None if no debugger is active
-        tuple(startEA, endEA, name, sclass, sbase, bitness, perm)
+        tuple(start_ea, end_ea, name, sclass, sbase, bitness, perm)
     """
     pass
 #</pydoc>
@@ -356,14 +356,14 @@ static PyObject *dbg_get_memory_info()
     Py_RETURN_NONE;
 
   // Invalidate memory
-  meminfo_vec_t areas;
+  meminfo_vec_t ranges;
   Py_BEGIN_ALLOW_THREADS;
   invalidate_dbgmem_config();
   invalidate_dbgmem_contents(BADADDR, BADADDR);
 
-  get_dbg_memory_info(&areas);
+  get_dbg_memory_info(&ranges);
   Py_END_ALLOW_THREADS;
-  return meminfo_vec_t_to_py(areas);
+  return meminfo_vec_t_to_py(ranges);
 }
 
 //-------------------------------------------------------------------------
@@ -384,11 +384,11 @@ def dbg_can_query():
 */
 static bool dbg_can_query();
 PyObject *py_appcall(
-  ea_t func_ea,
-  thid_t tid,
-  PyObject *py_type,
-  PyObject *py_fields,
-  PyObject *arg_list);
+        ea_t func_ea,
+        thid_t tid,
+        PyObject *py_type,
+        PyObject *py_fields,
+        PyObject *arg_list);
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)
 {

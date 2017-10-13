@@ -1,6 +1,6 @@
 // Ignore functions with callbacks
 
-%import "area.i"
+%import "range.i"
 
 %ignore enumerate_selectors;
 %ignore enumerate_segments_with_selector;
@@ -22,8 +22,20 @@
 
 %extend segment_t
 {
-  ea_t startEA;
-  ea_t endEA;
+  ea_t start_ea;
+  ea_t end_ea;
+}
+
+#ifdef __EA64__
+%apply ulonglong *OUTPUT { sel_t *sel, ea_t *base }; // getn_selector()
+#else
+%apply unsigned int *OUTPUT { sel_t *sel, ea_t *base }; // getn_selector()
+#endif
+
+%typemap(check) (sel_t *sel, ea_t *base) {
+  // getn_selector() check
+  *($1) = BADSEL;
+  *($2) = BADADDR;
 }
 
 %include "segment.hpp"

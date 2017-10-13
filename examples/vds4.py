@@ -53,17 +53,17 @@ def run():
 
             print "Number format at %a, operand %d: %s" % (ol.ea, ol.opnum, "negated " if (nf.props & NF_NEGATE) != 0 else "")
 
-            if nf.isEnum():
+            if nf.is_enum():
                 print "enum %s (serial %d)" % (str(nf.type_name), nf.serial)
 
-            elif nf.isChar():
+            elif nf.is_char():
                 print "char"
 
-            elif nf.isStroff():
+            elif nf.is_stroff():
                 print "struct offset %s" % (str(nf.type_name), )
 
             else:
-                print "number base=%d" % (idaapi.getRadix(nf.flags, ol.opnum), )
+                print "number base=%d" % (idaapi.get_radix(nf.flags, ol.opnum), )
 
         idaapi.user_numforms_free(numforms)
 

@@ -42,13 +42,13 @@ def get_idasgn_desc(n):
 */
 static PyObject *py_get_idasgn_desc(int n)
 {
-  char signame[MAXSTR];
-  char optlibs[MAXSTR];
+  qstring signame;
+  qstring optlibs;
 
-  if ( get_idasgn_desc(n, signame, sizeof(signame), optlibs, sizeof(optlibs)) < 0 )
+  if ( get_idasgn_desc(&signame, &optlibs, n) < 0 )
     Py_RETURN_NONE;
   else
-    return Py_BuildValue("(ss)", signame, optlibs);
+    return Py_BuildValue("(ss)", signame.c_str(), optlibs.c_str());
 }
 
 //-----------------------------------------------------------------------
@@ -67,42 +67,14 @@ def get_idasgn_desc_with_matches(n):
 */
 static PyObject *py_get_idasgn_desc_with_matches(int n)
 {
-  char signame[MAXSTR];
-  char optlibs[MAXSTR];
+  qstring signame;
+  qstring optlibs;
 
-  int32 matches = get_idasgn_desc(n, signame, sizeof(signame), optlibs, sizeof(optlibs));
+  int32 matches = get_idasgn_desc(&signame, &optlibs, n);
   if ( matches < 0 )
     Py_RETURN_NONE;
   else
-    return Py_BuildValue("(ssi)", signame, optlibs, matches);
-}
-
-//-----------------------------------------------------------------------
-/*
-#<pydoc>
-def get_func_cmt(fn, repeatable):
-    """
-    Retrieve function comment
-    @param fn: function instance
-    @param repeatable: retrieve repeatable or non-repeatable comments
-    @return: None on failure or the comment
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_get_func_cmt(func_t *fn, bool repeatable)
-{
-  char *s = get_func_cmt(fn, repeatable);
-  if ( s == NULL )
-  {
-    Py_RETURN_NONE;
-  }
-  else
-  {
-    PyObject *py_s = PyString_FromString(s);
-    qfree(s);
-    return py_s;
-  }
+    return Py_BuildValue("(ssi)", signame.c_str(), optlibs.c_str(), matches);
 }
 
 //</inline(py_funcs)>

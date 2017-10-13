@@ -21,7 +21,7 @@ def mem2base(mem, ea, fpos):
     pass
 #</pydoc>
 */
-static int py_mem2base(PyObject *py_mem, ea_t ea, long fpos = -1)
+static int py_mem2base(PyObject *py_mem, ea_t ea, qoff64_t fpos = -1)
 {
   Py_ssize_t len;
   char *buf;

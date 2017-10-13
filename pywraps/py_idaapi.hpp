@@ -95,23 +95,20 @@ PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject 
 }
 
 //-------------------------------------------------------------------------
-TForm *pycim_get_tform(PyObject *self)
+TWidget *pycim_get_widget(PyObject *self)
 {
   CHK_THIS_OR_NULL();
-  TForm *form = NULL;
-  if ( !pycim_lookup_info.find_by_py_view(&form, NULL, _this) )
+  TWidget *widget = NULL;
+  if ( !pycim_lookup_info.find_by_py_view(&widget, _this) )
     return NULL;
-  return form;
+  return widget;
 }
 
 //-------------------------------------------------------------------------
-TCustomControl *pycim_get_tcustom_control(PyObject *self)
+void pycim_view_close(PyObject *self)
 {
-  CHK_THIS_OR_NULL();
-  TCustomControl *tcc = NULL;
-  if ( !pycim_lookup_info.find_by_py_view(NULL, &tcc, _this) )
-    return NULL;
-  return tcc;
+  CHK_THIS();
+  delete _this;
 }
 
 #undef CHK_THIS_OR_NONE
@@ -141,7 +138,7 @@ static PyObject *py_parse_command_line(const char *cmdline)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   qstrvec_t args;
-  if ( parse_command_line3(cmdline, &args, NULL, LP_PATH_WITH_ARGS) == 0 )
+  if ( parse_command_line(&args, NULL, cmdline, LP_PATH_WITH_ARGS) == 0 )
     Py_RETURN_NONE;
   return qstrvec2pylist(args);
 }
@@ -253,8 +250,8 @@ void pygc_set_current_renderer_type(PyObject *self, PyObject *py_rt);
 PyObject *pygc_create_groups(PyObject *self, PyObject *groups_infos);
 PyObject *pygc_delete_groups(PyObject *self, PyObject *groups, PyObject *new_current);
 PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject *expand, PyObject *new_current);
-TForm *pycim_get_tform(PyObject *self);
-TCustomControl *pycim_get_tcustom_control(PyObject *self);
+TWidget *pycim_get_widget(PyObject *self);
+void pycim_view_close(PyObject *self);
 //</inline(py_idaapi)>
 
 #endif

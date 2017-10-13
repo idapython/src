@@ -1,143 +1,6 @@
 # -----------------------------------------------------------------------
 #<pycode(py_bytes_custdata)>
 DTP_NODUP = 0x0001
-class data_type_t(object):
-    """
-    Custom data type definition. All data types should inherit from this class.
-    """
-
-    def __init__(self, name, value_size = 0, menu_name = None, hotkey = None, asm_keyword = None, props = 0):
-        """Please refer to bytes.hpp / data_type_t in the SDK"""
-        self.name  = name
-        self.props = props
-        self.menu_name = menu_name
-        self.hotkey = hotkey
-        self.asm_keyword = asm_keyword
-        self.value_size = value_size
-
-        self.id = -1 # Will be initialized after registration
-        """Contains the data type id after the data type is registered"""
-
-    def register(self):
-        """Registers the data type and returns the type id or < 0 on failure"""
-        return _ida_bytes.register_custom_data_type(self)
-
-    def unregister(self):
-        """Unregisters the data type and returns True on success"""
-        # Not registered?
-        if self.id < 0:
-            return True
-
-        # Try to unregister
-        r = _ida_bytes.unregister_custom_data_type(self.id)
-
-        # Clear the ID
-        if r:
-            self.id = -1
-        return r
-#<pydoc>
-#    def may_create_at(self, ea, nbytes):
-#        """
-#        (optional) If this callback is not defined then this means always may create data type at the given ea.
-#        @param ea: address of the future item
-#        @param nbytes: size of the future item
-#        @return: Boolean
-#        """
-#
-#        return False
-#
-#    def calc_item_size(self, ea, maxsize):
-#        """
-#        (optional) If this callback is defined it means variable size datatype
-#        This function is used to determine size of the (possible) item at 'ea'
-#        @param ea: address of the item
-#        @param maxsize: maximal size of the item
-#        @return: integer
-#            Returns: 0-no such item can be created/displayed
-#                     this callback is required only for varsize datatypes
-#        """
-#        return 0
-#</pydoc>
-# -----------------------------------------------------------------------
-# Uncomment the corresponding callbacks in the inherited class
-class data_format_t(object):
-    """Information about a data format"""
-    def __init__(self, name, value_size = 0, menu_name = None, props = 0, hotkey = None, text_width = 0):
-        """Custom data format definition.
-        @param name: Format name, must be unique
-        @param menu_name: Visible format name to use in menus
-        @param props: properties (currently 0)
-        @param hotkey: Hotkey for the corresponding menu item
-        @param value_size: size of the value in bytes. 0 means any size is ok
-        @text_width: Usual width of the text representation
-        """
-        self.name = name
-        self.menu_name = menu_name
-        self.props = props
-        self.hotkey = hotkey
-        self.value_size = value_size
-        self.text_width = text_width
-
-        self.id = -1 # Will be initialized after registration
-        """contains the format id after the format gets registered"""
-
-    def register(self, dtid):
-        """Registers the data format with the given data type id and returns the type id or < 0 on failure"""
-        return _ida_bytes.register_custom_data_format(dtid, self)
-
-    def unregister(self, dtid):
-        """Unregisters the data format with the given data type id"""
-
-        # Not registered?
-        if self.id < 0:
-            return True
-
-        # Unregister
-        r = _ida_bytes.unregister_custom_data_format(dtid, self.id)
-
-        # Clear the ID
-        if r:
-            self.id = -1
-        return r
-#<pydoc>
-#    def printf(self, value, current_ea, operand_num, dtid):
-#        """
-#        Convert a value buffer to colored string.
-#
-#        @param value: The value to be printed
-#        @param current_ea: The ea of the value
-#        @param operand_num: The affected operand
-#        @param dtid: custom data type id (0-standard built-in data type)
-#        @return: a colored string representing the passed 'value' or None on failure
-#        """
-#        return None
-#
-#    def scan(self, input, current_ea, operand_num):
-#        """
-#        Convert from uncolored string 'input' to byte value
-#
-#        @param input: input string
-#        @param current_ea: current address (BADADDR if unknown)
-#        @param operand_num: current operand number (-1 if unknown)
-#
-#        @return: tuple (Boolean, string)
-#            - (False, ErrorMessage) if conversion fails
-#            - (True, Value buffer) if conversion succeeds
-#        """
-#        return (False, "Not implemented")
-#
-#    def analyze(self, current_ea, operand_num):
-#        """
-#        (optional) Analyze custom data format occurrence.
-#        It can be used to create xrefs from the current item.
-#
-#        @param current_ea: current address (BADADDR if unknown)
-#        @param operand_num: current operand number
-#        @return: None
-#        """
-#
-#        pass
-#</pydoc>
 # -----------------------------------------------------------------------
 def __walk_types_and_formats(formats, type_action, format_action, installing):
     broken = False
@@ -182,17 +45,27 @@ def register_data_types_and_formats(formats):
     ]
     The first two tuples describe data types and their associated formats.
     The last two tuples describe two data formats to be used with built-in data types.
+    The data format may be attached to several data types. The id of the
+    data format is stored in the first data_format_t object. For example:
+    assert many_formats[1][1] != -1
+    assert many_formats[2][0] != -1
+    assert many_formats[3][0] == -1
     """
     def __reg_format(df, dtid):
-        df.register(dtid)
+        dfid = register_custom_data_format(df);
+        if dfid == -1:
+            dfid = find_custom_data_format(df.name);
+            if dfid == -1:
+              return False
+        attach_custom_data_format(dtid, dfid)
         if dtid == 0:
-            print "Registered format '%s' with built-in types, ID=%d" % (df.name, df.id)
+            print "Registered format '%s' with built-in types, ID=%d" % (df.name, dfid)
         else:
-            print "   Registered format '%s', ID=%d (dtid=%d)" % (df.name, df.id, dtid)
-        return df.id != -1
+            print "   Registered format '%s', ID=%d (dtid=%d)" % (df.name, dfid, dtid)
+        return True
 
     def __reg_type(dt):
-        dt.register()
+        register_custom_data_type(dt)
         print "Registered type '%s', ID=%d" % (dt.name, dt.id)
         return dt.id != -1
     ok = __walk_types_and_formats(formats, __reg_type, __reg_format, True)
@@ -205,15 +78,93 @@ def unregister_data_types_and_formats(formats):
     """
     def __unreg_format(df, dtid):
         print "%snregistering format '%s'" % ("U" if dtid == 0 else "   u", df.name)
-        df.unregister(dtid)
+        unregister_custom_data_format(df.id)
         return True
 
     def __unreg_type(dt):
         print "Unregistering type '%s', ID=%d" % (dt.name, dt.id)
-        dt.unregister()
+        unregister_custom_data_type(dt.id)
         return True
     ok = __walk_types_and_formats(formats, __unreg_type, __unreg_format, False)
     return 1 if ok else -1
 
+#--------------------------------------------------------------------------
+#
+#
+#<pydoc>
+#class data_type_t(object):
+#    """
+#    The following optional callback methods can be implemented
+#    in a data_type_t subclass
+#    """
+#
+#    def may_create_at(ea, nbytes):
+#        """May create data?
+#        No such callback means: always succeed (i.e., no restriction where
+#        such a data type can be created.)
+#        @param ea: candidate address for the data item
+#        @param nbytes: candidate size for the data item
+#        @return: True/False
+#        """
+#        return True
+#
+#    def calc_item_size(ea, maxsize):
+#        """This callback is used to determine size of the (possible)
+#        item at `ea`.
+#        No such callback means that datatype is of fixed size `value_size`.
+#        (thus, this callback is required only for varsize datatypes.)
+#        @param ea: address of the item
+#        @param maxsize: maximum size of the item
+#        @return: 0 - no such item can be created/displayed
+#        """
+#        return 0
+#
+#
+#class data_format_t(object):
+#    """
+#    The following callback methods can be implemented
+#    in a data_format_t subclass
+#    """
+#
+#    def printf(value, current_ea, operand_num, dtid):
+#        """Convert `value` to colored string using custom format.
+#        @param value: value to print (of type 'str', sequence of bytes)
+#        @param current_ea: current address (BADADDR if unknown)
+#        @param operand_num: current operand number
+#        @param dtid: custom data type id
+#        @return: string representing data
+#        """
+#        return None
+#
+#    def scan(input, current_ea, operand_num):
+#        """Convert uncolored string (user input) to the value.
+#        This callback is called from the debugger when an user enters a
+#        new value for a register with a custom data representation (e.g.,
+#        an MMX register.)
+#        @param input: input string
+#        @param current_ea: current address (BADADDR if unknown)
+#        @param operand_num: current operand number (-1 if unknown)
+#        @return: tuple(bool, string)
+#                 (True, output value) or
+#                 (False, error message)
+#        """
+#        return (False, "Not implemented")
+#
+#    def analyze(current_ea, operand_num):
+#        """Analyze custom data format occurrence.
+#        This callback is called in 2 cases:
+#        - after emulating an instruction (after a call of
+#          'ev_emu_insn') if its operand is marked as "custom data
+#          representation"
+#        - when emulating data (this is done using a call of
+#          'ev_out_data' with analyze_only == true). This is the right
+#          place to create cross references from the current item.
+#        @param current_ea: current address (BADADDR if unknown)
+#        @param operand_num: current operand number
+#        """
+#        pass
+#
+#
+#</pydoc>
 #</pycode(py_bytes_custdata)>
 # -----------------------------------------------------------------------

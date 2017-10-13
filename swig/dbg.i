@@ -12,6 +12,8 @@
 %ignore internal_cleanup_appcall;
 %ignore change_bptlocs;
 %ignore movbpt_info_t;
+%ignore lock_dbgmem_config;
+%ignore unlock_dbgmem_config;
 
 %ignore source_file_t;
 %ignore source_item_t;

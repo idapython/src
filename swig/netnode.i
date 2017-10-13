@@ -6,11 +6,12 @@
 %ignore netnode_end;
 %ignore netnode_next;
 %ignore netnode_prev;
-%ignore netnode_name;
 %ignore netnode_get_name;
 %ignore netnode_rename;
 %ignore netnode_valobj;
 %ignore netnode_valstr;
+%ignore netnode_qvalstr;
+%ignore netnode::valstr(char*,size_t) const;
 %ignore netnode_set;
 %ignore netnode_delvalue;
 %ignore netnode_altval;
@@ -19,18 +20,27 @@
 %ignore netnode_charval_idx8;
 %ignore netnode_supval;
 %ignore netnode_supstr;
+%ignore netnode_qsupstr;
+%ignore netnode::supstr(nodeidx_t,char*,size_t,uchar) const;
+%ignore netnode_supstr_ea;
+%ignore netnode_qsupstr_ea;
+%ignore netnode::supstr_ea(ea_t,char*,size_t,uchar) const;
 %ignore netnode_supset;
 %ignore netnode_supdel;
-%ignore netnode_sup1st;
-%ignore netnode_supnxt;
+%ignore netnode_lower_bound;
+%ignore netnode_supfirst;
+%ignore netnode_supnext;
 %ignore netnode_suplast;
 %ignore netnode_supprev;
 %ignore netnode_supval_idx8;
 %ignore netnode_supstr_idx8;
+%ignore netnode_qsupstr_idx8;
+%ignore netnode::supstr_idx8(uchar,char*,size_t,uchar) const;
 %ignore netnode_supset_idx8;
 %ignore netnode_supdel_idx8;
-%ignore netnode_sup1st_idx8;
-%ignore netnode_supnxt_idx8;
+%ignore netnode_lower_bound_idx8;
+%ignore netnode_supfirst_idx8;
+%ignore netnode_supnext_idx8;
 %ignore netnode_suplast_idx8;
 %ignore netnode_supprev_idx8;
 %ignore netnode_supdel_all;
@@ -38,15 +48,26 @@
 %ignore netnode_supdel_range_idx8;
 %ignore netnode_hashval;
 %ignore netnode_hashstr;
+%ignore netnode_qhashstr;
+%ignore netnode::hashstr(const char*,char*,size_t,uchar) const;
 %ignore netnode_hashval_long;
 %ignore netnode_hashset;
 %ignore netnode_hashdel;
-%ignore netnode_hash1st;
-%ignore netnode_hashnxt;
+%ignore netnode_hashfirst;
+%ignore netnode_qhashfirst;
+%ignore netnode::hashfirst(char*,size_t,uchar) const;
+%ignore netnode_hashnext;
+%ignore netnode_qhashnext;
+%ignore netnode::hashnext(const char*,char*,size_t,uchar) const;
 %ignore netnode_hashlast;
+%ignore netnode_qhashlast;
+%ignore netnode::hashlast(char*,size_t,uchar) const;
 %ignore netnode_hashprev;
+%ignore netnode_qhashprev;
+%ignore netnode::hashprev(const char*,char*,size_t,uchar) const;
 %ignore netnode_blobsize;
 %ignore netnode_getblob;
+%ignore netnode_qgetblob;
 %ignore netnode_setblob;
 %ignore netnode_delblob;
 %ignore netnode_inited;
@@ -80,14 +101,18 @@
 %ignore netnode::setbase;
 
 %ignore netnode::altadjust;
-%ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, char tag);
+%ignore netnode::getblob(qstring *buf, nodeidx_t start, uchar tag);
+%ignore netnode::getblob(void *buf, size_t *bufsize, nodeidx_t start, uchar tag);
+%ignore netnode::getblob_ea(void *buf, size_t *bufsize, ea_t ea, uchar tag);
 %ignore netnode::operator nodeidx_t;
 %ignore netnode::validate_names;
 
 %constant nodeidx_t BADNODE = nodeidx_t(-1);
 
 // Renaming one version of hashset() otherwise SWIG will not be able to activate the other one
-%rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, char tag=htag);
+%rename (hashset_idx) netnode::hashset(const char *idx, nodeidx_t value, uchar tag=htag);
+
+%apply char { uchar tag };
 
 %include "netnode.hpp"
 
@@ -98,25 +123,26 @@
       return self->operator nodeidx_t();
     }
 
-    PyObject *getblob(nodeidx_t start, const char *tag)
+    PyObject *getblob(nodeidx_t start, char tag)
     {
-      // Get the blob and let IDA allocate the memory
-      size_t bufsize;
-      void *buf = self->getblob(NULL, &bufsize, start, *tag);
-      if ( buf == NULL )
+      bytevec_t blob;
+      if ( self->getblob(&blob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      // Create a Python string
-      PyObject *py_str = PyString_FromStringAndSize((const char *)buf, bufsize);
-      // Free memory
-      qfree(buf);
+      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
+    }
 
-      return py_str;
+    PyObject *getblob_ea(ea_t ea, char tag)
+    {
+      bytevec_t blob;
+      if ( self->getblob(&blob, ea, tag) <= 0 )
+        Py_RETURN_NONE;
+      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *hashstr_buf(const char *idx, char tag=htag)
     {
       char buf[MAXSPECSIZE];
-      ssize_t sz = self->hashstr(idx, buf, sizeof(buf), tag);
+      ssize_t sz = self->hashstr(idx, buf, sizeof(buf), uchar(tag));
       if ( sz < 0 )
         Py_RETURN_NONE;
       else
@@ -127,10 +153,8 @@
     {
       char *buf;
       Py_ssize_t sz;
-
       if ( PyString_AsStringAndSize(py_str, &buf, &sz) == -1 )
         return false;
-      else
-        return self->hashset(idx, buf, sz, tag);
+      return self->hashset(idx, buf, sz, uchar(tag));
     }
 }

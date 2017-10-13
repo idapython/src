@@ -4,22 +4,27 @@
 #include <Python.h>
 
 //------------------------------------------------------------------------
-// Types
-#ifndef PYUL_DEFINED
-  #define PYUL_DEFINED
-  #ifdef __EA64__
-    typedef unsigned PY_LONG_LONG pyul_t;
-    typedef PY_LONG_LONG pyl_t;
-  #else
-    typedef unsigned long pyul_t;
-    typedef long pyl_t;
-  #endif
-#endif
+// The following are to be used whenever Py_BuildValue-style
+// format specifiers are needed.
+#define PY_BV_EA "K" // Convert a C unsigned long long to a Python long integer object.
+#define PY_BV_SZ "n" // Convert a C Py_ssize_t to a Python integer or long integer.
+#define PY_BV_UVAL PY_BV_EA
+#define PY_BV_ASIZE PY_BV_EA
+#define PY_BV_SEL PY_BV_EA
+#define PY_BV_SVAL "L" // Convert a C long long to a Python long integer object
 
+typedef unsigned PY_LONG_LONG bvea_t;
+typedef Py_ssize_t bvsz_t;
+typedef bvea_t bvuval_t;
+typedef bvea_t bvasize_t;
+typedef bvea_t bvsel_t;
+typedef PY_LONG_LONG bvsval_t;
+
+//-------------------------------------------------------------------------
 // a few forward decls
 class insn_t;
 class op_t;
-struct switch_info_ex_t;
+struct switch_info_t;
 
 // "A pointer can be explicitly converted to any integral type large
 //  enough to hold it. The mapping function is implementation-defined."
@@ -49,19 +54,12 @@ struct switch_info_ex_t;
 #define exported
 #endif
 
-#ifdef __EA64__
-  #define PY_FMT64  "K"
-  #define PY_SFMT64 "L"
-#else
-  #define PY_FMT64  "k"
-  #define PY_SFMT64 "l"
-#endif
-
 //------------------------------------------------------------------------
 #define S_IDA_IDAAPI_MODNAME                     "ida_idaapi"
 #define S_IDA_NALT_MODNAME                       "ida_nalt"
 #define S_IDA_UA_MODNAME                         "ida_ua"
 #define S_IDA_KERNWIN_MODNAME                    "ida_kernwin"
+#define S_IDA_MOVES_MODNAME                      "ida_moves"
 #define S_IDC_MODNAME                            "idc"
 #define S_IDAAPI_EXECSCRIPT                      "IDAPython_ExecScript"
 #define S_IDAAPI_COMPLETION                      "IDAPython_Completion"
@@ -73,7 +71,7 @@ struct switch_info_ex_t;
 //------------------------------------------------------------------------
 // String constants used
 static const char S_PYINVOKE0[]              = "_py_invoke0";
-static const char S_PY_SWIEX_CLSNAME[]       = "switch_info_ex_t";
+static const char S_PY_SWIEX_CLSNAME[]       = "switch_info_t";
 static const char S_PY_OP_T_CLSNAME[]        = "op_t";
 static const char S_PROPS[]                  = "props";
 static const char S_NAME[]                   = "name";
@@ -108,11 +106,9 @@ static const char S_ON_INSERT_LINE[]         = "OnInsertLine";
 static const char S_ON_GET_LINE[]            = "OnGetLine";
 static const char S_ON_DELETE_LINE[]         = "OnDeleteLine";
 static const char S_ON_REFRESH[]             = "OnRefresh";
-static const char S_ON_REFRESHED[]           = "OnRefreshed";
 static const char S_ON_EXECUTE_LINE[]        = "OnExecuteLine";
 static const char S_ON_SELECT_LINE[]         = "OnSelectLine";
 static const char S_ON_SELECTION_CHANGE[]    = "OnSelectionChange";
-static const char S_ON_COMMAND[]             = "OnCommand";
 static const char S_ON_GET_ICON[]            = "OnGetIcon";
 static const char S_ON_GET_LINE_ATTR[]       = "OnGetLineAttr";
 static const char S_ON_GET_SIZE[]            = "OnGetSize";
@@ -123,19 +119,12 @@ static const char S_ON_SELECT[]              = "OnSelect";
 static const char S_ON_CREATING_GROUP[]      = "OnCreatingGroup";
 static const char S_ON_DELETING_GROUP[]      = "OnDeletingGroup";
 static const char S_ON_GROUP_VISIBILITY[]    = "OnGroupVisibility";
+static const char S_ON_INIT[]                = "OnInit";
 static const char S_M_EDGES[]                = "_edges";
 static const char S_M_NODES[]                = "_nodes";
 static const char S_M_THIS[]                 = "_this";
 static const char S_M_TITLE[]                = "_title";
 static const char S_CLINK_NAME[]             = "__clink__";
-static const char S_ON_VIEW_ACTIVATED[]      = "OnViewActivated";
-static const char S_ON_VIEW_DEACTIVATED[]    = "OnViewDeactivated";
-static const char S_ON_VIEW_KEYDOWN[]        = "OnViewKeydown";
-static const char S_ON_VIEW_CLICK[]          = "OnViewClick";
-static const char S_ON_VIEW_DBLCLICK[]       = "OnViewDblclick";
-static const char S_ON_VIEW_CURPOS[]         = "OnViewCurpos";
-static const char S_ON_VIEW_SWITCHED[]       = "OnViewSwitched";
-static const char S_ON_VIEW_MOUSE_OVER[]     = "OnViewMouseOver";
 static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 static const char S_MAIN[]                   = "__main__";
 
@@ -198,7 +187,7 @@ idaman uint32 ida_export_data debug;
 #define IDA_DEBUG_PLUGIN 0x00000020
 THREAD_SAFE AS_PRINTF(1, 2) inline int msg(const char *format, ...);
 #endif // __KERNWIN_HPP
-#define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) == IDA_DEBUG_PLUGIN) \
+#define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
                       && PyGILState_GetThisThreadState() != _PyThreadState_Current)
 
 #define PYW_GIL_CHECK_LOCKED_SCOPE()                                    \
@@ -233,7 +222,7 @@ idaman void * ida_export pyobj_get_clink(PyObject *pyobj);
 // All the exported functions from PyWraps are forward declared here
 inline insn_t *insn_t_get_clink(PyObject *self) { return (insn_t *)pyobj_get_clink(self); }
 inline op_t *op_t_get_clink(PyObject *self) { return (op_t *)pyobj_get_clink(self); }
-inline switch_info_ex_t *switch_info_ex_t_get_clink(PyObject *self) { return (switch_info_ex_t *)pyobj_get_clink(self); }
+inline switch_info_t *switch_info_t_get_clink(PyObject *self) { return (switch_info_t *)pyobj_get_clink(self); }
 
 //-------------------------------------------------------------------------
 // The base for a reference. Will automatically increase the reference
@@ -379,9 +368,9 @@ exported bool ida_export PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_v
 
 // Returns a qstring from a Python attribute string
 exported bool ida_export PyW_GetStringAttr(
-    PyObject *py_obj,
-    const char *attr_name,
-    qstring *str);
+        PyObject *py_obj,
+        const char *attr_name,
+        qstring *str);
 
 // Converts a Python number to an uint64 and indicates whether the number was a long number
 exported bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
@@ -412,14 +401,25 @@ exported error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char 
 //
 // Conversion functions
 //
+#define PYWCVTF_AS_TUPLE                 0x1
+#define PYWCVTF_INT64_AS_UNSIGNED_PYLONG 0x2 // don't wrap int64 into 'PyIdc_cvt_int64__' objects, but make them 'long' instead
+
+// Converts from IDC to Python
 exported bool ida_export pyw_convert_idc_args(
         const idc_value_t args[],
         int nargs,
         ref_vec_t &pargs,
-        bool as_tupple,
-        char *errbuf = NULL,
-        size_t errbufsize = 0);
+        uint32 flags,
+        qstring *errbuf = NULL);
 
+// Converts from IDC to Python
+// We support converting VT_REF IDC variable types
+exported int ida_export idcvar_to_pyvar(
+        const idc_value_t &idc_var,
+        ref_t *py_var,
+        uint32 flags=0);
+
+//-------------------------------------------------------------------------
 // Converts Python variable to IDC variable
 // gvar_sn is used in case the Python object was a created from a call to idcvar_to_pyvar and the IDC object was a VT_REF
 exported int ida_export pyvar_to_idcvar(
@@ -427,23 +427,18 @@ exported int ida_export pyvar_to_idcvar(
         idc_value_t *idc_var,
         int *gvar_sn = NULL);
 
-// Converts from IDC to Python
-// We support converting VT_REF IDC variable types
-exported int ida_export idcvar_to_pyvar(
-        const idc_value_t &idc_var,
-        ref_t *py_var);
-
+//-------------------------------------------------------------------------
 // Walks a Python list or Sequence and calls the callback
 exported Py_ssize_t ida_export pyvar_walk_list(
         PyObject *py_list,
-        int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud) = NULL,
+        int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud)=NULL,
         void *ud = NULL);
 
-// Converts an intvec_t to a Python list object
-exported ref_t ida_export PyW_IntVecToPyList(const intvec_t &intvec);
+// Converts a sizevec_t to a Python list object
+exported ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
 
-// Converts an Python list to an intvec
-exported bool ida_export PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec);
+// Converts an Python list to an sizevec
+exported bool ida_export PyW_PyListToSizeVec(PyObject *py_list, sizevec_t &vec);
 
 // Converts an Python list to an eavec
 exported bool ida_export PyW_PyListToEaVec(PyObject *py_list, eavec_t &eavec);
@@ -456,7 +451,7 @@ exported bool ida_export PyWStringOrNone_Check(PyObject *tp);
 
 //-------------------------------------------------------------------------
 #include <idd.hpp>
-exported PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &areas);
+exported PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &ranges);
 
 //-------------------------------------------------------------------------
 exported void ida_export PyW_register_compiled_form(PyObject *py_form);
@@ -479,7 +474,8 @@ class pywraps_notify_when_t
   typedef qvector<notify_when_args_t> notify_when_args_vec_t;
   notify_when_args_vec_t delayed_notify_when_list;
 
-  static int idaapi idp_callback(void *ud, int event_id, va_list va);
+  static ssize_t idaapi idp_callback(void *ud, int event_id, va_list va);
+  static ssize_t idaapi idb_callback(void *ud, int event_id, va_list va);
   bool unnotify_when(int when, PyObject *py_callable);
   void register_callback(int slot, PyObject *py_callable);
   void unregister_callback(int slot, PyObject *py_callable);
@@ -498,7 +494,7 @@ exported bool ida_export add_notify_when(int when, PyObject *py_callable);
 
 // void free_compiled_form_instances(void);
 
-//#define PYGDBG_ENABLED
+// #define PYGDBG_ENABLED
 #ifdef PYGDBG_ENABLED
 #define PYGLOG(...) msg(__VA_ARGS__)
 #else
@@ -528,6 +524,8 @@ private:
   pycall_res_t(); // No.
 };
 
+#include <loader.hpp>
+
 //-------------------------------------------------------------------------
 //                        CustomIDAMemo wrappers
 //-------------------------------------------------------------------------i
@@ -535,10 +533,9 @@ class lookup_info_t;
 class py_customidamemo_t;
 struct lookup_entry_t
 {
-  lookup_entry_t() : form(NULL), view(NULL), py_view(NULL) {}
+  lookup_entry_t() : view(NULL), py_view(NULL) {}
 
-  TForm *form;
-  TCustomControl *view;
+  TWidget *view;
   py_customidamemo_t *py_view;
 };
 DECLARE_TYPE_AS_MOVABLE(lookup_entry_t);
@@ -549,17 +546,17 @@ typedef qvector<lookup_entry_t> lookup_entries_t;
 #define PY_LINFO_PARAMS_new_entry (py_customidamemo_t *py_view)
 #define PY_LINFO_TRANSM_new_entry (this, py_view)
 
-#define PY_LINFO_HLPPRM_commit (lookup_info_t *_this, lookup_entry_t &e, TForm *form, TCustomControl *view)
-#define PY_LINFO_PARAMS_commit (lookup_entry_t &e, TForm *form, TCustomControl *view)
-#define PY_LINFO_TRANSM_commit (this, e, form, view)
+#define PY_LINFO_HLPPRM_commit (lookup_info_t *_this, lookup_entry_t &e, TWidget *view)
+#define PY_LINFO_PARAMS_commit (lookup_entry_t &e, TWidget *view)
+#define PY_LINFO_TRANSM_commit (this, e, view)
 
-#define PY_LINFO_HLPPRM_find_by_form (const lookup_info_t *_this, TCustomControl **out_view, py_customidamemo_t **out_py_view, const TForm *form)
-#define PY_LINFO_PARAMS_find_by_form (TCustomControl **out_view, py_customidamemo_t **out_py_view, const TForm *form) const
-#define PY_LINFO_TRANSM_find_by_form (this, out_view, out_py_view, form)
+#define PY_LINFO_HLPPRM_find_by_view (const lookup_info_t *_this, py_customidamemo_t **out_py_view, const TWidget *view)
+#define PY_LINFO_PARAMS_find_by_view (py_customidamemo_t **out_py_view, const TWidget *view) const
+#define PY_LINFO_TRANSM_find_by_view (this, out_py_view, view)
 
-#define PY_LINFO_HLPPRM_find_by_py_view (const lookup_info_t *_this, TForm **out_form, TCustomControl **out_view, const py_customidamemo_t *py_view)
-#define PY_LINFO_PARAMS_find_by_py_view (TForm **out_form, TCustomControl **out_view, const py_customidamemo_t *py_view) const
-#define PY_LINFO_TRANSM_find_by_py_view (this, out_form, out_view, py_view)
+#define PY_LINFO_HLPPRM_find_by_py_view (const lookup_info_t *_this, TWidget **out_view, const py_customidamemo_t *py_view)
+#define PY_LINFO_PARAMS_find_by_py_view (TWidget **out_view, const py_customidamemo_t *py_view) const
+#define PY_LINFO_TRANSM_find_by_py_view (this, out_view, py_view)
 
 #define PY_LINFO_HLPPRM_del_by_py_view (lookup_info_t *_this, const py_customidamemo_t *py_view)
 #define PY_LINFO_PARAMS_del_by_py_view (const py_customidamemo_t *py_view)
@@ -571,7 +568,7 @@ typedef qvector<lookup_entry_t> lookup_entries_t;
 #define DECL_LINFO_HELPERS(decl)                                          \
   DECL_LINFO_HELPER(decl, lookup_entry_t&, new_entry, PY_LINFO_HLPPRM_new_entry); \
   DECL_LINFO_HELPER(decl, void,            commit, PY_LINFO_HLPPRM_commit); \
-  DECL_LINFO_HELPER(decl, bool,            find_by_form, PY_LINFO_HLPPRM_find_by_form); \
+  DECL_LINFO_HELPER(decl, bool,            find_by_view, PY_LINFO_HLPPRM_find_by_view);\
   DECL_LINFO_HELPER(decl, bool,            find_by_py_view, PY_LINFO_HLPPRM_find_by_py_view);\
   DECL_LINFO_HELPER(decl, bool,            del_by_py_view, PY_LINFO_HLPPRM_del_by_py_view);
 
@@ -589,12 +586,10 @@ public:
 
   PY_LINFO_TRAMPOLINE(lookup_entry_t&, new_entry,       PY_LINFO_PARAMS_new_entry,       PY_LINFO_TRANSM_new_entry);
   PY_LINFO_TRAMPOLINE(void,            commit,          PY_LINFO_PARAMS_commit,          PY_LINFO_TRANSM_commit);
-  PY_LINFO_TRAMPOLINE(bool,            find_by_form,    PY_LINFO_PARAMS_find_by_form,    PY_LINFO_TRANSM_find_by_form);
+  PY_LINFO_TRAMPOLINE(bool,            find_by_view,    PY_LINFO_PARAMS_find_by_view,    PY_LINFO_TRANSM_find_by_view);
   PY_LINFO_TRAMPOLINE(bool,            find_by_py_view, PY_LINFO_PARAMS_find_by_py_view, PY_LINFO_TRANSM_find_by_py_view);
   PY_LINFO_TRAMPOLINE(bool,            del_by_py_view,  PY_LINFO_PARAMS_del_by_py_view,  PY_LINFO_TRANSM_del_by_py_view);
 #undef PY_LINFO_TRAMPOLINE
-
-  bool find_by_view(TForm **out_form, py_customidamemo_t **out_py_view, const TCustomControl *view) const;
 
 private:
   lookup_entries_t entries;
@@ -666,19 +661,13 @@ struct pycim_callbacks_ids_t : public qvector<pycim_callback_id_t>
 #define PY_CIM_PARAMS_collect_class_callbacks_ids (pycim_callbacks_ids_t *out)
 #define PY_CIM_TRANSM_collect_class_callbacks_ids (this, out)
 
-#define PY_CIM_HLPPRM_install_custom_viewer_handlers (py_customidamemo_t *_this)
-#define PY_CIM_PARAMS_install_custom_viewer_handlers ()
-#define PY_CIM_TRANSM_install_custom_viewer_handlers (this)
-
-#define PY_CIM_HLPPRM_bind (py_customidamemo_t *_this, PyObject *self, TCustomControl *view)
-#define PY_CIM_PARAMS_bind (PyObject *in_self, TCustomControl *in_view)
+#define PY_CIM_HLPPRM_bind (py_customidamemo_t *_this, PyObject *self, TWidget *view)
+#define PY_CIM_PARAMS_bind (PyObject *in_self, TWidget *in_view)
 #define PY_CIM_TRANSM_bind (this, in_self, in_view)
 
 #define PY_CIM_HLPPRM_unbind (py_customidamemo_t *_this, bool clear_view)
 #define PY_CIM_PARAMS_unbind (bool clear_view)
 #define PY_CIM_TRANSM_unbind (this, clear_view)
-
-#define PY_CIM_HLPPRM_ensure_view_callbacks_installed ()
 
 #define DECL_CIM_HELPER(decl, RType, MName, MParams)            \
   decl RType ida_export py_customidamemo_t_##MName MParams
@@ -696,10 +685,8 @@ struct pycim_callbacks_ids_t : public qvector<pycim_callback_id_t>
   \
   DECL_CIM_HELPER(decl, bool,      collect_pyobject_callbacks, PY_CIM_HLPPRM_collect_pyobject_callbacks); \
   DECL_CIM_HELPER(decl, void,      collect_class_callbacks_ids, PY_CIM_HLPPRM_collect_class_callbacks_ids); \
-  DECL_CIM_HELPER(decl, void,      install_custom_viewer_handlers, PY_CIM_HLPPRM_install_custom_viewer_handlers); \
   DECL_CIM_HELPER(decl, bool,      bind, PY_CIM_HLPPRM_bind); \
   DECL_CIM_HELPER(decl, void,      unbind, PY_CIM_HLPPRM_unbind); \
-  DECL_CIM_HELPER(decl, void,      ensure_view_callbacks_installed, PY_CIM_HLPPRM_ensure_view_callbacks_installed)
 
 DECL_CIM_HELPERS(idaman);
 
@@ -714,45 +701,21 @@ class py_customidamemo_t
           uint32 *out_flags,
           ref_t py_nodeinfo);
 
+  // can use up to 16 bits; not more! (GRCODE_HAVE_* uses the rest)
   enum
   {
-    GRBASE_HAVE_VIEW_ACTIVATED   = 0x001,
-    GRBASE_HAVE_VIEW_DEACTIVATED = 0x002,
-    GRBASE_HAVE_KEYDOWN          = 0x004,
-    GRBASE_HAVE_POPUP            = 0x008,
-    GRBASE_HAVE_VIEW_CLICK       = 0x010,
-    GRBASE_HAVE_VIEW_DBLCLICK    = 0x020,
-    GRBASE_HAVE_VIEW_CURPOS      = 0x040,
-    GRBASE_HAVE_CLOSE            = 0x080,
-    GRBASE_HAVE_VIEW_SWITCHED    = 0x100,
-    GRBASE_HAVE_VIEW_MOUSE_OVER  = 0x200,
-    GRBASE_HAVE_VIEW_MOUSE_MOVED = 0x400,
+    GRBASE_HAVE_VIEW_MOUSE_MOVED = 0x0001,
   };
 
   int cb_flags;
-  // number of arguments for:
-  int ovc_num_args;   // OnViewClick implementation
-  int ovdc_num_args;  // OnViewDblclick implementation
-  int ovmo_num_args;  // OnViewMouseOver implementation
-  int ovmm_num_args;  // OnViewMouseMoved implementation
 
   // View events
-  void on_view_activated();
-  void on_view_deactivated();
-  void on_view_keydown(int key, int state);
-  void on_view_popup();
-  void on_view_click(const view_mouse_event_t *event);
-  void on_view_dblclick(const view_mouse_event_t *event);
-  void on_view_curpos();
-  void on_view_close();
-  void on_view_switched(tcc_renderer_type_t rt);
-  void on_view_mouse_over(const view_mouse_event_t *event);
   void on_view_mouse_moved(const view_mouse_event_t *event);
   int get_py_method_arg_count(char *method_name);
 
   // View events that are bound with 'set_custom_viewer_handler()'.
   static void idaapi s_on_view_mouse_moved(
-          TCustomControl *cv,
+          TWidget *cv,
           int shift,
           view_mouse_event_t *e,
           void *ud);
@@ -761,29 +724,23 @@ class py_customidamemo_t
 
 protected:
   ref_t self;
-  TCustomControl *view;
+  TWidget *view;
   pycim_callbacks_ids_t cbids;
 
   PY_CIM_TRAMPOLINE(bool, collect_pyobject_callbacks, PY_CIM_PARAMS_collect_pyobject_callbacks, PY_CIM_TRANSM_collect_pyobject_callbacks);
   PY_CIM_TRAMPOLINE(virtual void, collect_class_callbacks_ids, PY_CIM_PARAMS_collect_class_callbacks_ids, PY_CIM_TRANSM_collect_class_callbacks_ids);
-  PY_CIM_TRAMPOLINE(void, install_custom_viewer_handlers, PY_CIM_PARAMS_install_custom_viewer_handlers, PY_CIM_TRANSM_install_custom_viewer_handlers);
   PY_CIM_TRAMPOLINE(bool, bind, PY_CIM_PARAMS_bind, PY_CIM_TRANSM_bind);
   PY_CIM_TRAMPOLINE(void, unbind, PY_CIM_PARAMS_unbind, PY_CIM_TRANSM_unbind);
 
-  friend TForm *pycim_get_tform(PyObject *self);
-  friend TCustomControl *pycim_get_tcustom_control(PyObject *self);
+  friend TWidget *pycim_get_widget(PyObject *self);
 
 public:
   py_customidamemo_t()
-    : self(newref_t(NULL)),
+    : cb_flags(0),
+      self(newref_t(NULL)),
       view(NULL)
   {
     PYGLOG("%p: py_customidamemo_t()\n", this);
-    py_customidamemo_t_ensure_view_callbacks_installed();
-    ovc_num_args = -1;
-    ovdc_num_args = -1;
-    ovmo_num_args = -1;
-    ovmm_num_args = -1;
   }
   virtual ~py_customidamemo_t()
   {
@@ -849,5 +806,56 @@ struct py_timer_ctx_t
 };
 exported py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback);
 exported void ida_export python_timer_del(py_timer_ctx_t *t);
+
+//-------------------------------------------------------------------------
+exported ref_t ida_export try_create_swig_wrapper(ref_t mod, const char *clsname, void *cobj);
+
+//-------------------------------------------------------------------------
+// Useful for small operations that must not be interrupted: e.g., when
+// wrapping an insn_t into a SWiG proxy object, or when destroying
+// such an instance from the kernel. Use 'uninterruptible_op_t' if you can.
+exported void ida_export set_interruptible_state(bool interruptible);
+struct uninterruptible_op_t
+{
+  uninterruptible_op_t() { set_interruptible_state(false); }
+  ~uninterruptible_op_t() { set_interruptible_state(true); }
+};
+
+// //-------------------------------------------------------------------------
+// class py_custom_data_type_t;
+// class py_custom_data_format_t;
+// typedef void py_custom_data_type_t_unregisterer_t(py_custom_data_type_t *inst);
+// typedef void py_custom_data_format_t_unregisterer_t(py_custom_data_format_t *inst);
+// exported void ida_export register_py_custom_data_type_and_format_unregisterer(
+//         py_custom_data_type_t_unregisterer_t cdt_unregisterer,
+//         py_custom_data_format_t_unregisterer_t cdf_unregisterer);
+// exported void ida_export register_py_custom_data_type_instance(py_custom_data_type_t *inst);
+// exported void ida_export register_py_custom_data_format_instance(py_custom_data_format_t *inst);
+// exported void ida_export unregister_py_custom_data_type_instance(py_custom_data_type_t *inst);
+// exported void ida_export unregister_py_custom_data_format_instance(py_custom_data_format_t *inst);
+// exported py_custom_data_type_t *py_custom_data_type_cast(data_type_t *inst);
+// exported py_custom_data_format_t *py_custom_data_format_cast(data_format_t *inst);
+
+exported bool ida_export idapython_hook_to_notification_point(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data);
+exported bool ida_export idapython_unhook_from_notification_point(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data);
+#define hook_to_notification_point USE_IDAPYTHON_HOOK_TO_NOTIFICATION_POINT
+#define unhook_from_notification_point USE_IDAPYTHON_UNHOOK_FROM_NOTIFICATION_POINT
+
+//-------------------------------------------------------------------------
+struct module_callbacks_t
+{
+  module_callbacks_t() { memset(this, 0, sizeof(*this)); }
+  void (*closebase) (void);
+  void (*term) (void);
+};
+DECLARE_TYPE_AS_MOVABLE(module_callbacks_t);
+exported void register_module_lifecycle_callbacks(
+        const module_callbacks_t &cbs);
 
 #endif // __PYWRAPS_HPP__

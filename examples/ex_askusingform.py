@@ -2,30 +2,22 @@
 # This is an example illustrating how to use the Form class
 # (c) Hex-Rays
 #
-from idaapi import Form
+from ida_kernwin import Form, Choose, ask_str
 
 # --------------------------------------------------------------------------
-class TestEmbeddedChooserClass(Choose2):
+class TestEmbeddedChooserClass(Choose):
     """
     A simple chooser to be used as an embedded chooser
     """
-    def __init__(self, title, nb = 5, flags=0):
-        Choose2.__init__(self,
-                         title,
-                         [ ["Address", 10], ["Name", 30] ],
-                         embedded=True, width=30, height=20, flags=flags)
-        self.n = 0
-        self.items = [ self.make_item() for x in xrange(0, nb+1) ]
+    def __init__(self, title, nb = 5, flags = 0):
+        Choose.__init__(self,
+                        title,
+                        [ ["Address", 10], ["Name", 30] ],
+                        flags=flags,
+                        embedded=True, width=30, height=6)
+        self.items = [ [str(x), "func_%04d" % x]
+                       for x in xrange(nb + 1) ]
         self.icon = 5
-        self.selcount = 0
-
-    def make_item(self):
-        r = [str(self.n), "func_%04d" % self.n]
-        self.n += 1
-        return r
-
-    def OnClose(self):
-        pass
 
     def OnGetLine(self, n):
         print("getline %d" % n)
@@ -40,7 +32,7 @@ class TestEmbeddedChooserClass(Choose2):
 class MyForm(Form):
     def __init__(self):
         self.invert = False
-        self.EChooser = TestEmbeddedChooserClass("E1", flags=Choose2.CH_MULTI)
+        self.EChooser = TestEmbeddedChooserClass("E1", flags=Choose.CH_MULTI)
         Form.__init__(self, r"""STARTITEM {id:rNormal}
 BUTTON YES* Yeah
 BUTTON NO Nope
@@ -48,44 +40,33 @@ BUTTON CANCEL Nevermind
 Form Test
 
 {FormChangeCb}
-This is a string: +{cStr1}+
-This is an address: +{cAddr1}+
-This is some HTML: +{cHtml1}+
+This is a string:  |+{cStr1}+
+This is an address:|+{cAddr1}+
+This is some HTML: |+{cHtml1}+
+This is a number:  |+{cVal1}+
 
-Escape\{control}
-This is a string: '{cStr2}'
-This is a number: {cVal1}
-
-<#Hint1#Enter name:{iStr1}>
+<#Hint1#Enter text  :{iStr1}>
 <#Hint2#Select color:{iColor1}>
 Browse test
 <#Select a file to open#Browse to open:{iFileOpen}>
 <#Select a file to save#Browse to save:{iFileSave}>
 <#Select dir#Browse for dir:{iDir}>
-Type
-<#Select type#Write a type:{iType}>
-Numbers
+Misc
 <##Enter a selector value:{iSegment}>
-<##Enter a raw hex:{iRawHex}>
-<##Enter a character:{iChar}>
-<##Enter an address:{iAddr}>
-Button test
-<##Button1:{iButton1}> <##Button2:{iButton2}>
+<##Enter a raw hex       :{iRawHex}>
+<##Enter a character     :{iChar}>
+<##Enter an address      :{iAddr}>
+<##Write a type name     :{iType}>
+Button test: <##Button1:{iButton1}> <##Button2:{iButton2}>
 
-Check boxes:
-<Error output:{rError}>
-<Normal output:{rNormal}>
-<Warnings:{rWarnings}>{cGroup1}>
+<##Check boxes##Error output:{rError}> | <##Radio boxes##Green:{rGreen}>
+<Normal output:{rNormal}>              | <Red:{rRed}>
+<Warnings:{rWarnings}>{cGroup1}>       | <Blue:{rBlue}>{cGroup2}>
 
-Radio boxes:
-<Green:{rGreen}>
-<Red:{rRed}>
-<Blue:{rBlue}>{cGroup2}>
 <Embedded chooser:{cEChooser}>
 The end!
 """, {
             'cStr1': Form.StringLabel("Hello"),
-            'cStr2': Form.StringLabel("StringTest"),
             'cHtml1': Form.StringLabel("<span style='color: red'>Is this red?<span>", tp=Form.FT_HTML_LABEL),
             'cAddr1': Form.NumericLabel(0x401000, Form.FT_ADDR),
             'cVal1' : Form.NumericLabel(99, Form.FT_HEX),
@@ -131,6 +112,13 @@ The end!
         elif fid == self.cEChooser.id:
             l = self.GetControlValue(self.cEChooser)
             print("Chooser: %s" % l)
+        elif fid in [self.rGreen.id, self.rRed.id, self.rBlue.id]:
+            color = {
+                self.rGreen.id : 0x00FF00,
+                self.rRed.id   : 0x0000FF,
+                self.rBlue.id  : 0xFF0000,
+            }
+            self.SetControlValue(self.iColor1, color[fid])
         else:
             print(">>fid:%d" % fid)
         return 1
@@ -212,8 +200,8 @@ using address %$
 
     # Use either StringArgument or NumericArgument to pass values to the function
     num = Form.NumericArgument('N', value=123)
-    ok = idaapi.AskUsingForm(s,
-           Form.StringArgument("PyAskUsingForm").arg,
+    ok = idaapi.ask_form(s,
+           Form.StringArgument("PyAskform").arg,
            Form.NumericArgument('$', 0x401000).arg,
            num.arg)
     if ok == 1:
@@ -231,7 +219,7 @@ This is sample dialog box
 """
     # Use either StringArgument or NumericArgument to pass values to the function
     ti = textctrl_info_t("Some initial value")
-    ok = idaapi.AskUsingForm(s, pointer(c_void_p.from_address(ti.clink_ptr)))
+    ok = idaapi.ask_form(s, pointer(c_void_p.from_address(ti.clink_ptr)))
     if ok == 1:
         print("You entered: %s" % ti.text)
 
@@ -319,11 +307,11 @@ Dropdown list test
 
     def OnFormChange(self, fid):
         if fid == self.iButtonSetString.id:
-            s = idc.AskStr("none", "Enter value")
+            s = ask_str("none", 0, "Enter value")
             if s:
                 self.SetControlValue(self.cbEditable, s)
         elif fid == self.iButtonSetIndex.id:
-            s = idc.AskStr("1", "Enter index value:")
+            s = ask_str("1", 0, "Enter index value:")
             if s:
                 try:
                     i = int(s)

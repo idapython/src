@@ -1,38 +1,45 @@
-import idaapi
 import idautils
 import idc
+from ida_kernwin import Choose
 
-class MyChoose2(Choose2):
+class MyChoose(Choose):
 
     def __init__(self, title):
-        Choose2.__init__(self, title, [ ["Address", 10 | Choose2.CHCOL_HEX], ["Name", 30 | Choose2.CHCOL_PLAIN] ])
-        self.n = 0
+        Choose.__init__(
+            self,
+            title,
+            [ ["Address", 10 | Choose.CHCOL_HEX],
+              ["Name",    30 | Choose.CHCOL_PLAIN] ])
+        self.items = []
         self.icon = 41
-        self.PopulateItems()
 
-    def PopulateItems(self):
-        self.items = [ [hex(x), GetFunctionName(x), x] for x in idautils.Functions() ]
-        
-    def OnClose(self):
-        print "closed ", self.title
-
-    def OnSelectLine(self, n):
-        idc.Jump(self.items[n][2])
-
-    def OnGetLine(self, n):
-        return self.items[n]
+    def OnInit(self):
+        self.items = [ [hex(x), get_func_name(x), x]
+                       for x in idautils.Functions() ]
+        return True
 
     def OnGetSize(self):
         return len(self.items)
 
+    def OnGetLine(self, n):
+        return self.items[n]
+
     def OnDeleteLine(self, n):
         ea = self.items[n][2]
-        idc.DelFunction(ea)
-        return n
+        idc.del_func(ea)
+        return (Choose.ALL_CHANGED, n)
+
+    def OnSelectLine(self, n):
+        idc.jumpto(self.items[n][2])
+        return (Choose.NOTHING_CHANGED, )
 
     def OnRefresh(self, n):
-        self.PopulateItems()
-        return n
+        self.OnInit()
+        # try to preserve the cursor
+        return [Choose.ALL_CHANGED] + self.adjust_last_item(n)
 
-c = MyChoose2("My functions list")
+    def OnClose(self):
+        print "closed ", self.title
+
+c = MyChoose("My functions list")
 c.Show()

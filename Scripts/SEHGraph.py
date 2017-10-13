@@ -22,7 +22,7 @@ from idaapi import GraphViewer
 # Since Windbg debug module does not support get_thread_sreg_base()
 # we will call the debugger engine "dg" command and parse its output
 def WindbgGetRegBase(tid):
-    s = idc.Eval('WinDbgCommand("dg %x")' % cpu.fs)
+    s = idc.eval('send_dbg_command("dg %x")' % cpu.fs)
     if "IDC_FAILURE" in s:
         return 0
     m = re.compile("[0-9a-f]{4} ([0-9a-f]{8})")
@@ -33,7 +33,7 @@ def WindbgGetRegBase(tid):
 
 # -----------------------------------------------------------------------
 def GetFsBase(tid):
-    idc.SelectThread(tid)
+    idc.select_thread(tid)
     base = idaapi.dbg_get_thread_sreg_base(tid, cpu.fs)
     if base != 0:
       return base
@@ -43,11 +43,11 @@ def GetFsBase(tid):
 # Walks the SEH chain and returns a list of handlers
 def GetExceptionChain(tid):
     fs_base = GetFsBase(tid)
-    exc_rr = Dword(fs_base)
+    exc_rr = get_wide_dword(fs_base)
     result = []
     while exc_rr != 0xffffffff:
-        prev    = Dword(exc_rr)
-        handler = Dword(exc_rr + 4)
+        prev    = get_wide_dword(exc_rr)
+        handler = get_wide_dword(exc_rr + 4)
         exc_rr  = prev
         result.append(handler)
     return result
@@ -77,10 +77,10 @@ class SEHGraph(GraphViewer):
               f = idaapi.get_func(handler)
               if not f:
                   # create function
-                  idc.MakeFunction(handler, idaapi.BADADDR)
+                  idc.add_func(handler, idaapi.BADADDR)
 
               # Node label is function name or address
-              s = GetFunctionName(handler)
+              s = get_func_name(handler)
               if not s:
                   s = "%x" % handler
 
@@ -110,7 +110,7 @@ class SEHGraph(GraphViewer):
     def OnDblClick(self, node_id):
         is_thread, value, label = self[node_id]
         if is_thread:
-            idc.SelectThread(value)
+            idc.select_thread(value)
             self.Show()
             s = "SEH chain for " + hex(value)
             t = "-" * len(s)
@@ -121,7 +121,7 @@ class SEHGraph(GraphViewer):
                 print "%x: %s" % (handler, self.names[handler])
             print t
         else:
-            idc.Jump(value)
+            idc.jumpto(value)
         return True
 
 
@@ -132,7 +132,7 @@ def main():
         return
 
     # Save current thread id
-    tid = GetCurrentThreadId()
+    tid = get_current_thread()
 
     # Iterate through all function instructions and take only call instructions
     result = {}
@@ -140,7 +140,7 @@ def main():
         result[tid] = GetExceptionChain(tid)
 
     # Restore previously selected thread
-    idc.SelectThread(tid)
+    idc.select_thread(tid)
 
     # Build the graph
     g = SEHGraph("SEH graph", result)

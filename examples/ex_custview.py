@@ -98,7 +98,7 @@ class mycv_t(simplecustviewer_t):
         elif vkey == ord('G'):
             n = self.GetLineNo()
             if n is not None:
-                v = idc.AskLong(self.GetLineNo(), "Where to go?")
+                v = idaapi.ask_long(self.GetLineNo(), "Where to go?")
                 if v:
                     self.Jump(v, 0, 5)
         elif vkey == ord('R'):
@@ -108,7 +108,7 @@ class mycv_t(simplecustviewer_t):
             print "refreshing current line..."
             self.RefreshCurrent()
         elif vkey == ord('A'):
-            s = idc.AskStr("NewLine%d" % self.Count(), "Append new line")
+            s = idaapi.ask_str("NewLine%d" % self.Count(), 0, "Append new line")
             self.AddLine(s)
             self.Refresh()
         elif vkey == ord('X'):
@@ -117,7 +117,7 @@ class mycv_t(simplecustviewer_t):
             self.Refresh()
         elif vkey == ord('I'):
             n = self.GetLineNo()
-            s = idc.AskStr("InsertedLine%d" % n, "Insert new line")
+            s = idaapi.ask_str("InsertedLine%d" % n, 0, "Insert new line")
             self.InsertLine(n, s)
             self.Refresh()
         elif vkey == ord('E'):
@@ -160,7 +160,7 @@ def show_win():
         print "Failed to create!"
         return None
     x.Show()
-    tcc = x.GetTCustomControl()
+    tcc = x.GetWidget()
 
     # Register actions
     for thing in ["Hello", "World"]:

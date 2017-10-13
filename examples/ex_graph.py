@@ -51,19 +51,16 @@ class MyGraph(GraphViewer):
     def OnGetText(self, node_id):
         return self[node_id]
 
-    def Show(self):
-        if not GraphViewer.Show(self):
-            return False
+    def OnPopup(self, form, popup_handle):
         # graph closer
         actname = "graph_closer:%s" % self.title
-        register_action(action_desc_t(actname, "Close: %s" % self.title, GraphCloser(self)))
-        attach_action_to_popup(self.GetTCustomControl(), None, actname)
+        desc = action_desc_t(actname, "Close: %s" % self.title, GraphCloser(self))
+        attach_dynamic_action_to_popup(form, popup_handle, desc)
 
         # color changer
         actname = "color_changer:%s" % self.title
-        register_action(action_desc_t(actname, "Change colors: %s" % self.title, ColorChanger(self)))
-        attach_action_to_popup(self.GetTCustomControl(), None, actname)
-        return True
+        desc = action_desc_t(actname, "Change colors: %s" % self.title, ColorChanger(self))
+        attach_dynamic_action_to_popup(form, popup_handle, desc)
 
 
 def show_graph():
@@ -73,14 +70,15 @@ def show_graph():
         return
     # Iterate through all function instructions and take only call instructions
     result = {}
-    for x in [x for x in FuncItems(f.startEA) if idaapi.is_call_insn(x)]:
+    tmp = idaapi.insn_t()
+    for x in [x for x in FuncItems(f.start_ea) if (idaapi.decode_insn(tmp, x) and idaapi.is_call_insn(tmp))]:
         for xref in XrefsFrom(x, idaapi.XREF_FAR):
             if not xref.iscode: continue
-            t = GetFunctionName(xref.to)
+            t = get_func_name(xref.to)
             if not t:
                 t = hex(xref.to)
             result[t] = True
-    g = MyGraph(GetFunctionName(f.startEA), result)
+    g = MyGraph(get_func_name(f.start_ea), result)
     if g.Show():
         return g
     else:

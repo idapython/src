@@ -1,3 +1,5 @@
+# @arnaud drop this file?
+
 # ----------------------------------------------------------------------
 #
 # Misc constants
@@ -51,7 +53,7 @@ o_idpspec5 = 13 # Processor specific type
                 # There can be more processor specific types
 
 #
-# op_t.dtyp
+# op_t.dtype
 #
 dt_byte = 0 #  8 bit
 dt_word = 1 #  16 bit
@@ -68,10 +70,9 @@ dt_fword = 11 #  48 bit
 dt_bitfild = 12 #  bit field (mc680x0)
 dt_string = 13 #  pointer to asciiz string
 dt_unicode = 14 #  pointer to unicode string
-dt_3byte = 15 #  3-byte data
-dt_ldbl = 16 #  long double (which may be different from tbyte)
-dt_byte32 = 17 # 256 bit
-dt_byte64 = 18 # 512 bit
+dt_ldbl = 15 #  long double (which may be different from tbyte)
+dt_byte32 = 16 # 256 bit
+dt_byte64 = 17 # 512 bit
 
 #
 # op_t.flags
@@ -159,7 +160,7 @@ AS_ASCIIZ      = 0x80000000         #  ascii directive inserts implicit
 # processor_t related constants
 
 IDP_INTERFACE_VERSION  = 76
-CUSTOM_CMD_ITYPE       = 0x8000
+CUSTOM_INSN_ITYPE      = 0x8000
 REG_SPOIL              = 0x80000000
 
 REAL_ERROR_FORMAT   = -1   #  not supported format for current .idp
@@ -199,7 +200,6 @@ PR_ALIGN       = 0x000800    #  All data items should be aligned properly
 PR_TYPEINFO    = 0x001000    #  the processor module supports
                              #     type information callbacks
                              #     ALL OF THEM SHOULD BE IMPLEMENTED!
-                             #     (the ones >= decorate_name)
 PR_USE64       = 0x002000    #  supports 64-bit addressing?
 PR_SGROTHER    = 0x004000    #  the segment registers don't contain
                              #     the segment selectors, something else
@@ -212,13 +212,11 @@ PR_BINMEM      = 0x010000    #  the processor module provides correct
 PR_SEGTRANS    = 0x020000    #  the processor module supports
                              #     the segment translation feature
                              #     (it means it calculates the code
-                             #     addresses using the codeSeg() function)
+                             #     addresses using the map_code_ea() function)
 PR_CHK_XREF    = 0x040000    #  don't allow near xrefs between segments
                              #     with different bases
 PR_NO_SEGMOVE  = 0x080000    #  the processor module doesn't support move_segm()
                              #     (i.e. the user can't move segments)
-PR_FULL_HIFXP  = 0x100000    #  REF_VHIGH operand value contains full operand
-                             #     not only the high bits. Meaningful if ph.high_fixup_bits
 PR_USE_ARG_TYPES  = 0x200000 #  use ph.use_arg_types callback
 PR_SCALE_STKVARS  = 0x400000 #  use ph.get_stkvar_scale callback
 PR_DELAYED     = 0x800000    #  has delayed jumps and calls
@@ -241,7 +239,7 @@ OOFS_NEEDSIGN  = 0x0002        #    always out sign         (+-)
 OOF_SIGNED       = 0x0004      #  output as signed if < 0
 OOF_NUMBER       = 0x0008      #  always as a number
 OOF_WIDTHMASK    = 0x0070      #  width of value in bits:
-OOFW_IMM       = 0x0000        #    take from x.dtyp
+OOFW_IMM       = 0x0000        #    take from x.dtype
 OOFW_8         = 0x0010        #    8 bit width
 OOFW_16        = 0x0020        #    16 bit width
 OOFW_24        = 0x0030        #    24 bit width
@@ -249,7 +247,7 @@ OOFW_32        = 0x0040        #    32 bit width
 OOFW_64        = 0x0050        #    32 bit width
 OOF_ADDR         = 0x0080      #  output x.addr, otherwise x.value
 OOF_OUTER        = 0x0100      #  output outer operand
-OOF_ZSTROFF      = 0x0200      #  meaningful only if isStroff(uFlag)
+OOF_ZSTROFF      = 0x0200      #  meaningful only if is_stroff(uFlag)
                                #     append a struct field name if
                                #     the field offset is zero?
                                #     if AFL_ZSTROFF is set, then this flag
@@ -272,7 +270,7 @@ class insn_t(object):
         self.n = 0
         self.segpref = 0
         self.size = 0
-        self.Operands = []
+        self.ops = []
 
         # store the number of operands
         self.n = noperands
@@ -281,16 +279,16 @@ class insn_t(object):
         for i in xrange(0, noperands):
             op = op_t()
             op.n = i
-            self.Operands.append(op)
+            self.ops.append(op)
             setattr(self, 'Op%d' % (i+1), op)
     def __getitem__(self, i):
-        return self.Operands[i]
+        return self.ops[i]
 
 # ----------------------------------------------------------------------
 class op_t(object):
     def __init__(self):
         self.addr = 0
-        self.dtyp = 0
+        self.dtype = 0
         self.flags = 0
         self.n = 0
         self.offb = 0

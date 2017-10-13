@@ -60,15 +60,15 @@ class XrefsForm(idaapi.PluginForm):
         xtype.remove_ptr_or_array()
         typename = idaapi.print_tinfo('', 0, 0, idaapi.PRTYPE_1LINE, xtype, '', '')
 
-        sid = idc.GetStrucIdByName(typename)
-        member = idc.GetMemberName(sid, m)
+        sid = idc.get_struc_id(typename)
+        member = idc.get_member_name(sid, m)
 
         return '%s::%s' % (typename, member)
 
-    def OnCreate(self, form):
+    def OnCreate(self, widget):
 
         # Get parent widget
-        self.parent = self.FormToPyQtWidget(form)
+        self.parent = self.FormToPyQtWidget(widget)
 
         self.populate_form()
 
@@ -144,7 +144,7 @@ class XrefsForm(idaapi.PluginForm):
                 cfunc = idaapi.decompile(ea)
 
                 self.functions.append(cfunc.entry_ea)
-                self.items.append((ea, idc.GetFunctionName(cfunc.entry_ea), self.get_decompiled_line(cfunc, ea)))
+                self.items.append((ea, idc.get_func_name(cfunc.entry_ea), self.get_decompiled_line(cfunc, ea)))
 
             except Exception as e:
                 print 'could not decompile: %s' % (str(e), )
@@ -210,7 +210,7 @@ class XrefsForm(idaapi.PluginForm):
                 self.functions.append(cfunc.entry_ea)
                 self.items.append((
                         parent.ea,
-                        idc.GetFunctionName(cfunc.entry_ea),
+                        idc.get_func_name(cfunc.entry_ea),
                         self.get_decompiled_line(cfunc, parent.ea)))
 
 
@@ -247,7 +247,7 @@ class XrefsForm(idaapi.PluginForm):
 
         return
 
-    def OnClose(self, form):
+    def OnClose(self, widget):
         pass
 
 
@@ -257,7 +257,7 @@ class show_xrefs_ah_t(idaapi.action_handler_t):
         self.sel = None
 
     def activate(self, ctx):
-        vu = idaapi.get_tform_vdui(ctx.form)
+        vu = idaapi.get_widget_vdui(ctx.widget)
         if not vu or not self.sel:
             print "No vdui? Strange, since this action should be enabled only for pseudocode views."
             return 0
@@ -267,22 +267,21 @@ class show_xrefs_ah_t(idaapi.action_handler_t):
         return 1
 
     def update(self, ctx):
-        vu = idaapi.get_tform_vdui(ctx.form)
-        if not vu:
-            return idaapi.AST_DISABLE_FOR_FORM
-        else:
-            vu.get_current_item(idaapi.USE_KEYBOARD)
-            item = vu.item
-            self.sel = None
-            if item.citype == idaapi.VDI_EXPR and item.it.to_specific_type.opname in ('obj', 'memref', 'memptr'):
-                # if an expression is selected. verify that it's either a cot_obj, cot_memref or cot_memptr
-                self.sel = item.it.to_specific_type
+        if ctx.widget_type != idaapi.BWN_PSEUDOCODE:
+            return idaapi.AST_DISABLE_FOR_WIDGET
+        vu = idaapi.get_widget_vdui(ctx.widget)
+        vu.get_current_item(idaapi.USE_KEYBOARD)
+        item = vu.item
+        self.sel = None
+        if item.citype == idaapi.VDI_EXPR and item.it.to_specific_type.opname in ('obj', 'memref', 'memptr'):
+            # if an expression is selected. verify that it's either a cot_obj, cot_memref or cot_memptr
+            self.sel = item.it.to_specific_type
 
-            elif item.citype == idaapi.VDI_FUNC:
-                # if the function itself is selected, show xrefs to it.
-                self.sel = item.f
+        elif item.citype == idaapi.VDI_FUNC:
+            # if the function itself is selected, show xrefs to it.
+            self.sel = item.f
 
-            return idaapi.AST_ENABLE if self.sel else idaapi.AST_DISABLE
+        return idaapi.AST_ENABLE if self.sel else idaapi.AST_DISABLE
 
 class hexrays_callback_info(object):
 
@@ -293,8 +292,8 @@ class hexrays_callback_info(object):
 
         try:
             if event == idaapi.hxe_populating_popup:
-                form, phandle, vu = args
-                idaapi.attach_action_to_popup(form, phandle, "vdsxrefs:show", None)
+                widget, phandle, vu = args
+                idaapi.attach_action_to_popup(widget, phandle, "vdsxrefs:show", None)
         except:
             traceback.print_exc()
 

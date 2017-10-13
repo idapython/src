@@ -17,7 +17,26 @@ import time
 import warnings
 
 # Prepare sys.path so loading of the shared objects works
-sys.path.append(os.path.join(sys.executable, IDAPYTHON_DYNLOAD_BASE, "python", "lib", "python2.7", "lib-dynload", IDAPYTHON_DYNLOAD_RELPATH))
+lib_dynload = os.path.join(
+    sys.executable,
+    IDAPYTHON_DYNLOAD_BASE,
+    "python", "lib", "python2.7", "lib-dynload")
+
+is_x64 = sys.maxint >= 0x100000000L
+if is_x64:
+    # x64 python requires our lib_dynload to be added; sys.path seems
+    # to be composed differently than x86 builds.
+    # In addition, we always want our own lib-dynload to come first:
+    # the PyQt (& sip) modules that might have to be loaded, should
+    # be the ones shipped with IDA and not those possibly available
+    # on the system.
+    sys.path.insert(0, os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
+    sys.path.insert(0, lib_dynload)
+else:
+    # for non-x64 platforms, make sure everything works as it used to,
+    # by appending our own lib-dynload to sys.argv..
+    sys.path.append(os.path.join(lib_dynload, IDAPYTHON_DYNLOAD_RELPATH))
+
 try:
     import ida_idaapi
     import ida_kernwin
@@ -40,7 +59,7 @@ class IDAPythonStdOut:
     """
     def write(self, text):
         # NB: in case 'text' is Unicode, msg() will decode it
-        # and call umsg() to print it
+        # and call msg() to print it
         ida_kernwin.msg(text)
 
     def flush(self):
@@ -88,7 +107,7 @@ sys.stdout = sys.stderr = IDAPythonStdOut()
 import pydoc
 class IDAPythonHelpPrompter:
     def readline(self):
-        return ida_kernwin.askstr(0, '', 'Help topic?')
+        return ida_kernwin.ask_str('', 0, 'Help topic?')
 help = pydoc.Helper(input = IDAPythonHelpPrompter(), output = sys.stdout)
 
 # Assign a default sys.argv
@@ -110,7 +129,9 @@ if not IDAPYTHON_REMOVE_CWD_SYS_PATH:
 
 if IDAPYTHON_COMPAT_AUTOIMPORT_MODULES:
     # Import all the required modules
-    from idaapi import Choose, get_user_idadir, cvar, Choose2, Appcall, Form
+    from idaapi import get_user_idadir, cvar, Appcall, Form
+    if IDAPYTHON_COMPAT_695_API:
+        from idaapi import Choose2
     from idc      import *
     from idautils import *
     import idaapi

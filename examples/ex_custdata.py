@@ -7,14 +7,16 @@ import struct
 import ctypes
 import platform
 
-#<pycode(ex_custdata)>
-
 # -----------------------------------------------------------------------
 class pascal_data_type(data_type_t):
     def __init__(self):
-        data_type_t.__init__(self, name="py_pascal_string",
-                             value_size = 2, menu_name = "Pascal string",
-                             asm_keyword = "pstr")
+        data_type_t.__init__(
+            self,
+            "py_pascal_string",
+            2,
+            "Pascal string",
+            None,
+            "pstr")
 
     def calc_item_size(self, ea, maxsize):
         # Custom data types may be used in structure definitions. If this case
@@ -34,7 +36,9 @@ class pascal_data_type(data_type_t):
 class pascal_data_format(data_format_t):
     FORMAT_NAME = "py_pascal_string_pstr"
     def __init__(self):
-        data_format_t.__init__(self, name=pascal_data_format.FORMAT_NAME)
+        data_format_t.__init__(
+            self,
+            pascal_data_format.FORMAT_NAME)
 
     def printf(self, value, current_ea, operand_num, dtid):
         # Take the length byte
@@ -52,12 +56,19 @@ class pascal_data_format(data_format_t):
 # -----------------------------------------------------------------------
 class simplevm_data_type(data_type_t):
     ASM_KEYWORD = "svm_emit"
-    def __init__(self):
-        data_type_t.__init__(self,
-                             name="py_simple_vm",
-                             value_size = 1,
-                             menu_name = "SimpleVM",
-                             asm_keyword = simplevm_data_type.ASM_KEYWORD)
+    def __init__(
+            self,
+            name="py_simple_vm",
+            value_size=1,
+            menu_name="SimpleVM",
+            asm_keyword=ASM_KEYWORD):
+        data_type_t.__init__(
+            self,
+            name,
+            value_size,
+            menu_name,
+            None,
+            asm_keyword)
 
     def calc_item_size(self, ea, maxsize):
         if _idaapi.is_member_id(ea):
@@ -71,10 +82,15 @@ class simplevm_data_type(data_type_t):
         return n
 
 class simplevm_data_format(data_format_t):
-    def __init__(self):
-        data_format_t.__init__(self,
-                               name="py_simple_vm_format",
-                               menu_name = "SimpleVM")
+    def __init__(
+            self,
+            name="py_simple_vm_format",
+            menu_name="SimpleVM"):
+        data_format_t.__init__(
+            self,
+            name,
+            0,
+            menu_name)
 
     # Some tables for the disassembler
     INST = {1: 'add', 2: 'mul', 3: 'sub', 4: 'xor', 5: 'mov'}
@@ -114,10 +130,11 @@ class simplevm_data_format(data_format_t):
 # This format will display DWORD values as MAKE_DWORD(0xHI, 0xLO)
 class makedword_data_format(data_format_t):
     def __init__(self):
-        data_format_t.__init__(self,
-                               name="py_makedword",
-                               value_size = 4,
-                               menu_name = "Make DWORD")
+        data_format_t.__init__(
+            self,
+            "py_makedword",
+            4,
+            "Make DWORD")
 
     def printf(self, value, current_ea, operand_num, dtid):
         if len(value) != 4: return None
@@ -138,10 +155,11 @@ class makedword_data_format(data_format_t):
 # DLL each time for a new string. It can be improved in many ways.
 class rsrc_string_format(data_format_t):
     def __init__(self):
-        data_format_t.__init__(self,
-                               name="py_w32rsrcstring",
-                               value_size = 1,
-                               menu_name = "Resource string")
+        data_format_t.__init__(
+            self,
+            "py_w32rsrcstring",
+            1,
+            "Resource string")
         self.cache_node = idaapi.netnode("$ py_w32rsrcstring", 0, 1)
 
     def get_rsrc_string(self, fn, id):
@@ -186,19 +204,21 @@ new_formats = [
   (pascal_data_type(), pascal_data_format()),
   (simplevm_data_type(), simplevm_data_format()),
   (makedword_data_format(),),
-  (simplevm_data_format(),)
+  (simplevm_data_format(),),
 ]
 
-if platform.system() == 'Windows':
-    new_formats.append((rsrc_string_format(),))
-
-#</pycode(ex_custdata)>
+try:
+    if platform.system() == 'Windows':
+        new_formats.append((rsrc_string_format(),))
+except:
+    pass
 
 # -----------------------------------------------------------------------
 def nw_handler(code, old=0):
     # delete notifications
     if code == NW_OPENIDB:
-        idaapi.register_data_types_and_formats(new_formats)
+        if not idaapi.register_data_types_and_formats(new_formats):
+            print "Failed to register types!"
     elif code == NW_CLOSEIDB:
         idaapi.unregister_data_types_and_formats(new_formats)
     elif code == NW_TERMIDA:

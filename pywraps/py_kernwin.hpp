@@ -6,15 +6,7 @@
 //<decls(py_kernwin)>
 //------------------------------------------------------------------------
 
-//---------------------------------------------------------------------------
-// Context structure used by add|del_menu_item()
-struct py_add_del_menu_item_ctx
-{
-  qstring menupath;
-  PyObject *cb_data;
-};
-
-//---------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 // Context structure used by add|del_idc_hotkey()
 struct py_idchotkey_ctx_t
 {
@@ -147,25 +139,25 @@ static PyObject *py_choose_idasgn()
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def get_highlighted_identifier(flags = 0):
+def get_highlight():
     """
-    Returns the currently highlighted identifier
+    Returns the currently highlighted identifier and flags
 
-    @param flags: reserved (pass 0)
-    @return: None or the highlighted identifier
+    @return: a tuple (text, flags), or None if nothing
+             is highlighted or in case of error.
     """
     pass
 #</pydoc>
 */
-static PyObject *py_get_highlighted_identifier(int flags = 0)
+static PyObject *py_get_highlight(TWidget *v)
 {
-  char buf[MAXSTR];
-  bool ok = get_highlighted_identifier(buf, sizeof(buf), flags);
+  qstring buf;
+  uint32 flags;
+  bool ok = get_highlight(&buf, v, &flags);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !ok )
     Py_RETURN_NONE;
-  else
-    return PyString_FromString(buf);
+  return Py_BuildValue("(sk)", buf.c_str(), flags);
 }
 
 //------------------------------------------------------------------------
@@ -200,7 +192,7 @@ def free_custom_icon(icon_id):
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def readsel2(view, p0, p1):
+def read_selection(view, p0, p1):
     """
     Read the user selection, and store its information in p0 (from) and p1 (to).
 
@@ -210,7 +202,7 @@ def readsel2(view, p0, p1):
     >>> p0 = idaapi.twinpos_t()
     p1 = idaapi.twinpos_t()
     view = idaapi.get_current_viewer()
-    idaapi.readsel2(view, p0, p1)
+    idaapi.read_selection(view, p0, p1)
 
 
     At that point, p0 and p1 hold information for the selection.
@@ -239,41 +231,6 @@ def readsel2(view, p0, p1):
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def umsg(text):
-    """
-    Prints text into IDA's Output window
-
-    @param text: text to print
-                 Can be Unicode, or string in UTF-8 encoding
-    @return: number of bytes printed
-    """
-    pass
-#</pydoc>
-*/
-static PyObject *py_umsg(PyObject *o)
-{
-  PyObject *utf8 = NULL;
-  if ( PyUnicode_Check(o) )
-  {
-    utf8 = PyUnicode_AsUTF8String(o);
-    o = utf8;
-  }
-  else if ( !PyString_Check(o) )
-  {
-    PyErr_SetString(PyExc_TypeError, "A unicode or UTF-8 string expected");
-    return NULL;
-  }
-  int rc;
-  Py_BEGIN_ALLOW_THREADS;
-  rc = umsg("%s", PyString_AsString(o));
-  Py_END_ALLOW_THREADS;
-  Py_XDECREF(utf8);
-  return PyInt_FromLong(rc);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
 def msg(text):
     """
     Prints text into IDA's Output window
@@ -287,17 +244,25 @@ def msg(text):
 */
 static PyObject *py_msg(PyObject *o)
 {
+  const char *utf8 = NULL;
+  ref_t py_utf8;
   if ( PyUnicode_Check(o) )
-    return py_umsg(o);
-
-  if ( !PyString_Check(o) )
+  {
+    py_utf8 = newref_t(PyUnicode_AsUTF8String(o));
+    utf8 = PyString_AsString(py_utf8.o);
+  }
+  else if ( PyString_Check(o) )
+  {
+    utf8 = PyString_AsString(o);
+  }
+  else
   {
     PyErr_SetString(PyExc_TypeError, "A string expected");
     return NULL;
   }
   int rc;
   Py_BEGIN_ALLOW_THREADS;
-  rc = msg("%s", PyString_AsString(o));
+  rc = msg("%s", utf8);
   Py_END_ALLOW_THREADS;
   return PyInt_FromLong(rc);
 }
@@ -305,11 +270,11 @@ static PyObject *py_msg(PyObject *o)
 //------------------------------------------------------------------------
 /*
 #<pydoc>
-def asktext(max_text, defval, prompt):
+def ask_text(defval, prompt):
     """
     Asks for a long text
 
-    @param max_text: Maximum text length
+    @param max_size: Maximum text length, 0 for unlimited
     @param defval: The default value
     @param prompt: The prompt value
     @return: None or the entered string
@@ -317,27 +282,54 @@ def asktext(max_text, defval, prompt):
     pass
 #</pydoc>
 */
-PyObject *py_asktext(int max_text, const char *defval, const char *prompt)
+PyObject *py_ask_text(size_t max_size, const char *defval, const char *prompt)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( max_text <= 0 )
-    Py_RETURN_NONE;
 
-  char *buf = new char[max_text];
-  if ( buf == NULL )
-    Py_RETURN_NONE;
+  qstring qbuf;
 
   PyObject *py_ret;
-  if ( asktext(size_t(max_text), buf, defval, "%s", prompt) != NULL )
+  if ( ask_text(&qbuf, max_size, defval, "%s", prompt) )
   {
-    py_ret = PyString_FromString(buf);
+    py_ret = PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
   }
   else
   {
     py_ret = Py_None;
     Py_INCREF(py_ret);
   }
-  delete [] buf;
+  return py_ret;
+}
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def ask_str(defval, hist, prompt):
+    """
+    Asks for a long text
+
+    @param hist:   history id
+    @param defval: The default value
+    @param prompt: The prompt value
+    @return: None or the entered string
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_ask_str(qstring *defval, int hist, const char *prompt)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+
+  PyObject *py_ret;
+  if ( ask_str(defval, hist, "%s", prompt) )
+  {
+    py_ret = PyString_FromStringAndSize(defval->begin(), defval->length());
+  }
+  else
+  {
+    py_ret = Py_None;
+    Py_INCREF(py_ret);
+  }
   return py_ret;
 }
 
@@ -356,28 +348,8 @@ def str2ea(addr):
 ea_t py_str2ea(const char *str, ea_t screenEA = BADADDR)
 {
   ea_t ea;
-  bool ok = str2ea(str, &ea, screenEA);
+  bool ok = str2ea(&ea, str, screenEA);
   return ok ? ea : BADADDR;
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def str2user(str):
-    """
-    Insert C-style escape characters to string
-
-    @return: new string with escape characters inserted
-    """
-    pass
-#</pydoc>
-*/
-PyObject *py_str2user(const char *str)
-{
-  qstring qstr(str);
-  qstring retstr;
-  qstr2user(&retstr, qstr);
-  return PyString_FromString(retstr.c_str());
 }
 
 //------------------------------------------------------------------------
@@ -396,32 +368,6 @@ def process_ui_action(name):
 static bool py_process_ui_action(const char *name, int flags = 0)
 {
   return process_ui_action(name, flags, NULL);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def del_menu_item(menu_ctx):
-    """Deprecated. Use detach_menu_item()/unregister_action() instead."""
-    pass
-#</pydoc>
-*/
-static bool py_del_menu_item(PyObject *py_ctx)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(py_ctx) )
-    return false;
-
-  py_add_del_menu_item_ctx *ctx = (py_add_del_menu_item_ctx *)PyCObject_AsVoidPtr(py_ctx);
-
-  bool ok = del_menu_item(ctx->menupath.c_str());
-  if ( ok )
-  {
-    Py_DECREF(ctx->cb_data);
-    delete ctx;
-  }
-
-  return ok;
 }
 
 //------------------------------------------------------------------------
@@ -508,8 +454,8 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
         idc_gvarname.c_str());
 
       // Compile the IDC condition
-      char errbuf[MAXSTR];
-      if ( !CompileLineEx(idc_func.c_str(), errbuf, sizeof(errbuf)) )
+      qstring errbuf;
+      if ( !compile_idc_text(idc_func.c_str(), &errbuf) )
         break;
 
       // Create new context
@@ -573,9 +519,9 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
     PyErr_Print();
 }
 static PyObject *py_restore_database_snapshot(
-  const snapshot_t *ss,
-  PyObject *pyfunc_or_none,
-  PyObject *pytuple_or_none)
+        const snapshot_t *ss,
+        PyObject *pyfunc_or_none,
+        PyObject *pytuple_or_none)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
@@ -605,76 +551,6 @@ static PyObject *py_restore_database_snapshot(
     Py_DECREF(cb_data);
 
   return PyBool_FromLong(b);
-}
-
-//------------------------------------------------------------------------
-/*
-#<pydoc>
-def add_menu_item(menupath, name, hotkey, flags, callback, args):
-    """Deprecated. Use register_action()/attach_menu_item() instead."""
-    pass
-#</pydoc>
-*/
-bool idaapi py_menu_item_callback(void *userdata);
-static PyObject *py_add_menu_item(
-  const char *menupath,
-  const char *name,
-  const char *hotkey,
-  int flags,
-  PyObject *pyfunc,
-  PyObject *args)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  bool no_args;
-
-  // No slash in the menu path?
-  const char *p = strrchr(menupath, '/');
-  if ( p == NULL )
-    Py_RETURN_NONE;
-
-  if ( args == Py_None )
-  {
-    no_args = true;
-    args = PyTuple_New(0);
-    if ( args == NULL )
-      return NULL;
-  }
-  else if ( !PyTuple_Check(args) )
-  {
-    PyErr_SetString(PyExc_TypeError, "args must be a tuple or None");
-    return NULL;
-  }
-  else
-  {
-    no_args = false;
-  }
-
-  // Form a tuple holding the function to be called and its arguments
-  PyObject *cb_data = Py_BuildValue("(OO)", pyfunc, args);
-
-  // If we created an empty tuple, then we must free it
-  if ( no_args )
-    Py_DECREF(args);
-
-  // Add the menu item
-  bool b = add_menu_item(menupath, name, hotkey, flags, py_menu_item_callback, (void *)cb_data);
-
-  if ( !b )
-  {
-    Py_XDECREF(cb_data);
-    Py_RETURN_NONE;
-  }
-  // Create a context (for the delete_menu_item())
-  py_add_del_menu_item_ctx *ctx = new py_add_del_menu_item_ctx();
-
-  // Form the complete menu path
-  ctx->menupath.append(menupath, p - menupath + 1);
-  ctx->menupath.append(name);
-  // Save callback data
-  ctx->cb_data = cb_data;
-
-  // Return context to user
-  return PyCObject_FromVoidPtr(ctx, NULL);
 }
 
 //------------------------------------------------------------------------
@@ -711,7 +587,7 @@ def execute_sync(callable, reqf):
     If the current thread not the main thread, then the call is queued and
     executed afterwards.
 
-    @param callable: A python callable object
+    @param callable: A python callable object, must return an integer value
     @param reqf: one of MFF_ flags
     @return: -1 or the return value of the callable
     """
@@ -895,7 +771,7 @@ def is_idaq():
 //---------------------------------------------------------------------------
 // UI hooks
 //---------------------------------------------------------------------------
-int idaapi UI_Callback(void *ud, int notification_code, va_list va);
+ssize_t idaapi UI_Callback(void *ud, int notification_code, va_list va);
 /*
 #<pydoc>
 class UI_Hooks(object):
@@ -914,19 +790,19 @@ class UI_Hooks(object):
         """
         pass
 
-    def preprocess(self, name):
+    def preprocess_action(self, name):
         """
-        IDA ui is about to handle a user command
+        IDA ui is about to handle a user action
 
-        @param name: ui command name
+        @param name: ui action name
                      (these names can be looked up in ida[tg]ui.cfg)
-        @return: 0-ok, nonzero - a plugin has handled the command
+        @return: 0-ok, nonzero - a plugin has handled the action
         """
         pass
 
-    def postprocess(self):
+    def postprocess_action(self):
         """
-        An ida ui command has been handled
+        An ida ui action has been handled
 
         @return: Ignored
         """
@@ -974,23 +850,23 @@ class UI_Hooks(object):
         """
         pass
 
-    def populating_tform_popup(self, form, popup):
+    def populating_widget_popup(self, widget, popup):
         """
-        The UI is populating the TForm's popup menu.
+        The UI is populating the TWidget's popup menu.
         Now is a good time to call idaapi.attach_action_to_popup()
 
-        @param form: The form
+        @param widget: The widget
         @param popup: The popup menu.
         @return: Ignored
         """
         pass
 
-    def finish_populating_tform_popup(self, form, popup):
+    def finish_populating_widget_popup(self, widget, popup):
         """
-        The UI is about to be done populating the TForm's popup menu.
+        The UI is about to be done populating the TWidget's popup menu.
         Now is a good time to call idaapi.attach_action_to_popup()
 
-        @param form: The form
+        @param widget: The widget
         @param popup: The popup menu.
         @return: Ignored
         """
@@ -1019,29 +895,29 @@ public:
 
   bool hook()
   {
-    return hook_to_notification_point(HT_UI, UI_Callback, this);
+    return idapython_hook_to_notification_point(HT_UI, UI_Callback, this);
   }
 
   bool unhook()
   {
-    return unhook_from_notification_point(HT_UI, UI_Callback, this);
+    return idapython_unhook_from_notification_point(HT_UI, UI_Callback, this);
   }
 
-  static int handle_get_ea_hint_output(PyObject *o, ea_t, char *buf, size_t bufsize)
+  static int handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
     int rc = 0;
     char *_buf;
     Py_ssize_t _len;
     if ( o != NULL && PyString_Check(o) && PyString_AsStringAndSize(o, &_buf, &_len) != -1 )
     {
-      qstrncpy(buf, _buf, qmin(_len, bufsize));
+      buf->append(_buf, _len);
       rc = 1;
     }
     Py_XDECREF(o);
     return rc;
   }
 
-  static int handle_hint_output(PyObject *o, int *important_lines, qstring *hint)
+  static int handle_hint_output(PyObject *o, qstring *hint, int *important_lines)
   {
     int rc = 0;
     if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
@@ -1070,14 +946,14 @@ public:
     return rc;
   }
 
-  static int handle_hint_output(PyObject *o, ea_t, int, int *important_lines, qstring *hint)
+  static int handle_hint_output(PyObject *o, qstring *hint, ea_t, int, int *important_lines)
   {
-    return handle_hint_output(o, important_lines, hint);
+    return handle_hint_output(o, hint, important_lines);
   }
 
-  static int handle_hint_output(PyObject *o, TCustomControl *, place_t *, int *important_lines, qstring *hint)
+  static int handle_hint_output(PyObject *o, qstring *hint, TWidget *, place_t *, int *important_lines)
   {
-    return handle_hint_output(o, important_lines, hint);
+    return handle_hint_output(o, hint, important_lines);
   }
 
   // hookgenUI:methods
@@ -1086,30 +962,14 @@ public:
 //-------------------------------------------------------------------------
 bool py_register_action(action_desc_t *desc)
 {
+  desc->flags |= ADF_OWN_HANDLER;
   bool ok = register_action(*desc);
   if ( ok )
   {
-    // Success. We are managing this handler from now on,
-    // and must prevent it from being destroyed.
-    py_action_handlers[desc->name] = desc->handler;
     // Let's set this to NULL, so when the wrapping Python action_desc_t
     // instance is deleted, it doesn't try to delete the handler (See
     // kernwin.i's action_desc_t::~action_desc_t()).
     desc->handler = NULL;
-  }
-  return ok;
-}
-
-//-------------------------------------------------------------------------
-bool py_unregister_action(const char *name)
-{
-  bool ok = unregister_action(name);
-  if ( ok )
-  {
-    py_action_handler_t *handler =
-      (py_action_handler_t *) py_action_handlers[name];
-    delete handler;
-    py_action_handlers.erase(name);
   }
   return ok;
 }
@@ -1124,15 +984,42 @@ PyObject *py_get_registered_actions()
 }
 
 //-------------------------------------------------------------------------
+/*
+#<pydoc>
+def py_attach_dynamic_action_to_popup(
+        widget,
+        popup_handle,
+        desc,
+        popuppath = None,
+        flags = 0)
+    """
+    Create & insert an action into the widget's popup menu
+    (::ui_attach_dynamic_action_to_popup).
+    Note: The action description in the 'desc' parameter is modified by
+          this call so you should prepare a new description for each call.
+    For example:
+        desc = idaapi.action_desc_t(None, 'Dynamic popup action', Handler())
+        idaapi.attach_dynamic_action_to_popup(form, popup, desc)
+
+    @param widget:       target widget
+    @param popup_handle: target popup
+    @param desc:         action description of type action_desc_t
+    @param popuppath:    can be None
+    @param flags:        a combination of SETMENU_ constants
+    @return: success
+    """
+    pass
+#</pydoc>
+*/
 bool py_attach_dynamic_action_to_popup(
-        TForm *form,
+        TWidget *widget,
         TPopupMenu *popup_handle,
         action_desc_t *desc,
         const char *popuppath = NULL,
         int flags = 0)
 {
   bool ok = attach_dynamic_action_to_popup(
-          form, popup_handle, *desc, popuppath, flags);
+          widget, popup_handle, *desc, popuppath, flags);
   if ( ok )
     // Set the handler to null, so the desc won't destroy
     // it, as it noticed ownership was taken by IDA.
@@ -1166,49 +1053,17 @@ DECLARE_TYPE_AS_MOVABLE(disasm_line_t);
 typedef qvector<disasm_line_t> disasm_text_t;
 
 //-------------------------------------------------------------------------
-void py_gen_disasm_text(ea_t ea1, ea_t ea2, disasm_text_t &text, bool truncate_lines)
+void py_gen_disasm_text(disasm_text_t &text, ea_t ea1, ea_t ea2, bool truncate_lines)
 {
   text_t _text;
-  gen_disasm_text(ea1, ea2, _text, truncate_lines);
+  gen_disasm_text(_text, ea1, ea2, truncate_lines);
   for ( size_t i = 0, n = _text.size(); i < n; ++i )
   {
-    const twinline_t &tl = _text[i];
+    twinline_t &tl = _text[i];
     disasm_line_t &dl = text.push_back();
     dl.at = tl.at;           // Transfer ownership
-    dl.line.inject(tl.line); // Transfer ownership
+    dl.line.swap(tl.line);   // Transfer ownership
   }
-}
-
-//-------------------------------------------------------------------------
-// Although 'TCustomControl*' and 'TForm*' instances can both be used
-// for attach_action_to_popup() at a binary-level, IDAPython SWIG bindings
-// require that a 'TForm *' wrapper be passed to wrap_attach_action_to_popup().
-// Thus, we provide another attach_action_to_popup() version, that
-// accepts a 'TCustomControl' as first argument.
-//
-// Since user-created GraphViewer are created like so:
-// +-------- PluginForm ----------+
-// |+----- TCustomControl -------+|
-// ||                            ||
-// ||                            ||
-// ||                            ||
-// ||                            ||
-// ||                            ||
-// |+----------------------------+|
-// +------------------------------+
-// The user cannot use GetTForm(), and use that to attach
-// an action to, because that'll attach the action to the PluginForm
-// instance.
-// Instead, the user must use GetTCustomControl(), and call
-// this function below with it.
-bool attach_action_to_popup(
-        TCustomControl *tcc,
-        TPopupMenu *popup_handle,
-        const char *name,
-        const char *popuppath = NULL,
-        int flags = 0)
-{
-  return attach_action_to_popup((TForm*) tcc, popup_handle, name, popuppath, flags);
 }
 
 //-------------------------------------------------------------------------
@@ -1311,7 +1166,7 @@ uint32 py_call_nav_colorizer(
 //---------------------------------------------------------------------------
 //<code(py_kernwin)>
 //---------------------------------------------------------------------------
-int idaapi UI_Callback(void *ud, int notification_code, va_list va)
+ssize_t idaapi UI_Callback(void *ud, int notification_code, va_list va)
 {
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;

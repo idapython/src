@@ -19,6 +19,13 @@ PROC=python
 API_CONTENTS=api_contents.txt
 PYDOC_INJECTIONS=pydoc_injections.txt
 
+BC695=1
+ifdef BC695
+  BC695_CFLAGS=-DBC695
+  BC695_SWIGFLAGS=-DBC695
+  BC695_DEPLOYFLAGS=--bc695
+endif
+
 IDA_INCLUDE=../../include
 
 DIST=$(F)dist
@@ -26,6 +33,8 @@ DIST=$(F)dist
 ifdef __NT__
   SYSNAME=win
   MSRUNTIME=/MD
+  MSCLOPTS=/nologo
+  MSLDOPTS=/nologo
 endif
 
 ifdef __LINUX__
@@ -67,6 +76,11 @@ else
   endif
 endif
 
+ifdef __NT__
+  IDA_CMD=TVHEADLESS=1 $(R)idaw$(X64SUFF)$(SUFF64)
+else
+  IDA_CMD=TVHEADLESS=1 $(R)idal$(X64SUFF)$(SUFF64)
+endif
 
 ST_SWIG=$(F)swig
 ifeq ($(OUT_OF_TREE_BUILD),)
@@ -86,10 +100,14 @@ DEPLOY_PYDIR=$(R)python
 DEPLOY_INIT_PY=$(DEPLOY_PYDIR)/init.py
 DEPLOY_IDC_PY=$(DEPLOY_PYDIR)/idc.py
 DEPLOY_IDAUTILS_PY=$(DEPLOY_PYDIR)/idautils.py
+DEPLOY_IDC_BC695_PY=$(DEPLOY_PYDIR)/idc_bc695.py
+DEPLOY_IDAAPI_PY=$(DEPLOY_PYDIR)/idaapi.py
+DEPLOY_IDADEX_PY=$(DEPLOY_PYDIR)/idadex.py
 ifeq ($(OUT_OF_TREE_BUILD),)
   TEST_IDC=test_idc
   DBLZIP_SCRIPT:=$(abspath ../../ida/build/dblzip.py)
   PKGBIN_SCRIPT:=$(abspath ../../ida/build/pkgbin.py)
+  IDC_BC695_IDC_SOURCE?=$(DEPLOY_PYDIR)/../idc/idc.idc
 endif
 
 #
@@ -129,11 +147,12 @@ endif
 # We are building 'MODULES_NAMES' from subvars because it appears some versions
 # of make do not deal too well with '\'s, and introduce spaces, which later is
 # problematic when substituting ' ' for ',' & passing modules list to scripts
-MNAMES_0=allins area auto bytes dbg diskio entry enum expr fixup
-MNAMES_1=fpro frame funcs gdl graph $(HEXRAYS_MODNAME) ida idaapi idd idp ints
-MNAMES_2=kernwin lines loader moves nalt name netnode offset pro queue
-MNAMES_3=registry search segment srarea strlist struct typeinf ua xref
-MODULES_NAMES=$(MNAMES_0) $(MNAMES_1) $(MNAMES_2) $(MNAMES_3)
+MNAMES_0=allins range auto bytes dbg diskio entry enum expr fixup
+MNAMES_1=fpro frame funcs gdl graph $(HEXRAYS_MODNAME) ida idaapi idd idp
+MNAMES_2=kernwin lines loader moves nalt name netnode offset pro problems
+MNAMES_3=registry search segment segregs strlist struct typeinf tryblks ua xref
+MNAMES_EXTRA=idc
+MODULES_NAMES=$(MNAMES_0) $(MNAMES_1) $(MNAMES_2) $(MNAMES_3) $(MNAMES_EXTRA)
 
 MODULES=$(MODULES_NAMES:%=$(F)_ida_%$(MODULE_SFX))
 DEPLOYED_MODULES=$(MODULES_NAMES:%=$(DEPLOY_LIBDIR)/_ida_%$(MODULE_SFX))
@@ -154,7 +173,12 @@ ifdef __NT__
   BINARY_LINKOPTS=/def:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
   RESFILES=$(IDAPYTHON_IMPLIB_DEF)
 else
-  MODULE_LINKIDA=-L$(R) $(LINKIDA) $(BINARY)
+  ifeq ($(OUT_OF_TREE_BUILD),)
+    LIBIDA_DIR:=$(R)
+  else
+    LIBIDA_DIR:=$(L)
+  endif
+  MODULE_LINKIDA=-L$(LIBIDA_DIR) $(LINKIDA) $(BINARY)
 endif
 
 all: objdir pyfiles config $(DEPLOYED_MODULES) $(PYTHON_MODULES) $(ST_API_CONTENTS) $(IDAPYTHON_IMPLIB) $(ST_PYDOC_INJECTIONS) #$(TEST_IDC)
@@ -193,6 +217,8 @@ else # unix/mac
         PRECOMPILED_COPY=$(R)$(LIBPYTHON_NAME) $(R)$(LIBPYTHON_NAME) $(patsubst precompiled/%,$(DEPLOY_PYDIR)/%,$(PYLIBFILES))
       endif
     endif
+    PYTHON_LDFLAGS_RPATH_MAIN=-Wl,-rpath='$$ORIGIN/..'
+    PYTHON_LDFLAGS_RPATH_MODULE=-Wl,-rpath='$$$$ORIGIN/../../..'
   else
     MACDEFINES=-DMACSDKVER=$(MACSDKVER)
   endif
@@ -208,21 +234,29 @@ endif
 #  three modules will share type information. But any other project's
 #  types will not interfere or clash with the types in your module.
 DEF_TYPE_TABLE=-DSWIG_TYPE_TABLE=idaapi
-SWIGFLAGS=$(_SWIGFLAGS) $(SWIGINCLUDES) $(DEF_TYPE_TABLE)
+SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIGINCLUDES) $(DEF_TYPE_TABLE) -D__IDP__ -D__PLUGIN__ $(BC695_SWIGFLAGS)
 
-ADDITIONAL_LIBS=$(PYTHON_LDFLAGS)
+ADDITIONAL_LIBS=$(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MAIN)
+ifdef __LINUX__
+  ADDITIONAL_LIBS_MODULE=$(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MODULE)
+else
+  ADDITIONAL_LIBS_MODULE=$(ADDITIONAL_LIBS)
+endif
+
 PUBTREE_DIR=$(F)/public_tree
 
 .PHONY: pyfiles docs $(TEST_IDC) staging_dirs clean check_python package public_tree
 config: $(C)python.cfg
 
-clean:
+clean::
 	rm -rf obj/
 
-pyfiles: $(DEPLOY_PYDIR)/idautils.py \
-	 $(DEPLOY_PYDIR)/idc.py      \
-	 $(DEPLOY_PYDIR)/init.py     \
-	 $(DEPLOY_PYDIR)/idaapi.py
+pyfiles: $(DEPLOY_IDAUTILS_PY)  \
+	 $(DEPLOY_IDC_PY)       \
+	 $(DEPLOY_IDC_BC695_PY) \
+	 $(DEPLOY_INIT_PY)      \
+	 $(DEPLOY_IDAAPI_PY)    \
+	 $(DEPLOY_IDADEX_PY)
 
 GENHOOKS=tools/genhooks/
 _SPACE := $(null) #
@@ -237,8 +271,14 @@ $(DEPLOY_IDC_PY): python/idc.py | $(DEPLOY_PYDIR)
 $(DEPLOY_IDAUTILS_PY): python/idautils.py | $(DEPLOY_PYDIR)
 	$(CP) $? $@
 
-$(DEPLOY_PYDIR)/idaapi.py: python/idaapi.py tools/genidaapi.py | $(DEPLOY_PYDIR)
+$(DEPLOY_IDC_BC695_PY): $(IDC_BC695_IDC_SOURCE) python/idc.py tools/gen_idc_bc695.py | $(DEPLOY_PYDIR)
+	$(PYTHON) tools/gen_idc_bc695.py --idc $(IDC_BC695_IDC_SOURCE) --output $@
+
+$(DEPLOY_PYDIR)/idaapi.py: python/idaapi.py tools/genidaapi.py $(PYTHON_MODULES) | $(DEPLOY_PYDIR)
 	$(PYTHON) tools/genidaapi.py -i $< -o $@ -m $(subst $(_SPACE),$(_COMMA),$(MODULES_NAMES))
+
+$(DEPLOY_PYDIR)/idadex.py: python/idadex.py | $(DEPLOY_PYDIR)
+	$(CP) $? $@
 
 $(DEPLOY_PYDIR)/lib/%: precompiled/lib/%
 	mkdir -p $(@D)
@@ -299,7 +339,7 @@ $(ST_PYW)/py_idp.hpp: pywraps/py_idp.hpp \
 	$(GENHOOKS)recipe_idphooks.py \
 	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
-		-x $(ST_PARSED_HEADERS)/structprocessor__t.xml -e idp_notify \
+		-x $(ST_PARSED_HEADERS)/structprocessor__t.xml -e event_t \
 		-r int -n 0 -m hookgenIDP -q "processor_t::" \
 		-R $(GENHOOKS)recipe_idphooks.py
 $(ST_PYW)/py_idp_idbhooks.hpp: pywraps/py_idp_idbhooks.hpp \
@@ -330,11 +370,24 @@ $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
 		-r void -n 0 -m hookgenUI \
 		-R $(GENHOOKS)recipe_uihooks.py \
 		-d "ui_dbg_,ui_obsolete" -D "ui:" -s "ui_"
+$(ST_PYW)/py_kernwin_viewhooks.hpp: pywraps/py_kernwin_viewhooks.hpp \
+	$(I)kernwin.hpp \
+	$(GENHOOKS)genhooks.py \
+	$(GENHOOKS)recipe_viewhooks.py \
+	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+		-x $(ST_PARSED_HEADERS)/kernwin_8hpp.xml -e view_notification_t \
+		-r void -n 0 -m hookgenVIEW \
+		-R $(GENHOOKS)recipe_viewhooks.py
+
 
 CFLAGS= $(CCOPT) $(PLATFORM_CFLAGS) $(MSRUNTIME) -D__EXPR_SRC -I. -I$(ST_SWIG) -I$(ST_SDK) -I$(F)   \
-	-DVER_MAJOR="1" -DVER_MINOR="7" -DVER_PATCH="0" -D__IDP__   \
+	-DVER_MAJOR="1" -DVER_MINOR="7" -DVER_PATCH="0" -D__IDP__ -D__PLUGIN__ \
 	-DUSE_STANDARD_FILE_FUNCTIONS $(IDAPYTHON_CFLAGS)           \
-	$(SWITCH64) $(SWITCHX64) $(ARCH_CFLAGS) $(WITH_HEXRAYS) $(DEF_TYPE_TABLE)
+	$(SWITCH64) $(SWITCHX64) $(ARCH_CFLAGS) $(WITH_HEXRAYS) $(DEF_TYPE_TABLE) $(BC695_CFLAGS)
+ifdef TESTABLE_BUILD
+  CFLAGS+=-DTESTABLE_BUILD
+endif
 
 ST_SWIG_HEADER=$(ST_SWIG)/header.i
 $(ST_SWIG)/header.i: tools/deploy/header.i.in tools/genswigheader.py $(ST_SDK_TARGETS) | staging_dirs
@@ -342,24 +395,39 @@ $(ST_SWIG)/header.i: tools/deploy/header.i.in tools/genswigheader.py $(ST_SDK_TA
 
 
 ifdef __NT__
+PATCH_DIRECTORS_SCRIPT:=tools/patch_directors_cc.py
+
 $(IDAPYTHON_IMPLIB_DEF): $(IDAPYTHON_IMPLIB_DEF_IN)
 	sed s/%LIBNAME%/$(notdir $(BINARY))/ < $? > $@
+  ifdef __X64__
+	sed -i s/%PLUGIN_DATA_EXP%// $@
+  else
+	sed -i s/%PLUGIN_DATA_EXP%/'PLUGIN DATA'/ $@
+  endif
+endif
+
+ifdef __X64__
+  PATCH_CODEGEN_X64_OPTS=--apply-valist-patches
 endif
 
 find-pywraps-deps = $(wildcard pywraps/py_$(subst .i,,$(notdir $1))*.*)
 
 # Some .i files depend on some other .i files in order to be parseable by SWiG
-# (e.g., srarea.i imports area.i). Declare the list of such dependencies here
+# (e.g., segregs.i imports range.i). Declare the list of such dependencies here
 # so they will be picked by the auto-generated rules.
-SWIG_IFACE_bytes=area
+SWIG_IFACE_bytes=range
 SWIG_IFACE_dbg=idd
-SWIG_IFACE_frame=area
-SWIG_IFACE_funcs=area
-SWIG_IFACE_gdl=area
+SWIG_IFACE_frame=range
+SWIG_IFACE_funcs=range
+SWIG_IFACE_gdl=range
 SWIG_IFACE_hexrays=typeinf
-SWIG_IFACE_segment=area
-SWIG_IFACE_srarea=area
+SWIG_IFACE_segment=range
+SWIG_IFACE_segregs=range
 SWIG_IFACE_typeinf=idp
+SWIG_IFACE_tryblks=range
+
+MODULE_LIFECYCLE_hexrays=--lifecycle-aware
+MODULE_LIFECYCLE_bytes=--lifecycle-aware
 
 define make-module-rules
 
@@ -384,19 +452,24 @@ define make-module-rules
 
     # obj/x86_linux_gcc/swig/X.i
     $(ST_SWIG)/$1.i: $(addprefix $(F),$(call find-pywraps-deps,$1)) swig/$1.i $(ST_SWIG_HEADER) $(SWIG_IFACE_$1:%=$(ST_SWIG)/%.i) $(ST_SWIG_HEADER) tools/deploy.py
-	$(PYTHON) tools/deploy.py --pywraps $(ST_PYW) --template $$(subst $(F),,$$@) --output $$@ --module $$(subst .i,,$$(notdir $$@)) --interface-dependencies=$(subst $(_SPACE),$(_COMMA),$(SWIG_IFACE_$1))
+	$(PYTHON) tools/deploy.py \
+		--pywraps $(ST_PYW) \
+		--template $$(subst $(F),,$$@) \
+		--output $$@ \
+		--module $$(subst .i,,$$(notdir $$@)) \
+		$(MODULE_LIFECYCLE_$1) \
+		$(BC695_DEPLOYFLAGS) \
+		--interface-dependencies=$(subst $(_SPACE),$(_COMMA),$(SWIG_IFACE_$1))
 
     # obj/x86_linux_gcc/wrappers/X.cpp
-    $(ST_WRAP)/$1.cpp: $(ST_SWIG)/$1.i tools/patch_codegen.py
+    $(ST_WRAP)/$1.cpp: $(ST_SWIG)/$1.i tools/patch_codegen.py makefile $(PATCH_DIRECTORS_SCRIPT) tools/chkapi.py
 	$(SWIG) -modern $(WITH_HEXRAYS) -python -threads -c++ -shadow \
 	  $(MACDEFINES) -D__GNUC__ $(SWIGFLAGS) $(SWITCH64) $(SWITCHX64) -I$(ST_SWIG) \
 	  -outdir $(ST_WRAP) -o $$@ -I$(ST_SDK) $$<
 	@$(PYTHON) tools/patch_constants.py --file $(ST_WRAP)/$1.cpp
-    ifdef __X64__
-	$(PYTHON) tools/patch_codegen.py --file $(ST_WRAP)/$1.cpp --patches tools/patch_codegen/$1.py
-    endif
+	$(PYTHON) tools/patch_codegen.py $(PATCH_CODEGEN_X64_OPTS) --file $(ST_WRAP)/$1.cpp --patches tools/patch_codegen/$1.py
     ifdef __NT__
-	@$(PYTHON) tools/patch_directors_cc.py --file $(ST_WRAP)/$1.h
+	$(PYTHON) $(PATCH_DIRECTORS_SCRIPT) --file $(ST_WRAP)/$1.h
     endif
     # The copying of the .py will preserve attributes (including timestamps).
     # And, since we have patched $1.cpp, it'll be more recent than ida_$1.py,
@@ -409,7 +482,7 @@ define make-module-rules
     ifdef __CODE_CHECKER__
 	touch $$@
     else
-	$(CXX) $(CFLAGS) $(MSRUNTIME) $(NORTTI) -DPLUGIN_SUBMODULE -DSWIG_DIRECTOR_NORTTI -c $(OBJSW)$$@ $(ST_WRAP)/$1.cpp
+	$(CXX) $(CFLAGS) $(MSRUNTIME) $(MSCLOPTS) $(NORTTI) -DPLUGIN_SUBMODULE -DSWIG_DIRECTOR_NORTTI -c $(OBJSW)$$@ $(ST_WRAP)/$1.cpp
       ifndef __NT__
         ifeq ($(OUT_OF_TREE_BUILD),)
 	@$(STRIPSYM_TOOL) $$@ $(STRIPSYMS) > /dev/null || ($(RM) $$@; false)
@@ -419,10 +492,10 @@ define make-module-rules
 
     # obj/x86_linux_gcc/_ida_X.so
     $(F)_ida_$1$(MODULE_SFX): $(F)$1$(O) $(BINARY) $(IDAPYTHON_IMPLIB_DEF)
-    ifdef __NT__
-	$(LINKER) $(LINKOPTS) /OPT:ICF /OPT:REF /INCREMENTAL:NO /STUB:../../plugins/stub /OUT:$$@ $$< $(IDALIB) user32.lib $(ADDITIONAL_LIBS) $(IDAPYTHON_IMPLIB_PATH)
+    ifdef __NT__ # we repeat /map switch with the explicit file name because @F does not work inside macro
+	$(LINKER) $(LINKOPTS) /map:$(F)_ida_$1$(MODULE_SFX).map $(MSLDOPTS) /OPT:ICF /OPT:REF /INCREMENTAL:NO /STUB:../../plugins/stub /OUT:$$@ $$< $(IDALIB) user32.lib $(ADDITIONAL_LIBS_MODULE) $(IDAPYTHON_IMPLIB_PATH)
     else
-	$(CCL) $(OUTDLL) $(OUTSW)$$@ $$< $(MODULE_LINKIDA) $(PLUGIN_SCRIPT) $(ADDITIONAL_LIBS) $(STDLIBS)
+	$(CCL) $(OUTDLL) $(OUTSW)$$@ $$< $(MODULE_LINKIDA) $(PLUGIN_SCRIPT) $(ADDITIONAL_LIBS_MODULE) $(STDLIBS)
     endif
 
     # ../../bin/x86_linux_gcc/python/lib/lib-dynload/ida_32/_ida_X.so
@@ -434,10 +507,12 @@ $(foreach mod,$(MODULES_NAMES),$(eval $(call make-module-rules,$(mod))))
 $(ST_API_CONTENTS): $(ALL_ST_WRAP_CPP)
 	$(PYTHON) tools/chkapi.py $(WITH_HEXRAYS_CHKAPI) -i $(subst $(_SPACE),$(_COMMA),$(ALL_ST_WRAP_CPP)) -p $(subst $(_SPACE),$(_COMMA),$(ALL_ST_WRAP_PY)) -r $(ST_API_CONTENTS)
 ifeq ($(OUT_OF_TREE_BUILD),)
+  ifdef BC695 # turn off comparison when bw-compat is off, or api_contents will differ
 	@(diff -w $(API_CONTENTS) $(ST_API_CONTENTS)) > /dev/null || \
 	  (echo "API CONTENTS CHANGED! update api_contents.txt or fix the API" && \
 	   echo "(New API: $(ST_API_CONTENTS)) ***" && \
 	   (diff -U 1 -w $(API_CONTENTS) $(ST_API_CONTENTS) && false))
+  endif
 endif
 
 # Check that doc injection is stable
@@ -471,15 +546,6 @@ else
 	$(R)idaq -Stools/docs/hrdoc.py -t
 endif
 
-# Test that all functions that are present in ftable.cpp
-# are present in idc.py (and therefore made available by
-# the idapython).
-ifdef __NT__
-  IDA_CMD=TVHEADLESS=1 $(R)idaw$(X64SUFF)$(SUFF64)
-else
-  IDA_CMD=TVHEADLESS=1 $(R)idal$(X64SUFF)$(SUFF64)
-endif
-
 # the demo version of ida does not have the -B command line option
 ifeq ($(OUT_OF_TREE_BUILD),)
   ISDEMO=$(shell grep "define DEMO$$" $(IDA_INCLUDE)/commerc.hpp)
@@ -488,6 +554,9 @@ ifeq ($(OUT_OF_TREE_BUILD),)
   endif
 endif
 
+# Test that all functions that are present in ftable.cpp
+# are present in idc.py (and therefore made available by
+# the idapython).
 $(TEST_IDC): $(F)idctest.log
 $(F)idctest.log: $(RS)idc/idc.idc | $(BINARY) pyfiles $(PRECOMPILED_COPY)
 ifneq ($(wildcard ../../tests),)
@@ -523,9 +592,9 @@ echo_modules:
 	@echo $(MODULES_NAMES)
 
 # MAKEDEP dependency list ------------------
-$(F)python$(O)  : $(I)area.hpp $(I)bitrange.hpp $(I)bytes.hpp                \
+$(F)python$(O)  : $(I)range.hpp $(I)bitrange.hpp $(I)bytes.hpp              \
 	          $(I)diskio.hpp $(I)expr.hpp $(I)fpro.h $(I)funcs.hpp      \
-	          $(I)ida.hpp $(I)idp.hpp $(I)kernwin.hpp $(I)lines.hpp     \
-	          $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp                 \
+	          $(I)ida.hpp $(I)idp.hpp $(I)config.hpp $(I)kernwin.hpp \
+	          $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp  \
 	          $(I)netnode.hpp $(I)pro.h $(I)segment.hpp $(I)ua.hpp      \
 	          $(I)xref.hpp python.cpp pywraps.hpp pywraps.cpp | $(ST_SDK_TARGETS)

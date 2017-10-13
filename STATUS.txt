@@ -1,7 +1,7 @@
 Status of the IDC layer
 -----------------------
 
-The IDC emulation layer is complete and at par with IDA 5.1, 
+The IDC emulation layer is complete and at par with IDA 5.1,
 although it would benefit from more testing.
 
 
@@ -13,7 +13,7 @@ INCOMPLETE: some wrapping or SWIG ifdefs still left
 EXCLUDED:   will not be wrapped
 
 allins.hpp    - COMPLETE
-area.hpp      - COMPLETE (necessary SWIGdefs)
+range.hpp     - COMPLETE (necessary SWIGdefs)
 auto.hpp      - COMPLETE
 bytes.hpp     - COMPLETE (some minor unwrapped)
 compress.hpp  - EXCLUDED
@@ -37,7 +37,6 @@ idd.hpp       - COMPLETE (necessary SWIGs)
 idp.hpp       - COMPLETE
 ieee.h        - EXCLUDED
 intel.hpp     - EXCLUDED
-ints.hpp      - COMPLETE
 kernwin.hpp   - INCOMPLETE (SWIGs and lot of fixing to do)
 lex.hpp       - EXCLUDED
 lines.hpp     - INCOMPLETE (few FIXMEs)
@@ -56,7 +55,7 @@ regex.h       - EXCLUDED
 search.hpp    - COMPLETE
 segment.hpp   - COMPLETE
 sistack.hpp   - EXCLUDED
-srarea.hpp    - INCOMPLETE (not wrapped at all)
+segregs.hpp   - INCOMPLETE (not wrapped at all)
 strlist.hpp   - COMPLETE
 struct.hpp    - COMPLETE
 typeinf.hpp   - INCOMPLETE (no SWIGs, lot of fixing to do)

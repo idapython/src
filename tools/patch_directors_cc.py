@@ -50,14 +50,52 @@ patches = [
     # const_aloc_visitor_t
     "virtual int idaapi visit_location",
 
-    # area_visitor2_t
-    "virtual int idaapi visit_area",
+    # range_visitor_t
+    "virtual int idaapi visit_range",
 
     # highlighter_cbs_t
     "virtual void idaapi set_style",
     "virtual int32 idaapi prev_block_state",
     "virtual int32 idaapi cur_block_state",
     "virtual void idaapi set_block_state",
+
+    # predicate_t
+    "virtual bool idaapi should_display",
+
+    # graph_visitor_t
+    "virtual int idaapi visit_node",
+    "virtual int idaapi visit_edge",
+
+    # graph_node_visitor_t
+    "virtual int idaapi visit_node",
+    "virtual bool idaapi is_forbidden_edge",
+
+    # graph_path_visitor_t
+    "virtual int idaapi walk_forward",
+    "virtual int idaapi walk_backward",
+
+    # mutable_graph_t
+    "virtual rect_t &idaapi nrect",
+    "virtual edge_info_t *idaapi get_edge",
+    "virtual abstract_graph_t *idaapi clone",
+    "virtual bool idaapi set_nrect",
+    "virtual bool idaapi set_edge",
+    "virtual int idaapi add_node",
+    "virtual ssize_t idaapi del_node",
+    "virtual bool idaapi add_edge",
+    "virtual bool idaapi del_edge",
+    "virtual bool idaapi replace_edge",
+    "virtual bool idaapi refresh",
+    "virtual mutable_graph_t *idaapi clone",
+    "virtual bool idaapi redo_layout",
+    "virtual void idaapi resize",
+    "virtual ea_t idaapi calc_group_ea",
+    "virtual bool idaapi is_user_graph",
+
+    # codegen_t
+    "virtual mreg_t idaapi load_operand",
+    "virtual int idaapi analyze_prolog",
+    "virtual int idaapi gen_micro",
 ]
 
 

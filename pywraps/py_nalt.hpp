@@ -18,7 +18,7 @@ static int idaapi py_import_enum_cb(
 {
   // If no name, try to get the name associated with the 'ea'. It may be coming from IDS
   qstring name_buf;
-  if ( name == NULL && get_true_name(&name_buf, ea) > 0 )
+  if ( name == NULL && get_name(&name_buf, ea) > 0 )
     name = name_buf.begin();
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -28,8 +28,8 @@ static int idaapi py_import_enum_cb(
   else
     py_name = newref_t(PyString_FromString(name));
 
-  newref_t py_ord(Py_BuildValue(PY_FMT64, pyul_t(ord)));
-  newref_t py_ea(Py_BuildValue(PY_FMT64, pyul_t(ea)));
+  newref_t py_ord(Py_BuildValue(PY_BV_UVAL, bvuval_t(ord)));
+  newref_t py_ea(Py_BuildValue(PY_BV_EA, bvea_t(ea)));
   newref_t py_result(
           PyObject_CallFunctionObjArgs(
                   (PyObject *)param,
@@ -57,31 +57,31 @@ def get_import_module_name(path, fname, callback):
 static PyObject *py_get_import_module_name(int mod_index)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  char buf[MAXSTR];
-  if ( !get_import_module_name(mod_index, buf, sizeof(buf)) )
+  qstring qbuf;
+  if ( !get_import_module_name(&qbuf, mod_index) )
     Py_RETURN_NONE;
 
-  return PyString_FromString(buf);
+  return PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
 }
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def get_switch_info_ex(ea):
+def get_switch_info(ea):
     """
-    Returns the a switch_info_ex_t structure containing the information about the switch.
+    Returns the a switch_info_t structure containing the information about the switch.
     Please refer to the SDK sample 'uiswitch'
-    @return: None or switch_info_ex_t instance
+    @return: None or switch_info_t instance
     """
     pass
 #</pydoc>
 */
-PyObject *py_get_switch_info_ex(ea_t ea)
+PyObject *py_get_switch_info(ea_t ea)
 {
-  switch_info_ex_t *ex = new switch_info_ex_t();
+  switch_info_t *ex = new switch_info_t();
   ref_t py_obj;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( ::get_switch_info_ex(ea, ex, sizeof(switch_info_ex_t)) <= 0
+  if ( ::get_switch_info(ex, ea) <= 0
     || (py_obj = create_linked_class_instance(S_IDA_NALT_MODNAME, S_PY_SWIEX_CLSNAME, ex)) == NULL )
   {
     delete ex;
@@ -94,7 +94,7 @@ PyObject *py_get_switch_info_ex(ea_t ea)
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def set_switch_info_ex(ea, switch_info_ex):
+def set_switch_info(ea, switch_info):
     """
     Saves the switch information in the database
     Please refer to the SDK sample 'uiswitch'
@@ -103,29 +103,29 @@ def set_switch_info_ex(ea, switch_info_ex):
     pass
 #</pydoc>
 */
-bool py_set_switch_info_ex(ea_t ea, PyObject *py_swi)
+bool py_set_switch_info(ea_t ea, PyObject *py_swi)
 {
-  switch_info_ex_t *swi = switch_info_ex_t_get_clink(py_swi);
+  switch_info_t *swi = switch_info_t_get_clink(py_swi);
   if ( swi == NULL )
     return false;
 
-  set_switch_info_ex(ea, swi);
+  set_switch_info(ea, *swi);
   return true;
 }
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def del_switch_info_ex(ea):
+def del_switch_info(ea):
     """
     Deletes stored switch information
     """
     pass
 #</pydoc>
 */
-void py_del_switch_info_ex(ea_t ea)
+void py_del_switch_info(ea_t ea)
 {
-  del_switch_info_ex(ea);
+  del_switch_info(ea);
 }
 
 //-------------------------------------------------------------------------
@@ -152,28 +152,28 @@ static int py_enum_import_names(int mod_index, PyObject *py_cb)
 }
 
 //-------------------------------------------------------------------------
-static PyObject *switch_info_ex_t_create()
+static PyObject *switch_info_t_create()
 {
-  switch_info_ex_t *inst = new switch_info_ex_t();
+  switch_info_t *inst = new switch_info_t();
   PYW_GIL_CHECK_LOCKED_SCOPE();
   return PyCObject_FromVoidPtr(inst, NULL);
 }
 
 //---------------------------------------------------------------------------
-static bool switch_info_ex_t_destroy(PyObject *py_obj)
+static bool switch_info_t_destroy(PyObject *py_obj)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( !PyCObject_Check(py_obj) )
     return false;
-  switch_info_ex_t *inst = (switch_info_ex_t *) PyCObject_AsVoidPtr(py_obj);
+  switch_info_t *inst = (switch_info_t *) PyCObject_AsVoidPtr(py_obj);
   delete inst;
   return true;
 }
 
-static bool switch_info_ex_t_assign(PyObject *self, PyObject *other)
+static bool switch_info_t_assign(PyObject *self, PyObject *other)
 {
-  switch_info_ex_t *lhs = switch_info_ex_t_get_clink(self);
-  switch_info_ex_t *rhs = switch_info_ex_t_get_clink(other);
+  switch_info_t *lhs = switch_info_t_get_clink(self);
+  switch_info_t *rhs = switch_info_t_get_clink(other);
   if ( lhs == NULL || rhs == NULL )
     return false;
 
@@ -185,236 +185,219 @@ static bool switch_info_ex_t_assign(PyObject *self, PyObject *other)
 // Auto generated - begin
 //
 
-static PyObject *switch_info_ex_t_get_regdtyp(PyObject *self)
+static PyObject *switch_info_t_get_regdtype(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue("b", (char)link->regdtyp);
+  return Py_BuildValue("b", (char)link->regdtype);
 }
-static void switch_info_ex_t_set_regdtyp(PyObject *self, PyObject *value)
+static void switch_info_t_set_regdtype(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  link->regdtyp = (char)PyInt_AsLong(value);
+  link->regdtype = (char)PyInt_AsLong(value);
 }
 
-static PyObject *switch_info_ex_t_get_flags2(PyObject *self)
+static PyObject *switch_info_t_get_flags(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue("i", link->flags2);
+  return Py_BuildValue("i", link->flags);
 }
-static void switch_info_ex_t_set_flags2(PyObject *self, PyObject *value)
+static void switch_info_t_set_flags(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  link->flags2 = (int)PyInt_AsLong(value);
+  link->flags = (uint32)PyInt_AsLong(value);
 }
 
-static PyObject *switch_info_ex_t_get_jcases(PyObject *self)
+static PyObject *switch_info_t_get_jcases(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
   return Py_BuildValue("i", link->jcases);
 }
-static void switch_info_ex_t_set_jcases(PyObject *self, PyObject *value)
+static void switch_info_t_set_jcases(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   link->jcases = (int)PyInt_AsLong(value);
 }
 
-static PyObject *switch_info_ex_t_get_regnum(PyObject *self)
+static PyObject *switch_info_t_get_regnum(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
   return Py_BuildValue("i", (int)link->regnum);
 }
-static void switch_info_ex_t_set_regnum(PyObject *self, PyObject *value)
+static void switch_info_t_set_regnum(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   link->regnum = (int)PyInt_AsLong(value);
 }
 
-static PyObject *switch_info_ex_t_get_flags(PyObject *self)
+static PyObject *switch_info_t_get_ncases(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( link == NULL )
-    Py_RETURN_NONE;
-  return Py_BuildValue("H", (ushort)link->flags);
-}
-static void switch_info_ex_t_set_flags(PyObject *self, PyObject *value)
-{
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
-  if ( link == NULL )
-    return;
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  link->flags = (uint16)PyInt_AsLong(value);
-}
-
-static PyObject *switch_info_ex_t_get_ncases(PyObject *self)
-{
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
   return Py_BuildValue("H", (uint16)link->ncases);
 }
-static void switch_info_ex_t_set_ncases(PyObject *self, PyObject *value)
+static void switch_info_t_set_ncases(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   link->ncases = (ushort)PyInt_AsLong(value);
 }
 
-static PyObject *switch_info_ex_t_get_defjump(PyObject *self)
+static PyObject *switch_info_t_get_defjump(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->defjump);
+  return Py_BuildValue(PY_BV_EA, (bvea_t)link->defjump);
 }
-static void switch_info_ex_t_set_defjump(PyObject *self, PyObject *value)
+static void switch_info_t_set_defjump(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   uint64 v(0); PyW_GetNumber(value, &v);
-  link->defjump = (pyul_t)v;
+  link->defjump = ea_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_jumps(PyObject *self)
+static PyObject *switch_info_t_get_jumps(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->jumps);
+  return Py_BuildValue(PY_BV_EA, (bvea_t)link->jumps);
 }
-static void switch_info_ex_t_set_jumps(PyObject *self, PyObject *value)
+static void switch_info_t_set_jumps(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   uint64 v(0); PyW_GetNumber(value, &v);
-  link->jumps = (pyul_t)v;
+  link->jumps = ea_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_elbase(PyObject *self)
+static PyObject *switch_info_t_get_elbase(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->elbase);
+  return Py_BuildValue(PY_BV_EA, (bvea_t)link->elbase);
 }
-static void switch_info_ex_t_set_elbase(PyObject *self, PyObject *value)
+static void switch_info_t_set_elbase(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   uint64 v(0);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyW_GetNumber(value, &v);
-  link->elbase = (pyul_t)v;
+  link->elbase = ea_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_startea(PyObject *self)
+static PyObject *switch_info_t_get_startea(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->startea);
+  return Py_BuildValue(PY_BV_EA, (bvea_t)link->startea);
 }
-static void switch_info_ex_t_set_startea(PyObject *self, PyObject *value)
+static void switch_info_t_set_startea(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   uint64 v(0);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyW_GetNumber(value, &v);
-  link->startea = (pyul_t)v;
+  link->startea = ea_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_custom(PyObject *self)
+static PyObject *switch_info_t_get_custom(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->custom);
+  return Py_BuildValue(PY_BV_UVAL, (bvuval_t)link->custom);
 }
-static void switch_info_ex_t_set_custom(PyObject *self, PyObject *value)
+static void switch_info_t_set_custom(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   uint64 v(0);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyW_GetNumber(value, &v);
-  link->custom = (pyul_t)v;
+  link->custom = uval_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_ind_lowcase(PyObject *self)
+static PyObject *switch_info_t_get_ind_lowcase(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->ind_lowcase);
+  return Py_BuildValue(PY_BV_SVAL, (bvsval_t)link->ind_lowcase);
 }
-static void switch_info_ex_t_set_ind_lowcase(PyObject *self, PyObject *value)
+static void switch_info_t_set_ind_lowcase(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   uint64 v(0);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyW_GetNumber(value, &v);
-  link->ind_lowcase = (pyul_t)v;
+  link->ind_lowcase = sval_t(v);
 }
 
-static PyObject *switch_info_ex_t_get_values_lowcase(PyObject *self)
+static PyObject *switch_info_t_get_values_lowcase(PyObject *self)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( link == NULL )
     Py_RETURN_NONE;
-  return Py_BuildValue(PY_FMT64, (pyul_t)link->values);
+  return Py_BuildValue(PY_BV_EA, (bvea_t)link->values);
 }
-static void switch_info_ex_t_set_values_lowcase(PyObject *self, PyObject *value)
+static void switch_info_t_set_values_lowcase(PyObject *self, PyObject *value)
 {
-  switch_info_ex_t *link = switch_info_ex_t_get_clink(self);
+  switch_info_t *link = switch_info_t_get_clink(self);
   if ( link == NULL )
     return;
   uint64 v(0);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyW_GetNumber(value, &v);
-  link->values = (pyul_t)v;
+  link->values = ea_t(v);
 }
 
 //

@@ -1,6 +1,7 @@
 %{
 #include <idd.hpp>
 #include <dbg.hpp>
+#include <ua.hpp>
 #include <err.h>
 %}
 
@@ -14,7 +15,7 @@
 %ignore appcall;
 %ignore idd_opinfo_t;
 %ignore gdecode_t;
-%apply unsigned char { char dtyp };
+%apply unsigned char { op_dtype_t dtype };
 
 %ignore qvector<exception_info_t>::operator==;
 %ignore qvector<exception_info_t>::operator!=;
@@ -23,6 +24,14 @@
 %ignore qvector<exception_info_t>::del;
 %ignore qvector<exception_info_t>::add_unique;
 %template(excvec_t) qvector<exception_info_t>;
+
+%ignore qvector<process_info_t>::operator==;
+%ignore qvector<process_info_t>::operator!=;
+%ignore qvector<process_info_t>::find;
+%ignore qvector<process_info_t>::has;
+%ignore qvector<process_info_t>::del;
+%ignore qvector<process_info_t>::add_unique;
+%template(procinfo_vec_t) qvector<process_info_t>;
 
 %include "idd.hpp"
 
@@ -33,7 +42,7 @@ typedef struct
     ushort    fval[6];  // 12: floating point value in the internal representation (see ieee.h)
 } regval_t;
 
-%clear(char dtyp);
+%clear(op_dtype_t dtype);
 
 %rename (appcall) py_appcall;
 

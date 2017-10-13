@@ -36,7 +36,8 @@ class msdnapihelp_plugin_t(idaapi.plugin_t):
 
     def run(self, arg):
         # Get the highlighted identifier
-        id = idaapi.get_highlighted_identifier()
+        v = idaapi.get_current_viewer()
+        id = ida_kernwin.get_highlight(v)[0]
         if not id:
             print "No identifier was highlighted"
             return

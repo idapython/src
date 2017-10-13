@@ -1,8 +1,5 @@
 
-%import "area.i"
-
-%cstring_bounded_output_none(char *buf, MAXSTR);
-%cstring_bounded_output_none(char *optlibs, MAXSTR);
+%import "range.i"
 
 // FIXME: Are these really useful?
 %ignore iterate_func_chunks;
@@ -17,9 +14,6 @@
 %rename (get_idasgn_desc) py_get_idasgn_desc;
 %rename (get_idasgn_desc_with_matches) py_get_idasgn_desc_with_matches;
 
-%ignore get_func_cmt;
-%rename (get_func_cmt) py_get_func_cmt;
-
 %include "funcs.hpp"
 
 %clear(char *buf);
@@ -28,4 +22,9 @@
 %inline %{
 //<inline(py_funcs)>
 //</inline(py_funcs)>
+%}
+
+%pythoncode %{
+#<pycode(py_funcs)>
+#</pycode(py_funcs)>
 %}

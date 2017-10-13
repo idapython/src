@@ -6,6 +6,9 @@
 
 #include "pywraps.hpp"
 
+#undef hook_to_notification_point
+#undef unhook_from_notification_point
+
 //lint -esym(843,pywraps_initialized) could be declared const
 //lint -esym(843,g_nw) could be declared const
 //lint -esym(844,g_nw) could be declared const
@@ -15,8 +18,8 @@
 // String constants used
 static const char S_PY_IDCCVT_VALUE_ATTR[]   = "__idc_cvt_value__";
 static const char S_PY_IDCCVT_ID_ATTR[]      = "__idc_cvt_id__";
-static const char S_PY_IDC_OPAQUE_T[]        = "py_idc_cvt_helper_t";
 static const char S_PY_IDC_GLOBAL_VAR_FMT[]  = "__py_cvt_gvar_%d";
+#define S_PY_IDC_OPAQUE_T "py_idc_cvt_helper_t"
 
 // Constants used by get_idaapi_class_reference()
 #define PY_CLSID_CVT_INT64                       0
@@ -133,12 +136,23 @@ ref_t ida_export PyW_IntVecToPyList(const intvec_t &intvec)
 }
 
 //---------------------------------------------------------------------------
-static int idaapi pylist_to_intvec_cb(
+ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec)
+{
+  size_t n = vec.size();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_list(PyList_New(n));
+  for ( size_t i = 0; i < n; ++i )
+    PyList_SetItem(py_list.o, i, PyInt_FromSize_t(vec[i]));
+  return ref_t(py_list);
+}
+
+//---------------------------------------------------------------------------
+static int idaapi pylist_to_sizevec_cb(
         const ref_t &py_item,
         Py_ssize_t /*index*/,
         void *ud)
 {
-  intvec_t &intvec = *(intvec_t *) ud;
+  sizevec_t &vec = *static_cast<sizevec_t *>(ud);
   uint64 num;
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -146,15 +160,15 @@ static int idaapi pylist_to_intvec_cb(
       num = 0;
   }
 
-  intvec.push_back(int(num));
+  vec.push_back(size_t(num));
   return CIP_OK;
 }
 
 //---------------------------------------------------------------------------
-bool ida_export PyW_PyListToIntVec(PyObject *py_list, intvec_t &intvec)
+bool ida_export PyW_PyListToSizeVec(PyObject *py_list, sizevec_t &vec)
 {
-  intvec.clear();
-  return pyvar_walk_list(py_list, pylist_to_intvec_cb, &intvec) != CIP_FAILED;
+  vec.clear();
+  return pyvar_walk_list(py_list, pylist_to_sizevec_cb, &vec) != CIP_FAILED;
 }
 
 //-------------------------------------------------------------------------
@@ -231,24 +245,24 @@ bool ida_export PyWStringOrNone_Check(PyObject *tp)
 }
 
 //-------------------------------------------------------------------------
-PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &areas)
+PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &ranges)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  PyObject *py_list = PyList_New(areas.size());
-  meminfo_vec_t::const_iterator it, it_end(areas.end());
+  PyObject *py_list = PyList_New(ranges.size());
+  meminfo_vec_t::const_iterator it, it_end(ranges.end());
   Py_ssize_t i = 0;
-  for ( it=areas.begin(); it != it_end; ++it, ++i )
+  for ( it=ranges.begin(); it != it_end; ++it, ++i )
   {
     const memory_info_t &mi = *it;
-    // startEA endEA name sclass sbase bitness perm
+    // start_ea end_ea name sclass sbase bitness perm
     PyList_SetItem(py_list, i,
-      Py_BuildValue("(" PY_FMT64 PY_FMT64 "ss" PY_FMT64 "II)",
-        pyul_t(mi.startEA),
-        pyul_t(mi.endEA),
+      Py_BuildValue("(" PY_BV_EA PY_BV_EA "ss" PY_BV_EA "II)",
+        bvea_t(mi.start_ea),
+        bvea_t(mi.end_ea),
         mi.name.c_str(),
         mi.sclass.c_str(),
-        pyul_t(mi.sbase),
+        bvea_t(mi.sbase),
         (unsigned int)(mi.bitness),
         (unsigned int)mi.perm));
   }
@@ -332,18 +346,18 @@ static bool wrap_PyObject_ptr(const ref_t &py_var, idc_value_t *idc_var)
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   // Create an IDC object of this special helper class
-  if ( VarObject(idc_var, get_py_idc_cvt_opaque()) != eOk )
+  if ( idcv_object(idc_var, get_py_idc_cvt_opaque()) != eOk )
     return false;
 
   // Store the CVT id
   idc_value_t idc_val;
   idc_val.set_long(PY_ICID_OPAQUE);
-  VarSetAttr(idc_var, S_PY_IDCCVT_ID_ATTR, &idc_val);
+  set_idcv_attr(idc_var, S_PY_IDCCVT_ID_ATTR, idc_val);
 
   // Store the value as a PVOID referencing the given Python object
   py_var.incref();
   idc_val.set_pvoid(py_var.o);
-  VarSetAttr(idc_var, S_PY_IDCCVT_VALUE_ATTR, &idc_val);
+  set_idcv_attr(idc_var, S_PY_IDCCVT_VALUE_ATTR, idc_val);
 
   return true;
 }
@@ -351,10 +365,9 @@ static bool wrap_PyObject_ptr(const ref_t &py_var, idc_value_t *idc_var)
 //------------------------------------------------------------------------
 // IDC Opaque object destructor: when the IDC object dies we kill the
 // opaque Python object along with it
-static const char py_idc_cvt_helper_dtor_args[] = { VT_OBJ, 0 };
 static error_t idaapi py_idc_opaque_dtor(
-  idc_value_t *argv,
-  idc_value_t * /*res*/)
+        idc_value_t *argv,
+        idc_value_t * /*res*/)
 {
   // This can be called at plugin registration time, when a
   // 'script_plugin_t' instance is ::free()'d. It is
@@ -363,16 +376,28 @@ static error_t idaapi py_idc_opaque_dtor(
 
   // Get the value from the object
   idc_value_t idc_val;
-  VarGetAttr(&argv[0], S_PY_IDCCVT_VALUE_ATTR, &idc_val);
+  get_idcv_attr(&idc_val, &argv[0], S_PY_IDCCVT_VALUE_ATTR);
 
   // Extract the Python object reference
   PyObject *py_obj = (PyObject *)idc_val.pvoid;
 
   // Decrease its reference (and eventually destroy it)
-  Py_DECREF(py_obj);
-
+  {
+    uninterruptible_op_t op;
+    Py_DECREF(py_obj);
+  }
   return eOk;
 }
+static const char py_idc_cvt_helper_dtor_args[] = { VT_OBJ, 0 };
+static const ext_idcfunc_t opaque_dtor_desc =
+{
+  S_PY_IDC_OPAQUE_T ".dtor_name",
+  py_idc_opaque_dtor,
+  py_idc_cvt_helper_dtor_args,
+  NULL,
+  0,
+  0
+};
 
 //-------------------------------------------------------------------------
 // Converts a Python variable into an IDC variable
@@ -420,7 +445,7 @@ int ida_export pyvar_to_idcvar(
   else if ( PyList_CheckExact(py_var.o) || PyW_IsSequenceType(py_var.o) )
   {
     // Create the object
-    VarObject(idc_var);
+    idcv_object(idc_var);
 
     // Determine list size and type
     bool is_seq = !PyList_CheckExact(py_var.o);
@@ -449,7 +474,7 @@ int ida_export pyvar_to_idcvar(
         if ( !ok )
           break;
         // Store the attribute
-        VarSetAttr(idc_var, attr_name.c_str(), &v);
+        set_idcv_attr(idc_var, attr_name.c_str(), v);
       }
       if ( !ok )
         break;
@@ -460,7 +485,7 @@ int ida_export pyvar_to_idcvar(
   else if ( PyDict_Check(py_var.o) )
   {
     // Create an empty IDC object
-    VarObject(idc_var);
+    idcv_object(idc_var);
 
     // Get the dict.items() list
     newref_t py_items(PyDict_Items(py_var.o));
@@ -487,7 +512,7 @@ int ida_export pyvar_to_idcvar(
       if ( ok )
       {
         // Store the attribute
-        VarSetAttr(idc_var, key_name.c_str(), &v);
+        set_idcv_attr(idc_var, key_name.c_str(), v);
       }
       if ( !ok )
         break;
@@ -547,7 +572,7 @@ int ida_export pyvar_to_idcvar(
         {
           (*gvar_sn)++;
           // Create a reference to this global variable
-          VarRef(idc_var, gvar);
+          create_idcv_ref(idc_var, gvar);
         }
         return ok ? CIP_OK : CIP_FAILED;
       }
@@ -570,7 +595,7 @@ int ida_export pyvar_to_idcvar(
       if ( py_dir == NULL || !PyList_Check(py_dir.o) || size == 0 )
         return CIP_FAILED;
       // Create the IDC object
-      VarObject(idc_var);
+      idcv_object(idc_var);
       for ( Py_ssize_t i=0; i < size; i++ )
       {
         borref_t item(PyList_GetItem(py_dir.o, i));
@@ -599,7 +624,7 @@ int ida_export pyvar_to_idcvar(
         }
 
         // Store the attribute
-        VarSetAttr(idc_var, field_name, &v);
+        set_idcv_attr(idc_var, field_name, v);
       }
     }
   }
@@ -623,8 +648,9 @@ inline PyObject *cvt_to_pylong(int64 v)
 // If py_var points to an existing immutable object then ZERO is returned
 // Returns one of CIP_xxxx. Check pywraps.hpp
 int ida_export idcvar_to_pyvar(
-  const idc_value_t &idc_var,
-  ref_t *py_var)
+        const idc_value_t &idc_var,
+        ref_t *py_var,
+        uint32 flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   switch ( idc_var.vtype )
@@ -643,33 +669,37 @@ int ida_export idcvar_to_pyvar(
 
   case VT_INT64:
     {
-      // Recycle?
-      if ( *py_var != NULL )
+      bool as_pylong = (flags & PYWCVTF_INT64_AS_UNSIGNED_PYLONG) != 0;
+      if ( as_pylong )
       {
-        // Recycling an int64 object?
-        int t = get_pyidc_cvt_type(py_var->o);
-        if ( t != PY_ICID_INT64 )
-          return CIP_IMMUTABLE; // Cannot recycle immutable object
-        // Update the attribute
-        PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, PyLong_FromLongLong(idc_var.i64));
+        QASSERT(30513, *py_var == NULL); // recycling not supported in this case
+        *py_var = newref_t(PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) idc_var.i64));
         return CIP_OK;
       }
-      ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_INT64));
-      if ( py_cls == NULL )
-        return CIP_FAILED;
-      *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, PyLong_FromLongLong(idc_var.i64), NULL));
-      if ( PyW_GetError() || *py_var == NULL )
-        return CIP_FAILED;
+      else
+      {
+        // Recycle?
+        if ( *py_var != NULL )
+        {
+          // Recycling an int64 object?
+          int t = get_pyidc_cvt_type(py_var->o);
+          if ( t != PY_ICID_INT64 )
+            return CIP_IMMUTABLE; // Cannot recycle immutable object
+          // Update the attribute
+          PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, PyLong_FromLongLong(idc_var.i64));
+          return CIP_OK;
+        }
+        ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_INT64));
+        if ( py_cls == NULL )
+          return CIP_FAILED;
+        *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, PyLong_FromLongLong(idc_var.i64), NULL));
+        if ( PyW_GetError() || *py_var == NULL )
+          return CIP_FAILED;
+      }
       break;
     }
 
-#if !defined(NO_OBSOLETE_FUNCS) || defined(__EXPR_SRC)
   case VT_STR:
-    *py_var = newref_t(PyString_FromString(idc_var.str));
-    break;
-
-#endif
-  case VT_STR2:
     if ( *py_var == NULL )
     {
       const qstring &s = idc_var.qstr();
@@ -688,7 +718,7 @@ int ida_export idcvar_to_pyvar(
     if ( *py_var == NULL )
     {
       double x;
-      if ( ph.realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 0 )
+      if ( ph.realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
         INTERR(30160);
 
       *py_var = newref_t(PyFloat_FromDouble(x));
@@ -716,7 +746,7 @@ int ida_export idcvar_to_pyvar(
 
       // Dereference
       // (Since we are not using VREF_COPY flag, we can safely const_cast)
-      idc_value_t *dref_v = VarDeref(const_cast<idc_value_t *>(&idc_var), VREF_LOOP);
+      idc_value_t *dref_v = deref_idcv(const_cast<idc_value_t *>(&idc_var), VREF_LOOP);
       if ( dref_v == NULL )
         return CIP_FAILED;
 
@@ -749,8 +779,8 @@ int ida_export idcvar_to_pyvar(
     {
       // Check if this IDC object has __cvt_id__ and the __idc_cvt_value__ fields
       idc_value_t idc_val;
-      if ( VarGetAttr(&idc_var, S_PY_IDCCVT_ID_ATTR, &idc_val) == eOk
-        && VarGetAttr(&idc_var, S_PY_IDCCVT_VALUE_ATTR, &idc_val) == eOk )
+      if ( get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_ID_ATTR) == eOk
+        && get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_VALUE_ATTR) == eOk )
       {
         // Extract the object
         *py_var = borref_t((PyObject *) idc_val.pvoid);
@@ -781,13 +811,13 @@ int ida_export idcvar_to_pyvar(
       }
 
       // Walk the IDC attributes and store into python
-      for ( const char *attr_name = VarFirstAttr(&idc_var);
+      for ( const char *attr_name = first_idcv_attr(&idc_var);
             attr_name != NULL;
-            attr_name = VarNextAttr(&idc_var, attr_name) )
+            attr_name = next_idcv_attr(&idc_var, attr_name) )
       {
         // Get the attribute
         idc_value_t v;
-        VarGetAttr(&idc_var, attr_name, &v, true);
+        get_idcv_attr(&v, &idc_var, attr_name, true);
 
         // Convert attribute to a python value (recursively)
         ref_t py_attr;
@@ -817,9 +847,8 @@ bool ida_export pyw_convert_idc_args(
         const idc_value_t args[],
         int nargs,
         ref_vec_t &pargs,
-        bool as_tupple,
-        char *errbuf,
-        size_t errbufsize)
+        uint32 flags,
+        qstring *errbuf)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
@@ -827,13 +856,14 @@ bool ida_export pyw_convert_idc_args(
 
   pargs.qclear();
 
-  if ( as_tupple )
+  bool as_tuple = (flags & PYWCVTF_AS_TUPLE) != 0;
+  if ( as_tuple )
   {
     py_tuple = newref_t(PyTuple_New(nargs));
     if ( py_tuple == NULL )
     {
-      if ( errbuf != 0 && errbufsize > 0 )
-        qstrncpy(errbuf, "Failed to create a new tuple to store arguments!", errbufsize);
+      if ( errbuf != NULL )
+        *errbuf = "Failed to create a new tuple to store arguments!";
       return false;
     }
   }
@@ -841,15 +871,15 @@ bool ida_export pyw_convert_idc_args(
   for ( int i=0; i < nargs; i++ )
   {
     ref_t py_obj;
-    int cvt = idcvar_to_pyvar(args[i], &py_obj);
+    int cvt = idcvar_to_pyvar(args[i], &py_obj, flags);
     if ( cvt < CIP_OK )
     {
-      if ( errbuf != 0 && errbufsize > 0 )
-        qsnprintf(errbuf, errbufsize, "arg#%d has wrong type %d", i, args[i].vtype);
+      if ( errbuf != NULL )
+        errbuf->sprnt("arg#%d has wrong type %d", i, args[i].vtype);
       return false;
     }
 
-    if ( as_tupple )
+    if ( as_tuple )
     {
       // PyTuple_SetItem() steals the reference.
       py_obj.incref();
@@ -864,7 +894,7 @@ bool ida_export pyw_convert_idc_args(
   // Add the tuple to the list of args only now. Doing so earlier will
   // cause the py_tuple.o->ob_refcnt to be 2 and not 1, and that will
   // cause 'PyTuple_SetItem()' to fail.
-  if ( as_tupple )
+  if ( as_tuple )
     pargs.push_back(py_tuple);
 
   return true;
@@ -921,12 +951,12 @@ static bool pywraps_check_autoscripts(char *buf, size_t bufsize)
 error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *msg)
 {
   // Create exception object
-  VarObject(res, find_idc_class("exception"));
+  idcv_object(res, find_idc_class("exception"));
 
   // Set the message field
   idc_value_t v;
   v.set_string(msg);
-  VarSetAttr(res, "message", &v);
+  set_idcv_attr(res, "message", v);
 
   // Throw exception
   return set_qerrno(eExecThrow);
@@ -934,10 +964,9 @@ error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *msg)
 
 //------------------------------------------------------------------------
 // Calls a Python callable encoded in IDC.pvoid member
-static const char idc_py_invoke0_args[] = { VT_PVOID, 0 };
 static error_t idaapi idc_py_invoke0(
-    idc_value_t *argv,
-    idc_value_t *res)
+        idc_value_t *argv,
+        idc_value_t *res)
 {
   PYW_GIL_GET;
   PyObject *pyfunc = (PyObject *) argv[0].pvoid;
@@ -950,6 +979,11 @@ static error_t idaapi idc_py_invoke0(
     err_code = PyW_CreateIdcException(res, err.c_str());
   return err_code;
 }
+static const char idc_py_invoke0_args[] = { VT_PVOID, 0 };
+static const ext_idcfunc_t idc_py_invoke0_desc =
+{
+  S_PYINVOKE0, idc_py_invoke0, idc_py_invoke0_args, NULL, 0, 0
+};
 
 //------------------------------------------------------------------------
 // This function must be called on initialization
@@ -969,7 +1003,7 @@ static bool init_pywraps()
   }
 
   // Register the IDC PyInvoke0 method (helper function for add_idc_hotkey())
-  if ( !set_idc_func_ex(S_PYINVOKE0, idc_py_invoke0, idc_py_invoke0_args, 0) )
+  if ( !add_idc_func(idc_py_invoke0_desc) )
     return false;
 
   // IDC opaque class not registered?
@@ -980,16 +1014,12 @@ static bool init_pywraps()
     if ( idc_cvt_opaque == NULL )
       return false;
 
-    // Form the dtor name
-    char dtor_name[MAXSTR];
-    qsnprintf(dtor_name, sizeof(dtor_name), "%s.dtor", S_PY_IDC_OPAQUE_T);
-
     // Register the dtor function
-    if ( !set_idc_func_ex(dtor_name, py_idc_opaque_dtor, py_idc_cvt_helper_dtor_args, 0) )
+    if ( !add_idc_func(opaque_dtor_desc) )
       return false;
 
     // Link the dtor function to the class
-    set_idc_dtor(idc_cvt_opaque, dtor_name);
+    set_idc_dtor(idc_cvt_opaque, opaque_dtor_desc.name);
   }
 
   pywraps_initialized = true;
@@ -1011,7 +1041,7 @@ static void deinit_pywraps()
   }
 
   // Unregister the IDC PyInvoke0 method (helper function for add_idc_hotkey())
-  set_idc_func_ex(S_PYINVOKE0, NULL, idc_py_invoke0_args, 0);
+  del_idc_func(idc_py_invoke0_desc.name);
 }
 
 //------------------------------------------------------------------------
@@ -1071,9 +1101,9 @@ static ref_t get_idaapi_attr(const char *attrname)
 //------------------------------------------------------------------------
 // Returns a qstring from an object attribute
 bool ida_export PyW_GetStringAttr(
-    PyObject *py_obj,
-    const char *attr_name,
-    qstring *str)
+        PyObject *py_obj,
+        const char *attr_name,
+        qstring *str)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_attr(PyW_TryGetAttrString(py_obj, attr_name));
@@ -1112,44 +1142,26 @@ ref_t ida_export PyW_TryImportModule(const char *name)
 
 //-------------------------------------------------------------------------
 // Converts a Python number into an IDC value (32 or 64bits)
-// The function will first try to convert the number into a 32bit value
+// The function will try to convert the number into a 32bit value
 // If the number does not fit then VT_INT64 will be used
-// NB: This function cannot properly detect if the Python value should be
-// converted to a VT_INT64 or not. For example: 2**32-1 = 0xffffffff which
-// can fit in a C long but Python creates a PyLong object for it.
-// And because of that we are confused as to whether to convert to 32 or 64
 bool ida_export PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  bool rc = true;
-  do
-  {
-    if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
-    {
-      rc = false;
-      break;
-    }
+  if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
+    return false;
 
-    // Can we convert to C long?
-    long l = PyInt_AsLong(py_var);
-    if ( !PyErr_Occurred() )
-    {
-      idc_var->set_long(l);
-      break;
-    }
-    // Clear last error
-    PyErr_Clear();
-    // Can be fit into a C unsigned long?
-    l = (long) PyLong_AsUnsignedLong(py_var);
-    if ( !PyErr_Occurred() )
-    {
-      idc_var->set_long(l);
-      break;
-    }
-    PyErr_Clear();
-    idc_var->set_int64(PyLong_AsLongLong(py_var));
-  } while ( false );
-  return rc;
+  PY_LONG_LONG pyll = PyLong_AsLongLong(py_var);
+  if ( PyErr_Occurred() )
+    return false;
+
+  bool as_i64 = pyll >= 0
+              ? pyll > (PY_LONG_LONG) SVAL_MAX
+              : pyll < (PY_LONG_LONG) SVAL_MIN;
+  if ( as_i64 )
+    idc_var->set_int64(int64(pyll));
+  else
+    idc_var->set_long(sval_t(pyll));
+  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -1386,13 +1398,13 @@ void *ida_export pyobj_get_clink(PyObject *pyobj)
 }
 
 //------------------------------------------------------------------------
-int idaapi pywraps_notify_when_t::idp_callback(void *ud, int event_id, va_list va)
+ssize_t idaapi pywraps_notify_when_t::idp_callback(void *ud, int event_id, va_list va)
 {
   pywraps_notify_when_t *_this = (pywraps_notify_when_t *)ud;
   switch ( event_id )
   {
-    case processor_t::newfile:
-    case processor_t::oldfile:
+    case processor_t::ev_newfile:
+    case processor_t::ev_oldfile:
       {
         // This hook gets called from the kernel. Ensure we hold the GIL.
         // Note that PYW_GIL_GET appears in each case of the switch, which is to
@@ -1400,12 +1412,23 @@ int idaapi pywraps_notify_when_t::idp_callback(void *ud, int event_id, va_list v
         // appears outside the switch, it will be executed each time this callback
         // is called, which results in a huge slowdown (at least on mac).
         PYW_GIL_GET;
-        int old = event_id == processor_t::oldfile ? 1 : 0;
+        int old = event_id == processor_t::ev_oldfile ? 1 : 0;
         char *dbname = va_arg(va, char *);
         _this->notify(NW_OPENIDB_SLOT, old);
       }
       break;
-    case processor_t::closebase:
+  }
+  // event not processed, let other plugins or the processor module handle it
+  return 0;
+}
+
+//------------------------------------------------------------------------
+ssize_t idaapi pywraps_notify_when_t::idb_callback(void *ud, int event_id, va_list va)
+{
+  pywraps_notify_when_t *_this = (pywraps_notify_when_t *)ud;
+  switch ( event_id )
+  {
+    case idb_event::closebase:
       {
         PYW_GIL_GET;
         _this->notify(NW_CLOSEIDB_SLOT);
@@ -1466,6 +1489,7 @@ void pywraps_notify_when_t::unregister_callback(int slot, PyObject *py_callable)
 bool pywraps_notify_when_t::init()
 {
   return hook_to_notification_point(HT_IDP, idp_callback, this);
+  return hook_to_notification_point(HT_IDB, idb_callback, this);
 }
 
 //------------------------------------------------------------------------
@@ -1479,7 +1503,8 @@ bool pywraps_notify_when_t::deinit()
       unregister_callback(slot, it->o);
   }
   // ...and remove the notification
-  return unhook_from_notification_point(HT_IDP, idp_callback, this);
+  bool ok = unhook_from_notification_point(HT_IDP, idp_callback, this);
+  return unhook_from_notification_point(HT_IDB, idb_callback, this) && ok;
 }
 
 //------------------------------------------------------------------------
@@ -1565,7 +1590,6 @@ bool pywraps_notify_when_t::notify_va(int slot, va_list va)
       ok = false;
     }
   }
-
   in_notify = false;
 
   // Process any delayed notify_when() calls that
@@ -1651,61 +1675,51 @@ static bool pywraps_nw_term()
 //-------------------------------------------------------------------------
 lookup_entry_t &ida_export lookup_info_t_new_entry(lookup_info_t *_this, py_customidamemo_t *py_view)
 {
-  QASSERT(30454, py_view != NULL && !_this->find_by_py_view(NULL, NULL, py_view));
+  QASSERT(30454, py_view != NULL && !_this->find_by_py_view(NULL, py_view));
   lookup_entry_t &e = _this->entries.push_back();
   e.py_view = py_view;
   return e;
 }
 
 //-------------------------------------------------------------------------
-void ida_export lookup_info_t_commit(lookup_info_t *_this, lookup_entry_t &e, TForm *form, TCustomControl *view)
+void ida_export lookup_info_t_commit(lookup_info_t *_this, lookup_entry_t &e, TWidget *view)
 {
   QASSERT(30455, &e >= _this->entries.begin() && &e < _this->entries.end());
-  QASSERT(30456, form != NULL && view != NULL && e.py_view != NULL
-          && !_this->find_by_form(NULL, NULL, form)
-          && !_this->find_by_view(NULL, NULL, view)
-          && _this->find_by_py_view(NULL, NULL, e.py_view));
-  e.form = form;
+  QASSERT(30456, view != NULL && e.py_view != NULL
+          && !_this->find_by_view(NULL, view)
+          && _this->find_by_py_view(NULL, e.py_view));
   e.view = view;
 }
 
 //-------------------------------------------------------------------------
-#define FIND_BY__BODY(self, crit, res1, res2)                           \
-  {                                                                     \
-    for ( lookup_entries_t::const_iterator it = self->entries.begin(); it != self->entries.end(); ++it ) \
-    {                                                                   \
-      const lookup_entry_t &e = *it;                                    \
-      if ( e.crit == crit )                                             \
-      {                                                                 \
-        if ( out_##res1 != NULL )                                       \
-          *out_##res1 = e.res1;                                         \
-        if ( out_##res2 != NULL )                                       \
-          *out_##res2 = e.res2;                                         \
-        return true;                                                    \
-      }                                                                 \
-    }                                                                   \
-    return false;                                                       \
-  }
-
-bool ida_export lookup_info_t_find_by_form(
-        const lookup_info_t *_this,
-        TCustomControl **out_view,
-        py_customidamemo_t **out_py_view,
-        const TForm *form)
-  FIND_BY__BODY(_this, form, view, py_view);
+#define FIND_BY__BODY(self, crit, res)                                  \
+  for ( lookup_entries_t::const_iterator it = self->entries.begin(); it != self->entries.end(); ++it ) \
+  {                                                                   \
+    const lookup_entry_t &e = *it;                                    \
+    if ( e.crit == crit )                                             \
+    {                                                                 \
+      if ( out_##res != NULL )                                        \
+        *out_##res = e.res;                                           \
+      return true;                                                    \
+    }                                                                 \
+  }                                                                   \
+  return false;                                                       \
 
 bool ida_export lookup_info_t_find_by_py_view(
         const lookup_info_t *_this,
-        TForm **out_form,
-        TCustomControl **out_view,
+        TWidget **out_view,
         const py_customidamemo_t *py_view)
-  FIND_BY__BODY(_this, py_view, view, form);
+{
+  FIND_BY__BODY(_this, py_view, view);
+}
 
-bool lookup_info_t::find_by_view(
-        TForm **out_form,
+bool ida_export lookup_info_t_find_by_view(
+        const lookup_info_t *_this,
         py_customidamemo_t **out_py_view,
-        const TCustomControl *view) const
-  FIND_BY__BODY(this, view, form, py_view);
+        const TWidget *view)
+{
+  FIND_BY__BODY(_this, view, py_view);
+}
 #undef FIND_BY__BODY
 
 //-------------------------------------------------------------------------
@@ -1757,77 +1771,6 @@ void py_customidamemo_t::convert_node_info(
 #undef COPY_STRING_PROP
 #undef COPY_ULONG_PROP
 #undef COPY_PROP
-}
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_ensure_view_callbacks_installed()
-{
-  static bool installed = false;
-  if ( !installed )
-  {
-    struct ida_local lambda_t
-    {
-      static int idaapi callback(void * /*ud*/, int code, va_list va)
-      {
-        py_customidamemo_t *py_view;
-        if ( pycim_lookup_info.find_by_view(NULL, &py_view, va_arg(va, TCustomControl *)) )
-        {
-          PYW_GIL_GET;
-          switch ( code )
-          {
-            case view_activated:
-              py_view->on_view_activated();
-              break;
-            case view_deactivated:
-              py_view->on_view_deactivated();
-              break;
-            case view_keydown:
-              {
-                int key = va_arg(va, int);
-                int state = va_arg(va, int);
-                py_view->on_view_keydown(key, state);
-              }
-              break;
-            case obsolete_view_popup:
-              py_view->on_view_popup();
-              break;
-            case view_click:
-            case view_dblclick:
-              {
-                const view_mouse_event_t *event = va_arg(va, view_mouse_event_t*);
-                if ( code == view_click )
-                  py_view->on_view_click(event);
-                else
-                  py_view->on_view_dblclick(event);
-              }
-              break;
-            case view_curpos:
-              py_view->on_view_curpos();
-              break;
-            case view_close:
-              py_view->on_view_close();
-              delete py_view;
-              break;
-            case view_switched:
-              {
-                tcc_renderer_type_t rt = (tcc_renderer_type_t) va_arg(va, int);
-                py_view->on_view_switched(rt);
-              }
-              break;
-            case view_mouse_over:
-              {
-                const view_mouse_event_t *event = va_arg(va, view_mouse_event_t*);
-                py_view->on_view_mouse_over(event);
-              }
-              break;
-          }
-        }
-        return 0;
-      }
-    };
-    hook_to_notification_point(HT_VIEW, lambda_t::callback, NULL);
-    installed = true;
-  }
 }
 
 //-------------------------------------------------------------------------
@@ -2028,11 +1971,11 @@ PyObject *ida_export py_customidamemo_t_set_groups_visibility(
 }
 
 //-------------------------------------------------------------------------
-bool ida_export py_customidamemo_t_bind(py_customidamemo_t *_this, PyObject *self, TCustomControl *view)
+bool ida_export py_customidamemo_t_bind(py_customidamemo_t *_this, PyObject *self, TWidget *view)
 {
   if ( _this->self != NULL || _this->view != NULL )
     return false;
-  PYGLOG("%p: py_customidamemo_t::bind(self=%p, view=%p)\n", this, _this->_self, _this->view);
+  PYGLOG("%p: py_customidamemo_t::bind(self=%p, view=%p)\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
   newref_t py_cobj(PyCObject_FromVoidPtr(_this, NULL));
@@ -2058,49 +2001,10 @@ void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this, bool clear_
 }
 
 //-------------------------------------------------------------------------
-void idaapi py_customidamemo_t::s_on_view_mouse_moved(
-        TCustomControl *cv,
-        int shift,
-        view_mouse_event_t *e,
-        void *ud)
-{
-  PYW_GIL_GET;
-  py_customidamemo_t *_this = (py_customidamemo_t *) ud;
-  _this->on_view_mouse_moved(e);
-}
-
-//-------------------------------------------------------------------------
-int py_customidamemo_t::get_py_method_arg_count(char *method_name)
-{
-  newref_t method(PyObject_GetAttrString(self.o, method_name));
-  if ( method != NULL && PyCallable_Check(method.o) )
-  {
-    newref_t fc(PyObject_GetAttrString(method.o, "func_code"));
-    if ( fc != NULL )
-    {
-      newref_t ac(PyObject_GetAttrString(fc.o, "co_argcount"));
-      if ( ac != NULL )
-        return PyInt_AsLong(ac.o);
-    }
-  }
-  return -1;
-}
-
-//-------------------------------------------------------------------------
 void ida_export py_customidamemo_t_collect_class_callbacks_ids(
         py_customidamemo_t *_this,
         pycim_callbacks_ids_t *out)
 {
-  out->add(S_ON_VIEW_ACTIVATED, _this->GRBASE_HAVE_VIEW_ACTIVATED);
-  out->add(S_ON_VIEW_DEACTIVATED, _this->GRBASE_HAVE_VIEW_DEACTIVATED);
-  out->add(S_ON_VIEW_KEYDOWN, _this->GRBASE_HAVE_KEYDOWN);
-  out->add(S_ON_POPUP, _this->GRBASE_HAVE_POPUP);
-  out->add(S_ON_VIEW_CLICK, _this->GRBASE_HAVE_VIEW_CLICK);
-  out->add(S_ON_VIEW_DBLCLICK, _this->GRBASE_HAVE_VIEW_DBLCLICK);
-  out->add(S_ON_VIEW_CURPOS, _this->GRBASE_HAVE_VIEW_CURPOS);
-  out->add(S_ON_CLOSE, _this->GRBASE_HAVE_CLOSE);
-  out->add(S_ON_VIEW_SWITCHED, _this->GRBASE_HAVE_VIEW_SWITCHED);
-  out->add(S_ON_VIEW_MOUSE_OVER, _this->GRBASE_HAVE_VIEW_MOUSE_OVER);
   out->add(S_ON_VIEW_MOUSE_MOVED, _this->GRBASE_HAVE_VIEW_MOUSE_MOVED);
 }
 
@@ -2130,275 +2034,6 @@ bool ida_export py_customidamemo_t_collect_pyobject_callbacks(
 
   return true;
 }
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_install_custom_viewer_handlers(
-        py_customidamemo_t *_this)
-{
-  if ( _this->has_callback(_this->GRBASE_HAVE_VIEW_MOUSE_MOVED) )
-  {
-    // Set user-data
-    set_custom_viewer_handler(_this->view, CVH_USERDATA, (void *)_this);
-
-    //
-    set_custom_viewer_handler(_this->view, CVH_MOUSEMOVE, (void *) py_customidamemo_t::s_on_view_mouse_moved);
-  }
-}
-
-//-------------------------------------------------------------------------
-#define CHK_EVT(flag_needed)                                \
-  if ( self == NULL || !has_callback(flag_needed) )         \
-    return;                                                 \
-  PYW_GIL_CHECK_LOCKED_SCOPE()
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_activated()
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_ACTIVATED);
-  pycall_res_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_ACTIVATED,
-                  NULL));
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_deactivated()
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_DEACTIVATED);
-  pycall_res_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_DEACTIVATED,
-                  NULL));
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_keydown(int key, int state)
-{
-  CHK_EVT(GRBASE_HAVE_KEYDOWN);
-  pycall_res_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_KEYDOWN,
-                  "ii",
-                  key, state));
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_popup()
-{
-  CHK_EVT(GRBASE_HAVE_POPUP);
-  pycall_res_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_POPUP,
-                  NULL));
-}
-
-//-------------------------------------------------------------------------
-static PyObject *build_renderer_pos_swig_proxy(const view_mouse_event_t *event)
-{
-  newref_t py_module(PyImport_ImportModule(S_IDA_KERNWIN_MODNAME));
-  ref_t py_result;
-  if ( py_module != NULL )
-  {
-    ref_t py_class = PyW_TryGetAttrString(py_module.o, "renderer_pos_info_t");
-    if ( py_class != NULL )
-    {
-      ref_t py_obj = newref_t(PyObject_CallFunctionObjArgs(py_class.o, NULL));
-      if ( py_obj != NULL )
-      {
-        newref_t py_node(PyInt_FromLong(event->renderer_pos.node));
-        PyObject_SetAttrString(py_obj.o, "node", py_node.o);
-        newref_t py_cx(PyInt_FromLong(event->renderer_pos.cx));
-        PyObject_SetAttrString(py_obj.o, "cx", py_cx.o);
-        newref_t py_cy(PyInt_FromLong(event->renderer_pos.cy));
-        PyObject_SetAttrString(py_obj.o, "cy", py_cy.o);
-        newref_t py_sx(PyInt_FromLong(event->renderer_pos.sx));
-        PyObject_SetAttrString(py_obj.o, "sx", py_sx.o);
-        py_result = py_obj;
-      }
-    }
-  }
-  if ( py_result != NULL )
-  {
-    py_result.incref();
-    return py_result.o;
-  }
-  else
-  {
-    return NULL;
-  }
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_click(const view_mouse_event_t *event)
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_CLICK);
-  if ( ovc_num_args < 0 )
-    ovc_num_args = get_py_method_arg_count((char*)S_ON_VIEW_CLICK);
-  if ( ovc_num_args == 6 )
-  {
-    PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    pycall_res_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_VIEW_CLICK,
-                    "iiiiO",
-                    event->x, event->y, event->state, event->button, rpos));
-  }
-  else if ( ovc_num_args == 5 )
-  {
-    pycall_res_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_VIEW_CLICK,
-                    "iiii",
-                    event->x, event->y, event->state, event->button));
-  }
-  else
-  {
-    pycall_res_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_VIEW_CLICK,
-                    "iii",
-                    event->x, event->y, event->state));
-  }
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_dblclick(const view_mouse_event_t *event)
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_DBLCLICK);
-  if ( ovdc_num_args < 0 )
-    ovdc_num_args = get_py_method_arg_count((char*)S_ON_VIEW_DBLCLICK);
-  if ( ovdc_num_args == 5 )
-  {
-    PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    pycall_res_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_VIEW_DBLCLICK,
-                    "iiiO",
-                    event->x, event->y, event->state, rpos));
-  }
-  else
-  {
-    pycall_res_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_VIEW_DBLCLICK,
-                    "iii",
-                    event->x, event->y, event->state));
-  }
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_curpos()
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_CURPOS);
-  pycall_res_t result(
-          PyObject_CallMethod(
-                  self.o,
-                  (char *)S_ON_VIEW_CURPOS,
-                  NULL));
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_close()
-{
-  CHK_EVT(GRBASE_HAVE_CLOSE);
-  pycall_res_t result(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, NULL));
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_switched(tcc_renderer_type_t rt)
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_SWITCHED);
-  pycall_res_t result(PyObject_CallMethod(self.o, (char *)S_ON_VIEW_SWITCHED, "i", int(rt)));
-}
-
-//-------------------------------------------------------------------------
-static ref_t build_current_graph_item_tuple(int *out_icode, const view_mouse_event_t *event)
-{
-  const selection_item_t *item = event->location.item;
-  ref_t tuple;
-  if ( (event->rtype == TCCRT_GRAPH || event->rtype == TCCRT_PROXIMITY)
-    && item != NULL )
-  {
-    if ( item->is_node )
-    {
-      *out_icode = 1;
-      tuple = newref_t(Py_BuildValue("(i)", item->node));
-    }
-    else
-    {
-      *out_icode = 2;
-      tuple = newref_t(Py_BuildValue("(ii)", item->elp.e.src, item->elp.e.dst));
-    }
-  }
-  else
-  {
-    *out_icode = 0;
-    tuple = newref_t(Py_BuildValue("()"));
-  }
-  return tuple;
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_mouse_over(const view_mouse_event_t *event)
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_MOUSE_OVER);
-  if ( ovmo_num_args < 0 )
-    ovmo_num_args = get_py_method_arg_count((char*)S_ON_VIEW_MOUSE_OVER);
-  if ( event->rtype != TCCRT_GRAPH && event->rtype != TCCRT_PROXIMITY )
-    return;
-
-  int icode;
-  ref_t tuple = build_current_graph_item_tuple(&icode, event);
-  if ( ovmo_num_args == 7 )
-  {
-    PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    pycall_res_t result(PyObject_CallMethod(
-                            self.o,
-                            (char *)S_ON_VIEW_MOUSE_OVER,
-                            "iiiiOO",
-                            event->x, event->y, event->state, icode, tuple.o, rpos));
-  }
-  else
-  {
-    pycall_res_t result(PyObject_CallMethod(
-                            self.o,
-                            (char *)S_ON_VIEW_MOUSE_OVER,
-                            "iiiiO",
-                            event->x, event->y, event->state, icode, tuple.o));
-  }
-}
-
-//-------------------------------------------------------------------------
-void py_customidamemo_t::on_view_mouse_moved(const view_mouse_event_t *event)
-{
-  CHK_EVT(GRBASE_HAVE_VIEW_MOUSE_MOVED);
-  if ( ovmm_num_args < 0 )
-    ovmm_num_args = get_py_method_arg_count((char*)S_ON_VIEW_MOUSE_MOVED);
-
-  int icode;
-  ref_t tuple = build_current_graph_item_tuple(&icode, event);
-  if ( ovmm_num_args == 7 )
-  {
-    PyObject *rpos = build_renderer_pos_swig_proxy(event);
-    pycall_res_t result(PyObject_CallMethod(
-                            self.o,
-                            (char *)S_ON_VIEW_MOUSE_MOVED,
-                            "iiiiOO",
-                            event->x, event->y, event->state, icode, tuple.o, rpos));
-  }
-}
-
-
-#undef CHK_EVT
 
 //-------------------------------------------------------------------------
 //
@@ -2476,6 +2111,7 @@ DEF_REG_UNREG_REFCOUNTED(array_type_data_t);
 DEF_REG_UNREG_REFCOUNTED(func_type_data_t);
 DEF_REG_UNREG_REFCOUNTED(udt_type_data_t);
 
+
 //-------------------------------------------------------------------------
 //
 //---------------------------------------------------------------------------
@@ -2509,6 +2145,91 @@ static void clear_python_timer_instances(void)
     unregister_timer(t->timer_id);
     python_timer_del(t);
   }
+}
+
+//-------------------------------------------------------------------------
+ref_t ida_export try_create_swig_wrapper(ref_t mod, const char *clsname, void *cobj)
+{
+  qstring wname;
+  wname.sprnt("%s__from_ptrval__", clsname);
+  ref_t res;
+  ref_t py_cls_wrapper_inst(PyW_TryGetAttrString(mod.o, wname.c_str()));
+  if ( py_cls_wrapper_inst != NULL )
+  {
+    uninterruptible_op_t op;
+    res = newref_t(PyObject_CallFunction(py_cls_wrapper_inst.o, "(K)", uint64(cobj)));
+  }
+  return res;
+}
+
+//-------------------------------------------------------------------------
+typedef qvector<module_callbacks_t> modules_callbacks_t;
+static modules_callbacks_t modules_callbacks;
+void register_module_lifecycle_callbacks(
+        const module_callbacks_t &cbs)
+{
+  modules_callbacks.push_back(cbs);
+}
+
+//-------------------------------------------------------------------------
+//                                    hooks
+//-------------------------------------------------------------------------
+#ifdef TESTABLE_BUILD
+struct hook_data_t
+{
+  hook_type_t type;
+  hook_cb_t *cb;
+  void *ud;
+};
+DECLARE_TYPE_AS_MOVABLE(hook_data_t);
+typedef qvector<hook_data_t> hook_data_vec_t;
+static hook_data_vec_t hook_data_vec;
+#endif // TESTABLE_BUILD
+
+//-------------------------------------------------------------------------
+bool ida_export idapython_hook_to_notification_point(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data)
+{
+  bool ok = hook_to_notification_point(hook_type, cb, user_data);
+#ifdef TESTABLE_BUILD
+  if ( ok )
+  {
+    hook_data_t &hd = hook_data_vec.push_back();
+    hd.type = hook_type;
+    hd.cb = cb;
+    hd.ud = user_data;
+  }
+#endif // TESTABLE_BUILD
+  return ok;
+}
+
+//-------------------------------------------------------------------------
+bool ida_export idapython_unhook_from_notification_point(
+        hook_type_t hook_type,
+        hook_cb_t *cb,
+        void *user_data)
+{
+  bool ok = unhook_from_notification_point(hook_type, cb, user_data);
+#ifdef TESTABLE_BUILD
+  if ( ok )
+  {
+    bool found = false;
+    for ( size_t i = 0, n = hook_data_vec.size(); i < n; ++i )
+    {
+      const hook_data_t &hd = hook_data_vec[i];
+      if ( hd.type == hook_type && hd.cb == cb && hd.ud == user_data )
+      {
+        hook_data_vec.erase(hook_data_vec.begin() + i);
+        found = true;
+        break;
+      }
+    }
+    QASSERT(30510, found);
+  }
+#endif // TESTABLE_BUILD
+  return ok;
 }
 
 #undef DEF_REG_UNREG_REFCOUNTED

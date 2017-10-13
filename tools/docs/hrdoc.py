@@ -9,8 +9,8 @@ try:
 except ImportError as e:
     import idc
     import traceback
-    idc.Message("Couldn't import module %s\n" % traceback.format_exc())
-    idc.Exit(-1)
+    idc.msg("Couldn't import module %s\n" % traceback.format_exc())
+    idc.qexit(-1)
 
 # --------------------------------------------------------------------------
 DOC_DIR = 'hr-html'
@@ -111,6 +111,13 @@ def main():
 
     try:
         print "Generating documentation....."
+        import ida_pro
+        try:
+            ida_pro._BC695
+            print "'ida_pro._BC695' exists. Please recompile with BC695=0 (see makefile). Bailing out."
+            return -1
+        except:
+            pass # ok
 
         os.chdir('docs')
         gen_docs()
@@ -126,4 +133,4 @@ def main():
 # --------------------------------------------------------------------------
 if __name__ == '__main__':
     main()
-    Exit(0)
+    qexit(0)

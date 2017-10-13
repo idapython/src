@@ -18,19 +18,17 @@
 %ignore get_ea_name;
 %rename (get_ea_name) py_get_ea_name;
 
-// Deprecated functions, w/ duplicate names.
-// Some are simply aliased (see py_name.py)
-%ignore get_debug_name(ea_t *, debug_name_how_t, char *, size_t);
-%ignore append_struct_fields(int, const tid_t *, int, flags_t, char *, char *, adiff_t *, adiff_t, bool);
-
-
 // Duplicate names, in-out qstring w/ existing
 // qstring-returning alternatives.
 %ignore get_visible_name(qstring *, ea_t, int);
 %ignore get_short_name(qstring *, ea_t, int);
 %ignore get_long_name(qstring *, ea_t, int);
+%ignore get_colored_short_name(qstring *, ea_t, int);
+%ignore get_colored_long_name(qstring *, ea_t, int);
+%ignore get_demangled_name(qstring *, ea_t, int32, int, int);
+%ignore get_colored_demangled_name(qstring *, ea_t, int32, int, int);
 
-// get_true_name & get_colored_name have prototypes such that,
+// get_name & get_colored_name have prototypes such that,
 // once converted to IDAPython, would be problematic because it'd
 // be impossible for SWiG to tell apart the (ea_t, ea_t) version
 // from the (ea_t, int) one.
@@ -42,17 +40,22 @@
 %ignore FNAME(ea_t, int);
 %rename (FNAME) py_ ## FNAME;
 
+%ignore demangle_name(const char *, uint32, demreq_type_t);
+
 %inline %{
 inline qstring py_## FNAME(ea_t ea) { return FNAME(ea); }
 %}
 %enddef
 
-%restrict_ambiguous_name_function(get_true_name);
+%restrict_ambiguous_name_function(get_name);
 %restrict_ambiguous_name_function(get_colored_name);
 
 
 %ignore get_debug_names;
 %rename (get_debug_names) py_get_debug_names;
+
+%ignore validate_name;
+%rename (validate_name) py_validate_name;
 
 %{
 //<code(py_name)>

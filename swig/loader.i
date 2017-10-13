@@ -3,7 +3,7 @@
 %ignore loader_t::load_file;
 %ignore loader_t::save_file;
 %ignore loader_t::move_segm;
-%ignore loader_t::init_loader_options;
+%ignore loader_t::process_archive;
 %ignore plugin_t;
 
 %ignore vloader_failure;
@@ -16,7 +16,6 @@
 %ignore free_loaders_list;
 %ignore get_loader_name_from_dll;
 %ignore get_loader_name;
-%ignore init_loader_options;
 %ignore load_nonbinary_file;
 %ignore impinfo_t;
 %ignore import_module;
@@ -33,11 +32,6 @@
 %ignore html_line_cb_t;
 %ignore gen_outline_t;
 %ignore create_filename_cmt;
-%ignore hook_cb_t;
-%ignore hook_type_t;
-%ignore hook_to_notification_point;
-%ignore unhook_from_notification_point;
-%ignore invoke_callbacks;
 
 // Ignore kernel-only & unexported symbols
 %ignore LDSC;
@@ -58,11 +52,12 @@
 %ignore RE_BADATP;
 %ignore RE_BADMAP;
 %ignore load_dll_or_die;
-%ignore load_dll_or_say;
+%ignore load_core_module;
+%ignore load_core_module_or_die;
+%ignore _load_core_module;
 %ignore free_dll;
 %ignore IDP_DESC_START;
 %ignore IDP_DESC_END;
-%ignore get_idp_desc;
 %ignore get_idp_descs;
 %ignore init_fileregions;
 %ignore term_fileregions;
@@ -70,9 +65,7 @@
 %ignore add_fileregion;
 %ignore move_fileregions;
 %ignore del_fileregions;
-%ignore enum_processor_modules;
 %ignore enum_plugins;
-%ignore database_id0;
 %ignore is_database_ext;
 %ignore is_temp_database;
 

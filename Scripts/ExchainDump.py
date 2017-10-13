@@ -9,6 +9,8 @@ ALL RIGHTS RESERVED.
 
 import idc
 import re
+import ida_kernwin
+from ida_kernwin import Choose
 
 # class to store parsed results
 class exchain:
@@ -16,22 +18,30 @@ class exchain:
         self.name       = m.group(1)
         self.addr       = int(m.group(2), 16)
 
-    def __str__(self):
-        return "%x: %s" % (self.addr, self.name)
-
 # Chooser class
 class MyChoose(Choose):
-    def __init__(self, list, title):
-        Choose.__init__(self, list, title)
-        self.width = 250
+    def __init__(self, title, items):
+        Choose.__init__(self, title, [ ["Address", 16], ["Name", 250] ])
+        self.items = items
 
-    def enter(self, n):
-        o = self.list[n-1]
-        idc.Jump(o.addr)
+    def OnGetLine(self, n):
+        o = self.items[n]
+        line = []
+        line.append("%08X" % o.addr)
+        line.append("%s" % o.name)
+        return line
+
+    def OnGetSize(self):
+        return len(self.items)
+
+    def OnSelectLine(self, n):
+        o = self.items[n]
+        Jump(o.addr)
+        return (Choose.NOTHING_CHANGED, )
 
 # main
 def main():
-    s = idc.Eval('SendDbgCommand("!exchain")')
+    s = idc.eval('send_dbg_command("!exchain")')
     if "IDC_FAILURE" in s:
         return (False, "Cannot execute the command")
 
@@ -43,9 +53,9 @@ def main():
         return (False, "Nothing to display: Could parse the result!")
 
     # Get a Choose instance
-    chooser = MyChoose(L, "Exchain choose")
+    chooser = MyChoose("Exchain choose", L)
     # Run the chooser
-    chooser.choose()
+    chooser.Show()
     return (True, "Success!")
 ok, r = main()
 if not ok:

@@ -12,16 +12,16 @@
 def get_manual_regions():
     """
     Returns the manual memory regions
-    @return: list(startEA, endEA, name, sclass, sbase, bitness, perm)
+    @return: list(start_ea, end_ea, name, sclass, sbase, bitness, perm)
     """
     pass
 #</pydoc>
 */
 static PyObject *py_get_manual_regions()
 {
-  meminfo_vec_t areas;
-  get_manual_regions(&areas);
-  return meminfo_vec_t_to_py(areas);
+  meminfo_vec_t ranges;
+  get_manual_regions(&ranges);
+  return meminfo_vec_t_to_py(ranges);
 }
 
 //-------------------------------------------------------------------------
@@ -61,20 +61,20 @@ static PyObject *refresh_debugger_memory()
     dbg->stopped_at_debug_event(true);
 
   // Invalidate the cache
-  isEnabled(0);
+  is_mapped(0);
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   Py_RETURN_NONE;
 }
 
-int idaapi DBG_Callback(void *ud, int notification_code, va_list va);
+ssize_t idaapi DBG_Callback(void *ud, int notification_code, va_list va);
 class DBG_Hooks
 {
 public:
   virtual ~DBG_Hooks() { unhook(); }
 
-  bool hook() { return hook_to_notification_point(HT_DBG, DBG_Callback, this); }
-  bool unhook() { return unhook_from_notification_point(HT_DBG, DBG_Callback, this); }
+  bool hook() { return idapython_hook_to_notification_point(HT_DBG, DBG_Callback, this); }
+  bool unhook() { return idapython_unhook_from_notification_point(HT_DBG, DBG_Callback, this); }
 
   static int store_int(int rc, const debug_event_t *, int *warn)
   {
@@ -91,7 +91,7 @@ public:
   // hookgenDBG:methods
 };
 
-int idaapi DBG_Callback(void *ud, int notification_code, va_list va)
+ssize_t idaapi DBG_Callback(void *ud, int notification_code, va_list va)
 {
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;
@@ -168,7 +168,7 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ea_t answer;
-  return internal_get_sreg_base(tid, sreg_value, &answer) < 1
+  return internal_get_sreg_base(&answer, tid, sreg_value) < 1
        ? BADADDR
        : answer;
 }

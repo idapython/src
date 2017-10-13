@@ -35,7 +35,7 @@ class loader_input_t(pyidc_opaque_object_t):
         """Create a linput for process memory (By internally calling idaapi.create_memory_linput())
         This linput will use dbg->read_memory() to read data
         @param start: starting address of the input
-        @param size: size of the memory area to represent as linput
+        @param size: size of the memory range to represent as linput
                     if unknown, may be passed as 0
         """
         pass
@@ -251,9 +251,9 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int32 seek(int32 pos, int whence = SEEK_SET)
+  int64 seek(int64 pos, int whence = SEEK_SET)
   {
-    int32 r;
+    int64 r;
     PYW_GIL_GET;
     Py_BEGIN_ALLOW_THREADS;
     r = qlseek(li, pos, whence);
@@ -262,9 +262,9 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int32 tell()
+  int64 tell()
   {
-    int32 r;
+    int64 r;
     PYW_GIL_GET;
     Py_BEGIN_ALLOW_THREADS;
     r = qltell(li);
@@ -273,7 +273,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  PyObject *getz(size_t sz, int32 fpos = -1)
+  PyObject *getz(size_t sz, int64 fpos = -1)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     do
@@ -305,10 +305,7 @@ public:
       ok = qlgets(buf, len, li) != NULL;
       Py_END_ALLOW_THREADS;
       if ( !ok )
-      {
-        free(buf);
-        break;
-      }
+        buf[0] = '\0';
       PyObject *ret = PyString_FromString(buf);
       free(buf);
       return ret;
@@ -330,10 +327,7 @@ public:
       r = qlread(li, buf, size);
       Py_END_ALLOW_THREADS;
       if ( r == -1 )
-      {
-        free(buf);
-        break;
-      }
+        r = 0;
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
@@ -361,10 +355,7 @@ public:
       r = lreadbytes(li, buf, size, big_endian);
       Py_END_ALLOW_THREADS;
       if ( r == -1 )
-      {
-        free(buf);
-        break;
-      }
+        r = 0;
       PyObject *ret = PyString_FromStringAndSize(buf, r);
       free(buf);
       return ret;
@@ -373,7 +364,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int file2base(int32 pos, ea_t ea1, ea_t ea2, int patchable)
+  int file2base(int64 pos, ea_t ea1, ea_t ea2, int patchable)
   {
     int rc;
     Py_BEGIN_ALLOW_THREADS;
@@ -383,9 +374,9 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int32 size()
+  int64 size()
   {
-    int32 rc;
+    int64 rc;
     Py_BEGIN_ALLOW_THREADS;
     rc = qlsize(li);
     Py_END_ALLOW_THREADS;

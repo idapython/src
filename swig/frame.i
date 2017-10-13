@@ -2,7 +2,7 @@
 #include <frame.hpp>
 %}
 
-%import "area.i"
+%import "range.i"
 
 %ignore add_frame_spec_member;
 %ignore del_stkvars;
@@ -13,9 +13,6 @@
 
 %ignore get_stkvar;
 %rename (get_stkvar) py_get_stkvar;
-
-%ignore add_stkvar3;
-%rename (add_stkvar3) py_add_stkvar3;
 
 %ignore calc_frame_offset;
 %ignore add_stkvar;

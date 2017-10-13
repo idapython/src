@@ -9,7 +9,8 @@
 #
 import idaapi
 import idc
-from idaapi import Choose2, plugin_t
+from idaapi import plugin_t
+from ida_kernwin import Choose
 import BboeVt as vt
 import webbrowser
 import urllib
@@ -46,7 +47,7 @@ class VirusTotalConfig(object):
 
 
     def Default(self):
-        self.md5sum = GetInputMD5()
+        self.md5sum = retrieve_input_file_md5()
         self.infile = idaapi.dbg_get_input_path()
         if not self.infile:
             self.infile = ""
@@ -118,15 +119,15 @@ def VtReport(apikey, filename=None, md5sum=None):
 
 
 # -----------------------------------------------------------------------
-class VirusTotalChooser(Choose2):
+class VirusTotalChooser(Choose):
     """
     Chooser class to display results from VT
     """
     def __init__(self, title, items, icon, embedded=False):
-        Choose2.__init__(self,
-                         title,
-                         [ ["Antivirus", 20], ["Result", 40] ],
-                         embedded=embedded)
+        Choose.__init__(self,
+                        title,
+                        [ ["Antivirus", 20], ["Result", 40] ],
+                        embedded=embedded)
         self.items = items
         self.icon = icon
 
@@ -137,10 +138,6 @@ class VirusTotalChooser(Choose2):
 
     def SetItems(self, items):
         self.items = [] if items is None else items
-
-
-    def OnClose(self):
-        pass
 
 
     def OnGetLine(self, n):
@@ -155,6 +152,7 @@ class VirusTotalChooser(Choose2):
         # Google search for the malware name and the antivirus name
         s = urllib.urlencode({"q" : " ".join(self.items[n])})
         webbrowser.open_new_tab("http://www.google.com/search?%s" % s)
+        return (NOTHING_CHANGED, )
 
 
 # --------------------------------------------------------------------------
@@ -224,7 +222,7 @@ Options:
 
             # Error?
             if not ok:
-                idc.Warning(r)
+                idc.warning(r)
                 return 1
 
             # Pass the result
@@ -245,20 +243,20 @@ Options:
             if r is None:
                 if as_file:
                     # Propose to upload
-                    if idc.AskYN(0, "HIDECANCEL\nNo previous results. Do you want to submit the file:\n\n'%s'\n\nto VirusTotal?" % input) == 0:
+                    if idc.ask_yn(0, "HIDECANCEL\nNo previous results. Do you want to submit the file:\n\n'%s'\n\nto VirusTotal?" % input) == 0:
                         return 1
 
                     try:
                         r = vt.scan_file(input)
                     except Exception as e:
-                        idc.Warning("Exceptio during upload: %s" % str(e))
+                        idc.warning("Exceptio during upload: %s" % str(e))
                     else:
                         if r is None:
-                            idc.Warning("Failed to upload the file!")
+                            idc.warning("Failed to upload the file!")
                         else:
-                            idc.Warning("File uploaded. Check again later to get the analysis report. Scan id: %s" % r)
+                            idc.warning("File uploaded. Check again later to get the analysis report. Scan id: %s" % r)
                 else:
-                    idc.Warning("No results found for hash: %s" % input)
+                    idc.warning("No results found for hash: %s" % input)
 
         return 1
 

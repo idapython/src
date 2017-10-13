@@ -4,10 +4,9 @@
 #include <dbg.hpp>
 #include <auto.hpp>
 #include <fixup.hpp>
+#include <tryblks.hpp>
 %}
 // Ignore the following symbols
-%ignore WorkReg;
-%ignore AbstractRegister;
 %ignore rginfo;
 %ignore insn_t::get_canon_mnem;
 %ignore insn_t::get_canon_feature;
@@ -23,7 +22,6 @@
 %ignore IDPOPT_BADTYPE;
 %ignore IDPOPT_BADVALUE;
 %ignore set_options_t;
-%ignore read_user_config_file;
 %ignore read_config;
 %ignore read_config_file;
 %ignore read_config_string;
@@ -36,9 +34,8 @@
 %ignore _chkarg_cmd;
 %ignore ENUM_SIZE;
 
-%ignore asm_t::checkarg_dispatch;
-%ignore asm_t::func_header;
-%ignore asm_t::func_footer;
+%ignore asm_t::out_func_header;
+%ignore asm_t::out_func_footer;
 %ignore asm_t::get_type_name;
 %ignore instruc_t;
 %ignore processor_t;
@@ -46,11 +43,49 @@
 %ignore IDP_Callback;
 %ignore _py_getreg;
 
+%ignore hook_cb_t;
+%ignore hook_type_t;
+%ignore hook_to_notification_point;
+%ignore unhook_from_notification_point;
+%ignore invoke_callbacks;
+
+// @arnaud
+%ignore notify__calc_next_eas;
+%ignore notify__custom_ana;
+%ignore notify__custom_emu;
+%ignore notify__custom_mnem;
+%ignore notify__custom_out;
+%ignore notify__custom_outop;
+%ignore notify__get_autocmt;
+%ignore notify__get_dbr_opnum;
+%ignore notify__get_operand_string;
+%ignore notify__insn_reads_tbit;
+%ignore notify__is_basic_block_end;
+%ignore notify__is_call_insn;
+%ignore notify__is_cond_insn;
+%ignore notify__is_indirect_jump;
+%ignore notify__is_insn_table_jump;
+%ignore notify__is_ret_insn;
+%ignore notify__is_sane_insn;
+%ignore notify__may_be_func;
+%ignore notify__make_code;
+// @arnaud ^^^
+
+// @arnaud ditch this once all modules are ported
+// temporary:
+%ignore out_old_data;
+%ignore out_old_specea;
+
 %nonnul_argument_prototype(
         static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
         const char *nonnul_line);
 
 %include "idp.hpp"
+%include "config.hpp"
+
+%typemap(check) tinfo_t const* optional_type
+{
+}
 
 %inline %{
 //<inline(py_idp)>

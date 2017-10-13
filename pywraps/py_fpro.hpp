@@ -207,7 +207,7 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int seek(int32 offset, int whence = SEEK_SET)
+  int seek(int64 offset, int whence = SEEK_SET)
   {
     int rc;
     Py_BEGIN_ALLOW_THREADS;
@@ -217,9 +217,9 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int32 tell()
+  int64 tell()
   {
-    int32 rc;
+    int64 rc;
     Py_BEGIN_ALLOW_THREADS;
     rc = qftell(fp);
     Py_END_ALLOW_THREADS;
@@ -348,10 +348,10 @@ public:
   }
 
   //--------------------------------------------------------------------------
-  int32 size()
+  int64 size()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    int32 r;
+    qoff64_t r;
     Py_BEGIN_ALLOW_THREADS;
     int pos = qfseek(fp, 0, SEEK_END);
     r = qftell(fp);

@@ -8,9 +8,10 @@
 
 %ignore get_import_module_name;
 %rename (get_import_module_name) py_get_import_module_name;
-%ignore NALT_EA;
 %ignore enum_import_names;
 %rename (enum_import_names) py_enum_import_names;
+
+%ignore calc_nodeidx;
 
 %ignore get_wide_value;
 %ignore set_wide_value;
@@ -41,10 +42,6 @@
 
 %ignore set_ind_purged;
 
-%ignore get_str_type;
-%ignore set_str_type;
-%ignore del_str_type;
-
 %ignore _get_item_color;
 %ignore _set_item_color;
 %ignore _del_item_color;
@@ -55,24 +52,6 @@
 %ignore get_nalt_rptcmt;
 %ignore set_nalt_rptcmt;
 %ignore del_nalt_rptcmt;
-%ignore get_fop1;
-%ignore set_fop1;
-%ignore del_fop1;
-%ignore get_fop2;
-%ignore set_fop2;
-%ignore del_fop2;
-%ignore get_fop3;
-%ignore set_fop3;
-%ignore del_fop3;
-%ignore get_fop4;
-%ignore set_fop4;
-%ignore del_fop4;
-%ignore get_fop5;
-%ignore set_fop5;
-%ignore del_fop5;
-%ignore get_fop6;
-%ignore set_fop6;
-%ignore del_fop6;
 %ignore get_manual_insn0;
 %ignore set_manual_insn0;
 %ignore del_manual_insn0;
@@ -80,11 +59,15 @@
 %ignore set_graph_groups0;
 %ignore del_graph_groups0;
 
+%ignore jumptable_info_t;
+%ignore del_jumptable_info;
+%ignore set_jumptable_info;
+%ignore get_jumptable_info;
+
 %ignore switch_info_t;
-%ignore switch_info_ex_t;
-%ignore get_switch_info_ex;
-%ignore set_switch_info_ex;
-%ignore del_switch_info_ex;
+%ignore get_switch_info;
+%ignore set_switch_info;
+%ignore del_switch_info;
 
 %ignore refinfo_t::_get_target;
 %ignore refinfo_t::_get_value;
@@ -94,7 +77,9 @@
 %ignore custom_refinfo_handlers_t;
 %ignore register_custom_refinfo;
 %ignore unregister_custom_refinfo;
-%ignore get_custom_refinfos;
+%ignore get_custom_refinfo_handler;
+%ignore refinfo_desc_t;
+%ignore get_refinfo_descs;
 
 %ignore write_struc_path;
 %ignore read_struc_path;
@@ -113,17 +98,20 @@
 %ignore get_switch_info;
 %ignore set_switch_info;
 %ignore del_switch_info;
-%ignore get_ti;
-%ignore set_ti;
-%ignore del_ti;
-%ignore get_op_tinfo;
-%ignore set_op_tinfo;
-%ignore del_tinfo;
-%ignore get_op_ti;
-%ignore set_op_ti;
-%ignore del_ti;
 
-%template (ids_array) wrapped_array_t<tid_t,32>;
+%template (custom_data_type_ids_fids_array) wrapped_array_t<int16,UA_MAXOP>;
+
+%extend custom_data_type_ids_t {
+  wrapped_array_t<int16,UA_MAXOP> __getFids() {
+    return wrapped_array_t<int16,UA_MAXOP>($self->fids);
+  }
+
+  %pythoncode {
+    fids = property(__getFids)
+  }
+}
+
+%template (strpath_ids_array) wrapped_array_t<tid_t,32>;
 
 %extend strpath_t {
   wrapped_array_t<tid_t,32> __getIds() {
@@ -142,9 +130,9 @@
 //</code(py_nalt)>
 %}
 
-%rename (get_switch_info_ex)  py_get_switch_info_ex;
-%rename (set_switch_info_ex)  py_set_switch_info_ex;
-%rename (del_switch_info_ex)  py_del_switch_info_ex;
+%rename (get_switch_info)  py_get_switch_info;
+%rename (set_switch_info)  py_set_switch_info;
+%rename (del_switch_info)  py_del_switch_info;
 
 %inline %{
 //<inline(py_nalt)>

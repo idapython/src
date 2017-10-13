@@ -1,6 +1,6 @@
 import idaapi
 import idc
-from idaapi import Choose2
+from ida_kernwin import Choose
 
 def parse_pte(str):
     try:
@@ -15,17 +15,15 @@ def parse_pte(str):
         r[parse_pte.items[i]] = m.group(i+1)
     return r
 
-class MyChoose2(Choose2):
+class MyChoose(Choose):
 
     def __init__(self, title, ea1, ea2):
-        Choose2.__init__(self, title, [ ["VA", 10], ["PTE attr", 30] ])
+        Choose.__init__(self, title, [ ["VA", 10], ["PTE attr", 30] ])
         self.ea1 = ea1
         self.ea2 = ea2
-        self.n = 0
         self.icon = 5
         self.items = []
         self.Refresh()
-        self.selcount = 0
 
     def OnGetLine(self, n):
         print("getline %d" % n)
@@ -38,7 +36,7 @@ class MyChoose2(Choose2):
 
     def OnRefresh(self, n):
         print("refresh %d" % n)
-        return n
+        return None # call standard refresh
 
     def Refresh(self):
         items = []
@@ -46,7 +44,7 @@ class MyChoose2(Choose2):
         ea1 = self.ea1
         npages = (self.ea2 - ea1) / PG
         for i in range(npages):
-            r = idc.SendDbgCommand("!pte %x" % ea1)
+            r = idc.send_dbg_command("!pte %x" % ea1)
             if not r:
                 return False
             r = parse_pte(r)
@@ -59,7 +57,7 @@ class MyChoose2(Choose2):
 
     @staticmethod
     def Execute(ea1, ea2):
-        c = MyChoose2("PTE Viewer [%x..%x]" % (ea1, ea2), ea1, ea2)
+        c = MyChoose("PTE Viewer [%x..%x]" % (ea1, ea2), ea1, ea2)
         return (c, c.Show())
 
 
@@ -68,7 +66,7 @@ def DumpPTE(ea1, ea2):
     PG = 0x1000
     npages = (ea2 - ea1) / PG
     for i in range(npages):
-        r = idc.SendDbgCommand("!pte %x" % ea1)
+        r = idc.send_dbg_command("!pte %x" % ea1)
         if not r:
             return False
         print r
@@ -77,9 +75,9 @@ def DumpPTE(ea1, ea2):
         ea1 += PG
 
 def DumpSegPTE(ea):
-    DumpPTE(idc.SegStart(ea), idc.SegEnd(ea))
+    DumpPTE(idc.get_segm_start(ea), idc.get_segm_end(ea))
 
 DumpSegPTE(here())
 
-#MyChoose2.Execute(0xF718F000, 0xF718F000+0x1000)
+#MyChoose.Execute(0xF718F000, 0xF718F000+0x1000)
 

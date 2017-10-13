@@ -258,6 +258,10 @@ lvar_t.is_mapdst_var = property(lvar_t.is_mapdst_var)
 
 # dictify all dict-like types
 
+def _map___iter__(self):
+    """ Iterate over dictionary keys. """
+    return self.iterkeys()
+
 def _map___getitem__(self, key):
     """ Returns the value associated with the provided key. """
     if not isinstance(key, self.keytype):
@@ -389,6 +393,7 @@ def _map_as_dict(maptype, name, keytype, valuetype):
     maptype.erase = lambda self, *args: self.__erase(self, *args)
     maptype.clear = lambda self, *args: self.__clear(self, *args)
     maptype.size = lambda self, *args: self.__size(self, *args)
+    maptype.__iter__ = _map___iter__
     maptype.__getitem__ = _map___getitem__
     maptype.__setitem__ = _map___setitem__
     maptype.__delitem__ = _map___delitem__
@@ -414,6 +419,66 @@ _map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, (int, long))
 import ida_pro
 _map_as_dict(user_unions_t, 'user_unions', (int, long), ida_pro.intvec_t)
 _map_as_dict(eamap_t, 'eamap', long, cinsnptrvec_t)
-#_map_as_dict(boundaries_t, 'boundaries', cinsn_t, areaset_t)
+import ida_range
+_map_as_dict(boundaries_t, 'boundaries', cinsn_t, ida_range.rangeset_t)
+
+#
+# Object ownership
+#
+def _call_with_transferrable_ownership(fun, *args):
+    e = args[0]
+    was_owned = e.thisown
+    res = fun(e, *args[1:])
+    # ATM, 'res' doesn't own the resulting cexpr_t.
+    # In case 'fun'
+    #   - created a new object: we want to own that one in case 'e' was owned
+    #   - didn't create a new object: we will remove & re-gain ownership on
+    #                                 the same underlying cexpr_t. No biggie.
+    if res and was_owned:
+        e._maybe_disown_and_deregister()
+        res._own_and_register()
+    return res
+
+def lnot(e):
+    return _call_with_transferrable_ownership(_ll_lnot, e)
+
+def make_ref(e):
+    return _call_with_transferrable_ownership(_ll_make_ref, e)
+
+def dereference(e, ptrsize, is_float=False):
+    return _call_with_transferrable_ownership(_ll_dereference, e, ptrsize, is_float)
+
+def call_helper(rettype, args, *rest):
+    res = _ll_call_helper(rettype, args, *rest)
+    if res:
+        res._own_and_register()
+        if type(args) == carglist_t:
+            args.thisown = False
+    return res
+
+def new_block():
+    res = _ll_new_block()
+    if res:
+        res._own_and_register()
+    return res
+
+def make_num(*args):
+    res = _ll_make_num(*args)
+    if res:
+        res._own_and_register()
+    return res
+
+def create_helper(*args):
+    res = _ll_create_helper(*args)
+    if res:
+        res._own_and_register()
+    return res
 
 #</pycode(py_hexrays)>
+
+#<pycode_BC695(py_hexrays)>
+get_tform_vdui=get_widget_vdui
+hx_get_tform_vdui=hx_get_widget_vdui
+HEXRAYS_API_MAGIC1=(HEXRAYS_API_MAGIC>>32)
+HEXRAYS_API_MAGIC2=(HEXRAYS_API_MAGIC&0xFFFFFFFFL)
+#</pycode_BC695(py_hexrays)>

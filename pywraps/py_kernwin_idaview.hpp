@@ -24,40 +24,28 @@ bool py_idaview_t::Bind(PyObject *self)
   if ( !PyW_GetStringAttr(self, S_M_TITLE, &title) )
     return false;
 
-  // Get the IDAView associated to this TForm
-  TForm *tform = find_tform(title.c_str());
-  if ( tform == NULL )
-    return false;
-  TCustomControl *v = get_tform_idaview(tform);
-  if ( v == NULL )
+  // Get the IDAView associated to this TWidget
+  TWidget *widget = find_widget(title.c_str());
+  if ( widget == NULL )
     return false;
 
-  // Get unique py_idaview_t associated to that tform
+  // Get unique py_idaview_t associated to that TWidget
   py_idaview_t *py_view;
-  TCustomControl *found_view;
-  if ( pycim_lookup_info.find_by_form(&found_view, (py_customidamemo_t**) &py_view, tform) )
-  {
-    // If we have a py_idaview_t for that form, ensure it has
-    // the expected view.
-    QASSERT(30451, found_view == v);
-  }
-  else
+  if ( !pycim_lookup_info.find_by_view((py_customidamemo_t**) &py_view, widget) )
   {
     py_view = new py_idaview_t();
     lookup_entry_t &e = pycim_lookup_info.new_entry(py_view);
-    pycim_lookup_info.commit(e, tform, v);
+    pycim_lookup_info.commit(e, widget);
   }
 
   // Finally, bind:
   //  py_idaview_t <=> IDAViewWrapper
-  //  py_idaview_t  => TCustomControl
-  bool ok = py_view->bind(self, v);
+  //  py_idaview_t  => TWidget
+  bool ok = py_view->bind(self, widget);
   if ( ok )
   {
     ok = py_view->collect_pyobject_callbacks(self);
-    if ( ok )
-      py_view->install_custom_viewer_handlers();
-    else
+    if ( !ok )
       delete py_view;
   }
   return ok;

@@ -31,20 +31,13 @@ static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
 PyObject *py_reg_read_string(const char *name, const char *subkey = NULL, const char *def = NULL)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  char utf8[MAXSTR * 10];
+  qstring utf8;
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
-  if ( def == NULL )
-  {
-    ok = reg_read_string(name, utf8, sizeof(utf8), subkey);
-  }
-  else
-  {
-    reg_read_string(name, sizeof(utf8), utf8, def, subkey);
-    ok = true;
-  }
+  if ( !reg_read_string(&utf8, name, subkey) && def != NULL )
+    utf8 = def;
   Py_END_ALLOW_THREADS;
-  return PyString_FromString(ok ? utf8 : "");
+  return PyString_FromString(utf8.c_str());
 }
 
 //-------------------------------------------------------------------------

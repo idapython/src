@@ -2,10 +2,9 @@
 #include <struct.hpp>
 %}
 // Kernel-only symbols
-%ignore del_ti;
 %ignore save_structs;
 %ignore get_struc_name(tid_t);
-%ignore get_member_name2(tid_t);
+%ignore get_member_name(tid_t);
 %ignore get_member_by_id(tid_t, struc_t **); // allow version w/ qstring* only
 
 //-------------------------------------------------------------------------

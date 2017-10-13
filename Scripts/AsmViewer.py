@@ -200,7 +200,7 @@ class asmviewplg(idaapi.plugin_t):
     def run(self, arg):
         if self.view:
             self.Close()
-        fn = idc.AskFile(0, "*.asm", "Select ASM file to view")
+        fn = idaapi.ask_file(0, "*.asm", "Select ASM file to view")
         if not fn:
             return
         self.view = asmview_t()

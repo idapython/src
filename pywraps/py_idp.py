@@ -7,7 +7,7 @@
 # ----------------------------------------------------------------------
 # processor_t related constants
 
-CUSTOM_CMD_ITYPE    = 0x8000
+CUSTOM_INSN_ITYPE   = 0x8000
 REG_SPOIL           = 0x80000000
 
 REAL_ERROR_FORMAT   = -1   #  not supported format for current .idp
@@ -109,7 +109,6 @@ PR_ALIGN       = 0x000800    #  All data items should be aligned properly
 PR_TYPEINFO    = 0x001000    #  the processor module supports
                              #     type information callbacks
                              #     ALL OF THEM SHOULD BE IMPLEMENTED!
-                             #     (the ones >= decorate_name)
 PR_USE64       = 0x002000    #  supports 64-bit addressing?
 PR_SGROTHER    = 0x004000    #  the segment registers don't contain
                              #     the segment selectors, something else
@@ -122,13 +121,11 @@ PR_BINMEM      = 0x010000    #  the processor module provides correct
 PR_SEGTRANS    = 0x020000    #  the processor module supports
                              #     the segment translation feature
                              #     (it means it calculates the code
-                             #     addresses using the codeSeg() function)
+                             #     addresses using the map_code_ea() function)
 PR_CHK_XREF    = 0x040000    #  don't allow near xrefs between segments
                              #     with different bases
 PR_NO_SEGMOVE  = 0x080000    #  the processor module doesn't support move_segm()
                              #     (i.e. the user can't move segments)
-PR_FULL_HIFXP  = 0x100000    #  REF_VHIGH operand value contains full operand
-                             #     not only the high bits. Meaningful if ph.high_fixup_bits
 PR_USE_ARG_TYPES = 0x200000  #  use ph.use_arg_types callback
 PR_SCALE_STKVARS = 0x400000  #  use ph.get_stkvar_scale callback
 PR_DELAYED     = 0x800000    #  has delayed jumps and calls
@@ -187,8 +184,7 @@ import ida_ua
 class processor_t(ida_idaapi.pyidc_opaque_object_t):
     """Base class for all processor module scripts"""
     def __init__(self):
-        # Take a reference to 'cmd'
-        self.cmd = ida_ua.cmd
+        pass
 
     def get_idpdesc(self):
         """
@@ -202,9 +198,9 @@ class processor_t(ida_idaapi.pyidc_opaque_object_t):
         """Use this utility function to retrieve the 'uFlag' global variable"""
         return ida_ua.cvar.uFlag
 
-    def get_auxpref(self):
-        """This function returns cmd.auxpref value"""
-        return self.cmd.auxpref
+    def get_auxpref(self, insn):
+        """This function returns insn.auxpref value"""
+        return insn.auxpref
 
 
 # ----------------------------------------------------------------------
@@ -213,15 +209,14 @@ class __ph(object):
     cnbits = property(lambda self: ph_get_cnbits())
     dnbits = property(lambda self: ph_get_dnbits())
     flag = property(lambda self: ph_get_flag())
-    high_fixup_bits = property(lambda self: ph_get_high_fixup_bits())
     icode_return = property(lambda self: ph_get_icode_return())
     instruc = property(lambda self: ph_get_instruc())
     instruc_end = property(lambda self: ph_get_instruc_end())
     instruc_start = property(lambda self: ph_get_instruc_start())
-    regCodeSreg = property(lambda self: ph_get_regCodeSreg())
-    regDataSreg = property(lambda self: ph_get_regDataSreg())
-    regFirstSreg = property(lambda self: ph_get_regFirstSreg())
-    regLastSreg = property(lambda self: ph_get_regLastSreg())
+    reg_code_sreg = property(lambda self: ph_get_reg_code_sreg())
+    reg_data_sreg = property(lambda self: ph_get_reg_data_sreg())
+    reg_first_sreg = property(lambda self: ph_get_reg_first_sreg())
+    reg_last_sreg = property(lambda self: ph_get_reg_last_sreg())
     regnames = property(lambda self: ph_get_regnames())
     segreg_size = property(lambda self: ph_get_segreg_size())
     tbyte_size = property(lambda self: ph_get_tbyte_size())
@@ -230,3 +225,65 @@ class __ph(object):
 ph = __ph()
 
 #</pycode(py_idp)>
+
+#<pycode_BC695(py_idp)>
+AS_NOTAB=0
+CUSTOM_CMD_ITYPE=CUSTOM_INSN_ITYPE
+InstrIsSet=has_insn_feature
+NEXTEAS_ANSWER_SIZE=0
+PR_FULL_HIFXP=0
+SETPROC_ALL=SETPROC_LOADER_NON_FATAL
+SETPROC_COMPAT=SETPROC_IDB
+SETPROC_FATAL=SETPROC_LOADER
+area_cmt_changed=range_cmt_changed
+changed_stkpnts=stkpnts_changed
+changed_struc=struc_align_changed
+changing_area_cmt=changing_range_cmt
+changing_struc=changing_struc_align
+func_tail_removed=func_tail_deleted
+get_reg_info2=get_reg_info
+ph_get_regCodeSreg=ph_get_reg_code_sreg
+ph_get_regDataSreg=ph_get_reg_data_sreg
+ph_get_regFirstSreg=ph_get_reg_first_sreg
+ph_get_regLastSreg=ph_get_reg_last_sreg
+removing_func_tail=deleting_func_tail
+segm_attrs_changed=segm_attrs_updated
+str2regf=str2reg
+def __wrap_insn_func(name):
+    def __wrapper(*args):
+        arg0 = args[0]
+        import ida_ua
+        if not isinstance(arg0, ida_ua.insn_t):
+            tmp = ida_ua.insn_t()
+            if not ida_ua.decode_insn(tmp, arg0):
+                return False
+            arg0 = tmp
+        return getattr(_ida_idp, name)(arg0, *args[1:])
+    globals()[name] = __wrapper
+__wrap_insn_func("is_call_insn")
+__wrap_insn_func("is_ret_insn")
+__wrap_insn_func("is_indirect_jump_insn")
+__wrap_insn_func("is_basic_block_end")
+def parse_reg_name(*args):
+    if isinstance(args[1], reg_info_t): # 6.95: regname, reg_info_t
+          regname, ri = args
+    else:                               # 7.00: reg_info_t, regname
+          ri, regname = args
+    return _ida_idp.parse_reg_name(ri, regname)
+
+def __call_IDP_Hooks_auto_queue_empty(cb, qtype):
+    old_rc = cb(qtype)
+    if old_rc == 0: # 6.95's queue not empty anymore
+        rc = -1 # 7.0's queue not empty anymore
+    else:
+        rc = old_rc
+    return rc
+
+import ida_ida
+ida_ida.__wrap_hooks_callback(
+    IDP_Hooks,
+    "ev_auto_queue_empty",
+    "auto_queue_empty",
+    __call_IDP_Hooks_auto_queue_empty)
+
+#</pycode_BC695(py_idp)>

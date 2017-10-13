@@ -10,11 +10,11 @@ class BasicBlock(object):
         self.id = id
         """Basic block ID"""
 
-        self.startEA = bb.startEA
-        """startEA of basic block"""
+        self.start_ea = bb.start_ea
+        """start_ea of basic block"""
 
-        self.endEA = bb.endEA
-        """endEA of basic block"""
+        self.end_ea = bb.end_ea
+        """end_ea of basic block"""
 
         self.type  = self._fc._q.calc_block_type(self.id)
         """Block type (check fc_block_type_t enum)"""
@@ -36,6 +36,13 @@ class BasicBlock(object):
         q = self._fc._q
         for i in xrange(0, q.nsucc(self.id)):
             yield self._fc[q.succ(self.id, i)]
+
+    try:
+        if _BC695:
+            startEA = property(lambda self: self.start_ea, lambda self, ea: setattr(self, "start_ea", ea))
+            endEA = property(lambda self: self.end_ea, lambda self, ea: setattr(self, "end_ea", ea))
+    except:
+        pass # BC695 not defined at compile-time
 
 # -----------------------------------------------------------------------
 class FlowChart(object):

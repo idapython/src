@@ -179,6 +179,14 @@ class object_t(object):
         return getattr(self, idx)
 
 # -----------------------------------------------------------------------
+def _qvector_front(self):
+    return self.at(0)
+
+# -----------------------------------------------------------------------
+def _qvector_back(self):
+    return self.at((self.size() - 1) if self.size() else 0)
+
+# -----------------------------------------------------------------------
 def _bounded_getitem_iterator(self):
     """Helper function, to be set as __iter__ method for qvector-, or array-based classes."""
     for i in range(len(self)):
@@ -276,7 +284,7 @@ def as_unicode(s):
     """Convenience function to convert a string into appropriate unicode format"""
     # use UTF16 big/little endian, depending on the environment?
     import _ida_ida
-    return unicode(s).encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.mf else "LE"))
+    return unicode(s).encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
 
 # -----------------------------------------------------------------------
 def as_uint32(v):
@@ -340,6 +348,19 @@ def struct_unpack(buffer, signed = False, offs = 0):
     # Unpack
     return struct.unpack_from(__struct_unpack_table[n][signed], buffer, offs)[0]
 
+# ------------------------------------------------------------
+try:
+    "".decode("UTF-8").encode("mbcs")
+    has_mbcs = True
+except:
+    has_mbcs = False
+
+def _utf8_native(utf8):
+    if has_mbcs:
+        uni = utf8.decode("UTF-8")
+        return uni.encode("mbcs")
+    else:
+        return utf8
 
 # ------------------------------------------------------------
 def IDAPython_ExecSystem(cmd):
@@ -347,6 +368,7 @@ def IDAPython_ExecSystem(cmd):
     Executes a command with popen().
     """
     try:
+        cmd = _utf8_native(cmd)
         f = os.popen(cmd, "r")
         s = ''.join(f.readlines())
         f.close()
@@ -374,6 +396,7 @@ def IDAPython_ExecScript(script, g, print_error=True):
 
     This function is used by the low-level plugin code.
     """
+    script = _utf8_native(script)
     scriptpath = os.path.dirname(script)
     if len(scriptpath) and scriptpath not in sys.path:
         sys.path.append(scriptpath)
@@ -404,6 +427,7 @@ def IDAPython_LoadProcMod(script, g, print_error=True):
     """
     Load processor module.
     """
+    script = _utf8_native(script)
     pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
     parent = sys.modules[pname]
 
@@ -444,6 +468,7 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     """
     Unload processor module.
     """
+    script = _utf8_native(script)
     pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
     parent = sys.modules[pname]
 
@@ -551,127 +576,38 @@ NW_TERMIDA    = 0x0008
 NW_REMOVE     = 0x0010
 """Use this flag with other flags to uninstall a notifywhen callback"""
 
-# -----------------------------------------------------------------------
-#                           CustomIDAMemo
-# -----------------------------------------------------------------------
-class CustomIDAMemo(object):
-    def Refresh(self):
-        """
-        Refreshes the graph. This causes the OnRefresh() to be called
-        """
-        ida_idaapi.pygc_refresh(self)
 
-    def GetCurrentRendererType(self):
-        return ida_idaapi.pygc_get_current_renderer_type(self)
+# Since version 5.5, PyQt5 doesn't simply print the PyQt exceptions by default
+# anymore: https://github.com/baoboa/pyqt5/commit/1e1d8a3ba677ef3e47b916b8a5b9c281d0f8e4b5#diff-848704a82f6a6e3a13112145ce32ac69L63
+# The default behavior now is that qFatal() is called, causing the application
+# to abort().
+# We do not want that to happen in IDA, and simply having a sys.excepthook
+# that is different from sys.__excepthook__ is enough for PyQt5 to return
+# to the previous behavior
+def __install_excepthook():
+    real_hook = sys.excepthook
+    sys.excepthook = lambda *args: real_hook(*args)
+__install_excepthook()
 
-    def SetCurrentRendererType(self, rtype):
-        """
-        Set the current view's renderer.
 
-        @param rtype: The renderer type. Should be one of the idaapi.TCCRT_* values.
-        """
-        ida_idaapi.pygc_set_current_renderer_type(self, rtype)
+# ----------------------------------- helpers for bw-compat w/ 6.95 API
+class __BC695:
+    def __init__(self):
+        self.FIXME = "FIXME @arnaud"
 
-    def SetNodeInfo(self, node_index, node_info, flags):
-        """
-        Set the properties for the given node.
+    def false_p(self, *args):
+        return False
 
-        Example usage (set second nodes's bg color to red):
-          inst = ...
-          p = idaapi.node_info_t()
-          p.bg_color = 0x00ff0000
-          inst.SetNodeInfo(1, p, idaapi.NIF_BG_COLOR)
+    def identity(self, arg):
+        return arg
 
-        @param node_index: The node index.
-        @param node_info: An idaapi.node_info_t instance.
-        @param flags: An OR'ed value of NIF_* values.
-        """
-        ida_idaapi.pygc_set_node_info(self, node_index, node_info, flags)
+    def dummy(self, *args):
+        pass
 
-    def SetNodesInfos(self, values):
-        """
-        Set the properties for the given nodes.
-
-        Example usage (set first three nodes's bg color to purple):
-          inst = ...
-          p = idaapi.node_info_t()
-          p.bg_color = 0x00ff00ff
-          inst.SetNodesInfos({0 : p, 1 : p, 2 : p})
-
-        @param values: A dictionary of 'int -> node_info_t' objects.
-        """
-        ida_idaapi.pygc_set_nodes_infos(self, values)
-
-    def GetNodeInfo(self, node):
-        """
-        Get the properties for the given node.
-
-        @param node: The index of the node.
-        @return: A tuple (bg_color, frame_color, ea, text), or None.
-        """
-        return ida_idaapi.pygc_get_node_info(self, node)
-
-    def DelNodesInfos(self, *nodes):
-        """
-        Delete the properties for the given node(s).
-
-        @param nodes: A list of node IDs
-        """
-        return ida_idaapi.pygc_del_nodes_infos(self, nodes)
-
-    def CreateGroups(self, groups_infos):
-        """
-        Send a request to modify the graph by creating a
-        (set of) group(s), and perform an animation.
-
-        Each object in the 'groups_infos' list must be of the format:
-        {
-          "nodes" : [<int>, <int>, <int>, ...] # The list of nodes to group
-          "text" : <string>                    # The synthetic text for that group
-        }
-
-        @param groups_infos: A list of objects that describe those groups.
-        @return: A [<int>, <int>, ...] list of group nodes, or None (failure).
-        """
-        return ida_idaapi.pygc_create_groups(self, groups_infos)
-
-    def DeleteGroups(self, groups, new_current = -1):
-        """
-        Send a request to delete the specified groups in the graph,
-        and perform an animation.
-
-        @param groups: A list of group node numbers.
-        @param new_current: A node to focus on after the groups have been deleted
-        @return: True on success, False otherwise.
-        """
-        return ida_idaapi.pygc_delete_groups(self, groups, new_current)
-
-    def SetGroupsVisibility(self, groups, expand, new_current = -1):
-        """
-        Send a request to expand/collapse the specified groups in the graph,
-        and perform an animation.
-
-        @param groups: A list of group node numbers.
-        @param expand: True to expand the group, False otherwise.
-        @param new_current: A node to focus on after the groups have been expanded/collapsed.
-        @return: True on success, False otherwise.
-        """
-        return ida_idaapi.pygc_set_groups_visibility(self, groups, expand, new_current)
-
-    def GetTForm(self):
-        """
-        Return the TForm hosting this view.
-
-        @return: The TForm that hosts this view, or None.
-        """
-        return ida_idaapi.pycim_get_tform(self)
-
-    def GetTCustomControl(self):
-        """
-        Return the TCustomControl underlying this view.
-
-        @return: The TCustomControl underlying this view, or None.
-        """
-        return ida_idaapi.pycim_get_tcustom_control(self)
-
+_BC695 = __BC695()
 #</pycode(py_idaapi)>
+
+#<pycode_BC695(py_idaapi)>
+pycim_get_tcustom_control=pycim_get_widget
+pycim_get_tform=pycim_get_widget
+#</pycode_BC695(py_idaapi)>

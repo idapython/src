@@ -42,6 +42,7 @@ parser.add_argument("--debug", help="Build debug version of the plugin", default
 parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found (linux only)", default=None)
 parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
+parser.add_argument("-I", "--idc", required=True, help="IDA's idc.idc file (necessary for generating 6.95 compat API layer)", type=str)
 args = parser.parse_args()
 
 _probe = os.path.join("..", "..", "include", "pro.h")
@@ -69,12 +70,15 @@ def main():
         env["SWIGINCLUDES"] = " ".join(map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep)))
     if args.with_hexrays:
         env["HAS_HEXRAYS"] = "1"
-    if not args.debug:
+    if args.debug:
+        env["__VC__"] = "1" # to enable PDB flags
+    else:
         env["NDEBUG"] = "1"
     if args.python_home:
         env["LINUX_PYTHON_HOME"] = args.python_home
     if args.verbose:
         argv.append("-d")
+    env["IDC_BC695_IDC_SOURCE"] = args.idc
     for ea64 in [False, True]:
         if ea64:
             env["__EA64__"] = "1"

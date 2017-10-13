@@ -6,11 +6,11 @@ EXPORTS
   PyW_GetNumber
   PyW_GetNumberAsIDC
   PyW_GetStringAttr
-  PyW_IntVecToPyList
+  PyW_SizeVecToPyList
   PyW_IsSequenceType
   PyW_ObjectToString
   PyW_PyListToEaVec
-  PyW_PyListToIntVec
+  PyW_PyListToSizeVec
   PyW_PyListToStrVec
   PyW_register_compiled_form
   PyW_ShowCbErr
@@ -25,8 +25,8 @@ EXPORTS
   idcvar_to_pyvar
   lookup_info_t_commit
   lookup_info_t_del_by_py_view
-  lookup_info_t_find_by_form
   lookup_info_t_find_by_py_view
+  lookup_info_t_find_by_view
   lookup_info_t_new_entry
   meminfo_vec_t_to_py
   py_customidamemo_t_bind
@@ -35,10 +35,8 @@ EXPORTS
   py_customidamemo_t_create_groups
   py_customidamemo_t_del_nodes_infos
   py_customidamemo_t_delete_groups
-  py_customidamemo_t_ensure_view_callbacks_installed
   py_customidamemo_t_get_current_renderer_type
   py_customidamemo_t_get_node_info
-  py_customidamemo_t_install_custom_viewer_handlers
   py_customidamemo_t_set_current_renderer_type
   py_customidamemo_t_set_groups_visibility
   py_customidamemo_t_set_node_info
@@ -52,6 +50,7 @@ EXPORTS
   pyvar_walk_list
   pyw_convert_idc_args
   set_script_timeout
+  set_interruptible_state
   til_deregister_python_array_type_data_t_instance
   til_deregister_python_func_type_data_t_instance
   til_deregister_python_ptr_type_data_t_instance
@@ -62,5 +61,9 @@ EXPORTS
   til_register_python_ptr_type_data_t_instance
   til_register_python_tinfo_t_instance
   til_register_python_udt_type_data_t_instance
+  try_create_swig_wrapper
+  idapython_hook_to_notification_point
+  idapython_unhook_from_notification_point
+  register_module_lifecycle_callbacks
   pycim_lookup_info DATA
-  PLUGIN DATA
+  %PLUGIN_DATA_EXP%

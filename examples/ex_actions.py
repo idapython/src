@@ -12,7 +12,7 @@ class SayHi(idaapi.action_handler_t):
     # You can implement update(), to inform IDA when:
     #  * your action is enabled
     #  * update() should queried again
-    # E.g., returning 'idaapi.AST_ENABLE_FOR_FORM' will
+    # E.g., returning 'idaapi.AST_ENABLE_FOR_WIDGET' will
     # tell IDA that this action is available while the
     # user is in the current widget, and that update()
     # must be queried again once the user gives focus
@@ -24,7 +24,7 @@ class SayHi(idaapi.action_handler_t):
     # querying update() anymore until the user has moved
     # to another view..
     def update(self, ctx):
-        return idaapi.AST_ENABLE_FOR_FORM if ctx.form_type == idaapi.BWN_DISASM else idaapi.AST_DISABLE_FOR_FORM
+        return idaapi.AST_ENABLE_FOR_WIDGET if ctx.widget_type == idaapi.BWN_DISASM else idaapi.AST_DISABLE_FOR_WIDGET
 
 
 print "Creating a custom icon from raw data!"
@@ -92,16 +92,16 @@ if idaapi.register_action(idaapi.action_desc_t(
     # when the popup for "IDA View-A" is being populated, right before
     # it is displayed.
     class Hooks(idaapi.UI_Hooks):
-        def finish_populating_tform_popup(self, form, popup):
+        def finish_populating_widget_popup(self, widget, popup):
             # We'll add our action to all "IDA View-*"s.
             # If we wanted to add it only to "IDA View-A", we could
             # also discriminate on the widget's title:
             #
-            #  if idaapi.get_tform_title(form) == "IDA View-A":
+            #  if idaapi.get_widget_title(widget) == "IDA View-A":
             #      ...
             #
-            if idaapi.get_tform_type(form) == idaapi.BWN_DISASM:
-                idaapi.attach_action_to_popup(form, popup, act_name, None)
+            if idaapi.get_widget_type(widget) == idaapi.BWN_DISASM:
+                idaapi.attach_action_to_popup(widget, popup, act_name, None)
 
     hooks = Hooks()
     hooks.hook()

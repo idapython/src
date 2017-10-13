@@ -18,7 +18,7 @@ class _qstrvec_t(ida_idaapi.py_clinked_object_t):
     For example, in py_askusingform.py, we ctypes-expose to the IDA
     kernel & UI a qstrvec instance, in case a DropdownListControl is
     constructed.
-    That's because that's what AskUsingForm expects, and we have no
+    That's because that's what ask_form expects, and we have no
     choice but to make a DropdownListControl hold a qstrvec_t.
     This is, afaict, the only situation where a Python
     _qstrvec_t is required.
@@ -85,3 +85,12 @@ class _qstrvec_t(ida_idaapi.py_clinked_object_t):
         return _ida_pro.qstrvec_t_remove(self, idx)
 
 #</pycode(py_pro)>
+
+#<pycode_BC695(py_pro)>
+@bc695redef
+def strlwr(s):
+    return str(s).lower()
+@bc695redef
+def strupr(s):
+    return str(s).upper()
+#</pycode_BC695(py_pro)>

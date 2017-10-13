@@ -2,10 +2,6 @@ from __future__ import with_statement
 
 import sys, optparse, re, pprint
 
-ignorable_api_contents = [
-    "qwait"
-    ]
-
 class TextStream:
     def __init__(self, text):
         self.text = text
@@ -13,7 +9,6 @@ class TextStream:
         self.maxpoint = len(self.text)
         self.line_nr = 0
         self.char_nr = 0
-        self.curline = None
 
     def line(self):
         pt = self.point
@@ -84,63 +79,47 @@ def check_cpp(opts):
         #
         # Misc.
         #
-        "_wrap_areacb_t_get_type" : {
-            "mustcall" : "get_type",
-            },
         "_wrap_tinfo_t_deserialize__SWIG_2" : {
             "mustcall" : "tinfo_t_deserialize__SWIG_2",
             },
         "_wrap_get_bpt_group" : {
             "mustcall" : "PyString_FromStringAndSize",
             },
-        "_wrap_get_jumptable_info" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_get_array_parameters" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_read_dbg_memory" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_write_dbg_memory" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_get_grp_bpts" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_generic_linput_t_read" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_generic_linput64_t_read64" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_linput_buffer_t_read" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_get_ptr_object_size" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_tag_strlen" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_get_next_member_idx" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_get_prev_member_idx" : {
-            "string" : "resultobj = PyLong_FromLongLong(result)",
-            },
-        "_wrap_guess_tinfo2" : {
+        # "_wrap_get_array_parameters" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_read_dbg_memory" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_write_dbg_memory" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_get_grp_bpts" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_generic_linput_t_read" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_linput_buffer_t_read" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_tag_strlen" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_get_next_member_idx" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        # "_wrap_get_prev_member_idx" : {
+        #     "string" : "resultobj = PyLong_FromLongLong(result)",
+        #     },
+        "_wrap_guess_tinfo" : {
             "mustcall" : "PyW_GetNumber",
             },
-        "_wrap_IDP_Hooks_adjust_refinfo" : {
+        "_wrap_IDP_Hooks_ev_adjust_refinfo" : {
             "string" : "fixup_data_t",
             },
         # char[ANY] out typemap
         "_wrap_idainfo_tag_get" : {
-            "nostring" : " --size;",
-            },
-        # char[ANY] varout typemap
-        "Swig_var_database_idb_get" : {
             "nostring" : " --size;",
             },
 
@@ -155,11 +134,11 @@ def check_cpp(opts):
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,
         },
-        "_wrap_CompileLine" : {
+        "_wrap_compile_idc_file" : {
             "nullptrcheck" : 1,
         },
-        "_wrap_set_fixup" : {
-            "nullptrcheck" : 2,
+        "_wrap_compile_idc_text" : {
+            "nullptrcheck" : 1,
         },
         "_wrap_get_member_size" : {
             "nullptrcheck" : 1,
@@ -175,14 +154,11 @@ def check_cpp(opts):
         "_wrap_get_opinfo" : {
             "string" : ["Py_XDECREF(resultobj)", "Py_INCREF(resultobj)"],
         },
-        "_wrap_get_typeinfo" : {
-            "string" : ["Py_XDECREF(resultobj)", "Py_INCREF(resultobj)"],
+
+        "_wrap_file2base" : {
+            "nostring" : ["SWIGTYPE_p_qoff64_t", "qoff64_t *"],
         },
 
-        # no autoEnabled present
-        "SWIG_init" : {
-            "nostring" : "autoEnabled",
-            },
         }
 
     functions_coherence_hexrays = {
@@ -202,14 +178,36 @@ def check_cpp(opts):
             "mustcall" : "PyString_FromStringAndSize",
             },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
-            "mustcall" : "hexrays_deregister_python_cfuncptr_t_instance",
+            "mustcall" : "hexrays_deregister_python_clearable_instance",
             },
         "_wrap__decompile" : {
-            "mustcall" : "hexrays_register_python_cfuncptr_t_instance",
+            "mustcall" : "hexrays_register_python_clearable_instance",
             },
         "_wrap_vdui_t_cfunc_get" : {
-            "mustcall" : "hexrays_register_python_cfuncptr_t_instance",
+            "mustcall" : "hexrays_register_python_clearable_instance",
             },
+        " delete_cexpr_t" : {
+            "mustcall" : "hexrays_deregister_python_clearable_instance",
+        },
+        " delete_cinsn_t" : {
+            "mustcall" : "hexrays_deregister_python_clearable_instance",
+        },
+        " delete_cblock_t" : {
+            "mustcall" : "hexrays_deregister_python_clearable_instance",
+        },
+        "*new_cexpr_t" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "*new_cinsn_t" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "*new_cblock_t" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "_wrap_boundaries_find" : {
+            "nostring" : "SWIGTYPE_p_p_cinsn_t",
+        },
+
         #
         # qvector<simpleline_t>
         #
@@ -275,7 +273,11 @@ def check_cpp(opts):
     # Read and go through lines
     for one_file in opts.files.split(","):
         with open(one_file, "r") as f:
-            ts = TextStream(f.read())
+            raw = f.read()
+        # ensure we have improved director out type reporting
+        if raw.find("""in output value of type '""int""'");""") > -1:
+            raise Exception("Director output value type reporting doesn't appear to be patched")
+        ts = TextStream(raw)
 
         # Process lines
         STATE_UNKNOWN = 0
@@ -284,6 +286,7 @@ def check_cpp(opts):
         while not ts.empty():
             line = ts.line().rstrip()
             # dbg("Line: '%s'" % line)
+
             if is_fundecl(line):
                 # dbg("Entering function (from line %d: '%s')" % (ts.line_nr, line))
                 state = STATE_IN_FUN
@@ -291,10 +294,9 @@ def check_cpp(opts):
                 match = api_fname_regex.match(funstart)
                 if match:
                     fname = match.group(1)
-                    if fname not in ignorable_api_contents:
-                        api_contents["functions"].append(fname)
+                    api_contents["functions"].append(fname)
                 funlines = collect_funbody_lines(ts)
-	        KICKME_functions_lines[fname] = funlines
+                KICKME_functions_lines[fname] = funlines
                 # Do we care about this function?
                 check_for = None
                 for fname in functions_coherence.keys():
@@ -305,12 +307,12 @@ def check_cpp(opts):
                     dbg("Checking function at line %d: '%s'" % (ts.line_nr, check_for))
                     chk = functions_coherence[check_for]
                     chk["spotted"] = True
-                    def look_for_stuff(stuff, isFuncall, lookForPresence=True):
+                    def look_for_stuff(stuff, is_funcall, lookForPresence=True):
                         if isinstance(stuff, str):
                             stuff = [stuff]
                         for bit in stuff:
                             found = False
-                            bit_pat = ("%s(" % bit) if isFuncall else bit
+                            bit_pat = ("%s(" % bit) if is_funcall else bit
                             dbg("Thing to look for: '%s'" % bit_pat)
                             for funline in funlines:
                                 # dbg("Testing line: '%s'" % funline)
@@ -360,16 +362,15 @@ def check_cpp(opts):
 
 def check_python(opts):
     types_coherence_base = {
-        "func_t" : { "mustinherit" : "ida_area.area_t" },
-        "hidden_area_t" : { "mustinherit" : "ida_area.area_t" },
-        "qbasic_block_t" : { "mustinherit" : "ida_area.area_t" },
-        "regvar_t" : { "mustinherit" : "ida_area.area_t" },
-        "segment_t" : { "mustinherit" : "ida_area.area_t" },
-        "segreg_area_t" : { "mustinherit" : "ida_area.area_t" },
-        "segreg_t" : { "mustinherit" : "ida_area.area_t" },
+        "func_t" : { "mustinherit" : "ida_range.range_t" },
+        "hidden_range_t" : { "mustinherit" : "ida_range.range_t" },
+        "qbasic_block_t" : { "mustinherit" : "ida_range.range_t" },
+        "regvar_t" : { "mustinherit" : "ida_range.range_t" },
+        "segment_t" : { "mustinherit" : "ida_range.range_t" },
+        "sreg_range_t" : { "mustinherit" : "ida_range.range_t" },
 
-        "GraphViewer" : { "mustinherit" : "ida_idaapi.CustomIDAMemo" },
-        "IDAViewWrapper" : { "mustinherit" : "ida_idaapi.CustomIDAMemo" },
+        "GraphViewer" : { "mustinherit" : "ida_kernwin.CustomIDAMemo" },
+        "IDAViewWrapper" : { "mustinherit" : "CustomIDAMemo" },
         "PyIdc_cvt_int64__" : { "mustinherit" : "pyidc_cvt_helper__" },
         "PyIdc_cvt_refclass__" : { "mustinherit" : "pyidc_cvt_helper__" },
         "_qstrvec_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
@@ -381,19 +382,17 @@ def check_python(opts):
         "func_type_data_t" : { "mustinherit" : "funcargvec_t" },
         "ida_lowertype_helper_t" : { "mustinherit" : "lowertype_helper_t" },
         "idaplace_t" : { "mustinherit" : "place_t" },
-        "insn_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
-        "location_t" : { "mustinherit" : "curloc" },
-        "op_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
+        "insn_t" : { "mustinherit" : "object" },
+        "op_t" : { "mustinherit" : "object" },
         "plugin_t" : { "mustinherit" : "pyidc_opaque_object_t" },
         "processor_t" : { "mustinherit" : "ida_idaapi.pyidc_opaque_object_t" },
         "py_clinked_object_t" : { "mustinherit" : "pyidc_opaque_object_t" },
         "segm_move_infos_t" : { "mustinherit" : "segm_move_info_vec_t" },
         "simpleline_place_t" : { "mustinherit" : "place_t" },
         "structplace_t" : { "mustinherit" : "place_t" },
-        "switch_info_ex_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
+        "switch_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "textctrl_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "udt_type_data_t" : { "mustinherit" : "udtmembervec_t" },
-        "varpart_t" : { "mustinherit" : "varloc_t" },
 
         # Just look for the presence of those things
         "BADNODE" : {},

@@ -24,9 +24,9 @@ static PyObject *qstrvec_t_addressof(PyObject *self, size_t idx)
 
 
 static bool qstrvec_t_set(
-    PyObject *self,
-    size_t idx,
-    const char *s)
+        PyObject *self,
+        size_t idx,
+        const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == NULL || idx >= sv->size() )
@@ -36,8 +36,8 @@ static bool qstrvec_t_set(
 }
 
 static bool qstrvec_t_from_list(
-  PyObject *self,
-  PyObject *py_list)
+        PyObject *self,
+        PyObject *py_list)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
@@ -83,9 +83,9 @@ static bool qstrvec_t_clear(PyObject *self, bool qclear)
 }
 
 static bool qstrvec_t_insert(
-    PyObject *self,
-    size_t idx,
-    const char *s)
+        PyObject *self,
+        size_t idx,
+        const char *s)
 {
   qstrvec_t *sv = qstrvec_t_get_clink(self);
   if ( sv == NULL || idx >= sv->size() )
@@ -102,5 +102,25 @@ static bool qstrvec_t_remove(PyObject *self, size_t idx)
 
   sv->erase(sv->begin()+idx);
   return true;
+}
+
+
+//------------------------------------------------------------------------
+/*
+#<pydoc>
+def str2user(str):
+    """
+    Insert C-style escape characters to string
+
+    @return: new string with escape characters inserted
+    """
+    pass
+#</pydoc>
+*/
+PyObject *py_str2user(const char *str)
+{
+  qstring retstr;
+  qstr2user(&retstr, str);
+  return PyString_FromString(retstr.c_str());
 }
 //</inline(py_pro)>

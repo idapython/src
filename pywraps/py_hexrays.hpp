@@ -1,8 +1,37 @@
 //-------------------------------------------------------------------------
 //<code(py_hexrays)>
 #ifdef WITH_HEXRAYS
-hexdsp_t *hexdsp = NULL;
+static void *idaapi init_time_dummy_hexdsp(int code, ...)
+{
+  switch ( code )
+  {
+    case hx_cexpr_t_cleanup:
+    case hx_cinsn_t_cleanup:
+      {
+#ifdef _DEBUG
+        va_list va;
+        va_start(va, code);
+        citem_t *item = va_arg(va, citem_t*);
+        // catch leaks
+        if ( code == hx_cexpr_t_cleanup )
+          QASSERT(30497, ((cexpr_t *)item)->op == cot_empty && ((cexpr_t *)item)->n == NULL);
+        else
+          QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == NULL);
+        va_end(va);
+#endif
+      }
+      break;
+    default:
+      warning("Hex-Rays Decompiler got called from Python without being loaded");
+      break;
+  }
+  return NULL;
+}
+
+hexdsp_t *hexdsp = init_time_dummy_hexdsp;
 #endif // WITH_HEXRAYS
+
+#define MODULE_NAME   "Hex-Rays Decompiler" // Copied from vd/hexrays.cpp
 
 //-------------------------------------------------------------------------
 qstring_printer_t *new_qstring_printer_t(const cfunc_t *f, bool tags)
@@ -18,7 +47,7 @@ void delete_qstring_printer_t(qstring_printer_t *qs)
 }
 
 //---------------------------------------------------------------------
-static int hexrays_python_call(ref_t fct, ref_t args)
+static ref_t hexrays_python_call(ref_t fct, ref_t args)
 {
   PYW_GIL_GET;
 
@@ -26,9 +55,17 @@ static int hexrays_python_call(ref_t fct, ref_t args)
   if ( PyErr_Occurred() )
   {
     PyErr_Print();
-    return 0;
+    return borref_t(Py_None);
   }
+  return resultobj;
+}
 
+//---------------------------------------------------------------------
+static int hexrays_python_intcall(ref_t fct, ref_t args)
+{
+  PYW_GIL_GET;
+
+  ref_t resultobj = hexrays_python_call(fct, args);
   int result;
   if ( SWIG_IsOK(SWIG_AsVal_int(resultobj.o, &result)) )
     return result;
@@ -44,7 +81,7 @@ static bool idaapi __python_custom_viewer_popup_item_callback(void *ud)
     int ret;
     borref_t fct((PyObject *)ud);
     newref_t nil(NULL);
-    ret = hexrays_python_call(fct, nil);
+    ret = hexrays_python_intcall(fct, nil);
     return ret ? true : false;
 }
 
@@ -66,7 +103,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         ctree_maturity_t arg1 = va_argi(va, ctree_maturity_t);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
         newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_interr:
@@ -75,7 +112,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
       {
         int arg0 = va_argi(va, int);
         newref_t args(Py_BuildValue("(ii)", event, arg0));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
 
@@ -90,7 +127,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
         newref_t arg1obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg1), SWIGTYPE_p_vc_printer_t, 0 ));
         newref_t args(Py_BuildValue("(iOO)", event, arg0obj.o, arg1obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
 
@@ -102,7 +139,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         cfunc_t *arg0 = va_arg(va, cfunc_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_cfunc_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
 
@@ -114,7 +151,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_switch_pseudocode:
@@ -126,7 +163,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_refresh_pseudocode:
@@ -137,7 +174,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_close_pseudocode:
@@ -147,7 +184,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_keyboard:
@@ -162,7 +199,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         int arg2 = va_argi(va, int);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iOii)", event, arg0obj.o, arg1, arg2));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_right_click:
@@ -172,7 +209,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_double_click:
@@ -185,7 +222,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         int arg1 = va_argi(va, int);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iOi)", event, arg0obj.o, arg1));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_curpos:
@@ -196,7 +233,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_create_hint:
@@ -213,7 +250,28 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = 0;
+        ref_t resultobj = hexrays_python_call(fct, args);
+        if ( PyTuple_Check(resultobj.o) && PyTuple_Size(resultobj.o) == 3 )
+        {
+          borref_t i0 = PyTuple_GetItem(resultobj.o, 0);
+          borref_t i1 = PyTuple_GetItem(resultobj.o, 1);
+          borref_t i2 = PyTuple_GetItem(resultobj.o, 2);
+          if ( PyInt_Check(i0.o) && PyString_Check(i1.o) && PyInt_Check(i2.o) )
+          {
+            qstring *result_hint = va_arg(va, qstring *);
+            char *buf;
+            Py_ssize_t bufsize;
+            if ( PyString_AsStringAndSize(i1.o, &buf, &bufsize) > -1 )
+            {
+              ret = PyInt_AsLong(i0.o);
+              qstring tmp(buf, bufsize);
+              result_hint->swap(tmp);
+              int *implines = va_arg(va, int *);
+              *implines = PyInt_AsLong(i2.o);
+            }
+          }
+       }
       }
       break;
     case hxe_text_ready:
@@ -226,23 +284,23 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
         vdui_t *arg0 = va_arg(va, vdui_t *);
         newref_t arg0obj(SWIG_NewPointerObj(SWIG_as_voidptr(arg0), SWIGTYPE_p_vdui_t, 0 ));
         newref_t args(Py_BuildValue("(iO)", event, arg0obj.o));
-        ret = hexrays_python_call(fct, args);
+        ret = hexrays_python_intcall(fct, args);
       }
       break;
     case hxe_populating_popup:
       ///< Populating popup menu. We can add menu items now.
-      ///< TForm *form
+      ///< TWidget *widget
       ///< TPopupMenu *popup_handle
       ///< vdui_t *vu
       {
-        TForm *form = va_arg(va, TForm *);
+        TWidget *widget = va_arg(va, TWidget *);
         TPopupMenu *pp = va_arg(va, TPopupMenu*);
         vdui_t *vdui = va_arg(va, vdui_t *);
-        newref_t py_form(SWIG_NewPointerObj(SWIG_as_voidptr(form), SWIGTYPE_p_Forms__TForm, 0));
-        newref_t py_popup(SWIG_NewPointerObj(SWIG_as_voidptr(pp), SWIGTYPE_p_Menus__TPopupMenu, 0));
+        newref_t py_widget(SWIG_NewPointerObj(SWIG_as_voidptr(widget), SWIGTYPE_p_TWidget, 0));
+        newref_t py_popup(SWIG_NewPointerObj(SWIG_as_voidptr(pp), SWIGTYPE_p_TPopupMenu, 0));
         newref_t py_vdui(SWIG_NewPointerObj(SWIG_as_voidptr(vdui), SWIGTYPE_p_vdui_t, 0 ));
-        newref_t py_args(Py_BuildValue("(iOOO)", event, py_form.o, py_popup.o, py_vdui.o));
-        ret = hexrays_python_call(fct, py_args);
+        newref_t py_args(Py_BuildValue("(iOOO)", event, py_widget.o, py_popup.o, py_vdui.o));
+        ret = hexrays_python_intcall(fct, py_args);
       }
       break;
     default:
@@ -255,40 +313,88 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
 }
 
 //-------------------------------------------------------------------------
-// A set of cfuncptr_t objects that were created from IDAPython.
-// This is necessary in order to delete those objects before the hexrays
-// plugin is unloaded. Otherwise, IDAPython will still delete them, but
-// the plugin's 'hexdsp' dispatcher function will point to dlclose()'d
-// code.
-static qvector<cfuncptr_t*> python_cfuncptrs;
-void hexrays_clear_python_cfuncptr_t_references(void)
-{
-  for ( size_t i = 0, n = python_cfuncptrs.size(); i < n; ++i )
-    python_cfuncptrs[i]->reset();
-  // NOTE: Don't clear() the array of pointers. All the python-exposed
-  // cfuncptr_t instances will be deleted through the python
-  // shutdown/ref-decrementing process anyway, and the entries will be
-  // properly pulled out of the vector when that happens.
-}
-
+//                        Clearable objects
 //-------------------------------------------------------------------------
-void hexrays_register_python_cfuncptr_t_instance(cfuncptr_t *fp)
+// A set of objects that were created from IDAPython. This is necessary in
+// order to delete those objects before the hexrays plugin is unloaded.
+// Otherwise, IDAPython will still delete them, but the plugin's 'hexdsp'
+// dispatcher function will point to dlclose()'d code.
+enum hx_clearable_type_t
 {
-  QASSERT(30457, !python_cfuncptrs.has(fp));
-  python_cfuncptrs.push_back(fp);
-}
+  hxclr_unknown = 0,
+  hxclr_cfuncptr,
+  hxclr_cinsn,
+  hxclr_cexpr,
+  hxclr_cblock,
+};
+struct hx_clearable_t
+{
+  void *ptr;
+  hx_clearable_type_t type;
+};
+DECLARE_TYPE_AS_MOVABLE(hx_clearable_t);
 
-//-------------------------------------------------------------------------
-void hexrays_deregister_python_cfuncptr_t_instance(cfuncptr_t *fp)
+typedef qvector<hx_clearable_t> hx_clearables_t;
+static hx_clearables_t python_clearables;
+void hexrays_clear_python_clearable_references(void)
 {
-  qvector<cfuncptr_t*>::iterator found = python_cfuncptrs.find(fp);
-  if ( found != python_cfuncptrs.end() )
+  for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
   {
-    fp->reset();
-    python_cfuncptrs.erase(found);
+    const hx_clearable_t &hxc = python_clearables[i];
+    /*msg("### cleaning up %p\n", hxc.ptr);*/
+    switch ( hxc.type )
+    {
+      case hxclr_cfuncptr:
+        ((cfuncptr_t*)hxc.ptr)->reset();
+        break;
+      case hxclr_cinsn:
+        ((cinsn_t *)hxc.ptr)->cleanup();
+        break;
+      case hxclr_cexpr:
+        ((cexpr_t *)hxc.ptr)->cleanup();
+        break;
+      case hxclr_cblock:
+        ((cblock_t *)hxc.ptr)->clear();
+        break;
+      default: INTERR(30499);
+    }
   }
 }
 
+//-------------------------------------------------------------------------
+void hexrays_register_python_clearable_instance(
+        void *ptr,
+        hx_clearable_type_t type)
+{
+  for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
+    if ( python_clearables[i].ptr == ptr )
+      return;
+  hx_clearable_t &hxc = python_clearables.push_back();
+  hxc.ptr = ptr;
+  hxc.type = type;
+  /*msg("### registered %p\n", hxc.ptr);*/
+}
+
+//-------------------------------------------------------------------------
+// Note: drop ownership, but don't cleanup! The cleanup will be done by
+// the SWiG destructor wrapper if this object's still owned by the Python
+// runtime, or it will be done by the C tree itself later.
+void hexrays_deregister_python_clearable_instance(void *ptr)
+{
+  for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
+  {
+    const hx_clearable_t &hxc = python_clearables[i];
+    if ( hxc.ptr == ptr )
+    {
+      python_clearables.erase(python_clearables.begin() + i);
+      /*msg("### de-registered %p\n", hxc.ptr);*/
+      break;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------
+//
 //-------------------------------------------------------------------------
 cfuncptr_t _decompile(func_t *pfn, hexrays_failure_t *hf)
 {
@@ -311,7 +417,7 @@ static bool is_hexrays_plugin(const plugin_info_t *pinfo)
   if ( pinfo != NULL && pinfo->entry != NULL )
   {
     const plugin_t *p = pinfo->entry;
-    if ( streq(p->wanted_name, "Hex-Rays Decompiler") )
+    if ( streq(p->wanted_name, MODULE_NAME) )
       is_hx = true;
   }
   return is_hx;
@@ -326,58 +432,81 @@ static void try_init()
 }
 
 //-------------------------------------------------------------------------
-static int idaapi on_ui_notification(void *, int code, va_list va)
+static void *idaapi exit_time_dummy_hexdsp(int code, ...)
+{
+/* This callback exists to avoid crashes if the user calls any hexrays functions
+   after unloading the decompiler.
+  switch ( code )
+  {
+    case hx_cexpr_t_cleanup: break;
+    case hx_cinsn_t_cleanup: break;
+    default: break;
+  }*/
+  return NULL;
+}
+
+//-------------------------------------------------------------------------
+inline bool hexdsp_inited()
+{
+  return hexdsp != NULL
+      && hexdsp != init_time_dummy_hexdsp
+      && hexdsp != exit_time_dummy_hexdsp;
+}
+
+//-------------------------------------------------------------------------
+static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
 {
   switch ( code )
   {
     case ui_plugin_loaded:
-      if ( hexdsp == NULL && is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
-        try_init();
+      if ( !hexdsp_inited() )
+      {
+        const plugin_info_t *pi = va_arg(va, plugin_info_t *);
+        if ( is_hexrays_plugin(pi) )
+          try_init();
+      }
       break;
 
     case ui_plugin_unloading:
+      if ( hexdsp != NULL && hexdsp != init_time_dummy_hexdsp )
       {
-        if ( hexdsp != NULL )
+        // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
+        // are cleared right away.
+        const plugin_info_t *pi = va_arg(va, plugin_info_t *);
+        if ( is_hexrays_plugin(pi) )
         {
-          // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
-          // are cleared right away.
-          if ( is_hexrays_plugin(va_arg(va, plugin_info_t *)) )
-          {
-            hexrays_clear_python_cfuncptr_t_references();
-            hexdsp = NULL;
-          }
+          QASSERT(30500, hexdsp != exit_time_dummy_hexdsp);
+          hexrays_clear_python_clearable_references();
+          hexdsp = exit_time_dummy_hexdsp;
         }
       }
+      break;
+    case ui_term:
+      hexdsp = init_time_dummy_hexdsp;
       break;
   }
   return 0;
 }
+
+//-------------------------------------------------------------------------
+static void ida_hexrays_term(void)
+{
+  idapython_unhook_from_notification_point(
+          HT_UI, ida_hexrays_ui_notification, NULL);
+}
+
+//-------------------------------------------------------------------------
+static void ida_hexrays_closebase(void) {}
 //</code(py_hexrays)>
 
 
 //<inline(py_hexrays)>
 //---------------------------------------------------------------------
-extern hexdsp_t *hexdsp;
 bool py_init_hexrays_plugin(int flags=0)
 {
   // Only initialize one time
-  if ( hexdsp == NULL )
-    return init_hexrays_plugin(flags);
-  else
-    return true;
+  return hexdsp_inited() || init_hexrays_plugin(flags);
 }
-
-//---------------------------------------------------------------------
-void py_add_custom_viewer_popup_item(
-        TCustomControl *custom_viewer,
-        const char *title,
-        const char *hotkey,
-        PyObject *custom_viewer_popup_item_callback)
-{
-  PYW_GIL_GET;
-  Py_INCREF(custom_viewer_popup_item_callback);
-  add_custom_viewer_popup_item(custom_viewer, title, hotkey, __python_custom_viewer_popup_item_callback, custom_viewer_popup_item_callback);
-};
 
 //---------------------------------------------------------------------
 bool py_install_hexrays_callback(PyObject *hx_cblist_callback)
@@ -420,20 +549,29 @@ bool py_decompile_many(const char *outfile, PyObject *funcaddrs, int flags)
 
 //-------------------------------------------------------------------------
 // Some examples will want to use action_handler_t's whose update() method
-// calls get_tform_vdui() to figure out whether the action should be enabled
-// for the current form. Unfortunately, if hexrays is first unloaded before
+// calls get_widget_vdui() to figure out whether the action should be enabled
+// for the current widget. Unfortunately, if hexrays is first unloaded before
 // the widget cleanup is performed (e.g., while loading another IDB),
 // the action would crash. Ideally we should wrap all toplevel calls
 // with such wrappers, but it doesn't seem to be really necessary at the
 // moment: only corner-cases will reveal this issue (reported by
 // the idapython_hr-decompile test.)
-vdui_t *py_get_tform_vdui(TForm *f)
+vdui_t *py_get_widget_vdui(TWidget *f)
 {
-  return hexdsp != NULL ? get_tform_vdui(f) : NULL;
+  return hexdsp_inited() ? get_widget_vdui(f) : NULL;
+}
+
+inline boundaries_iterator_t py_boundaries_find(const boundaries_t *map, const cinsn_t *key)
+{
+  return boundaries_find(map, key);
+}
+
+inline boundaries_iterator_t py_boundaries_insert(boundaries_t *map, const cinsn_t *key, const rangeset_t &val)
+{
+  return boundaries_insert(map, key, val);
 }
 //</inline(py_hexrays)>
 
 //<init(py_hexrays)>
-try_init();
-hook_to_notification_point(HT_UI, on_ui_notification, NULL);
+idapython_hook_to_notification_point(HT_UI, ida_hexrays_ui_notification, NULL);
 //</init(py_hexrays)>

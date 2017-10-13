@@ -9,8 +9,6 @@
 // generate directors for all classes that have virtual methods
 %feature("director");
 // exceptions
-%feature("nodirector") const_visitor_t;
-%feature("nodirector") const_vloc_visitor_t;
 %feature("nodirector") enumplace_t;
 %feature("nodirector") generic_linput64_t;
 %feature("nodirector") generic_linput_t;
@@ -20,11 +18,8 @@
 %feature("nodirector") qstring_printer_t;
 %feature("nodirector") simpleline_place_t;
 %feature("nodirector") structplace_t;
-%feature("nodirector") type_mapper_t;
-%feature("nodirector") type_visitor_t;
 %feature("nodirector") vc_printer_t;
 %feature("nodirector") vd_printer_t;
-%feature("nodirector") vloc_visitor_t;
 %feature("nodirector") qflow_chart_t;
 %feature("nodirector") lowertype_helper_t;
 %feature("nodirector") ida_lowertype_helper_t;
@@ -57,6 +52,8 @@ void qvector<long long>::grow(const long long &x=0);
 %ignore qvector<long long>::grow;
 
 %ignore qvector::at(size_t);
+%ignore qvector::front;
+%ignore qvector::back;
 
 // simpleline_t doesn't implement '=='. Therefore, all these cannot be present in the instantiated template.
 %ignore qvector<simpleline_t>::operator==;
@@ -98,7 +95,6 @@ void qvector<long long>::grow(const long long &x=0);
 %ignore qpipe_read;
 %ignore qpipe_write;
 %ignore qpipe_close;
-%ignore qwait_for_handles;
 %ignore qstrlen;
 %ignore qstrcmp;
 %ignore qstrstr;
@@ -113,6 +109,7 @@ void qvector<long long>::grow(const long long &x=0);
 %ignore c2ustr;
 %ignore base64_encode;
 %ignore base64_decode;
+%ignore replace_tabs;
 %ignore utf8_unicode;
 %ignore unicode_utf8;
 %ignore win_utf2idb;
@@ -174,6 +171,24 @@ ${ALL_IMPORTS}
 import ida_idaapi
 }
 
+#ifdef BC695
+%pythoncode {
+import sys
+_BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
+
+if _BC695:
+    # This is a decorator for eliminating false-positives when automatically
+    # performing diffs of API7.0 vs API6.95 (typically, the prototypes for the
+    # functions using this decorator will have changed, and this is used to
+    # mark that that change is on-purpose, under control, and should in fact
+    # provide bw-compat. Usually those prototypes went from '(*args)', to a
+    # more specialized argument list.)
+    def bc695redef(func):
+        func.func_dict["bc695redef"] = True
+        return func
+}
+#endif // BC695
+
 //---------------------------------------------------------------------
 %extend qvector {
   inline size_t __len__() const { return $self->size(); }
@@ -199,11 +214,13 @@ import ida_idaapi
     $self->at(i) = v;
   }
 
-  inline const T&at(size_t i) {
+  inline const T &at(size_t i) {
     return __getitem__(i);
   }
 
   %pythoncode {
+    front = ida_idaapi._qvector_front
+    back = ida_idaapi._qvector_back
     __iter__ = ida_idaapi._bounded_getitem_iterator
   }
 }
@@ -339,11 +356,13 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
 }
 
-
-%typemap(out) ssize_t
-{
-  $result = PyLong_FromLongLong($1);
-}
+#ifdef __X64__
+%apply unsigned long long { size_t }
+%apply long long { ssize_t }
+#else
+%apply unsigned long { size_t }
+%apply long { ssize_t }
+#endif
 
 //---------------------------------------------------------------------
 // Convert an incoming Python list to a tid_t[] array
@@ -405,15 +424,12 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 
 //---------------------------------------------------------------------
 %define %cstring_output_maxstr_none(TYPEMAP, SIZE)
-
 %typemap (default) SIZE {
     $1 = MAXSTR;
  }
-
 %typemap(in,numinputs=0) (TYPEMAP, SIZE) {
     $1 = ($1_ltype) qalloc(MAXSTR+1);
 }
-
 %typemap(argout) (TYPEMAP,SIZE) {
     Py_XDECREF(resultobj);
     if (result > 0)
@@ -426,28 +442,6 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
         resultobj = Py_None;
     }
     qfree($1);
-}
-%enddef
-
-//---------------------------------------------------------------------
-%define %cstring_bounded_output_none(TYPEMAP,MAX)
-%typemap(in, numinputs=0) TYPEMAP(char temp[MAX+1]) {
-    $1 = ($1_ltype) temp;
-}
-%typemap(argout,fragment="t_output_helper") TYPEMAP {
-    PyObject *o;
-    $1[MAX] = 0;
-
-    if ($1 > 0)
-    {
-        o = PyString_FromString($1);
-    }
-    else
-    {
-        o = Py_None;
-        Py_INCREF(Py_None);
-    }
-    $result = t_output_helper($result,o);
 }
 %enddef
 
@@ -475,30 +469,6 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %enddef
 
 //---------------------------------------------------------------------
-%define %binary_output_with_size(TYPEMAP, SIZE)
-%typemap (default) SIZE {
-    size_t ressize = MAXSPECSIZE;
-    $1 = &ressize;
-}
-%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
-    $1 = (char *) qalloc(MAXSPECSIZE+1);
-}
-%typemap(argout) (TYPEMAP,SIZE) {
-    Py_XDECREF(resultobj);
-    if (result)
-    {
-        resultobj = PyString_FromStringAndSize((char *)$1, *$2);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
-    qfree((void *)$1);
-}
-%enddef
-
-//---------------------------------------------------------------------
 //                          IN/OUT qstring
 //---------------------------------------------------------------------
 %typemap(in,numinputs=0) qstring *result (qstring temp) {
@@ -506,7 +476,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %typemap(argout) qstring *result {
     Py_XDECREF(resultobj);
-    if (result)
+    if (result > 0)
     {
         resultobj = PyString_FromStringAndSize($1->begin(), $1->length());
     }
@@ -592,31 +562,46 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 //---------------------------------------------------------------------
 //                            IN qstring
 //---------------------------------------------------------------------
-// This is used to set/retrieve qstring that are structure members.
-%typemap(in) qstring*
+%define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR)
+%typemap(in) REFTYPE
 {
-  char *buf;
-  Py_ssize_t length;
-  int success = PyString_AsStringAndSize($input, &buf, &length);
-  if ( success > -1 )
+  if ( PyString_Check($input) )
   {
-    $1 = new qstring(buf, length);
+    // init properly, so ctor can't crash
+    char *buf = NULL;
+    Py_ssize_t length = 0;
+    /*int success =*/ PyString_AsStringAndSize($input, &buf, &length);
+    $1 = new CONTAINER_TYPE(buf, length); // build regardless of success
+  }
+  else
+  {
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "Expected string " "in method '" "$symname" "', argument " "$argnum"" of type 'str'");
   }
 }
-%typemap(freearg) qstring*
+%typemap(freearg) REFTYPE
 {
   delete $1;
 }
-%typemap(out) qstring*
+%typemap(out) REFTYPE // e.g., %typemap(out) qstring*
 {
-  $result = PyString_FromStringAndSize($1->c_str(), $1->length());
+  $result = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
-%typemap(out) qstring
+%typemap(out) CONTAINER_TYPE // e.g., %typemap(out) qstring
 {
-  $result = PyString_FromStringAndSize($1.c_str(), $1.length());
+  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
-%apply qstring { _qstring<char> }
-%apply qstring* { _qstring<char>* }
+%typemap(varout) CONTAINER_TYPE // e.g., %typemap(varout) qstring
+{
+  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+}
+%enddef
+
+%bytes_container(qstring *, qstring, c_str, length);
+%bytes_container(qstring &, qstring, c_str, length);
+%bytes_container(bytevec_t *, bytevec_t, begin, size);
+%bytes_container(bytevec_t &, bytevec_t, begin, size);
 
 //---------------------------------------------------------------------
 //                      varargs (mostly kernwin.hpp)
@@ -634,6 +619,13 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
               "invalid null pointer " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
 };
 
+//-------------------------------------------------------------------------
+// for use with insn_t, op_t wrappers
+%typemap(in) (size_t ptrval)
+{
+  $1 = size_t(PyLong_AsUnsignedLongLong($input));
+}
+
 // Help SWIG to figure out the ulonglong type
 #ifdef SWIGWIN
 typedef unsigned __int64 ulonglong;
@@ -648,20 +640,25 @@ typedef          long long longlong;
 %apply longlong  *INOUT { adiff_t *disp };
 %apply ulonglong *INOUT { ea_t    *addr };
 %apply ulonglong *INOUT { sel_t   *sel };
-%apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
+%apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
+%apply ulonglong *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
 #else
 %apply int          *INOUT { sval_t  *value };
 %apply int          *INOUT { adiff_t *disp };
 %apply unsigned int *INOUT { ea_t    *addr };
 %apply unsigned int *INOUT { sel_t   *sel };
-%apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_selection()
+%apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
+%apply unsigned int *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
 #endif
+
+%apply long long { qoff64_t };
 
 %apply qstring *result { qstring *label };
 %apply qstring *result { qstring *shortcut };
 %apply qstring *result { qstring *tooltip };
 %apply qstring *result { qstring *out };
 %apply qstring *result { qstring *buf };
+%apply qstring *result { qstring *errbuf };
 %apply int *OUTPUT { int *icon };
 %apply int *OUTPUT { action_state_t *state };
 %apply bool *OUTPUT { bool *checkable };
@@ -789,7 +786,6 @@ static PyObject *qstrvec2pylist(qstrvec_t &vec)
 $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
 
-//---------------------------------------------------------------------
 %typemap(in) uint64
 {
   uint64 $1_temp;
@@ -801,21 +797,22 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
   $1 = $1_temp;
 }
 
-%inline %{
-namespace Controls
-{
-  class TWinControl;
-  class TCustomControl; // ptr to custom ida viewer
+%typemap(in,numinputs=0) uint64 *result (uint64 temp) {
+    $1 = &temp;
 }
-using Controls::TWinControl;
-using Controls::TCustomControl;
-%}
-
-namespace Forms
-{
-  class TForm;
+%typemap(argout) uint64 *result {
+    Py_XDECREF(resultobj);
+    if (result > 0)
+    {
+        resultobj  = PyLong_FromUnsignedLongLong(*(unsigned long long *) $1);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
 }
-using Forms::TForm;
+%apply uint64 *result { uint64 *out };
 
 // Make get_any_cmt() work
 %apply unsigned char *OUTPUT { color_t *cmttype };

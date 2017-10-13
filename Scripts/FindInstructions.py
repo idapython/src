@@ -21,6 +21,7 @@ v1.0 - initial version
 import idaapi
 import idautils
 import idc
+from ida_kernwin import Choose
 
 # -----------------------------------------------------------------------
 def FindInstructions(instr, asm_where=None):
@@ -30,7 +31,7 @@ def FindInstructions(instr, asm_where=None):
     """
     if not asm_where:
         # get first segment
-        asm_where = FirstSeg()
+        asm_where = get_first_seg()
         if asm_where == idaapi.BADADDR:
             return (False, "No segments defined")
 
@@ -56,7 +57,7 @@ def FindInstructions(instr, asm_where=None):
 
     # join the buffer into one string
     buf = ''.join(bufs)
-    
+
     # take total assembled instructions length
     tlen = len(buf)
 
@@ -65,54 +66,63 @@ def FindInstructions(instr, asm_where=None):
 
     # find all binary strings
     print "Searching for: [%s]" % bin_str
-    ea = MinEA()
+    ea = get_inf_attr(INF_MIN_EA)
     ret = []
     while True:
-        ea = FindBinary(ea, SEARCH_DOWN, bin_str)
+        ea = find_binary(ea, SEARCH_DOWN, bin_str)
         if ea == idaapi.BADADDR:
             break
         ret.append(ea)
-        Message(".")
+        msg(".")
         ea += tlen
     if not ret:
         return (False, "Could not match [%s]" % bin_str)
-    Message("\n")
+    msg("\n")
     return (True, ret)
 
 # -----------------------------------------------------------------------
 # Chooser class
 class SearchResultChoose(Choose):
-    def __init__(self, list, title):
-        Choose.__init__(self, list, title)
-        self.width = 250
+    def __init__(self, title, items):
+        Choose.__init__(self, title, [ ["Address", 16], ["Results", 250] ])
+        self.items = items
 
-    def enter(self, n):
-        o = self.list[n-1]
+    def OnGetLine(self, n):
+        o = self.items[n]
+        line = []
+        line.append("%08X" % o.ea)
+        line.append("%s" % o.display)
+        return line
+
+    def OnGetSize(self):
+        return len(self.items)
+
+    def OnSelectLine(self, n):
+        o = self.items[n]
         Jump(o.ea)
+        return (Choose.NOTHING_CHANGED, )
 
 # -----------------------------------------------------------------------
 # class to represent the results
 class SearchResult:
     def __init__(self, ea):
         self.ea = ea
-        if not isCode(GetFlags(ea)):
-            MakeCode(ea)
+        if not is_code(get_flags(ea)):
+            create_insn(ea)
         t = idaapi.generate_disasm_line(ea)
         if t:
             line = idaapi.tag_remove(t)
         else:
             line = ""
-        func = GetFunctionName(ea)
-        self.display = hex(ea) + ": "
+        func = get_func_name(ea)
+        self.display = ""
         if func:
             self.display += func + ": "
         else:
-            n = SegName(ea)
-            if n: self.display += n + ": "
+            n = get_segm_name(ea)
+            if n:
+              self.display += n + ": "
         self.display += line
-
-    def __str__(self):
-        return self.display
 
 # -----------------------------------------------------------------------
 def find(s=None, x=False, asm_where=None):
@@ -130,8 +140,8 @@ def find(s=None, x=False, asm_where=None):
             results = [SearchResult(ea) for ea in ret]
         title = "Search result for: [%s]" % s
         idaapi.close_chooser(title)
-        c = SearchResultChoose(results, title)
-        c.choose()
+        c = SearchResultChoose(title, results)
+        c.Show()
     else:
         print ret
 

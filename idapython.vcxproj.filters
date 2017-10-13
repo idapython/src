@@ -98,9 +98,6 @@
     <None Include="swig\auto.i">
       <Filter>swig_i</Filter>
     </None>
-    <None Include="swig\area.i">
-      <Filter>swig_i</Filter>
-    </None>
     <None Include="swig\bytes.i">
       <Filter>swig_i</Filter>
     </None>
@@ -151,9 +148,6 @@
     </None>
     <None Include="obj\x86_win_vc_32\idaapi.py">
       <Filter>autogen</Filter>
-    </None>
-    <None Include="swig\ints.i">
-      <Filter>swig_i</Filter>
     </None>
     <None Include="swig\loader.i">
       <Filter>swig_i</Filter>
@@ -212,9 +206,6 @@
     <None Include="pywraps\py_custview.py">
       <Filter>pywraps</Filter>
     </None>
-    <None Include="pywraps\py_diskio.py">
-      <Filter>pywraps</Filter>
-    </None>
     <None Include="pywraps\py_expr.py">
       <Filter>pywraps</Filter>
     </None>
@@ -248,13 +239,16 @@
     <None Include="swig\queue.i">
       <Filter>swig_i</Filter>
     </None>
+    <None Include="swig\range.i">
+      <Filter>swig_i</Filter>
+    </None>
     <None Include="swig\search.i">
       <Filter>swig_i</Filter>
     </None>
     <None Include="swig\segment.i">
       <Filter>swig_i</Filter>
     </None>
-    <None Include="swig\srarea.i">
+    <None Include="swig\segregs.i">
       <Filter>swig_i</Filter>
     </None>
     <None Include="swig\strlist.i">

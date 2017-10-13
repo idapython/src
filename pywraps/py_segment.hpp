@@ -1,37 +1,37 @@
 
 //<code(py_segment)>
-void segment_t_startEA_set(segment_t *segm, ea_t newea)
+void segment_t_start_ea_set(segment_t *segm, ea_t newea)
 {
-  if ( getseg(segm->startEA) == segm )
+  if ( getseg(segm->start_ea) == segm )
   {
-    PyErr_SetString(PyExc_AttributeError, "Can't modify startEA, please use set_segm_start() instead");
+    PyErr_SetString(PyExc_AttributeError, "Can't modify start_ea, please use set_segm_start() instead");
   }
   else
   {
-    segm->startEA = newea;
+    segm->start_ea = newea;
   }
 }
 
-ea_t segment_t_startEA_get(segment_t *segm)
+ea_t segment_t_start_ea_get(segment_t *segm)
 {
-  return segm->startEA;
+  return segm->start_ea;
 }
 
-void segment_t_endEA_set(segment_t *segm, ea_t newea)
+void segment_t_end_ea_set(segment_t *segm, ea_t newea)
 {
-  if ( getseg(segm->startEA) == segm )
+  if ( getseg(segm->start_ea) == segm )
   {
-    PyErr_SetString(PyExc_AttributeError, "Can't modify endEA, please use set_segm_end() instead");
+    PyErr_SetString(PyExc_AttributeError, "Can't modify end_ea, please use set_segm_end() instead");
   }
   else
   {
-    segm->endEA = newea;
+    segm->end_ea = newea;
   }
 }
 
-ea_t segment_t_endEA_get(segment_t *segm)
+ea_t segment_t_end_ea_get(segment_t *segm)
 {
-  return segm->endEA;
+  return segm->end_ea;
 }
 //</code(py_segment)>
 

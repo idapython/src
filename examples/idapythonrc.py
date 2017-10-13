@@ -1,7 +1,7 @@
 #---------------------------------------------------------------------
 # Example user initialisation script: idapythonrc.py
 #
-# Place this script to ~/.idapro/ or to 
+# Place this script to ~/.idapro/ or to
 # %APPDATA%\Hex-Rays\IDA Pro
 #---------------------------------------------------------------------
 import idaapi

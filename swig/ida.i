@@ -1,9 +1,43 @@
 // Ignore kernel-only symbols
-%ignore dual_text_options_t;
 %ignore idainfo::align_short_demnames;
 %ignore idainfo::align_strtype;
 %ignore idainfo::align_long_demnames;
 %ignore idainfo::store_user_info;
+%ignore idainfo::zero;
+%ignore idainfo::padding;
+%ignore idainfo::netdelta;
+%ignore idainfo::privrange;
+%ignore idainfo::padding2;
+%ignore idainfo::idainfo;
+%ignore idainfo::~idainfo;
+
+%extend idainfo
+{
+  qstring get_abiname()
+  {
+    qstring buf;
+    get_abi_name(&buf);
+    return buf;
+  }
+
+#ifdef BC695
+  // Compat 6.95; since inf is a cvar, I can't just add properties to it..
+  ea_t get_minEA() const { return $self->min_ea; }
+  void set_minEA(ea_t ea) { $self->min_ea = ea; }
+  ea_t get_maxEA() const { return $self->max_ea; }
+  void set_maxEA(ea_t ea) { $self->max_ea = ea; }
+  qstring get_procName() const { return $self->procname; }
+#endif
+
+  %pythoncode {
+    abiname = property(get_abiname)
+#ifdef BC695
+    minEA = property(get_minEA, set_minEA)
+    maxEA = property(get_maxEA, set_maxEA)
+    procName = property(get_procName)
+#endif
+  }
+}
 
 %ignore setflag(uchar &where,uchar bit,int value);
 %ignore setflag(ushort &where,ushort bit,int value);
