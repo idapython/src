@@ -2,37 +2,70 @@
 # Debugger command prompt with CustomViewers
 # (c) Hex-Rays
 #
-import idaapi
-import idc
-from idaapi import simplecustviewer_t
+import ida_idaapi
+import ida_kernwin
+import ida_lines
+import ida_expr
+import ida_dbg
 
-def SendDbgCommand(cmd):
-    """Sends a command to the debugger and returns the output string.
-    An exception will be raised if the debugger is not running or the current debugger does not export
-    the 'send_dbg_command' IDC command.
-    """
-    s = idc.eval('send_dbg_command("%s");' % cmd)
-    if s.startswith("IDC_FAILURE"):
-        raise Exception, "Debugger command is available only when the debugger is active!"
-    return s
+# The viewer instance
+dbgcmd = None
 
 # -----------------------------------------------------------------------
-class dbgcmd_t(simplecustviewer_t):
+class base_dbgcmd_ah_t(ida_kernwin.action_handler_t):
+    def __init__(self):
+        ida_kernwin.action_handler_t.__init__(self)
+
+    def update(self, ctx):
+        if dbgcmd and ctx.widget == dbgcmd.GetWidget():
+            return ida_kernwin.AST_ENABLE_FOR_WIDGET
+        else:
+            return ida_kernwin.AST_DISABLE_FOR_WIDGET
+
+# -----------------------------------------------------------------------
+class clear_dbgcmd_ah_t(base_dbgcmd_ah_t):
+    def activate(self, ctx):
+        dbgcmd.ResetOutput()
+
+# -----------------------------------------------------------------------
+class newcmd_dbgcmd_ah_t(base_dbgcmd_ah_t):
+    def activate(self, ctx):
+        dbgcmd.IssueCommand()
+
+# -----------------------------------------------------------------------
+class close_dbgcmd_ah_t(base_dbgcmd_ah_t):
+    def activate(self, ctx):
+        dbgcmd.Close()
+
+# -----------------------------------------------------------------------
+# Register actions (if needed)
+ACTNAME_CLEAR = "dbgcmd:clear"
+ACTNAME_NEWCMD = "dbgcmd:newcmd"
+ACTNAME_CLOSE = "dbgcmd:close"
+ida_kernwin.register_action(
+    ida_kernwin.action_desc_t(
+        ACTNAME_CLEAR, "Clear", clear_dbgcmd_ah_t(), "x"))
+ida_kernwin.register_action(
+    ida_kernwin.action_desc_t(
+        ACTNAME_NEWCMD, "New command", newcmd_dbgcmd_ah_t(), "Insert"))
+ida_kernwin.register_action(
+    ida_kernwin.action_desc_t(
+        ACTNAME_CLOSE, "Close", close_dbgcmd_ah_t(), "Escape"))
+
+# -----------------------------------------------------------------------
+class dbgcmd_t(ida_kernwin.simplecustviewer_t):
     def Create(self):
         # Form the title
         title = "Debugger command window"
         # Create the customview
-        if not simplecustviewer_t.Create(self, title):
+        if not ida_kernwin.simplecustviewer_t.Create(self, title):
             return False
         self.last_cmd   = ""
-        self.menu_clear = self.AddPopupMenu("Clear")
-        self.menu_cmd   = self.AddPopupMenu("New command")
-
         self.ResetOutput()
         return True
 
     def IssueCommand(self):
-        s = idaapi.ask_str(self.last_cmd, 0, "Please enter a debugger command")
+        s = ida_kernwin.ask_str(self.last_cmd, 0, "Please enter a debugger command")
         if not s:
             return
 
@@ -40,43 +73,24 @@ class dbgcmd_t(simplecustviewer_t):
         self.last_cmd = s
 
         # Add it using a different color
-        self.AddLine("debugger>" + idaapi.COLSTR(s, idaapi.SCOLOR_VOIDOP))
+        self.AddLine("debugger>" + ida_lines.COLSTR(s, ida_lines.SCOLOR_VOIDOP))
 
-        try:
-            r = SendDbgCommand(s).split("\n")
-            for s in r:
-                self.AddLine(idaapi.COLSTR(s, idaapi.SCOLOR_LIBNAME))
-        except:
-            self.AddLine(idaapi.COLSTR("Debugger is not active or does not export send_dbg_command()", idaapi.SCOLOR_ERROR))
+        ok, out = ida_dbg.send_dbg_command(s)
+        if ok:
+            for line in out.split("\n"):
+                self.AddLine(ida_lines.COLSTR(line, ida_lines.SCOLOR_LIBNAME))
+        else:
+            self.AddLine(
+                ida_lines.COLSTR(
+                    "Debugger is not active or does not export ida_dbg.send_dbg_command() (%s)" % out,
+                    ida_lines.SCOLOR_ERROR))
         self.Refresh()
 
     def ResetOutput(self):
         self.ClearLines()
-        self.AddLine(idaapi.COLSTR("Please press INS to enter command; X to clear output", idaapi.SCOLOR_AUTOCMT))
+        self.AddLine(ida_lines.COLSTR("Please press INS to enter command; X to clear output", ida_lines.SCOLOR_AUTOCMT))
         self.Refresh()
 
-    def OnKeydown(self, vkey, shift):
-        # ESCAPE?
-        if vkey == 27:
-            self.Close()
-        # VK_INSERT
-        elif vkey == 45:
-            self.IssueCommand()
-        elif vkey == ord('X'):
-            self.ResetOutput()
-        else:
-            return False
-        return True
-
-    def OnPopupMenu(self, menu_id):
-        if menu_id == self.menu_clear:
-            self.ResetOutput()
-        elif menu_id == self.menu_cmd:
-            self.IssueCommand()
-        else:
-            # Unhandled
-            return False
-        return True
 
 # -----------------------------------------------------------------------
 def show_win():
@@ -85,17 +99,16 @@ def show_win():
         print "Failed to create debugger command line!"
         return None
     x.Show()
+
+    # Attach actions to this widget's popup menu
+    widget = x.GetWidget()
+    ida_kernwin.attach_action_to_popup(widget, None, ACTNAME_CLEAR)
+    ida_kernwin.attach_action_to_popup(widget, None, ACTNAME_NEWCMD)
+    ida_kernwin.attach_action_to_popup(widget, None, ACTNAME_CLOSE)
     return x
 
-try:
-    # created already?
-    dbgcmd
+if dbgcmd is not None:
     dbgcmd.Close()
-    del dbgcmd
-except:
-    pass
+    dbgcmd = None
 
 dbgcmd = show_win()
-if not dbgcmd:
-    del dbgcmd
-

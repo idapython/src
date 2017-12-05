@@ -7,56 +7,48 @@ ALL RIGHTS RESERVED.
 
 """
 
-import idc
 import re
+
 import ida_kernwin
-from ida_kernwin import Choose
 
 # class to store parsed results
 class exchain:
     def __init__(self, m):
-        self.name       = m.group(1)
-        self.addr       = int(m.group(2), 16)
+        self.name = m.group(1)
+        self.addr = int(m.group(2), 16)
 
 # Chooser class
-class MyChoose(Choose):
+class MyChoose(ida_kernwin.Choose):
     def __init__(self, title, items):
-        Choose.__init__(self, title, [ ["Address", 16], ["Name", 250] ])
+        ida_kernwin.Choose.__init__(self, title, [ ["Address", 16], ["Name", 250] ])
         self.items = items
 
     def OnGetLine(self, n):
         o = self.items[n]
-        line = []
-        line.append("%08X" % o.addr)
-        line.append("%s" % o.name)
-        return line
+        return ["%08X" % o.addr, o.name]
 
     def OnGetSize(self):
         return len(self.items)
 
     def OnSelectLine(self, n):
-        o = self.items[n]
-        Jump(o.addr)
-        return (Choose.NOTHING_CHANGED, )
+        ida_kernwin.jumpto(self.items[n].addr)
+        return (ida_kernwin.Choose.NOTHING_CHANGED, )
 
-# main
 def main():
-    s = idc.eval('send_dbg_command("!exchain")')
-    if "IDC_FAILURE" in s:
-        return (False, "Cannot execute the command")
+    ok, s = ida_dbg.send_dbg_command("!exchain")
+    if not ok:
+        return (False, "Cannot execute the command (%s)" % s)
 
     matches = re.finditer(r'[^:]+: ([^\(]+) \(([^\)]+)\)\n', s)
-    L = []
-    for x in matches:
-        L.append(exchain(x))
-    if not L:
+    entries = [exchain(x) for x in matches]
+    if not entries:
         return (False, "Nothing to display: Could parse the result!")
 
-    # Get a Choose instance
-    chooser = MyChoose("Exchain choose", L)
-    # Run the chooser
+    # Show a list of results, and let the user possibly jump to one of those
+    chooser = MyChoose("Exchain choose", entries)
     chooser.Show()
     return (True, "Success!")
+
 ok, r = main()
 if not ok:
     print r

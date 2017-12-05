@@ -2611,6 +2611,7 @@ AF_FINAL       = 0x80000000   #              Final pass of analysis
 INF_AF2        = 44           # uint32;  Analysis flags 2
 
 AF2_DOEH       = 0x00000001   #              Handle EH information
+AF2_DORTTI     = 0x00000002   #              Handle RTTI information
 
 INF_BASEADDR   = 48           # uval_t;  base paragraph of the program
 INF_START_SS   = 52           # int32;   value of SS at the start
@@ -8337,6 +8338,13 @@ if sys.modules["__main__"].IDAPYTHON_COMPAT_695_API:
     Eval = eval_idc
     def MakeStr(ea, endea):
         return create_strlit(ea, endea)
+
+    def GetProcessorName():
+        return ida_ida.cvar.inf.procname
+
+    def SegStart(ea): return get_segm_start(ea)
+    def SegEnd(ea): return get_segm_end(ea)
+    def SetSegmentType(ea, type): return set_segm_type(ea, type)
 
 # Convenience functions:
 def here(): return get_screen_ea()

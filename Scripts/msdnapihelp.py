@@ -5,30 +5,33 @@ This script fetches the API reference (from MSDN) of a given highlighted identif
 and returns the results in a new web browser page.
 
 This script depends on the feedparser package: http://code.google.com/p/feedparser/
-
-10/05/2010
-- initial version
-
-
 """
 
-import idaapi
+# -----------------------------------------------------------------------
+import ida_kernwin
+import ida_name
+import ida_idaapi
+
+try:
+    import feedparser
+except:
+    ida_kernwin.warning('Feedparser package not installed')
 
 # -----------------------------------------------------------------------
-class msdnapihelp_plugin_t(idaapi.plugin_t):
-    flags = idaapi.PLUGIN_UNL
+class msdnapihelp_plugin_t(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_UNL
     comment = "Online MSDN API Help"
     help = "Help me"
     wanted_name = "MSDN API Help"
     wanted_hotkey = "F3"
 
     def init(self):
-        return idaapi.PLUGIN_OK
+        return ida_idaapi.PLUGIN_OK
 
 
     @staticmethod
     def sanitize_name(name):
-        t = idaapi.FUNC_IMPORT_PREFIX
+        t = ida_name.FUNC_IMPORT_PREFIX
         if name.startswith(t):
             return name[len(t):]
         return name
@@ -36,28 +39,25 @@ class msdnapihelp_plugin_t(idaapi.plugin_t):
 
     def run(self, arg):
         # Get the highlighted identifier
-        v = idaapi.get_current_viewer()
-        id = ida_kernwin.get_highlight(v)[0]
-        if not id:
+        v = ida_kernwin.get_current_viewer()
+        ident, ok = ida_kernwin.get_highlight(v)
+        if not ok:
             print "No identifier was highlighted"
             return
 
-        import webbrowser
-
-        try:
-            import feedparser
-        except:
-            idaapi.warning('Feedparser package not installed')
-            return
-
-        id = self.sanitize_name(id)
-        print "Looking up '%s' in MSDN online" % id
-        d = feedparser.parse("http://social.msdn.microsoft.com/Search/Feed.aspx?locale=en-us&format=RSS&Query=%s" % id)
+        ident = self.sanitize_name(ident)
+        print "Looking up '%s' in MSDN online" % ident
+        qurl = "https://social.msdn.microsoft.com/search/en-US/feed?query=%s&format=RSS&theme=feed%%2fen-us"
+        d = feedparser.parse(qurl % ident)
         if len(d['entries']) > 0:
             url = d['entries'][0].link
-            webbrowser.open_new_tab(url)
+            if arg > 0:
+                print("URL: %s" % url)
+            else:
+                import webbrowser
+                webbrowser.open_new_tab(url)
         else:
-            print "API documentation not found for: %s" % id
+            print "API documentation not found for: %s" % ident
 
 
     def term(self):

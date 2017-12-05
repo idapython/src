@@ -236,11 +236,15 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( !dbg_can_query() || !PyInt_Check(py_tid) || !PyInt_Check(py_sreg_value) )
+  if ( !dbg_can_query()
+    || (!PyInt_Check(py_tid) && !PyLong_Check(py_tid))
+    || (!PyInt_Check(py_sreg_value) && !PyLong_Check(py_sreg_value)) )
+  {
     Py_RETURN_NONE;
+  }
   ea_t answer;
-  thid_t tid = PyInt_AsLong(py_tid);
-  int sreg_value = PyInt_AsLong(py_sreg_value);
+  thid_t tid = PyLong_AsLong(py_tid);
+  int sreg_value = PyLong_AsLong(py_sreg_value);
   if ( internal_get_sreg_base(&answer, tid, sreg_value) != 1 )
     Py_RETURN_NONE;
 

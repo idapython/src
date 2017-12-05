@@ -64,6 +64,10 @@ forbidden = [
     "SaveBase",
     "eval",
     "MakeStr",
+    "GetProcessorName",
+    "SegStart",
+    "SegEnd",
+    "SetSegmentType",
 ]
 
 symbols_modules = {

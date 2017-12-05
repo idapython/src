@@ -131,6 +131,9 @@ extern plugin_t PLUGIN;
 %ignore place_t__serialize;
 %ignore place_t::deserialize;
 %ignore place_t__deserialize;
+%ignore place_t::generate;
+%ignore place_t__generate;
+%rename (generate) py_generate;
 
 %ignore register_place_class;
 %ignore register_loc_converter;
@@ -297,6 +300,21 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
   static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p; }
   static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p; }
   static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p; }
+
+  PyObject *py_generate(void *ud, int maxsize)
+  {
+    qstrvec_t lines;
+    int deflnnum = 0;
+    color_t pfx_color = 0;
+    bgcolor_t bgcolor = DEFCOLOR;
+    int generated = $self->generate(&lines, &deflnnum, &pfx_color, &bgcolor, ud, maxsize);
+    PyObject *tuple = PyTuple_New(4);
+    PyTuple_SetItem(tuple, 0, qstrvec2pylist(lines));
+    PyTuple_SetItem(tuple, 1, PyLong_FromLong(deflnnum));
+    PyTuple_SetItem(tuple, 2, PyLong_FromLong(uchar(pfx_color)));
+    PyTuple_SetItem(tuple, 3, PyLong_FromLong(bgcolor));
+    return tuple;
+  }
 }
 
 %extend twinpos_t {

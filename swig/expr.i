@@ -63,6 +63,12 @@
 %ignore compile_idc_text;
 %rename (compile_idc_text) py_compile_idc_text;
 
+%cstring_output_buf_and_size_returning_charptr(
+        1,
+        char *buf,
+        size_t bufsize,
+        const char *file); // get_idc_filename
+
 %nonnul_argument_prototype(
         bool py_compile_idc_file(const char *nonnul_line, qstring *errbuf),
         const char *nonnul_line);

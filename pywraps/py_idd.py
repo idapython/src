@@ -224,11 +224,14 @@ class Appcall_callable__(object):
 class Appcall_consts__(object):
     """Helper class used by Appcall.Consts attribute
     It is used to retrieve constants via attribute access"""
-    def __init__(self, default=0):
+    def __init__(self, default=None):
         self.__default = default
 
     def __getattr__(self, attr):
-        return Appcall__.valueof(attr, self.__default)
+        v = Appcall__.valueof(attr, self.__default)
+        if v is None:
+            raise ValueError, "No constant with name " + attr
+        return v
 
 # -----------------------------------------------------------------------
 class Appcall__(object):

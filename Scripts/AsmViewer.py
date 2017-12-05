@@ -3,10 +3,13 @@
 # The sample will allow you to open an assembly file and display it in color
 # (c) Hex-Rays
 #
-import idaapi
-import idautils
-import idc
+
 import os
+
+import ida_idaapi
+import ida_kernwin
+import ida_lines
+import idautils
 
 # ----------------------------------------------------------------------
 class asm_colorizer_t(object):
@@ -79,11 +82,38 @@ class asm_colorizer_t(object):
                     x += 1
             self.add_line(s)
 
+
+class base_asmview_ah_t(ida_kernwin.action_handler_t):
+    def __init__(self, obj):
+        ida_kernwin.action_handler_t.__init__(self)
+        self.obj = obj
+
+    def update(self, ctx):
+        if self.obj.view and self.obj.view.GetWidget() == ctx.widget:
+            return ida_kernwin.AST_ENABLE_FOR_WIDGET
+        else:
+            return ida_kernwin.AST_DISABLE_FOR_WIDGET
+
+
+class refresh_ah_t(base_asmview_ah_t):
+    def activate(self, ctx):
+        self.obj.view.reload_file()
+        print("Reloaded")
+
+
+class close_ah_t(base_asmview_ah_t):
+    def activate(self, ctx):
+        self.obj.view.Close()
+        print("Closed")
+
+
 # -----------------------------------------------------------------------
-class asmview_t(idaapi.simplecustviewer_t, asm_colorizer_t):
+class asmview_t(ida_kernwin.simplecustviewer_t, asm_colorizer_t):
     def Create(self, fn):
         # Create the customview
-        if not idaapi.simplecustviewer_t.Create(self, "Viewing file - %s" % os.path.basename(fn)):
+        if not ida_kernwin.simplecustviewer_t.Create(
+                self,
+                "Viewing file - %s" % os.path.basename(fn)):
             return False
 
         self.instruction_list = idautils.GetInstructionList()
@@ -94,9 +124,6 @@ class asmview_t(idaapi.simplecustviewer_t, asm_colorizer_t):
         self.fn = fn
         if not self.reload_file():
             return False
-
-        self.id_refresh = self.AddPopupMenu("Refresh")
-        self.id_close   = self.AddPopupMenu("Close")
 
         return True
 
@@ -123,38 +150,25 @@ class asmview_t(idaapi.simplecustviewer_t, asm_colorizer_t):
         self.AddLine(s)
 
     def as_comment(self, s):
-        return idaapi.COLSTR(s, idaapi.SCOLOR_RPTCMT)
+        return ida_lines.COLSTR(s, ida_lines.SCOLOR_RPTCMT)
 
     def as_id(self, s):
         t = s.lower()
         if t in self.register_list:
-            return idaapi.COLSTR(s, idaapi.SCOLOR_REG)
+            return ida_lines.COLSTR(s, ida_lines.SCOLOR_REG)
         elif t in self.instruction_list:
-            return idaapi.COLSTR(s, idaapi.SCOLOR_INSN)
+            return ida_lines.COLSTR(s, ida_lines.SCOLOR_INSN)
         else:
             return s
 
     def as_string(self, s):
-        return idaapi.COLSTR(s, idaapi.SCOLOR_STRING)
+        return ida_lines.COLSTR(s, ida_lines.SCOLOR_STRING)
 
     def as_num(self, s):
-        return idaapi.COLSTR(s, idaapi.SCOLOR_NUMBER)
+        return ida_lines.COLSTR(s, ida_lines.SCOLOR_NUMBER)
 
     def as_directive(self, s):
-        return idaapi.COLSTR(s, idaapi.SCOLOR_KEYWORD)
-
-    def OnPopupMenu(self, menu_id):
-        """
-        A context (or popup) menu item was executed.
-        @param menu_id: ID previously registered with AddPopupMenu()
-        @return: Boolean
-        """
-        if self.id_refresh == menu_id:
-            return self.reload_file()
-        elif self.id_close == menu_id:
-            self.Close()
-            return True
-        return False
+        return ida_lines.COLSTR(s, ida_lines.SCOLOR_KEYWORD)
 
     def OnKeydown(self, vkey, shift):
         """
@@ -170,8 +184,8 @@ class asmview_t(idaapi.simplecustviewer_t, asm_colorizer_t):
             lineno = self.GetLineNo()
             if lineno is not None:
                 line, fg, bg = self.GetLine(lineno)
-                if line and line[0] != idaapi.SCOLOR_INV:
-                    s = idaapi.SCOLOR_INV + line + idaapi.SCOLOR_INV
+                if line and line[0] != ida_lines.SCOLOR_INV:
+                    s = ida_lines.SCOLOR_INV + line + ida_lines.SCOLOR_INV
                     self.EditLine(lineno, s, fg, bg)
                     self.Refresh()
         elif vkey == ord('C'):
@@ -186,8 +200,11 @@ class asmview_t(idaapi.simplecustviewer_t, asm_colorizer_t):
         return True
 
 # -----------------------------------------------------------------------
-class asmviewplg(idaapi.plugin_t):
-    flags = idaapi.PLUGIN_KEEP
+ACTNAME_REFRESH = "asmview_t::refresh"
+ACTNAME_CLOSE = "asmview_t::close"
+
+class asmviewplg(ida_idaapi.plugin_t):
+    flags = ida_idaapi.PLUGIN_KEEP
     comment = "ASM viewer"
     help = "This is help"
     wanted_name = "ASM file viewer"
@@ -196,17 +213,30 @@ class asmviewplg(idaapi.plugin_t):
         self.view = None
 
     def init(self):
-        return idaapi.PLUGIN_KEEP
+        # Register actions
+        ida_kernwin.register_action(
+            ida_kernwin.action_desc_t(
+                ACTNAME_REFRESH, "Refresh", refresh_ah_t(self)))
+        ida_kernwin.register_action(
+            ida_kernwin.action_desc_t(
+                ACTNAME_CLOSE, "Close", close_ah_t(self)))
+        return ida_idaapi.PLUGIN_KEEP
+
     def run(self, arg):
         if self.view:
             self.Close()
-        fn = idaapi.ask_file(0, "*.asm", "Select ASM file to view")
+        fn = ida_kernwin.ask_file(0, "*.asm", "Select ASM file to view")
         if not fn:
             return
         self.view = asmview_t()
         if not self.view.Create(fn):
             return
         self.view.Show()
+        widget = self.view.GetWidget()
+
+        # Attach actions to this widget's popup menu
+        ida_kernwin.attach_action_to_popup(widget, None, ACTNAME_REFRESH)
+        ida_kernwin.attach_action_to_popup(widget, None, ACTNAME_CLOSE)
 
     def term(self):
         if self.view:

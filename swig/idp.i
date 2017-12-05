@@ -80,6 +80,20 @@
         static PyObject *AssembleLine(ea_t ea, ea_t cs, ea_t ip, bool use32, const char *nonnul_line),
         const char *nonnul_line);
 
+#ifndef SWIGIMPORTED // let's not modify the wrappers for modules %import'ing us (e.g., typeinf.i, hexrays.i)
+%cstring_output_buf_and_size_returning_charptr(
+        1,
+        char *buf,
+        size_t bufsize); // get_idp_name
+#endif // SWIGIMPORTED
+
+%cstring_output_qstring_returning_charptr(
+        1,
+        qstring *out,
+        const char *name,
+        uint32 disable_mask,
+        int demreq); // ev_demangle_name
+
 %include "idp.hpp"
 %include "config.hpp"
 

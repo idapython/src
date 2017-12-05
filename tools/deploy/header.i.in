@@ -468,6 +468,28 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %enddef
 
+//-------------------------------------------------------------------------
+// and a helper for overriding the 'argout' of some of those functions,
+// that return the input char* as return code; those build on recent
+// versions of Xcode (>= 9.0), and need special care
+%define %cstring_output_buf_and_size_returning_charptr(BUFIDX, ...)
+%typemap(argout) (__VA_ARGS__) {
+    // cstring_output_buf_and_size_returning_charptr's argout
+    Py_XDECREF(resultobj);
+    if (result != NULL)
+    {
+        resultobj = PyString_FromString($BUFIDX);
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+    qfree($BUFIDX);
+}
+%enddef
+
+
 //---------------------------------------------------------------------
 //                          IN/OUT qstring
 //---------------------------------------------------------------------
@@ -491,8 +513,43 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   // Nothing. We certainly don't want 'temp' to be deleted.
 }
 
-//---------------------------------------------------------------------
-// md5/sha256 hash retrieval
+//-------------------------------------------------------------------------
+// see %cstring_output_buf_and_size_returning_charptr above
+%define %cstring_output_qstring_returning_charptr(BUFIDX, ...)
+%typemap(argout) (__VA_ARGS__) {
+    // cstring_output_qstring_returning_charptr's argout
+    Py_XDECREF(resultobj);
+    if (result != NULL)
+    {
+        resultobj = PyString_FromStringAndSize($BUFIDX->begin(), $BUFIDX->length());
+    }
+    else
+    {
+        Py_INCREF(Py_None);
+        resultobj = Py_None;
+    }
+}
+%enddef
+
+//-------------------------------------------------------------------------
+//                            OUT qstrvec_t
+//-------------------------------------------------------------------------
+%typemap(in,numinputs=0) qstrvec_t *out (qstrvec_t temp) {
+    $1 = &temp;
+}
+%typemap(argout) qstrvec_t *out
+{
+  Py_XDECREF(resultobj);
+  resultobj = qstrvec2pylist(*($1));
+}
+%typemap(freearg) qstrvec_t* out
+{
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+//                        md5/sha256 hash retrieval
+//-------------------------------------------------------------------------
 %typemap(in, numinputs=0) uchar hash[ANY] (uchar temp[$1_dim0])
 {
   $1 = temp;
@@ -771,7 +828,7 @@ struct wrapped_array_t {
 
 
 %{
-static PyObject *qstrvec2pylist(qstrvec_t &vec)
+static PyObject *qstrvec2pylist(const qstrvec_t &vec)
 {
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);

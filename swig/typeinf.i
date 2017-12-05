@@ -255,6 +255,12 @@
 %ignore remove_tinfo_pointer;
 %rename (remove_tinfo_pointer) py_remove_tinfo_pointer;
 
+%cstring_output_buf_and_size_returning_charptr(
+        2,
+        ea_t ea,
+        char *buf,
+        size_t bufsize); // idc_guess_type, idc_get_type
+
 %include "typeinf.hpp"
 
 // Custom wrappers

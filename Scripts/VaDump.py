@@ -7,10 +7,9 @@ ALL RIGHTS RESERVED.
 
 """
 
-import idc
-from ida_kernwin import Choose
-
 import re
+
+import ida_kernwin
 
 # class to store parsed results
 class memva:
@@ -29,7 +28,7 @@ class memva:
             self.typestr    = ""
 
 # Chooser class
-class MemChoose(Choose):
+class MemChoose(ida_kernwin.Choose):
     def __init__(self, title, items):
         headers = []
         headers.append(["Base", 10])
@@ -37,7 +36,7 @@ class MemChoose(Choose):
         headers.append(["State", 20])
         headers.append(["Protect", 20])
         headers.append(["Type", 20])
-        Choose.__init__(self, title, headers)
+        ida_kernwin.Choose.__init__(self, title, headers)
         self.items = items
 
     def OnGetLine(self, n):
@@ -55,13 +54,13 @@ class MemChoose(Choose):
 
     def OnSelectLine(self, n):
         o = self.items[n]
-        idc.jumpto(o.base)
-        return (NOTHING_CHANGED, )
+        ida_kernwin.jumpto(o.base)
+        return (ida_kernwin.Choose.NOTHING_CHANGED, )
 
 # main
 def main():
-    s = idc.eval('send_dbg_command("!vadump")')
-    if "IDC_FAILURE" in s:
+    ok, s = ida_dbg.send_dbg_command("!vadump")
+    if not ok:
         return (False, "Cannot execute the command")
 
     matches = re.finditer(r'BaseAddress:\s*?(\w+?)\n' \

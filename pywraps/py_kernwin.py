@@ -91,7 +91,10 @@ chtype_segreg=chtype_srcp
 close_tform=close_widget
 find_tform=find_widget
 get_current_tform=get_current_widget
-get_highlighted_identifier=get_highlight
+def get_highlighted_identifier():
+    thing = get_highlight(get_current_widget())
+    if thing and thing[1]:
+        return thing[0]
 get_tform_title=get_widget_title
 get_tform_type=get_widget_type
 is_chooser_tform=is_chooser_widget
