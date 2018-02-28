@@ -14,6 +14,9 @@
 %rename (get_idasgn_desc) py_get_idasgn_desc;
 %rename (get_idasgn_desc_with_matches) py_get_idasgn_desc_with_matches;
 
+%ignore func_md_t::cbsize;
+%ignore func_pat_t::cbsize;
+
 %include "funcs.hpp"
 
 %clear(char *buf);

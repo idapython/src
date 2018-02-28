@@ -53,7 +53,7 @@ get_idainfo_by_type3=get_idainfo_by_type
 @bc695redef
 def guess_func_tinfo2(pfn, tif):
     return guess_tinfo(pfn.start_ea, tif)
-@bc695redef
+@bc695redef_with_pydoc(load_til.__doc__)
 def load_til(name, tildir=None, *args):
     # 6.95 C++ prototypes
     # idaman til_t *ida_export load_til(const char *tildir, const char *name, char *errbuf, size_t bufsize);

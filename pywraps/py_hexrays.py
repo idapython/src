@@ -434,9 +434,12 @@ def _call_with_transferrable_ownership(fun, *args):
     #   - created a new object: we want to own that one in case 'e' was owned
     #   - didn't create a new object: we will remove & re-gain ownership on
     #                                 the same underlying cexpr_t. No biggie.
-    if res and was_owned:
-        e._maybe_disown_and_deregister()
-        res._own_and_register()
+    if was_owned:
+        if res:
+            e._maybe_disown_and_deregister()
+            res._own_and_register()
+    else:
+        debug_hexrays_ctree("NOTE: call_with_transferrable_ownership() called with non-IDAPython-owned object. Is this intentional?")
     return res
 
 def lnot(e):

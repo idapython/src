@@ -186,6 +186,18 @@ if _BC695:
     def bc695redef(func):
         func.func_dict["bc695redef"] = True
         return func
+
+    class bc695redef_with_pydoc(object):
+        def __init__(self, pydoc):
+            self.pydoc = pydoc
+
+        def __call__(self, f):
+            f.func_dict["bc695redef"] = True
+            def bc695redef_wrapper(*args):
+                return f(*args)
+            bc695redef_wrapper.func_dict["bc695redef"] = True
+            bc695redef_wrapper.__doc__ = self.pydoc
+            return bc695redef_wrapper
 }
 #endif // BC695
 
@@ -252,6 +264,14 @@ static void __raise_e(const std::exception &e)
   }
 }
 
+static void __raise_ie(const interr_exc_t &ie)
+{
+  Py_INCREF(PyExc_RuntimeError);
+  qstring emsg;
+  emsg.sprnt(INTERR_EXC_FMT, ie.code);
+  PyErr_SetString(PyExc_RuntimeError, emsg.begin());
+}
+
 static void __raise_de(const Swig::DirectorException &e)
 {
   Py_INCREF(PyExc_RuntimeError);
@@ -274,6 +294,7 @@ static void __raise_oor(const std::out_of_range &e)
     }
     catch ( const std::bad_alloc &ba ) { __raise_ba(ba); SWIG_fail; }
     catch ( const std::out_of_range &e ) { __raise_oor(e); SWIG_fail; }
+    catch ( const interr_exc_t &e ) { __raise_ie(e); SWIG_fail; }
     catch ( const std::exception &e ) { __raise_e(e); SWIG_fail; }
     catch ( const Swig::DirectorException &e ) { __raise_de(e); SWIG_fail; }
     catch ( ... ) { __raise_u(); SWIG_fail; }
@@ -489,45 +510,22 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %enddef
 
-
-//---------------------------------------------------------------------
-//                          IN/OUT qstring
-//---------------------------------------------------------------------
-%typemap(in,numinputs=0) qstring *result (qstring temp) {
-    $1 = &temp;
-}
-%typemap(argout) qstring *result {
-    Py_XDECREF(resultobj);
-    if (result > 0)
-    {
-        resultobj = PyString_FromStringAndSize($1->begin(), $1->length());
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
-}
-%typemap(freearg) qstring* result
-{
-  // Nothing. We certainly don't want 'temp' to be deleted.
-}
-
 //-------------------------------------------------------------------------
 // see %cstring_output_buf_and_size_returning_charptr above
 %define %cstring_output_qstring_returning_charptr(BUFIDX, ...)
-%typemap(argout) (__VA_ARGS__) {
-    // cstring_output_qstring_returning_charptr's argout
-    Py_XDECREF(resultobj);
-    if (result != NULL)
-    {
-        resultobj = PyString_FromStringAndSize($BUFIDX->begin(), $BUFIDX->length());
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
+%typemap(argout) (__VA_ARGS__)
+{
+  // %cstring_output_qstring_returning_charptr typemap(argout) __VA_ARGS__
+  Py_XDECREF(resultobj);
+  if (result != NULL)
+  {
+    resultobj = PyString_FromStringAndSize($BUFIDX->begin(), $BUFIDX->length());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
 }
 %enddef
 
@@ -548,28 +546,30 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 
 //-------------------------------------------------------------------------
-//                        md5/sha256 hash retrieval
+//          md5/sha256 hash retrieval (as hex representation)
 //-------------------------------------------------------------------------
-%typemap(in, numinputs=0) uchar hash[ANY] (uchar temp[$1_dim0])
-{
+%define %byte_array_as_hex_or_none(PARAM_NAME)
+%typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
+{ // byte_array_as_hex_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
   $1 = temp;
 }
-
-%typemap(argout) uchar hash[ANY]
-{
-    Py_XDECREF(resultobj);
-    if (result)
-    {
-        char buf[2*$1_dim0 + 1];
-        get_hex_string(buf, sizeof(buf), $1, $1_dim0);
-        resultobj = PyString_FromString(buf);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
+%typemap(argout) uchar PARAM_NAME[ANY]
+{ // byte_array_as_hex_or_none typemap(argout) uchar PARAM_NAME[ANY]
+  Py_XDECREF(resultobj);
+  if (result)
+  {
+    char buf[2*$1_dim0 + 1];
+    get_hex_string(buf, sizeof(buf), $1, $1_dim0);
+    resultobj = PyString_FromString(buf);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
 }
+%enddef
+%byte_array_as_hex_or_none(hash);
 
 // Check that the argument is a callable Python object
 //---------------------------------------------------------------------
@@ -617,11 +617,11 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %typemap(out) qtime64_t "$result = PyLong_FromUnsignedLongLong($1);"
 
 //---------------------------------------------------------------------
-//                            IN qstring
+//                       IN/OUT qstring/bytevec_t
 //---------------------------------------------------------------------
 %define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR)
 %typemap(in) REFTYPE
-{
+{ // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
   if ( PyString_Check($input) )
   {
     // init properly, so ctor can't crash
@@ -638,20 +638,61 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   }
 }
 %typemap(freearg) REFTYPE
-{
+{ // bytes_container REFTYPE typemap(freearg)
   delete $1;
 }
 %typemap(out) REFTYPE // e.g., %typemap(out) qstring*
-{
+{ // bytes_container typemap(out) REFTYPE
   $result = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %typemap(out) CONTAINER_TYPE // e.g., %typemap(out) qstring
-{
+{ // bytes_container typemap(out) CONTAINER_TYPE
   $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 %typemap(varout) CONTAINER_TYPE // e.g., %typemap(varout) qstring
-{
+{ // bytes_container typemap(varout) CONTAINER_TYPE
   $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+}
+// the following is used to turn a '... *result' output parameter,
+// into an actual return value.
+%typemap(in,numinputs=0) CONTAINER_TYPE *result (CONTAINER_TYPE temp)
+{
+  // bytes_container typemap(in,numinputs=0) CONTAINER_TYPE *result (CONTAINER_TYPE temp)
+  $1 = &temp;
+}
+%typemap(argout) CONTAINER_TYPE *result
+{
+  // bytes_container typemap(argout) CONTAINER_TYPE *result
+  Py_XDECREF(resultobj);
+  if (result > 0)
+  {
+    resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%typemap(freearg) CONTAINER_TYPE* result
+{
+  // bytes_container typemap(freearg) CONTAINER_TYPE *result
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+// We determine that the following parameter: "CONTAINER_TYPE *vout" has the
+// following characteristics:
+//   - the C function being called returns void
+//   - other than that, it's the same as for the "CONTAINER_TYPE *result" parameter
+//     (i.e., requires a temporary 'qstring', etc...)
+//
+// Re-use the 'CONTAINER_TYPE *result' typemaps, ...
+%apply CONTAINER_TYPE *result { CONTAINER_TYPE *vout };
+// ...but override the argout one, so that it doesn't rely on a 'result'
+%typemap(argout) (CONTAINER_TYPE *vout)
+{
+  // bytes_container typemap(argout) (CONTAINER_TYPE *vout)
+  Py_XDECREF(resultobj);
+  resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %enddef
 
@@ -833,18 +874,24 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);
   for ( size_t i=0; i < n; ++i )
-    PyList_SetItem(py_list, i, PyString_FromString(vec[i].c_str()));
+    PyList_SetItem(
+            py_list,
+            i,
+            PyString_FromStringAndSize(vec[i].c_str(), vec[i].length()));
   return py_list;
 }
 %}
 
 //---------------------------------------------------------------------
-%typemap(out) uint64 {
-$result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+%typemap(out) uint64
+{
+  // %typemap(out) uint64
+  $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
 
 %typemap(in) uint64
 {
+  // %typemap(in) uint64
   uint64 $1_temp;
   if ( !PyW_GetNumber($input, &$1_temp) )
   {
@@ -854,22 +901,49 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
   $1 = $1_temp;
 }
 
-%typemap(in,numinputs=0) uint64 *result (uint64 temp) {
-    $1 = &temp;
+%typemap(in,numinputs=0) uint64 *result (uint64 temp)
+{
+  // %typemap(in,numinputs=0) uint64 *result
+  $1 = &temp;
 }
-%typemap(argout) uint64 *result {
-    Py_XDECREF(resultobj);
-    if (result > 0)
-    {
-        resultobj  = PyLong_FromUnsignedLongLong(*(unsigned long long *) $1);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
+%typemap(argout) uint64 *result
+{
+  // %typemap(argout) uint64 *result
+  Py_XDECREF(resultobj);
+  if (result > 0)
+  {
+    resultobj  = PyLong_FromUnsignedLongLong(*(uint64 *) $1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
 }
 %apply uint64 *result { uint64 *out };
+
+//-------------------------------------------------------------------------
+%typemap(in,numinputs=0) uint32 *result (uint32 temp)
+{
+  // %typemap(in,numinputs=0) uint32 *result
+  $1 = &temp;
+}
+%typemap(argout) uint32 *result
+{
+  // %typemap(argout) uint32 *result
+  Py_XDECREF(resultobj);
+  if (result > 0)
+  {
+    resultobj  = PyLong_FromUnsignedLong(*(uint32 *) $1);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+%apply uint32 *result { uint32 *out };
+
 
 // Make get_any_cmt() work
 %apply unsigned char *OUTPUT { color_t *cmttype };
@@ -900,6 +974,27 @@ $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 %}
 %enddef
 
+%define %numbers_list_to_values_vec(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR)
+%typemap(arginit) VECTYPE * "VECTYPE $1_local_storage; // %numbers_list_to_values_vec(VECTYPE) %typemap(arginit) VECTYPE *" // *MUST NOT* be within '{}'s
+%typemap(in) VECTYPE *
+{ // %numbers_list_to_values_vec(VECTYPE) %typemap(in) VECTYPE *
+  if ( PySequence_Check($input) )
+  {
+    if ( PYLIST_CONVERTOR(&$1_local_storage, $input) < 0 )
+      SWIG_fail;
+    $1 = &$1_local_storage;
+  }
+  else
+  {
+    void *$1_vptr = 0;
+    int res$argnum = SWIG_ConvertPtr($input, &$1_vptr, SWIGTYPE, 0 | 0);
+    if ( !SWIG_IsOK(res$argnum) )
+      SWIG_exception_fail(SWIG_ArgError(res$argnum), "in method '$symname', argument $argnum of type $1_type");
+    $1 = reinterpret_cast<VECTYPE*>($1_vptr);
+  }
+}
+%enddef
+%numbers_list_to_values_vec(eavec_t, SWIGTYPE_p_qvectorT_unsigned_int_t, PyW_PyListToEaVec);
 
 %{
 #include <expr.hpp>

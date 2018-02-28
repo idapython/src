@@ -12,6 +12,8 @@ import _ida_bytes
 import _ida_ida
 import ida_idaapi
 
+dbg_can_query = _ida_dbg.dbg_can_query
+
 # -----------------------------------------------------------------------
 class Appcall_array__(object):
     """This class is used with Appcall.array() method"""
@@ -257,10 +259,14 @@ class Appcall__(object):
     If timed out, errbuf will contain "timeout".
     """
 
+    __name__ = "Appcall__"
+
     def __init__(self):
         self.__consts = Appcall_consts__()
+
     def __get_consts(self):
         return self.__consts
+
     Consts = property(__get_consts)
     """Use Appcall.Consts.CONST_NAME to access constants"""
 

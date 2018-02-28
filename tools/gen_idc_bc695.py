@@ -57,6 +57,7 @@ forbidden = [
     "GetString",
     "ClearTraceFile",
     "FindBinary",
+    "FindText",
     "NextHead",
     "ParseTypes",
     "PrevHead",
@@ -68,6 +69,7 @@ forbidden = [
     "SegStart",
     "SegEnd",
     "SetSegmentType",
+    "CleanupAppcall",
 ]
 
 symbols_modules = {

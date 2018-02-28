@@ -5,6 +5,8 @@
 #include <err.h>
 %}
 
+%ignore free_debug_event;
+%ignore copy_debug_event;
 %ignore debugger_t;
 %ignore memory_info_t;
 %ignore lowcnd_t;
@@ -15,6 +17,7 @@
 %ignore appcall;
 %ignore idd_opinfo_t;
 %ignore gdecode_t;
+%ignore debug_event_t::exit_code();
 %apply unsigned char { op_dtype_t dtype };
 
 %ignore qvector<exception_info_t>::operator==;
@@ -31,7 +34,9 @@
 %ignore qvector<process_info_t>::has;
 %ignore qvector<process_info_t>::del;
 %ignore qvector<process_info_t>::add_unique;
+
 %template(procinfo_vec_t) qvector<process_info_t>;
+%template(call_stack_t) qvector<call_stack_info_t>;
 
 %include "idd.hpp"
 

@@ -2,8 +2,8 @@
 %cstring_bounded_output(char *dstname, MAXSTR);
 %cstring_bounded_output(char *buf, MAXSTR);
 
-// This is for get_name_value's output value
-%apply unsigned long *OUTPUT { uval_t *value };
+%apply unsigned long *OUTPUT { uval_t *value }; // get_name_value
+%apply unsigned long *INPUT { ea_t *ea_ptr }; // get_debug_name
 
 // FIXME: These should be fixed
 %ignore get_struct_operand;

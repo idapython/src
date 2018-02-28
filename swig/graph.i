@@ -66,6 +66,8 @@ public:
   virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { return 0; }
 }
 
+%template(node_layout_t) qvector<rect_t>;
+
 %include "graph.hpp"
 %ignore graph_visitor_t::visit_node;
 %ignore graph_visitor_t::visit_edge;

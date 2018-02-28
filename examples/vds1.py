@@ -22,5 +22,4 @@ def main():
 
     return True
 
-if main():
-    idaapi.term_hexrays_plugin();
+main()

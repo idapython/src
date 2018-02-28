@@ -11,6 +11,7 @@
 %ignore align_down_to_stack;
 %ignore align_up_to_stack;
 %ignore bgcolors;
+%ignore encoder_t;
 
 %ignore set_user_defined_prefix;
 %rename (set_user_defined_prefix) py_set_user_defined_prefix;

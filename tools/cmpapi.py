@@ -15,6 +15,7 @@ renamed_modules = {
     "ida_queue" : "ida_problems",
     "ida_srarea" : "ida_segregs",
     "ida_queue" : "ida_problems",
+    "ida_ints" : "ida_bytes",
 }
 
 renamed_symbols = {
@@ -44,6 +45,7 @@ renamed_symbols = {
         "f_is3byte(*args)" : "f_is3byte(_, *args)",
         "get_3byte(*args)" : "get_3byte(_, *args)",
         "is3byte(*args)" : "is3byte(_, *args)",
+        "invalidate_visea_cache(*args)" : "invalidate_visea_cache(_, *args)",
     },
 
     "ida_dbg" : {
@@ -89,6 +91,36 @@ renamed_symbols = {
             "START_SEL",
         ],
         "askident(*args)" : "askident(_, _)",
+    },
+
+    "ida_nalt" : {
+        "switch_info_ex_t_assign" : "switch_info_t_assign",
+        "switch_info_ex_t_create" : "switch_info_t_create",
+        "switch_info_ex_t_destroy" : "switch_info_t_destroy",
+        "switch_info_ex_t_get_custom" : "switch_info_t_get_custom",
+        "switch_info_ex_t_get_defjump" : "switch_info_t_get_defjump",
+        "switch_info_ex_t_get_elbase" : "switch_info_t_get_elbase",
+        "switch_info_ex_t_get_flags" : "switch_info_t_get_flags",
+        "switch_info_ex_t_get_ind_lowcase" : "switch_info_t_get_ind_lowcase",
+        "switch_info_ex_t_get_jcases" : "switch_info_t_get_jcases",
+        "switch_info_ex_t_get_jumps" : "switch_info_t_get_jumps",
+        "switch_info_ex_t_get_ncases" : "switch_info_t_get_ncases",
+        "switch_info_ex_t_get_regdtyp" : "switch_info_t_get_regdtyp",
+        "switch_info_ex_t_get_regnum" : "switch_info_t_get_regnum",
+        "switch_info_ex_t_get_startea" : "switch_info_t_get_startea",
+        "switch_info_ex_t_get_values_lowcase" : "switch_info_t_get_values_lowcase",
+        "switch_info_ex_t_set_custom" : "switch_info_t_set_custom",
+        "switch_info_ex_t_set_defjump" : "switch_info_t_set_defjump",
+        "switch_info_ex_t_set_elbase" : "switch_info_t_set_elbase",
+        "switch_info_ex_t_set_flags" : "switch_info_t_set_flags",
+        "switch_info_ex_t_set_ind_lowcase" : "switch_info_t_set_ind_lowcase",
+        "switch_info_ex_t_set_jcases" : "switch_info_t_set_jcases",
+        "switch_info_ex_t_set_jumps" : "switch_info_t_set_jumps",
+        "switch_info_ex_t_set_ncases" : "switch_info_t_set_ncases",
+        "switch_info_ex_t_set_regdtyp" : "switch_info_t_set_regdtyp",
+        "switch_info_ex_t_set_regnum" : "switch_info_t_set_regnum",
+        "switch_info_ex_t_set_startea" : "switch_info_t_set_startea",
+        "switch_info_ex_t_set_values_lowcase" : "switch_info_t_set_values_lowcase",
     },
 
     "ida_segment" : {
@@ -228,6 +260,7 @@ removed_symbols = {
         "a2funcoff",
         "get_sig_filename",
         "std_gen_func_header",
+        "apply_idasgn",
     ],
 
     "ida_gdl" : [
@@ -342,11 +375,20 @@ removed_symbols = {
         "set_jumptable_info",
         "switch_info_t_get_regdtyp",
         "switch_info_t_set_regdtyp",
+        "switch_info_ex_t_set_flags2",
+        "switch_info_ex_t_get_flags2",
     ],
 
     "ida_name" : [
         "append_struct_fields2",
         "gen_name_decl",
+    ],
+
+    "ida_netnode" : [
+        "NNBASE_IOERR",
+        "NNBASE_OK",
+        "NNBASE_PAGE16",
+        "NNBASE_REPAIR",
     ],
 
     "ida_pro" : [
@@ -359,6 +401,8 @@ removed_symbols = {
         "free_argv",
         "qwait",
         "qwait_timed",
+        "ida_false_type", # traits
+        "ida_true_type", # traits
     ],
 
     "ida_queue" : [
@@ -515,10 +559,8 @@ removed_symbols = {
         "out_tagon",
         "py_get_global_cmd_link",
         "term_output_buffer",
-        "ua_add_off_drefs2",
         "ua_ana0",
         "ua_code",
-        "ua_dodata2",
         "ua_outop",
         "ua_outop2",
         "ua_next_byte",
@@ -630,6 +672,15 @@ removed_symbols = {
         "isVar",
         "Tabs",
         "o_fpreg_arm",
+        "INF_TRIBYTE_ORDER",
+        "TRIBYTE_123",
+        "TRIBYTE_132",
+        "TRIBYTE_213",
+        "TRIBYTE_231",
+        "TRIBYTE_312",
+        "TRIBYTE_321",
+        "INF_LPREFIX",
+        "INF_LPREFIXLEN",
     ],
 }
 

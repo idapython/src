@@ -13,6 +13,8 @@
 import sys
 import os
 import re
+import textwrap
+import xml.etree.ElementTree as ET
 
 try:
     from argparse import ArgumentParser
@@ -24,14 +26,28 @@ parser = ArgumentParser()
 parser.add_argument("-i", "--input", required=True)
 parser.add_argument("-w", "--wrapper", required=True)
 parser.add_argument("-o", "--output", required=True)
+parser.add_argument("-x", "--xml-doc-directory", required=True)
+parser.add_argument("-e", "--epydoc-injections", required=True)
+parser.add_argument("-m", "--module", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
 args = parser.parse_args()
 
-DOCSTR_MARKER  = "\"\"\""
+DOCSTR_MARKER  = '"""'
 
 def verb(msg):
     if args.verbose:
         print msg
+
+# --------------------------------------------------------------------------
+def load_patches(args):
+    patches = {}
+    dirpath, _ = os.path.split(__file__)
+    candidate = os.path.join(dirpath, "inject_pydoc", "%s.py" % args.module)
+    if os.path.isfile(candidate):
+        with open(candidate) as fin:
+            raw = fin.read()
+        patches = eval(raw)
+    return patches
 
 # --------------------------------------------------------------------------
 def split_oneliner_comments(lines):
@@ -99,7 +115,7 @@ def get_indent_string(line):
     return " " * indent
 
 # --------------------------------------------------------------------------
-class collect_idaapi_pydoc_t(object):
+class collect_pydoc_t(object):
     """
     Search in all files in the 'plugins/idapython/swig/' directory
     for possible additional <pydoc> we could use later.
@@ -110,7 +126,6 @@ class collect_idaapi_pydoc_t(object):
     # S_STOP      = 5
     PYDOC_START = "#<pydoc>"
     PYDOC_END   = "#</pydoc>"
-    DOCSTR_MARKER  = DOCSTR_MARKER #"\"\"\""
     state = S_UNKNOWN
     lines = None
 
@@ -134,12 +149,12 @@ class collect_idaapi_pydoc_t(object):
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
                     return self.set_fun(fun_name, collected)
-                elif line.find(self.DOCSTR_MARKER) > -1:
+                elif line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_DOCSTR
                 elif not line.startswith("    "):
                     return self.set_fun(fun_name, collected)
             elif self.state is self.S_IN_DOCSTR:
-                if line.find(self.DOCSTR_MARKER) > -1:
+                if line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_PYDOC
                     return self.set_fun(fun_name, collected)
                 else:
@@ -158,10 +173,10 @@ class collect_idaapi_pydoc_t(object):
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
                     return self.set_method(cls, method_name, collected)
-                elif line.find(self.DOCSTR_MARKER) > -1:
+                elif line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_DOCSTR
             elif self.state is self.S_IN_DOCSTR:
-                if line.find(self.DOCSTR_MARKER) > -1:
+                if line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_PYDOC
                     return self.set_method(cls, method_name, collected)
                 else:
@@ -181,7 +196,7 @@ class collect_idaapi_pydoc_t(object):
                     self.collect_method(cls, get_fun_name(line))
                     if self.state == self.S_UNKNOWN: # method marked end of <pydoc>
                         return self.set_class(cls_name, cls, collected)
-                elif line.find(self.DOCSTR_MARKER) > -1:
+                elif line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_DOCSTR
                 elif line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -189,7 +204,7 @@ class collect_idaapi_pydoc_t(object):
                 elif len(line) > 1 and not line.startswith("    "):
                     return self.set_class(cls_name, cls, collected)
             elif self.state is self.S_IN_DOCSTR:
-                if line.find(self.DOCSTR_MARKER) > -1:
+                if line.find(DOCSTR_MARKER) > -1:
                     self.state = self.S_IN_PYDOC
                 else:
                     collected.append(line)
@@ -219,12 +234,190 @@ class collect_idaapi_pydoc_t(object):
         return self.idaapi_pydoc
 
 
+class base_doc_t:
+    def __init__(self):
+        self.brief = None
+        self.detailed = None
+
+    def add_token_nostrip(self, out, token):
+        if token:
+            out.append(token)
+
+    def add_token(self, out, token):
+        if token:
+            return self.add_token_nostrip(out, token.strip())
+
+    def get_text_with_refs1(self, out, node):
+        if node.tag == "simplesect" and node.attrib.get("kind") == "return":
+            return
+        if node.tag == "parameterlist":
+            return
+        if node.tag == "ref":
+            self.add_token_nostrip(out, " '%s' " % node.text)
+        else:
+            self.add_token(out, node.text)
+        self.add_token(out, node.tail)
+        for child in node:
+            self.get_text_with_refs1(out, child)
+
+    def remove_empty_header_or_footer_lines(self, lines):
+        while lines and not lines[0].strip():
+            lines = lines[1:]
+        while lines and not lines[-1].strip():
+            lines = lines[:-1]
+        return lines
+
+    def get_description(self, node, child_tag):
+        out = []
+        for child in node.findall("./%s" % child_tag):
+            one = []
+            self.get_text_with_refs1(one, child)
+            if one:
+                clob = "".join(one)
+                if clob:
+                    out.extend(textwrap.wrap(clob))
+        return self.remove_empty_header_or_footer_lines(out)
+
+    def is_valid(self):
+        return self.brief or self.detailed
+
+    def append_lines(self, out):
+        tmp = self.generate_lines()
+        tmp = self.remove_empty_header_or_footer_lines(tmp)
+        if tmp:
+            out.extend(tmp)
+
+    def generate_lines(self):
+        unimp()
+
+
+class ioarg_t:
+    def __init__(self, name, ptyp, desc):
+        self.name = name
+        self.ptyp = ptyp
+        self.desc = desc
+
+
+class fun_doc_t(base_doc_t):
+    def __init__(self):
+        base_doc_t.__init__(self)
+        self.params = []
+        self.retval = None
+
+    def _get_direct_text(self, n, tag):
+        c = n.find("./%s" % tag)
+        if c is not None:
+            return " ".join(c.itertext()).strip()
+
+    def _get_declname(self, n):
+        dn = self._get_direct_text(n, "declname")
+        if dn == "from":
+            dn = "_from" # SWiG will rename 'from' to '_from' automatically, and we want to match that
+        return dn
+
+    def _get_type(self, n):
+        return self._get_direct_text(n, "type")
+
+    def traverse(self, node, swig_generated_param_names):
+        self.brief = self.get_description(node, "briefdescription")
+        self.detailed = self.get_description(node, "detaileddescription")
+        # collect params
+        plist = node.find("./detaileddescription/para/parameterlist[@kind='param']")
+        for param in node.findall("./param"):
+            name, ptyp, desc = None, None, None
+            name = self._get_declname(param)
+            if name not in swig_generated_param_names:
+                continue
+            ptyp = self._get_type(param)
+            if name and plist is not None:
+                for plist_item in plist.findall("parameteritem"):
+                    if plist_item.find("./parameternamelist/[parametername='%s']" % name) is not None:
+                        pdesc_node = plist_item.find("./parameterdescription")
+                        if pdesc_node is not None:
+                            desc = " ".join(pdesc_node.itertext()).strip()
+            self.params.append(ioarg_t(name, ptyp, desc))
+        # return value
+        return_node = node.find(".//simplesect[@kind='return']")
+        if return_node is not None:
+            return_desc = " ".join(return_node.itertext()).strip()
+            if return_desc:
+                self.retval = ioarg_t(None, None, return_desc)
+
+    def generate_lines(self):
+        out = []
+        if self.brief:
+            out.extend(self.brief)
+        out.append("")
+        if self.detailed:
+            out.extend(self.detailed)
+        out.append("")
+        for p in self.params:
+            pline = ""
+            subsequent_indent = 0
+            if p.name:
+                pline = "@param %s" % p.name
+            if p.desc:
+                if pline:
+                    subsequent_indent = len(pline) + 2
+                pline = "%s: %s" % (pline, p.desc)
+            if p.ptyp:
+                pline = "%s (C++: %s)" % (pline, p.ptyp)
+            if pline:
+                plines = textwrap.wrap(pline, 70, subsequent_indent=" " * subsequent_indent)
+                out.extend(plines)
+        if self.retval:
+            rline = "@return: %s" % self.retval.desc
+            rlines = textwrap.wrap(rline, 70, subsequent_indent=" " * len("@return: "))
+            out.extend(rlines)
+        return out
+
+
+class def_doc_t(base_doc_t):
+    def __init__(self):
+        base_doc_t.__init__(self)
+
+    def traverse(self, node):
+        self.brief = self.get_description(node, "briefdescription")
+        self.detailed = self.get_description(node, "detaileddescription")
+
+    def generate_lines(self):
+        out = []
+        if self.brief:
+            out.extend(self.brief)
+        out.append("")
+        if self.detailed:
+            out.extend(self.detailed)
+        out = self.remove_empty_header_or_footer_lines(out)
+        return [DOCSTR_MARKER] + out + [DOCSTR_MARKER]
+
+
+# --------------------------------------------------------------------------
+def collect_structured_fun_doc(node, swig_generated_param_names):
+    fd = fun_doc_t()
+    fd.traverse(node, swig_generated_param_names)
+    if fd.is_valid():
+        return fd
+
+
 # --------------------------------------------------------------------------
 class idaapi_fixer_t(object):
     lines = None
 
-    def __init__(self, collected_info):
+    def __init__(self, collected_info, patches):
         self.collected_info = collected_info
+        self.patches = patches
+        # Since variables cannot have a docstring in Python,
+        # but epydoc supports the syntax:
+        # ---
+        # MYVAR = 12
+        # """
+        # MYVAR is the best
+        # """
+        # ---
+        # we want to remember whatever epydoc-compatible
+        # documentation we inject, since it will be impossible to
+        # retrieve it from the runtime.
+        self.epydoc_injections = {}
 
     def next(self):
         line = self.lines[0]
@@ -239,44 +432,96 @@ class idaapi_fixer_t(object):
     def push_front(self, line):
         self.lines.insert(0, line)
 
-    def get_fun_info(self, fun_name):
-        if fun_name in self.collected_info["funcs"]:
-            return self.collected_info["funcs"][fun_name]
-        else:
-            return None
+    def get_fun_info(self, fun_name, swig_generated_param_names):
+        fun_info = self.collected_info["funcs"].get(fun_name)
+        if not fun_info:
+            fnodes = []
+            for section_kind in ["func", "user-defined"]:
+                sect_fnodes = self.xml_tree.findall("./compounddef/sectiondef[@kind='%s']/memberdef[@kind='function']/[name='%s']" % (section_kind, fun_name))
+                fnodes.extend(map(lambda sfn: sfn, sect_fnodes))
+            nfnodes = len(fnodes)
+            if nfnodes > 0:
+                if nfnodes > 1:
+                    print("Warning: more than 1 function doc found for '%s'; picking first" % fun_name)
+
+                fd = fun_doc_t()
+                fd.traverse(fnodes[0], swig_generated_param_names)
+                if fd.is_valid():
+                    fun_info = []
+                    fd.append_lines(fun_info)
+        return fun_info
 
     def get_class_info(self, class_name):
-        if class_name in self.collected_info["classes"]:
-            return self.collected_info["classes"][class_name]
-        else:
-            return None
+        return self.collected_info["classes"].get(class_name)
 
     def get_method_info(self, class_info, method_name):
-        if method_name in class_info["methods"]:
-            return class_info["methods"][method_name]
-        else:
-            return None
+        return class_info["methods"].get(method_name)
+
+    def get_def_info(self, def_name):
+        def_info = None
+        dnodes = self.xml_tree.findall("./compounddef/sectiondef[@kind='define']/memberdef[@kind='define']/[name='%s']" % def_name)
+        ndnodes = len(dnodes)
+        if ndnodes > 0:
+            if ndnodes > 1:
+                print("Warning: more than 1 define doc found for '%s'; picking first" % def_name)
+            dd = def_doc_t()
+            dd.traverse(dnodes[0])
+            if dd.is_valid():
+                def_info = []
+                dd.append_lines(def_info)
+        return def_info
+
+    def extract_swig_generated_param_names(self, fun_name, lines):
+        def sanitize_param_name(pn):
+            idx = pn.find("=")
+            if idx > -1:
+                pn = pn[0:idx]
+            pn = pn.strip()
+            return pn
+        for l in lines:
+            if l.find(fun_name) > -1:
+                idx_open_paren = l.find("(")
+                idx_close_paren = l.find(") -> ")
+                if idx_close_paren == -1 and l.endswith(")"):
+                    idx_close_paren = len(l) - 1
+                if idx_open_paren > -1 \
+                   and idx_close_paren > -1 \
+                   and idx_close_paren > idx_open_paren+1:
+                    clob = l[idx_open_paren+1:idx_close_paren]
+                    parts = clob.split(",")
+                    return map(sanitize_param_name, parts)
+        return []
 
     def fix_fun(self, out, class_info=None):
         line = self.copy(out)
         fun_name = get_fun_name(line)
+        # verb("fix_fun: fun_name: '%s'" % fun_name)
         line = self.copy(out)
+        doc_start_line_idx = len(out)
         if line.find(DOCSTR_MARKER) > -1:
             # Determine indentation level
             indent = get_indent_string(line)
             while True:
                 line = self.next()
                 if line.find(DOCSTR_MARKER) > -1:
+                    swig_generated_param_names = self.extract_swig_generated_param_names(fun_name, out[doc_start_line_idx:])
                     if class_info is None:
-                        found = self.get_fun_info(fun_name)
+                        found = self.get_fun_info(fun_name, swig_generated_param_names)
                     else:
                         found = self.get_method_info(class_info, fun_name)
-                    if found is not None:
+                    if found:
                         verb("fix_%s: found info for %s" % (
                             "method" if class_info else "fun", fun_name));
                         out.append("\n")
-                        for fl in found:
-                            out.append(indent + fl)
+                        out.extend(map(lambda l: indent + l, found))
+
+                    # apply possible additional patches
+                    fun_patches = self.patches.get(fun_name, {})
+                    example = fun_patches.get("+example", None)
+                    if example:
+                        ex_lines = map(lambda l: "Python> %s" % l, example.split("\n"))
+                        out.extend(map(lambda l: indent + l, ["", "Example:"] + ex_lines))
+
                     out.append(line)
                     break
                 else:
@@ -327,13 +572,39 @@ class idaapi_fixer_t(object):
                 self.push_front(line)
                 break
 
-    def fix_file(self, input_path, out_path):
+    def fix_assignment(self, out, match):
+        # out.append("LOL: %s" % match.group(1))
+        line = self.copy(out)
+        line = self.next()
+        if not line.startswith(DOCSTR_MARKER):
+            # apparently no epydoc-compliant docstring follows. Let's
+            # look for a possible match in the xml doc.
+            def_name = match.group(1)
+            found = self.get_def_info(def_name)
+            if found:
+                verb("fix_assignment: found info for %s" % (def_name,))
+                out.extend(found)
+                self.epydoc_injections[def_name] = found[:]
+        self.push_front(line)
+
+    IDENTIFIER_PAT = r"([a-zA-Z_]([a-zA-Z_0-9]*)?)"
+    IDENTIFIER_RE = re.compile(IDENTIFIER_PAT)
+    SIMPLE_ASSIGNMENT_RE = re.compile(r"^(%s)\s*=.*" % IDENTIFIER_PAT)
+
+    def fix_file(self, args):
+        input_path, xml_dir_path, out_path = args.input, args.xml_doc_directory, args.output
         with open(input_path, "rt") as f:
             self.lines = split_oneliner_comments(f.readlines())
+        self.xml_tree = ET.Element("dummy")
+        for sfx in ["_8hpp", "_8h"]:
+            xml_path = os.path.join(xml_dir_path, "%s%s.xml" % (args.module, sfx))
+            if os.path.isfile(xml_path):
+                with open(xml_path, "rb") as f:
+                    self.xml_tree = ET.fromstring(f.read())
+                break
         out = []
         while len(self.lines) > 0:
             line = self.next()
-            # print "LINE: %s" % line
             if line.startswith("def "):
                 self.push_front(line)
                 self.fix_fun(out)
@@ -341,14 +612,22 @@ class idaapi_fixer_t(object):
                 self.push_front(line)
                 self.fix_class(out)
             else:
-                out.append(line)
+                m = self.SIMPLE_ASSIGNMENT_RE.match(line)
+                if m:
+                    self.push_front(line)
+                    self.fix_assignment(out, m)
+                else:
+                    out.append(line)
         with open(out_path, "wt") as o:
-            for ol in out:
-                o.write(ol)
-                o.write("\n")
+            o.write("\n".join(out))
 
 # --------------------------------------------------------------------------
-collecter = collect_idaapi_pydoc_t(args.wrapper)
+patches = load_patches(args)
+collecter = collect_pydoc_t(args.wrapper)
 collected = collecter.collect()
-fixer = idaapi_fixer_t(collected)
-fixer.fix_file(args.input, args.output)
+fixer = idaapi_fixer_t(collected, patches)
+fixer.fix_file(args)
+with open(args.epydoc_injections, "wb") as fout:
+    for key in sorted(fixer.epydoc_injections.keys()):
+        fout.write("\n\nida_%s.%s\n" % (args.module, key))
+        fout.write("\n".join(fixer.epydoc_injections[key]))

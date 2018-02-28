@@ -85,6 +85,9 @@ def check_cpp(opts):
         "_wrap_get_bpt_group" : {
             "mustcall" : "PyString_FromStringAndSize",
             },
+        "_wrap_get_ip_val" : {
+            "string" : "resultobj  = PyLong_FromUnsigned",
+        },
         # "_wrap_get_array_parameters" : {
         #     "string" : "resultobj = PyLong_FromLongLong(result)",
         #     },
@@ -186,20 +189,32 @@ def check_cpp(opts):
         "_wrap_vdui_t_cfunc_get" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
             },
-        " delete_cexpr_t" : {
+        "delete_cexpr_t" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
-        " delete_cinsn_t" : {
+        "delete_cinsn_t" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
         " delete_cblock_t" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
-        "*new_cexpr_t" : {
+        "new_cexpr_t__SWIG_0" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
         },
-        "*new_cinsn_t" : {
+        "new_cexpr_t__SWIG_1" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "new_cinsn_t__SWIG_0" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "new_cinsn_t__SWIG_1" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "new_carg_t" : {
+            "mustcall" : "hexrays_register_python_clearable_instance",
+        },
+        "delete_carg_t" : {
+            "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
         "*new_cblock_t" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
@@ -280,16 +295,12 @@ def check_cpp(opts):
         ts = TextStream(raw)
 
         # Process lines
-        STATE_UNKNOWN = 0
-        STATE_IN_FUN = 1
-        state = STATE_UNKNOWN
         while not ts.empty():
             line = ts.line().rstrip()
             # dbg("Line: '%s'" % line)
 
             if is_fundecl(line):
                 # dbg("Entering function (from line %d: '%s')" % (ts.line_nr, line))
-                state = STATE_IN_FUN
                 funstart = line
                 match = api_fname_regex.match(funstart)
                 if match:
@@ -347,13 +358,37 @@ def check_cpp(opts):
 
     # Report contents
     if opts.report_contents:
+
+        ignorable_functions = [
+            "citem_t___dbg_get_meminfo",
+            "citem_t___dbg_get_registered_kind",
+            "compute_func_sig",
+            "delete_func_md_t",
+            "delete_func_pat_t",
+            "extract_func_md",
+            "func_md_t_ea_get",
+            "func_md_t_ea_set",
+            "func_md_t_name_get",
+            "func_md_t_name_set",
+            "func_md_t_size_get",
+            "func_md_t_size_set",
+            "func_pat_t_bytes_get",
+            "func_pat_t_bytes_set",
+            "func_pat_t_relbits_get",
+            "func_pat_t_relbits_set",
+            "new_func_md_t",
+            "new_func_pat_t",
+        ]
+        to_report = sorted(filter(
+            lambda fn: fn not in ignorable_functions,
+            api_contents["functions"]))
+
         # NB: we use "wb" here so that the endlines
         # are written as-is, in Unix format
         # and so 'diff' does not report bogus changes
         # against the file from repository
         with open(opts.report_contents, "wb") as f:
-            api_contents["functions"].sort()
-            f.write(pprint.pformat(api_contents))
+            f.write(pprint.pformat({"functions" : to_report}))
 
     # import pickle
     # with open("/tmp/funlines.last", "wb") as fo:
@@ -390,7 +425,6 @@ def check_python(opts):
         "segm_move_infos_t" : { "mustinherit" : "segm_move_info_vec_t" },
         "simpleline_place_t" : { "mustinherit" : "place_t" },
         "structplace_t" : { "mustinherit" : "place_t" },
-        "switch_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "textctrl_info_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
         "udt_type_data_t" : { "mustinherit" : "udtmembervec_t" },
 

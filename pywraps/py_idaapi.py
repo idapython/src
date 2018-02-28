@@ -19,6 +19,7 @@ import sys
 import bisect
 import __builtin__
 import imp
+import re
 
 def require(modulename, package=None):
     """
@@ -484,73 +485,97 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
 class __IDAPython_Completion_Util(object):
     """Internal utility class for auto-completion support"""
     def __init__(self):
-        self.n = 0
-        self.completion = None
-        self.lastmodule = None
+        pass
 
-    @staticmethod
-    def parse_identifier(line, prefix, prefix_start):
-        """
-        Parse a line and extracts identifier
-        """
-        id_start = prefix_start
-        while id_start > 0:
-            ch = line[id_start]
-            if not ch.isalpha() and ch != '.' and ch != '_':
-                id_start += 1
-                break
-            id_start -= 1
+    def debug(self, *args):
+        try:
+            msg = args[0] % args[1:]
+            print("IDAPython_Completion_Util: %s" % msg)
+        except Exception as e:
+            print("debug() got exception during debug(*args=%s):\n%s" % (
+                str(args),
+                traceback.format_exc()))
 
-        return line[id_start:prefix_start + len(prefix)]
-
-    @staticmethod
-    def dir_of(m, prefix):
+    def dir_namespace(self, m, prefix):
         return [x for x in dir(m) if x.startswith(prefix)]
 
-    @classmethod
-    def get_completion(cls, id, prefix):
+    def maybe_extend_syntactically(self, ns, name, line, syntax_char):
+        to_add = None
         try:
-            m = sys.modules['__main__']
-
-            parts = id.split('.')
-            c = len(parts)
-
-            for i in xrange(0, c-1):
-                m = getattr(m, parts[i])
-        except Exception as e:
-            return (None, None)
-        else:
-            # search in the module
-            completion = cls.dir_of(m, prefix)
-
-            # no completion found? looking from the global scope? then try the builtins
-            if not completion and c == 1:
-                completion = cls.dir_of(__builtin__, prefix)
-
-            return (m, completion) if completion else (None, None)
-
-    def __call__(self, prefix, n, line, prefix_start):
-        if n == 0:
-            self.n = n
-            id = self.parse_identifier(line, prefix, prefix_start)
-            self.lastmodule, self.completion = self.get_completion(id, prefix)
-
-        if self.completion is None or n >= len(self.completion):
-            return None
-
-        s = self.completion[n]
-        try:
-            attr = getattr(self.lastmodule, s)
+            attr = getattr(ns, name)
             # Is it callable?
             if callable(attr):
-                return s + ("" if line.startswith("?") else "(")
+                if not line.startswith("?"):
+                    to_add = "("
             # Is it iterable?
             elif isinstance(attr, basestring) or getattr(attr, '__iter__', False):
-                return s + "["
+                to_add = "["
         except:
+            # self.debug("maybe_extend_syntactically() got an exception:\n%s", traceback.format_exc())
             pass
+        if to_add is not None and (syntax_char is None or to_add == syntax_char):
+            name += to_add
+        return name
 
-        return s
+    def get_candidates(self, qname, line, match_syntax_char):
+        # self.debug("get_candidates(qname=%s, line=%s, has_syntax=%s)", qname, line, has_syntax)
+        results = []
+        try:
+            ns = sys.modules['__main__']
+            parts = qname.split('.')
+            # self.debug("get_candidates() got parts: %s", parts)
+            for i in xrange(0, len(parts) - 1):
+                ns = getattr(ns, parts[i])
+        except Exception as e:
+            # self.debug("get_candidates() got exception:\n%s", traceback.format_exc())
+            pass
+        else:
+            # search in the namespace
+            last_token = parts[-1]
+            results = self.dir_namespace(ns, last_token)
+            # self.debug("get_candidates() completions for %s in %s: %s", last_token, ns, results)
+
+            # no completion found? looking from the global scope? then try the builtins
+            if not results and len(parts) == 1:
+                results = self.dir_namespace(__builtin__, last_token)
+                # self.debug("get_candidates() completions for %s in %s: %s", last_token, __builtin__, results)
+
+            results = map(lambda r: self.maybe_extend_syntactically(ns, r, line, match_syntax_char), results)
+            ns_parts = parts[:-1]
+            results = map(lambda r: ".".join(ns_parts + [r]), results)
+            # self.debug("get_candidates() => '%s'", str(results))
+            return results
+
+    QNAME_PAT = re.compile(r"([a-zA-Z_]([a-zA-Z0-9_\.]*)?)")
+
+    def __call__(self, line, x):
+        try:
+            # self.debug("__call__(line=%s, x=%s)", line, x)
+            uline = line.decode("UTF-8")
+            result = None
+
+            # Kludge: if the we are past the last char, and that char is syntax:
+            #    idaapi.print(
+            #                 ^
+            # then we want to backtrack to the previous non-syntax char,
+            # and then instruct get_candidates() to not extend the match
+            # with possible syntax.
+            match_syntax_char = None
+            if x > 0 and uline[x-1] in "[({":
+                match_syntax_char = uline[x-1]
+                x -= 1
+
+            # Find what looks like an identifier (possibly qualified)
+            for match in re.finditer(self.QNAME_PAT, uline):
+                qname, start, end = match.group(1).encode("UTF-8"), match.start(1), match.end(1)
+                if x >= start and x <= end:
+                    result = self.get_candidates(qname, line, match_syntax_char), start, end + (1 if match_syntax_char else 0)
+
+            # self.debug("__call__() => '%s'", str(result))
+            return result
+        except Exception as e:
+            # self.debug("__call__() got exception:\n%s", traceback.format_exc())
+            pass
 
 # Instantiate an IDAPython command completion object (for use with IDA's CLI bar)
 IDAPython_Completion = __IDAPython_Completion_Util()

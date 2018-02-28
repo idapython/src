@@ -275,7 +275,7 @@ private:
           value->append(buf, len);
         }
       }
-      // An error occured?
+      // An error occurred?
       else
       {
         // Make sure the user returned (False, String)

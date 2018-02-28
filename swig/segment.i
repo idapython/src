@@ -14,6 +14,8 @@
 %ignore is_debugger_segm;
 %ignore is_ephemeral_segm;
 %ignore correct_address;
+%ignore rebase_program;
+%rename (rebase_program) py_rebase_program;
 
 %{
 //<code(py_segment)>

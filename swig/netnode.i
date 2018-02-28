@@ -131,6 +131,14 @@
       return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
     }
 
+    PyObject *getclob(nodeidx_t start, char tag)
+    {
+      qstring clob;
+      if ( self->getblob(&clob, start, uchar(tag)) <= 0 )
+        Py_RETURN_NONE;
+      return PyString_FromStringAndSize((const char *)clob.begin(), clob.length());
+    }
+
     PyObject *getblob_ea(ea_t ea, char tag)
     {
       bytevec_t blob;

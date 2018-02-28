@@ -62,7 +62,7 @@ struct switch_info_t;
 #define S_IDA_MOVES_MODNAME                      "ida_moves"
 #define S_IDC_MODNAME                            "idc"
 #define S_IDAAPI_EXECSCRIPT                      "IDAPython_ExecScript"
-#define S_IDAAPI_COMPLETION                      "IDAPython_Completion"
+#define S_IDAAPI_FINDCOMPLETIONS                 "IDAPython_Completion"
 #define S_IDAAPI_FORMATEXC                       "IDAPython_FormatExc"
 #define S_IDAAPI_LOADPROCMOD                     "IDAPython_LoadProcMod"
 #define S_IDAAPI_UNLOADPROCMOD                   "IDAPython_UnLoadProcMod"
@@ -97,6 +97,7 @@ static const char S_ON_DBL_CLICK[]           = "OnDblClick";
 static const char S_ON_CURSOR_POS_CHANGED[]  = "OnCursorPosChanged";
 static const char S_ON_KEYDOWN[]             = "OnKeydown";
 static const char S_ON_COMPLETE_LINE[]       = "OnCompleteLine";
+static const char S_ON_FIND_COMPLETIONS[]    = "OnFindCompletions";
 static const char S_ON_CREATE[]              = "OnCreate";
 static const char S_ON_POPUP[]               = "OnPopup";
 static const char S_ON_HINT[]                = "OnHint";
@@ -128,7 +129,6 @@ static const char S_CLINK_NAME[]             = "__clink__";
 static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 static const char S_MAIN[]                   = "__main__";
 
-
 #ifdef __PYWRAPS__
 static const char S_PY_IDA_IDAAPI_MODNAME[] = "__main__";
 #else
@@ -157,7 +157,7 @@ static const char S_PY_IDA_IDAAPI_MODNAME[] = S_IDA_IDAAPI_MODNAME;
 //------------------------------------------------------------------------
 // Constants used by the pyvar_to_idcvar and idcvar_to_pyvar functions
 #define CIP_FAILED      -1 // Conversion error
-#define CIP_IMMUTABLE    0 // Immutable object passed. Will not update the object but no error occured
+#define CIP_IMMUTABLE    0 // Immutable object passed. Will not update the object but no error occurred
 #define CIP_OK           1 // Success
 #define CIP_OK_OPAQUE    2 // Success, but the data pointed to by the PyObject* is an opaque object.
 
@@ -381,7 +381,7 @@ exported bool ida_export PyW_IsSequenceType(PyObject *obj);
 // Returns an error string from the last exception (and clears it)
 exported bool ida_export PyW_GetError(qstring *out = NULL, bool clear_err = true);
 
-// If an error occured (it calls PyGetError) it displays it and return TRUE
+// If an error occurred (it calls PyGetError) it displays it and return TRUE
 // This function is used when calling callbacks
 exported bool ida_export PyW_ShowCbErr(const char *cb_name);
 
@@ -437,14 +437,13 @@ exported Py_ssize_t ida_export pyvar_walk_list(
 // Converts a sizevec_t to a Python list object
 exported ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
 
-// Converts an Python list to an sizevec
-exported bool ida_export PyW_PyListToSizeVec(PyObject *py_list, sizevec_t &vec);
-
-// Converts an Python list to an eavec
-exported bool ida_export PyW_PyListToEaVec(PyObject *py_list, eavec_t &eavec);
-
-// Converts a Python list to a qstrvec
-exported bool ida_export PyW_PyListToStrVec(PyObject *py_list, qstrvec_t &strvec);
+// Converts a Python list, to a vector of the given type.
+// An exception will be raised in case:
+//  - py_list is not a sequence
+//  - a member of py_list cannot be converted to the numeric target type
+exported Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_list);
+exported Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
+exported Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
 
 //-------------------------------------------------------------------------
 exported bool ida_export PyWStringOrNone_Check(PyObject *tp);
@@ -846,6 +845,13 @@ exported bool ida_export idapython_unhook_from_notification_point(
         void *user_data);
 #define hook_to_notification_point USE_IDAPYTHON_HOOK_TO_NOTIFICATION_POINT
 #define unhook_from_notification_point USE_IDAPYTHON_UNHOOK_FROM_NOTIFICATION_POINT
+
+//-------------------------------------------------------------------------
+exported bool ida_export idapython_convert_cli_completions(
+        qstrvec_t *out_completions,
+        int *out_match_start,
+        int *out_match_end,
+        ref_t py_res);
 
 //-------------------------------------------------------------------------
 struct module_callbacks_t

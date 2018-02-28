@@ -1,6 +1,6 @@
 
 # Hex-Rays Decompiler project
-# Copyright (c) 2007-2017 by Hex-Rays, support@hex-rays.com
+# Copyright (c) 2007-2018 by Hex-Rays, support@hex-rays.com
 # ALL RIGHTS RESERVED.
 #
 # Sample plugin for Hex-Rays Decompiler usage of udc_filter_t

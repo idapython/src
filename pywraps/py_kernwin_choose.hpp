@@ -528,8 +528,7 @@ protected:
   {
     // this is an easy but not an optimal way of converting
     if ( !PySequence_Check(py_ret)
-      || !PyW_PyListToSizeVec(py_ret, *sel)
-      || sel->empty() )
+      || PyW_PyListToSizeVec(sel, py_ret) <= 0 )
     {
       sel->clear();
       return NOTHING_CHANGED;
@@ -708,7 +707,7 @@ int py_choose_t::create()
     ref_t deflt_attr(PyW_TryGetAttrString(self, "deflt"));
     if ( deflt_attr != NULL
       && PyList_Check(deflt_attr.o)
-      && !PyW_PyListToSizeVec(deflt_attr.o, deflt) )
+      && PyW_PyListToSizeVec(&deflt, deflt_attr.o) < 0 )
     {
       deflt.clear();
     }

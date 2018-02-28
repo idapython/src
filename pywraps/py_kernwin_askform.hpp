@@ -325,8 +325,11 @@ static bool formchgcbfa_set_field_value(
     case 5:
     {
       sizevec_t selection;
-      if ( !PyW_PyListToSizeVec(py_val, selection) )
+      if ( !PySequence_Check(py_val)
+        || PyW_PyListToSizeVec(&selection, py_val) < 0 )
+      {
         break;
+      }
       return fa->set_chooser_value(fid, &selection);
     }
     // Numeric

@@ -11,7 +11,7 @@
 #---------------------------------------------------------------------
 # build.py - Makefile wrapper script
 #---------------------------------------------------------------------
-import os, argparse
+import os, sys, argparse
 
 parser = argparse.ArgumentParser(epilog="""
 A very specific version of SWiG is expected in order to produce reliable
@@ -19,12 +19,25 @@ bindings. If your platform doesn't provide that version by default and you
 had to build/install it yourself, you will have to specify '--swig-bin' and
 '--swig-inc' arguments.
 
-For example, this is how to build against IDA 6.9 on linux, with a SWiG 2.0.12
-installation located in /opt/my-swig/:
+What follows, are example build commands
 
-python build.py \\
-    --swig-bin /opt/my-swig/bin/swig \\
-    --swig-inc /opt/my-swig/share/swig/2.0.12/python/:/opt/my-swig/share/swig/2.0.12
+### Windows (assume SWiG is installed in C:\swigwin-2.0.12, and IDA is in C:\Program Files\IDA7)
+
+  python build.py \\
+      --swig-bin C:/swigwin-2.0.12/swig.exe \\
+      --swig-inc "C:/swigwin-2.0.12/Lib/python;C:/swigwin-2.0.12/Lib" \\
+      --idc "c:/Program\ Files/IDA_7.0-171130-tests/idc/idc.idc"
+
+  (note the argument quoting)
+
+
+### Linux/OSX (assume SWiG is installed in /opt/my-swig/, and IDA is in /opt/my-ida-install)
+
+  python build.py \\
+      --swig-bin /opt/my-swig/bin/swig \\
+      --swig-inc /opt/my-swig/share/swig/2.0.12/python/:/opt/my-swig/share/swig/2.0.12 \\
+      --idc /opt/my-ida-install/idc/idc.idc
+
 
 Notes:
  * '--swig-inc' here has 2 path components, separated by the platform's
@@ -39,7 +52,8 @@ parser.add_argument("--swig-bin", type=str, help="Path to the SWIG binary", defa
 parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes directory(ies)", default=None)
 parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
-parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found (linux only)", default=None)
+if "linux" in sys.platform:
+    parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found", default=None)
 parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
 parser.add_argument("-I", "--idc", required=True, help="IDA's idc.idc file (necessary for generating 6.95 compat API layer)", type=str)
@@ -51,9 +65,10 @@ assert os.path.exists(_probe), "Could not find IDA SDK include path (looked for:
 
 def run(proc_argv, env=None):
     import subprocess
-    if args.verbose:
-        print "Running subprocess with argv: %s (env=%s)" % (proc_argv, env)
-    subprocess.check_call(proc_argv, env=env)
+    print "Running: \"%s\", with additional environment: \"%s\"" % (" ".join(proc_argv), str(env))
+    full_env = os.environ.copy()
+    full_env.update(env)
+    subprocess.check_call(proc_argv, env=full_env)
     return 0
 
 # -----------------------------------------------------------------------
@@ -62,8 +77,9 @@ def main():
     argv = ["make"]
     if args.parallel:
         argv.append("-j")
-    env = os.environ.copy()
-    env["OUT_OF_TREE_BUILD"] = "1"
+    env = {
+        "OUT_OF_TREE_BUILD" : "1"
+    }
     if args.swig_bin:
         env["SWIG"] = args.swig_bin
     if args.swig_inc:
@@ -74,8 +90,11 @@ def main():
         env["__VC__"] = "1" # to enable PDB flags
     else:
         env["NDEBUG"] = "1"
-    if args.python_home:
-        env["LINUX_PYTHON_HOME"] = args.python_home
+    try:
+        if args.python_home:
+            env["LINUX_PYTHON_HOME"] = args.python_home
+    except:
+        pass
     if args.verbose:
         argv.append("-d")
     env["IDC_BC695_IDC_SOURCE"] = args.idc

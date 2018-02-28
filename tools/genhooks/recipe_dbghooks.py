@@ -15,40 +15,40 @@ recipe = {
         },
         "@modinfo_name" : {
             "type" : "const char *",
-            "synth" : "event->modinfo.name",
+            "synth" : "event->modinfo().name.c_str()",
         },
         "@modinfo_base" : {
             "type" : "ea_t",
-            "synth" : "event->modinfo.base",
+            "synth" : "event->modinfo().base",
         },
         "@modinfo_size" : {
             "type" : "asize_t",
-            "synth" : "event->modinfo.size",
+            "synth" : "event->modinfo().size",
         },
         "@exit_code" : {
             "type" : "int",
-            "synth" : "event->exit_code",
+            "synth" : "event->exit_code()",
         },
         "@info" : {
             "type" : "const char *",
-            "synth" : "event->info",
+            "synth" : "event->info().c_str()",
         },
 
         "@exc_code" : {
             "type" : "int",
-            "synth" : "event->exc.code",
+            "synth" : "event->exc().code",
         },
         "@exc_can_cont" : {
             "type" : "bool",
-            "synth" : "event->exc.can_cont",
+            "synth" : "event->exc().can_cont",
         },
         "@exc_ea" : {
             "type" : "ea_t",
-            "synth" : "event->exc.ea",
+            "synth" : "event->exc().ea",
         },
         "@exc_info" : {
             "type" : "const char *",
-            "synth" : "event->exc.info",
+            "synth" : "event->exc().info.c_str()",
         },
     },
 

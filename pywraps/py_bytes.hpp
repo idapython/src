@@ -26,15 +26,15 @@ static ea_t py_npthat(ea_t ea, ea_t bound, PyObject *py_callable, bool next)
 static int idaapi py_visit_patched_bytes_cb(
         ea_t ea,
         qoff64_t fpos,
-        uint32 o,
-        uint32 v,
+        uint64 o,
+        uint64 v,
         void *ud)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t py_result(
           PyObject_CallFunction(
                   (PyObject *)ud,
-                  PY_BV_EA "LII",
+                  PY_BV_EA "LKK",
                   bvea_t(ea),
                   fpos,
                   o,
@@ -241,14 +241,21 @@ def get_strlit_contents(ea, len, type, flags = 0):
 */
 static PyObject *py_get_strlit_contents(
         ea_t ea,
-        size_t len,
+        PyObject *py_len,
         int32 type,
         int flags = 0)
 {
-  qstring buf;
-
-  if ( get_strlit_contents(&buf, ea, len, type, NULL, flags) < 0 )
+  uint64 len;
+  if ( !PyW_GetNumber(py_len, &len) )
     Py_RETURN_NONE;
+  if ( len == BADADDR )
+    len = uint64(-1);
+  qstring buf;
+  if ( len != uint64(-1) && ea_t(ea + len) < ea
+    || get_strlit_contents(&buf, ea, len, type, NULL, flags) < 0 )
+  {
+    Py_RETURN_NONE;
+  }
   if ( type == STRTYPE_C && buf.length() > 0 && buf.last() == '\0' )
     buf.remove_last();
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -267,7 +274,31 @@ static ea_t py_bin_search(
         int step,
         int flags)
 {
-  return bin_search(start_ea, end_ea, image, mask, len, step, flags);
+  if ( step != /* old value of BIN_SEARCH_FORWARD*/ 1
+    && step != /* new value of BIN_SEARCH_FORWARD */ 0 )
+  {
+    flags |= BIN_SEARCH_BACKWARD;
+  }
+  bytevec_t lmask;
+  if ( mask != NULL )
+  {
+    if ( *mask == 0xFF )
+    {
+      // a value of '0xFF' in the first byte meant "all bytes defined". We
+      // can thus turn that into a NULL mask.
+      mask = NULL;
+    }
+    else
+    {
+      // some bytes defined, some bytes aren't. Those that are have a value
+      // 1 in the mask. We must turn them into 0xFF's
+      lmask.resize(len);
+      for ( size_t i = 0; i < len; ++i )
+        lmask[i] = mask[i] != 0 ? 0xFF : 0;
+      mask = lmask.begin();
+    }
+  }
+  return bin_search2(start_ea, end_ea, image, mask, len, flags);
 }
 
 //-------------------------------------------------------------------------
@@ -279,6 +310,19 @@ static PyObject *py_print_strlit_type(int32 strtype, int flags=0)
   return Py_BuildValue("(ss)", s.c_str(), t.c_str());
 }
 
+//-------------------------------------------------------------------------
+static PyObject *py_get_octet(ea_t ea, uint64 v, int nbit)
+{
+  uchar octet = get_octet(&ea, &v, &nbit);
+  return Py_BuildValue("(i" PY_BV_EA "Ki)", int(uint32(octet)), bvea_t(ea), v, nbit);
+}
+
+//-------------------------------------------------------------------------
+static PyObject *py_get_8bit(ea_t ea, uint32 v, int nbit)
+{
+  uchar octet = get_8bit(&ea, &v, &nbit);
+  return Py_BuildValue("(i" PY_BV_EA "ki)", int(uint32(octet)), bvea_t(ea), v, nbit);
+}
 //</inline(py_bytes)>
 
 #endif

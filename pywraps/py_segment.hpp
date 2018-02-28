@@ -44,4 +44,15 @@ void set_defsr(segment_t *s, int reg, sel_t value)
 {
     s->defsr[reg] = value;
 }
+int py_rebase_program(PyObject *delta, int flags)
+{
+  int rc = MOVE_SEGM_PARAM;
+  bool is_64 = false;
+  uint64 num_delta;
+  if ( PyW_GetNumber(delta, &num_delta, &is_64) )
+    rc = rebase_program(adiff_t(num_delta), flags);
+  else
+    PyErr_SetString(PyExc_TypeError, "Expected a delta in bytes");
+  return rc;
+}
 //</inline(py_segment)>

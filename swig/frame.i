@@ -17,6 +17,8 @@
 %ignore calc_frame_offset;
 %ignore add_stkvar;
 
+%ignore delete_wrong_frame_info;
+
 %template(xreflist_t) qvector<xreflist_entry_t>;
 
 %inline %{

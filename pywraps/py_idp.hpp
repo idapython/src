@@ -368,9 +368,9 @@ static PyObject *ph_get_operand_info(
     // Allocate register space
     thid_t tid = get_current_thread();
     regvals_t regvalues;
-    regvalues.resize(dbg->registers_size);
+    regvalues.resize(dbg->nregs);
     // Read registers
-    if ( get_reg_vals(tid, -1, regvalues.begin()) != 1 )
+    if ( get_reg_vals(tid, -1, regvalues.begin()) != DRC_OK )
       break;
 
     // Call the processor module
@@ -397,6 +397,24 @@ static PyObject *ph_get_operand_info(
                          opinf.value_size);
   else
     Py_RETURN_NONE;
+}
+
+//-------------------------------------------------------------------------
+static void ph_calcrel(bytevec_t *vout, ea_t ea)
+{
+  ph.calcrel(vout, ea);
+}
+
+//-------------------------------------------------------------------------
+static ssize_t ph_find_reg_value(uval_t *out, const insn_t &insn, int reg)
+{
+  return ph.find_reg_value(out, insn, reg);
+}
+
+//-------------------------------------------------------------------------
+static ssize_t ph_find_op_value(uval_t *out, const insn_t &insn, int op)
+{
+  return ph.find_op_value(out, insn, op);
 }
 
 //-------------------------------------------------------------------------
@@ -693,6 +711,18 @@ class IDP_Hooks
     }
     return rc;
   }
+  static int handle_find_value_output(
+          PyObject *o,
+          uval_t *out,
+          const insn_t *pinsn,
+          int reg)
+  {
+    uint64 num;
+    int rc = PyW_GetNumber(o, &num);
+    if ( rc )
+      *out = num;
+    return rc;
+  }
 
 public:
   virtual ~IDP_Hooks()
@@ -744,9 +774,9 @@ static const regval_t *idaapi _py_getreg(
         const char *name,
         const regval_t *regvals)
 {
-  for ( int i=dbg->registers_size - 1; i >= 0; i-- )
+  for ( int i=dbg->nregs - 1; i >= 0; i-- )
   {
-    if ( strieq(name, dbg->registers(i).name) )
+    if ( strieq(name, dbg->regs(i).name) )
       return &regvals[i];
   }
   static regval_t rv;

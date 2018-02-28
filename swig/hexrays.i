@@ -74,6 +74,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore cexpr_t::cexpr_t(mbl_array_t *mba, const lvar_t &v);
 %ignore cexpr_t::is_type_partial;
 %ignore cexpr_t::set_type_partial;
+%ignore cexpr_t::is_value_used;
 %ignore lvar_t::is_promoted_arg;
 %ignore lvar_t::lvar_t;
 %ignore lvar_t::is_partialy_typed;
@@ -89,6 +90,102 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %rename (_replace_by) cexpr_t::replace_by;
 %ignore vcall_helper;
 %ignore vcreate_helper;
+%ignore term_hexrays_plugin;
+%rename (term_hexrays_plugin) py_term_hexrays_plugin;
+%rename (debug_hexrays_ctree) py_debug_hexrays_ctree;
+
+// ignore microcode related stuff for now
+%ignore bitset_t;
+%ignore ivlset_t;
+%ignore ivl_t;
+%ignore mlist_t;
+%ignore rlist_t;
+%ignore mbl_array_t;
+%ignore mblock_t;
+%ignore minsn_t;
+%ignore mop_t;
+%ignore mop_addr_t;
+%ignore mop_pair_t;
+%ignore mcases_t;
+%ignore mfuncarg_t;
+%ignore mfuncinfo_t;
+%ignore mnumber_t;
+%ignore lvar_ref_t;
+%ignore stkvar_ref_t;
+%ignore scif_t;
+%ignore op_parent_info_t;
+%ignore scif_visitor_t;
+%ignore mop_visitor_t;
+%ignore minsn_visitor_t;
+%ignore srcop_visitor_t;
+%ignore chain_t;
+%ignore block_chains_t;
+%ignore block_chains_iterator_t;
+%ignore block_chains_begin;
+%ignore block_chains_clear;
+%ignore block_chains_end;
+%ignore block_chains_erase;
+%ignore block_chains_find;
+%ignore block_chains_first;
+%ignore block_chains_free;
+%ignore block_chains_insert;
+%ignore block_chains_new;
+%ignore block_chains_next;
+%ignore block_chains_prev;
+%ignore block_chains_second;
+%ignore block_chains_size;
+%ignore graph_chains_t;
+%ignore chain_visitor_t;
+%ignore simple_graph_t;
+%ignore mcode_t;
+%ignore get_signed_mcode;
+%ignore get_unsigned_mcode;
+%ignore is_dest_target_mcode;
+%ignore is_may_access;
+%ignore is_mcode_addsub;
+%ignore is_mcode_call;
+%ignore is_mcode_commutative;
+%ignore is_mcode_convertible_to_jmp;
+%ignore is_mcode_convertible_to_set;
+%ignore is_mcode_fpu;
+%ignore is_mcode_j1;
+%ignore is_mcode_jcond;
+%ignore is_mcode_propagatable;
+%ignore is_mcode_rotate;
+%ignore is_mcode_set;
+%ignore is_mcode_set1;
+%ignore is_mcode_shift;
+%ignore is_mcode_xdsu;
+%ignore is_signed_mcode;
+%ignore is_unsigned_mcode;
+%ignore jcnd2set;
+%ignore must_mcode_close_block;
+%ignore negate_mcode_relation;
+%ignore set2jcnd;
+%ignore swap_mcode_relation;
+%ignore get_mreg_name;
+%ignore gen_microcode;
+%ignore install_optinsn_handler;
+%ignore remove_optinsn_handler;
+%ignore install_optblock_handler;
+%ignore remove_optblock_handler;
+%ignore optinsn_t;
+%ignore optblock_t;
+%ignore getf_reginsn;
+%ignore getb_reginsn;
+%ignore reg2mreg;
+%ignore mreg2reg;
+%ignore chain_keeper_t;
+%ignore lvar_t::dstr;
+%ignore lvar_locator_t::dstr;
+%ignore fnumber_t::dstr;
+%ignore dstr;
+%ignore range_item_iterator_t;
+%ignore mba_item_iterator_t;
+%ignore range_chunk_iterator_t;
+%ignore mba_range_iterator_t;
+%ignore mba_ranges_t;
+%ignore deserialize_mbl_array;
 
 %apply uchar { char ignore_micro };
 %feature("nodirector") udc_filter_t::apply;
@@ -190,6 +287,20 @@ public:
 
     PyObject *_obj_id() const { return PyLong_FromSize_t(size_t(self)); }
 
+#ifdef TESTABLE_BUILD
+    qstring __dbg_get_meminfo() const
+    {
+      qstring s;
+      s.sprnt("%p (op=%s)", self, get_ctype_name(self->op));
+      return s;
+    }
+
+    int __dbg_get_registered_kind() const
+    {
+      return hexrays_is_registered_python_clearable_instance(self);
+    }
+#endif
+
     %pythoncode {
       obj_id = property(_obj_id)
       op = property(
@@ -230,6 +341,23 @@ public:
           assert(isinstance(o, (cexpr_t, cinsn_t)))
           o._maybe_disown_and_deregister()
           self._replace_by(o)
+
+#ifdef TESTABLE_BUILD
+      def _meminfo(self):
+          cpp = self.__dbg_get_meminfo()
+          rkind = self.__dbg_get_registered_kind()
+          rkind_str = [
+                  "(not owned)",
+                  "cfuncptr",
+                  "cinsn",
+                  "cexpr",
+                  "cblock"][rkind]
+          return "%s [thisown=%s, owned by IDAPython as=%s]" % (
+                  cpp,
+                  self.thisown,
+                  rkind_str)
+      meminfo = property(_meminfo)
+#endif
     }
 };
 
@@ -253,21 +381,18 @@ public:
 #define CINSN_MEMBER_REF(Name)                                          \
   ___MEMBER_REF_BASE(c##Name##_t*, c##Name, self.op == cit_##Name, None, True, _v)
 
+%feature("ref") cinsn_t
+{
+  hexrays_register_python_clearable_instance($this, hxclr_cinsn);
+  if ( $this->op == cit_empty )
+    $this->cblock = NULL; // force clean instance
+}
+%feature("unref") cinsn_t
+{
+  hexrays_deregister_python_clearable_instance($this);
+  delete $this;
+}
 %extend cinsn_t {
-  cinsn_t(void)
-  {
-    cinsn_t *ci = new cinsn_t();
-    ci->cblock = NULL; // force clean instance
-    hexrays_register_python_clearable_instance(ci, hxclr_cinsn);
-    return ci;
-  }
-
-  ~cinsn_t(void)
-  {
-    hexrays_deregister_python_clearable_instance($self);
-    delete $self;
-  }
-
   void _deregister() { hexrays_deregister_python_clearable_instance($self); }
   void _register() { hexrays_register_python_clearable_instance($self, hxclr_cinsn); }
 
@@ -289,7 +414,6 @@ public:
         return cinsn_t.insn_is_epilog(self)
   }
 };
-%ignore cinsn_t::cinsn_t;
 #undef CINSN_MEMBER_REF
 
 //-------------------------------------------------------------------------
@@ -301,20 +425,16 @@ public:
 #define CEXPR_MEMBER_REF_STR(Type, PName, Cond, Defval)      \
   ___MEMBER_REF_BASE(Type, PName, Cond, Defval, False, ::qstrdup(_v))
 
+%feature("ref") cexpr_t
+{
+  hexrays_register_python_clearable_instance($this, hxclr_cexpr);
+}
+%feature("unref") cexpr_t
+{
+  hexrays_deregister_python_clearable_instance($this);
+  delete $this;
+}
 %extend cexpr_t {
-  cexpr_t(void)
-  {
-    cexpr_t *ce = new cexpr_t();
-    hexrays_register_python_clearable_instance(ce, hxclr_cexpr);
-    return ce;
-  }
-
-  ~cexpr_t(void)
-  {
-    hexrays_deregister_python_clearable_instance($self);
-    delete $self;
-  }
-
   void _deregister() { hexrays_deregister_python_clearable_instance($self); }
   void _register() { hexrays_register_python_clearable_instance($self, hxclr_cexpr); }
 
@@ -337,7 +457,6 @@ public:
   CEXPR_MEMBER_REF_STR(char*, helper, self.op == cot_helper, None);
   CEXPR_MEMBER_REF_STR(char*, string, self.op == cot_str, None);
 };
-%ignore cexpr_t::cexpr_t;
 
 #undef CEXPR_MEMBER_REF_STR
 #undef CEXPR_MEMBER_REF
@@ -415,7 +534,7 @@ public:
 
 //~ %template(qwstrvec_t) qvector<qwstring>; // vector of unicode strings
 typedef intvec_t svalvec_t; // vector of signed values
-typedef intvec_t eavec_t;// vector of addresses
+//typedef intvec_t eavec_t;// vector of addresses
 
 // At this point, SWIG doesn't know about this
 // type yet (kernwin.i is included later). Therefore,
@@ -561,6 +680,11 @@ void qswap(cinsn_t &a, cinsn_t &b);
 
 %ignore decompile_many;
 %rename (decompile_many) py_decompile_many;
+
+%ignore decompile;
+%ignore decompile_func;
+%ignore decompile_snippet;
+%rename (decompile) decompile_func;
 
 %ignore get_widget_vdui;
 %rename (get_widget_vdui) py_get_widget_vdui;

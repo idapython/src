@@ -41,7 +41,9 @@ static bool qstrvec_t_from_list(
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstrvec_t *sv = qstrvec_t_get_clink(self);
-  return sv == NULL ? false : PyW_PyListToStrVec(py_list, *sv);
+  return (sv == NULL || !PySequence_Check(py_list))
+       ? false
+       : (PyW_PyListToStrVec(sv, py_list) >= 0);
 }
 
 static size_t qstrvec_t_size(PyObject *self)

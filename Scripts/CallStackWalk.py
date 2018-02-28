@@ -4,7 +4,7 @@ A script that tries to determine the call stack
 
 Run the application with the debugger, suspend the debugger, select a thread and finally run the script.
 
-Copyright (c) 1990-2017 Hex-Rays
+Copyright (c) 1990-2018 Hex-Rays
 ALL RIGHTS RESERVED.
 """
 import ida_ua

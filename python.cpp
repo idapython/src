@@ -80,6 +80,7 @@ static char g_idapython_dir[QMAXPATH];
 
 // Plugin run() callback
 bool idaapi run(size_t);
+static PyObject *get_module_globals_from_path(const char *path);
 
 //-------------------------------------------------------------------------
 // This is a simple tracing code for debugging purposes.
@@ -117,6 +118,7 @@ static bool g_remove_cwd_sys_path = false;
 static bool g_use_local_python = false;
 static bool g_autoimport_compat_idaapi = true;
 static bool g_autoimport_compat_ida695 = true;
+static bool g_namespace_aware = true;
 
 // Allowing the user to interrupt a script is not entirely trivial.
 // Imagine the following script, that is run in an IDB that uses
@@ -377,11 +379,12 @@ static void handle_python_error(
 }
 
 //------------------------------------------------------------------------
-// Helper function to get globals for the __main__ module
 // Note: The references are borrowed. No need to free them.
-static PyObject *GetMainGlobals()
+static PyObject *get_module_globals(const char *modname=NULL)
 {
-  PyObject *module = PyImport_AddModule(S_MAIN);
+  if ( modname == NULL || modname[0] == '\0' )
+    modname = S_MAIN;
+  PyObject *module = PyImport_AddModule(modname);
   return module == NULL ? NULL : PyModule_GetDict(module);
 }
 
@@ -404,14 +407,14 @@ static void PythonEvalOrExec(
   }
   else
   {
-    PyObject *py_globals = GetMainGlobals();
+    PyObject *py_globals = get_module_globals();
     newref_t py_result(
             PyEval_EvalCode(
                     (PyCodeObject *) py_code.o,
                     py_globals,
                     py_globals));
 
-    if ( py_result == NULL || PyErr_Occurred() )
+    if ( py_result == NULL || PyErr_Occurred() )    //-V560 is always false: PyErr_Occurred()
     {
       PyErr_Print();
     }
@@ -449,7 +452,7 @@ static bool idaapi IDAPython_extlang_eval_snippet(
         qstring *errbuf)
 {
   PYW_GIL_GET;
-  PyObject *globals = GetMainGlobals();
+  PyObject *globals = get_module_globals();
   bool ok;
   if ( globals == NULL )
   {
@@ -511,6 +514,7 @@ static const cfgopt_t opts[] =
   cfgopt_t("REMOVE_CWD_SYS_PATH", &g_remove_cwd_sys_path, true),
   cfgopt_t("AUTOIMPORT_COMPAT_IDAAPI", &g_autoimport_compat_idaapi, true),
   cfgopt_t("AUTOIMPORT_COMPAT_IDA695", &g_autoimport_compat_ida695, true),
+  cfgopt_t("NAMESPACE_AWARE", &g_namespace_aware, true),
 };
 
 //-------------------------------------------------------------------------
@@ -573,7 +577,7 @@ static int PyRunFile(const char *FileName)
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e605
-  PyObject *globals = GetMainGlobals();
+  PyObject *globals = get_module_globals();
   if ( globals == NULL || file_obj == NULL )
   {
     Py_XDECREF(file_obj);
@@ -654,6 +658,7 @@ static bool return_python_result(
 // module reloading.
 static bool IDAPython_ExecFile(
         const char *FileName,
+        PyObject *globals,
         qstring *errbuf,
         const char *idaapi_script = S_IDAAPI_EXECSCRIPT,
         idc_value_t *second_res = NULL,
@@ -671,14 +676,16 @@ static bool IDAPython_ExecFile(
   qstrncpy(script, FileName, sizeof(script));
   strrpl(script, '\\', '/');
 
+  if ( globals == NULL )
+    globals = get_module_globals();
   newref_t py_script(PyString_FromString(script));
   borref_t py_false(Py_False);
   newref_t py_ret(PyObject_CallFunctionObjArgs(
-    py_execscript.o,
-    py_script.o,
-    GetMainGlobals(),
-    py_false.o,
-    NULL));
+                          py_execscript.o,
+                          py_script.o,
+                          globals,
+                          py_false.o,
+                          NULL));
 
   // Failure at this point means the script was interrupted
   bool interrupted = false;
@@ -712,7 +719,7 @@ static bool IDAPython_ExecFile(
       ret_o = py_ret.o;
     }
 
-    if ( ret_o == Py_None )
+    if ( ret_o == Py_None )   //-V614 uninitialized 'ret_o'
     {
       if ( want_tuple )
       {
@@ -744,7 +751,7 @@ static bool RunScript(const char *script)
   bool ok;
   {
     new_execution_t exec;
-    ok = IDAPython_ExecFile(script, &errbuf);
+    ok = IDAPython_ExecFile(script, /*globals*/ NULL, &errbuf);
   }
   if ( !ok )
     warning("IDAPython: error executing '%s':\n%s", script, errbuf.c_str());
@@ -764,7 +771,7 @@ static bool parse_py_modname(
         size_t sz,
         const char *defmod = S_IDA_IDAAPI_MODNAME)
 {
-  const char *p = strchr(full_name, '.');
+  const char *p = strrchr(full_name, '.');
   if ( p == NULL )
   {
     qstrncpy(modname, defmod, sz);
@@ -862,7 +869,7 @@ static bool idaapi IDAPython_extlang_compile_expr(
         qstring *errbuf)
 {
   PYW_GIL_GET;
-  PyObject *globals = GetMainGlobals();
+  PyObject *globals = get_module_globals();
   bool isfunc = false;
 
   PyCodeObject *code = (PyCodeObject *)Py_CompileString(expr, "<string>", Py_eval_input);
@@ -919,7 +926,8 @@ static bool idaapi IDAPython_extlang_compile_file(
 {
   PYW_GIL_GET;
   new_execution_t exec;
-  return IDAPython_ExecFile(path, errbuf);
+  PyObject *globals = get_module_globals_from_path(path);
+  return IDAPython_ExecFile(path, globals, errbuf);
 }
 
 //-------------------------------------------------------------------------
@@ -933,7 +941,8 @@ static bool idaapi IDAPython_extlang_load_procmod(
   bool ok;
   {
     new_execution_t exec;
-    ok = IDAPython_ExecFile(path, errbuf, S_IDAAPI_LOADPROCMOD, procobj, true);
+    PyObject *globals = get_module_globals_from_path(path);
+    ok = IDAPython_ExecFile(path, globals, errbuf, S_IDAAPI_LOADPROCMOD, procobj, true);
   }
   if ( ok && procobj->is_zero() )
   {
@@ -951,7 +960,8 @@ static bool idaapi IDAPython_extlang_unload_procmod(
 {
   PYW_GIL_GET;
   new_execution_t exec;
-  return IDAPython_ExecFile(path, errbuf, S_IDAAPI_UNLOADPROCMOD);
+  PyObject *globals = get_module_globals_from_path(path);
+  return IDAPython_ExecFile(path, globals, errbuf, S_IDAAPI_UNLOADPROCMOD);
 }
 
 //-------------------------------------------------------------------------
@@ -1187,7 +1197,7 @@ static bool idaapi IDAPython_extlang_eval_expr(
         qstring *errbuf)
 {
   PYW_GIL_GET;
-  PyObject *globals = GetMainGlobals();
+  PyObject *globals = get_module_globals();
   bool ok = globals != NULL;
   ref_t result;
   if ( ok )
@@ -1213,13 +1223,13 @@ static bool idaapi IDAPython_extlang_call_method(
   PYW_GIL_GET;
   // Check for unsupported usage of call_method.
   // Mainly a method call requires an object and a method.
-  if ( (idc_obj == NULL && method_name == NULL) || (idc_obj != NULL && method_name == NULL) )
+  if ( method_name == NULL )
   {
     *errbuf = "call_method does not support this operation";
     return false;
   }
   // Behave like run()
-  else if ( idc_obj == NULL && method_name != NULL )
+  else if ( idc_obj == NULL )
   {
     new_execution_t exec;
     return IDAPython_extlang_call_func(result, method_name, args, nargs, errbuf);
@@ -1393,28 +1403,62 @@ bool idaapi IDAPython_cli_execute_line(const char *line)
 }
 
 //-------------------------------------------------------------------------
-bool idaapi IDAPYthon_cli_complete_line(
-        qstring *completion,
-        const char *prefix,
-        int n,
+static bool idaapi IDAPython_cli_find_completions(
+        qstrvec_t *out_completions,
+        int *out_match_start,
+        int *out_match_end,
         const char *line,
         int x)
 {
   PYW_GIL_GET;
 
-  ref_t py_complete(get_idaapi_attr(S_IDAAPI_COMPLETION));
-  if ( py_complete == NULL )
+  ref_t py_fc(get_idaapi_attr(S_IDAAPI_FINDCOMPLETIONS));
+  if ( py_fc == NULL )
     return false;
 
-  newref_t py_ret(PyObject_CallFunction(py_complete.o, "sisi", prefix, n, line, x)); //lint !e605
+  newref_t py_res(PyObject_CallFunction(py_fc.o, "si", line, x)); //lint !e605
+  if ( PyErr_Occurred() != NULL )
+    return false;
+  return idapython_convert_cli_completions(
+          out_completions,
+          out_match_start,
+          out_match_end,
+          py_res);
+}
 
-  // Swallow the error
-  PyW_GetError(completion);
-
-  bool ok = py_ret != NULL && PyString_Check(py_ret.o);
-  if ( ok )
-    *completion = PyString_AS_STRING(py_ret.o);
-  return ok;
+//-------------------------------------------------------------------------
+static PyObject *get_module_globals_from_path(const char *path)
+{
+  if ( (extlang_python.flags & EXTLANG_NS_AWARE) != 0 )
+  {
+    char dirpath[QMAXPATH];
+    if ( qdirname(dirpath, sizeof(dirpath), path) )
+    {
+      const char *dirname = qbasename(dirpath);
+      if ( streq(dirname, PLG_SUBDIR)
+        || streq(dirname, IDP_SUBDIR)
+        || streq(dirname, LDR_SUBDIR) )
+      {
+        const char *fname = qbasename(path);
+        if ( fname != NULL )
+        {
+          const char *ext = get_file_ext(fname);
+          if ( ext == NULL )
+            ext = tail(fname);
+          else
+            --ext;
+          if ( ext > fname )
+          {
+            int len = ext - fname;
+            qstring modname;
+            modname.sprnt("__%s__%*.*s", dirname, len, len, fname);
+            return get_module_globals(modname.begin());
+          }
+        }
+      }
+    }
+  }
+  return NULL;
 }
 
 //-------------------------------------------------------------------------
@@ -1426,8 +1470,9 @@ static const cli_t cli_python =
     "Python - IDAPython plugin",
     "Enter any Python expression",
     IDAPython_cli_execute_line,
-    IDAPYthon_cli_complete_line,
-    NULL
+    NULL,
+    NULL,
+    IDAPython_cli_find_completions,
 };
 
 //-------------------------------------------------------------------------
@@ -1446,24 +1491,53 @@ void parse_plugin_options()
 {
   // Get options from IDA
   const char *options = get_plugin_options(S_IDAPYTHON);
-
-  // No options?
-  if ( options == NULL )
+  if ( options == NULL || options[0] == '\0' )
     return;
-
-  // User specified 'when' parameter?
-  const char *p = strchr(options, ';');
-  if ( p == NULL )
+  qstring obuf(options);
+  char *ctx;
+  for ( char *p = qstrtok(obuf.begin(), ";", &ctx);
+        p != NULL;
+        p = qstrtok(NULL, ";", &ctx) )
   {
-    g_run_when = RUN_ON_DB_OPEN;
-    p = options;
+    qstring opt(p);
+    char *sep = qstrchr(opt.begin(), '=');
+    bool ok = sep != NULL;
+    if ( ok )
+    {
+      *sep++ = '\0';
+      if ( opt == "run_script" )
+      {
+        qstrncpy(g_run_script, sep, sizeof(g_run_script));
+        if ( g_run_when < 0 )
+          g_run_when = RUN_ON_DB_OPEN;
+      }
+      else if ( opt == "run_script_when" )
+      {
+        qstring when(sep);
+        if ( when == "db_open" )
+          g_run_when = RUN_ON_DB_OPEN;
+        else if ( when == "ui_ready" )
+          g_run_when = RUN_ON_UI_READY;
+        else if ( when == "init" )
+          g_run_when = RUN_ON_INIT;
+        else
+          warning("Unknown 'run_script_when' directive: '%s'. "
+                  "Valid values are: 'db_open', 'ui_ready' and 'init'",
+                  when.c_str());
+      }
+      else if ( opt == "AUTOIMPORT_COMPAT_IDA695" )
+      {
+        qstring imp(sep);
+        if ( imp == "YES" )
+          g_autoimport_compat_ida695 = true;
+        else if ( imp == "NO" )
+          g_autoimport_compat_ida695 = false;
+        else
+          warning("Unknown 'AUTOIMPORT_COMPAT_IDA695' directive: '%s'. "
+                  " Expected 'YES' or 'NO'", imp.c_str());
+      }
+    }
   }
-  else
-  {
-    g_run_when = atoi(options);
-    ++p;
-  }
-  qstrncpy(g_run_script, p, sizeof(g_run_script));
 }
 
 //------------------------------------------------------------------------
@@ -1720,6 +1794,7 @@ bool IDAPython_Init(void)
       return false;
     }
   }
+  parse_plugin_options();
 
   if ( g_use_local_python )
   {
@@ -1802,6 +1877,8 @@ bool IDAPython_Init(void)
 
   // Install extlang. Needs to be done before running init.py
   // in case it's calling idaapi.enable_extlang_python(1)
+  if ( g_namespace_aware )
+    extlang_python.flags |= EXTLANG_NS_AWARE;
   install_extlang(&extlang_python);
 
   // Execute init.py (for Python side initialization)
@@ -1837,8 +1914,6 @@ bool IDAPython_Init(void)
   PyEval_SetTrace(tracefunc, NULL);
 #endif
 
-  // Batch-mode operation:
-  parse_plugin_options();
 
   // Register a RunPythonStatement() function for IDC
   add_idc_func(idc_runpythonstatement_desc);

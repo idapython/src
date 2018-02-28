@@ -83,6 +83,9 @@ class hexrays_callback_info(object):
             return False
 
         idaapi.qswap(cif.ithen, cif.ielse)
+        # Make a copy of 'cif.expr': 'lnot' might destroy its toplevel
+        # cexpr_t and return a pointer to its direct child (but we'll want to
+        # 'swap' it later, the 'cif.expr' cexpr_t object must remain valid.)
         cond = idaapi.cexpr_t(cif.expr)
         notcond = idaapi.lnot(cond)
 

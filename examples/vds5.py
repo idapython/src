@@ -1,4 +1,5 @@
 
+import ida_pro
 import ida_hexrays
 import ida_kernwin
 import ida_gdl

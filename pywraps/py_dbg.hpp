@@ -57,8 +57,8 @@ static PyObject *refresh_debugger_memory()
   invalidate_dbgmem_contents(BADADDR, 0);
 
   // Ask the debugger to populate debug names
-  if ( dbg != NULL && dbg->stopped_at_debug_event != NULL )
-    dbg->stopped_at_debug_event(true);
+  if ( dbg != NULL )
+    dbg->suspended(true);
 
   // Invalidate the cache
   is_mapped(0);
@@ -168,10 +168,41 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ea_t answer;
-  return internal_get_sreg_base(&answer, tid, sreg_value) < 1
+  return internal_get_sreg_base(&answer, tid, sreg_value) <= DRC_NONE
        ? BADADDR
        : answer;
 }
+
+//-------------------------------------------------------------------------
+static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( !dbg_can_query() || !PyString_Check(py_buf) )
+    return -1;
+  char *buf = NULL;
+  Py_ssize_t sz;
+  if ( PyString_AsStringAndSize(py_buf, &buf, &sz) < 0 )
+    return -1;
+  if ( size == size_t(-1) )
+    size = size_t(sz);
+  return write_dbg_memory(ea, buf, size);
+}
+
+/*
+#<pydoc>
+def dbg_can_query():
+    """
+    This function can be used to check if the debugger can be queried:
+      - debugger is loaded
+      - process is suspended
+      - process is not suspended but can take requests. In this case some requests like
+        memory read/write, bpt management succeed and register querying will fail.
+        Check if idaapi.get_process_state() < 0 to tell if the process is suspended
+    @return: Boolean
+    """
+    pass
+#</pydoc>
+*/
 
 //</inline(py_dbg)>
 #endif

@@ -1161,6 +1161,51 @@ uint32 py_call_nav_colorizer(
 {
   return col(ea, nbytes);
 }
+
+PyObject *py_msg_get_lines(int count=-1)
+{
+  qstrvec_t lines;
+  msg_get_lines(&lines, count);
+  return qstrvec2pylist(lines);
+}
+
+/*
+#<pydoc>
+def msg(message):
+    """
+    Display an UTF-8 string in the message window
+
+    The result of the stringification of the arguments
+    will be treated as an UTF-8 string.
+
+    @param message: message to print (formatting is done in Python)
+
+    This function can be used to debug IDAPython scripts
+    """
+    pass
+
+def warning(message):
+    """
+    Display a message in a message box
+
+    @param message: message to print (formatting is done in Python)
+
+    This function can be used to debug IDAPython scripts
+    The user will be able to hide messages if they appear twice in a row on
+    the screen
+    """
+    pass
+
+def error(format):
+    """
+    Display a fatal message in a message box and quit IDA
+
+    @param format: message to print
+    """
+    pass
+#</pydoc>
+*/
+
 //</inline(py_kernwin)>
 
 //---------------------------------------------------------------------------

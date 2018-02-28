@@ -94,8 +94,8 @@ patches = [
 
     # codegen_t
     "virtual mreg_t idaapi load_operand",
-    "virtual int idaapi analyze_prolog",
-    "virtual int idaapi gen_micro",
+    "virtual merror_t idaapi analyze_prolog",
+    "virtual merror_t idaapi gen_micro",
 ]
 
 

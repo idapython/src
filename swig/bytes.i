@@ -17,7 +17,6 @@
 %ignore is_visible_finally;
 %ignore setFlbits;
 %ignore clrFlbits;
-%ignore get_8bit;
 %ignore get_ascii_char;
 %ignore del_opinfo;
 %ignore del_one_opinfo;
@@ -46,8 +45,19 @@
 %ignore get_bytes;
 %ignore get_strlit_contents;
 %ignore get_hex_string;
+%ignore bin_search2;
 %ignore bin_search; // we redefine our own, w/ 2 params swapped, so we can apply the typemaps below
 %rename (bin_search) py_bin_search;
+
+%ignore get_8bit;
+%rename (get_8bit) py_get_8bit;
+
+%ignore get_octet;
+%rename (get_octet) py_get_octet;
+
+%ignore compiled_binpat_t;
+%ignore compiled_binpat_vec_t;
+%ignore parse_binpat_str;
 
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;

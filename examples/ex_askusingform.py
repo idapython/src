@@ -195,7 +195,7 @@ def ida_main_legacy():
 This is sample dialog box for %A
 using address %$
 
-<~E~nter value:N:32:16::>
+<~E~nter value:N::18::>
 """
 
     # Use either StringArgument or NumericArgument to pass values to the function

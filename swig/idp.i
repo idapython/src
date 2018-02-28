@@ -43,12 +43,6 @@
 %ignore IDP_Callback;
 %ignore _py_getreg;
 
-%ignore hook_cb_t;
-%ignore hook_type_t;
-%ignore hook_to_notification_point;
-%ignore unhook_from_notification_point;
-%ignore invoke_callbacks;
-
 // @arnaud
 %ignore notify__calc_next_eas;
 %ignore notify__custom_ana;
@@ -97,14 +91,17 @@
 %include "idp.hpp"
 %include "config.hpp"
 
-%typemap(check) tinfo_t const* optional_type
-{
-}
-
+#ifndef SWIGIMPORTED // see above
+// prevent tinfo_t * check in some functions (e.g., '_wrap_IDP_Hooks_ev_adjust_argloc')
+%typemap(check) tinfo_t const* optional_type{ /* suppressed 'tinfo_t *' NULL check */ }
+#endif
 %inline %{
 //<inline(py_idp)>
 //</inline(py_idp)>
 %}
+#ifndef SWIGIMPORTED // see above
+%clear const tinfo_t *optional_type;
+#endif
 
 %{
 //<code(py_idp)>

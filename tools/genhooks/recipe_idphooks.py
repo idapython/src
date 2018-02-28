@@ -106,6 +106,13 @@ recipe = {
             "convertor_pass_args" : True,
         },
     },
+    "ev_adjust_argloc" : {
+        "params" : {
+            "type" : {
+                "rename" : "optional_type",
+            }
+        },
+    },
     "ev_use_regarg_type" : {
         "params" : {
             "idx" : { "suppress_for_call" : True, },
@@ -129,5 +136,27 @@ recipe = {
             "convertor" : "IDP_Hooks::handle_demangle_name_output",
             "convertor_pass_args" : True,
         },
+    },
+    "ev_find_reg_value" : {
+        "params" : {
+            "out" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_find_value_output",
+            "convertor_pass_args" : True,
+        }
+    },
+    "ev_find_op_value" : {
+        "params" : {
+            "out" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_find_value_output",
+            "convertor_pass_args" : True,
+        }
     },
 }

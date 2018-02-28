@@ -40,6 +40,8 @@
 %ignore qvector<bpt_t>::del;
 %ignore qvector<bpt_t>::add_unique;
 %template(bpt_vec_t) qvector<bpt_t>;
+%ignore write_dbg_memory;
+%rename (write_dbg_memory) py_write_dbg_memory;
 
 %ignore qvector<memreg_info_t>::operator==;
 %ignore qvector<memreg_info_t>::operator!=;
@@ -53,6 +55,14 @@
 
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
+
+// KLUDGE: since dbg.hpp has first declarations, then definitions
+// of inline functions, and SWiG only sees the 2nd part, which
+// doesn't have the default argument values, we want to provide
+// them here. The proper fix is of course to re-hash dbg.hpp
+// so that we avoid this decl + def, and only keep the definitions.
+bool run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
+bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 
 %thread;
 

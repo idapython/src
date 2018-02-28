@@ -1,22 +1,60 @@
 //-------------------------------------------------------------------------
 //<code(py_hexrays)>
 #ifdef WITH_HEXRAYS
+static int _debug_hexrays_ctree = -1;
+static bool is_debug_hexrays_ctree()
+{
+  if ( _debug_hexrays_ctree < 0 )
+    _debug_hexrays_ctree = qgetenv("IDAPYTHON_DEBUG_HEXRAYS_CTREEE");
+  return bool(_debug_hexrays_ctree);
+}
+
+//-------------------------------------------------------------------------
+static void debug_hexrays_ctree(const char *format, ...)
+{
+  if ( is_debug_hexrays_ctree() )
+  {
+    va_list va;
+    va_start(va, format);
+    msg("HEXRAYS CTREE: ");
+    vmsg(format, va);
+    va_end(va);
+  }
+}
+
+//-------------------------------------------------------------------------
+// The hexrays+IDAPython term sequence goes as follows:
+//   - hexrays is unloaded before IDAPython
+//   - we receive the notification about hexrays going away and:
+//        + call hexrays_clear_python_clearable_references();
+//        + set 'hexdsp = exit_time_dummy_hexdsp' (an NOP hexdsp)
+//   - we receive 'ui_term', and
+//        + set 'hexdsp = init_time_dummy_hexdsp'
+//   - IDAPython is unloaded, and during cleanup of the runtime data,
+//     reachable citem_t's will get destroyed.
+// => this means we vill receive 'hx_c*t_cleanup' and 'hx_remitem'
+//    notifications most likely in the init_time_dummy_hexdsp(),
+//    rather than in exit_time_dummy_hexdsp() -- which is more than
+//    just a little counter-intuitive.
 static void *idaapi init_time_dummy_hexdsp(int code, ...)
 {
   switch ( code )
   {
+    case hx_remitem:
     case hx_cexpr_t_cleanup:
     case hx_cinsn_t_cleanup:
       {
 #ifdef _DEBUG
         va_list va;
         va_start(va, code);
-        citem_t *item = va_arg(va, citem_t*);
+        citem_t *item = va_arg(va, citem_t *);
         // catch leaks
         if ( code == hx_cexpr_t_cleanup )
           QASSERT(30497, ((cexpr_t *)item)->op == cot_empty && ((cexpr_t *)item)->n == NULL);
-        else
+        else if ( code == hx_cinsn_t_cleanup )
           QASSERT(30498, ((cinsn_t *)item)->op == cit_empty && ((cinsn_t *)item)->cblock == NULL);
+        else // code == hx_remitem
+          QASSERT(30529, item->op == cot_empty || item->op == cit_empty);
         va_end(va);
 #endif
       }
@@ -86,11 +124,11 @@ static bool idaapi __python_custom_viewer_popup_item_callback(void *ud)
 }
 
 //---------------------------------------------------------------------
-static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_list va)
+static ssize_t idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_list va)
 {
   PYW_GIL_GET;
 
-  int ret;
+  ssize_t ret;
   borref_t fct((PyObject *)ud);
   switch ( event )
   {
@@ -304,7 +342,7 @@ static int idaapi __hexrays_python_callback(void *ud, hexrays_event_t event, va_
       }
       break;
     default:
-      //~ msg("IDAPython: Unknown event `%u' occured\n", event);
+      //~ msg("IDAPython: Unknown event `%u' occurred\n", event);
       ret = 0;
       break;
   }
@@ -338,23 +376,24 @@ typedef qvector<hx_clearable_t> hx_clearables_t;
 static hx_clearables_t python_clearables;
 void hexrays_clear_python_clearable_references(void)
 {
+  debug_hexrays_ctree("hexrays_clear_python_clearable_references()\n");
   for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
   {
     const hx_clearable_t &hxc = python_clearables[i];
-    /*msg("### cleaning up %p\n", hxc.ptr);*/
+    debug_hexrays_ctree("cleaning up %p (%d)\n", hxc.ptr, int(hxc.type));
     switch ( hxc.type )
     {
       case hxclr_cfuncptr:
-        ((cfuncptr_t*)hxc.ptr)->reset();
+        ((cfuncptr_t*) hxc.ptr)->reset();
         break;
       case hxclr_cinsn:
-        ((cinsn_t *)hxc.ptr)->cleanup();
+        ((cinsn_t *) hxc.ptr)->cleanup();
         break;
       case hxclr_cexpr:
-        ((cexpr_t *)hxc.ptr)->cleanup();
+        ((cexpr_t *) hxc.ptr)->cleanup();
         break;
       case hxclr_cblock:
-        ((cblock_t *)hxc.ptr)->clear();
+        ((cblock_t *) hxc.ptr)->clear();
         break;
       default: INTERR(30499);
     }
@@ -372,7 +411,7 @@ void hexrays_register_python_clearable_instance(
   hx_clearable_t &hxc = python_clearables.push_back();
   hxc.ptr = ptr;
   hxc.type = type;
-  /*msg("### registered %p\n", hxc.ptr);*/
+  debug_hexrays_ctree("registered %p\n", hxc.ptr);
 }
 
 //-------------------------------------------------------------------------
@@ -387,11 +426,23 @@ void hexrays_deregister_python_clearable_instance(void *ptr)
     if ( hxc.ptr == ptr )
     {
       python_clearables.erase(python_clearables.begin() + i);
-      /*msg("### de-registered %p\n", hxc.ptr);*/
+      debug_hexrays_ctree("de-registered %p\n", hxc.ptr);
       break;
     }
   }
 }
+
+//-------------------------------------------------------------------------
+#ifdef TESTABLE_BUILD
+hx_clearable_type_t hexrays_is_registered_python_clearable_instance(
+        const void *ptr)
+{
+  for ( size_t i = 0, n = python_clearables.size(); i < n; ++i )
+    if ( python_clearables[i].ptr == ptr )
+      return python_clearables[i].type;
+  return hxclr_unknown;
+}
+#endif
 
 //-------------------------------------------------------------------------
 //
@@ -470,8 +521,7 @@ static ssize_t idaapi ida_hexrays_ui_notification(void *, int code, va_list va)
     case ui_plugin_unloading:
       if ( hexdsp != NULL && hexdsp != init_time_dummy_hexdsp )
       {
-        // Hex-Rays will close. Make sure all the refcounted cfunc_t objects
-        // are cleared right away.
+        // Make sure all the refcounted objects are cleared right away.
         const plugin_info_t *pi = va_arg(va, plugin_info_t *);
         if ( is_hexrays_plugin(pi) )
         {
@@ -501,6 +551,12 @@ static void ida_hexrays_closebase(void) {}
 
 
 //<inline(py_hexrays)>
+//-------------------------------------------------------------------------
+void py_debug_hexrays_ctree(const char *msg)
+{
+  debug_hexrays_ctree(msg);
+}
+
 //---------------------------------------------------------------------
 bool py_init_hexrays_plugin(int flags=0)
 {
@@ -540,8 +596,11 @@ bool py_decompile_many(const char *outfile, PyObject *funcaddrs, int flags)
   eavec_t leas, *eas = NULL;
   if ( funcaddrs != Py_None )
   {
-    if ( !PyW_PyListToEaVec(funcaddrs, leas) )
+    if ( !PySequence_Check(funcaddrs)
+      || PyW_PyListToEaVec(&leas, funcaddrs) < 0 )
+    {
       return false;
+    }
     eas = &leas;
   }
   return decompile_many(outfile, eas, flags);
@@ -570,6 +629,9 @@ inline boundaries_iterator_t py_boundaries_insert(boundaries_t *map, const cinsn
 {
   return boundaries_insert(map, key, val);
 }
+
+//-------------------------------------------------------------------------
+void py_term_hexrays_plugin(void) {}
 //</inline(py_hexrays)>
 
 //<init(py_hexrays)>

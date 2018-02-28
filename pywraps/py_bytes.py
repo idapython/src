@@ -222,7 +222,7 @@ stroffflag=stroff_flag
 struflag=stru_flag
 wordflag=word_flag
 invalidate_visea_cache=ida_idaapi._BC695.false_p
-@bc695redef
+@bc695redef_with_pydoc(op_stroff.__doc__)
 def op_stroff(*args):
     insn, n, path, path_len, delta = args
     import ida_ua

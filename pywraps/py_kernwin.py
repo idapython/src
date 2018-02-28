@@ -355,10 +355,8 @@ class Choose2(object):
                 self.link.OnSelectLine(n)
                 return (Choose.ALL_CHANGED, n)
             # assert: n is iterable and n
-            idx = n.pop(0)
-            self.link.OnSelectLine(idx)
-            # preserve all but the first item
-            return [Choose.ALL_CHANGED] + n
+            self.link.OnSelectLine(n[0])
+            return [Choose.ALL_CHANGED] + n # preserve the selection
 
         def OnRefresh(self, n):
             # assert: hasattr(self.link, "OnRefresh")

@@ -11,17 +11,23 @@ struct py_cli_cbs_t
 {
   bool (idaapi *execute_line)(const char *line);
   bool (idaapi *complete_line)(
-    qstring *completion,
-    const char *prefix,
-    int n,
-    const char *line,
-    int x);
+          qstring *completion,
+          const char *prefix,
+          int n,
+          const char *line,
+          int x);
   bool (idaapi *keydown)(
-    qstring *line,
-    int *p_x,
-    int *p_sellen,
-    int *vk_key,
-    int shift);
+          qstring *line,
+          int *p_x,
+          int *p_sellen,
+          int *vk_key,
+          int shift);
+  bool (idaapi *find_completions)(
+          qstrvec_t *out_completions,
+          int *out_match_start,
+          int *out_match_end,
+          const char *line,
+          int x);
 };
 
 // CLI Python wrapper class
@@ -49,6 +55,10 @@ private:
   static bool idaapi s_complete_line##CBN(qstring *completion, const char *prefix, int n, const char *line, int x) \
   {                                                                     \
     return py_clis[CBN]->on_complete_line(completion, prefix, n, line, x); \
+  }                                                                     \
+  static bool idaapi s_find_completions##CBN(qstrvec_t *completions, int *out_start, int *out_end, const char *line, int x) \
+  {                                                                     \
+    return py_clis[CBN]->on_find_completions(completions, out_start, out_end, line, x); \
   }
 
   IMPL_PY_CLI_CB(0);    IMPL_PY_CLI_CB(1);   IMPL_PY_CLI_CB(2);   IMPL_PY_CLI_CB(3);
@@ -165,6 +175,31 @@ private:
     return ok;
   }
 
+  // callback: the user pressed Tab
+  // Find completions
+  // This callback is optional
+  bool on_find_completions(
+          qstrvec_t *out_completions,
+          int *out_match_start,
+          int *out_match_end,
+          const char *line,
+          int x)
+  {
+    PYW_GIL_GET;
+    newref_t py_res(
+            PyObject_CallMethod(
+                    self,
+                    (char *)S_ON_FIND_COMPLETIONS,
+                    "si",
+                    line,
+                    x));
+    PyW_ShowCbErr(S_ON_FIND_COMPLETIONS);
+    if ( PyErr_Occurred() != NULL )
+      return false;
+    return idapython_convert_cli_completions(
+            out_completions, out_match_start, out_match_end, py_res);
+  }
+
   // Private ctor (use bind())
   py_cli_t()
   {
@@ -224,10 +259,10 @@ public:
       // Store callbacks
       if ( !PyObject_HasAttrString(py_obj, S_ON_EXECUTE_LINE) )
         break;
-      py_cli->cli.execute_line  = py_cli_cbs[cli_idx].execute_line;
-
-      py_cli->cli.complete_line = PyObject_HasAttrString(py_obj, S_ON_COMPLETE_LINE) ? py_cli_cbs[cli_idx].complete_line : NULL;
-      py_cli->cli.keydown       = PyObject_HasAttrString(py_obj, S_ON_KEYDOWN) ? py_cli_cbs[cli_idx].keydown : NULL;
+      py_cli->cli.execute_line = py_cli_cbs[cli_idx].execute_line;
+      py_cli->cli.unused = (void *) (PyObject_HasAttrString(py_obj, S_ON_COMPLETE_LINE) ? py_cli_cbs[cli_idx].complete_line : NULL);
+      py_cli->cli.keydown = PyObject_HasAttrString(py_obj, S_ON_KEYDOWN) ? py_cli_cbs[cli_idx].keydown : NULL;
+      py_cli->cli.find_completions = PyObject_HasAttrString(py_obj, S_ON_FIND_COMPLETIONS) ? py_cli_cbs[cli_idx].find_completions : NULL;
 
       // install CLI
       install_command_interpreter(&py_cli->cli);

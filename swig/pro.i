@@ -8,7 +8,9 @@
 %ignore convert_encoding;
 %ignore is_valid_utf8;
 %ignore qustrlen;
+%ignore get_utf8_char;
 %ignore put_utf8_char;
+%ignore prev_utf8_char;
 %ignore idb_utf8;
 %ignore scr_utf8;
 %ignore utf8_scr;
@@ -44,6 +46,7 @@
 %template(boolvec_t)  qvector<bool>;
 %template(strvec_t)   qvector<simpleline_t>;
 %template(sizevec_t)  qvector<size_t>;
+typedef uvalvec_t eavec_t;// vector of addresses
 
 SWIG_DECLARE_PY_CLINKED_OBJECT(qstrvec_t)
 

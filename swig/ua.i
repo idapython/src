@@ -4,6 +4,7 @@
 %}
 
 %ignore print_charlit;
+%ignore format_charlit;
 %ignore print_fpval;
 %ignore get_spoiled_reg;
 %ignore decode_preceding_insn;

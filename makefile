@@ -44,11 +44,6 @@ ifdef __LINUX__
   PYTHON32_LIBRARY_INCLUDE=-L$(PYTHON32_LIBRARY_PATH)
 endif
 
-ifdef __BSD__
-  SYSNAME=bsd
-  DEFS=-D__BSD__
-endif
-
 ifdef __MAC__
   SYSNAME=mac
   DEFS=-D__MAC__
@@ -76,12 +71,7 @@ else
   endif
 endif
 
-ifdef __NT__
-  IDA_CMD=TVHEADLESS=1 $(R)idaw$(X64SUFF)$(SUFF64)
-else
-  IDA_CMD=TVHEADLESS=1 $(R)idal$(X64SUFF)$(SUFF64)
-endif
-
+IDA_CMD=TVHEADLESS=1 $(R)idat$(X64SUFF)$(SUFF64)
 ST_SWIG=$(F)swig
 ifeq ($(OUT_OF_TREE_BUILD),)
   ST_SDK=$(F)idasdk
@@ -92,6 +82,9 @@ ST_PYW=$(F)pywraps
 ST_WRAP=$(F)wrappers
 ST_PARSED_HEADERS_NOXML=$(F)parsed_notifications
 ST_PARSED_HEADERS=$(ST_PARSED_HEADERS_NOXML)/xml
+ifeq ($(OUT_OF_TREE_BUILD),)
+  ST_PARSED_HEADERS_CONFIG=$(ST_PARSED_HEADERS_NOXML)/doxy_gen_notifs.cfg
+endif
 ST_API_CONTENTS=$(F)api_contents.txt.new
 ST_PYDOC_INJECTIONS=$(F)pydoc_injections.txt
 
@@ -163,6 +156,7 @@ ALL_ST_WRAP_CPP=$(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/$(mod).cpp)
 ALL_ST_WRAP_PY=$(foreach mod,$(MODULES_NAMES),$(ST_WRAP)/ida_$(mod).py)
 
 PYTHON_MODULES=$(MODULES_NAMES:%=$(DEPLOY_PYDIR)/ida_%.py)
+PYTHON_BINARY_MODULES=$(MODULES_NAMES:%=$(DEPLOY_LIBDIR)/_ida_%$(MODULE_SFX))
 
 ifdef __NT__
   MODULE_LINKIDA=
@@ -209,14 +203,6 @@ ifdef __NT__                   # os and compiler specific flags
   PLATFORM_CFLAGS=$(_SWIGFLAGS) -UNO_OBSOLETE_FUNCS
 else # unix/mac
   ifdef __LINUX__
-    # use the precompiled 2.7
-    ifndef __X64__
-      ifeq ($(OUT_OF_TREE_BUILD),)
-        # copy these files to IDA's directory
-        PYLIBFILES:=$(shell find precompiled/lib -type f)
-        PRECOMPILED_COPY=$(R)$(LIBPYTHON_NAME) $(R)$(LIBPYTHON_NAME) $(patsubst precompiled/%,$(DEPLOY_PYDIR)/%,$(PYLIBFILES))
-      endif
-    endif
     PYTHON_LDFLAGS_RPATH_MAIN=-Wl,-rpath='$$ORIGIN/..'
     PYTHON_LDFLAGS_RPATH_MODULE=-Wl,-rpath='$$$$ORIGIN/../../..'
   else
@@ -294,10 +280,13 @@ $(R)$(LIBPYTHON_NAME): $(PRECOMPILED_DIR)/$(LIBPYTHON_NAME)
 # -------------------------------------------------------------------------
 # Hooks generation
 # http://stackoverflow.com/questions/11032280/specify-doxygen-parameters-through-command-line
-GENERATED_HEADERS=$(ST_PARSED_HEADERS)/headers_generated.marker
-$(GENERATED_HEADERS): $(I)idp.hpp $(I)dbg.hpp $(I)kernwin.hpp $(GENHOOKS)doxy_gen_notifs.cfg $(ST_SDK_TARGETS)
+$(ST_PARSED_HEADERS_CONFIG): $(GENHOOKS)doxy_gen_notifs.cfg.in $(ST_SDK_TARGETS) $(GENHOOKS)gendoxycfg.py | staging_dirs
+	@$(PYTHON) $(GENHOOKS)gendoxycfg.py -i $< -o $@ --includes $(subst $(_SPACE),$(_COMMA),$(ST_SDK_TARGETS))
+
+PARSED_HEADERS_MARKER=$(ST_PARSED_HEADERS)/headers_generated.marker
+$(PARSED_HEADERS_MARKER): $(ST_SDK_TARGETS) $(ST_PARSED_HEADERS_CONFIG) $(ST_SDK_TARGETS)
 ifeq ($(OUT_OF_TREE_BUILD),)
-	@( cat $(GENHOOKS)doxy_gen_notifs.cfg; echo "OUTPUT_DIRECTORY=$(ST_PARSED_HEADERS_NOXML)" ) | $(DOXYGEN_BIN) -
+	@( cat $(ST_PARSED_HEADERS_CONFIG); echo "OUTPUT_DIRECTORY=$(ST_PARSED_HEADERS_NOXML)" ) | $(DOXYGEN_BIN) -
 else
 	(cd $(F) && unzip ../../out_of_tree/parsed_notifications.zip)
 endif
@@ -316,9 +305,9 @@ staging_dirs:
 #
 ifeq ($(OUT_OF_TREE_BUILD),)
 $(ST_SDK)/%.h: $(IDA_INCLUDE)/%.h | staging_dirs $(PRECOMPILED_COPY)
-	$(PYTHON) ../../bin/update_sdk.py -filter-file -input $^ -output $@
+	$(PYTHON) ../../bin/update_sdk.py $(FILTER_SDK_FLAGS) -filter-file -input $^ -output $@
 $(ST_SDK)/%.hpp: $(IDA_INCLUDE)/%.hpp | staging_dirs $(PRECOMPILED_COPY)
-	$(PYTHON) ../../bin/update_sdk.py -filter-file -input $^ -output $@
+	$(PYTHON) ../../bin/update_sdk.py $(FILTER_SDK_FLAGS) -filter-file -input $^ -output $@
 endif
 
 # -------------------------------------------------------------------------
@@ -337,7 +326,7 @@ $(ST_PYW)/py_idp.hpp: pywraps/py_idp.hpp \
 	$(I)idp.hpp \
 	$(GENHOOKS)genhooks.py \
 	$(GENHOOKS)recipe_idphooks.py \
-	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	$(PARSED_HEADERS_MARKER) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
 		-x $(ST_PARSED_HEADERS)/structprocessor__t.xml -e event_t \
 		-r int -n 0 -m hookgenIDP -q "processor_t::" \
@@ -346,7 +335,7 @@ $(ST_PYW)/py_idp_idbhooks.hpp: pywraps/py_idp_idbhooks.hpp \
 	$(I)idp.hpp \
 	$(GENHOOKS)genhooks.py \
 	$(GENHOOKS)recipe_idbhooks.py \
-	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	$(PARSED_HEADERS_MARKER) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
 		-x $(ST_PARSED_HEADERS)/namespaceidb__event.xml -e event_code_t \
 		-r int -n 0 -m hookgenIDB -q "idb_event::" \
@@ -355,7 +344,7 @@ $(ST_PYW)/py_dbg.hpp: pywraps/py_dbg.hpp \
 	$(I)dbg.hpp \
 	$(GENHOOKS)genhooks.py \
 	$(GENHOOKS)recipe_dbghooks.py \
-	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	$(PARSED_HEADERS_MARKER) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
 		-x $(ST_PARSED_HEADERS)/dbg_8hpp.xml -e dbg_notification_t \
 		-r void -n 0 -m hookgenDBG \
@@ -364,7 +353,7 @@ $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
 	$(I)kernwin.hpp \
 	$(GENHOOKS)genhooks.py \
 	$(GENHOOKS)recipe_uihooks.py \
-	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	$(PARSED_HEADERS_MARKER) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
 		-x $(ST_PARSED_HEADERS)/kernwin_8hpp.xml -e ui_notification_t \
 		-r void -n 0 -m hookgenUI \
@@ -374,7 +363,7 @@ $(ST_PYW)/py_kernwin_viewhooks.hpp: pywraps/py_kernwin_viewhooks.hpp \
 	$(I)kernwin.hpp \
 	$(GENHOOKS)genhooks.py \
 	$(GENHOOKS)recipe_viewhooks.py \
-	$(GENERATED_HEADERS) | staging_dirs $(SDK_SOURCES)
+	$(PARSED_HEADERS_MARKER) | staging_dirs $(SDK_SOURCES)
 	@$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
 		-x $(ST_PARSED_HEADERS)/kernwin_8hpp.xml -e view_notification_t \
 		-r void -n 0 -m hookgenVIEW \
@@ -387,6 +376,8 @@ CFLAGS= $(CCOPT) $(PLATFORM_CFLAGS) $(MSRUNTIME) -D__EXPR_SRC -I. -I$(ST_SWIG) -
 	$(SWITCH64) $(SWITCHX64) $(ARCH_CFLAGS) $(WITH_HEXRAYS) $(DEF_TYPE_TABLE) $(BC695_CFLAGS)
 ifdef TESTABLE_BUILD
   CFLAGS+=-DTESTABLE_BUILD
+  SWIGFLAGS+=-DTESTABLE_BUILD
+  FILTER_SDK_FLAGS+=-testable-build
 endif
 
 ST_SWIG_HEADER=$(ST_SWIG)/header.i
@@ -399,18 +390,13 @@ PATCH_DIRECTORS_SCRIPT:=tools/patch_directors_cc.py
 
 $(IDAPYTHON_IMPLIB_DEF): $(IDAPYTHON_IMPLIB_DEF_IN)
 	sed s/%LIBNAME%/$(notdir $(BINARY))/ < $? > $@
-  ifdef __X64__
 	sed -i s/%PLUGIN_DATA_EXP%// $@
-  else
-	sed -i s/%PLUGIN_DATA_EXP%/'PLUGIN DATA'/ $@
-  endif
 endif
 
-ifdef __X64__
-  PATCH_CODEGEN_X64_OPTS=--apply-valist-patches
-endif
+PATCH_CODEGEN_X64_OPTS=--apply-valist-patches
 
 find-pywraps-deps = $(wildcard pywraps/py_$(subst .i,,$(notdir $1))*.*)
+find-pydoc-patches-deps = $(wildcard tools/inject_pydoc/$1.py)
 
 # Some .i files depend on some other .i files in order to be parseable by SWiG
 # (e.g., segregs.i imports range.i). Declare the list of such dependencies here
@@ -443,11 +429,14 @@ define make-module-rules
     # files.
 
     # ../../bin/x86_linux_gcc/python/ida_$1.py (note: dep. on .cpp. See note above.)
-    $(DEPLOY_PYDIR)/ida_$1.py: $(ST_WRAP)/$1.cpp | $(DEPLOY_PYDIR) tools/inject_pydoc.py
+    $(DEPLOY_PYDIR)/ida_$1.py: $(ST_WRAP)/$1.cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$1) | $(DEPLOY_PYDIR) tools/inject_pydoc.py
 	$(PYTHON) tools/inject_pydoc.py \
+                -x $(ST_PARSED_HEADERS) \
+		-m $1 \
 		-i $(ST_WRAP)/ida_$1.py \
 		-w $(ST_SWIG)/$1.i \
 		-o $$@ \
+		-e $(ST_WRAP)/ida_$1.epydoc_injection \
 		-v > $(ST_WRAP)/ida_$1.pydoc_injection 2>&1
 
     # obj/x86_linux_gcc/swig/X.i
@@ -517,15 +506,20 @@ endif
 
 # Check that doc injection is stable
 PYDOC_INJECTIONS_RESULTS=$(MODULES_NAMES:%=$(ST_WRAP)/ida_%.pydoc_injection)
-$(ST_PYDOC_INJECTIONS): $(PYTHON_MODULES)
-	cat $(PYDOC_INJECTIONS_RESULTS) > $@
-ifeq ($(OUT_OF_TREE_BUILD),)
+$(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(PYTHON_MODULES) $(PYTHON_BINARY_MODULES)
+ifdef __CODE_CHECKER__
+	@touch $@
+else
+  ifeq ($(OUT_OF_TREE_BUILD),)
+	@$(IDA_CMD) $(BATCH_SWITCH) -OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO -S"$< $@ $(ST_WRAP)" -t -L$(F)dumpdoc.log >/dev/null
 	@(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
 	  (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
 	   echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \
 	   (diff -U 1 -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS) && false))
+  else
+	@touch $@
+  endif
 endif
-
 
 # Require a strict SWiG version (other versions might generate different code.)
 SWIG_VERSION_ACTUAL=$(shell $(SWIG) -version | awk "/SWIG Version [0-9.]+/ { if (match(\$$0, /([0-9.]+)/)) { print substr(\$$0, RSTART, RLENGTH); } }")
@@ -541,9 +535,9 @@ tools/docs/hrdoc.cfg: tools/docs/hrdoc.cfg.in
 # the html files are produced in docs\hr-html directory
 docs:   tools/docs/hrdoc.py tools/docs/hrdoc.cfg tools/docs/hrdoc.css
 ifndef __NT__
-	TVHEADLESS=1 $(R)idal -Stools/docs/hrdoc.py -t > /dev/null
+	TVHEADLESS=1 $(R)idat -Stools/docs/hrdoc.py -t > /dev/null
 else
-	$(R)idaq -Stools/docs/hrdoc.py -t
+	$(R)ida -Stools/docs/hrdoc.py -t
 endif
 
 # the demo version of ida does not have the -B command line option
@@ -561,7 +555,7 @@ $(TEST_IDC): $(F)idctest.log
 $(F)idctest.log: $(RS)idc/idc.idc | $(BINARY) pyfiles $(PRECOMPILED_COPY)
 ifneq ($(wildcard ../../tests),)
 	@$(RM) $(F)idctest.log
-	@$(IDA_CMD) $(BATCH_SWITCH) -S"test_idc.py $^" -t -L$(F)idctest.log> /dev/null || \
+	@$(IDA_CMD) $(BATCH_SWITCH) -S"test_idc.py $^" -t -L$(F)idctest.log >/dev/null || \
 	  (echo "ERROR: The IDAPython IDC interface is incomplete. IDA log:" && cat $(F)idctest.log && false)
 endif
 
@@ -584,6 +578,8 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 		--exclude=repl.py \
 		--exclude=test_idc.py \
 		--exclude=RELEASE.md \
+		--exclude=docs/hr-html/ \
+		--exclude=**/*~ \
 		. $(PUBTREE_DIR)
 	(cd $(F) && zip -r ../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
 endif
@@ -594,7 +590,8 @@ echo_modules:
 # MAKEDEP dependency list ------------------
 $(F)python$(O)  : $(I)range.hpp $(I)bitrange.hpp $(I)bytes.hpp              \
 	          $(I)diskio.hpp $(I)expr.hpp $(I)fpro.h $(I)funcs.hpp      \
-	          $(I)ida.hpp $(I)idp.hpp $(I)config.hpp $(I)kernwin.hpp \
-	          $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp  \
+	          $(I)ida.hpp $(I)idp.hpp $(I)config.hpp $(I)kernwin.hpp    \
+	          $(I)lines.hpp $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp   \
 	          $(I)netnode.hpp $(I)pro.h $(I)segment.hpp $(I)ua.hpp      \
+                  $(I)gdl.hpp $(I)graph.hpp                                 \
 	          $(I)xref.hpp python.cpp pywraps.hpp pywraps.cpp | $(ST_SDK_TARGETS)

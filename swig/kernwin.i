@@ -142,6 +142,9 @@ extern plugin_t PLUGIN;
 %ignore hexplace_t;
 %ignore hexplace_gen_t;
 
+%ignore msg_get_lines;
+%rename (msg_get_lines) py_msg_get_lines;
+
 %feature("director") UI_Hooks;
 
 //-------------------------------------------------------------------------
@@ -283,13 +286,17 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
   int _get_reg() const { return $self->reg; }
 
 #ifdef BC695
+  TWidget *_get_form() const { return $self->widget; }
   twidget_type_t _get_form_type() const { return $self->widget_type; }
+  qstring _get_form_title() const { return $self->widget_title; }
 #endif
 
   %pythoncode {
     reg = property(_get_reg)
 #ifdef BC695
+    form = property(_get_form)
     form_type = property(_get_form_type)
+    form_title = property(_get_form_title)
 #endif
   }
 }

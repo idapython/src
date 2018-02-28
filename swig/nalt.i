@@ -64,11 +64,6 @@
 %ignore set_jumptable_info;
 %ignore get_jumptable_info;
 
-%ignore switch_info_t;
-%ignore get_switch_info;
-%ignore set_switch_info;
-%ignore del_switch_info;
-
 %ignore refinfo_t::_get_target;
 %ignore refinfo_t::_get_value;
 %ignore refinfo_t::_get_opval;
@@ -95,9 +90,8 @@
 %ignore set__segtrans;
 %ignore del__segtrans;
 
-%ignore get_switch_info;
-%ignore set_switch_info;
-%ignore del_switch_info;
+%ignore validate_idb_names;
+%rename (validate_idb_names) validate_idb_names2;
 
 %template (custom_data_type_ids_fids_array) wrapped_array_t<int16,UA_MAXOP>;
 
@@ -123,16 +117,28 @@
   }
 }
 
+%ignore switch_info_t::version;
+
+%apply uchar { op_dtype_t regdtype };
+
+%extend switch_info_t
+{
+  void assign(const switch_info_t &other) { *($self) = other; }
+  ea_t _get_values_lowcase() const { return $self->values; }
+  void _set_values_lowcase(ea_t values) { $self->values = values; }
+
+  %pythoncode {
+    values = property(_get_values_lowcase, _set_values_lowcase)
+    lowcase = property(_get_values_lowcase, _set_values_lowcase)
+  }
+}
+
 %include "nalt.hpp"
 
 %{
 //<code(py_nalt)>
 //</code(py_nalt)>
 %}
-
-%rename (get_switch_info)  py_get_switch_info;
-%rename (set_switch_info)  py_set_switch_info;
-%rename (del_switch_info)  py_del_switch_info;
 
 %inline %{
 //<inline(py_nalt)>

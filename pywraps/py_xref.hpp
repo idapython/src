@@ -10,7 +10,7 @@ typedef qvector<ea_t> eavec_t;
 
 /*
 #<pydoc>
-def create_switch_xrefs(insn_ea, si):
+def create_switch_xrefs(ea, si):
     """
     This function creates xrefs from the indirect jump.
 
@@ -19,7 +19,7 @@ def create_switch_xrefs(insn_ea, si):
 
     Note: Custom switch information are not supported yet.
 
-    @param insn_ea: address of the 'indirect jump' instruction
+    @param ea: address of the 'indirect jump' instruction
     @param si: switch information
 
     @return: Boolean
@@ -27,15 +27,9 @@ def create_switch_xrefs(insn_ea, si):
     pass
 #</pydoc>
 */
-idaman bool ida_export py_create_switch_xrefs(
-        ea_t insn_ea,
-        PyObject *py_swi)
+bool py_create_switch_xrefs(ea_t ea, const switch_info_t &si)
 {
-  switch_info_t *swi = switch_info_t_get_clink(py_swi);
-  if ( swi == NULL )
-    return false;
-
-  create_switch_xrefs(insn_ea, *swi);
+  create_switch_xrefs(ea, si);
   return true;
 }
 
@@ -50,7 +44,7 @@ struct cases_and_targets_t
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def calc_switch_cases(insn_ea, si):
+def calc_switch_cases(ea, si):
     """
     Get information about a switch's cases.
 
@@ -62,7 +56,7 @@ def calc_switch_cases(insn_ea, si):
                 print "case: %d" % cur_case[cidx]
             print "  goto 0x%x" % results.targets[idx]
 
-    @param insn_ea: address of the 'indirect jump' instruction
+    @param ea: address of the 'indirect jump' instruction
     @param si: switch information
 
     @return: a structure with 2 members: 'cases', and 'targets'.
@@ -70,33 +64,27 @@ def calc_switch_cases(insn_ea, si):
     pass
 #</pydoc>
 */
-idaman cases_and_targets_t *ida_export py_calc_switch_cases(
-        ea_t insn_ea,
-        PyObject *py_swi)
+cases_and_targets_t *py_calc_switch_cases(
+        ea_t ea,
+        const switch_info_t &si)
 {
-  switch_info_t *swi = switch_info_t_get_clink(py_swi);
-  if ( swi == NULL )
-    return NULL;
-
   cases_and_targets_t *ct = new cases_and_targets_t;
-  if ( !calc_switch_cases(&ct->cases, &ct->targets, insn_ea, *swi) )
+  if ( !calc_switch_cases(&ct->cases, &ct->targets, ea, si) )
   {
     delete ct;
     return NULL;
   }
-
   return ct;
 }
-
 
 //-------------------------------------------------------------------------
 /*
 #<pydoc>
-def create_switch_table(insn_ea, si):
+def create_switch_table(ea, si):
     """
     Create switch table from the switch information
 
-    @param insn_ea: address of the 'indirect jump' instruction
+    @param ea: address of the 'indirect jump' instruction
     @param si: switch information
 
     @return: Boolean
@@ -104,15 +92,9 @@ def create_switch_table(insn_ea, si):
     pass
 #</pydoc>
 */
-idaman bool ida_export py_create_switch_table(
-        ea_t insn_ea,
-        PyObject *py_swi)
+bool py_create_switch_table(ea_t ea, const switch_info_t &si)
 {
-  switch_info_t *swi = switch_info_t_get_clink(py_swi);
-  if ( swi == NULL )
-    return false;
-
-  create_switch_table(insn_ea, *swi);
+  create_switch_table(ea, si);
   return true;
 }
 //</inline(py_xref)>

@@ -77,6 +77,14 @@ class DeprecatedIDCError(Exception):
     """
     pass
 
+__warned_deprecated_proto_confusion = {}
+def __warn_once_deprecated_proto_confusion(what, alternative):
+    if what not in __warned_deprecated_proto_confusion:
+        print("NOTE: idc.%s is deprecated due to signature confusion with %s. Please use %s instead" % (
+            what,
+            alternative,
+            alternative))
+        __warned_deprecated_proto_confusion[what] = True
 
 def _IDC_GetAttr(obj, attrmap, attroffs):
     """
@@ -379,45 +387,10 @@ IDCHK_ARG       = -1   # bad argument(s)
 IDCHK_KEY       = -2   # bad hotkey name
 IDCHK_MAX       = -3   # too many IDC hotkeys
 
-def add_idc_hotkey(hotkey, idcfunc):
-    """
-    Add hotkey for IDC function
-
-    @param hotkey: hotkey name ('a', "Alt-A", etc)
-    @param idcfunc: IDC function name
-
-    @return: None
-    """
-    return ida_kernwin.add_idc_hotkey(hotkey, idcfunc)
-
-
-def del_idc_hotkey(hotkey):
-    """
-    Delete IDC function hotkey
-
-    @param hotkey: hotkey code to delete
-    """
-    return ida_kernwin.del_idc_hotkey(hotkey)
-
-
-def jumpto(ea):
-    """
-    Move cursor to the specifed linear address
-
-    @param ea: linear address
-    """
-    return ida_kernwin.jumpto(ea)
-
-
-def auto_wait():
-    """
-    Process all entries in the autoanalysis queue
-    Wait for the end of autoanalysis
-
-    @note:    This function will suspend execution of the calling script
-            till the autoanalysis queue is empty.
-    """
-    return ida_auto.auto_wait()
+add_idc_hotkey = ida_kernwin.add_idc_hotkey
+del_idc_hotkey = ida_kernwin.del_idc_hotkey
+jumpto = ida_kernwin.jumpto
+auto_wait = ida_auto.auto_wait
 
 
 def eval_idc(expr):
@@ -472,22 +445,15 @@ def save_database(idbname, flags=0):
 
 DBFL_BAK = ida_loader.DBFL_BAK # for compatiblity with older versions, eventually delete this
 
-def validate_idb_names():
+def validate_idb_names(do_repair = 0):
     """
     check consistency of IDB name records
+    @param do_repair: try to repair netnode header it TRUE
     @return: number of inconsistent name records
     """
-    return ida_nalt.validate_idb_names()
+    return ida_nalt.validate_idb_names(do_repair)
 
-def qexit(code):
-    """
-    Stop execution of IDC program, close the database and exit to OS
-
-    @param code: code to exit with.
-
-    @return: -
-    """
-    ida_pro.qexit(code)
+qexit = ida_pro.qexit
 
 
 def call_system(command):
@@ -517,27 +483,8 @@ def qsleep(milliseconds):
     time.sleep(float(milliseconds)/1000)
 
 
-def load_and_run_plugin(name, arg):
-    """
-    Load and run a plugin
-
-    @param name: The plugin name is a short plugin name without an extension
-    @param arg: integer argument
-
-    @return: 0 if could not load the plugin, 1 if ok
-    """
-    return ida_loader.load_and_run_plugin(name, arg)
-
-
-def plan_to_apply_idasgn(name):
-    """
-    Load (plan to apply) a FLIRT signature file
-
-    @param name:  signature name without path and extension
-
-    @return: 0 if could not load the signature file, !=0 otherwise
-    """
-    return ida_funcs.plan_to_apply_idasgn(name)
+load_and_run_plugin = ida_loader.load_and_run_plugin
+plan_to_apply_idasgn = ida_funcs.plan_to_apply_idasgn
 
 
 #----------------------------------------------------------------------------
@@ -571,17 +518,7 @@ def delete_all_segments():
         ea = ida_bytes.next_head(ea, ida_ida.cvar.inf.max_ea)
 
 
-def create_insn(ea):
-    """
-    Create an instruction at the specified address
-
-    @param ea: linear address
-
-    @return: 0 - can not create an instruction (no such opcode, the instruction
-    would overlap with existing items, etc) otherwise returns length of the
-    instruction in bytes
-    """
-    return ida_ua.create_insn(ea)
+create_insn = ida_ua.create_insn
 
 
 def plan_and_wait(sEA, eEA, final_pass=True):
@@ -632,17 +569,7 @@ SN_LOCAL      = ida_name.SN_LOCAL    # create local name. a function should exis
                                      # also they are not included into the list
                                      # of names they can't have dummy prefixes
 
-def set_cmt(ea, comment, rptble):
-    """
-    Set an indented regular comment of an item
-
-    @param ea: linear address
-    @param comment: comment string
-    @param rptble: is repeatable?
-
-    @return: None
-    """
-    return ida_bytes.set_cmt(ea, comment, rptble)
+set_cmt = ida_bytes.set_cmt
 
 
 def make_array(ea, nitems):
@@ -695,18 +622,7 @@ def create_strlit(ea, endea):
     return ida_bytes.create_strlit(ea, 0 if endea == BADADDR else endea - ea, get_inf_attr(INF_STRTYPE))
 
 
-def create_data(ea, flags, size, tid):
-    """
-    Create a data item at the specified address
-
-    @param ea: linear address
-    @param flags: FF_BYTE..FF_PACKREAL
-    @param size: size of item in bytes
-    @param tid: for FF_STRUCT the structure id
-
-    @return: 1-ok, 0-failure
-    """
-    return ida_bytes.create_data(ea, flags, size, tid)
+create_data = ida_bytes.create_data
 
 
 def create_byte(ea):
@@ -838,34 +754,8 @@ def create_struct(ea, size, strname):
     return ida_bytes.create_struct(ea, size, strid)
 
 
-def create_custom_data(ea, size, dtid, fid):
-    """
-    Convert the item at address to custom data.
-
-    @param ea: linear address.
-    @param size: custom data size in bytes.
-    @param dtid: data type ID.
-    @param fid: data format ID.
-
-    @return: 1-ok, 0-failure
-    """
-    return ida_bytes.create_custdata(ea, size, dtid, fid)
-
-
-
-def create_align(ea, count, align):
-    """
-    Convert the current item to an alignment directive
-
-    @param ea: linear address
-    @param count: number of bytes to convert
-    @param align: 0 or 1..32
-              if it is 0, the correct alignment will be calculated
-              by the kernel
-
-    @return: 1-ok, 0-failure
-    """
-    return ida_bytes.create_align(ea, count, align)
+create_custom_data = ida_bytes.create_custdata
+create_align = ida_bytes.create_align
 
 
 def define_local_var(start, end, location, name):
@@ -914,11 +804,12 @@ def define_local_var(start, end, location, name):
                 return 0
         else:
             # No member at the offset, create a new one
-            if ida_struct.add_struc_member(frame,
-										   name,
-										   offset,
-										   ida_bytes.byteflag(),
-										   None, 1) == 0:
+            if ida_struct.add_struc_member(
+                    frame,
+                    name,
+                    offset,
+                    ida_bytes.byteflag(),
+                    None, 1) == 0:
                 return 1
             else:
                 return 0
@@ -975,71 +866,11 @@ AP_IDXHEX       = 0x00000010L     # display indexes in hex
 AP_IDXOCT       = 0x00000020L     # display indexes in octal
 AP_IDXBIN       = 0x00000030L     # display indexes in binary
 
-def op_bin(ea, n):
-    """
-    Convert an operand of the item (instruction or data) to a binary number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-
-    @return: 1-ok, 0-failure
-
-    @note: the data items use only the type of the first operand
-    """
-    return ida_bytes.op_bin(ea, n)
-
-
-def op_oct(ea, n):
-    """
-    Convert an operand of the item (instruction or data) to an octal number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_oct(ea, n)
-
-
-def op_dec(ea, n):
-    """
-    Convert an operand of the item (instruction or data) to a decimal number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_dec(ea, n)
-
-
-def op_hex(ea, n):
-    """
-    Convert an operand of the item (instruction or data) to a hexadecimal number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_hex(ea, n)
-
-
-def op_chr(ea, n):
-    """
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_chr(ea, n)
+op_bin = ida_bytes.op_bin
+op_oct = ida_bytes.op_oct
+op_dec = ida_bytes.op_dec
+op_hex = ida_bytes.op_hex
+op_chr = ida_bytes.op_chr
 
 
 def op_plain_offset(ea, n, base):
@@ -1090,35 +921,7 @@ def op_plain_offset(ea, n, base):
 OPND_OUTER = ida_bytes.OPND_OUTER # outer offset base
 
 
-def op_offset(ea, n, reftype, target, base, tdelta):
-    """
-    Convert operand to a complex offset expression
-    This is a more powerful version of op_plain_offset() function.
-    It allows to explicitly specify the reference type (off8,off16, etc)
-    and the expression target with a possible target delta.
-    The complex expressions are represented by IDA in the following form:
-
-    target + tdelta - base
-
-    If the target is not present, then it will be calculated using
-
-    target = operand_value - tdelta + base
-
-    The target must be present for LOW.. and HIGH.. reference types
-
-    @param ea: linear address of the instruction/data
-    @param n: number of operand to convert (the same as in op_plain_offset)
-    @param reftype: one of REF_... constants
-    @param target: an explicitly specified expression target. if you don't
-              want to specify it, use -1. Please note that LOW... and
-              HIGH... reference type requre the target.
-    @param base: the offset base (a linear address)
-    @param tdelta: a displacement from the target which will be displayed
-              in the expression.
-
-    @return: success (boolean)
-    """
-    return ida_offset.op_offset(ea, n, reftype, target, base, tdelta)
+op_offset = ida_offset.op_offset
 
 
 REF_OFF8    = ida_nalt.REF_OFF8    # 8bit full offset
@@ -1142,75 +945,11 @@ REFINFO_SUBTRACT = 0x0100 # the reference value is subtracted from
 REFINFO_SIGNEDOP = 0x0200 # the operand value is sign-extended (only
                           # supported for REF_OFF8/16/32/64)
 
-def op_seg(ea, n):
-    """
-    Convert operand to a segment expression
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_seg(ea, n)
-
-
-def op_num(ea, n):
-    """
-    Convert operand to a number (with default number base, radix)
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_num(ea, n)
-
-
-def op_flt(ea, n):
-    """
-    Convert operand to a floating-point number
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-
-    @return: 1-ok, 0-failure
-    """
-    return ida_bytes.op_flt(ea, n)
-
-
-def op_man(ea, n, opstr):
-    """
-    Specify operand represenation manually.
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    @param opstr: a string represenation of the operand
-
-    @note: IDA will not check the specified operand, it will simply display
-    it instead of the orginal representation of the operand.
-    """
-    return ida_bytes.set_forced_operand(ea, n, opstr)
-
-
-def toggle_sign(ea, n):
-    """
-    Change sign of the operand
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.toggle_sign(ea, n)
+op_seg = ida_bytes.op_seg
+op_num = ida_bytes.op_num
+op_flt = ida_bytes.op_flt
+op_man = ida_bytes.set_forced_operand
+toggle_sign = ida_bytes.toggle_sign
 
 
 def toggle_bnot(ea, n):
@@ -1227,25 +966,7 @@ def toggle_bnot(ea, n):
     return True
 
 
-def op_enum(ea, n, enumid, serial):
-    """
-    Convert operand to a symbolic constant
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    @param enumid: id of enumeration type
-    @param serial: serial number of the constant in the enumeration
-             The serial numbers are used if there are more than
-             one symbolic constant with the same value in the
-             enumeration. In this case the first defined constant
-             get the serial number 0, then second 1, etc.
-             There could be 256 symbolic constants with the same
-             value in the enumeration.
-    """
-    return ida_bytes.op_enum(ea, n, enumid, serial)
+op_enum = ida_bytes.op_enum
 
 
 def op_stroff(ea, n, strid, delta):
@@ -1267,17 +988,7 @@ def op_stroff(ea, n, strid, delta):
     return ida_bytes.op_stroff(ea, n, path.cast(), 1, delta)
 
 
-def op_stkvar(ea, n):
-    """
-    Convert operand to a stack variable
-
-    @param ea: linear address
-    @param n: number of operand
-        - 0 - the first operand
-        - 1 - the second, third and all other operands
-        - -1 - all operands
-    """
-    return ida_bytes.op_stkvar(ea, n)
+op_stkvar = ida_bytes.op_stkvar
 
 
 def op_offset_high16(ea, n, target):
@@ -1317,157 +1028,16 @@ def MakeVar(ea):
 E_PREV = ida_lines.E_PREV
 E_NEXT = ida_lines.E_NEXT
 
-def get_extra_cmt(ea, n):
-    """
-    Get extra comment line
-
-    @param ea: linear address
-    @param n: number of line (0..MAX_ITEM_LINES)
-          MAX_ITEM_LINES is defined in IDA.CFG
-
-    To get anterior  line #n use (E_PREV + n)
-    To get posterior line #n use (E_NEXT + n)
-
-    @return: extra comment line string
-    """
-    return ida_lines.get_extra_cmt(ea, n)
-
-
-def update_extra_cmt(ea, n, line):
-    """
-    Set or update extra comment line
-
-    @param ea: linear address
-    @param n: number of additional line (0..MAX_ITEM_LINES)
-    @param line: the line to display
-
-    @return: None
-
-    @note: IDA displays additional lines from number 0 up to the first unexisting
-    additional line. So, if you specify additional line #150 and there is no
-    additional line #149, your line will not be displayed.  MAX_ITEM_LINES is
-    defined in IDA.CFG
-
-    To set anterior  line #n use (E_PREV + n)
-    To set posterior line #n use (E_NEXT + n)
-    """
-    ida_lines.update_extra_cmt(ea, n, line)
-
-
-def del_extra_cmt(ea, n):
-    """
-    Delete an extra comment line
-
-    @param ea: linear address
-    @param n: number of anterior additional line (0..MAX_ITEM_LINES)
-
-    @return: None
-
-    To delete anterior  line #n use (E_PREV + n)
-    To delete posterior line #n use (E_NEXT + n)
-    """
-    ida_lines.del_extra_cmt(ea, n)
-
-
-def set_manual_insn(ea, insn):
-    """
-    Specify instruction represenation manually.
-
-    @param ea: linear address
-    @param insn: a string represenation of the operand
-
-    @note: IDA will not check the specified instruction, it will simply
-    display it instead of the orginal representation.
-    """
-    return ida_bytes.set_manual_insn(ea, insn)
-
-
-def get_manual_insn(ea):
-    """
-    Get manual representation of instruction
-
-    @param ea: linear address
-
-    @note: This function returns value set by set_manual_insn earlier.
-    """
-    return ida_bytes.get_manual_insn(ea)
-
-
-def patch_dbg_byte(ea,value):
-    """
-    Change a byte in the debugged process memory only
-
-    @param ea: address
-    @param value: new value of the byte
-
-    @return: 1 if successful, 0 if not
-    """
-    return ida_dbg.put_dbg_byte(ea, value)
-
-
-def patch_byte(ea, value):
-    """
-    Change value of a program byte
-    If debugger was active then the debugged process memory will be patched too
-
-    @param ea: linear address
-    @param value: new value of the byte
-
-    @return: 1 if the database has been modified,
-             0 if either the debugger is running and the process' memory
-               has value 'value' at address 'ea',
-               or the debugger is not running, and the IDB
-               has value 'value' at address 'ea already.
-    """
-    return ida_bytes.patch_byte(ea, value)
-
-
-def patch_word(ea, value):
-    """
-    Change value of a program word (2 bytes)
-
-    @param ea: linear address
-    @param value: new value of the word
-
-    @return: 1 if the database has been modified,
-             0 if either the debugger is running and the process' memory
-               has value 'value' at address 'ea',
-               or the debugger is not running, and the IDB
-               has value 'value' at address 'ea already.
-    """
-    return ida_bytes.patch_word(ea, value)
-
-
-def patch_dword(ea, value):
-    """
-    Change value of a double word
-
-    @param ea: linear address
-    @param value: new value of the double word
-
-    @return: 1 if the database has been modified,
-             0 if either the debugger is running and the process' memory
-               has value 'value' at address 'ea',
-               or the debugger is not running, and the IDB
-               has value 'value' at address 'ea already.
-    """
-    return ida_bytes.patch_dword(ea, value)
-
-
-def patch_qword(ea, value):
-    """
-    Change value of a quad word
-
-    @param ea: linear address
-    @param value: new value of the quad word
-
-    @return: 1 if the database has been modified,
-             0 if either the debugger is running and the process' memory
-               has value 'value' at address 'ea',
-               or the debugger is not running, and the IDB
-               has value 'value' at address 'ea already.
-    """
-    return ida_bytes.patch_qword(ea, value)
+get_extra_cmt = ida_lines.get_extra_cmt
+update_extra_cmt = ida_lines.update_extra_cmt
+del_extra_cmt = ida_lines.del_extra_cmt
+set_manual_insn = ida_bytes.set_manual_insn
+get_manual_insn = ida_bytes.get_manual_insn
+patch_dbg_byte = ida_dbg.put_dbg_byte
+patch_byte = ida_bytes.patch_byte
+patch_word = ida_bytes.patch_word
+patch_dword = ida_bytes.patch_dword
+patch_qword = ida_bytes.patch_qword
 
 
 SR_inherit      = 1 # value is inherited from the previous range
@@ -1495,22 +1065,8 @@ def split_sreg_range(ea, reg, value, tag=SR_user):
         return False
 
 
-def auto_mark_range(start, end, queuetype):
-    """
-    Plan to perform an action in the future.
-    This function will put your request to a special autoanalysis queue.
-    Later IDA will retrieve the request from the queue and process
-    it. There are several autoanalysis queue types. IDA will process all
-    queries from the first queue and then switch to the second queue, etc.
-    """
-    return ida_auto.auto_mark_range(start, end, queuetype)
-
-
-def auto_unmark(start, end, queuetype):
-    """
-    Remove range of addresses from a queue.
-    """
-    return ida_auto.auto_unmark(start, end, queuetype)
+auto_mark_range = ida_auto.auto_mark_range
+auto_unmark = ida_auto.auto_unmark
 
 
 def AutoMark(ea,qtype):
@@ -1542,7 +1098,7 @@ def gen_file(filetype, path, ea1, ea2, flags):
     @param flags: bit combination of GENFLG_...
 
     @returns: number of the generated lines.
-                -1 if an error occured
+                -1 if an error occurred
                 OFILE_EXE: 0-can't generate exe file, 1-ok
     """
     f = ida_diskio.fopenWT(path)
@@ -1618,35 +1174,9 @@ def idadir():
     return ida_diskio.idadir("")
 
 
-def get_root_filename():
-    """
-    Get input file name
-
-    This function returns name of the file being disassembled
-    """
-    return ida_nalt.get_root_filename()
-
-
-def get_input_file_path():
-    """
-    Get input file path
-
-    This function returns the full path of the file being disassembled
-    """
-    return ida_nalt.get_input_file_path()
-
-
-def set_root_filename(path):
-    """
-    Set input file name
-    This function updates the file name that is stored in the database
-    It is used by the debugger and other parts of IDA
-    Use it when the database is moved to another location or when you
-    use remote debugging.
-
-    @param path: new input file path
-    """
-    return ida_nalt.set_root_filename(path)
+get_root_filename = ida_nalt.get_root_filename
+get_input_file_path = ida_nalt.get_input_file_path
+set_root_filename = ida_nalt.set_root_filename
 
 
 def get_idb_path():
@@ -1658,39 +1188,9 @@ def get_idb_path():
     return ida_loader.get_path(ida_loader.PATH_TYPE_IDB)
 
 
-def retrieve_input_file_md5():
-    """
-    Return the MD5 hash of the input binary file
-
-    @return: MD5 string or None on error
-    """
-    return ida_nalt.retrieve_input_file_md5()
-
-
-def get_full_flags(ea):
-    """
-    Get internal flags
-
-    @param ea: linear address
-
-    @return: 32-bit value of internal flags. See start of IDC.IDC file
-        for explanations.
-    """
-    return ida_bytes.get_full_flags(ea)
-
-
-def get_db_byte(ea):
-    """
-    Get one byte (8-bit) of the program at 'ea' from the database even if the debugger is active
-
-    @param ea: linear address
-
-    @return: byte value. If the byte has no value then 0xFF is returned.
-
-    @note: If the current byte size is different from 8 bits, then the returned value may have more 1's.
-    To check if a byte has a value, use is_loaded()
-    """
-    return ida_bytes.get_db_byte(ea)
+retrieve_input_file_md5 = ida_nalt.retrieve_input_file_md5
+get_full_flags = ida_bytes.get_full_flags
+get_db_byte = ida_bytes.get_db_byte
 
 
 def get_bytes(ea, size, use_dbg = False):
@@ -1712,18 +1212,7 @@ def get_bytes(ea, size, use_dbg = False):
         return ida_bytes.get_bytes(ea, size)
 
 
-def get_wide_byte(ea):
-    """
-    Get value of program byte
-
-    @param ea: linear address
-
-    @return: value of byte. If byte has no value then returns 0xFF
-        If the current byte size is different from 8 bits, then the returned value
-        might have more 1's.
-        To check if a byte has a value, use is_loaded()
-    """
-    return ida_bytes.get_wide_byte(ea)
+get_wide_byte = ida_bytes.get_wide_byte
 
 
 def __DbgValue(ea, len):
@@ -1773,17 +1262,7 @@ def read_dbg_qword(ea):
     return __DbgValue(ea, 8)
 
 
-def read_dbg_memory(ea, size):
-    """
-    Read from debugger memory.
-
-    @param ea: linear address
-    @param size: size of data to read
-    @return: data as a string. If failed, If failed, throws an exception
-
-    Thread-safe function (may be called only from the main thread and debthread)
-    """
-    return ida_idd.dbg_read_memory(ea, size)
+read_dbg_memory = ida_idd.dbg_read_memory
 
 
 def write_dbg_memory(ea, data):
@@ -1796,56 +1275,17 @@ def write_dbg_memory(ea, data):
 
     Thread-safe function (may be called only from the main thread and debthread)
     """
-    if not ida_idd.dbg_can_query():
+    __warn_once_deprecated_proto_confusion("write_dbg_memory", "ida_dbg.write_dbg_memory")
+    if not ida_dbg.dbg_can_query():
         return -1
     elif len(data) > 0:
         return ida_idd.dbg_write_memory(ea, data)
 
 
-def get_original_byte(ea):
-    """
-    Get original value of program byte
-
-    @param ea: linear address
-
-    @return: the original value of byte before any patch applied to it
-    """
-    return ida_bytes.get_original_byte(ea)
-
-
-def get_wide_word(ea):
-    """
-    Get value of program word (2 bytes)
-
-    @param ea: linear address
-
-    @return: the value of the word. If word has no value then returns 0xFFFF
-        If the current byte size is different from 8 bits, then the returned value
-        might have more 1's.
-    """
-    return ida_bytes.get_wide_word(ea)
-
-
-def get_wide_dword(ea):
-    """
-    Get value of program double word (4 bytes)
-
-    @param ea: linear address
-
-    @return: the value of the double word. If failed returns -1
-    """
-    return ida_bytes.get_wide_dword(ea)
-
-
-def get_qword(ea):
-    """
-    Get value of program quadro word (8 bytes)
-
-    @param ea: linear address
-
-    @return: the value of the quadro word. If failed, returns -1
-    """
-    return ida_bytes.get_qword(ea)
+get_original_byte = ida_bytes.get_original_byte
+get_wide_word = ida_bytes.get_wide_word
+get_wide_dword = ida_bytes.get_wide_dword
+get_qword = ida_bytes.get_qword
 
 
 def GetFloat(ea):
@@ -1888,22 +1328,7 @@ def get_name_ea_simple(name):
     return ida_name.get_name_ea(BADADDR, name)
 
 
-def get_name_ea(fromaddr, name):
-    """
-    Get linear address of a name
-
-    @param fromaddr: the referring address. Allows to retrieve local label
-               addresses in functions. If a local name is not found,
-               then address of a global name is returned.
-
-    @param name: name of program byte
-
-    @return: address of the name (BADADDR - no such name)
-
-    @note: Dummy names (like byte_xxxx where xxxx are hex digits) are parsed by this
-           function to obtain the address. The database is not consulted for them.
-    """
-    return ida_name.get_name_ea(fromaddr, name)
+get_name_ea = ida_name.get_name_ea
 
 
 def get_segm_by_sel(base):
@@ -1924,11 +1349,7 @@ def get_segm_by_sel(base):
         return BADADDR
 
 
-def get_screen_ea():
-    """
-    Get linear address of cursor
-    """
-    return ida_kernwin.get_screen_ea()
+get_screen_ea = ida_kernwin.get_screen_ea
 
 
 def get_curline():
@@ -1986,26 +1407,8 @@ def get_sreg(ea, reg):
     else:
         return -1
 
-def next_addr(ea):
-    """
-    Get next address in the program
-
-    @param ea: linear address
-
-    @return: BADADDR - the specified address in the last used address
-    """
-    return ida_bytes.next_addr(ea)
-
-
-def prev_addr(ea):
-    """
-    Get previous address in the program
-
-    @param ea: linear address
-
-    @return: BADADDR - the specified address in the first address
-    """
-    return ida_bytes.prev_addr(ea)
+next_addr = ida_bytes.next_addr
+prev_addr = ida_bytes.prev_addr
 
 
 def next_head(ea, maxea=BADADDR):
@@ -2034,53 +1437,10 @@ def prev_head(ea, minea=0):
     return ida_bytes.prev_head(ea, minea)
 
 
-def next_not_tail(ea):
-    """
-    Get next not-tail address in the program
-    This function searches for the next displayable address in the program.
-    The tail bytes of instructions and data are not displayable.
-
-    @param ea: linear address
-
-    @return: BADADDR - no (more) not-tail addresses
-    """
-    return ida_bytes.next_not_tail(ea)
-
-
-def prev_not_tail(ea):
-    """
-    Get previous not-tail address in the program
-    This function searches for the previous displayable address in the program.
-    The tail bytes of instructions and data are not displayable.
-
-    @param ea: linear address
-
-    @return: BADADDR - no (more) not-tail addresses
-    """
-    return ida_bytes.prev_not_tail(ea)
-
-
-def get_item_head(ea):
-    """
-    Get starting address of the item (instruction or data)
-
-    @param ea: linear address
-
-    @return: the starting address of the item
-             if the current address is unexplored, returns 'ea'
-    """
-    return ida_bytes.get_item_head(ea)
-
-
-def get_item_end(ea):
-    """
-    Get address of the end of the item (instruction or data)
-
-    @param ea: linear address
-
-    @return: address past end of the item at 'ea'
-    """
-    return ida_bytes.get_item_end(ea)
+next_not_tail = ida_bytes.next_not_tail
+prev_not_tail = ida_bytes.prev_not_tail
+get_item_head = ida_bytes.get_item_head
+get_item_end = ida_bytes.get_item_end
 
 
 def get_item_size(ea):
@@ -2121,16 +1481,7 @@ GN_ISRET = ida_name.GN_ISRET         # for dummy names: use retloc
 GN_NOT_ISRET = ida_name.GN_NOT_ISRET # for dummy names: do not use retloc
 
 
-def calc_gtn_flags(fromaddr, ea):
-    """
-    Calculate flags for get_name() function
-
-    @param fromaddr: the referring address. May be BADADDR.
-    @param ea: linear address
-
-    @return:  success
-    """
-    return ida_name.calc_gtn_flags(fromaddr, ea)
+calc_gtn_flags = ida_name.calc_gtn_flags
 
 
 def get_name(ea, gtn_flags=0):
@@ -2335,44 +1686,9 @@ def get_operand_value(ea, n):
     return value
 
 
-def GetCommentEx(ea, repeatable):
-    """
-    Get regular indented comment
-
-    @param ea: linear address
-
-    @param repeatable: 1 to get the repeatable comment, 0 to get the normal comment
-
-    @return: string or None if it fails
-    """
-    return ida_bytes.get_cmt(ea, repeatable)
-
-
-def get_cmt(ea, repeatable):
-    """
-    Get regular indented comment
-
-    @param ea: linear address
-
-    @param repeatable: 1 to get the repeatable comment, 0 to get the normal comment
-
-    @return: string or None if it fails
-    """
-    return GetCommentEx(ea, repeatable)
-
-
-def get_forced_operand(ea, n):
-    """
-    Get manually entered operand string
-
-    @param ea: linear address
-    @param n: number of operand:
-         0 - the first operand
-         1 - the second operand
-
-    @return: string or None if it fails
-    """
-    return ida_bytes.get_forced_operand(ea, n)
+GetCommentEx = ida_bytes.get_cmt
+get_cmt = GetCommentEx
+get_forced_operand = ida_bytes.get_forced_operand
 
 STRTYPE_C       = ida_nalt.STRTYPE_TERMCHR # C-style ASCII string
 STRTYPE_PASCAL  = ida_nalt.STRTYPE_PASCAL  # Pascal-style ASCII string (length byte)
@@ -2433,30 +1749,16 @@ SEARCH_REGEX    = ida_search.SEARCH_REGEX    # enable regular expressions (only 
 SEARCH_NOBRK    = ida_search.SEARCH_NOBRK    # don't test ctrl-break
 SEARCH_NOSHOW   = ida_search.SEARCH_NOSHOW   # don't display the search progress
 
-def find_text(ea, flag, y, x, searchstr):
-    """
-    @param ea: start address
-    @param flag: combination of SEARCH_* flags
-    @param y: number of text line at ea to start from (0..MAX_ITEM_LINES)
-    @param x: coordinate in this line
-    @param searchstr: search string
 
-    @return: ea of result or BADADDR if not found
-    """
+def find_text(ea, flag, y, x, searchstr, from_bc695=False):
+    if not from_bc695:
+        __warn_once_deprecated_proto_confusion("find_text", "ida_search.find_text")
     return ida_search.find_text(ea, y, x, searchstr, flag)
 
 
-def find_binary(ea, flag, searchstr, radix=16):
-    """
-    @param ea: start address
-    @param flag: combination of SEARCH_* flags
-    @param searchstr: a string as a user enters it for Search Text in Core
-    @param radix: radix of the numbers (default=16)
-
-    @return: ea of result or BADADDR if not found
-
-    @note: Example: "41 42" - find 2 bytes 41h,42h (radix is 16)
-    """
+def find_binary(ea, flag, searchstr, radix=16, from_bc695=False):
+    if not from_bc695:
+        __warn_once_deprecated_proto_confusion("find_binary", "ida_search.find_binary")
     endea = flag & 1 and ida_ida.cvar.inf.max_ea or ida_ida.cvar.inf.min_ea
     return ida_search.find_binary(ea, endea, searchstr, radix, flag)
 
@@ -2926,24 +2228,7 @@ INF_REFCMTS         : (False, 'refcmtnum'),
 }
 
 
-def set_processor_type (processor, level):
-    """
-    Change current processor
-
-    @param processor: name of processor in short form.
-                      run 'ida ?' to get list of allowed processor types
-    @param level: the request leve:
-       - SETPROC_IDB    set processor type for old idb
-       - SETPROC_LOADER set processor type for new idb;
-                        if the user has specified a compatible processor,
-                        return success without changing it.
-                        if failure, call loader_failure()
-       - SETPROC_LOADER_NON_FATAL
-                        the same as SETPROC_LOADER but non-fatal failures
-       - SETPROC_USER   set user-specified processor
-                        used for -p and manual processor change at later time
-    """
-    return ida_idp.set_processor_type(processor, level)
+set_processor_type  = ida_idp.set_processor_type
 
 SETPROC_IDB              = ida_idp.SETPROC_IDB
 SETPROC_LOADER           = ida_idp.SETPROC_LOADER
@@ -2953,15 +2238,7 @@ SETPROC_USER             = ida_idp.SETPROC_USER
 def SetPrcsr(processor): return set_processor_type(processor, SETPROC_USER)
 
 
-def set_target_assembler(asmidx):
-    """
-    Set target assembler
-    @param asmidx: index of the target assembler in the array of
-    assemblers for the current processor.
-
-    @return: 1-ok, 0-failed
-    """
-    return ida_idp.set_target_assembler(asmidx)
+set_target_assembler = ida_idp.set_target_assembler
 
 
 def batch(batch):
@@ -2992,78 +2269,12 @@ def process_ui_action(name, flags=0):
     """
     return ida_kernwin.process_ui_action(name, flags)
 
-
-def ask_seg(defval, prompt):
-    """
-    Ask the user to enter a segment value
-
-    @param defval: the default value. This value
-             will appear in the dialog box.
-    @param prompt: the prompt to display in the dialog box
-
-    @return: the entered segment selector or BADSEL.
-    """
-    return ida_kernwin.ask_seg(defval, prompt)
-
-
-def ask_yn(defval, prompt):
-    """
-    Ask the user a question and let him answer Yes/No/Cancel
-
-    @param defval: the default answer. This answer will be selected if the user
-            presses Enter. -1:cancel,0-no,1-ok
-    @param prompt: the prompt to display in the dialog box
-
-    @return: -1:cancel,0-no,1-ok
-    """
-    return ida_kernwin.ask_yn(defval, prompt)
-
-
-def msg(message):
-    """
-    Display an UTF-8 string in the message window
-
-    The result of the stringification of the arguments
-    will be treated as an UTF-8 string.
-
-    @param message: message to print (formatting is done in Python)
-
-    This function can be used to debug IDC scripts
-    """
-    ida_kernwin.msg(message)
-
-
-def warning(message):
-    """
-    Display a message in a message box
-
-    @param message: message to print (formatting is done in Python)
-
-    This function can be used to debug IDC scripts
-    The user will be able to hide messages if they appear twice in a row on
-    the screen
-    """
-    ida_kernwin.warning(message)
-
-
-def error(format):
-    """
-    Display a fatal message in a message box and quit IDA
-
-    @param format: message to print
-    """
-    ida_kernwin.error(format)
-
-
-def set_ida_state(status):
-    """
-    Change IDA indicator.
-
-    @param status: new status
-
-    @return: the previous status.
-    """
-    return ida_auto.set_ida_state(status)
+ask_seg = ida_kernwin.ask_seg
+ask_yn = ida_kernwin.ask_yn
+msg = ida_kernwin.msg
+warning = ida_kernwin.warning
+error = ida_kernwin.error
+set_ida_state = ida_auto.set_ida_state
 
 
 IDA_STATUS_READY    = 0 # READY     IDA is idle
@@ -3072,18 +2283,8 @@ IDA_STATUS_WAITING  = 2 # WAITING   Waiting for the user input
 IDA_STATUS_WORK     = 3 # BUSY      IDA is busy
 
 
-def refresh_idaview_anyway():
-    """
-    refresh_idaview_anyway all disassembly views
-    """
-    ida_kernwin.refresh_idaview_anyway()
-
-
-def refresh_lists():
-    """
-    refresh_idaview_anyway all list views (names, functions, etc)
-    """
-    ida_kernwin.refresh_lists()
+refresh_idaview_anyway = ida_kernwin.refresh_idaview_anyway
+refresh_lists = ida_kernwin.refresh_choosers
 
 
 #----------------------------------------------------------------------------
@@ -3124,33 +2325,8 @@ def find_selector(val):
     return ida_segment.find_selector(val) & 0xFFFF
 
 
-def set_selector(sel, value):
-    """
-    Set a selector value
-
-    @param sel: the selector number
-    @param value: value of selector
-
-    @return: None
-
-    @note: ida supports up to 4096 selectors.
-            if 'sel' == 'val' then the selector is destroyed because
-            it has no significance
-    """
-    return ida_segment.set_selector(sel, value)
-
-
-def del_selector(sel):
-    """
-    Delete a selector
-
-    @param sel: the selector number to delete
-
-    @return: None
-
-    @note: if the selector is found, it will be deleted
-    """
-    return ida_segment.del_selector(sel)
+set_selector = ida_segment.set_selector
+del_selector = ida_segment.del_selector
 
 
 def get_first_seg():
@@ -3635,31 +2811,8 @@ MOVE_SEGM_LOADER = -5     # The segment has been moved but the loader complained
 MOVE_SEGM_ODD    = -6     # Can't move segments by an odd number of bytes
 
 
-def rebase_program(delta, flags):
-    """
-    Rebase the whole program by 'delta' bytes
-
-    @param delta: number of bytes to move the program
-    @param flags: combination of MFS_... constants
-                  it is recommended to use MSF_FIXONCE so that the loader takes
-                  care of global variables it stored in the database
-
-    @returns: error code MOVE_SEGM_...
-    """
-    return ida_segment.rebase_program(delta, flags)
-
-
-def set_storage_type(start_ea, end_ea, stt):
-    """
-    Set storage type
-
-    @param start_ea: starting address
-    @param end_ea: ending address
-    @param stt: new storage type, one of STT_VA and STT_MM
-
-    @returns: 0 - ok, otherwise internal error code
-    """
-    return ida_bytes.change_storage_type(start_ea, end_ea, stt)
+rebase_program = ida_segment.rebase_program
+set_storage_type = ida_bytes.change_storage_type
 
 
 STT_VA = 0  # regular storage: virtual arrays, an explicit flag for each byte
@@ -3681,80 +2834,23 @@ XREF_USER = 32            # All user-specified xref types
 
 
 # Mark exec flow 'from' 'to'
-def add_cref(From, To, flowtype):
-    """
-    """
-    return ida_xref.add_cref(From, To, flowtype)
-
-
-def del_cref(From, To, undef):
-    """
-    Unmark exec flow 'from' 'to'
-
-    @param undef: make 'To' undefined if no more references to it
-
-    @returns: 1 - planned to be made undefined
-    """
-    return ida_xref.del_cref(From, To, undef)
+add_cref = ida_xref.add_cref
+del_cref = ida_xref.del_cref
 
 
 # The following functions include the ordinary flows:
 # (the ordinary flow references are returned first)
-def get_first_cref_from(From):
-    """
-    Get first code xref from 'From'
-    """
-    return ida_xref.get_first_cref_from(From)
-
-
-def get_next_cref_from(From, current):
-    """
-    Get next code xref from
-    """
-    return ida_xref.get_next_cref_from(From, current)
-
-
-def get_first_cref_to(To):
-    """
-    Get first code xref to 'To'
-    """
-    return ida_xref.get_first_cref_to(To)
-
-
-def get_next_cref_to(To, current):
-    """
-    Get next code xref to 'To'
-    """
-    return ida_xref.get_next_cref_to(To, current)
+get_first_cref_from = ida_xref.get_first_cref_from
+get_next_cref_from = ida_xref.get_next_cref_from
+get_first_cref_to = ida_xref.get_first_cref_to
+get_next_cref_to = ida_xref.get_next_cref_to
 
 
 # The following functions don't take into account the ordinary flows:
-def get_first_fcref_from(From):
-    """
-    Get first xref from 'From'
-    """
-    return ida_xref.get_first_fcref_from(From)
-
-
-def get_next_fcref_from(From, current):
-    """
-    Get next xref from
-    """
-    return ida_xref.get_next_fcref_from(From, current)
-
-
-def get_first_fcref_to(To):
-    """
-    Get first xref to 'To'
-    """
-    return ida_xref.get_first_fcref_to(To)
-
-
-def get_next_fcref_to(To, current):
-    """
-    Get next xref to 'To'
-    """
-    return ida_xref.get_next_fcref_to(To, current)
+get_first_fcref_from = ida_xref.get_first_fcref_from
+get_next_fcref_from = ida_xref.get_next_fcref_from
+get_first_fcref_to = ida_xref.get_first_fcref_to
+get_next_fcref_to = ida_xref.get_next_fcref_to
 
 
 # Data reference types (combine with XREF_USER!):
@@ -3764,47 +2860,12 @@ dr_R    = ida_xref.dr_R  # Read
 dr_T    = ida_xref.dr_T  # Text (names in manual operands)
 dr_I    = ida_xref.dr_I  # Informational
 
-
-def add_dref(From, To, drefType):
-    """
-    Create Data Ref
-    """
-    return ida_xref.add_dref(From, To, drefType)
-
-
-def del_dref(From, To):
-    """
-    Unmark Data Ref
-    """
-    return ida_xref.del_dref(From, To)
-
-
-def get_first_dref_from(From):
-    """
-    Get first data xref from 'From'
-    """
-    return ida_xref.get_first_dref_from(From)
-
-
-def get_next_dref_from(From, current):
-    """
-    Get next data xref from 'From'
-    """
-    return ida_xref.get_next_dref_from(From, current)
-
-
-def get_first_dref_to(To):
-    """
-    Get first data xref to 'To'
-    """
-    return ida_xref.get_first_dref_to(To)
-
-
-def get_next_dref_to(To, current):
-    """
-    Get next data xref to 'To'
-    """
-    return ida_xref.get_next_dref_to(To, current)
+add_dref = ida_xref.add_dref
+del_dref = ida_xref.del_dref
+get_first_dref_from = ida_xref.get_first_dref_from
+get_next_dref_from = ida_xref.get_next_dref_from
+get_first_dref_to = ida_xref.get_first_dref_to
+get_next_dref_to = ida_xref.get_next_dref_to
 
 
 def get_xref_type():
@@ -3936,27 +2997,8 @@ def add_func(start, end = ida_idaapi.BADADDR):
     return ida_funcs.add_func(start, end)
 
 
-def del_func(ea):
-    """
-    Delete a function
-
-    @param ea: any address belonging to the function
-
-    @return: !=0 - ok
-    """
-    return ida_funcs.del_func(ea)
-
-
-def set_func_end(ea, end):
-    """
-    Change function end address
-
-    @param ea: any address belonging to the function
-    @param end: new function end address
-
-    @return: !=0 - ok
-    """
-    return ida_funcs.set_func_end(ea, end)
+del_func = ida_funcs.del_func
+set_func_end = ida_funcs.set_func_end
 
 
 def get_next_func(ea):
@@ -4423,16 +3465,7 @@ def add_auto_stkpnt(func_ea, ea, delta):
         return 0
     return ida_frame.add_auto_stkpnt(pfn, ea, delta)
 
-def add_user_stkpnt(ea, delta):
-    """
-    Add user-defined SP register change point.
-
-    @param ea: linear address where SP changes
-    @param delta: difference between old and new values of SP
-
-    @return: 1-ok, 0-failed
-    """
-    return ida_frame.add_user_stkpnt(ea, delta);
+add_user_stkpnt = ida_frame.add_user_stkpnt
 
 def del_stkpnt(func_ea, ea):
     """
@@ -4460,14 +3493,7 @@ def get_min_spd_ea(func_ea):
         return BADADDR
     return ida_frame.get_min_spd_ea(pfn)
 
-def recalc_spd(cur_ea):
-    """
-    Recalculate SP delta for an instruction that stops execution.
-
-    @param cur_ea: linear address of the current instruction
-    @return: 1 - new stkpnt is added, 0 - nothing is changed
-    """
-    return ida_frame.recalc_spd(cur_ea)
+recalc_spd = ida_frame.recalc_spd
 
 
 
@@ -4476,110 +3502,19 @@ def recalc_spd(cur_ea):
 # ----------------------------------------------------------------------------
 #                        E N T R Y   P O I N T S
 # ----------------------------------------------------------------------------
-
-def get_entry_qty():
-    """
-    Retrieve number of entry points
-
-    @returns: number of entry points
-    """
-    return ida_entry.get_entry_qty()
-
-
-def add_entry(ordinal, ea, name, makecode):
-    """
-    Add entry point
-
-    @param ordinal: entry point number
-            if entry point doesn't have an ordinal
-            number, 'ordinal' should be equal to 'ea'
-    @param ea: address of the entry point
-    @param name: name of the entry point. If null string,
-            the entry point won't be renamed.
-    @param makecode: if 1 then this entry point is a start
-            of a function. Otherwise it denotes data bytes.
-
-    @return: 0 - entry point with the specifed ordinal already exists
-            1 - ok
-    """
-    return ida_entry.add_entry(ordinal, ea, name, makecode)
-
-
-def get_entry_ordinal(index):
-    """
-    Retrieve entry point ordinal number
-
-    @param index: 0..get_entry_qty()-1
-
-    @return: 0 if entry point doesn't exist
-            otherwise entry point ordinal
-    """
-    return ida_entry.get_entry_ordinal(index)
-
-
-def get_entry(ordinal):
-    """
-    Retrieve entry point address
-
-    @param ordinal: entry point number
-        it is returned by GetEntryPointOrdinal()
-
-    @return: BADADDR if entry point doesn't exist
-            otherwise entry point address.
-            If entry point address is equal to its ordinal
-            number, then the entry point has no ordinal.
-    """
-    return ida_entry.get_entry(ordinal)
-
-
-def get_entry_name(ordinal):
-    """
-    Retrieve entry point name
-
-    @param ordinal: entry point number, ass returned by GetEntryPointOrdinal()
-
-    @return: entry point name or None
-    """
-    return ida_entry.get_entry_name(ordinal)
-
-
-def rename_entry(ordinal, name):
-    """
-    Rename entry point
-
-    @param ordinal: entry point number
-    @param name: new name
-
-    @return: !=0 - ok
-    """
-    return ida_entry.rename_entry(ordinal, name)
+get_entry_qty = ida_entry.get_entry_qty
+add_entry = ida_entry.add_entry
+get_entry_ordinal = ida_entry.get_entry_ordinal
+get_entry = ida_entry.get_entry
+get_entry_name = ida_entry.get_entry_name
+rename_entry = ida_entry.rename_entry
 
 
 # ----------------------------------------------------------------------------
 #                              F I X U P S
 # ----------------------------------------------------------------------------
-def get_next_fixup_ea(ea):
-    """
-    Find next address with fixup information
-
-    @param ea: current address
-
-    @return: BADADDR - no more fixups otherwise returns the next
-                address with fixup information
-    """
-    return ida_fixup.get_next_fixup_ea(ea)
-
-
-def get_prev_fixup_ea(ea):
-    """
-    Find previous address with fixup information
-
-    @param ea: current address
-
-    @return: BADADDR - no more fixups otherwise returns the
-                previous address with fixup information
-    """
-    return ida_fixup.get_prev_fixup_ea(ea)
+get_next_fixup_ea = ida_fixup.get_next_fixup_ea
+get_prev_fixup_ea = ida_fixup.get_prev_fixup_ea
 
 
 def get_fixup_target_type(ea):
@@ -4711,213 +3646,33 @@ def set_fixup(ea, fixuptype, fixupflags, targetsel, targetoff, displ):
     fd.set(ea)
 
 
-def del_fixup(ea):
-    """
-    Delete fixup information
-
-    @param ea: address to delete fixup information about
-
-    @return: None
-    """
-    ida_fixup.del_fixup(ea)
+del_fixup = ida_fixup.del_fixup
 
 
 #----------------------------------------------------------------------------
 #                   M A R K E D   P O S I T I O N S
 #----------------------------------------------------------------------------
 
-def put_bookmark(ea, lnnum, x, y, slot, comment):
-    """
-    Mark position
-
-    @param ea: address to mark
-    @param lnnum: number of generated line for the 'ea'
-    @param x: x coordinate of cursor
-    @param y: y coordinate of cursor
-    @param slot: slot number: 1..1024
-                 if the specifed value is not within the
-                 range, IDA will ask the user to select slot.
-    @param comment: description of the mark. Should be not empty.
-
-    @return: None
-    """
-    ida_idc.mark_position(ea, lnnum, x, y, slot, comment)
-
-
-def get_bookmark(slot):
-    """
-    Get marked position
-
-    @param slot: slot number: 1..1024 if the specifed value is <= 0
-                 range, IDA will ask the user to select slot.
-
-    @return: BADADDR - the slot doesn't contain a marked address
-             otherwise returns the marked address
-    """
-    return ida_idc.get_marked_pos(slot)
-
-
-def get_bookmark_desc(slot):
-    """
-    Get marked position comment
-
-    @param slot: slot number: 1..1024
-
-    @return: None if the slot doesn't contain a marked address
-             otherwise returns the marked address comment
-    """
-    return ida_idc.get_mark_comment(slot)
+put_bookmark = ida_idc.mark_position
+get_bookmark = ida_idc.get_marked_pos
+get_bookmark_desc = ida_idc.get_mark_comment
 
 
 # ----------------------------------------------------------------------------
 #                          S T R U C T U R E S
 # ----------------------------------------------------------------------------
 
-def get_struc_qty():
-    """
-    Get number of defined structure types
-
-    @return: number of structure types
-    """
-    return ida_struct.get_struc_qty()
-
-
-def get_first_struc_idx():
-    """
-    Get index of first structure type
-
-    @return:      BADADDR if no structure type is defined
-                    index of first structure type.
-                    Each structure type has an index and ID.
-                    INDEX determines position of structure definition
-                    in the list of structure definitions. Index 1
-                    is listed first, after index 2 and so on.
-                    The index of a structure type can be changed any
-                    time, leading to movement of the structure definition
-                    in the list of structure definitions.
-                    ID uniquely denotes a structure type. A structure
-                    gets a unique ID at the creation time and this ID
-                    can't be changed. Even when the structure type gets
-                    deleted, its ID won't be resued in the future.
-    """
-    return ida_struct.get_first_struc_idx()
-
-
-def get_last_struc_idx():
-    """
-    Get index of last structure type
-
-    @return:        BADADDR if no structure type is defined
-                    index of last structure type.
-                    See get_first_struc_idx() for the explanation of
-                    structure indices and IDs.
-    """
-    return ida_struct.get_last_struc_idx()
-
-
-def get_next_struc_idx(index):
-    """
-    Get index of next structure type
-
-    @param index: current structure index
-
-    @return:    BADADDR if no (more) structure type is defined
-                index of the next structure type.
-                See get_first_struc_idx() for the explanation of
-                structure indices and IDs.
-    """
-    return ida_struct.get_next_struc_idx(index)
-
-
-def get_prev_struc_idx(index):
-    """
-    Get index of previous structure type
-
-    @param index: current structure index
-
-    @return:    BADADDR if no (more) structure type is defined
-                index of the presiouvs structure type.
-                See get_first_struc_idx() for the explanation of
-                structure indices and IDs.
-    """
-    return ida_struct.get_prev_struc_idx(index)
-
-
-def get_struc_idx(sid):
-    """
-    Get structure index by structure ID
-
-    @param sid: structure ID
-
-    @return:    BADADDR if bad structure ID is passed
-                otherwise returns structure index.
-                See get_first_struc_idx() for the explanation of
-                structure indices and IDs.
-    """
-    return ida_struct.get_struc_idx(sid)
-
-
-def get_struc_by_idx(index):
-    """
-    Get structure ID by structure index
-
-    @param index: structure index
-
-    @return: BADADDR if bad structure index is passed otherwise returns structure ID.
-
-    @note: See get_first_struc_idx() for the explanation of structure indices and IDs.
-    """
-    return ida_struct.get_struc_by_idx(index)
-
-
-def get_struc_id(name):
-    """
-    Get structure ID by structure name
-
-    @param name: structure type name
-
-    @return:    BADADDR if bad structure type name is passed
-                otherwise returns structure ID.
-    """
-    return ida_struct.get_struc_id(name)
-
-
-def get_struc_name(sid):
-    """
-    Get structure type name
-
-    @param sid: structure type ID
-
-    @return:    None if bad structure type ID is passed
-                otherwise returns structure type name.
-    """
-    return ida_struct.get_struc_name(sid)
-
-
-def get_struc_cmt(sid, repeatable):
-    """
-    Get structure type comment
-
-    @param sid: structure type ID
-    @param repeatable: 1: get repeatable comment
-                0: get regular comment
-
-    @return: None if bad structure type ID is passed
-                otherwise returns comment.
-    """
-    return ida_struct.get_struc_cmt(sid, repeatable)
-
-
-def get_struc_size(sid):
-    """
-    Get size of a structure
-
-    @param sid: structure type ID
-
-    @return:    0 if bad structure type ID is passed
-                otherwise returns size of structure in bytes.
-    """
-    return ida_struct.get_struc_size(sid)
+get_struc_qty = ida_struct.get_struc_qty
+get_first_struc_idx = ida_struct.get_first_struc_idx
+get_last_struc_idx = ida_struct.get_last_struc_idx
+get_next_struc_idx = ida_struct.get_next_struc_idx
+get_prev_struc_idx = ida_struct.get_prev_struc_idx
+get_struc_idx = ida_struct.get_struc_idx
+get_struc_by_idx = ida_struct.get_struc_by_idx
+get_struc_id = ida_struct.get_struc_id
+get_struc_name = ida_struct.get_struc_name
+get_struc_cmt = ida_struct.get_struc_cmt
+get_struc_size = ida_struct.get_struc_size
 
 
 def get_member_qty(sid):
@@ -5312,29 +4067,8 @@ def set_struc_idx(sid, index):
     return ida_struct.set_struc_idx(s, index)
 
 
-def set_struc_name(sid, name):
-    """
-    Change structure name
-
-    @param sid: structure type ID
-    @param name: new name of the structure
-
-    @return: != 0 - ok
-    """
-    return ida_struct.set_struc_name(sid, name)
-
-
-def set_struc_cmt(sid, comment, repeatable):
-    """
-    Change structure comment
-
-    @param sid: structure type ID
-    @param comment: new comment of the structure
-    @param repeatable: 1: change repeatable comment
-                       0: change regular comment
-    @return: != 0 - ok
-    """
-    return ida_struct.set_struc_cmt(sid, comment, repeatable)
+set_struc_name = ida_struct.set_struc_name
+set_struc_cmt = ida_struct.set_struc_cmt
 
 
 def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=0, reftype=REF_OFF32):
@@ -5683,156 +4417,19 @@ def next_func_chunk(funcea, tailea):
 # ----------------------------------------------------------------------------
 #                          E N U M S
 # ----------------------------------------------------------------------------
-def get_enum_qty():
-    """
-    Get number of enum types
-
-    @return: number of enumerations
-    """
-    return ida_enum.get_enum_qty()
-
-
-def getn_enum(idx):
-    """
-    Get ID of the specified enum by its serial number
-
-    @param idx: number of enum (0..get_enum_qty()-1)
-
-    @return: ID of enum or -1 if error
-    """
-    return ida_enum.getn_enum(idx)
-
-
-def get_enum_idx(enum_id):
-    """
-    Get serial number of enum by its ID
-
-    @param enum_id: ID of enum
-
-    @return: (0..get_enum_qty()-1) or -1 if error
-    """
-    return ida_enum.get_enum_idx(enum_id)
-
-
-def get_enum(name):
-    """
-    Get enum ID by the name of enum
-
-    Arguments:
-    name - name of enum
-
-    returns:        ID of enum or -1 if no such enum exists
-    """
-    return ida_enum.get_enum(name)
-
-
-def get_enum_name(enum_id):
-    """
-    Get name of enum
-
-    @param enum_id: ID of enum
-
-    @return: name of enum or empty string
-    """
-    return ida_enum.get_enum_name(enum_id)
-
-
-def get_enum_cmt(enum_id, repeatable):
-    """
-    Get comment of enum
-
-    @param enum_id: ID of enum
-    @param repeatable: 0:get regular comment
-                 1:get repeatable comment
-
-    @return: comment of enum
-    """
-    return ida_enum.get_enum_cmt(enum_id, repeatable)
-
-
-def get_enum_size(enum_id):
-    """
-    Get size of enum
-
-    @param enum_id: ID of enum
-
-    @return:  number of constants in the enum
-              Returns 0 if enum_id is bad.
-    """
-    return ida_enum.get_enum_size(enum_id)
-
-
-def get_enum_width(enum_id):
-    """
-    Get width of enum elements
-
-    @param enum_id: ID of enum
-
-    @return: size of enum elements in bytes
-             (0 if enum_id is bad or the width is unknown).
-    """
-    return ida_enum.get_enum_width(enum_id)
-
-
-def get_enum_flag(enum_id):
-    """
-    Get flag of enum
-
-    @param enum_id: ID of enum
-
-    @return: flags of enum. These flags determine representation
-        of numeric constants (binary,octal,decimal,hex)
-        in the enum definition. See start of this file for
-        more information about flags.
-        Returns 0 if enum_id is bad.
-    """
-    return ida_enum.get_enum_flag(enum_id)
-
-
-def get_enum_member_by_name(name):
-    """
-    Get member of enum - a symbolic constant ID
-
-    @param name: name of symbolic constant
-
-    @return: ID of constant or -1
-    """
-    return ida_enum.get_enum_member_by_name(name)
-
-
-def get_enum_member_value(const_id):
-    """
-    Get value of symbolic constant
-
-    @param const_id: id of symbolic constant
-
-    @return: value of constant or 0
-    """
-    return ida_enum.get_enum_member_value(const_id)
-
-
-def get_enum_member_bmask(const_id):
-    """
-    Get bit mask of symbolic constant
-
-    @param const_id: id of symbolic constant
-
-    @return: bitmask of constant or 0
-             ordinary enums have bitmask = -1
-    """
-    return ida_enum.get_enum_member_bmask(const_id)
-
-
-def get_enum_member_enum(const_id):
-    """
-    Get id of enum by id of constant
-
-    @param const_id: id of symbolic constant
-
-    @return: id of enum the constant belongs to.
-             -1 if const_id is bad.
-    """
-    return ida_enum.get_enum_member_enum(const_id)
+get_enum_qty = ida_enum.get_enum_qty
+getn_enum = ida_enum.getn_enum
+get_enum_idx = ida_enum.get_enum_idx
+get_enum = ida_enum.get_enum
+get_enum_name = ida_enum.get_enum_name
+get_enum_cmt = ida_enum.get_enum_cmt
+get_enum_size = ida_enum.get_enum_size
+get_enum_width = ida_enum.get_enum_width
+get_enum_flag = ida_enum.get_enum_flag
+get_enum_member_by_name = ida_enum.get_enum_member_by_name
+get_enum_member_value = ida_enum.get_enum_member_value
+get_enum_member_bmask = ida_enum.get_enum_member_bmask
+get_enum_member_enum = ida_enum.get_enum_member_enum
 
 
 def get_enum_member(enum_id, value, serial, bmask):
@@ -5853,59 +4450,10 @@ def get_enum_member(enum_id, value, serial, bmask):
     return ida_enum.get_enum_member(enum_id, value, serial, bmask)
 
 
-def get_first_bmask(enum_id):
-    """
-    Get first bitmask in the enum (bitfield)
-
-    @param enum_id: id of enum (bitfield)
-
-    @return: the smallest bitmask of constant or -1
-             no bitmasks are defined yet
-             All bitmasks are sorted by their values
-             as unsigned longs.
-    """
-    return ida_enum.get_first_bmask(enum_id)
-
-
-def get_last_bmask(enum_id):
-    """
-    Get last bitmask in the enum (bitfield)
-
-    @param enum_id: id of enum
-
-    @return: the biggest bitmask or -1 no bitmasks are defined yet
-             All bitmasks are sorted by their values as unsigned longs.
-    """
-    return ida_enum.get_last_bmask(enum_id)
-
-
-def get_next_bmask(enum_id, value):
-    """
-    Get next bitmask in the enum (bitfield)
-
-    @param enum_id: id of enum
-    @param value: value of the current bitmask
-
-    @return:  value of a bitmask with value higher than the specified
-              value. -1 if no such bitmasks exist.
-              All bitmasks are sorted by their values
-              as unsigned longs.
-    """
-    return ida_enum.get_next_bmask(enum_id, value)
-
-
-def get_prev_bmask(enum_id, value):
-    """
-    Get prev bitmask in the enum (bitfield)
-
-    @param enum_id: id of enum
-    @param value: value of the current bitmask
-
-    @return: value of a bitmask with value lower than the specified
-             value. -1 no such bitmasks exist.
-             All bitmasks are sorted by their values as unsigned longs.
-    """
-    return ida_enum.get_prev_bmask(enum_id, value)
+get_first_bmask = ida_enum.get_first_bmask
+get_last_bmask = ida_enum.get_last_bmask
+get_next_bmask = ida_enum.get_next_bmask
+get_prev_bmask = ida_enum.get_prev_bmask
 
 
 def get_bmask_name(enum_id, bmask):
@@ -6093,112 +4641,14 @@ def add_enum(idx, name, flag):
     return ida_enum.add_enum(idx, name, flag)
 
 
-def del_enum(enum_id):
-    """
-    Delete enum type
-
-    @param enum_id: id of enum
-
-    @return: None
-    """
-    ida_enum.del_enum(enum_id)
-
-
-def set_enum_idx(enum_id, idx):
-    """
-    Give another serial number to a enum
-
-    @param enum_id: id of enum
-    @param idx: new serial number.
-        If another enum with the same serial number
-        exists, then all enums with serial
-        numbers >= the specified idx get their
-        serial numbers incremented (in other words,
-        the new enum is put in the middle of the list of enums).
-
-        If idx >= get_enum_qty() then the enum is
-        moved to the end of the list of enums.
-
-    @return: comment string
-    """
-    return ida_enum.set_enum_idx(enum_id, idx)
-
-
-def set_enum_name(enum_id, name):
-    """
-    Rename enum
-
-    @param enum_id: id of enum
-    @param name: new name of enum
-
-    @return: 1-ok,0-failed
-    """
-    return ida_enum.set_enum_name(enum_id, name)
-
-
-def set_enum_cmt(enum_id, cmt, repeatable):
-    """
-    Set comment of enum
-
-    @param enum_id: id of enum
-    @param cmt: new comment for the enum
-    @param repeatable: is the comment repeatable?
-        - 0:set regular comment
-        - 1:set repeatable comment
-
-    @return: 1-ok,0-failed
-    """
-    return ida_enum.set_enum_cmt(enum_id, cmt, repeatable)
-
-
-def set_enum_flag(enum_id, flag):
-    """
-    Set flag of enum
-
-    @param enum_id: id of enum
-    @param flag: flags for representation of numeric constants
-        in the definition of enum.
-
-    @return: 1-ok,0-failed
-    """
-    return ida_enum.set_enum_flag(enum_id, flag)
-
-
-def set_enum_bf(enum_id, flag):
-    """
-    Set bitfield property of enum
-
-    @param enum_id: id of enum
-    @param flag: flags
-        - 1: convert to bitfield
-        - 0: convert to ordinary enum
-
-    @return: 1-ok,0-failed
-    """
-    return ida_enum.set_enum_bf(enum_id, flag)
-
-
-def set_enum_width(enum_id, width):
-    """
-    Set width of enum elements
-
-    @param enum_id: id of enum
-    @param width: element width in bytes (0-unknown)
-
-    @return: 1-ok, 0-failed
-    """
-    return ida_enum.set_enum_width(enum_id, width)
-
-
-def is_bf(enum_id):
-    """
-    Is enum a bitfield?
-
-    @param enum_id: id of enum
-
-    @return: 1-yes, 0-no, ordinary enum
-    """
-    return ida_enum.is_bf(enum_id)
+del_enum = ida_enum.del_enum
+set_enum_idx = ida_enum.set_enum_idx
+set_enum_name = ida_enum.set_enum_name
+set_enum_cmt = ida_enum.set_enum_cmt
+set_enum_flag = ida_enum.set_enum_flag
+set_enum_bf = ida_enum.set_enum_bf
+set_enum_width = ida_enum.set_enum_width
+is_bf = ida_enum.is_bf
 
 
 def add_enum_member(enum_id, name, value, bmask):
@@ -6244,31 +4694,8 @@ def del_enum_member(enum_id, value, serial, bmask):
     return ida_enum.del_enum_member(enum_id, value, serial, bmask)
 
 
-def set_enum_member_name(const_id, name):
-    """
-    Rename a member of enum - a symbolic constant
-
-    @param const_id: id of const
-    @param name: new name of constant
-
-    @return: 1-ok, 0-failed
-    """
-    return ida_enum.set_enum_member_name(const_id, name)
-
-
-def set_enum_member_cmt(const_id, cmt, repeatable):
-    """
-    Set a comment of a symbolic constant
-
-    @param const_id: id of const
-    @param cmt: new comment for the constant
-    @param repeatable: is the comment repeatable?
-        0: set regular comment
-        1: set repeatable comment
-
-    @return: 1-ok, 0-failed
-    """
-    return ida_enum.set_enum_member_cmt(const_id, cmt, repeatable)
+set_enum_member_name = ida_enum.set_enum_member_name
+set_enum_member_cmt = ida_enum.set_enum_member_cmt
 
 #----------------------------------------------------------------------------
 #                         A R R A Y S  I N  I D C
@@ -6687,81 +5114,13 @@ def get_prev_hash_key(hash_id, key):
 #----------------------------------------------------------------------------
 #                 S O U R C E   F I L E / L I N E   N U M B E R S
 #----------------------------------------------------------------------------
-def add_sourcefile(ea1, ea2, filename):
-    """
-    Mark a range of address as belonging to a source file
-    An address range may belong only to one source file.
-    A source file may be represented by several address ranges.
+add_sourcefile = ida_lines.add_sourcefile
+get_sourcefile = ida_lines.get_sourcefile
+del_sourcefile = ida_lines.del_sourcefile
 
-    @param ea1: linear address of start of the address range
-    @param ea2: linear address of end of the address range
-    @param filename: name of source file.
-
-    @return: 1-ok, 0-failed.
-
-    @note: IDA can keep information about source files used to create the program.
-           Each source file is represented by a range of addresses.
-           A source file may contains several address ranges.
-    """
-    return ida_lines.add_sourcefile(ea1, ea2, filename)
-
-
-def get_sourcefile(ea):
-    """
-    Get name of source file occupying the given address
-
-    @param ea: linear address
-
-    @return: NULL - source file information is not found
-             otherwise returns pointer to file name
-    """
-    return ida_lines.get_sourcefile(ea)
-
-
-def del_sourcefile(ea):
-    """
-    Delete information about the source file
-
-    @param ea: linear address belonging to the source file
-
-    @return: NULL - source file information is not found
-             otherwise returns pointer to file name
-    """
-    return ida_lines.del_sourcefile(ea)
-
-
-def set_source_linnum(ea, lnnum):
-    """
-    Set source line number
-
-    @param ea: linear address
-    @param lnnum: number of line in the source file
-
-    @return: None
-    """
-    ida_nalt.set_source_linnum(ea, lnnum)
-
-
-def get_source_linnum(ea):
-    """
-    Get source line number
-
-    @param ea: linear address
-
-    @return: number of line in the source file or -1
-    """
-    return ida_nalt.get_source_linnum(ea)
-
-
-def del_source_linnum(ea):
-    """
-    Delete information about source line number
-
-    @param ea: linear address
-
-    @return: None
-    """
-    ida_nalt.del_source_linnum(ea)
+set_source_linnum = ida_nalt.set_source_linnum
+get_source_linnum = ida_nalt.get_source_linnum
+del_source_linnum = ida_nalt.del_source_linnum
 
 
 #----------------------------------------------------------------------------
@@ -7021,23 +5380,7 @@ def get_numbered_type_name(ordinal):
 # ----------------------------------------------------------------------------
 #                           H I D D E N  A R E A S
 # ----------------------------------------------------------------------------
-def add_hidden_range(start, end, description, header, footer, color):
-    """
-    Hide a range
-
-    Hidden ranges - address ranges which can be replaced by their descriptions
-
-    @param start:       range start
-    @param end:         range end
-    @param description: description to display if the range is collapsed
-    @param header:      header lines to display if the range is expanded
-    @param footer:      footer lines to display if the range is expanded
-    @param color:       RGB color code (-1 means default color)
-
-    @returns:    !=0 - ok
-    """
-    return ida_bytes.add_hidden_range(start, end, description, header, footer, color)
-
+add_hidden_range = ida_bytes.add_hidden_range
 
 def update_hidden_range(ea, visible):
     """
@@ -7057,181 +5400,33 @@ def update_hidden_range(ea, visible):
         return ida_bytes.update_hidden_range(ha)
 
 
-def del_hidden_range(ea):
-    """
-    Delete a hidden range
-
-    @param ea: any address belonging to the hidden range
-    @returns:  != 0 - ok
-    """
-    return ida_bytes.del_hidden_range(ea)
+del_hidden_range = ida_bytes.del_hidden_range
 
 
 #--------------------------------------------------------------------------
 #                   D E B U G G E R  I N T E R F A C E
 #--------------------------------------------------------------------------
-def load_debugger(dbgname, use_remote):
-    """
-    Load the debugger
-
-    @param dbgname: debugger module name Examples: win32, linux, mac.
-    @param use_remote: 0/1: use remote debugger or not
-
-    @note: This function is needed only when running idc scripts from the command line.
-           In other cases IDA loads the debugger module automatically.
-    """
-    return ida_dbg.load_debugger(dbgname, use_remote)
-
-
-def start_process(path, args, sdir):
-    """
-    Launch the debugger
-
-    @param path: path to the executable file.
-    @param args: command line arguments
-    @param sdir: initial directory for the process
-
-    @return: -1-failed, 0-cancelled by the user, 1-ok
-
-    @note: For all args: if empty, the default value from the database will be used
-           See the important note to the step_into() function
-    """
-    return ida_dbg.start_process(path, args, sdir)
-
-
-def exit_process():
-    """
-    Stop the debugger
-    Kills the currently debugger process and returns to the disassembly mode
-
-    @return: success
-    """
-    return ida_dbg.exit_process()
-
-
-def suspend_process():
-    """
-    Suspend the running process
-    Tries to suspend the process. If successful, the PROCESS_SUSPEND
-    debug event will arrive (see wait_for_next_event)
-
-    @return: success
-
-    @note: To resume a suspended process use the wait_for_next_event function.
-           See the important note to the step_into() function
-    """
-    return ida_dbg.suspend_process()
-
-
-def get_processes():
-    """
-    Take a snapshot of running processes and return their description.
-
-    @return: -1:network error, 0-failed, 1-ok
-    """
-    return ida_dbg.get_processes()
-
-
-def attach_process(pid, event_id):
-    """
-    Attach the debugger to a running process
-
-    @param pid: PID of the process to attach to. If NO_PROCESS, a dialog box
-                will interactively ask the user for the process to attach to.
-    @param event_id: reserved, must be -1
-
-    @return:
-             - -2: impossible to find a compatible process
-             - -1: impossible to attach to the given process (process died, privilege
-               needed, not supported by the debugger plugin, ...)
-             - 0: the user cancelled the attaching to the process
-             - 1: the debugger properly attached to the process
-    @note: See the important note to the step_into() function
-    """
-    return ida_dbg.attach_process(pid, event_id)
-
-
-def detach_process():
-    """
-    Detach the debugger from the debugged process.
-
-    @return: success
-    """
-    return ida_dbg.detach_process()
-
-
-def get_thread_qty():
-    """
-    Get number of threads.
-
-    @return: number of threads
-    """
-    return ida_dbg.get_thread_qty()
-
-
-def getn_thread(idx):
-    """
-    Get the ID of a thread
-
-    @param idx: number of thread, is in range 0..get_thread_qty()-1
-
-    @return: -1 if failure
-    """
-    return ida_dbg.getn_thread(idx)
-
-
-def get_current_thread():
-    """
-    Get current thread ID
-
-    @return: -1 if failure
-    """
-    return ida_dbg.get_current_thread()
-
-
-def select_thread(tid):
-    """
-    Select the given thread as the current debugged thread.
-
-    @param tid: ID of the thread to select
-
-    @return: success
-
-    @note: The process must be suspended to select a new thread.
-    """
-    return ida_dbg.select_thread(tid)
-
-
-def suspend_thread(tid):
-    """
-    Suspend thread
-
-    @param tid: thread id
-
-    @return: -1:network error, 0-failed, 1-ok
-
-    @note: Suspending a thread may deadlock the whole application if the suspended
-           was owning some synchronization objects.
-    """
-    return ida_dbg.suspend_thread(tid)
-
-
-def resume_thread(tid):
-    """
-    Resume thread
-
-    @param tid: thread id
-
-    @return: -1:network error, 0-failed, 1-ok
-    """
-    return ida_dbg.resume_thread(tid)
+load_debugger = ida_dbg.load_debugger
+start_process = ida_dbg.start_process
+exit_process = ida_dbg.exit_process
+suspend_process = ida_dbg.suspend_process
+get_processes = ida_dbg.get_processes
+attach_process = ida_dbg.attach_process
+detach_process = ida_dbg.detach_process
+get_thread_qty = ida_dbg.get_thread_qty
+getn_thread = ida_dbg.getn_thread
+get_current_thread = ida_dbg.get_current_thread
+getn_thread_name = ida_dbg.getn_thread_name
+select_thread = ida_dbg.select_thread
+suspend_thread = ida_dbg.suspend_thread
+resume_thread = ida_dbg.resume_thread
 
 
 def _get_modules():
     """
     INTERNAL: Enumerate process modules
     """
-    module = ida_idd.module_info_t()
+    module = ida_idd.modinfo_t()
     result = ida_dbg.get_first_module(module)
     while result:
         yield module
@@ -7298,70 +5493,13 @@ def get_module_size(base):
         return -1
 
 
-def step_into():
-    """
-    Execute one instruction in the current thread.
-    Other threads are kept suspended.
-
-    @return: success
-
-    @note: You must call wait_for_next_event() after this call
-           in order to find out what happened. Normally you will
-           get the STEP event but other events are possible (for example,
-           an exception might occur or the process might exit).
-           This remark applies to all execution control functions.
-           The event codes depend on the issued command.
-    """
-    return ida_dbg.step_into()
+step_into = ida_dbg.step_into
+step_over = ida_dbg.step_over
+run_to = ida_dbg.run_to
+step_until_ret = ida_dbg.step_until_ret
 
 
-def step_over():
-    """
-    Execute one instruction in the current thread,
-    but without entering into functions
-    Others threads keep suspended.
-    See the important note to the step_into() function
-
-    @return: success
-    """
-    return ida_dbg.step_over()
-
-
-def run_to(ea):
-    """
-    Execute the process until the given address is reached.
-    If no process is active, a new process is started.
-    See the important note to the step_into() function
-
-    @return: success
-    """
-    return ida_dbg.run_to(ea)
-
-
-def step_until_ret():
-    """
-    Execute instructions in the current thread until
-    a function return instruction is reached.
-    Other threads are kept suspended.
-    See the important note to the step_into() function
-
-    @return: success
-    """
-    return ida_dbg.step_until_ret()
-
-
-def wait_for_next_event(wfne, timeout):
-    """
-    Wait for the next event
-    This function (optionally) resumes the process
-    execution and wait for a debugger event until timeout
-
-    @param wfne: combination of WFNE_... constants
-    @param timeout: number of seconds to wait, -1-infinity
-
-    @return: debugger event codes, see below
-    """
-    return ida_dbg.wait_for_next_event(wfne, timeout)
+wait_for_next_event = ida_dbg.wait_for_next_event
 
 
 def resume_process():
@@ -7389,58 +5527,29 @@ WFNE_NOWAIT = 0x0010 # do not wait for any event, immediately return DEC_TIMEOUT
                      # (to be used with WFNE_CONT)
 
 # debugger event codes
-NOTASK         = -2         # process does not exist
-DBG_ERROR      = -1         # error (e.g. network problems)
-DBG_TIMEOUT    = 0          # timeout
-PROCESS_START  = 0x00000001 # New process started
-PROCESS_EXIT   = 0x00000002 # Process stopped
-THREAD_START   = 0x00000004 # New thread started
-THREAD_EXIT    = 0x00000008 # Thread stopped
-BREAKPOINT     = 0x00000010 # Breakpoint reached
-STEP           = 0x00000020 # One instruction executed
-EXCEPTION      = 0x00000040 # Exception
-LIBRARY_LOAD   = 0x00000080 # New library loaded
-LIBRARY_UNLOAD = 0x00000100 # Library unloaded
-INFORMATION    = 0x00000200 # User-defined information
-SYSCALL        = 0x00000400 # Syscall (not used yet)
-WINMESSAGE     = 0x00000800 # Window message (not used yet)
-PROCESS_ATTACH = 0x00001000 # Attached to running process
-PROCESS_DETACH = 0x00002000 # Detached from process
-PROCESS_SUSPEND = 0x00004000 # Process has been suspended
+NOTASK            = -2         # process does not exist
+DBG_ERROR         = -1         # error (e.g. network problems)
+DBG_TIMEOUT       = 0          # timeout
+PROCESS_STARTED   = 0x00000001 # New process started
+PROCESS_EXITED    = 0x00000002 # Process stopped
+THREAD_STARTED    = 0x00000004 # New thread started
+THREAD_EXITED     = 0x00000008 # Thread stopped
+BREAKPOINT        = 0x00000010 # Breakpoint reached
+STEP              = 0x00000020 # One instruction executed
+EXCEPTION         = 0x00000040 # Exception
+LIB_LOADED        = 0x00000080 # New library loaded
+LIB_UNLOADED      = 0x00000100 # Library unloaded
+INFORMATION       = 0x00000200 # User-defined information
+PROCESS_ATTACHED  = 0x00000400 # Attached to running process
+PROCESS_DETACHED  = 0x00000800 # Detached from process
+PROCESS_SUSPENDED = 0x00001000 # Process has been suspended
 
 
-def refresh_debugger_memory():
-    """
-    refresh_idaview_anyway debugger memory
-    Upon this call IDA will forget all cached information
-    about the debugged process. This includes the segmentation
-    information and memory contents (register cache is managed
-    automatically). Also, this function refreshes exported name
-    from loaded DLLs.
-    You must call this function before using the segmentation
-    information, memory contents, or names of a non-suspended process.
-    This is an expensive call.
-    """
-    return ida_dbg.refresh_debugger_memory()
+refresh_debugger_memory = ida_dbg.refresh_debugger_memory
 
+take_memory_snapshot = ida_segment.take_memory_snapshot
 
-def take_memory_snapshot(only_loader_segs):
-    """
-    Take memory snapshot of the debugged process
-
-    @param only_loader_segs: 0-copy all segments to idb
-                             1-copy only SFL_LOADER segments
-    """
-    return ida_segment.take_memory_snapshot(only_loader_segs)
-
-
-def get_process_state():
-    """
-    Get debugged process state
-
-    @return: one of the DBG_... constants (see below)
-    """
-    return ida_dbg.get_process_state()
+get_process_state = ida_dbg.get_process_state
 
 DSTATE_SUSP            = -1 # process is suspended
 DSTATE_NOTASK          =  0 # no process is currently debugged
@@ -7465,7 +5574,7 @@ def get_event_id():
     """
     ev = ida_dbg.get_debug_event()
     assert ev, "Could not retrieve debug event"
-    return ev.eid
+    return ev.eid()
 
 
 def get_event_pid():
@@ -7512,7 +5621,7 @@ def is_event_handled():
     return ev.handled
 
 
-# For PROCESS_START, PROCESS_ATTACH, LIBRARY_LOAD events:
+# For PROCESS_STARTED, PROCESS_ATTACHED, LIB_LOADED events:
 
 def get_event_module_name():
     """
@@ -7551,18 +5660,19 @@ def get_event_exit_code():
     """
     Get exit code for debug event
 
-    @return: exit code for PROCESS_EXIT, THREAD_EXIT events
+    @return: exit code for PROCESS_EXITED, THREAD_EXITED events
     """
     ev = ida_dbg.get_debug_event()
     assert ev, "Could not retrieve debug event"
-    return ev.exit_code
+    return ev.exit_code()
 
 
 def get_event_info():
     """
     Get debug event info
 
-    @return: event info: for LIBRARY_UNLOAD (unloaded library name)
+    @return: event info: for THREAD_STARTED (thread name)
+                         for LIB_UNLOADED (unloaded library name)
                          for INFORMATION (message to display)
     """
     ev = ida_dbg.get_debug_event()
@@ -7625,15 +5735,7 @@ def get_event_exc_info():
     return ida_idd.get_event_exc_info(ev)
 
 
-def set_debugger_options(opt):
-    """
-    Get/set debugger options
-
-    @param opt: combination of DOPT_... constants
-
-    @return: old options
-    """
-    return ida_dbg.set_debugger_options(opt)
+set_debugger_options = ida_dbg.set_debugger_options
 
 
 DOPT_SEGM_MSGS    = 0x00000001 # print messages on debugger segments modifications
@@ -7657,45 +5759,12 @@ EXCDLG_ALWAYS     = 0x00006000 # always display
 DOPT_LOAD_DINFO   = 0x00008000 # automatically load debug files (pdb)
 
 
-def get_debugger_event_cond():
-    """
-    Return the debugger event condition
-    """
-    return ida_dbg.get_debugger_event_cond()
+get_debugger_event_cond = ida_dbg.get_debugger_event_cond
+set_debugger_event_cond = ida_dbg.set_debugger_event_cond
 
+set_remote_debugger = ida_dbg.set_remote_debugger
 
-def set_debugger_event_cond(cond):
-    """
-    Set the debugger event condition
-    """
-    return ida_dbg.set_debugger_event_cond(cond)
-
-
-def set_remote_debugger(hostname, password, portnum):
-    """
-    Set remote debugging options
-
-    @param hostname: remote host name or address if empty, revert to local debugger
-    @param password: password for the debugger server
-    @param portnum: port number to connect (-1: don't change)
-
-    @return: nothing
-    """
-    return ida_dbg.set_remote_debugger(hostname, password, portnum)
-
-
-def define_exception(code, name, desc, flags):
-    """
-    Add exception handling information
-
-    @param code: exception code
-    @param name: exception name
-    @param desc: exception description
-    @param flags: exception flags (combination of EXC_...)
-
-    @return: failure description or ""
-    """
-    return ida_dbg.define_exception(code, name, desc, flags)
+define_exception = ida_dbg.define_exception
 
 EXC_BREAK  = 0x0001 # break on the exception
 EXC_HANDLE = 0x0002 # should be handled by the debugger?
@@ -7797,6 +5866,10 @@ def get_bpt_attr(ea, bptattr):
             return bpt.flags
         if bptattr == BPTATTR_COND:
             return bpt.condition
+        if bptattr == BPTATTR_PID:
+            return bpt.pid
+        if bptattr == BPTATTR_TID:
+            return bpt.tid
         return -1
 
 
@@ -7826,6 +5899,8 @@ BPT_TRACE_FUNC = 0x080 #   function tracing
 BPT_TRACE_BBLK = 0x100 #   basic block tracing
 
 BPTATTR_COND  =  6   # Breakpoint condition. NOTE: the return value is a string in this case
+BPTATTR_PID   =  7   # Brekapoint process id
+BPTATTR_TID   =  8   # Brekapoint thread id
 
 # Breakpoint location type:
 BPLT_ABS  =  0   # Absolute address. Attributes:
@@ -7857,7 +5932,7 @@ def set_bpt_attr(address, bptattr, value):
     if not ida_dbg.get_bpt(address, bpt):
         return False
     else:
-        if bptattr not in [ BPTATTR_SIZE, BPTATTR_TYPE, BPTATTR_FLAGS, BPTATTR_COUNT ]:
+        if bptattr not in [ BPTATTR_SIZE, BPTATTR_TYPE, BPTATTR_FLAGS, BPTATTR_COUNT, BPTATTR_PID, BPTATTR_TID ]:
             return False
         if bptattr == BPTATTR_SIZE:
             bpt.size = value
@@ -7867,6 +5942,10 @@ def set_bpt_attr(address, bptattr, value):
             bpt.pass_count = value
         if bptattr == BPTATTR_FLAGS:
             bpt.flags = value
+        if bptattr == BPTATTR_PID:
+            bpt.pid = value
+        if bptattr == BPTATTR_TID:
+            bpt.tid = value
 
         return ida_dbg.update_bpt(bpt)
 
@@ -7921,28 +6000,8 @@ def del_bpt(ea):
     return ida_dbg.del_bpt(ea)
 
 
-def enable_bpt(ea, enable):
-    """
-    Enable/disable breakpoint
-
-    @param ea: any address in the process memory space
-
-    @return: success
-
-    @note: Disabled breakpoints are not written to the process memory
-    """
-    return ida_dbg.enable_bpt(ea, enable)
-
-
-def check_bpt(ea):
-    """
-    Check a breakpoint
-
-    @param ea: address in the process memory space
-
-    @return: one of BPTCK_... constants
-    """
-    return ida_dbg.check_bpt(ea)
+enable_bpt = ida_dbg.enable_bpt
+check_bpt = ida_dbg.check_bpt
 
 BPTCK_NONE = -1  # breakpoint does not exist
 BPTCK_NO   =  0  # breakpoint is disabled
@@ -7978,21 +6037,8 @@ TRACE_INSN = 0x1  # instruction level trace
 TRACE_FUNC = 0x2  # function level trace (calls & rets)
 
 
-def get_step_trace_options():
-    """
-    Get step current tracing options
-
-    @return: a combination of ST_... constants
-    """
-    return ida_dbg.get_step_trace_options()
-
-
-def set_step_trace_options(options):
-    """
-    Set step current tracing options.
-    @param options: combination of ST_... constants
-    """
-    return ida_dbg.set_step_trace_options(options)
+get_step_trace_options = ida_dbg.get_step_trace_options
+set_step_trace_options = ida_dbg.set_step_trace_options
 
 
 ST_OVER_DEBUG_SEG = 0x01 # step tracing will be disabled when IP is in a debugger segment
@@ -8000,34 +6046,10 @@ ST_OVER_LIB_FUNC  = 0x02 # step tracing will be disabled when IP is in a library
 ST_ALREADY_LOGGED = 0x04 # step tracing will be disabled when IP is already logged
 ST_SKIP_LOOPS     = 0x08 # step tracing will try to skip loops already recorded
 
-def load_trace_file(filename):
-    """
-    Load a previously recorded binary trace file
-    @param filename: trace file
-    """
-    return ida_dbg.load_trace_file(filename)
-
-def save_trace_file(filename, description):
-    """
-    Save current trace to a binary trace file
-    @param filename: trace file
-    @param description: trace description
-    """
-    return ida_dbg.save_trace_file(filename, description)
-
-def is_valid_trace_file(filename):
-    """
-    Check the given binary trace file
-    @param filename: trace file
-    """
-    return ida_dbg.is_valid_trace_file(filename)
-
-def diff_trace_file(filename):
-    """
-    Diff current trace buffer against given trace
-    @param filename: trace file
-    """
-    return ida_dbg.diff_trace_file(filename)
+load_trace_file = ida_dbg.load_trace_file
+save_trace_file = ida_dbg.save_trace_file
+is_valid_trace_file = ida_dbg.is_valid_trace_file
+diff_trace_file = ida_dbg.diff_trace_file
 
 def clear_trace(filename):
     """
@@ -8035,33 +6057,10 @@ def clear_trace(filename):
     """
     return ida_dbg.clear_trace()
 
-def get_trace_file_desc(filename):
-    """
-    Get the trace description of the given binary trace file
-    @param filename: trace file
-    """
-    return ida_dbg.get_trace_file_desc(filename)
-
-def set_trace_file_desc(filename, description):
-    """
-    Update the trace description of the given binary trace file
-    @param filename: trace file
-    @description: trace description
-    """
-    return ida_dbg.set_trace_file_desc(filename, description)
-
-def get_tev_qty():
-    """
-    Return the total number of recorded events
-    """
-    return ida_dbg.get_tev_qty()
-
-def get_tev_ea(tev):
-    """
-    Return the address of the specified event
-    @param tev: event number
-    """
-    return ida_dbg.get_tev_ea(tev)
+get_trace_file_desc = ida_dbg.get_trace_file_desc
+set_trace_file_desc = ida_dbg.set_trace_file_desc
+get_tev_qty = ida_dbg.get_tev_qty
+get_tev_ea = ida_dbg.get_tev_ea
 
 TEV_NONE  = 0 # no event
 TEV_INSN  = 1 # an instruction trace
@@ -8071,80 +6070,15 @@ TEV_BPT   = 4 # write, read/write, execution trace
 TEV_MEM   = 5 # memory layout changed
 TEV_EVENT = 6 # debug event
 
-def get_tev_type(tev):
-    """
-    Return the type of the specified event (TEV_... constants)
-    @param tev: event number
-    """
-    return ida_dbg.get_tev_type(tev)
-
-def get_tev_tid(tev):
-    """
-    Return the thread id of the specified event
-    @param tev: event number
-    """
-    return ida_dbg.get_tev_tid(tev)
-
-def get_tev_reg(tev, reg):
-    """
-    Return the register value for the specified event
-    @param tev: event number
-    @param reg: register name (like EAX, RBX, ...)
-    """
-    return ida_dbg.get_tev_reg_val(tev, reg)
-
-def get_tev_mem_qty(tev):
-    """
-    Return the number of blobs of memory recorded, for the specified event
-
-    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
-
-    @param tev: event number
-    """
-    return ida_dbg.get_tev_reg_mem_qty(tev)
-
-def get_tev_mem(tev, idx):
-    """
-    Return the blob of memory pointed to by 'index', for the specified event
-
-    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
-
-    @param tev: event number
-    @param idx: memory address index
-    """
-    return ida_dbg.get_tev_reg_mem(tev, idx)
-
-def get_tev_mem_ea(tev, idx):
-    """
-    Return the address of the blob of memory pointed to by 'index' for the specified event
-
-    Note: this requires that the tracing options have been set to record pieces of memory for instruction events
-
-    @param tev: event number
-    @param idx: memory address index
-    """
-    return ida_dbg.get_tev_reg_mem_ea(tev, idx)
-
-def get_call_tev_callee(tev):
-    """
-    Return the address of the callee for the specified event
-    @param tev: event number
-    """
-    return ida_dbg.get_call_tev_callee(tev)
-
-def get_ret_tev_return(tev):
-    """
-    Return the return address for the specified event
-    @param tev: event number
-    """
-    return ida_dbg.get_ret_tev_return(tev)
-
-def get_bpt_tev_ea(tev):
-    """
-    Return the address of the specified TEV_BPT event
-    @param tev: event number
-    """
-    return ida_dbg.get_bpt_tev_ea(tev)
+get_tev_type = ida_dbg.get_tev_type
+get_tev_tid = ida_dbg.get_tev_tid
+get_tev_reg = ida_dbg.get_tev_reg_val
+get_tev_mem_qty = ida_dbg.get_tev_reg_mem_qty
+get_tev_mem = ida_dbg.get_tev_reg_mem
+get_tev_mem_ea = ida_dbg.get_tev_reg_mem_ea
+get_call_tev_callee = ida_dbg.get_call_tev_callee
+get_ret_tev_return = ida_dbg.get_ret_tev_return
+get_bpt_tev_ea = ida_dbg.get_bpt_tev_ea
 
 
 #--------------------------------------------------------------------------
@@ -8329,7 +6263,10 @@ if sys.modules["__main__"].IDAPYTHON_COMPAT_695_API:
     GetManyBytes = get_bytes
     GetString = get_strlit_contents
     ClearTraceFile = clear_trace
-    FindBinary = find_binary
+    def FindBinary(ea, flag, searchstr, radix=16):
+        return find_binary(ea, flag, searchstr, radix, from_bc695=True)
+    def FindText(ea, flag, y, x, text):
+        return find_text(ea, flag, y, x, text, from_bc695=True)
     NextHead = next_head
     ParseTypes = parse_decls
     PrevHead = prev_head

@@ -1,15 +1,5 @@
 
 //<code(py_idd)>
-
-//-------------------------------------------------------------------------
-static bool dbg_can_query()
-{
-  // Reject the request only if no debugger is set
-  // or the debugger cannot be queried while not in suspended state
-  return dbg != NULL && (dbg->may_disturb() || get_process_state() < DSTATE_NOTASK);
-}
-
-//-------------------------------------------------------------------------
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
@@ -179,11 +169,11 @@ static PyObject *dbg_get_registers()
   if ( dbg == NULL )
     Py_RETURN_NONE;
 
-  PyObject *py_list = PyList_New(dbg->registers_size);
+  PyObject *py_list = PyList_New(dbg->nregs);
 
-  for ( int i=0; i < dbg->registers_size; i++ )
+  for ( int i=0; i < dbg->nregs; i++ )
   {
-    register_info_t &ri = dbg->registers(i);
+    register_info_t &ri = dbg->regs(i);
     PyObject *py_bits;
 
     // Does this register have bit strings?
@@ -245,7 +235,7 @@ static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_va
   ea_t answer;
   thid_t tid = PyLong_AsLong(py_tid);
   int sreg_value = PyLong_AsLong(py_sreg_value);
-  if ( internal_get_sreg_base(&answer, tid, sreg_value) != 1 )
+  if ( internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
     Py_RETURN_NONE;
 
   return Py_BuildValue(PY_BV_EA, bvea_t(answer));
@@ -371,22 +361,6 @@ static PyObject *dbg_get_memory_info()
 }
 
 //-------------------------------------------------------------------------
-/*
-#<pydoc>
-def dbg_can_query():
-    """
-    This function can be used to check if the debugger can be queried:
-      - debugger is loaded
-      - process is suspended
-      - process is not suspended but can take requests. In this case some requests like
-        memory read/write, bpt management succeed and register querying will fail.
-        Check if idaapi.get_process_state() < 0 to tell if the process is suspended
-    @return: Boolean
-    """
-    pass
-#</pydoc>
-*/
-static bool dbg_can_query();
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
@@ -396,50 +370,50 @@ PyObject *py_appcall(
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)
 {
-    qstrncpy(buf, ev->modinfo.name, bufsize);
+    qstrncpy(buf, ev->modinfo().name.c_str(), bufsize);
     return true;
 }
 
 ea_t get_event_module_base(const debug_event_t *ev)
 {
-    return ev->modinfo.base;
+    return ev->modinfo().base;
 }
 
 asize_t get_event_module_size(const debug_event_t *ev)
 {
-    return ev->modinfo.size;
+    return ev->modinfo().size;
 }
 
 char get_event_exc_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
-    qstrncpy(buf, ev->exc.info, bufsize);
+    qstrncpy(buf, ev->exc().info.c_str(), bufsize);
     return true;
 }
 
 char get_event_info(const debug_event_t *ev, char *buf, size_t bufsize)
 {
-    qstrncpy(buf, ev->info, bufsize);
+    qstrncpy(buf, ev->info().c_str(), bufsize);
     return true;
 }
 
 ea_t get_event_bpt_hea(const debug_event_t *ev)
 {
-    return ev->bpt.hea;
+    return ev->bpt().hea;
 }
 
 uint get_event_exc_code(const debug_event_t *ev)
 {
-    return ev->exc.code;
+    return ev->exc().code;
 }
 
 ea_t get_event_exc_ea(const debug_event_t *ev)
 {
-    return ev->exc.ea;
+    return ev->exc().ea;
 }
 
 bool can_exc_continue(const debug_event_t *ev)
 {
-    return ev->exc.can_cont;
+    return ev->exc().can_cont;
 }
 
 //</inline(py_idd)>

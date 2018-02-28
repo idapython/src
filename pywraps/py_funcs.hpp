@@ -77,4 +77,9 @@ static PyObject *py_get_idasgn_desc_with_matches(int n)
     return Py_BuildValue("(ssi)", signame.c_str(), optlibs.c_str(), matches);
 }
 
+//-------------------------------------------------------------------------
+static func_t *func_t__from_ptrval__(size_t ptrval)
+{
+  return (func_t *) ptrval;
+}
 //</inline(py_funcs)>

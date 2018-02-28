@@ -17,7 +17,7 @@ get_dtyp_size=get_dtype_size
 get_operand_immvals=get_immvals
 op_t.dtyp = op_t.dtype
 cmd = insn_t()
-@bc695redef
+@bc695redef_with_pydoc(decode_insn.__doc__)
 def decode_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -26,7 +26,7 @@ def decode_insn(*args):
         return rc
     else:
         return _ida_ua.decode_insn(*args)
-@bc695redef
+@bc695redef_with_pydoc(create_insn.__doc__)
 def create_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -35,7 +35,7 @@ def create_insn(*args):
         return rc
     else:
         return _ida_ua.create_insn(*args)
-@bc695redef
+@bc695redef_with_pydoc(decode_prev_insn.__doc__)
 def decode_prev_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -44,7 +44,7 @@ def decode_prev_insn(*args):
         return rc
     else:
         return _ida_ua.decode_prev_insn(*args)
-@bc695redef
+@bc695redef_with_pydoc(decode_preceding_insn.__doc__)
 def decode_preceding_insn(*args):
     if len(args) == 1:
         tmp = insn_t()

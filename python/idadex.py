@@ -17,6 +17,7 @@ import ctypes
 import idaapi
 import ida_idaapi
 import ida_bytes
+import idc
 
 uint8  = ctypes.c_ubyte
 char   = ctypes.c_char
@@ -38,6 +39,78 @@ def get_struct(str_, off, struct):
         raise Exception("can't read struct: %d bytes available but %d required" % (fit, slen))
     ctypes.memmove(ctypes.addressof(s), bytebuf, fit)
     return s
+
+# unpack base address
+def unpack_db(buf, off):
+    x = 0
+    if off < len(buf):
+        x = ord(buf[off])
+        off += 1
+    return (x, off)
+
+def get_dw(buf, off):
+    x = 0
+    if off < len(buf):
+        x = ord(buf[off]) << 8
+        off += 1
+    if off < len(buf):
+        x |= ord(buf[off])
+        off += 1
+    return (x, off)
+
+def unpack_dw(buf, off):
+    (x, off) = unpack_db(buf, off)
+    if (x & 0x80) == 0x80:
+        if (x & 0xC0) == 0xC0:
+            (x, off) = get_dw(buf, off)
+        else:
+            if off < len(buf):
+                x = ((x & ~0x80) << 8) | ord(buf[off])
+                off += 1
+    return (x, off)
+
+def unpack_dd(buf, off):
+    (x, off) = unpack_db(buf, off)
+    if (x & 0x80) == 0x80:
+        if (x & 0xC0) == 0xC0:
+            if (x & 0xE0) == 0xE0:
+                (xh, off) = get_dw(buf, off)
+            else:
+                xh = 0
+                if off < len(buf):
+                    xh = ((x & ~0xC0) << 8) | ord(buf[off])
+                    off += 1
+            (xl, off) = get_dw(buf, off)
+            x = (xh << 16) | xl
+        else:
+            if off < len(buf):
+                x = ((x & ~0x80) << 8) | ord(buf[off])
+                off += 1
+    return (x, off)
+
+def unpack_dq(buf, off):
+    (xl, off) = unpack_dd(buf, off)
+    (xh, off) = unpack_dd(buf, off)
+    x = (long(xh) << 32) | xl
+    if x > 0x8000000000000000L:
+        x = x - 0x10000000000000000L
+    return (x, off)
+
+def unpack_ea(buf, off):
+    if __EA64__:
+        return unpack_dq(buf, off)
+    else:
+        return unpack_dd(buf, off)
+
+def unpack_eavec(buf, base_ea):
+    (n, off) = unpack_dw(buf, 0)
+    ba = []
+    old_ea = base_ea
+    for i in range(0, n):
+        (ea, off) = unpack_ea(buf, off)
+        old_ea += ea
+        ba.append(old_ea)
+    return ba
 
 #---------------------------------------------------------------------------
 # This structure is used both for imported methods and locally defined ones
@@ -103,49 +176,57 @@ class longname_director_t(ctypes.LittleEndianStructure):
 class Dex(object):
 
     # meta-data
-    HASHVAL_MAGIC = "version"           # Interface version
-    HASHVAL_OPTIMIZED = "optimized"     # 1 for optimized dex files, 0 - for others
+    HASHVAL_MAGIC      = "version"      # Interface version
+    HASHVAL_OPTIMIZED  = "optimized"    # 1 for optimized dex files, 0 - for others
     HASHVAL_DEXVERSION = "dex_version"  # DEX File version
+    META_BASEADDRS     = 1              # eavec_t blob at index 0
 
-    # The dex string table; lookup from string id# to values
-    STRTAB_TAB  = 1     # Lookup string id => address
-    STRTAB_RTAB = 2     # Lookup address => id
+    # ea-based indexes
+    DEXCMN_STRING_ID  = ord('S')    # string ea => string_id
+    DEXCMN_METHOD_ID  = ord('M')    # dex_method::func.start_ea => method_id 
+    DEXCMN_TRY_TYPES  = ord('E')    # ea (handler start) => list of type_id, handled types                                                       
+    DEXCMN_TRY_IDS    = ord('Y')    # ea (handler start) => list of try_item_id 
+    DEXCMN_DEBINFO    = ord('D')    # line start ea => dex_lineinfo_t                                                                               
+    DEXCMN_DEBSTR     = ord('B')    # line start ea => human readable debug info string
 
-    # fields
-    FIELDTAB_DESCR    = 1       # Field id => struct dex_field
-    FIELDTAB_NAMEDATA = 2       # Field id => char data, field name
-
-    # The dex method table; lookup method meta-data based on index
-    METHTAB_BEGIN       = 1     # Method id => start address
-    METHTAB_RBEGIN      = 2     # Start address => method id
-    METHTAB_DESCR       = 3     # Method id => struct dex_method
-    METHTAB_NAMEDATA    = 4     # Method id => char data, method name
-    METHTAB_NAMEORGDATA = 5     # Method id => char data, method name from dex file
-    METHTAB_NTAB        = 6     # Method id => String id of method name
+    # var indexes
+    DEXVAR_STRING_IDS = ord('S')    # string_id => ea
+    DEXVAR_TYPE_IDS   = ord('T')    # type_id => descriptor_idx
+    DEXVAR_TYPE_STR   = ord('U')    # type_id => type string (possible user redefined), char data                                                  
+    DEXVAR_TYPE_STRO  = ord('V')    # type_id => type string (original), char data
+    DEXVAR_METHOD     = ord('M')    # method_id => struct dex_method, supval
+    DEXVAR_METH_STR   = ord('N')    # method_id => method name, char data                                                                          
+    DEXVAR_METH_STRO  = ord('O')    # method_id => method name fromdex file, char data
+    DEXVAR_FIELD      = ord('F')    # field_id => struct dex_field 
+    DEXVAR_TRYLIST    = ord('Y')    # method_id => try_item
 
     # debug info representation
     DEBINFO_LINEINFO = 1        # Line start EA => dex_lineinfo_t
 
-    # Try/Catches
-    TRYTAB_TRYLIST        = 3   # key=methodIdx, value= tryItem data
-    TRYTAB_HANDLERLIST    = 4   # key=ea (handler start), value=list of typeIdx, handled types
-    TRYTAB_HANDLERTRYLIST = 5   # key=ea (handler start), value=list of tryItemIdx
-
-    # Types
-    TYPETAB_TAB        = 1      # Type ID => String ID
-    TYPETAB_STRDATA    = 2      # Type ID => String data (possible user redefined)
-    TYPETAB_STRORGDATA = 3      # Type ID => Original String data
-    TYPETAB_EA         = 4      # Type ID => ea
-
     #---------------------------------------------------------------------------
     def __init__(self):
         self.nn_meta = idaapi.netnode("$ dex_meta")
-        self.nn_strtab = idaapi.netnode("$ dex_strtab")
-        self.nn_fieldtab = idaapi.netnode("$ dex_fields")
-        self.nn_methtab = idaapi.netnode("$ dex_methtab")
-        self.nn_debinfo = idaapi.netnode("$ dex_debinfo")
-        self.nn_trytab = idaapi.netnode("$ dex_tries")
-        self.nn_typetab = idaapi.netnode("$ dex_types")
+        self.nn_cmn = idaapi.netnode("$ dex_cmn")
+        packed = self.nn_meta.getblob(0, Dex.META_BASEADDRS)
+        self.baseaddrs = unpack_eavec(packed, 0)
+        self.nn_vars = []
+        self.nn_vars.append(idaapi.netnode("$ dex_var"))
+        for i in range(2, len(self.baseaddrs) + 1):
+            nn_var_name = "$ dex_var%d" % i
+            self.nn_vars.append(idaapi.netnode(nn_var_name))
+
+    #---------------------------------------------------------------------------
+    def get_dexnum(self, from_ea):
+        dexnum = 0
+        for ba in self.baseaddrs:
+            if from_ea < ba:
+                break
+            dexnum += 1
+        return dexnum
+
+    #---------------------------------------------------------------------------
+    def get_nn_var(self, from_ea):
+        return self.nn_vars[self.get_dexnum(from_ea) - 1]
 
     #---------------------------------------------------------------------------
     ACCESS_FLAGS = {
@@ -182,20 +263,26 @@ class Dex(object):
         return res[1:] if res else ""
 
     #---------------------------------------------------------------------------
-    def get_string(self, string_idx):
-        addr = self.nn_strtab.altval(string_idx, Dex.STRTAB_TAB)
-        if addr is 0:
+    def idx_to_ea(self, from_ea, idx, tag):
+        nn_var = self.get_nn_var(from_ea)
+        return nn_var.eaget_idx(idx, tag)
+
+    #---------------------------------------------------------------------------
+    def get_string(self, from_ea, string_idx):
+        addr = self.idx_to_ea(from_ea, string_idx, Dex.DEXVAR_STRING_IDS)
+        if addr == ida_idaapi.BADADDR:
             return None
-        length = ida_bytes.get_max_strlit_length(addr, STRTYPE_C, ida_bytes.ALOPT_IGNHEADS|ida_bytes.ALOPT_IGNPRINT)
-        return ida_bytes.get_strlit_contents(addr, length, STRTYPE_C)
+        length = ida_bytes.get_max_strlit_length(addr, idc.STRTYPE_C, ida_bytes.ALOPT_IGNHEADS|ida_bytes.ALOPT_IGNPRINT)
+        return ida_bytes.get_strlit_contents(addr, length, idc.STRTYPE_C)
 
     def get_method_idx(self, ea):
-        return self.nn_methtab.altval(ea, Dex.METHTAB_RBEGIN)
+        return self.nn_cmn.altval(ea, Dex.DEXCMN_METHOD_ID)
 
-    def get_method(self, method_idx):
-        val = self.nn_methtab.supval(method_idx, Dex.METHTAB_DESCR)
+    def get_method(self, from_ea, method_idx):
+        nn_var = self.get_nn_var(from_ea)
+        val = nn_var.supval(method_idx, Dex.DEXVAR_METHOD)
         if len(val) != ctypes.sizeof(dex_method):
-            print "bad data in METHTAB_DESCR for index 0x%X" % method_idx
+            print "bad data in DEXVAR_METHOD for index 0x%X" % method_idx
             return None
         method = get_struct(val,0, dex_method)
         return method
@@ -273,17 +360,16 @@ class Dex(object):
         return res
 
     #---------------------------------------------------------------------------
-    def get_type_string(self, type_idx):
-        return Dex.get_string_by_index(self.nn_typetab, type_idx, Dex.TYPETAB_STRDATA)
+    def get_type_string(self, from_ea, type_idx):
+        nn_var = self.get_nn_var(from_ea)
+        return Dex.get_string_by_index(nn_var, type_idx, Dex.DEXVAR_TYPE_STR)
 
-    def get_method_name(self, method_idx):
-        return Dex.get_string_by_index(self.nn_methtab, method_idx, Dex.METHTAB_NAMEDATA)
+    def get_method_name(self, from_ea, method_idx):
+        nn_var = self.get_nn_var(from_ea)
+        return Dex.get_string_by_index(nn_var, method_idx, Dex.DEXVAR_METH_STR)
 
-    def get_field_name(self, field_idx):
-        return Dex.get_string_by_index(self.nn_fieldtab, field_idx, Dex.FIELDTAB_NAMEDATA)
-
-    def get_parameter_name(self, idx):
-        return self.get_string(idx)
+    def get_parameter_name(self, from_ea, idx):
+        return self.get_string(from_ea, idx)
 
     #---------------------------------------------------------------------------
     @staticmethod
@@ -308,27 +394,27 @@ class Dex(object):
 
     #---------------------------------------------------------------------------
     def get_short_method_name(self, method):
-        res = Dex.get_short_type_name(self.get_type_string(method.cname))
+        res = Dex.get_short_type_name(self.get_type_string(method.defaddr, method.cname))
         res += '.'
-        res += self.get_method_name(method.id)
+        res += self.get_method_name(method.defaddr, method.id)
         res += '@'
-        res += self.get_string(method.proto_shorty)
+        res += self.get_string(method.defaddr, method.proto_shorty)
         return res
 
     def get_full_method_name(self, method):
-        res = Dex.get_full_type_name(self.get_type_string(method.proto_ret))
+        res = Dex.get_full_type_name(self.get_type_string(method.defaddr, method.proto_ret))
         res += ' '
-        res += self.get_full_type_name(self.get_type_string(method.cname))
+        res += self.get_full_type_name(self.get_type_string(method.defaddr, method.cname))
         res += '.'
-        res += self.get_method_name(method.id)
+        res += self.get_method_name(method.defaddr, method.id)
 
     def get_call_method_name(self, method):
-        shorty = self.get_string(method.proto_shorty)
+        shorty = self.get_string(method.defaddr, method.proto_shorty)
         res = Dex._primitive_type_label(shorty[0])
         res += ' '
-        res += Dex.get_short_type_name(self.get_type_string(method.cname))
+        res += Dex.get_short_type_name(self.get_type_string(method.defaddr, method.cname))
         res += '.'
-        res += self.get_method_name(method.id)
+        res += self.get_method_name(method.defaddr, method.id)
         res += '('
         last_idx = len(shorty) - 1
         for s in range(1, last_idx + 1):
@@ -338,28 +424,36 @@ class Dex(object):
         res += ')'
         return res
 
-    def get_field(self, method_idx):
-        val = self.nn_fieldtab.supval(method_idx, Dex.FIELDTAB_DESCR)
+
+    #---------------------------------------------------------------------------
+    def get_field(self, from_ea, field_idx):
+        nn_var = self.get_nn_var(from_ea)
+        val = nn_var.supval(field_idx, Dex.DEXVAR_FIELD)
         if len(val) != ctypes.sizeof(dex_field):
-            print "bad data in FIELDTAB_DESCR for index 0x%X" % method_idx
+            print "bad data in DEXVAR_FIELD for index 0x%X" % field_idx
             return None
         field = get_struct(val,0, dex_field)
         return field
 
-    #---------------------------------------------------------------------------
+
+    def get_field_name(self, from_ea, field_idx):
+        field = self.get_field(from_ea, field_idx)
+        return self.get_string(from_ea, field.name)
+
+
     def get_full_field_name(self, field_idx, field, field_name):
-        res = Dex.get_full_type_name(self.get_type_string(field.type))
+        res = Dex.get_full_type_name(self.get_type_string(field.maddr, field.type))
         res += ' '
-        res += Dex.get_full_type_name(self.get_type_string(field_idx))
+        res += Dex.get_full_type_name(self.get_type_string(field.maddr, field_idx))
         res += '.'
-        res += field_name if field_name else self.get_field_name(field_idx)
+        res += field_name if field_name else self.get_field_name(field.maddr, field_idx)
         return res
 
-    #---------------------------------------------------------------------------
+
     def get_short_field_name(self, field_idx, field, field_name):
-        res = Dex.get_short_type_name(self.get_type_string(field.ctype))
+        res = Dex.get_short_type_name(self.get_type_string(field.maddr, field.ctype))
         res += '_'
-        res += field_name if field_name else self.get_field_name(field_idx)
+        res += field_name if field_name else self.get_field_name(field.maddr, field_idx)
 
 
 #---------------------------------------------------------------------------
@@ -373,28 +467,28 @@ if __name__ == '__main__':
 
     func_start_ea = f.start_ea
     methno = dex.get_method_idx(func_start_ea)
-    func_method = dex.get_method(methno)
+    func_method = dex.get_method(func_start_ea, methno)
     if func_method is None:
         print "ERROR: Missing method info"
         exit(1)
     out = ""
     # Return type
     out += Dex.access_string(func_method.access_flags) + " "
-    method_proto = dex.get_type_string(func_method.proto_ret)
+    method_proto = dex.get_type_string(func_start_ea, func_method.proto_ret)
     if method_proto:
         out += Dex.get_full_type_name(method_proto)
     else:
         out += "%x" % func_method.proto_ret
     out += ' '
     # Class name
-    method_classnm = dex.get_type_string(func_method.cname)
+    method_classnm = dex.get_type_string(func_start_ea, func_method.cname)
     if method_classnm:
         out += Dex.get_full_type_name(method_classnm)
     else:
         out += "%x" % func_method.cname
     out += '.'
     # Method name
-    method_name = dex.get_method_name(methno)
+    method_name = dex.get_method_name(func_start_ea, methno)
     if method_name:
         out += method_name
     else:
@@ -410,7 +504,7 @@ if __name__ == '__main__':
         if func_method.access_flags & Dex.ACCESS_FLAGS["static"] == 0:
             start_reg += 1
         for i in range(0, maxp):
-            ptype = dex.get_type_string(func_method.proto_params[i])
+            ptype = dex.get_type_string(func_start_ea, func_method.proto_params[i])
 
             out = "  %s " % dex.get_full_type_name(ptype)
             regbuf = "v%u" % start_reg

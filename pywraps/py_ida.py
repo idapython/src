@@ -44,4 +44,48 @@ def __wrap_hooks_callback(klass, new_name, old_name, do_call):
     setattr(klass, bkp_name, getattr(klass, new_name))
     setattr(klass, new_name, __wrapper)
 
+idainfo.ASCIIbreak = idainfo.strlit_break
+idainfo.ASCIIpref = idainfo.strlit_pref
+idainfo.ASCIIsernum = idainfo.strlit_sernum
+idainfo.ASCIIzeroes = idainfo.strlit_zeroes
+idainfo.asciiflags = idainfo.strlit_flags
+idainfo.beginEA = idainfo.start_ea
+idainfo.binSize = idainfo.bin_prefix_size
+def my_get_proc_name(self):
+    return [self.procname, self.procname]
+idainfo.get_proc_name = my_get_proc_name
+idainfo.graph_view = property(idainfo.is_graph_view, idainfo.set_graph_view)
+idainfo.mf = property(idainfo.is_be, idainfo.set_be)
+idainfo.namelen = idainfo.max_autoname_len
+idainfo.omaxEA = idainfo.omax_ea
+idainfo.ominEA = idainfo.omin_ea
+def make_outflags_accessors(bit):
+    def getter(self):
+        return (self.outflags & bit) != 0
+    def setter(self, value):
+        if value:
+            self.outflags |= bit
+        else:
+            self.outflags &= ~bit
+    return getter, setter
+idainfo.s_assume = property(*make_outflags_accessors(OFLG_GEN_ASSUME))
+idainfo.s_auto = property(idainfo.is_auto_enabled, idainfo.set_auto_enabled)
+idainfo.s_null = property(*make_outflags_accessors(OFLG_GEN_NULL))
+idainfo.s_org = property(*make_outflags_accessors(OFLG_GEN_ORG))
+idainfo.s_prefseg = property(*make_outflags_accessors(OFLG_PREF_SEG))
+idainfo.s_showauto = property(*make_outflags_accessors(OFLG_SHOW_AUTO))
+idainfo.s_showpref = property(*make_outflags_accessors(OFLG_SHOW_PREF))
+idainfo.s_void = property(*make_outflags_accessors(OFLG_SHOW_VOID))
+idainfo.startIP = idainfo.start_ip
+idainfo.startSP = idainfo.start_sp
+def make_lflags_accessors(bit):
+    def getter(self):
+        return (self.lflags & bit) != 0
+    def setter(self, value):
+        if value:
+            self.lflags |= bit
+        else:
+            self.lflags &= ~bit
+    return getter, setter
+idainfo.wide_high_byte_first = property(*make_lflags_accessors(LFLG_WIDE_HBF))
 #</pycode_BC695(py_ida)>

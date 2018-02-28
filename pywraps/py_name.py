@@ -104,7 +104,7 @@ def validate_name2(name, sz=0):
 def validate_name3(name):
     return _ida_name.validate_name(name, VNT_IDENT)
 isident=is_ident
-@bc695redef
+@bc695redef_with_pydoc(get_name.__doc__)
 def get_name(*args):
     if len(args) == 2:
         if args[0] != _ida_idaapi.BADADDR:

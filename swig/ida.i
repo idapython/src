@@ -11,6 +11,15 @@
 %ignore idainfo::idainfo;
 %ignore idainfo::~idainfo;
 
+%ignore hook_cb_t;
+%ignore hook_type_t;
+%ignore hook_to_notification_point;
+%ignore unhook_from_notification_point;
+%ignore invoke_callbacks;
+%ignore post_event_visitor_t;
+%ignore register_post_event_visitor;
+%ignore unregister_post_event_visitor;
+
 %extend idainfo
 {
   qstring get_abiname()
