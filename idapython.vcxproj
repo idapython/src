@@ -223,6 +223,7 @@
       <CallingConvention>Cdecl</CallingConvention>
       <DisableSpecificWarnings>4102;4005;4804;4018;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0419</Culture>
