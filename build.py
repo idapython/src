@@ -16,40 +16,27 @@ import os, sys, argparse
 parser = argparse.ArgumentParser(epilog="""
 A very specific version of SWiG is expected in order to produce reliable
 bindings. If your platform doesn't provide that version by default and you
-had to build/install it yourself, you will have to specify '--swig-bin' and
-'--swig-inc' arguments.
+had to build/install it yourself, you will have to specify '--swig-home'.
 
 What follows, are example build commands
 
 ### Windows (assume SWiG is installed in C:\swigwin-2.0.12, and IDA is in C:\Program Files\IDA7)
 
   python build.py \\
-      --swig-bin C:/swigwin-2.0.12/swig.exe \\
-      --swig-inc "C:/swigwin-2.0.12/Lib/python;C:/swigwin-2.0.12/Lib" \\
+      --with-hexrays \\
+      --swig-home C:/swigwin-2.0.12 \\
       --idc "c:/Program\ Files/IDA_7.0-171130-tests/idc/idc.idc"
 
-  (note the argument quoting)
 
-
-### Linux/OSX (assume SWiG is installed in /opt/my-swig/, and IDA is in /opt/my-ida-install)
+### Linux/OSX (assume SWiG is installed in /opt/swiglinux-2.0.12, and IDA is in /opt/my-ida-install)
 
   python build.py \\
-      --swig-bin /opt/my-swig/bin/swig \\
-      --swig-inc /opt/my-swig/share/swig/2.0.12/python/:/opt/my-swig/share/swig/2.0.12 \\
+      --with-hexrays \\
+      --swig-home /opt/swiglinux-2.0.12 \\
       --idc /opt/my-ida-install/idc/idc.idc
-
-
-Notes:
- * '--swig-inc' here has 2 path components, separated by the platform's
-   path separator; i.e., ':' in this case (if you were building on Windows,
-   you would have to use ';'.)
- * SWiG can be tricky to deal with when specifying input paths. The path
-   to the '.../2.0.12/python/' subdirectory should be placed before the
-   more global '.../2.0.12/' directory.
 """,
                         formatter_class=argparse.RawTextHelpFormatter)
-parser.add_argument("--swig-bin", type=str, help="Path to the SWIG binary", default=None)
-parser.add_argument("--swig-inc", type=str, help="Path(s) to the SWIG includes directory(ies)", default=None)
+parser.add_argument("--swig-home", type=str, help="Path to the SWIG installation", default=None)
 parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
 if "linux" in sys.platform:
@@ -80,14 +67,12 @@ def main():
     env = {
         "OUT_OF_TREE_BUILD" : "1"
     }
-    if args.swig_bin:
-        env["SWIG"] = args.swig_bin
-    if args.swig_inc:
-        env["SWIGINCLUDES"] = " ".join(map(lambda p: "-I%s" % p, args.swig_inc.split(os.pathsep)))
+    if args.swig_home:
+        env["SWIG_HOME"] = args.swig_home
     if args.with_hexrays:
         env["HAS_HEXRAYS"] = "1"
     if args.debug:
-        env["__VC__"] = "1" # to enable PDB flags
+        env["__NT__"] = "1" # to enable PDB flags
     else:
         env["NDEBUG"] = "1"
     try:

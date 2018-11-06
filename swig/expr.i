@@ -94,13 +94,7 @@
   }
 }
 
-%ignore qvector<idc_value_t>::operator==;
-%ignore qvector<idc_value_t>::operator!=;
-%ignore qvector<idc_value_t>::find;
-%ignore qvector<idc_value_t>::has;
-%ignore qvector<idc_value_t>::del;
-%ignore qvector<idc_value_t>::add_unique;
-%template(idc_values_t) qvector<idc_value_t>;
+%uncomparable_elements_qvector(idc_value_t, idc_values_t);
 
 %pythoncode %{
 #<pycode(py_expr)>

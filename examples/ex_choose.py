@@ -27,7 +27,8 @@ class MyChoose(Choose):
             self,
             title,
             [ ["Address", 10], ["Name", 30] ],
-            flags = flags | (Choose.CH_CAN_INS
+            flags = flags | Choose.CH_RESTORE
+                          | (Choose.CH_CAN_INS
                            | Choose.CH_CAN_DEL
                            | Choose.CH_CAN_EDIT
                            | Choose.CH_CAN_REFRESH),

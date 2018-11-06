@@ -14,9 +14,11 @@ args = parser.parse_args()
 
 outlines = []
 STAT_SEEKING = 1
-STAT_COLLECTING = 2
+STAT_ALMOST_THERE = 2
+STAT_COLLECTING = 3
 
-start_collecting_re = re.compile(r"^SWIG_init\(void\)")
+almost_there_re = re.compile(r"^\s+\*\s+Partial Init method.*")
+start_collecting_re = re.compile(r"^#ifdef __cplusplus.*")
 end_collecting_re = re.compile(r"^\s*/\* Initialize threading \*/")
 
 # SWIG_Python_SetConstant(d, "BADADDR",SWIG_From_unsigned_SS_int(static_cast< unsigned int >(ea_t(-1))));
@@ -37,10 +39,11 @@ pyobj_expr_str = re.compile(r"SWIG_FromCharPtr\((.*)\)")
 
 status = STAT_SEEKING
 class Foldable(object):
-    def __init__(self, re, enum, initializer, replacement):
+    def __init__(self, re, enum, initializer, cast, replacement):
         self.re = re
         self.enum = enum
         self.initializer = initializer
+        self.cast = cast
         self.replacement = replacement
         self.found_any = False
 
@@ -49,26 +52,31 @@ subexprs = {
         pyobj_expr_int,
         "cit_int",
         "i",
+        "int",
         "SWIG_From_int(static_cast< int >(ci.val.i))"),
     "u" : Foldable(
         pyobj_expr_uint,
         "cit_uint",
         "u",
+        "unsigned int",
         "SWIG_From_unsigned_SS_int(static_cast< unsigned int >(ci.val.u))"),
     "l" : Foldable(
         pyobj_expr_long,
         "cit_long",
         "l",
+        "long",
         "SWIG_From_long(static_cast< long >(ci.val.l))"),
     "ul" : Foldable(
         pyobj_expr_ulong,
         "cit_ulong",
         "ul",
+        "unsigned long",
         "SWIG_From_unsigned_SS_long(static_cast< unsigned long >(ci.val.ul))"),
     "s" : Foldable(
         pyobj_expr_str,
         "cit_charptr",
         "s",
+        "char *",
         "SWIG_FromCharPtr(ci.val.s)"),
 }
 
@@ -108,6 +116,7 @@ static const ida_local struct ci_t
         name = c[0]
         expr = c[1]
         init = "o"
+        cast = "PyObject *"
         citype = "cit_obj"
 
         # Analyze expression. If it is one of the
@@ -119,9 +128,10 @@ static const ida_local struct ci_t
                 citype = subexpr.enum
                 expr = sematch.group(1)
                 init = subexpr.initializer
+                cast = subexpr.cast
                 subexpr.found_any = True
                 break
-        outlines.append("\t{%s, {%s: (%s)}, %s},\n" % (name, init, expr, citype))
+        outlines.append("\t{%s, {%s: (%s) (%s)}, %s},\n" % (name, init, cast, expr, citype))
 
     outlines.append("""
 };
@@ -158,11 +168,20 @@ with open(args.file, "rb") as f:
 
     for line in f:
         if status == STAT_SEEKING:
+            if almost_there_re.match(line):
+                status = STAT_ALMOST_THERE
+                if args.verbose:
+                    print "Almost there at line: '%s'" % line
             outlines.append(line)
+        elif status == STAT_ALMOST_THERE:
             if start_collecting_re.match(line):
                 status = STAT_COLLECTING
                 if args.verbose:
                     print "Starting to collect at line: '%s'" % line
+                outlines.append("#ifdef __NT__\n")
+                outlines.append("#pragma warning(disable: 4883)\n")
+                outlines.append("#endif // __NT__\n")
+            outlines.append(line)
         elif status == STAT_COLLECTING:
             if end_collecting_re.match(line):
                 outlines.append(line)

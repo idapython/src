@@ -1987,7 +1987,6 @@ INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = __cplusplus                        \
                          __X86__                            \
                          __NT__                             \
-                         __VC__                             \
                          _MSC_VER                           \
                          UNICODE                            \
                          NO_OBSOLETE_FUNCS                  \

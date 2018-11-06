@@ -8,7 +8,6 @@
 %ignore dbg;
 %ignore register_srcinfo_provider;
 %ignore unregister_srcinfo_provider;
-%ignore get_manual_regions;
 %ignore internal_cleanup_appcall;
 %ignore change_bptlocs;
 %ignore movbpt_info_t;
@@ -27,31 +26,30 @@
 %ignore bpt_t::get_cnd_elang;
 %ignore bpt_t::set_cnd_elang;
 %rename (get_manual_regions) py_get_manual_regions;
-%ignore set_manual_regions;
 // TODO: This could be fixed (if needed)
 %ignore set_dbgmem_source;
 
+// unusable functions because 'dbg' is not available:
+%ignore have_set_options;
+%ignore set_dbg_options;
+%ignore set_int_dbg_options;
+%ignore set_dbg_default_options;
+
+/* %ignore invalidate_dbg_state; */
+/* %ignore is_request_running; */
+
 %rename (list_bptgrps) py_list_bptgrps;
 %apply qstring *result { qstring *grp_name };
-%ignore qvector<bpt_t>::operator==;
-%ignore qvector<bpt_t>::operator!=;
-%ignore qvector<bpt_t>::find;
-%ignore qvector<bpt_t>::has;
-%ignore qvector<bpt_t>::del;
-%ignore qvector<bpt_t>::add_unique;
-%template(bpt_vec_t) qvector<bpt_t>;
+%uncomparable_elements_qvector(bpt_t, bpt_vec_t);
+
 %ignore write_dbg_memory;
 %rename (write_dbg_memory) py_write_dbg_memory;
 
-%ignore qvector<memreg_info_t>::operator==;
-%ignore qvector<memreg_info_t>::operator!=;
-%ignore qvector<memreg_info_t>::find;
-%ignore qvector<memreg_info_t>::has;
-%ignore qvector<memreg_info_t>::del;
-%ignore qvector<memreg_info_t>::add_unique;
+%uncomparable_elements_qvector(tev_reg_value_t, tev_reg_values_t);
+%uncomparable_elements_qvector(tev_info_reg_t, tevinforeg_vec_t);
 %ignore memreg_info_t::bytes;
 %rename (bytes) memreg_info_t_py_bytes;
-%template(memreg_infos_t) qvector<memreg_info_t>;
+%uncomparable_elements_qvector(memreg_info_t, memreg_infos_t);
 
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
@@ -64,11 +62,11 @@
 bool run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 
+%ignore get_insn_tev_reg_val(int, const char *, uint64 *);
+%ignore get_insn_tev_reg_result(int, const char *, uint64 *);
+
 %thread;
 
-%nonnul_argument_prototype(
-        inline bool idaapi load_debugger(const char *nonnul_dbgname, bool use_remote),
-        const char *nonnul_dbgname);
 %nonnul_argument_prototype(
         inline void idaapi set_debugger_event_cond(const char *nonnul_cond),
         const char *nonnul_cond);

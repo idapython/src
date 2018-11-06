@@ -687,9 +687,12 @@ class Form(object):
             # Construct input control
             Form.InputControl.__init__(self, Form.FT_ECHOOSER, "", swidth)
 
+            self.selobj = ida_pro.sizevec_t()
+
             # Get a pointer to the chooser_info_t and the selection vector
             # (These two parameters are the needed arguments for the ask_form())
-            emb, sel = _ida_kernwin.choose_get_embedded(chooser)
+            emb = _ida_kernwin._choose_get_embedded_chobj_pointer(chooser)
+            sel = self.selobj.this.__long__()
 
             # Get a pointer to a c_void_p constructed from an address
             p_embedded = ctypes.pointer(ctypes.c_void_p.from_address(emb))
@@ -711,6 +714,14 @@ class Form(object):
         value = property(lambda self: self.chooser)
         """Returns the embedded chooser instance"""
 
+        def __get_selection__(self):
+            if len(self.selobj):
+                out = []
+                for item in self.selobj:
+                    out.append(int(item))
+                return out
+        selection = property(__get_selection__)
+        """Returns the selection"""
 
         def free(self):
             """
@@ -1179,7 +1190,7 @@ class Form(object):
         if not self.modal:
             raise SyntaxError("Form is not modal. Open() should be instead")
 
-        return ask_form(*self.__args)
+        return _call_ask_form(*self.__args)
 
 
     def Open(self):
@@ -1190,7 +1201,7 @@ class Form(object):
         if self.modal:
             raise SyntaxError("Form is modal. Execute() should be instead")
 
-        open_form(*self.__args)
+        _call_open_form(*self.__args)
 
 
     def EnableField(self, ctrl, enable):
@@ -1334,33 +1345,24 @@ try:
     import ctypes
     # Setup the numeric argument size
     Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
-    ask_form__ = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
-    open_form__ = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
+    __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
+    __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
 except:
-    def ask_form__(*args):
+    def __ask_form_callable(*args):
         warning("ask_form() needs ctypes library in order to work")
         return 0
-    def open_form__(*args):
+    def __open_form_callable(*args):
         warning("open_form() needs ctypes library in order to work")
 
 
-def ask_form(*args):
-    """
-    Calls ask_form()
-    @param: Compiled Arguments obtain through the Form.Compile() function
-    @return: 1 = ok, 0 = cancel
-    """
+def _call_ask_form(*args):
     old = _ida_idaapi.set_script_timeout(0)
-    r = ask_form__(*args)
+    r = __ask_form_callable(*args)
     _ida_idaapi.set_script_timeout(old)
     return r
 
-def open_form(*args):
-    """
-    Calls open_form()
-    @param: Compiled Arguments obtain through the Form.Compile() function
-    """
+def _call_open_form(*args):
     old = _ida_idaapi.set_script_timeout(0)
-    r = open_form__(*args)
+    r = __open_form_callable(*args)
     _ida_idaapi.set_script_timeout(old)
 #</pycode(py_kernwin_askform)>

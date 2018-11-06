@@ -37,7 +37,7 @@
 %typemap(argout) struc_t **sptr_place {
   if ( result )
   {
-    %append_output(SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_struc_t, 0 |  0 ));
+    %append_output(SWIG_NewPointerObj(SWIG_as_voidptr(*($1)), SWIGTYPE_p_struc_t, 0 |  0 ));
   }
   else
   {

@@ -28,7 +28,7 @@ void choose_del_instance(PyObject *self)
 }
 
 // set `prm` to the integer value of the `name` attribute
-template<class T>
+template <class T>
 static void py_get_int(PyObject *self, T *prm, const char *name)
 {
   ref_t attr(PyW_TryGetAttrString(self, name));
@@ -65,8 +65,6 @@ public:
   // Callback flags (to tell which callback exists and which not)
   // One of CHOOSE_xxxx
   uint32 cb_flags;
-
-  sizevec_t embedded_sel;
 
   // Chooser title
   qstring title;
@@ -241,11 +239,6 @@ public:
   chooser_base_t *get_chobj() const
   {
     return chobj;
-  }
-
-  const sizevec_t *get_sel_vec() const
-  {
-    return &embedded_sel;
   }
 
   bool is_valid() const
@@ -781,33 +774,15 @@ void choose_activate(PyObject *self)
 }
 
 //------------------------------------------------------------------------
-PyObject *choose_get_embedded_selection(PyObject *self)
+// Return the C instance as 64bit number
+uint64 _choose_get_embedded_chobj_pointer(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-
+  uint64 ptr = 0;
   py_choose_t *pych = choose_find_instance(self);
-  if ( pych == NULL || !pych->is_valid() || !pych->is_embedded() )
-    Py_RETURN_NONE;
-
-  ref_t ret(PyW_SizeVecToPyList(*pych->get_sel_vec()));
-  ret.incref();
-  return ret.o;
-}
-
-//------------------------------------------------------------------------
-// Return the C instances as 64bit numbers
-PyObject *choose_get_embedded(PyObject *self)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych == NULL || !pych->is_valid() || !pych->is_embedded() )
-    Py_RETURN_NONE;
-
-  return Py_BuildValue(
-                 "(KK)",
-                 PTR2U64(pych->get_chobj()),
-                 PTR2U64(pych->get_sel_vec()));
+  if ( pych != NULL && pych->is_valid() && pych->is_embedded() )
+    ptr = uint64(pych->get_chobj());
+  return ptr;
 }
 
 //------------------------------------------------------------------------
@@ -829,8 +804,7 @@ void choose_refresh(PyObject *self);
 void choose_close(PyObject *self);
 int choose_create(PyObject *self);
 void choose_activate(PyObject *self);
-PyObject *choose_get_embedded(PyObject *self);
-PyObject *choose_get_embedded_selection(PyObject *self);
+uint64 _choose_get_embedded_chobj_pointer(PyObject *self);
 
 PyObject *py_get_chooser_data(const char *chooser_caption, int n)
 {

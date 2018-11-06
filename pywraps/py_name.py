@@ -76,12 +76,10 @@ GN_INSNLOC=0
 def demangle_name(name, mask, demreq=DQT_FULL): # make flag optional, so demangle_name & demangle_name2 can use it
     return _ida_name.demangle_name(name, mask, demreq)
 demangle_name2=demangle_name
-@bc695redef
 def do_name_anyway(ea, name, maxlen=0):
     return force_name(ea, name)
 extract_name2=extract_name
 get_debug_name2=get_debug_name
-@bc695redef
 def get_true_name(ea0, ea1=None):
     if ea1 is None:
         ea = ea0
@@ -90,21 +88,18 @@ def get_true_name(ea0, ea1=None):
     return get_name(ea)
 is_ident_char=is_ident_cp
 is_visible_char=is_visible_cp
-@bc695redef
 def make_visible_name(name, sz=0):
     if sz > 0:
         name = name[0:sz]
     return _ida_name.validate_name(name, VNT_VISIBLE)
-@bc695redef
 def validate_name2(name, sz=0):
     if sz > 0:
         name = name[0:sz]
     return _ida_name.validate_name(name, VNT_IDENT)
-@bc695redef
 def validate_name3(name):
     return _ida_name.validate_name(name, VNT_IDENT)
 isident=is_ident
-@bc695redef_with_pydoc(get_name.__doc__)
+@bc695redef
 def get_name(*args):
     if len(args) == 2:
         if args[0] != _ida_idaapi.BADADDR:

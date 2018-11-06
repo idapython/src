@@ -28,6 +28,8 @@
 %ignore get_demangled_name(qstring *, ea_t, int32, int, int);
 %ignore get_colored_demangled_name(qstring *, ea_t, int32, int, int);
 
+%uncomparable_elements_qvector(ea_name_t, ea_name_vec_t);
+
 // get_name & get_colored_name have prototypes such that,
 // once converted to IDAPython, would be problematic because it'd
 // be impossible for SWiG to tell apart the (ea_t, ea_t) version
@@ -49,10 +51,6 @@ inline qstring py_## FNAME(ea_t ea) { return FNAME(ea); }
 
 %restrict_ambiguous_name_function(get_name);
 %restrict_ambiguous_name_function(get_colored_name);
-
-
-%ignore get_debug_names;
-%rename (get_debug_names) py_get_debug_names;
 
 %ignore validate_name;
 %rename (validate_name) py_validate_name;

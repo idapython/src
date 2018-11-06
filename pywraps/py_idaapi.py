@@ -12,6 +12,8 @@ import datetime
 
 #<pycode(py_idaapi)>
 
+__EA64__ = BADADDR == 0xFFFFFFFFFFFFFFFFL
+
 import struct
 import traceback
 import os
@@ -55,6 +57,22 @@ def require(modulename, package=None):
         m = importlib.import_module(modulename, package)
         sys.modules[modulename] = m
     setattr(importer_module, modulename, m)
+
+def _replace_module_function(replacement):
+    name = replacement.__name__
+    modname = replacement.__module__
+    assert(name)
+    assert(modname)
+    mod = sys.modules[modname]
+    orig = getattr(mod, name)
+    replacement.__doc__ = orig.__doc__
+    replacement.__name__ = name
+    replacement.func_dict["orig"] = orig
+    setattr(mod, name, replacement)
+
+def replfun(func):
+    _replace_module_function(func)
+    return func
 
 
 # -----------------------------------------------------------------------
@@ -628,6 +646,10 @@ class __BC695:
 
     def dummy(self, *args):
         pass
+
+    def replace_fun(self, new):
+        new.func_dict["bc695redef"] = True
+        _replace_module_function(new)
 
 _BC695 = __BC695()
 #</pycode(py_idaapi)>

@@ -399,7 +399,7 @@ PyObject *py_pack_object_to_bv(
     NULL,
     pio_flags);
   if ( err == eOk && !bytes.relocate(base_ea, inf.is_be()) )
-      err = -1;
+    err = -1;
   Py_END_ALLOW_THREADS;
   if ( err == eOk )
     return Py_BuildValue("(is#)", 1, bytes.begin(), bytes.size());
@@ -481,7 +481,7 @@ int idc_set_local_type(int ordinal, const char *dcl, int flags)
   if ( dcl == NULL || dcl[0] == '\0' )
   {
     if ( !del_numbered_type(NULL, ordinal) )
-        return 0;
+      return 0;
   }
   else
   {

@@ -1,6 +1,6 @@
-# HOW-TO
+# Developing IDAPython: best practices
 
-### Whatever you do
+### Rule of thumb
 
 If you are doing something non-trivial in IDAPython, or if you added something
 to the C++ SDK which will then be reflected in IDAPython, an *immensely*

@@ -47,7 +47,6 @@ doYwrd=create_yword
 doZwrd=create_zword
 do_data_ex=create_data
 do_unknown=del_items
-@bc695redef
 def do_unknown_range(ea, size, flags):
     return del_items(ea, flags, size) # swap 2 last args
 dwrdflag=dword_flag
@@ -88,10 +87,8 @@ get_flags_novalue=get_flags
 get_hidden_area=get_hidden_range
 get_hidden_area_num=get_hidden_range_num
 get_hidden_area_qty=get_hidden_range_qty
-@bc695redef
 def get_many_bytes(ea, size):
     return get_bytes(ea, size)
-@bc695redef
 def get_many_bytes_ex(ea, size):
     return get_bytes_and_mask(ea, size)
 get_max_ascii_length=get_max_strlit_length
@@ -180,7 +177,6 @@ def get_opinfo(*args):
     else:                                      # 7.00: buf, ea, n, flags
         buf, ea, n, flags = args
     return _ida_bytes.get_opinfo(buf, ea, n, flags)
-@bc695redef
 def doASCI(ea, length):
     import ida_netnode
     return create_data(ea, FF_STRLIT, length, ida_netnode.BADNODE)
@@ -222,7 +218,7 @@ stroffflag=stroff_flag
 struflag=stru_flag
 wordflag=word_flag
 invalidate_visea_cache=ida_idaapi._BC695.false_p
-@bc695redef_with_pydoc(op_stroff.__doc__)
+@bc695redef
 def op_stroff(*args):
     insn, n, path, path_len, delta = args
     import ida_ua

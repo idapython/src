@@ -2,7 +2,6 @@
 #<pycode_BC695(py_offset)>
 calc_reference_basevalue=calc_basevalue
 calc_reference_target=calc_target
-@bc695redef
 def set_offset(ea, n, base):
     import ida_idaapi
     otype = get_default_reftype(ea)

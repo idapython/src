@@ -92,7 +92,7 @@ close_tform=close_widget
 find_tform=find_widget
 get_current_tform=get_current_widget
 def get_highlighted_identifier():
-    thing = get_highlight(get_current_widget())
+    thing = get_highlight(get_current_viewer())
     if thing and thing[1]:
         return thing[0]
 get_tform_title=get_widget_title
@@ -130,30 +130,27 @@ __wrap_uihooks_callback("populating_widget_popup", lambda cb, *args: cb(*args))
 __wrap_uihooks_callback("finish_populating_widget_popup", lambda cb, *args: cb(*args))
 __wrap_uihooks_callback("current_widget_changed", lambda cb, *args: cb(*args))
 
-AskUsingForm=ask_form
+AskUsingForm=_call_ask_form
 HIST_ADDR=0
 HIST_NUM=0
 KERNEL_VERSION_MAGIC1=0
 KERNEL_VERSION_MAGIC2=0
-OpenForm=open_form
+OpenForm=_call_open_form
 _askaddr=_ida_kernwin._ask_addr
 _asklong=_ida_kernwin._ask_long
 _askseg=_ida_kernwin._ask_seg
 askaddr=ask_addr
 askbuttons_c=ask_buttons
 askfile_c=ask_file
-@bc695redef
 def askfile2_c(forsave, defdir, filters, fmt):
     if filters:
         fmt = "FILTER %s\n%s" % (filters, fmt)
     return ask_file(forsave, defdir, fmt)
 askident=ask_ident
 asklong=ask_long
-@bc695redef
 def askqstr(defval, fmt):
     return ask_str(defval, 0, fmt)
 askseg=ask_seg
-@bc695redef
 def askstr(hist, defval, fmt):
     return ask_str(defval, hist, fmt)
 asktext=ask_text
@@ -162,8 +159,8 @@ choose2_activate=choose_activate
 choose2_close=choose_close
 choose2_create=choose_create
 choose2_find=choose_find
-choose2_get_embedded=choose_get_embedded
-choose2_get_embedded_selection=choose_get_embedded_selection
+choose2_get_embedded=_choose_get_embedded_chobj_pointer
+choose2_get_embedded_selection=lambda *args: None
 choose2_refresh=choose_refresh
 clearBreak=clr_cancelled
 py_get_AskUsingForm=py_get_ask_form

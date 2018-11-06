@@ -17,6 +17,21 @@ try:
 except:
     ida_kernwin.warning('Feedparser package not installed')
 
+def get_url(ident):
+    """
+    Note: This code is left in a separate, toplevel function so that
+    tests can easily override it and provide a replacement file://
+    URL and work on machines without an internet connection
+    """
+    try:
+        # This is a 'hook' to enable testing on machines disconnected
+        # from the internet (we're not testing feedparser's HTTPS URL
+        # download capabilities anyway)
+        import sys
+        return sys.modules["__main__"].get_url(ident)
+    except:
+        return "https://social.msdn.microsoft.com/search/en-US/feed?query=%s&format=RSS&theme=feed%%2fen-us" % ident
+
 # -----------------------------------------------------------------------
 class msdnapihelp_plugin_t(ida_idaapi.plugin_t):
     flags = ida_idaapi.PLUGIN_UNL
@@ -47,8 +62,7 @@ class msdnapihelp_plugin_t(ida_idaapi.plugin_t):
 
         ident = self.sanitize_name(ident)
         print "Looking up '%s' in MSDN online" % ident
-        qurl = "https://social.msdn.microsoft.com/search/en-US/feed?query=%s&format=RSS&theme=feed%%2fen-us"
-        d = feedparser.parse(qurl % ident)
+        d = feedparser.parse(get_url(ident))
         if len(d['entries']) > 0:
             url = d['entries'][0].link
             if arg > 0:

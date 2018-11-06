@@ -55,7 +55,16 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
       PYW_GIL_GET;
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
       newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pycallback, NULL));
-      int ret = py_result == NULL ? -1 : PyLong_AsLong(py_result.o);
+      int ret = -1;
+      if ( PyErr_Occurred() )
+      {
+        msg("Exception in timer callback. This timer will be unregistered.\n");
+        PyErr_Print();
+      }
+      else if ( py_result != NULL )
+      {
+        ret = PyLong_AsLong(py_result.o);
+      }
 
       // Timer has been unregistered?
       if ( ret == -1 )
@@ -768,6 +777,43 @@ def is_idaq():
 #</pydoc>
 */
 
+
+struct jobj_wrapper_t
+{
+private:
+  const jobj_t *o;
+
+public:
+  jobj_wrapper_t(const jobj_t *_o) : o(_o) {}
+
+  PyObject *get_dict()
+  {
+    newref_t json_module(PyImport_ImportModule("json"));
+    if ( json_module != NULL )
+    {
+      borref_t json_globals(PyModule_GetDict(json_module.o));
+      if ( json_globals != NULL )
+      {
+        borref_t json_loads(PyDict_GetItemString(json_globals.o, "loads"));
+        if ( json_loads != NULL )
+        {
+          qstring clob;
+          if ( serialize_json(&clob, o) )
+          {
+            newref_t dict(PyObject_CallFunction(json_loads.o, "s", clob.c_str()));
+            if ( dict != NULL )
+            {
+              dict.incref();
+              return dict.o;
+            }
+          }
+        }
+      }
+    }
+    Py_RETURN_NONE;
+  }
+};
+
 //---------------------------------------------------------------------------
 // UI hooks
 //---------------------------------------------------------------------------
@@ -903,9 +949,9 @@ public:
     return idapython_unhook_from_notification_point(HT_UI, UI_Callback, this);
   }
 
-  static int handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
+  static ssize_t handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
-    int rc = 0;
+    ssize_t rc = 0;
     char *_buf;
     Py_ssize_t _len;
     if ( o != NULL && PyString_Check(o) && PyString_AsStringAndSize(o, &_buf, &_len) != -1 )
@@ -917,9 +963,9 @@ public:
     return rc;
   }
 
-  static int handle_hint_output(PyObject *o, qstring *hint, int *important_lines)
+  static ssize_t handle_hint_output(PyObject *o, qstring *hint, int *important_lines)
   {
-    int rc = 0;
+    ssize_t rc = 0;
     if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
     {
       borref_t el0(PyTuple_GetItem(o, 0));
@@ -946,14 +992,30 @@ public:
     return rc;
   }
 
-  static int handle_hint_output(PyObject *o, qstring *hint, ea_t, int, int *important_lines)
+  static ssize_t handle_hint_output(PyObject *o, qstring *hint, ea_t, int, int *important_lines)
   {
     return handle_hint_output(o, hint, important_lines);
   }
 
-  static int handle_hint_output(PyObject *o, qstring *hint, TWidget *, place_t *, int *important_lines)
+  static ssize_t handle_hint_output(PyObject *o, qstring *hint, TWidget *, place_t *, int *important_lines)
   {
     return handle_hint_output(o, hint, important_lines);
+  }
+
+  static jobj_wrapper_t wrap_widget_cfg(const jobj_t *jobj)
+  {
+    return jobj_wrapper_t(jobj);
+  }
+
+  static ssize_t handle_create_desktop_widget_output(PyObject *o)
+  {
+    if ( o == Py_None )
+      return 0;
+    TWidget *widget = NULL;
+    int cvt = SWIG_ConvertPtr(o, (void **) &widget, SWIGTYPE_p_TWidget, 0);
+    if ( !SWIG_IsOK(cvt) || widget == NULL )
+      return 0;
+    return ssize_t(widget);
   }
 
   // hookgenUI:methods
@@ -1206,6 +1268,11 @@ def error(format):
 #</pydoc>
 */
 
+static TWidget *TWidget__from_ptrval__(size_t ptrval)
+{
+  return (TWidget *) ptrval;
+}
+
 //</inline(py_kernwin)>
 
 //---------------------------------------------------------------------------
@@ -1216,7 +1283,7 @@ ssize_t idaapi UI_Callback(void *ud, int notification_code, va_list va)
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;
   UI_Hooks *proxy = (UI_Hooks *)ud;
-  int ret = 0;
+  ssize_t ret = 0;
   try
   {
     switch ( notification_code )
@@ -1256,6 +1323,20 @@ bool idaapi py_menu_item_callback(void *userdata)
 
   return PyObject_IsTrue(result.o) != 0;
 }
+
+/*
+#<pydoc>
+def get_navband_pixel(ea):
+    """
+    Maps an address, onto a pixel coordinate within the navband
+
+    @param ea: The address to map
+    @return: a list [pixel, is_vertical]
+    """
+    pass
+#</pydoc>
+*/
+
 //</code(py_kernwin)>
 
 #endif

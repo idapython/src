@@ -21,24 +21,28 @@ class say_something_handler_t(idaapi.action_handler_t):
 
 # -----------------------------------------------------------------------
 class mycv_t(simplecustviewer_t):
-    def Create(self, sn=None):
+    def Create(self, sn=None, use_colors=True):
         # Form the title
         title = "Simple custom view test"
         if sn:
             title += " %d" % sn
+        self.use_colors = use_colors
 
         # Create the customviewer
         if not simplecustviewer_t.Create(self, title):
             return False
 
         for i in xrange(0, 100):
-            fg, bg = idaapi.COLOR_PREFIX, None
+            prefix, bg = idaapi.COLOR_DEFAULT, None
             # make every 10th line a bit special
             if i % 10 == 0:
-                fg = idaapi.COLOR_DEFAULT # i.e., white...
-                bg = 0xFFFF00             # ...on cyan
+                prefix = idaapi.COLOR_DNAME   # i.e., dark yellow...
+                bg = 0xFFFF00                 # ...on cyan
             pfx = idaapi.COLSTR("%3d" % i, idaapi.SCOLOR_PREFIX)
-            self.AddLine("%s: Line %d" % (pfx, i), fgcolor=fg, bgcolor=bg)
+            if self.use_colors:
+                self.AddLine("%s: Line %d" % (pfx, i), fgcolor=prefix, bgcolor=bg)
+            else:
+                self.AddLine("%s: Line %d" % (pfx, i))
 
         return True
 
@@ -50,6 +54,12 @@ class mycv_t(simplecustviewer_t):
         """
         print "OnClick, shift=%d" % shift
         return True
+
+    def OnPopup(self, form, popup_handle):
+        for thing in ["Hello", "World"]:
+            actname = "custview:say_%s" % thing
+            desc = ida_kernwin.action_desc_t(actname, "Say %s" % thing, say_something_handler_t(thing))
+            ida_kernwin.attach_dynamic_action_to_popup(form, popup_handle, desc)
 
     def OnDblClick(self, shift):
         """
@@ -161,13 +171,6 @@ def show_win():
         return None
     x.Show()
     tcc = x.GetWidget()
-
-    # Register actions
-    for thing in ["Hello", "World"]:
-        actname = "custview:say_%s" % thing
-        idaapi.register_action(
-            idaapi.action_desc_t(actname, "Say %s" % thing, say_something_handler_t(thing)))
-        idaapi.attach_action_to_popup(tcc, None, actname)
     return x
 
 mycv = show_win()

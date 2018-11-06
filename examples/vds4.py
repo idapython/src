@@ -41,8 +41,8 @@ def run():
     iflags = idaapi.restore_user_iflags(entry_ea)
     if iflags is not None:
         print "------- %u user defined citem iflags" % (len(iflags), )
-        for cl, t in iflags.iteritems():
-            print "%a(%d): %08X%s" % (cl.ea, cl.op, f, " CIT_COLLAPSED" if f & CIT_COLLAPSED else "")
+        for cl, f in iflags.iteritems():
+            print "%x(%d): %08X%s" % (cl.ea, cl.op, f, " CIT_COLLAPSED" if f & idaapi.CIT_COLLAPSED else "")
         idaapi.user_iflags_free(iflags)
 
     # Display user defined number formats

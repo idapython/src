@@ -5,6 +5,9 @@
     "vcall_helper" : [
         ("va_copy", ("arg4", "temp")),
     ],
+    "Hexrays_Callback" : [
+        ("va_copy", ("arg3", "temp")),
+    ],
     "SwigDirector_microcode_filter_t::match" : [
         ("acquire_gil", True)
     ],

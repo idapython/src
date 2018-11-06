@@ -118,29 +118,30 @@ def DataRefsFrom(ea):
     return refs(ea, ida_xref.get_first_dref_from, ida_xref.get_next_dref_from)
 
 
+# Xref type names table
+_ref_types = {
+    ida_xref.fl_U  : 'Data_Unknown',
+    ida_xref.dr_O  : 'Data_Offset',
+    ida_xref.dr_W  : 'Data_Write',
+    ida_xref.dr_R  : 'Data_Read',
+    ida_xref.dr_T  : 'Data_Text',
+    ida_xref.dr_I  : 'Data_Informational',
+    ida_xref.fl_CF : 'Code_Far_Call',
+    ida_xref.fl_CN : 'Code_Near_Call',
+    ida_xref.fl_JF : 'Code_Far_Jump',
+    ida_xref.fl_JN : 'Code_Near_Jump',
+    20 : 'Code_User',
+    ida_xref.fl_F : 'Ordinary_Flow'
+}
+
 def XrefTypeName(typecode):
     """
     Convert cross-reference type codes to readable names
 
     @param typecode: cross-reference type code
     """
-    ref_types = {
-        0  : 'Data_Unknown',
-        1  : 'Data_Offset',
-        2  : 'Data_Write',
-        3  : 'Data_Read',
-        4  : 'Data_Text',
-        5  : 'Data_Informational',
-        16 : 'Code_Far_Call',
-        17 : 'Code_Near_Call',
-        18 : 'Code_Far_Jump',
-        19 : 'Code_Near_Jump',
-        20 : 'Code_User',
-        21 : 'Ordinary_Flow'
-        }
-    assert typecode in ref_types, "unknown reference type %d" % typecode
-    return ref_types[typecode]
-
+    assert typecode in _ref_types, "unknown reference type %d" % typecode
+    return _ref_types[typecode]
 
 def _copy_xref(xref):
     """ Make a private copy of the xref class to preserve its contents """

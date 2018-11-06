@@ -6,7 +6,7 @@ import sip
 class MyPluginFormClass(PluginForm):
     def OnCreate(self, form):
         """
-        Called when the plugin form is created
+        Called when the widget is created
         """
 
         # Get parent widget
@@ -28,7 +28,7 @@ class MyPluginFormClass(PluginForm):
 
     def OnClose(self, form):
         """
-        Called when the plugin form is closed
+        Called when the widget is closed
         """
         pass
 

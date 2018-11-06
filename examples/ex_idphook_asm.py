@@ -2,7 +2,7 @@ import idaapi
 import idautils
 
 """
-    This is a sample plugin for extending the assemble().
+    This is a sample script for extending the assemble() hook.
 
     We add support for assembling the following pseudo instructions:
       - "zero eax" -> xor eax, eax

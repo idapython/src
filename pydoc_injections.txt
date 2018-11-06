@@ -390,7 +390,8 @@ ida_bytes.add_mapping():
 	  set flag PR2_MAPPING in ph.flag2 to use memory mapping Add memory
 	  mapping range.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: start of the mapped range (nonexistent address) (C++:
+	                ea_t)
 	  @param to: start of the mapping range (existent address) (C++: ea_t)
 	  @param size: size of the range (C++: asize_t)
 	  @return: success
@@ -903,6 +904,11 @@ ida_bytes.data_format_t.id:
 	        __get_id(self) -> int
 	        
 
+ida_bytes.data_format_t.is_present_in_menus():
+	
+	        is_present_in_menus(self) -> bool
+	        
+
 ida_bytes.data_format_t.menu_name:
 	data_format_t_menu_name_get(self) -> char const *
 
@@ -932,6 +938,11 @@ ida_bytes.data_type_t.hotkey:
 ida_bytes.data_type_t.id:
 	
 	        __get_id(self) -> int
+	        
+
+ida_bytes.data_type_t.is_present_in_menus():
+	
+	        is_present_in_menus(self) -> bool
 	        
 
 ida_bytes.data_type_t.menu_name:
@@ -1092,6 +1103,11 @@ ida_bytes.equal_bytes():
 	  @param sense_case: case-sensitive comparison? (C++: bool)
 	  
 
+ida_bytes.f_has_cmt():
+	
+	  f_has_cmt(f, arg2) -> bool
+	  
+
 ida_bytes.f_has_dummy_name():
 	
 	  f_has_dummy_name(f, arg2) -> bool
@@ -1102,6 +1118,11 @@ ida_bytes.f_has_dummy_name():
 	  
 	  
 	  @param f (C++: flags_t)
+	  
+
+ida_bytes.f_has_extra_cmts():
+	
+	  f_has_extra_cmts(f, arg2) -> bool
 	  
 
 ida_bytes.f_has_name():
@@ -1779,7 +1800,8 @@ ida_bytes.get_item_flag():
 	  or structure. This function is used to get flags of structure members
 	  or array elements.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address of the instruction which refers to 'ea'
+	                (C++: ea_t)
 	  @param n: number of operand which refers to 'ea' (C++: int)
 	  @param ea: the referenced address (C++: ea_t)
 	  @param appzero: append a struct field name if the field offset is
@@ -1864,8 +1886,7 @@ ida_bytes.get_max_strlit_length():
 	  @param strtype: string type. one of  String type codes (C++: int32)
 	  @param options: combination of  string literal length options (C++:
 	                  int)
-	  @return: length of the string in bytes, including the terminating
-	           character(s), if any
+	  @return: length of the string in octets (octet==8bit)
 	  
 
 ida_bytes.get_next_hidden_range():
@@ -4630,7 +4651,7 @@ ida_dbg.DBG_Hooks.unhook():
 
 ida_dbg.add_bpt():
 	
-	    add_bpt(ea, size, type) -> bool
+	    add_bpt(ea, size=0, type=BPT_DEFAULT) -> bool
 	    add_bpt(bpt) -> bool
 	
 	
@@ -4666,7 +4687,7 @@ ida_dbg.add_virt_module():
 
 ida_dbg.attach_process():
 	
-	  attach_process(pid, event_id) -> int
+	  attach_process(pid=pid_t(-1), event_id=-1) -> int
 	
 	
 	  Attach the debugger to a running process. {Type, Asynchronous function
@@ -5144,7 +5165,7 @@ ida_dbg.dbg_add_debug_event():
 
 ida_dbg.dbg_add_insn_tev():
 	
-	  dbg_add_insn_tev(tid, ea, save) -> bool
+	  dbg_add_insn_tev(tid, ea, save=SAVE_DIFF) -> bool
 	
 	
 	  Add a new instruction trace element to the current trace. {Type,
@@ -5300,6 +5321,32 @@ ida_dbg.diff_trace_file():
 	  Show difference between the current trace and the one from 'filename'.
 	  
 
+ida_dbg.disable_bblk_trace():
+	
+	  disable_bblk_trace() -> bool
+	  
+
+ida_dbg.disable_bpt():
+	
+	    disable_bpt(ea) -> bool
+	    disable_bpt(bptloc) -> bool
+	    
+
+ida_dbg.disable_func_trace():
+	
+	  disable_func_trace() -> bool
+	  
+
+ida_dbg.disable_insn_trace():
+	
+	  disable_insn_trace() -> bool
+	  
+
+ida_dbg.disable_step_trace():
+	
+	  disable_step_trace() -> bool
+	  
+
 ida_dbg.edit_manual_regions():
 	
 	  edit_manual_regions()
@@ -5307,23 +5354,23 @@ ida_dbg.edit_manual_regions():
 
 ida_dbg.enable_bblk_trace():
 	
-	  enable_bblk_trace(enable) -> bool
+	  enable_bblk_trace(enable=True) -> bool
 	  
 
 ida_dbg.enable_bpt():
 	
-	    enable_bpt(ea, enable) -> bool
-	    enable_bpt(bptloc, enable) -> bool
+	    enable_bpt(ea, enable=True) -> bool
+	    enable_bpt(bptloc, enable=True) -> bool
 	    
 
 ida_dbg.enable_func_trace():
 	
-	  enable_func_trace(enable) -> bool
+	  enable_func_trace(enable=True) -> bool
 	  
 
 ida_dbg.enable_insn_trace():
 	
-	  enable_insn_trace(enable) -> bool
+	  enable_insn_trace(enable=True) -> bool
 	  
 
 ida_dbg.enable_manual_regions():
@@ -5333,7 +5380,7 @@ ida_dbg.enable_manual_regions():
 
 ida_dbg.enable_step_trace():
 	
-	  enable_step_trace(enable) -> bool
+	  enable_step_trace(enable=True) -> bool
 	  
 
 class ida_dbg.eval_ctx_t():
@@ -5343,6 +5390,17 @@ class ida_dbg.eval_ctx_t():
 
 ida_dbg.eval_ctx_t.ea:
 	eval_ctx_t_ea_get(self) -> ea_t
+
+ida_dbg.exist_bpt():
+	
+	  exist_bpt(ea) -> bool
+	
+	
+	  Does a breakpoint exist at the given location?
+	  
+	  
+	  @param ea (C++: ea_t)
+	  
 
 ida_dbg.exit_process():
 	
@@ -5481,6 +5539,18 @@ ida_dbg.get_dbg_memory_info():
 	  get_dbg_memory_info(ranges) -> int
 	  
 
+ida_dbg.get_dbg_reg_info():
+	
+	  get_dbg_reg_info(regname, ri) -> bool
+	
+	
+	  Get register information {Type, Synchronous function, Notification,
+	  none (synchronous function)}
+	  
+	  @param regname (C++: const char *)
+	  @param ri (C++: register_info_t  *)
+	  
+
 ida_dbg.get_debug_event():
 	
 	  get_debug_event() -> debug_event_t
@@ -5497,12 +5567,6 @@ ida_dbg.get_debugger_event_cond():
 ida_dbg.get_first_module():
 	
 	  get_first_module(modinfo) -> bool
-	
-	
-	  See 'Modules' .
-	  
-	  
-	  @param modinfo (C++: modinfo_t  *)
 	  
 
 ida_dbg.get_func_trace_options():
@@ -5603,12 +5667,13 @@ ida_dbg.get_local_vars():
 
 ida_dbg.get_manual_regions():
 	
-	  get_manual_regions() -> PyObject *
+	    get_manual_regions(ranges)
+	    get_manual_regions() -> PyObject *
 	
 	
 	  Returns the manual memory regions
 	  @return: list(start_ea, end_ea, name, sclass, sbase, bitness, perm)
-	  
+	    
 
 ida_dbg.get_module_info():
 	
@@ -5618,12 +5683,6 @@ ida_dbg.get_module_info():
 ida_dbg.get_next_module():
 	
 	  get_next_module(modinfo) -> bool
-	
-	
-	  See 'Modules' .
-	  
-	  
-	  @param modinfo (C++: modinfo_t  *)
 	  
 
 ida_dbg.get_process_options():
@@ -5666,7 +5725,8 @@ ida_dbg.get_processes():
 
 ida_dbg.get_reg_val():
 	
-	  get_reg_val(regname, regval) -> bool
+	    get_reg_val(regname, regval) -> bool
+	    get_reg_val(regname, ival) -> bool
 	
 	
 	  Read a register value from the current thread. {Type, Synchronous
@@ -5674,7 +5734,7 @@ ida_dbg.get_reg_val():
 	  
 	  @param regname (C++: const char *)
 	  @param regval (C++: regval_t  *)
-	  
+	    
 
 ida_dbg.get_reg_vals():
 	
@@ -5903,17 +5963,6 @@ ida_dbg.handle_debug_event():
 	  handle_debug_event(ev, rqflags) -> int
 	  
 
-ida_dbg.have_set_options():
-	
-	  have_set_options(_dbg) -> bool
-	
-	
-	  Is 'set_dbg_options()' present in 'debugger_t' ?
-	  
-	  
-	  @param _dbg (C++: const  debugger_t  *)
-	  
-
 ida_dbg.hide_all_bpts():
 	
 	  hide_all_bpts() -> int
@@ -5932,6 +5981,18 @@ ida_dbg.internal_get_sreg_base():
 ida_dbg.internal_ioctl():
 	
 	  internal_ioctl(fn, buf, poutbuf, poutsize) -> int
+	  
+
+ida_dbg.invalidate_dbg_state():
+	
+	  invalidate_dbg_state(dbginv) -> int
+	
+	
+	  Invalidate cached debugger information. {Type, Synchronous function,
+	  Notification, none (synchronous function)}
+	  
+	  @param dbginv: Debugged process invalidation options (C++: int)
+	  @return: current debugger state (one of  Debugged process states )
 	  
 
 ida_dbg.invalidate_dbgmem_config():
@@ -6045,6 +6106,14 @@ ida_dbg.is_reg_integer():
 	  @param regname (C++: const char *)
 	  
 
+ida_dbg.is_request_running():
+	
+	  is_request_running() -> bool
+	
+	
+	  Is a request currently running?
+	  
+
 ida_dbg.is_step_trace_enabled():
 	
 	  is_step_trace_enabled() -> bool
@@ -6073,7 +6142,7 @@ ida_dbg.list_bptgrps():
 
 ida_dbg.load_debugger():
 	
-	  load_debugger(nonnul_dbgname, use_remote) -> bool
+	  load_debugger(dbgname, use_remote) -> bool
 	  
 
 ida_dbg.load_trace_file():
@@ -6252,7 +6321,7 @@ ida_dbg.rename_bptgrp():
 
 ida_dbg.request_add_bpt():
 	
-	    request_add_bpt(ea, size, type) -> bool
+	    request_add_bpt(ea, size=0, type=BPT_DEFAULT) -> bool
 	    request_add_bpt(bpt) -> bool
 	
 	
@@ -6313,30 +6382,56 @@ ida_dbg.request_detach_process():
 	  Post a 'detach_process()' request.
 	  
 
+ida_dbg.request_disable_bblk_trace():
+	
+	  request_disable_bblk_trace() -> bool
+	  
+
+ida_dbg.request_disable_bpt():
+	
+	    request_disable_bpt(ea) -> bool
+	    request_disable_bpt(bptloc) -> bool
+	    
+
+ida_dbg.request_disable_func_trace():
+	
+	  request_disable_func_trace() -> bool
+	  
+
+ida_dbg.request_disable_insn_trace():
+	
+	  request_disable_insn_trace() -> bool
+	  
+
+ida_dbg.request_disable_step_trace():
+	
+	  request_disable_step_trace() -> bool
+	  
+
 ida_dbg.request_enable_bblk_trace():
 	
-	  request_enable_bblk_trace(enable) -> bool
+	  request_enable_bblk_trace(enable=True) -> bool
 	  
 
 ida_dbg.request_enable_bpt():
 	
-	    request_enable_bpt(ea, enable) -> bool
-	    request_enable_bpt(bptloc, enable) -> bool
+	    request_enable_bpt(ea, enable=True) -> bool
+	    request_enable_bpt(bptloc, enable=True) -> bool
 	    
 
 ida_dbg.request_enable_func_trace():
 	
-	  request_enable_func_trace(enable) -> bool
+	  request_enable_func_trace(enable=True) -> bool
 	  
 
 ida_dbg.request_enable_insn_trace():
 	
-	  request_enable_insn_trace(enable) -> bool
+	  request_enable_insn_trace(enable=True) -> bool
 	  
 
 ida_dbg.request_enable_step_trace():
 	
-	  request_enable_step_trace(enable) -> bool
+	  request_enable_step_trace(enable=True) -> bool
 	  
 
 ida_dbg.request_exit_process():
@@ -6452,7 +6547,7 @@ ida_dbg.request_set_step_trace_options():
 
 ida_dbg.request_start_process():
 	
-	  request_start_process(path, args, sdir) -> int
+	  request_start_process(path=None, args=None, sdir=None) -> int
 	
 	
 	  Post a 'start_process()' request.
@@ -6631,35 +6726,6 @@ ida_dbg.set_bptloc_string():
 	  @param s (C++: const char *)
 	  
 
-ida_dbg.set_dbg_default_options():
-	
-	  set_dbg_default_options(keyword, value_type, value) -> char const *
-	
-	
-	  Set 'dbg' options with 'IDPOPT_PRI_DEFAULT' .
-	  
-	  
-	  @param keyword (C++: const char *)
-	  @param value_type (C++: int)
-	  @param value (C++: const void *)
-	  
-
-ida_dbg.set_dbg_options():
-	
-	    set_dbg_options(_dbg, keyword, pri, value_type, value) -> char const
-	    set_dbg_options(keyword, pri, value_type, value) -> char const *
-	
-	
-	  Convenience function to set debugger specific options. It checks if
-	  the debugger is present and the function is present and calls it.
-	  
-	  @param _dbg (C++: debugger_t  *)
-	  @param keyword (C++: const char *)
-	  @param pri (C++: int)
-	  @param value_type (C++: int)
-	  @param value (C++: const void *)
-	    
-
 ida_dbg.set_debugger_event_cond():
 	
 	  set_debugger_event_cond(nonnul_cond)
@@ -6696,6 +6762,7 @@ ida_dbg.set_highlight_trace_options():
 	  Set highlight trace parameters.
 	  
 	  
+	  @param hilight (C++: bool)
 	  @param color (C++: bgcolor_t)
 	  @param diff (C++: bgcolor_t)
 	  
@@ -6711,16 +6778,9 @@ ida_dbg.set_insn_trace_options():
 	  @param options (C++: int)
 	  
 
-ida_dbg.set_int_dbg_options():
+ida_dbg.set_manual_regions():
 	
-	  set_int_dbg_options(keyword, value) -> char const *
-	
-	
-	  Set an integer value option for 'dbg' .
-	  
-	  
-	  @param keyword (C++: const char *)
-	  @param value (C++: int32)
+	  set_manual_regions(ranges)
 	  
 
 ida_dbg.set_process_options():
@@ -6766,6 +6826,7 @@ ida_dbg.set_process_state():
 ida_dbg.set_reg_val():
 	
 	    set_reg_val(regname, regval) -> bool
+	    set_reg_val(regname, ival) -> bool
 	    set_reg_val(tid, regidx, value) -> int
 	
 	
@@ -6894,7 +6955,7 @@ ida_dbg.srcdbg_step_until_ret():
 
 ida_dbg.start_process():
 	
-	  start_process(path, args, sdir) -> int
+	  start_process(path=None, args=None, sdir=None) -> int
 	
 	
 	  Start a process in the debugger. {Type, Asynchronous function -
@@ -6977,6 +7038,17 @@ ida_dbg.suspend_thread():
 	  @param tid: thread id (C++: thid_t)
 	  
 
+class ida_dbg.tev_info_reg_t():
+	
+	    Proxy of C++ tev_info_reg_t class
+	    
+
+ida_dbg.tev_info_reg_t.info:
+	tev_info_reg_t_info_get(self) -> tev_info_t
+
+ida_dbg.tev_info_reg_t.registers:
+	tev_info_reg_t_registers_get(self) -> tev_reg_values_t
+
 class ida_dbg.tev_info_t():
 	
 	    Proxy of C++ tev_info_t class
@@ -6990,6 +7062,227 @@ ida_dbg.tev_info_t.tid:
 
 ida_dbg.tev_info_t.type:
 	tev_info_t_type_get(self) -> tev_type_t
+
+class ida_dbg.tev_reg_value_t():
+	
+	    Proxy of C++ tev_reg_value_t class
+	    
+
+ida_dbg.tev_reg_value_t.reg_idx:
+	tev_reg_value_t_reg_idx_get(self) -> int
+
+ida_dbg.tev_reg_value_t.value:
+	tev_reg_value_t_value_get(self) -> regval_t
+
+class ida_dbg.tev_reg_values_t():
+	
+	    Proxy of C++ qvector<(tev_reg_value_t)> class
+	    
+
+ida_dbg.tev_reg_values_t.at():
+	
+	        at(self, _idx) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.begin():
+	
+	        begin(self) -> tev_reg_value_t
+	        begin(self) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_dbg.tev_reg_values_t.clear():
+	
+	        clear(self)
+	        
+
+ida_dbg.tev_reg_values_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_dbg.tev_reg_values_t.end():
+	
+	        end(self) -> tev_reg_value_t
+	        end(self) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.erase():
+	
+	        erase(self, it) -> tev_reg_value_t
+	        erase(self, first, last) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.extract():
+	
+	        extract(self) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.grow():
+	
+	        grow(self, x=tev_reg_value_t())
+	        
+
+ida_dbg.tev_reg_values_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_dbg.tev_reg_values_t.insert():
+	
+	        insert(self, it, x) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_dbg.tev_reg_values_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> tev_reg_value_t
+	        
+
+ida_dbg.tev_reg_values_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_dbg.tev_reg_values_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_dbg.tev_reg_values_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_dbg.tev_reg_values_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_dbg.tev_reg_values_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_dbg.tev_reg_values_t.truncate():
+	
+	        truncate(self)
+	        
+
+class ida_dbg.tevinforeg_vec_t():
+	
+	    Proxy of C++ qvector<(tev_info_reg_t)> class
+	    
+
+ida_dbg.tevinforeg_vec_t.at():
+	
+	        at(self, _idx) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.begin():
+	
+	        begin(self) -> tev_info_reg_t
+	        begin(self) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_dbg.tevinforeg_vec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_dbg.tevinforeg_vec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_dbg.tevinforeg_vec_t.end():
+	
+	        end(self) -> tev_info_reg_t
+	        end(self) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.erase():
+	
+	        erase(self, it) -> tev_info_reg_t
+	        erase(self, first, last) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.extract():
+	
+	        extract(self) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.grow():
+	
+	        grow(self, x=tev_info_reg_t())
+	        
+
+ida_dbg.tevinforeg_vec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_dbg.tevinforeg_vec_t.insert():
+	
+	        insert(self, it, x) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_dbg.tevinforeg_vec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> tev_info_reg_t
+	        
+
+ida_dbg.tevinforeg_vec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_dbg.tevinforeg_vec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_dbg.tevinforeg_vec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_dbg.tevinforeg_vec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_dbg.tevinforeg_vec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_dbg.tevinforeg_vec_t.truncate():
+	
+	        truncate(self)
+	        
 
 ida_dbg.update_bpt():
 	
@@ -7015,7 +7308,7 @@ ida_dbg.update_bpt():
 
 ida_dbg.wait_for_next_event():
 	
-	  wait_for_next_event(wfne, timeout_in_secs) -> dbg_event_code_t
+	  wait_for_next_event(wfne, timeout) -> dbg_event_code_t
 	
 	
 	  Wait for the next event.This function (optionally) resumes the process
@@ -7024,7 +7317,7 @@ ida_dbg.wait_for_next_event():
 	  
 	  @param wfne: combination of  Wait for debugger event flags  constants
 	               (C++: int)
-	  @param timeout_in_secs (C++: int)
+	  @param timeout: number of seconds to wait, -1-infinity (C++: int)
 	  @return: either an event_id_t (if > 0), or a dbg_event_code_t (if <=
 	           0)
 	  
@@ -7078,6 +7371,41 @@ partially active? (some locations were not written yet)
 ida_dbg.BKPT_TRACE
 """
 trace bpt; should not be deleted when the process gets suspended
+"""
+
+ida_dbg.BPTCK_ACT
+"""
+breakpoint is active (written to the process)
+"""
+
+ida_dbg.BPTCK_NO
+"""
+breakpoint is disabled
+"""
+
+ida_dbg.BPTCK_NONE
+"""
+breakpoint does not exist
+"""
+
+ida_dbg.BPTCK_YES
+"""
+breakpoint is enabled
+"""
+
+ida_dbg.BPTEV_ADDED
+"""
+Breakpoint has been added.
+"""
+
+ida_dbg.BPTEV_CHANGED
+"""
+Breakpoint has been modified.
+"""
+
+ida_dbg.BPTEV_REMOVED
+"""
+Breakpoint has been removed.
 """
 
 ida_dbg.BPT_BRK
@@ -7135,6 +7463,41 @@ specified trace types
 ida_dbg.BPT_UPDMEM
 """
 refresh the memory layout and contents before evaluating bpt condition
+"""
+
+ida_dbg.BT_LOG_INSTS
+"""
+log all instructions in the current basic block
+"""
+
+ida_dbg.DBGINV_ALL
+"""
+invalidate everything
+"""
+
+ida_dbg.DBGINV_MEMCFG
+"""
+invalidate cached process segmentation
+"""
+
+ida_dbg.DBGINV_MEMORY
+"""
+invalidate cached memory contents
+"""
+
+ida_dbg.DBGINV_NONE
+"""
+invalidate nothing
+"""
+
+ida_dbg.DBGINV_REDRAW
+"""
+refresh the screen
+"""
+
+ida_dbg.DBGINV_REGS
+"""
+invalidate cached register values
 """
 
 ida_dbg.DOPT_BPT_MSGS
@@ -7217,6 +7580,21 @@ ida_dbg.DOPT_THREAD_MSGS
 log thread starts/exits
 """
 
+ida_dbg.DSTATE_NOTASK
+"""
+no process is currently debugged
+"""
+
+ida_dbg.DSTATE_RUN
+"""
+process is running
+"""
+
+ida_dbg.DSTATE_SUSP
+"""
+process is suspended and will not continue
+"""
+
 ida_dbg.EXCDLG_ALWAYS
 """
 always display
@@ -7230,6 +7608,47 @@ never display exception dialogs
 ida_dbg.EXCDLG_UNKNOWN
 """
 display for unknown exceptions
+"""
+
+ida_dbg.FT_LOG_RET
+"""
+function tracing will log returning instructions
+"""
+
+ida_dbg.IT_LOG_SAME_IP
+"""
+instruction tracing will log instructions whose IP doesn't change
+"""
+
+ida_dbg.ST_ALREADY_LOGGED
+"""
+step tracing will be disabled when IP is already logged
+"""
+
+ida_dbg.ST_DIFFERENTIAL
+"""
+tracing: log only new instructions
+"""
+
+ida_dbg.ST_OPTIONS_MASK
+"""
+mask of available options, to ensure compatibility with newer IDA
+versions
+"""
+
+ida_dbg.ST_OVER_DEBUG_SEG
+"""
+step tracing will be disabled when IP is in a debugger segment
+"""
+
+ida_dbg.ST_OVER_LIB_FUNC
+"""
+step tracing will be disabled when IP is in a library function
+"""
+
+ida_dbg.ST_SKIP_LOOPS
+"""
+step tracing will try to skip loops already recorded
 """
 
 ida_dbg.WFNE_ANY
@@ -9301,6 +9720,11 @@ ida_fixup.fixup_data_t.set_unused():
 	        set_unused(self)
 	        
 
+ida_fixup.fixup_data_t.was_created():
+	
+	        was_created(self) -> bool
+	        
+
 class ida_fixup.fixup_info_t():
 	
 	    Proxy of C++ fixup_info_t class
@@ -9953,7 +10377,9 @@ ida_frame.get_frame_size():
 	
 	  Get full size of a function frame. This function takes into account
 	  size of local variables + size of saved registers + size of return
-	  address + size of function arguments.
+	  address + number of purged bytes. The purged bytes correspond to the
+	  arguments of the functions with __stdcall and __fastcall calling
+	  conventions.
 	  
 	  @param pfn: pointer to function structure, may be NULL (C++: const
 	              func_t  *)
@@ -10153,12 +10579,16 @@ ida_frame.set_frame_size():
 	  set_frame_size(pfn, frsize, frregs, argsize) -> bool
 	
 	
-	  Set size of function frame.
+	  Set size of function frame. Note: The returned size may not include
+	  all stack arguments. It does so only for __stdcall and __fastcall
+	  calling conventions. To get the entire frame size for all cases use
+	  get_struc_size(get_frame(pfn)).
 	  
 	  @param pfn: pointer to function structure (C++: func_t  *)
 	  @param frsize: size of function local variables (C++: asize_t)
 	  @param frregs: size of saved registers (C++: ushort)
-	  @param argsize: size of function arguments (C++: asize_t)
+	  @param argsize: size of function arguments that will be purged from
+	                  the stack upon return (C++: asize_t)
 	  @return: success
 	  
 
@@ -10191,6 +10621,22 @@ ida_frame.set_regvar_cmt():
 	  @param cmt: new comment (C++: const char *)
 	  @return: Register variable error codes
 	  
+
+class ida_frame.stkpnt_t():
+	
+	    Proxy of C++ stkpnt_t class
+	    
+
+ida_frame.stkpnt_t.ea:
+	stkpnt_t_ea_get(self) -> ea_t
+
+ida_frame.stkpnt_t.spd:
+	stkpnt_t_spd_get(self) -> sval_t
+
+class ida_frame.stkpnts_t():
+	
+	    Proxy of C++ stkpnts_t class
+	    
 
 ida_frame.update_fpd():
 	
@@ -10450,6 +10896,17 @@ ida_funcs.apply_startup_sig():
 	  @return: true if successfully applied the signature
 	  
 
+ida_funcs.calc_func_size():
+	
+	  calc_func_size(pfn) -> asize_t
+	
+	
+	  Calculate function size. This function takes into account all
+	  fragments of the function.
+	  
+	  @param pfn: ptr to function structure (C++: func_t  *)
+	  
+
 ida_funcs.calc_idasgn_state():
 	
 	  calc_idasgn_state(n) -> int
@@ -10464,14 +10921,12 @@ ida_funcs.calc_idasgn_state():
 
 ida_funcs.calc_thunk_func_target():
 	
-	  calc_thunk_func_target(pfn, fptr) -> ea_t
+	  calc_thunk_func_target(pfn) -> ea_t
 	
 	
 	  Calculate target of a thunk function.
 	  
 	  @param pfn: pointer to function (may not be NULL) (C++: func_t  *)
-	  @param fptr: out: will hold address of a function pointer (if indirect
-	               jump) (C++: ea_t *)
 	  @return: the target function or  BADADDR
 	  
 
@@ -10774,7 +11229,7 @@ ida_funcs.func_t.extend():
 	        
 
 ida_funcs.func_t.flags:
-	func_t_flags_get(self) -> ushort
+	func_t_flags_get(self) -> uint64
 
 ida_funcs.func_t.fpd:
 	func_t_fpd_get(self) -> asize_t
@@ -10821,7 +11276,9 @@ ida_funcs.func_t.pntqty:
 	func_t_pntqty_get(self) -> uint32
 
 ida_funcs.func_t.points:
-	func_t_points_get(self) -> stkpnt_t *
+	
+	        __get_points__(self) -> stkpnt_array
+	        
 
 ida_funcs.func_t.referers:
 	func_t_referers_get(self) -> ea_t *
@@ -10839,7 +11296,9 @@ ida_funcs.func_t.regvarqty:
 	func_t_regvarqty_get(self) -> int
 
 ida_funcs.func_t.regvars:
-	func_t_regvars_get(self) -> regvar_t *
+	
+	        __get_regvars__(self) -> regvar_array
+	        
 
 ida_funcs.func_t.size():
 	
@@ -10853,7 +11312,9 @@ ida_funcs.func_t.tailqty:
 	func_t_tailqty_get(self) -> int
 
 ida_funcs.func_t.tails:
-	func_t_tails_get(self) -> range_t
+	
+	        __get_tails__(self) -> range_array
+	        
 
 ida_funcs.func_t__from_ptrval__():
 	
@@ -11308,6 +11769,17 @@ ida_funcs.plan_to_apply_idasgn():
 	           signatures
 	  
 
+class ida_funcs.range_array():
+	
+	    Proxy of C++ dynamic_wrapped_array_t<(range_t)> class
+	    
+
+ida_funcs.range_array.count:
+	range_array_count_get(self) -> size_t
+
+ida_funcs.range_array.data:
+	range_array_data_get(self) -> range_t
+
 ida_funcs.read_regargs():
 	
 	  read_regargs(pfn)
@@ -11355,6 +11827,17 @@ ida_funcs.regarg_t.reg:
 
 ida_funcs.regarg_t.type:
 	regarg_t_type_get(self) -> type_t *
+
+class ida_funcs.regvar_array():
+	
+	    Proxy of C++ dynamic_wrapped_array_t<(regvar_t)> class
+	    
+
+ida_funcs.regvar_array.count:
+	regvar_array_count_get(self) -> size_t
+
+ida_funcs.regvar_array.data:
+	regvar_array_data_get(self) -> regvar_t *
 
 ida_funcs.remove_func_tail():
 	
@@ -11462,6 +11945,17 @@ ida_funcs.set_visible_func():
 	  @param visible (C++: bool)
 	  
 
+class ida_funcs.stkpnt_array():
+	
+	    Proxy of C++ dynamic_wrapped_array_t<(stkpnt_t)> class
+	    
+
+ida_funcs.stkpnt_array.count:
+	stkpnt_array_count_get(self) -> size_t
+
+ida_funcs.stkpnt_array.data:
+	stkpnt_array_data_get(self) -> stkpnt_t *
+
 ida_funcs.try_to_add_libfunc():
 	
 	  try_to_add_libfunc(ea) -> int
@@ -11563,6 +12057,11 @@ A hidden function chunk.
 ida_funcs.FUNC_LIB
 """
 Library function.
+"""
+
+ida_funcs.FUNC_LUMINA
+"""
+Function info is provided by Lumina.
 """
 
 ida_funcs.FUNC_NORET
@@ -12212,6 +12711,11 @@ ida_graph.GraphViewer.Show():
 	        @return: Boolean
 	        
 
+ida_graph.GraphViewer.UI_Hooks_Trampoline.create_desktop_widget():
+	
+	        create_desktop_widget(self, title, cfg) -> PyObject *
+	        
+
 ida_graph.GraphViewer.UI_Hooks_Trampoline.current_widget_changed():
 	
 	        current_widget_changed(self, widget, prev_widget)
@@ -12229,7 +12733,7 @@ ida_graph.GraphViewer.UI_Hooks_Trampoline.debugger_menu_change():
 
 ida_graph.GraphViewer.UI_Hooks_Trampoline.finish_populating_widget_popup():
 	
-	        finish_populating_widget_popup(self, widget, popup_handle)
+	        finish_populating_widget_popup(self, widget, popup_handle, ctx=None)
 	
 	
 	        The UI is about to be done populating the TWidget's popup menu.
@@ -12901,6 +13405,11 @@ ida_graph.mutable_graph_t.get_custom_layout():
 	        get_custom_layout(self) -> bool
 	        
 
+ida_graph.mutable_graph_t.get_edge():
+	
+	        get_edge(self, e) -> edge_info_t
+	        
+
 ida_graph.mutable_graph_t.get_first_subgraph_node():
 	
 	        get_first_subgraph_node(self, group) -> int
@@ -13304,6 +13813,243 @@ class ida_graph.pointseq_t():
 	
 	    Proxy of C++ pointseq_t class
 	    
+
+ida_graph.pointseq_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_graph.pointseq_t.at():
+	
+	        at(self, _idx) -> point_t
+	        
+
+ida_graph.pointseq_t.begin():
+	
+	        begin(self) -> point_t
+	        begin(self) -> point_t
+	        
+
+ida_graph.pointseq_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_graph.pointseq_t.clear():
+	
+	        clear(self)
+	        
+
+ida_graph.pointseq_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_graph.pointseq_t.end():
+	
+	        end(self) -> point_t
+	        end(self) -> point_t
+	        
+
+ida_graph.pointseq_t.erase():
+	
+	        erase(self, it) -> point_t
+	        erase(self, first, last) -> point_t
+	        
+
+ida_graph.pointseq_t.extract():
+	
+	        extract(self) -> point_t
+	        
+
+ida_graph.pointseq_t.find():
+	
+	        find(self, x) -> point_t
+	        find(self, x) -> point_t
+	        
+
+ida_graph.pointseq_t.grow():
+	
+	        grow(self, x=point_t())
+	        
+
+ida_graph.pointseq_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_graph.pointseq_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_graph.pointseq_t.insert():
+	
+	        insert(self, it, x) -> point_t
+	        
+
+ida_graph.pointseq_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_graph.pointseq_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> point_t
+	        
+
+ida_graph.pointseq_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_graph.pointseq_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_graph.pointseq_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_graph.pointseq_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_graph.pointseq_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_graph.pointseq_t.truncate():
+	
+	        truncate(self)
+	        
+
+class ida_graph.pointvec_t():
+	
+	    Proxy of C++ qvector<(point_t)> class
+	    
+
+ida_graph.pointvec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_graph.pointvec_t.at():
+	
+	        at(self, _idx) -> point_t
+	        
+
+ida_graph.pointvec_t.begin():
+	
+	        begin(self) -> point_t
+	        begin(self) -> point_t
+	        
+
+ida_graph.pointvec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_graph.pointvec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_graph.pointvec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_graph.pointvec_t.end():
+	
+	        end(self) -> point_t
+	        end(self) -> point_t
+	        
+
+ida_graph.pointvec_t.erase():
+	
+	        erase(self, it) -> point_t
+	        erase(self, first, last) -> point_t
+	        
+
+ida_graph.pointvec_t.extract():
+	
+	        extract(self) -> point_t
+	        
+
+ida_graph.pointvec_t.find():
+	
+	        find(self, x) -> point_t
+	        find(self, x) -> point_t
+	        
+
+ida_graph.pointvec_t.grow():
+	
+	        grow(self, x=point_t())
+	        
+
+ida_graph.pointvec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_graph.pointvec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_graph.pointvec_t.insert():
+	
+	        insert(self, it, x) -> point_t
+	        
+
+ida_graph.pointvec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_graph.pointvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> point_t
+	        
+
+ida_graph.pointvec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_graph.pointvec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_graph.pointvec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_graph.pointvec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_graph.pointvec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_graph.pointvec_t.truncate():
+	
+	        truncate(self)
+	        
 
 ida_graph.pyg_close():
 	
@@ -13788,6 +14534,176 @@ class ida_hexrays.DecompilationFailure():
 	    'info' member of this exception. 
 	
 
+class ida_hexrays.Hexrays_Hooks():
+	
+	    Proxy of C++ Hexrays_Hooks class
+	    
+
+ida_hexrays.Hexrays_Hooks.close_pseudocode():
+	
+	        close_pseudocode(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.cmt_changed():
+	
+	        cmt_changed(self, cfunc, loc, cmt) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.combine():
+	
+	        combine(self, blk, insn) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.create_hint():
+	
+	        create_hint(self, vu) -> PyObject *
+	        
+
+ida_hexrays.Hexrays_Hooks.curpos():
+	
+	        curpos(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.double_click():
+	
+	        double_click(self, vu, shift_state) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.flowchart():
+	
+	        flowchart(self, fc) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.func_printed():
+	
+	        func_printed(self, cfunc) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.glbopt():
+	
+	        glbopt(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.hook():
+	
+	        hook(self) -> bool
+	        
+
+ida_hexrays.Hexrays_Hooks.interr():
+	
+	        interr(self, errcode) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.keyboard():
+	
+	        keyboard(self, vu, key_code, shift_state) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.locopt():
+	
+	        locopt(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.lvar_cmt_changed():
+	
+	        lvar_cmt_changed(self, vu, v, cmt) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.lvar_mapping_changed():
+	
+	        lvar_mapping_changed(self, vu, _from, to) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.lvar_name_changed():
+	
+	        lvar_name_changed(self, vu, v, name, is_user_name) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.lvar_type_changed():
+	
+	        lvar_type_changed(self, vu, v, tinfo) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.maturity():
+	
+	        maturity(self, cfunc, new_maturity) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.microcode():
+	
+	        microcode(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.open_pseudocode():
+	
+	        open_pseudocode(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.populating_popup():
+	
+	        populating_popup(self, widget, popup_handle, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.prealloc():
+	
+	        prealloc(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.preoptimized():
+	
+	        preoptimized(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.print_func():
+	
+	        print_func(self, cfunc, vp) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.prolog():
+	
+	        prolog(self, mba, fc, reachable_blocks) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.refresh_pseudocode():
+	
+	        refresh_pseudocode(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.resolve_stkaddrs():
+	
+	        resolve_stkaddrs(self, mba) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.right_click():
+	
+	        right_click(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.stkpnts():
+	
+	        stkpnts(self, mba, stkpnts) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.structural():
+	
+	        structural(self, ct) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.switch_pseudocode():
+	
+	        switch_pseudocode(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.text_ready():
+	
+	        text_ready(self, vu) -> int
+	        
+
+ida_hexrays.Hexrays_Hooks.unhook():
+	
+	        unhook(self) -> bool
+	        
+
 ida_hexrays.accepts_udts():
 	
 	  accepts_udts(op) -> bool
@@ -13831,6 +14747,17 @@ ida_hexrays.asgop_revert():
 	  @return: cot_empty is the input operator is not an assignment
 	           operator.
 	  
+
+class ida_hexrays.bit_bound_t():
+	
+	    Proxy of C++ bit_bound_t class
+	    
+
+ida_hexrays.bit_bound_t.nbits:
+	bit_bound_t_nbits_get(self) -> int16
+
+ida_hexrays.bit_bound_t.sbits:
+	bit_bound_t_sbits_get(self) -> int16
 
 ida_hexrays.boundaries_begin():
 	
@@ -14032,6 +14959,11 @@ ida_hexrays.boundaries_t.keytype.compare():
 	        compare(self, r) -> int
 	        
 
+ida_hexrays.boundaries_t.keytype.contains_expr():
+	
+	        contains_expr(self, e) -> bool
+	        
+
 ida_hexrays.boundaries_t.keytype.contains_free_break():
 	
 	        contains_free_break(self) -> bool
@@ -14134,18 +15066,18 @@ ida_hexrays.boundaries_t.keytype.zero():
 
 ida_hexrays.boundaries_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.boundaries_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.boundaries_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 class ida_hexrays.boundaries_t.valuetype():
 	
@@ -14321,6 +15253,11 @@ ida_hexrays.carg_t.contains_comma_or_insn_or_label():
 	        contains_comma_or_insn_or_label(self, maxcommas=1) -> bool
 	        
 
+ida_hexrays.carg_t.contains_expr():
+	
+	        contains_expr(self, e) -> bool
+	        
+
 ida_hexrays.carg_t.contains_insn():
 	
 	        contains_insn(self, times=1) -> bool
@@ -14355,7 +15292,7 @@ ida_hexrays.carg_t.equal_effect():
 	        
 
 ida_hexrays.carg_t.exflags:
-	cexpr_t_exflags_get(self) -> int
+	cexpr_t_exflags_get(self) -> uint32
 
 ida_hexrays.carg_t.find_closest_addr():
 	
@@ -14395,12 +15332,12 @@ ida_hexrays.carg_t.get_const_value():
 
 ida_hexrays.carg_t.get_high_nbit_bound():
 	
-	        get_high_nbit_bound(self, pbits, psign, p_maybe_negative=None) -> int
+	        get_high_nbit_bound(self) -> bit_bound_t
 	        
 
 ida_hexrays.carg_t.get_low_nbit_bound():
 	
-	        get_low_nbit_bound(self, psign, p_maybe_negative=None) -> int
+	        get_low_nbit_bound(self) -> int
 	        
 
 ida_hexrays.carg_t.get_ptr_or_array():
@@ -14461,6 +15398,11 @@ ida_hexrays.carg_t.is_fpop():
 	        is_fpop(self) -> bool
 	        
 
+ida_hexrays.carg_t.is_jumpout():
+	
+	        is_jumpout(self) -> bool
+	        
+
 ida_hexrays.carg_t.is_negative_const():
 	
 	        is_negative_const(self) -> bool
@@ -14474,6 +15416,11 @@ ida_hexrays.carg_t.is_nice_cond():
 ida_hexrays.carg_t.is_nice_expr():
 	
 	        is_nice_expr(self) -> bool
+	        
+
+ida_hexrays.carg_t.is_non_negative_const():
+	
+	        is_non_negative_const(self) -> bool
 	        
 
 ida_hexrays.carg_t.is_non_zero_const():
@@ -14496,8 +15443,18 @@ ida_hexrays.carg_t.is_type_unsigned():
 	        is_type_unsigned(self) -> bool
 	        
 
+ida_hexrays.carg_t.is_undef_val():
+	
+	        is_undef_val(self) -> bool
+	        
+
 ida_hexrays.carg_t.is_vararg:
 	carg_t_is_vararg_get(self) -> bool
+
+ida_hexrays.carg_t.is_vftable():
+	
+	        is_vftable(self) -> bool
+	        
 
 ida_hexrays.carg_t.is_zero_const():
 	
@@ -14555,6 +15512,11 @@ ida_hexrays.carg_t.set_cpadone():
 ida_hexrays.carg_t.set_v():
 	
 	        set_v(self, v)
+	        
+
+ida_hexrays.carg_t.set_vftable():
+	
+	        set_vftable(self)
 	        
 
 ida_hexrays.carg_t.swap():
@@ -14761,7 +15723,7 @@ ida_hexrays.cblock_t.end():
 
 ida_hexrays.cblock_t.erase():
 	
-	        erase(self, p)
+	        erase(self, p) -> qlist< cinsn_t >::iterator
 	        erase(self, p1, p2)
 	        erase(self, p)
 	        
@@ -14851,6 +15813,11 @@ ida_hexrays.ccase_t.collect_free_continues():
 ida_hexrays.ccase_t.compare():
 	
 	        compare(self, r) -> int
+	        
+
+ida_hexrays.ccase_t.contains_expr():
+	
+	        contains_expr(self, e) -> bool
 	        
 
 ida_hexrays.ccase_t.contains_free_break():
@@ -14959,7 +15926,7 @@ ida_hexrays.ccase_t.value():
 	        
 
 ida_hexrays.ccase_t.values:
-	ccase_t_values_get(self) -> qvector< uint64 > *
+	ccase_t_values_get(self) -> uint64vec_t *
 
 ida_hexrays.ccase_t.zero():
 	
@@ -15172,6 +16139,11 @@ ida_hexrays.cexpr_t.contains_comma_or_insn_or_label():
 	        contains_comma_or_insn_or_label(self, maxcommas=1) -> bool
 	        
 
+ida_hexrays.cexpr_t.contains_expr():
+	
+	        contains_expr(self, e) -> bool
+	        
+
 ida_hexrays.cexpr_t.contains_insn():
 	
 	        contains_insn(self, times=1) -> bool
@@ -15206,7 +16178,7 @@ ida_hexrays.cexpr_t.equal_effect():
 	        
 
 ida_hexrays.cexpr_t.exflags:
-	cexpr_t_exflags_get(self) -> int
+	cexpr_t_exflags_get(self) -> uint32
 
 ida_hexrays.cexpr_t.find_closest_addr():
 	
@@ -15243,12 +16215,12 @@ ida_hexrays.cexpr_t.get_const_value():
 
 ida_hexrays.cexpr_t.get_high_nbit_bound():
 	
-	        get_high_nbit_bound(self, pbits, psign, p_maybe_negative=None) -> int
+	        get_high_nbit_bound(self) -> bit_bound_t
 	        
 
 ida_hexrays.cexpr_t.get_low_nbit_bound():
 	
-	        get_low_nbit_bound(self, psign, p_maybe_negative=None) -> int
+	        get_low_nbit_bound(self) -> int
 	        
 
 ida_hexrays.cexpr_t.get_ptr_or_array():
@@ -15309,6 +16281,11 @@ ida_hexrays.cexpr_t.is_fpop():
 	        is_fpop(self) -> bool
 	        
 
+ida_hexrays.cexpr_t.is_jumpout():
+	
+	        is_jumpout(self) -> bool
+	        
+
 ida_hexrays.cexpr_t.is_negative_const():
 	
 	        is_negative_const(self) -> bool
@@ -15322,6 +16299,11 @@ ida_hexrays.cexpr_t.is_nice_cond():
 ida_hexrays.cexpr_t.is_nice_expr():
 	
 	        is_nice_expr(self) -> bool
+	        
+
+ida_hexrays.cexpr_t.is_non_negative_const():
+	
+	        is_non_negative_const(self) -> bool
 	        
 
 ida_hexrays.cexpr_t.is_non_zero_const():
@@ -15342,6 +16324,16 @@ ida_hexrays.cexpr_t.is_type_signed():
 ida_hexrays.cexpr_t.is_type_unsigned():
 	
 	        is_type_unsigned(self) -> bool
+	        
+
+ida_hexrays.cexpr_t.is_undef_val():
+	
+	        is_undef_val(self) -> bool
+	        
+
+ida_hexrays.cexpr_t.is_vftable():
+	
+	        is_vftable(self) -> bool
 	        
 
 ida_hexrays.cexpr_t.is_zero_const():
@@ -15400,6 +16392,11 @@ ida_hexrays.cexpr_t.set_cpadone():
 ida_hexrays.cexpr_t.set_v():
 	
 	        set_v(self, v)
+	        
+
+ida_hexrays.cexpr_t.set_vftable():
+	
+	        set_vftable(self)
 	        
 
 ida_hexrays.cexpr_t.swap():
@@ -15599,6 +16596,7 @@ ida_hexrays.cfunc_t.entry_ea:
 ida_hexrays.cfunc_t.find_item_coords():
 	
 	        find_item_coords(self, item, px, py) -> bool
+	        find_item_coords(self, item) -> PyObject *
 	        
 
 ida_hexrays.cfunc_t.find_label():
@@ -15821,6 +16819,7 @@ ida_hexrays.cfuncptr_t.entry_ea:
 ida_hexrays.cfuncptr_t.find_item_coords():
 	
 	        find_item_coords(self, item, px, py) -> bool
+	        find_item_coords(self, item) -> PyObject *
 	        
 
 ida_hexrays.cfuncptr_t.find_label():
@@ -16079,6 +17078,11 @@ ida_hexrays.cinsn_t.collect_free_continues():
 ida_hexrays.cinsn_t.compare():
 	
 	        compare(self, r) -> int
+	        
+
+ida_hexrays.cinsn_t.contains_expr():
+	
+	        contains_expr(self, e) -> bool
 	        
 
 ida_hexrays.cinsn_t.contains_free_break():
@@ -16342,6 +17346,11 @@ ida_hexrays.citem_t.cexpr:
 ida_hexrays.citem_t.cinsn:
 	citem_t_cinsn_get(self) -> cinsn_t
 
+ida_hexrays.citem_t.contains_expr():
+	
+	        contains_expr(self, e) -> bool
+	        
+
 ida_hexrays.citem_t.contains_label():
 	
 	        contains_label(self) -> bool
@@ -16480,6 +17489,17 @@ ida_hexrays.codegen_t.analyze_prolog():
 	        analyze_prolog(self, fc, reachable) -> merror_t
 	        
 
+ida_hexrays.codegen_t.emit():
+	
+	        emit(self, code, width, l, r, d, offsize) -> minsn_t
+	        emit(self, code, l, r, d) -> minsn_t *
+	        
+
+ida_hexrays.codegen_t.emit_micro_mvm():
+	
+	        emit_micro_mvm(self, code, dtype, l, r, d, offsize) -> minsn_t *
+	        
+
 ida_hexrays.codegen_t.gen_micro():
 	
 	        gen_micro(self) -> merror_t
@@ -16539,12 +17559,11 @@ ida_hexrays.compare():
 	    compare(a, b) -> int
 	    compare(a, b) -> int
 	    compare(a, b) -> int
+	    compare(a, b) -> int
+	    compare(a, b) -> int
+	    compare(a, b) -> int
+	    compare(a, b) -> int
 	    
-
-ida_hexrays.compare_typsrc():
-	
-	  compare_typsrc(s1, s2) -> int
-	  
 
 ida_hexrays.convert_to_user_call():
 	
@@ -17271,18 +18290,18 @@ ida_hexrays.eamap_t.keytype.real:
 
 ida_hexrays.eamap_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.eamap_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.eamap_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 class ida_hexrays.eamap_t.valuetype():
 	
@@ -17565,6 +18584,11 @@ ida_hexrays.has_cached_cfunc():
 	  @param ea (C++: ea_t)
 	  
 
+ida_hexrays.hexrays_alloc():
+	
+	  hexrays_alloc(size) -> void *
+	  
+
 class ida_hexrays.hexrays_failure_t():
 	
 	    Proxy of C++ hexrays_failure_t class
@@ -17583,6 +18607,11 @@ ida_hexrays.hexrays_failure_t.errea:
 
 ida_hexrays.hexrays_failure_t.str:
 	hexrays_failure_t_str_get(self) -> qstring *
+
+ida_hexrays.hexrays_free():
+	
+	  hexrays_free(ptr)
+	  
 
 class ida_hexrays.hexwarn_t():
 	
@@ -17906,14 +18935,7 @@ ida_hexrays.init_hexrays_plugin():
 	  
 
 ida_hexrays.install_hexrays_callback():
-	
-	  install_hexrays_callback(hx_cblist_callback) -> bool
-	
-	
-	  Install handler for decompiler events.
-	  
-	  @return: false if failed
-	  
+	Deprecated. Please use Hexrays_Hooks instead
 
 ida_hexrays.install_microcode_filter():
 	
@@ -18184,15 +19206,15 @@ ida_hexrays.lvar_locator_t.get_reg2():
 	        get_reg2(self) -> mreg_t
 	        
 
-ida_hexrays.lvar_locator_t.get_regnum():
-	
-	        get_regnum(self) -> sval_t
-	        
-
 ida_hexrays.lvar_locator_t.get_scattered():
 	
 	        get_scattered(self) -> scattered_aloc_t
 	        get_scattered(self) -> scattered_aloc_t
+	        
+
+ida_hexrays.lvar_locator_t.get_stkoff():
+	
+	        get_stkoff(self) -> sval_t
 	        
 
 ida_hexrays.lvar_locator_t.is_reg1():
@@ -18401,6 +19423,16 @@ ida_hexrays.lvar_saved_info_t.clear_keep():
 	        clear_keep(self)
 	        
 
+ida_hexrays.lvar_saved_info_t.clr_forced_lvar():
+	
+	        clr_forced_lvar(self)
+	        
+
+ida_hexrays.lvar_saved_info_t.clr_noptr_lvar():
+	
+	        clr_noptr_lvar(self)
+	        
+
 ida_hexrays.lvar_saved_info_t.cmt:
 	lvar_saved_info_t_cmt_get(self) -> qstring *
 
@@ -18412,9 +19444,19 @@ ida_hexrays.lvar_saved_info_t.has_info():
 	        has_info(self) -> bool
 	        
 
+ida_hexrays.lvar_saved_info_t.is_forced_lvar():
+	
+	        is_forced_lvar(self) -> bool
+	        
+
 ida_hexrays.lvar_saved_info_t.is_kept():
 	
 	        is_kept(self) -> bool
+	        
+
+ida_hexrays.lvar_saved_info_t.is_noptr_lvar():
+	
+	        is_noptr_lvar(self) -> bool
 	        
 
 ida_hexrays.lvar_saved_info_t.ll:
@@ -18423,9 +19465,19 @@ ida_hexrays.lvar_saved_info_t.ll:
 ida_hexrays.lvar_saved_info_t.name:
 	lvar_saved_info_t_name_get(self) -> qstring *
 
+ida_hexrays.lvar_saved_info_t.set_forced_lvar():
+	
+	        set_forced_lvar(self)
+	        
+
 ida_hexrays.lvar_saved_info_t.set_keep():
 	
 	        set_keep(self)
+	        
+
+ida_hexrays.lvar_saved_info_t.set_noptr_lvar():
+	
+	        set_noptr_lvar(self)
 	        
 
 ida_hexrays.lvar_saved_info_t.size:
@@ -18562,7 +19614,12 @@ class ida_hexrays.lvar_t():
 
 ida_hexrays.lvar_t.accepts_type():
 	
-	        accepts_type(self, t) -> bool
+	        accepts_type(self, t, may_change_thisarg=False) -> bool
+	        
+
+ida_hexrays.lvar_t.append_list():
+	
+	        append_list(self, lst, pad_if_scattered=False)
 	        
 
 ida_hexrays.lvar_t.clear_used():
@@ -18585,6 +19642,11 @@ ida_hexrays.lvar_t.clr_floating_var():
 	        clr_floating_var(self)
 	        
 
+ida_hexrays.lvar_t.clr_forced_var():
+	
+	        clr_forced_var(self)
+	        
+
 ida_hexrays.lvar_t.clr_mapdst_var():
 	
 	        clr_mapdst_var(self)
@@ -18595,6 +19657,11 @@ ida_hexrays.lvar_t.clr_mreg_done():
 	        clr_mreg_done(self)
 	        
 
+ida_hexrays.lvar_t.clr_noptr_var():
+	
+	        clr_noptr_var(self)
+	        
+
 ida_hexrays.lvar_t.clr_overlapped_var():
 	
 	        clr_overlapped_var(self)
@@ -18603,6 +19670,11 @@ ida_hexrays.lvar_t.clr_overlapped_var():
 ida_hexrays.lvar_t.clr_spoiled_var():
 	
 	        clr_spoiled_var(self)
+	        
+
+ida_hexrays.lvar_t.clr_thisarg():
+	
+	        clr_thisarg(self)
 	        
 
 ida_hexrays.lvar_t.clr_unknown_width():
@@ -18652,15 +19724,15 @@ ida_hexrays.lvar_t.get_reg2():
 	        get_reg2(self) -> mreg_t
 	        
 
-ida_hexrays.lvar_t.get_regnum():
-	
-	        get_regnum(self) -> sval_t
-	        
-
 ida_hexrays.lvar_t.get_scattered():
 	
 	        get_scattered(self) -> scattered_aloc_t
 	        get_scattered(self) -> scattered_aloc_t
+	        
+
+ida_hexrays.lvar_t.get_stkoff():
+	
+	        get_stkoff(self) -> sval_t
 	        
 
 ida_hexrays.lvar_t.has_common():
@@ -18678,6 +19750,11 @@ ida_hexrays.lvar_t.has_nice_name:
 	        has_nice_name(self) -> bool
 	        
 
+ida_hexrays.lvar_t.has_regname():
+	
+	        has_regname(self) -> bool
+	        
+
 ida_hexrays.lvar_t.has_user_info:
 	
 	        has_user_info(self) -> bool
@@ -18691,6 +19768,11 @@ ida_hexrays.lvar_t.has_user_name:
 ida_hexrays.lvar_t.has_user_type:
 	
 	        has_user_type(self) -> bool
+	        
+
+ida_hexrays.lvar_t.is_aliasable():
+	
+	        is_aliasable(self, mba) -> bool
 	        
 
 ida_hexrays.lvar_t.is_arg_var:
@@ -18708,9 +19790,19 @@ ida_hexrays.lvar_t.is_floating_var:
 	        is_floating_var(self) -> bool
 	        
 
+ida_hexrays.lvar_t.is_forced_var():
+	
+	        is_forced_var(self) -> bool
+	        
+
 ida_hexrays.lvar_t.is_mapdst_var:
 	
 	        is_mapdst_var(self) -> bool
+	        
+
+ida_hexrays.lvar_t.is_noptr_var():
+	
+	        is_noptr_var(self) -> bool
 	        
 
 ida_hexrays.lvar_t.is_overlapped_var:
@@ -18753,6 +19845,11 @@ ida_hexrays.lvar_t.is_stk_var():
 	        is_stk_var(self) -> bool
 	        
 
+ida_hexrays.lvar_t.is_thisarg():
+	
+	        is_thisarg(self) -> bool
+	        
+
 ida_hexrays.lvar_t.is_unknown_width:
 	
 	        is_unknown_width(self) -> bool
@@ -18789,6 +19886,11 @@ ida_hexrays.lvar_t.set_floating_var():
 	        set_floating_var(self)
 	        
 
+ida_hexrays.lvar_t.set_forced_var():
+	
+	        set_forced_var(self)
+	        
+
 ida_hexrays.lvar_t.set_lvar_type():
 	
 	        set_lvar_type(self, t, may_fail=False) -> bool
@@ -18809,19 +19911,24 @@ ida_hexrays.lvar_t.set_non_typed():
 	        set_non_typed(self)
 	        
 
+ida_hexrays.lvar_t.set_noptr_var():
+	
+	        set_noptr_var(self)
+	        
+
 ida_hexrays.lvar_t.set_overlapped_var():
 	
 	        set_overlapped_var(self)
 	        
 
-ida_hexrays.lvar_t.set_reg_name():
-	
-	        set_reg_name(self, n)
-	        
-
 ida_hexrays.lvar_t.set_spoiled_var():
 	
 	        set_spoiled_var(self)
+	        
+
+ida_hexrays.lvar_t.set_thisarg():
+	
+	        set_thisarg(self)
 	        
 
 ida_hexrays.lvar_t.set_typed():
@@ -19292,7 +20399,14 @@ ida_hexrays.partial_type_num():
 
 ida_hexrays.print_vdloc():
 	
-	  print_vdloc(loc, w)
+	  print_vdloc(loc, nbytes)
+	
+	
+	  Print vdloc. Since vdloc does not always carry the size info, we pass
+	  it as NBYTES..
+	  
+	  @param loc (C++: const  vdloc_t  &)
+	  @param nbytes (C++: int)
 	  
 
 class ida_hexrays.qlist_cinsn_t():
@@ -19328,7 +20442,7 @@ ida_hexrays.qlist_cinsn_t.end():
 
 ida_hexrays.qlist_cinsn_t.erase():
 	
-	        erase(self, p)
+	        erase(self, p) -> qlist< cinsn_t >::iterator
 	        erase(self, p1, p2)
 	        erase(self, p)
 	        
@@ -19399,7 +20513,7 @@ ida_hexrays.qlist_cinsn_t_iterator.cur:
 
 ida_hexrays.qlist_cinsn_t_iterator.next():
 	
-	        next(self) -> qlist_cinsn_t_iterator
+	        next(self)
 	        
 
 class ida_hexrays.qstring_printer_t():
@@ -19929,14 +21043,7 @@ ida_hexrays.remitem():
 	  
 
 ida_hexrays.remove_hexrays_callback():
-	
-	  remove_hexrays_callback(hx_cblist_callback) -> int
-	
-	
-	  Uninstall handler for decompiler events.
-	  
-	  @return: number of uninstalled handlers.
-	  
+	Deprecated. Please use Hexrays_Hooks instead
 
 ida_hexrays.restore_user_cmts():
 	
@@ -20113,7 +21220,7 @@ ida_hexrays.send_database():
 	
 	
 	  Send the database to Hex-Rays. This function sends the current
-	  database to the hex-rays server. The database is sent in the
+	  database to the Hex-Rays server. The database is sent in the
 	  compressed form over an encrypted (SSL) connection.
 	  
 	  @param err: failure description object. Empty  hexrays_failure_t
@@ -20137,6 +21244,17 @@ ida_hexrays.set_type():
 	                the new type with the possibly existing old type info.
 	                (C++: bool)
 	  @return: success
+	  
+
+ida_hexrays.swapped_relation():
+	
+	  swapped_relation(op) -> ctype_t
+	
+	
+	  Swap a comparison operator. For example, cot_sge becomes cot_sle.
+	  
+	  
+	  @param op (C++: ctype_t)
 	  
 
 ida_hexrays.term_hexrays_plugin():
@@ -20516,18 +21634,18 @@ ida_hexrays.user_cmts_t.keytype.itp:
 
 ida_hexrays.user_cmts_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_cmts_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_cmts_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 class ida_hexrays.user_cmts_t.valuetype():
 	
@@ -20674,7 +21792,7 @@ ida_hexrays.user_iflags_prev():
 
 ida_hexrays.user_iflags_second():
 	
-	  user_iflags_second(p) -> int32 &
+	  user_iflags_second(p) -> int32 const &
 	
 	
 	  Get reference to the current map value.
@@ -20722,18 +21840,42 @@ ida_hexrays.user_iflags_t.keytype.op:
 
 ida_hexrays.user_iflags_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_iflags_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_iflags_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
+
+ida_hexrays.user_iflags_t.valuetype.bit_length():
+	int.bit_length() -> int
+	
+	Number of bits necessary to represent self in binary.
+	>>> bin(37)
+	'0b100101'
+	>>> (37).bit_length()
+	6
+
+ida_hexrays.user_iflags_t.valuetype.conjugate():
+	Returns self, the complex conjugate of any int.
+
+ida_hexrays.user_iflags_t.valuetype.denominator:
+	the denominator of a rational number in lowest terms
+
+ida_hexrays.user_iflags_t.valuetype.imag:
+	the imaginary part of a complex number
+
+ida_hexrays.user_iflags_t.valuetype.numerator:
+	the numerator of a rational number in lowest terms
+
+ida_hexrays.user_iflags_t.valuetype.real:
+	the real part of a complex number
 
 ida_hexrays.user_labels_begin():
 	
@@ -21093,18 +22235,18 @@ ida_hexrays.user_numforms_t.keytype.opnum:
 
 ida_hexrays.user_numforms_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_numforms_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_numforms_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 class ida_hexrays.user_numforms_t.valuetype():
 	
@@ -21343,18 +22485,18 @@ ida_hexrays.user_unions_t.at():
 
 ida_hexrays.user_unions_t.pop():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_unions_t.popitem():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 ida_hexrays.user_unions_t.setdefault():
 	
-	     Sets the value associated with the provided key. 
-	    
+	         Sets the value associated with the provided key. 
+	        
 
 class ida_hexrays.user_unions_t.valuetype():
 	
@@ -21413,11 +22555,6 @@ ida_hexrays.user_unions_t.valuetype.find():
 	
 	        find(self, x) -> qvector< int >::iterator
 	        find(self, x) -> qvector< int >::const_iterator
-	        
-
-ida_hexrays.user_unions_t.valuetype.grow():
-	
-	        grow(self, x=int())
 	        
 
 ida_hexrays.user_unions_t.valuetype.has():
@@ -21615,6 +22752,11 @@ ida_hexrays.vdloc_t.get_rrel():
 	
 	        get_rrel(self) -> rrel_t
 	        get_rrel(self) -> rrel_t
+	        
+
+ida_hexrays.vdloc_t.is_aliasable():
+	
+	        is_aliasable(self, mb, size) -> bool
 	        
 
 ida_hexrays.vdloc_t.is_badloc():
@@ -21897,6 +23039,11 @@ ida_hexrays.vdui_t.set_lvar_type():
 	        set_lvar_type(self, v, type) -> bool
 	        
 
+ida_hexrays.vdui_t.set_noptr_lvar():
+	
+	        set_noptr_lvar(self, v) -> bool
+	        
+
 ida_hexrays.vdui_t.set_num_enum():
 	
 	        set_num_enum(self) -> bool
@@ -22086,6 +23233,11 @@ ida_hexrays.DECOMP_NO_WAIT
 do not display waitbox
 """
 
+ida_hexrays.DECOMP_WARNINGS
+"""
+display warnings in the output window
+"""
+
 ida_hexrays.EXFL_ALL
 """
 all currently defined bits
@@ -22111,6 +23263,11 @@ ida_hexrays.EXFL_FPOP
 floating point operation
 """
 
+ida_hexrays.EXFL_JUMPOUT
+"""
+jump out-of-function
+"""
+
 ida_hexrays.EXFL_LVALUE
 """
 expression is lvalue even if it doesn't look like it
@@ -22119,6 +23276,16 @@ expression is lvalue even if it doesn't look like it
 ida_hexrays.EXFL_PARTIAL
 """
 type of the expression is considered partial
+"""
+
+ida_hexrays.EXFL_UNDEF
+"""
+expression uses undefined value
+"""
+
+ida_hexrays.EXFL_VFTABLE
+"""
+is ptr to vftable (used for cot_memptr, cot_memref)
 """
 
 ida_hexrays.GLN_ALL
@@ -22136,9 +23303,23 @@ ida_hexrays.GLN_GOTO_TARGET
 get goto target
 """
 
+ida_hexrays.LVINF_FORCE
+"""
+force allocation of a new variable. forces the decompiler to create a
+new variable at ll.defea
+"""
+
 ida_hexrays.LVINF_KEEP
 """
-keep saved user settings regardless of vars
+preserve saved user settings regardless of vars for example, if a var
+loses all its user-defined attributes or even gets destroyed, keep its
+'lvar_saved_info_t' . this is used for ephemeral variables that get
+destroyed by macro recognition.
+"""
+
+ida_hexrays.LVINF_NOPTR
+"""
+variable type should not be a pointer
 """
 
 ida_hexrays.NF_BINVDONE
@@ -22171,6 +23352,26 @@ ida_hexrays.NF_STROFF
 internal bit: used as stroff, valid iff 'is_stroff()'
 """
 
+ida_hexrays.SHINS_LDXEA
+"""
+display address of ldx expressions (not used)
+"""
+
+ida_hexrays.SHINS_NUMADDR
+"""
+display definition addresses for numbers
+"""
+
+ida_hexrays.SHINS_SHORT
+"""
+do not display use-def chains and other attrs
+"""
+
+ida_hexrays.SHINS_VALNUM
+"""
+display value numbers
+"""
+
 ida_hexrays.ULV_PRECISE_DEFEA
 """
 Use precise defea's for lvar locations.
@@ -22184,6 +23385,11 @@ Create a new file or append to existing file.
 ida_hexrays.VDRUN_CMDLINE
 """
 called from ida's command line
+"""
+
+ida_hexrays.VDRUN_LUMINA
+"""
+use lumina server
 """
 
 ida_hexrays.VDRUN_MAYSTOP
@@ -22236,7 +23442,7 @@ ida_ida.calc_default_idaplace_flags():
 	  calc_default_idaplace_flags() -> int
 	
 	
-	  Get default disassembly line options (see 'Disassembly line options' )
+	  Get default disassembly line options.
 	  
 
 class ida_ida.compiler_info_t():
@@ -22298,11 +23504,6 @@ ida_ida.idainfo.af:
 ida_ida.idainfo.af2:
 	idainfo_af2_get(self) -> uint32
 
-ida_ida.idainfo.allow_nonmatched_ops():
-	
-	        allow_nonmatched_ops(self) -> bool
-	        
-
 ida_ida.idainfo.appcall_options:
 	idainfo_appcall_options_get(self) -> uint32
 
@@ -22325,11 +23526,6 @@ ida_ida.idainfo.bin_prefix_size:
 
 ida_ida.idainfo.cc:
 	idainfo_cc_get(self) -> compiler_info_t
-
-ida_ida.idainfo.check_manual_ops():
-	
-	        check_manual_ops(self) -> bool
-	        
 
 ida_ida.idainfo.comment:
 	idainfo_comment_get(self) -> uchar
@@ -22571,11 +23767,6 @@ ida_ida.idainfo.set_64bit():
 	        set_64bit(self)
 	        
 
-ida_ida.idainfo.set_allow_nonmatched_ops():
-	
-	        set_allow_nonmatched_ops(self, value)
-	        
-
 ida_ida.idainfo.set_auto_enabled():
 	
 	        set_auto_enabled(self, value)
@@ -22584,11 +23775,6 @@ ida_ida.idainfo.set_auto_enabled():
 ida_ida.idainfo.set_be():
 	
 	        set_be(self, value) -> bool
-	        
-
-ida_ida.idainfo.set_check_manual_ops():
-	
-	        set_check_manual_ops(self, value)
 	        
 
 ida_ida.idainfo.set_gen_lzero():
@@ -23036,17 +24222,6 @@ display demangled names as regular names
 ida_ida.DEMNAM_NONE
 """
 don't display demangled names
-"""
-
-ida_ida.IDAPLACE_SEGADDR
-"""
-display line prefixes with the segment part
-"""
-
-ida_ida.IDAPLACE_STACK
-"""
-produce 2/4/8 bytes per undefined item. (used to display the stack
-contents) the number of displayed bytes depends on the stack bitness
 """
 
 ida_ida.IDB_COMPRESSED
@@ -24652,6 +25827,199 @@ ida_idd.get_event_module_size():
 	  get_event_module_size(ev) -> asize_t
 	  
 
+class ida_idd.meminfo_vec_t():
+	
+	    Proxy of C++ qvector<(memory_info_t)> class
+	    
+
+ida_idd.meminfo_vec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_idd.meminfo_vec_t.at():
+	
+	        at(self, _idx) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.begin():
+	
+	        begin(self) -> memory_info_t
+	        begin(self) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_idd.meminfo_vec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_idd.meminfo_vec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_idd.meminfo_vec_t.end():
+	
+	        end(self) -> memory_info_t
+	        end(self) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.erase():
+	
+	        erase(self, it) -> memory_info_t
+	        erase(self, first, last) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.extract():
+	
+	        extract(self) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.find():
+	
+	        find(self, x) -> memory_info_t
+	        find(self, x) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.grow():
+	
+	        grow(self, x=memory_info_t())
+	        
+
+ida_idd.meminfo_vec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_idd.meminfo_vec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_idd.meminfo_vec_t.insert():
+	
+	        insert(self, it, x) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_idd.meminfo_vec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> memory_info_t
+	        
+
+ida_idd.meminfo_vec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_idd.meminfo_vec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_idd.meminfo_vec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_idd.meminfo_vec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_idd.meminfo_vec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_idd.meminfo_vec_t.truncate():
+	
+	        truncate(self)
+	        
+
+class ida_idd.memory_info_t():
+	
+	    Proxy of C++ memory_info_t class
+	    
+
+ida_idd.memory_info_t._print():
+	
+	        _print(self) -> size_t
+	        
+
+ida_idd.memory_info_t.bitness:
+	memory_info_t_bitness_get(self) -> uchar
+
+ida_idd.memory_info_t.clear():
+	
+	        clear(self)
+	        
+
+ida_idd.memory_info_t.compare():
+	
+	        compare(self, r) -> int
+	        
+
+ida_idd.memory_info_t.contains():
+	
+	        contains(self, ea) -> bool
+	        contains(self, r) -> bool
+	        
+
+ida_idd.memory_info_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_idd.memory_info_t.end_ea:
+	range_t_end_ea_get(self) -> ea_t
+
+ida_idd.memory_info_t.extend():
+	
+	        extend(self, ea)
+	        
+
+ida_idd.memory_info_t.intersect():
+	
+	        intersect(self, r)
+	        
+
+ida_idd.memory_info_t.name:
+	memory_info_t_name_get(self) -> qstring *
+
+ida_idd.memory_info_t.overlaps():
+	
+	        overlaps(self, r) -> bool
+	        
+
+ida_idd.memory_info_t.perm:
+	memory_info_t_perm_get(self) -> uchar
+
+ida_idd.memory_info_t.sbase:
+	memory_info_t_sbase_get(self) -> ea_t
+
+ida_idd.memory_info_t.sclass:
+	memory_info_t_sclass_get(self) -> qstring *
+
+ida_idd.memory_info_t.size():
+	
+	        size(self) -> asize_t
+	        
+
+ida_idd.memory_info_t.start_ea:
+	range_t_start_ea_get(self) -> ea_t
+
 class ida_idd.modinfo_t():
 	
 	    Proxy of C++ modinfo_t class
@@ -24848,8 +26216,60 @@ class ida_idd.scattered_segm_t():
 	    Proxy of C++ scattered_segm_t class
 	    
 
+ida_idd.scattered_segm_t._print():
+	
+	        _print(self) -> size_t
+	        
+
+ida_idd.scattered_segm_t.clear():
+	
+	        clear(self)
+	        
+
+ida_idd.scattered_segm_t.compare():
+	
+	        compare(self, r) -> int
+	        
+
+ida_idd.scattered_segm_t.contains():
+	
+	        contains(self, ea) -> bool
+	        contains(self, r) -> bool
+	        
+
+ida_idd.scattered_segm_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_idd.scattered_segm_t.end_ea:
+	range_t_end_ea_get(self) -> ea_t
+
+ida_idd.scattered_segm_t.extend():
+	
+	        extend(self, ea)
+	        
+
+ida_idd.scattered_segm_t.intersect():
+	
+	        intersect(self, r)
+	        
+
 ida_idd.scattered_segm_t.name:
 	scattered_segm_t_name_get(self) -> qstring *
+
+ida_idd.scattered_segm_t.overlaps():
+	
+	        overlaps(self, r) -> bool
+	        
+
+ida_idd.scattered_segm_t.size():
+	
+	        size(self) -> asize_t
+	        
+
+ida_idd.scattered_segm_t.start_ea:
+	range_t_start_ea_get(self) -> ea_t
 
 ida_idd.set_debug_event_code():
 	
@@ -24960,9 +26380,19 @@ ida_idp.IDB_Hooks.auto_empty_finally():
 	        auto_empty_finally(self) -> int
 	        
 
+ida_idp.IDB_Hooks.bookmark_changed():
+	
+	        bookmark_changed(self, index, pos, desc) -> int
+	        
+
 ida_idp.IDB_Hooks.byte_patched():
 	
 	        byte_patched(self, ea, old_value) -> int
+	        
+
+ida_idp.IDB_Hooks.callee_addr_changed():
+	
+	        callee_addr_changed(self, ea, callee) -> int
 	        
 
 ida_idp.IDB_Hooks.changing_cmt():
@@ -25195,6 +26625,11 @@ ida_idp.IDB_Hooks.idasgn_loaded():
 	        idasgn_loaded(self, short_sig_name) -> int
 	        
 
+ida_idp.IDB_Hooks.item_color_changed():
+	
+	        item_color_changed(self, ea, color) -> int
+	        
+
 ida_idp.IDB_Hooks.kernel_config_loaded():
 	
 	        kernel_config_loaded(self) -> int
@@ -25313,6 +26748,11 @@ ida_idp.IDB_Hooks.set_func_start():
 ida_idp.IDB_Hooks.sgr_changed():
 	
 	        sgr_changed(self, start_ea, end_ea, regnum, value, old_value, tag) -> int
+	        
+
+ida_idp.IDB_Hooks.sgr_deleted():
+	
+	        sgr_deleted(self, start_ea, end_ea, regnum) -> int
 	        
 
 ida_idp.IDB_Hooks.stkpnts_changed():
@@ -25680,7 +27120,7 @@ ida_idp.IDP_Hooks.ev_get_autocmt():
 
 ida_idp.IDP_Hooks.ev_get_bg_color():
 	
-	        ev_get_bg_color(self, color, ea) -> int
+	        ev_get_bg_color(self, ea) -> int or None
 	        
 
 ida_idp.IDP_Hooks.ev_get_cc_regs():
@@ -26305,6 +27745,17 @@ ida_idp.delay_slot_insn():
 	  @param ea (C++: ea_t *)
 	  @param bexec (C++: bool *)
 	  @param fexec (C++: bool *)
+	  
+
+ida_idp.gen_idb_event():
+	
+	  gen_idb_event(code)
+	
+	
+	  the kernel will use this function to generate idb_events
+	  
+	  
+	  @param code (C++: idb_event::event_code_t)
 	  
 
 ida_idp.get_idp_name():
@@ -27111,6 +28562,11 @@ ida_idp.PLFM_6502
 6502
 """
 
+ida_idp.PLFM_65C816
+"""
+65802/65816
+"""
+
 ida_idp.PLFM_6800
 """
 Motorola 68xx.
@@ -27131,6 +28587,11 @@ ida_idp.PLFM_8051
 8051
 """
 
+ida_idp.PLFM_AD2106X
+"""
+Analog Devices ADSP 2106X.
+"""
+
 ida_idp.PLFM_AD218X
 """
 Analog Devices ADSP 218X.
@@ -27139,6 +28600,11 @@ Analog Devices ADSP 218X.
 ida_idp.PLFM_ALPHA
 """
 DEC Alpha.
+"""
+
+ida_idp.PLFM_ARC
+"""
+Argonaut RISC Core.
 """
 
 ida_idp.PLFM_ARM
@@ -27166,9 +28632,19 @@ ida_idp.PLFM_CR16
 NSC CR16.
 """
 
+ida_idp.PLFM_DALVIK
+"""
+Android Dalvik Virtual Machine.
+"""
+
 ida_idp.PLFM_DSP56K
 """
 Motorola DSP5600x.
+"""
+
+ida_idp.PLFM_DSP96K
+"""
+Motorola DSP96000.
 """
 
 ida_idp.PLFM_EBC
@@ -27224,6 +28700,11 @@ Java.
 ida_idp.PLFM_KR1878
 """
 Angstrem KR1878.
+"""
+
+ida_idp.PLFM_M16C
+"""
+Renesas M16C.
 """
 
 ida_idp.PLFM_M32R
@@ -27306,6 +28787,11 @@ ida_idp.PLFM_PIC
 Microchip's PIC.
 """
 
+ida_idp.PLFM_PIC16
+"""
+Microchip's 16-bit PIC.
+"""
+
 ida_idp.PLFM_PPC
 """
 PowerPC.
@@ -27325,6 +28811,11 @@ Renesas (formerly Hitachi) SuperH.
 ida_idp.PLFM_SPARC
 """
 SPARC.
+"""
+
+ida_idp.PLFM_SPC700
+"""
+Sony SPC700.
 """
 
 ida_idp.PLFM_SPU
@@ -27362,6 +28853,11 @@ ida_idp.PLFM_TMS320C1X
 Texas Instruments TMS320C1x.
 """
 
+ida_idp.PLFM_TMS320C28
+"""
+Texas Instruments TMS320C28x.
+"""
+
 ida_idp.PLFM_TMS320C3
 """
 Texas Instruments TMS320C3.
@@ -27390,6 +28886,11 @@ Tasking Tricore.
 ida_idp.PLFM_TRIMEDIA
 """
 Trimedia.
+"""
+
+ida_idp.PLFM_UNSP
+"""
+SunPlus unSP.
 """
 
 ida_idp.PLFM_Z8
@@ -27596,11 +29097,8 @@ ida_kernwin.Choose.Embedded():
 
 ida_kernwin.Choose.GetEmbSelection():
 	
-	        Returns the selection associated with an embedded chooser
-	
-	        @return:
-	            - None if chooser is not embedded
-	            - A list with selection indexes (0-based)
+	        Deprecated. For embedded choosers, the selection is
+	        available through 'Form.EmbeddedChooserControl.selection'
 	        
 
 ida_kernwin.Choose.GetWidget():
@@ -27629,6 +29127,11 @@ ida_kernwin.Choose.Show():
 	                 or ALREADY_EXISTS if the chooser was already open and is active now;
 	        
 
+ida_kernwin.Choose.UI_Hooks_Trampoline.create_desktop_widget():
+	
+	        create_desktop_widget(self, title, cfg) -> PyObject *
+	        
+
 ida_kernwin.Choose.UI_Hooks_Trampoline.current_widget_changed():
 	
 	        current_widget_changed(self, widget, prev_widget)
@@ -27646,7 +29149,7 @@ ida_kernwin.Choose.UI_Hooks_Trampoline.debugger_menu_change():
 
 ida_kernwin.Choose.UI_Hooks_Trampoline.finish_populating_widget_popup():
 	
-	        finish_populating_widget_popup(self, widget, popup_handle)
+	        finish_populating_widget_popup(self, widget, popup_handle, ctx=None)
 	
 	
 	        The UI is about to be done populating the TWidget's popup menu.
@@ -28729,16 +30232,23 @@ ida_kernwin.PluginForm.Close():
 
 ida_kernwin.PluginForm.FormToPyQtWidget():
 	
-	        Use this method to convert a TWidget* to a QWidget to be used by PyQt
+	        Convert a TWidget* to a QWidget to be used by PyQt
 	
-	        @param ctx: Context. Reference to a module that already imported SIP and QtGui modules
+	        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
 	        
 
 ida_kernwin.PluginForm.FormToPySideWidget():
 	
 	        Use this method to convert a TWidget* to a QWidget to be used by PySide
 	
-	        @param ctx: Context. Reference to a module that already imported QtGui module
+	        @param ctx: Context. Reference to a module that already imported QtWidgets module
+	        
+
+ida_kernwin.PluginForm.GetWidget():
+	
+	        Return the TWidget underlying this view.
+	
+	        @return: The TWidget underlying this view, or None.
 	        
 
 ida_kernwin.PluginForm.OnClose():
@@ -28756,6 +30266,13 @@ ida_kernwin.PluginForm.OnCreate():
 	        @return: None
 	        
 
+ida_kernwin.PluginForm.QtWidgetToTWidget():
+	
+	        Convert a QWidget to a TWidget* to be used by IDA
+	
+	        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
+	        
+
 ida_kernwin.PluginForm.Show():
 	
 	        Creates the form if not was not created or brings to front if it was already created
@@ -28764,10 +30281,34 @@ ida_kernwin.PluginForm.Show():
 	        @param options: One of PluginForm.WOPN_ constants
 	        
 
+ida_kernwin.PluginForm.TWidgetToPyQtWidget():
+	
+	        Convert a TWidget* to a QWidget to be used by PyQt
+	
+	        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
+	        
+
+ida_kernwin.PluginForm.TWidgetToPySideWidget():
+	
+	        Use this method to convert a TWidget* to a QWidget to be used by PySide
+	
+	        @param ctx: Context. Reference to a module that already imported QtWidgets module
+	        
+
+ida_kernwin.TWidget__from_ptrval__():
+	
+	  TWidget__from_ptrval__(ptrval) -> TWidget *
+	  
+
 class ida_kernwin.UI_Hooks():
 	
 	    Proxy of C++ UI_Hooks class
 	    
+
+ida_kernwin.UI_Hooks.create_desktop_widget():
+	
+	        create_desktop_widget(self, title, cfg) -> PyObject *
+	        
 
 ida_kernwin.UI_Hooks.current_widget_changed():
 	
@@ -28786,7 +30327,7 @@ ida_kernwin.UI_Hooks.debugger_menu_change():
 
 ida_kernwin.UI_Hooks.finish_populating_widget_popup():
 	
-	        finish_populating_widget_popup(self, widget, popup_handle)
+	        finish_populating_widget_popup(self, widget, popup_handle, ctx=None)
 	
 	
 	        The UI is about to be done populating the TWidget's popup menu.
@@ -28855,7 +30396,7 @@ ida_kernwin.UI_Hooks.plugin_unloading():
 
 ida_kernwin.UI_Hooks.populating_widget_popup():
 	
-	        populating_widget_popup(self, widget, popup_handle)
+	        populating_widget_popup(self, widget, popup_handle, ctx=None)
 	
 	
 	        The UI is populating the TWidget's popup menu.
@@ -29062,89 +30603,6 @@ ida_kernwin.View_Hooks.view_switched():
 	        view_switched(self, view, rt)
 	        
 
-class ida_kernwin.action_activation_ctx_t():
-	
-	    Proxy of C++ action_activation_ctx_t class
-	    
-
-ida_kernwin.action_activation_ctx_t.action:
-	action_ctx_base_t_action_get(self) -> char const *
-
-ida_kernwin.action_activation_ctx_t.chooser_selection:
-	action_ctx_base_t_chooser_selection_get(self) -> sizevec_t *
-
-ida_kernwin.action_activation_ctx_t.cur_ea:
-	action_ctx_base_t_cur_ea_get(self) -> ea_t
-
-ida_kernwin.action_activation_ctx_t.cur_enum:
-	action_ctx_base_t_cur_enum_get(self) -> enum_t
-
-ida_kernwin.action_activation_ctx_t.cur_extracted_ea:
-	action_ctx_base_t_cur_extracted_ea_get(self) -> ea_t
-
-ida_kernwin.action_activation_ctx_t.cur_fchunk:
-	action_ctx_base_t_cur_fchunk_get(self) -> func_t *
-
-ida_kernwin.action_activation_ctx_t.cur_flags:
-	action_ctx_base_t_cur_flags_get(self) -> uint32
-
-ida_kernwin.action_activation_ctx_t.cur_func:
-	action_ctx_base_t_cur_func_get(self) -> func_t *
-
-ida_kernwin.action_activation_ctx_t.cur_seg:
-	action_ctx_base_t_cur_seg_get(self) -> segment_t *
-
-ida_kernwin.action_activation_ctx_t.cur_strmem:
-	action_ctx_base_t_cur_strmem_get(self) -> member_t *
-
-ida_kernwin.action_activation_ctx_t.cur_struc:
-	action_ctx_base_t_cur_struc_get(self) -> struc_t *
-
-ida_kernwin.action_activation_ctx_t.focus:
-	action_ctx_base_t_focus_get(self) -> TWidget *
-
-ida_kernwin.action_activation_ctx_t.form:
-	
-	        _get_form(self) -> TWidget *
-	        
-
-ida_kernwin.action_activation_ctx_t.form_title:
-	
-	        _get_form_title(self) -> qstring
-	        
-
-ida_kernwin.action_activation_ctx_t.form_type:
-	
-	        _get_form_type(self) -> twidget_type_t
-	        
-
-ida_kernwin.action_activation_ctx_t.has_flag():
-	
-	        has_flag(self, flag) -> bool
-	        
-
-ida_kernwin.action_activation_ctx_t.reg:
-	
-	        _get_reg(self) -> int
-	        
-
-ida_kernwin.action_activation_ctx_t.reserved:
-	action_ctx_base_t_reserved_get(self) -> void *
-
-ida_kernwin.action_activation_ctx_t.reset():
-	
-	        reset(self)
-	        
-
-ida_kernwin.action_activation_ctx_t.widget:
-	action_ctx_base_t_widget_get(self) -> TWidget *
-
-ida_kernwin.action_activation_ctx_t.widget_title:
-	action_ctx_base_t_widget_title_get(self) -> qstring *
-
-ida_kernwin.action_activation_ctx_t.widget_type:
-	action_ctx_base_t_widget_type_get(self) -> twidget_type_t
-
 class ida_kernwin.action_ctx_base_t():
 	
 	    Proxy of C++ action_ctx_base_t class
@@ -29206,10 +30664,8 @@ ida_kernwin.action_ctx_base_t.has_flag():
 	        has_flag(self, flag) -> bool
 	        
 
-ida_kernwin.action_ctx_base_t.reg:
-	
-	        _get_reg(self) -> int
-	        
+ida_kernwin.action_ctx_base_t.regname:
+	action_ctx_base_t_regname_get(self) -> char const *
 
 ida_kernwin.action_ctx_base_t.reserved:
 	action_ctx_base_t_reserved_get(self) -> void *
@@ -29256,89 +30712,6 @@ ida_kernwin.action_desc_t.shortcut:
 
 ida_kernwin.action_desc_t.tooltip:
 	action_desc_t_tooltip_get(self) -> char const *
-
-class ida_kernwin.action_update_ctx_t():
-	
-	    Proxy of C++ action_update_ctx_t class
-	    
-
-ida_kernwin.action_update_ctx_t.action:
-	action_ctx_base_t_action_get(self) -> char const *
-
-ida_kernwin.action_update_ctx_t.chooser_selection:
-	action_ctx_base_t_chooser_selection_get(self) -> sizevec_t *
-
-ida_kernwin.action_update_ctx_t.cur_ea:
-	action_ctx_base_t_cur_ea_get(self) -> ea_t
-
-ida_kernwin.action_update_ctx_t.cur_enum:
-	action_ctx_base_t_cur_enum_get(self) -> enum_t
-
-ida_kernwin.action_update_ctx_t.cur_extracted_ea:
-	action_ctx_base_t_cur_extracted_ea_get(self) -> ea_t
-
-ida_kernwin.action_update_ctx_t.cur_fchunk:
-	action_ctx_base_t_cur_fchunk_get(self) -> func_t *
-
-ida_kernwin.action_update_ctx_t.cur_flags:
-	action_ctx_base_t_cur_flags_get(self) -> uint32
-
-ida_kernwin.action_update_ctx_t.cur_func:
-	action_ctx_base_t_cur_func_get(self) -> func_t *
-
-ida_kernwin.action_update_ctx_t.cur_seg:
-	action_ctx_base_t_cur_seg_get(self) -> segment_t *
-
-ida_kernwin.action_update_ctx_t.cur_strmem:
-	action_ctx_base_t_cur_strmem_get(self) -> member_t *
-
-ida_kernwin.action_update_ctx_t.cur_struc:
-	action_ctx_base_t_cur_struc_get(self) -> struc_t *
-
-ida_kernwin.action_update_ctx_t.focus:
-	action_ctx_base_t_focus_get(self) -> TWidget *
-
-ida_kernwin.action_update_ctx_t.form:
-	
-	        _get_form(self) -> TWidget *
-	        
-
-ida_kernwin.action_update_ctx_t.form_title:
-	
-	        _get_form_title(self) -> qstring
-	        
-
-ida_kernwin.action_update_ctx_t.form_type:
-	
-	        _get_form_type(self) -> twidget_type_t
-	        
-
-ida_kernwin.action_update_ctx_t.has_flag():
-	
-	        has_flag(self, flag) -> bool
-	        
-
-ida_kernwin.action_update_ctx_t.reg:
-	
-	        _get_reg(self) -> int
-	        
-
-ida_kernwin.action_update_ctx_t.reserved:
-	action_ctx_base_t_reserved_get(self) -> void *
-
-ida_kernwin.action_update_ctx_t.reset():
-	
-	        reset(self)
-	        
-
-ida_kernwin.action_update_ctx_t.widget:
-	action_ctx_base_t_widget_get(self) -> TWidget *
-
-ida_kernwin.action_update_ctx_t.widget_title:
-	action_ctx_base_t_widget_title_get(self) -> qstring *
-
-ida_kernwin.action_update_ctx_t.widget_type:
-	action_ctx_base_t_widget_type_get(self) -> twidget_type_t
 
 ida_kernwin.activate_widget():
 	
@@ -29477,18 +30850,6 @@ ida_kernwin.ask_for_feedback():
 	  @param format: the reason why the input file is bad (C++: const char
 	                 *)
 	  
-
-ida_kernwin.ask_form():
-	
-	    Calls ask_form()
-	    @param: Compiled Arguments obtain through the Form.Compile() function
-	    @return: 1 = ok, 0 = cancel
-	
-	
-	    Display a dialog box and wait for the user. If the form contains the
-	    "BUTTON NO <title>" keyword, then the return values are the same as in
-	    the 'ask_yn()' function ( 'Button IDs' )
-	    
 
 ida_kernwin.ask_str():
 	
@@ -29726,16 +31087,6 @@ ida_kernwin.choose_func():
 	  @param title: chooser title (C++: const char *)
 	  @param default_ea: ea of function to select by default (C++: ea_t)
 	  @return: pointer to function that was selected, NULL if none selected
-	  
-
-ida_kernwin.choose_get_embedded():
-	
-	  choose_get_embedded(self) -> PyObject *
-	  
-
-ida_kernwin.choose_get_embedded_selection():
-	
-	  choose_get_embedded_selection(self) -> PyObject *
 	  
 
 ida_kernwin.choose_get_widget():
@@ -30593,6 +31944,18 @@ ida_kernwin.get_action_visibility():
 	  @return: success
 	  
 
+ida_kernwin.get_active_modal_widget():
+	
+	  get_active_modal_widget() -> TWidget *
+	
+	
+	  Get the current, active modal TWidget instance. Note that in this
+	  context, the "wait dialog" is not considered: this function will
+	  return NULL even if it is currently shown.
+	  
+	  @return: TWidget * the active modal widget, or NULL
+	  
+
 ida_kernwin.get_addon_info():
 	
 	  get_addon_info(id, info) -> bool
@@ -30757,6 +32120,28 @@ ida_kernwin.get_key_code():
 	  
 	  
 	  @param keyname (C++: const char *)
+	  
+
+ida_kernwin.get_navband_ea():
+	
+	  get_navband_ea(pixel) -> ea_t
+	
+	
+	  Translate the pixel position on the navigation band, into an address.
+	  
+	  
+	  @param pixel (C++: int)
+	  
+
+ida_kernwin.get_navband_pixel():
+	
+	  get_navband_pixel(ea) -> int
+	
+	
+	  Maps an address, onto a pixel coordinate within the navband
+	  
+	  @param ea: The address to map
+	  @return: a list [pixel, is_vertical]
 	  
 
 ida_kernwin.get_opnum():
@@ -30925,6 +32310,17 @@ ida_kernwin.get_widget_type():
 	  
 	  
 	  @param widget (C++: TWidget *)
+	  
+
+ida_kernwin.get_window_id():
+	
+	  get_window_id(name=None) -> void *
+	
+	
+	  Get the system-specific window ID (GUI version only)
+	  
+	  @param name (C++: const char *)
+	  @return: the low-level window ID
 	  
 
 ida_kernwin.hide_wait_box():
@@ -31130,9 +32526,19 @@ ida_kernwin.is_refresh_requested():
 	
 	  Get a refresh request state
 	  
-	  @param mask: Window refresh flags (C++: unsigned int)
+	  @param mask: Window refresh flags (C++: uint64)
 	  @return: the state (set or cleared)
 	  
+
+class ida_kernwin.jobj_wrapper_t():
+	
+	    Proxy of C++ jobj_wrapper_t class
+	    
+
+ida_kernwin.jobj_wrapper_t.get_dict():
+	
+	        get_dict(self) -> PyObject *
+	        
 
 ida_kernwin.jumpto():
 	
@@ -31320,18 +32726,6 @@ ida_kernwin.open_exports_window():
 	  @param ea: index of entry to select by default (C++: ea_t)
 	  @return: pointer to resulting window
 	  
-
-ida_kernwin.open_form():
-	
-	    Calls open_form()
-	    @param: Compiled Arguments obtain through the Form.Compile() function
-	
-	
-	    Display a dockable modeless dialog box and return a handle to it.
-	    
-	    @return: handle to the form or NULL. the handle can be used with
-	             TWidget functions:  close_widget() /activate_widget()/etc
-	    
 
 ida_kernwin.open_frame_window():
 	
@@ -31718,6 +33112,11 @@ ida_kernwin.plgform_close():
 	  plgform_close(py_link, options)
 	  
 
+ida_kernwin.plgform_get_widget():
+	
+	  plgform_get_widget(py_link) -> TWidget *
+	  
+
 ida_kernwin.plgform_new():
 	
 	  plgform_new() -> PyObject *
@@ -31725,7 +33124,7 @@ ida_kernwin.plgform_new():
 
 ida_kernwin.plgform_show():
 	
-	  plgform_show(py_link, py_obj, caption, options=WOPN_TAB|WOPN_MENU|WOPN_RESTORE) -> bool
+	  plgform_show(py_link, py_obj, caption, options=WOPN_TAB|WOPN_RESTORE) -> bool
 	  
 
 ida_kernwin.process_ui_action():
@@ -32116,7 +33515,7 @@ ida_kernwin.request_refresh():
 	
 	  Request a refresh of a builtin window.
 	  
-	  @param mask: Window refresh flags (C++: unsigned int)
+	  @param mask: Window refresh flags (C++: uint64)
 	  @param cnd: set if true or clear flag otherwise (C++: bool)
 	  
 
@@ -32463,6 +33862,12 @@ ida_kernwin.simplecustviewer_t.IsFocused():
 	        Returns True if the current view is the focused view
 	        
 
+ida_kernwin.simplecustviewer_t.OnPopup():
+	
+	        Context menu popup is about to be shown. Create items dynamically if you wish
+	        @return: Boolean. True if you handled the event
+	        
+
 ida_kernwin.simplecustviewer_t.PatchLine():
 	
 	        Patches an existing line character at the given offset. This is a low level function. You must know what you're doing
@@ -32477,6 +33882,216 @@ ida_kernwin.simplecustviewer_t.Show():
 	
 	        Shows an already created view. It the view was close, then it will call Create() for you
 	        @return: Boolean
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.create_desktop_widget():
+	
+	        create_desktop_widget(self, title, cfg) -> PyObject *
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.current_widget_changed():
+	
+	        current_widget_changed(self, widget, prev_widget)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.database_inited():
+	
+	        database_inited(self, is_new_database, idc_script)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.debugger_menu_change():
+	
+	        debugger_menu_change(self, enable) -> int
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.finish_populating_widget_popup():
+	
+	        finish_populating_widget_popup(self, widget, popup_handle, ctx=None)
+	
+	
+	        The UI is about to be done populating the TWidget's popup menu.
+	        Now is a good time to call idaapi.attach_action_to_popup()
+	        
+	        @param widget: The widget
+	        @param popup: The popup menu.
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.get_chooser_item_attrs():
+	
+	        get_chooser_item_attrs(self, chooser, n, attrs)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.get_custom_viewer_hint():
+	
+	        get_custom_viewer_hint(self, viewer, place) -> PyObject *
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.get_ea_hint():
+	
+	        get_ea_hint(self, ea) -> PyObject *
+	
+	
+	        The UI wants to display a simple hint for an address in the navigation band
+	        
+	        @param ea: The address
+	        @return: String with the hint or None
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.get_item_hint():
+	
+	        get_item_hint(self, ea, max_lines) -> PyObject *
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.hook():
+	
+	        hook(self) -> bool
+	
+	
+	        Creates an UI hook
+	        
+	        @return: Boolean true on success
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.idcstart():
+	
+	        idcstart(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.idcstop():
+	
+	        idcstop(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.plugin_loaded():
+	
+	        plugin_loaded(self, plugin_info)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.plugin_unloading():
+	
+	        plugin_unloading(self, plugin_info)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.postprocess_action():
+	
+	        postprocess_action(self)
+	
+	
+	        An ida ui action has been handled
+	        
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.preprocess_action():
+	
+	        preprocess_action(self, name)
+	
+	
+	        IDA ui is about to handle a user action
+	        
+	        @param name: ui action name
+	                     (these names can be looked up in ida[tg]ui.cfg)
+	        @return: 0-ok, nonzero - a plugin has handled the action
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.range():
+	
+	        range(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.ready_to_run():
+	
+	        ready_to_run(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.resume():
+	
+	        resume(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.saved():
+	
+	        saved(self)
+	
+	
+	        The kernel has saved the database.
+	        
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.saving():
+	
+	        saving(self)
+	
+	
+	        The kernel is saving the database.
+	        
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.screen_ea_changed():
+	
+	        screen_ea_changed(self, ea, prev_ea)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.suspend():
+	
+	        suspend(self)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.term():
+	
+	        term(self)
+	
+	
+	        IDA is terminated and the database is already closed.
+	        The UI may close its windows in this callback.
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.unhook():
+	
+	        unhook(self) -> bool
+	
+	
+	        Removes the UI hook
+	        @return: Boolean true on success
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.updated_actions():
+	
+	        updated_actions(self)
+	
+	
+	        The UI is done updating actions.
+	        
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.updating_actions():
+	
+	        updating_actions(self, ctx)
+	
+	
+	        The UI is about to batch-update some actions.
+	        
+	        @param ctx: The action_update_ctx_t instance
+	        @return: Ignored
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.widget_closing():
+	
+	        widget_closing(self, widget)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.widget_invisible():
+	
+	        widget_invisible(self, widget)
+	        
+
+ida_kernwin.simplecustviewer_t.UI_Hooks_Trampoline.widget_visible():
+	
+	        widget_visible(self, widget)
 	        
 
 class ida_kernwin.simpleline_place_t():
@@ -33200,6 +34815,16 @@ ida_kernwin.BWN_CALLS
 function calls
 """
 
+ida_kernwin.BWN_CALLS_CALLEES
+"""
+function calls, callees
+"""
+
+ida_kernwin.BWN_CALLS_CALLERS
+"""
+function calls, callers
+"""
+
 ida_kernwin.BWN_CALL_STACK
 """
 call stack
@@ -33290,6 +34915,11 @@ the 'locals' debugger window
 ida_kernwin.BWN_LOCTYPS
 """
 local types
+"""
+
+ida_kernwin.BWN_MDVIEWCSR
+"""
+lumina metadata view chooser
 """
 
 ida_kernwin.BWN_MODULES
@@ -33616,6 +35246,11 @@ ida_kernwin.HIST_TYPE
 type declarations
 """
 
+ida_kernwin.IWID_ADDRWATCH
+"""
+address watches (47)
+"""
+
 ida_kernwin.IWID_ALL
 """
 mask
@@ -33629,6 +35264,46 @@ breakpoints (13)
 ida_kernwin.IWID_CALLS
 """
 function calls (11)
+"""
+
+ida_kernwin.IWID_CALLS_CALLEES
+"""
+funcalls, callees (50)
+"""
+
+ida_kernwin.IWID_CALLS_CALLERS
+"""
+funcalls, callers (49)
+"""
+
+ida_kernwin.IWID_CHOOSER
+"""
+chooser (37)
+"""
+
+ida_kernwin.IWID_CLI
+"""
+input line (33)
+"""
+
+ida_kernwin.IWID_CMDPALCSR
+"""
+command palette (43)
+"""
+
+ida_kernwin.IWID_CMDPALWIN
+"""
+command palette (44)
+"""
+
+ida_kernwin.IWID_CPUREGS
+"""
+registers (40)
+"""
+
+ida_kernwin.IWID_CUSTVIEW
+"""
+custom viewers (46)
 """
 
 ida_kernwin.IWID_DISASMS
@@ -33671,9 +35346,19 @@ ida_kernwin.IWID_IMPORTS
 imports (1)
 """
 
+ida_kernwin.IWID_LOCALS
+"""
+locals (35)
+"""
+
 ida_kernwin.IWID_LOCTYPS
 """
 local types (10)
+"""
+
+ida_kernwin.IWID_MDVIEWCSR
+"""
+lumina md view (51)
 """
 
 ida_kernwin.IWID_MODULES
@@ -33696,9 +35381,19 @@ ida_kernwin.IWID_NOTEPAD
 notepad (31)
 """
 
+ida_kernwin.IWID_OUTPUT
+"""
+output (32)
+"""
+
 ida_kernwin.IWID_PROBS
 """
 problems (12)
+"""
+
+ida_kernwin.IWID_PSEUDOCODE
+"""
+decompiler (48)
 """
 
 ida_kernwin.IWID_SEARCHS
@@ -33721,14 +35416,44 @@ ida_kernwin.IWID_SELS
 selectors (7)
 """
 
+ida_kernwin.IWID_SHORTCUTCSR
+"""
+shortcuts chooser (38)
+"""
+
+ida_kernwin.IWID_SHORTCUTWIN
+"""
+shortcuts window (39)
+"""
+
 ida_kernwin.IWID_SIGNS
 """
 signatures (8)
 """
 
+ida_kernwin.IWID_SNIPPETS
+"""
+snippets (45)
+"""
+
+ida_kernwin.IWID_SO_OFFSETS
+"""
+stroff (42)
+"""
+
+ida_kernwin.IWID_SO_STRUCTS
+"""
+stroff (41)
+"""
+
 ida_kernwin.IWID_STACK
 """
 call stack (17)
+"""
+
+ida_kernwin.IWID_STKVIEW
+"""
+stack view (36)
 """
 
 ida_kernwin.IWID_STRINGS
@@ -33754,6 +35479,11 @@ type libraries (9)
 ida_kernwin.IWID_TRACE
 """
 trace view (16)
+"""
+
+ida_kernwin.IWID_WATCH
+"""
+watches (34)
 """
 
 ida_kernwin.IWID_XREFS
@@ -33963,7 +35693,7 @@ ida_lines.del_sourcefile():
 
 ida_lines.delete_extra_cmts():
 	
-	  delete_extra_cmts(ea, cmtidx)
+	  delete_extra_cmts(ea, what)
 	  
 
 ida_lines.generate_disasm_line():
@@ -34182,6 +35912,11 @@ continues until the next 'COLOR_INV' or end of line.
 ida_lines.COLOR_LIBFUNC
 """
 Library function.
+"""
+
+ida_lines.COLOR_LUMFUNC
+"""
+Lumina function.
 """
 
 ida_lines.COLOR_OFF
@@ -34562,6 +36297,14 @@ ida_loader.get_basic_file_type():
 	  files.
 	  
 	  @param li (C++: linput_t *)
+	  
+
+ida_loader.get_elf_debug_file_directory():
+	
+	  get_elf_debug_file_directory() -> char const *
+	
+	
+	  Get the value of the ELF_DEBUG_FILE_DIRECTORY configuration directive.
 	  
 
 ida_loader.get_file_type_name():
@@ -35952,7 +37695,7 @@ ida_nalt.del_ind_purged():
 
 ida_nalt.del_item_color():
 	
-	  del_item_color(ea)
+	  del_item_color(ea) -> bool
 	  
 
 ida_nalt.del_op_tinfo():
@@ -36053,11 +37796,6 @@ ida_nalt.find_custom_refinfo():
 	  
 	  
 	  @param name (C++: const char *)
-	  
-
-ida_nalt.get_abi_name():
-	
-	  get_abi_name() -> ssize_t
 	  
 
 ida_nalt.get_absbase():
@@ -38133,6 +39871,111 @@ ida_name.ea_name_t.ea:
 ida_name.ea_name_t.name:
 	ea_name_t_name_get(self) -> qstring *
 
+class ida_name.ea_name_vec_t():
+	
+	    Proxy of C++ qvector<(ea_name_t)> class
+	    
+
+ida_name.ea_name_vec_t.at():
+	
+	        at(self, _idx) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.begin():
+	
+	        begin(self) -> ea_name_t
+	        begin(self) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_name.ea_name_vec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_name.ea_name_vec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_name.ea_name_vec_t.end():
+	
+	        end(self) -> ea_name_t
+	        end(self) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.erase():
+	
+	        erase(self, it) -> ea_name_t
+	        erase(self, first, last) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.extract():
+	
+	        extract(self) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.grow():
+	
+	        grow(self, x=ea_name_t())
+	        
+
+ida_name.ea_name_vec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_name.ea_name_vec_t.insert():
+	
+	        insert(self, it, x) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_name.ea_name_vec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> ea_name_t
+	        
+
+ida_name.ea_name_vec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_name.ea_name_vec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_name.ea_name_vec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_name.ea_name_vec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_name.ea_name_vec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_name.ea_name_vec_t.truncate():
+	
+	        truncate(self)
+	        
+
 ida_name.extract_name():
 	
 	  extract_name(line, x) -> ssize_t
@@ -38182,8 +40025,9 @@ ida_name.get_debug_name_ea():
 
 ida_name.get_debug_names():
 	
-	  get_debug_names(ea1, ea2) -> PyObject *
-	  
+	    get_debug_names(names, ea1, ea2)
+	    get_debug_names(ea1, ea2) -> PyObject *
+	    
 
 ida_name.get_demangled_name():
 	
@@ -38221,7 +40065,8 @@ ida_name.get_name_base_ea():
 	
 	  Get address of the name used in the expression for the address
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: address of the operand which references to the address
+	                (C++: ea_t)
 	  @param to: the referenced address (C++: ea_t)
 	  @return: address of the name used to represent the operand
 	  
@@ -38235,7 +40080,11 @@ ida_name.get_name_color():
 	  
 	  Get name color.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address where the name is used. if not
+	                applicable, then should be  BADADDR . The kernel returns
+	                a local name color if the reference is within a
+	                function, i.e. 'from' and 'ea' belong to the same
+	                function. (C++: ea_t)
 	  @param ea: linear address (C++: ea_t)
 	  
 
@@ -38249,7 +40098,8 @@ ida_name.get_name_ea():
 	  database is not consulted for them. This function works only with
 	  regular names.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address where the name is used. if not
+	                applicable, then should be  BADADDR . (C++: ea_t)
 	  @param name: any name in the program or NULL (C++: const char *)
 	  @return: address of the name or  BADADDR
 	  
@@ -38265,7 +40115,10 @@ ida_name.get_name_expr():
 	  structure members and arrays. If the specified address doesn't have a
 	  name, a dummy name is generated.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address of instruction operand or data referring
+	                to the name. This address will be used to get fixup
+	                information, so it should point to exact position of the
+	                operand in the instruction. (C++: ea_t)
 	  @param n: number of referencing operand. for data items specify 0
 	            (C++: int)
 	  @param ea: address to convert to name expression (C++: ea_t)
@@ -38286,7 +40139,8 @@ ida_name.get_name_value():
 	  Get value of the name. This function knows about: regular names,
 	  enums, special segments, etc.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address where the name is used if not applicable,
+	                then should be BADADDR (C++: ea_t)
 	  @param name: any name in the program or NULL (C++: const char *)
 	  @return: Name value result codes
 	  
@@ -38560,7 +40414,8 @@ ida_name.set_dummy_name():
 	  Give an autogenerated (dummy) name. Autogenerated names have special
 	  prefixes (loc_...).
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address of the operand which references to the
+	                address (C++: ea_t)
 	  @param ea: linear address (C++: ea_t)
 	  
 
@@ -38709,6 +40564,11 @@ try to get local name first; if failed, get global
 ida_name.GN_LONG
 """
 use long form of demangled name
+"""
+
+ida_name.GN_NOT_DUMMY
+"""
+do not return a dummy name
 """
 
 ida_name.GN_NOT_ISRET
@@ -39446,7 +41306,7 @@ ida_offset.add_refinfo_dref():
 	  'offset' operand.
 	  
 	  @param insn: the referencing instruction (C++: const  insn_t  &)
-	  @param _from (C++: ea_t)
+	  @param _from: the referencing instruction/data address (C++: ea_t)
 	  @param ri: reference info block from the database (C++: const
 	             refinfo_t  &)
 	  @param opval: operand value (usually  op_t::value  or  op_t::addr )
@@ -39511,7 +41371,7 @@ ida_offset.calc_reference_data():
 	  
 	  @param target: output target address (C++: ea_t *)
 	  @param base: output base address (C++: ea_t *)
-	  @param _from (C++: ea_t)
+	  @param _from: the referencing instruction/data address (C++: ea_t)
 	  @param ri: reference info block from the database (C++: const
 	             refinfo_t  &)
 	  @param opval: operand value (usually  op_t::value  or  op_t::addr )
@@ -39521,17 +41381,17 @@ ida_offset.calc_reference_data():
 
 ida_offset.calc_target():
 	
-	  calc_target(_from, ea, n, opval) -> ea_t
+	    calc_target(_from, opval, ri) -> ea_t
+	    calc_target(_from, ea, n, opval) -> ea_t
 	
 	
-	  Retrieves 'refinfo_t' structure and calculates the target.
+	  Calculates the target, using the provided 'refinfo_t' .
 	  
 	  
 	  @param _from (C++: ea_t)
-	  @param ea (C++: ea_t)
-	  @param n (C++: int)
 	  @param opval (C++: adiff_t)
-	  
+	  @param ri (C++: const  refinfo_t  &)
+	    
 
 ida_offset.can_be_off32():
 	
@@ -39606,7 +41466,10 @@ ida_offset.get_offset_expression():
 	             (C++: ea_t)
 	  @param n: number of operand (may be ORed with  OPND_OUTER )   0: first
 	            operand 1: second operand (C++: int)
-	  @param _from (C++: ea_t)
+	  @param _from: linear address of instruction operand or data referring
+	                to the name. This address will be used to get fixup
+	                information, so it should point to exact position of
+	                operand in the instruction. (C++: ea_t)
 	  @param offset: value of operand or its part. The function will return
 	                 text representation of this value as offset expression.
 	                 (C++: adiff_t)
@@ -40150,11 +42013,6 @@ ida_pro.intvec_t.find():
 	        find(self, x) -> qvector< int >::const_iterator
 	        
 
-ida_pro.intvec_t.grow():
-	
-	        grow(self, x=int())
-	        
-
 ida_pro.intvec_t.has():
 	
 	        has(self, x) -> bool
@@ -40246,6 +42104,122 @@ ida_pro.log2floor():
 	
 	  log2floor(d64) -> int
 	  
+
+class ida_pro.longlongvec_t():
+	
+	    Proxy of C++ qvector<(long long)> class
+	    
+
+ida_pro.longlongvec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_pro.longlongvec_t.at():
+	
+	        __getitem__(self, i) -> long long const &
+	        
+
+ida_pro.longlongvec_t.begin():
+	
+	        begin(self) -> qvector< long long >::iterator
+	        begin(self) -> qvector< long long >::const_iterator
+	        
+
+ida_pro.longlongvec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_pro.longlongvec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_pro.longlongvec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_pro.longlongvec_t.end():
+	
+	        end(self) -> qvector< long long >::iterator
+	        end(self) -> qvector< long long >::const_iterator
+	        
+
+ida_pro.longlongvec_t.erase():
+	
+	        erase(self, it) -> qvector< long long >::iterator
+	        erase(self, first, last) -> qvector< long long >::iterator
+	        
+
+ida_pro.longlongvec_t.extract():
+	
+	        extract(self) -> long long *
+	        
+
+ida_pro.longlongvec_t.find():
+	
+	        find(self, x) -> qvector< long long >::iterator
+	        find(self, x) -> qvector< long long >::const_iterator
+	        
+
+ida_pro.longlongvec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_pro.longlongvec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_pro.longlongvec_t.insert():
+	
+	        insert(self, it, x) -> qvector< long long >::iterator
+	        
+
+ida_pro.longlongvec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_pro.longlongvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> long long &
+	        
+
+ida_pro.longlongvec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_pro.longlongvec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_pro.longlongvec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_pro.longlongvec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_pro.longlongvec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_pro.longlongvec_t.truncate():
+	
+	        truncate(self)
+	        
 
 ida_pro.parse_dbgopts():
 	
@@ -40762,6 +42736,122 @@ ida_pro.sval_pointer_frompointer():
 	  sval_pointer_frompointer(t) -> sval_pointer
 	  
 
+class ida_pro.svalvec_t():
+	
+	    Proxy of C++ qvector<(signed-ea-like-numeric-type)> class
+	    
+
+ida_pro.svalvec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_pro.svalvec_t.at():
+	
+	        __getitem__(self, i) -> signed-ea-like-numeric-type &
+	        
+
+ida_pro.svalvec_t.begin():
+	
+	        begin(self) -> qvector< signed-ea-like-numeric-type >::iterator
+	        begin(self) -> qvector< signed-ea-like-numeric-type >::const_iterator
+	        
+
+ida_pro.svalvec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_pro.svalvec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_pro.svalvec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_pro.svalvec_t.end():
+	
+	        end(self) -> qvector< signed-ea-like-numeric-type >::iterator
+	        end(self) -> qvector< signed-ea-like-numeric-type >::const_iterator
+	        
+
+ida_pro.svalvec_t.erase():
+	
+	        erase(self, it) -> qvector< signed-ea-like-numeric-type >::iterator
+	        erase(self, first, last) -> qvector< signed-ea-like-numeric-type >::iterator
+	        
+
+ida_pro.svalvec_t.extract():
+	
+	        extract(self) -> signed-ea-like-numeric-type *
+	        
+
+ida_pro.svalvec_t.find():
+	
+	        find(self, x) -> qvector< signed-ea-like-numeric-type >::iterator
+	        find(self, x) -> qvector< signed-ea-like-numeric-type >::const_iterator
+	        
+
+ida_pro.svalvec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_pro.svalvec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_pro.svalvec_t.insert():
+	
+	        insert(self, it, x) -> qvector< signed-ea-like-numeric-type >::iterator
+	        
+
+ida_pro.svalvec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_pro.svalvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> signed-ea-like-numeric-type &
+	        
+
+ida_pro.svalvec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_pro.svalvec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_pro.svalvec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_pro.svalvec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_pro.svalvec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_pro.svalvec_t.truncate():
+	
+	        truncate(self)
+	        
+
 class ida_pro.tid_array():
 	
 	    Proxy of C++ tid_array class
@@ -40802,6 +42892,354 @@ ida_pro.uchar_array_frompointer():
 	  uchar_array_frompointer(t) -> uchar_array
 	  
 
+class ida_pro.uint64vec_t():
+	
+	    Proxy of C++ qvector<(unsigned long long)> class
+	    
+
+ida_pro.uint64vec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_pro.uint64vec_t.at():
+	
+	        __getitem__(self, i) -> unsigned long long const &
+	        
+
+ida_pro.uint64vec_t.begin():
+	
+	        begin(self) -> qvector< unsigned long long >::iterator
+	        begin(self) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.uint64vec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_pro.uint64vec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_pro.uint64vec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_pro.uint64vec_t.end():
+	
+	        end(self) -> qvector< unsigned long long >::iterator
+	        end(self) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.uint64vec_t.erase():
+	
+	        erase(self, it) -> qvector< unsigned long long >::iterator
+	        erase(self, first, last) -> qvector< unsigned long long >::iterator
+	        
+
+ida_pro.uint64vec_t.extract():
+	
+	        extract(self) -> unsigned long long *
+	        
+
+ida_pro.uint64vec_t.find():
+	
+	        find(self, x) -> qvector< unsigned long long >::iterator
+	        find(self, x) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.uint64vec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_pro.uint64vec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_pro.uint64vec_t.insert():
+	
+	        insert(self, it, x) -> qvector< unsigned long long >::iterator
+	        
+
+ida_pro.uint64vec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_pro.uint64vec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> unsigned long long &
+	        
+
+ida_pro.uint64vec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_pro.uint64vec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_pro.uint64vec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_pro.uint64vec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_pro.uint64vec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_pro.uint64vec_t.truncate():
+	
+	        truncate(self)
+	        
+
+class ida_pro.uintvec_t():
+	
+	    Proxy of C++ qvector<(unsigned int)> class
+	    
+
+ida_pro.uintvec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_pro.uintvec_t.at():
+	
+	        __getitem__(self, i) -> unsigned int const &
+	        
+
+ida_pro.uintvec_t.begin():
+	
+	        begin(self) -> qvector< unsigned int >::iterator
+	        begin(self) -> qvector< unsigned int >::const_iterator
+	        
+
+ida_pro.uintvec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_pro.uintvec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_pro.uintvec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_pro.uintvec_t.end():
+	
+	        end(self) -> qvector< unsigned int >::iterator
+	        end(self) -> qvector< unsigned int >::const_iterator
+	        
+
+ida_pro.uintvec_t.erase():
+	
+	        erase(self, it) -> qvector< unsigned int >::iterator
+	        erase(self, first, last) -> qvector< unsigned int >::iterator
+	        
+
+ida_pro.uintvec_t.extract():
+	
+	        extract(self) -> unsigned int *
+	        
+
+ida_pro.uintvec_t.find():
+	
+	        find(self, x) -> qvector< unsigned int >::iterator
+	        find(self, x) -> qvector< unsigned int >::const_iterator
+	        
+
+ida_pro.uintvec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_pro.uintvec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_pro.uintvec_t.insert():
+	
+	        insert(self, it, x) -> qvector< unsigned int >::iterator
+	        
+
+ida_pro.uintvec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_pro.uintvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> unsigned int &
+	        
+
+ida_pro.uintvec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_pro.uintvec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_pro.uintvec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_pro.uintvec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_pro.uintvec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_pro.uintvec_t.truncate():
+	
+	        truncate(self)
+	        
+
+class ida_pro.ulonglongvec_t():
+	
+	    Proxy of C++ qvector<(unsigned long long)> class
+	    
+
+ida_pro.ulonglongvec_t.add_unique():
+	
+	        add_unique(self, x) -> bool
+	        
+
+ida_pro.ulonglongvec_t.at():
+	
+	        __getitem__(self, i) -> unsigned long long const &
+	        
+
+ida_pro.ulonglongvec_t.begin():
+	
+	        begin(self) -> qvector< unsigned long long >::iterator
+	        begin(self) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.ulonglongvec_t.capacity():
+	
+	        capacity(self) -> size_t
+	        
+
+ida_pro.ulonglongvec_t.clear():
+	
+	        clear(self)
+	        
+
+ida_pro.ulonglongvec_t.empty():
+	
+	        empty(self) -> bool
+	        
+
+ida_pro.ulonglongvec_t.end():
+	
+	        end(self) -> qvector< unsigned long long >::iterator
+	        end(self) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.ulonglongvec_t.erase():
+	
+	        erase(self, it) -> qvector< unsigned long long >::iterator
+	        erase(self, first, last) -> qvector< unsigned long long >::iterator
+	        
+
+ida_pro.ulonglongvec_t.extract():
+	
+	        extract(self) -> unsigned long long *
+	        
+
+ida_pro.ulonglongvec_t.find():
+	
+	        find(self, x) -> qvector< unsigned long long >::iterator
+	        find(self, x) -> qvector< unsigned long long >::const_iterator
+	        
+
+ida_pro.ulonglongvec_t.has():
+	
+	        has(self, x) -> bool
+	        
+
+ida_pro.ulonglongvec_t.inject():
+	
+	        inject(self, s, len)
+	        
+
+ida_pro.ulonglongvec_t.insert():
+	
+	        insert(self, it, x) -> qvector< unsigned long long >::iterator
+	        
+
+ida_pro.ulonglongvec_t.pop_back():
+	
+	        pop_back(self)
+	        
+
+ida_pro.ulonglongvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> unsigned long long &
+	        
+
+ida_pro.ulonglongvec_t.qclear():
+	
+	        qclear(self)
+	        
+
+ida_pro.ulonglongvec_t.reserve():
+	
+	        reserve(self, cnt)
+	        
+
+ida_pro.ulonglongvec_t.resize():
+	
+	        resize(self, _newsize, x)
+	        resize(self, _newsize)
+	        
+
+ida_pro.ulonglongvec_t.size():
+	
+	        size(self) -> size_t
+	        
+
+ida_pro.ulonglongvec_t.swap():
+	
+	        swap(self, r)
+	        
+
+ida_pro.ulonglongvec_t.truncate():
+	
+	        truncate(self)
+	        
+
 class ida_pro.uval_array():
 	
 	    Proxy of C++ uval_array class
@@ -40824,12 +43262,23 @@ ida_pro.uval_array_frompointer():
 
 class ida_pro.uvalvec_t():
 	
-	    Proxy of C++ qvector<(uval_t)> class
+	    Proxy of C++ qvector<(unsigned-ea-like-numeric-type)> class
 	    
 
 ida_pro.uvalvec_t.add_unique():
 	
 	        add_unique(self, x) -> bool
+	        
+
+ida_pro.uvalvec_t.at():
+	
+	        __getitem__(self, i) -> unsigned-ea-like-numeric-type &
+	        
+
+ida_pro.uvalvec_t.begin():
+	
+	        begin(self) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        begin(self) -> qvector< unsigned-ea-like-numeric-type >::const_iterator
 	        
 
 ida_pro.uvalvec_t.capacity():
@@ -40847,6 +43296,29 @@ ida_pro.uvalvec_t.empty():
 	        empty(self) -> bool
 	        
 
+ida_pro.uvalvec_t.end():
+	
+	        end(self) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        end(self) -> qvector< unsigned-ea-like-numeric-type >::const_iterator
+	        
+
+ida_pro.uvalvec_t.erase():
+	
+	        erase(self, it) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        erase(self, first, last) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        
+
+ida_pro.uvalvec_t.extract():
+	
+	        extract(self) -> unsigned-ea-like-numeric-type *
+	        
+
+ida_pro.uvalvec_t.find():
+	
+	        find(self, x) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        find(self, x) -> qvector< unsigned-ea-like-numeric-type >::const_iterator
+	        
+
 ida_pro.uvalvec_t.has():
 	
 	        has(self, x) -> bool
@@ -40857,9 +43329,20 @@ ida_pro.uvalvec_t.inject():
 	        inject(self, s, len)
 	        
 
+ida_pro.uvalvec_t.insert():
+	
+	        insert(self, it, x) -> qvector< unsigned-ea-like-numeric-type >::iterator
+	        
+
 ida_pro.uvalvec_t.pop_back():
 	
 	        pop_back(self)
+	        
+
+ida_pro.uvalvec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> unsigned-ea-like-numeric-type &
 	        
 
 ida_pro.uvalvec_t.qclear():
@@ -40916,7 +43399,7 @@ UTF-16 codepage.
 
 ida_pro.IDA_SDK_VERSION
 """
-IDA SDK v7.1.
+IDA SDK v7.2.
 """
 
 ida_pro.IDBDEC_ESCAPE
@@ -44431,6 +46914,21 @@ ida_struct.member_t.has_union():
 ida_struct.member_t.id:
 	member_t_id_get(self) -> tid_t
 
+ida_struct.member_t.is_baseclass():
+	
+	        is_baseclass(self) -> bool
+	        
+
+ida_struct.member_t.is_destructor():
+	
+	        is_destructor(self) -> bool
+	        
+
+ida_struct.member_t.is_dupname():
+	
+	        is_dupname(self) -> bool
+	        
+
 ida_struct.member_t.props:
 	member_t_props_get(self) -> uint32
 
@@ -44718,9 +47216,24 @@ ida_struct.visit_stroff_fields():
 
 
 === ida_struct EPYDOC INJECTIONS ===
+ida_struct.MF_BASECLASS
+"""
+a special member representing base class
+"""
+
 ida_struct.MF_BYTIL
 """
 the member was created due to the type system
+"""
+
+ida_struct.MF_DTOR
+"""
+a special member representing destructor
+"""
+
+ida_struct.MF_DUPNAME
+"""
+duplicate name resolved with _N suffix (N==soff)
 """
 
 ida_struct.MF_HASTI
@@ -46485,6 +48998,22 @@ ida_typeinf.convert_pt_flags_to_hti():
 	  @param pt_flags (C++: int)
 	  
 
+ida_typeinf.copy_named_type():
+	
+	  copy_named_type(dsttil, srctil, name) -> uint32
+	
+	
+	  Copy a named type from one til to another. This function will copy the
+	  specified type and all dependent types from the source type library to
+	  the destination library.
+	  
+	  @param dsttil: Destination til. It must have orginal types enabled
+	                 (C++: til_t  *)
+	  @param srctil: Source til. (C++: const  til_t  *)
+	  @param name: name of the type to copy (C++: const char *)
+	  @return: ordinal number of the copied type. 0 means error
+	  
+
 ida_typeinf.copy_tinfo_t():
 	
 	  copy_tinfo_t(_this, r)
@@ -47113,6 +49642,16 @@ ida_typeinf.gen_use_arg_tinfos():
 	  @param has_delay_slot (C++: has_delay_slot_t  *)
 	  
 
+ida_typeinf.get_abi_name():
+	
+	  get_abi_name() -> ssize_t
+	
+	
+	  Get ABI name.
+	  
+	  @return: length of the name (>=0)
+	  
+
 ida_typeinf.get_alias_target():
 	
 	  get_alias_target(ti, ordinal) -> uint32
@@ -47241,16 +49780,12 @@ ida_typeinf.get_full_type():
 
 ida_typeinf.get_idainfo_by_type():
 	
-	  get_idainfo_by_type(psize, pflags, mt, tif, alsize=None) -> bool
+	  get_idainfo_by_type(tif) -> bool
 	
 	
 	  Extract information from a 'tinfo_t' .
 	  
-	  @param psize: size of tif (C++: size_t *)
-	  @param pflags: description of type using flags_t (C++: flags_t  *)
-	  @param mt: info for non-scalar types (C++: opinfo_t  *)
 	  @param tif: the type to inspect (C++: const  tinfo_t  &)
-	  @param alsize: alignment (C++: size_t *)
 	  
 
 ida_typeinf.get_idati():
@@ -47963,6 +50498,17 @@ ida_typeinf.is_type_sue():
 	  @param t (C++: type_t)
 	  
 
+ida_typeinf.is_type_tbyte():
+	
+	  is_type_tbyte(t) -> bool
+	
+	
+	  See 'BTF_FLOAT' .
+	  
+	  
+	  @param t (C++: type_t)
+	  
+
 ida_typeinf.is_type_typedef():
 	
 	  is_type_typedef(t) -> bool
@@ -48292,13 +50838,13 @@ ida_typeinf.parse_decl():
 	
 	  Parse ONE declaration. If the input string contains more than one
 	  declaration, the first complete type declaration ( 'PT_TYP' ) or the
-	  last variable declaration ( 'PT_VAR' ) will be used.name & type &
-	  fields might be empty after the call!
+	  last variable declaration ( 'PT_VAR' ) will be used.name & tif may be
+	  empty after the call!
 	  
 	  @param tif: type info (C++: tinfo_t  *)
-	  @param til: type library to use (C++: til_t  *)
+	  @param til: type library to use. may be NULL (C++: til_t  *)
 	  @param decl: C declaration to parse (C++: const char *)
-	  @param flags: combination of  Type parsing flags (C++: int)
+	  @param flags: combination of  Type parsing flags  bits (C++: int)
 	  
 
 ida_typeinf.parse_decls():
@@ -48385,13 +50931,24 @@ ida_typeinf.ptr_type_data_t.based_ptr_size:
 ida_typeinf.ptr_type_data_t.closure:
 	ptr_type_data_t_closure_get(self) -> tinfo_t
 
+ida_typeinf.ptr_type_data_t.delta:
+	ptr_type_data_t_delta_get(self) -> int32
+
 ida_typeinf.ptr_type_data_t.is_code_ptr():
 	
 	        is_code_ptr(self) -> bool
 	        
 
+ida_typeinf.ptr_type_data_t.is_shifted():
+	
+	        is_shifted(self) -> bool
+	        
+
 ida_typeinf.ptr_type_data_t.obj_type:
 	ptr_type_data_t_obj_type_get(self) -> tinfo_t
+
+ida_typeinf.ptr_type_data_t.parent:
+	ptr_type_data_t_parent_get(self) -> tinfo_t
 
 ida_typeinf.ptr_type_data_t.swap():
 	
@@ -48579,6 +51136,19 @@ ida_typeinf.remove_tinfo_pointer():
 	  
 	  @param tif (C++: tinfo_t  *)
 	  @param til (C++: const  til_t  *)
+	  
+
+ida_typeinf.replace_ordinal_typerefs():
+	
+	  replace_ordinal_typerefs(til, tif) -> int
+	
+	
+	  Replace references to ordinal types by name references. This function
+	  'unties' the type from the current local type library and makes it
+	  easier to export it.
+	  
+	  @param til: type library to use. may be NULL. (C++: til_t  *)
+	  @param tif: type to modify (in/out) (C++: tinfo_t  *)
 	  
 
 ida_typeinf.resolve_typedef():
@@ -48975,7 +51545,6 @@ ida_typeinf.tinfo_t.deserialize():
 	        deserialize(self, til, ptype, pfields=None, pfldcmts=None) -> bool
 	        deserialize(self, til, ptype, pfields=None, pfldcmts=None) -> bool
 	        deserialize(self, til, type, fields, cmts=None) -> bool
-	        deserialize(self, til, _type, _fields, _cmts=None) -> bool
 	        
 
 ida_typeinf.tinfo_t.dstr():
@@ -49178,6 +51747,16 @@ ida_typeinf.tinfo_t.has_details():
 	        has_details(self) -> bool
 	        
 
+ida_typeinf.tinfo_t.has_vftable():
+	
+	        has_vftable(self) -> bool
+	        
+
+ida_typeinf.tinfo_t.is_anonymous_udt():
+	
+	        is_anonymous_udt(self) -> bool
+	        
+
 ida_typeinf.tinfo_t.is_arithmetic():
 	
 	        is_arithmetic(self) -> bool
@@ -49336,6 +51915,11 @@ ida_typeinf.tinfo_t.is_decl_struct():
 ida_typeinf.tinfo_t.is_decl_sue():
 	
 	        is_decl_sue(self) -> bool
+	        
+
+ida_typeinf.tinfo_t.is_decl_tbyte():
+	
+	        is_decl_tbyte(self) -> bool
 	        
 
 ida_typeinf.tinfo_t.is_decl_typedef():
@@ -49538,6 +52122,11 @@ ida_typeinf.tinfo_t.is_scalar():
 	        is_scalar(self) -> bool
 	        
 
+ida_typeinf.tinfo_t.is_shifted_ptr():
+	
+	        is_shifted_ptr(self) -> bool
+	        
+
 ida_typeinf.tinfo_t.is_signed():
 	
 	        is_signed(self) -> bool
@@ -49561,6 +52150,11 @@ ida_typeinf.tinfo_t.is_struct():
 ida_typeinf.tinfo_t.is_sue():
 	
 	        is_sue(self) -> bool
+	        
+
+ida_typeinf.tinfo_t.is_tbyte():
+	
+	        is_tbyte(self) -> bool
 	        
 
 ida_typeinf.tinfo_t.is_typeref():
@@ -49628,6 +52222,11 @@ ida_typeinf.tinfo_t.is_vararg_cc():
 	        is_vararg_cc(self) -> bool
 	        
 
+ida_typeinf.tinfo_t.is_vftable():
+	
+	        is_vftable(self) -> bool
+	        
+
 ida_typeinf.tinfo_t.is_void():
 	
 	        is_void(self) -> bool
@@ -49656,6 +52255,11 @@ ida_typeinf.tinfo_t.read_bitfield_value():
 ida_typeinf.tinfo_t.remove_ptr_or_array():
 	
 	        remove_ptr_or_array(self) -> bool
+	        
+
+ida_typeinf.tinfo_t.requires_qualifier():
+	
+	        requires_qualifier(self, name, offset) -> bool
 	        
 
 ida_typeinf.tinfo_t.serialize():
@@ -49958,6 +52562,11 @@ ida_typeinf.udt_member_t.clr_unaligned():
 	        clr_unaligned(self)
 	        
 
+ida_typeinf.udt_member_t.clr_vftable():
+	
+	        clr_vftable(self)
+	        
+
 ida_typeinf.udt_member_t.clr_virtbase():
 	
 	        clr_virtbase(self)
@@ -49977,6 +52586,11 @@ ida_typeinf.udt_member_t.end():
 ida_typeinf.udt_member_t.fda:
 	udt_member_t_fda_get(self) -> uchar
 
+ida_typeinf.udt_member_t.is_anonymous_udm():
+	
+	        is_anonymous_udm(self) -> bool
+	        
+
 ida_typeinf.udt_member_t.is_baseclass():
 	
 	        is_baseclass(self) -> bool
@@ -49990,6 +52604,11 @@ ida_typeinf.udt_member_t.is_bitfield():
 ida_typeinf.udt_member_t.is_unaligned():
 	
 	        is_unaligned(self) -> bool
+	        
+
+ida_typeinf.udt_member_t.is_vftable():
+	
+	        is_vftable(self) -> bool
 	        
 
 ida_typeinf.udt_member_t.is_virtbase():
@@ -50016,6 +52635,11 @@ ida_typeinf.udt_member_t.set_baseclass():
 ida_typeinf.udt_member_t.set_unaligned():
 	
 	        set_unaligned(self)
+	        
+
+ida_typeinf.udt_member_t.set_vftable():
+	
+	        set_vftable(self)
 	        
 
 ida_typeinf.udt_member_t.set_virtbase():
@@ -50141,6 +52765,11 @@ ida_typeinf.udt_type_data_t.is_unaligned():
 
 ida_typeinf.udt_type_data_t.is_union:
 	udt_type_data_t_is_union_get(self) -> bool
+
+ida_typeinf.udt_type_data_t.is_vftable():
+	
+	        is_vftable(self) -> bool
+	        
 
 ida_typeinf.udt_type_data_t.pack:
 	udt_type_data_t_pack_get(self) -> uchar
@@ -50734,6 +53363,13 @@ ida_typeinf.NTF_64BIT
 value is 64bit
 """
 
+ida_typeinf.NTF_CHKSYNC
+"""
+(set_numbered_type, set_named_type)
+
+check that synchronization to IDB passed OK
+"""
+
 ida_typeinf.NTF_FIXNAME
 """
 (set_named_type, set_numbered_type only)
@@ -51053,6 +53689,12 @@ get member by type. - in: udm->type - the desired member type. member
 types are compared with tinfo_t::equals_to()
 """
 
+ida_typeinf.STRMEM_VFTABLE
+"""
+can be combined with 'STRMEM_OFFSET' , 'STRMEM_AUTO' get vftable
+instead of the base class
+"""
+
 ida_typeinf.SUDT_ALIGN
 """
 to match the offsets and size info
@@ -51113,6 +53755,11 @@ ida_typeinf.TAFLD_UNALIGNED
 field: unaligned field
 """
 
+ida_typeinf.TAFLD_VFTABLE
+"""
+field: ptr to virtual function table
+"""
+
 ida_typeinf.TAFLD_VIRTBASE
 """
 field: virtual base (not supported yet)
@@ -51148,6 +53795,11 @@ ida_typeinf.TAPTR_RESTRICT
 ptr: __restrict
 """
 
+ida_typeinf.TAPTR_SHIFTED
+"""
+ptr: __shifted(parent_struct, delta)
+"""
+
 ida_typeinf.TAUDT_CPPOBJ
 """
 struct: a c++ object, not simple pod type
@@ -51163,6 +53815,11 @@ ida_typeinf.TAUDT_UNALIGNED
 struct: unaligned struct
 """
 
+ida_typeinf.TAUDT_VFTABLE
+"""
+struct: is virtual function table
+"""
+
 ida_typeinf.TA_ORG_ARRDIM
 """
 the original array dimension (append_dd)
@@ -51171,6 +53828,11 @@ the original array dimension (append_dd)
 ida_typeinf.TA_ORG_TYPEDEF
 """
 the original typedef name (simple string)
+"""
+
+ida_typeinf.TCMP_ANYBASE
+"""
+accept any base class when casting
 """
 
 ida_typeinf.TCMP_AUTOCAST
@@ -51206,6 +53868,11 @@ ignore const/volatile modifiers
 ida_typeinf.TCMP_MANCAST
 """
 can t1 be cast into t2 manually?
+"""
+
+ida_typeinf.TCMP_SKIPTHIS
+"""
+skip the first function argument in comparison
 """
 
 ida_typeinf.TIL_ADD_ALREADY
@@ -51454,16 +54121,20 @@ ida_ua.get_dtype_size():
 
 ida_ua.get_immvals():
 	
-	  get_immvals(ea, n) -> PyObject *
+	  get_immvals(ea, n, F=0) -> PyObject *
 	
 	
 	  Get immediate values at the specified address. This function decodes
 	  instruction at the specified address or inspects the data item. It
-	  finds immediate values and copies them to 'out'.
+	  finds immediate values and copies them to 'out'. This function will
+	  store the original value of the operands in 'out', unless the last
+	  bits of 'F' are "...0 11111111", in which case the transformed values
+	  (as needed for printing) will be stored instead.
 	  
 	  @param ea: address to analyze (C++: ea_t)
 	  @param n: number of operand (0.. UA_MAXOP -1), -1 means all operands
 	            (C++: int)
+	  @param F: flags for the specified address (C++: flags_t)
 	  @return: number of immediate values (0..2* UA_MAXOP )
 	  
 
@@ -51475,6 +54146,20 @@ ida_ua.get_lookback():
 	  Number of instructions to look back. This variable is not used by the
 	  kernel. Its value may be specified in ida.cfg: LOOKBACK = <number>.
 	  IDP may use it as you like it. (TMS module uses it)
+	  
+
+ida_ua.get_printable_immvals():
+	
+	  get_printable_immvals(ea, n, F=0) -> PyObject *
+	
+	
+	  Get immediate ready-to-print values at the specified address
+	  
+	  @param ea: address to analyze (C++: ea_t)
+	  @param n: number of operand (0.. UA_MAXOP -1), -1 means all operands
+	            (C++: int)
+	  @param F: flags for the specified address (C++: flags_t)
+	  @return: number of immediate values (0..2* UA_MAXOP )
 	  
 
 ida_ua.guess_table_address():
@@ -51605,6 +54290,11 @@ ida_ua.insn_t.insnpref:
 
 ida_ua.insn_t.ip:
 	insn_t_ip_get(self) -> ea_t
+
+ida_ua.insn_t.is_64bit():
+	
+	        is_64bit(self) -> bool
+	        
 
 ida_ua.insn_t.is_canon_insn():
 	
@@ -51990,6 +54680,11 @@ ida_ua.outctx_base_t.set_comment_addr():
 	        set_comment_addr(self, ea)
 	        
 
+ida_ua.outctx_base_t.set_dlbind_opnd():
+	
+	        set_dlbind_opnd(self)
+	        
+
 ida_ua.outctx_base_t.set_gen_cmt():
 	
 	        set_gen_cmt(self, on=True)
@@ -52317,6 +55012,11 @@ ida_ua.outctx_t.set_comment_addr():
 	        set_comment_addr(self, ea)
 	        
 
+ida_ua.outctx_t.set_dlbind_opnd():
+	
+	        set_dlbind_opnd(self)
+	        
+
 ida_ua.outctx_t.set_gen_cmt():
 	
 	        set_gen_cmt(self, on=True)
@@ -52351,6 +55051,9 @@ ida_ua.outctx_t.term_outctx():
 	
 	        term_outctx(self, prefix=None) -> int
 	        
+
+ida_ua.outctx_t.wif:
+	outctx_t_wif_get(self) -> printop_t
 
 ida_ua.outctx_t__from_ptrval__():
 	
@@ -52423,6 +55126,11 @@ ida_ua.FCBF_FF_LIT
 in case of codepoints == 0xFF, use it as-is (i.e., LATIN SMALL LETTER
 Y WITH DIAERESIS) If both this, and FCBF_REPL are specified, this will
 take precedence
+"""
+
+ida_ua.INSN_64BIT
+"""
+belongs to 64bit segment?
 """
 
 ida_ua.INSN_MACRO
@@ -52719,6 +55427,17 @@ ida_xref.casevec_t.add_unique():
 	        add_unique(self, x) -> bool
 	        
 
+ida_xref.casevec_t.at():
+	
+	        __getitem__(self, i) -> qvector< signed-ea-like-numeric-type > const &
+	        
+
+ida_xref.casevec_t.begin():
+	
+	        begin(self) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        begin(self) -> qvector< qvector< signed-ea-like-numeric-type > >::const_iterator
+	        
+
 ida_xref.casevec_t.capacity():
 	
 	        capacity(self) -> size_t
@@ -52734,6 +55453,34 @@ ida_xref.casevec_t.empty():
 	        empty(self) -> bool
 	        
 
+ida_xref.casevec_t.end():
+	
+	        end(self) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        end(self) -> qvector< qvector< signed-ea-like-numeric-type > >::const_iterator
+	        
+
+ida_xref.casevec_t.erase():
+	
+	        erase(self, it) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        erase(self, first, last) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        
+
+ida_xref.casevec_t.extract():
+	
+	        extract(self) -> qvector< signed-ea-like-numeric-type > *
+	        
+
+ida_xref.casevec_t.find():
+	
+	        find(self, x) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        find(self, x) -> qvector< qvector< signed-ea-like-numeric-type > >::const_iterator
+	        
+
+ida_xref.casevec_t.grow():
+	
+	        grow(self, x=qvector< signed-ea-like-numeric-type >())
+	        
+
 ida_xref.casevec_t.has():
 	
 	        has(self, x) -> bool
@@ -52744,9 +55491,20 @@ ida_xref.casevec_t.inject():
 	        inject(self, s, len)
 	        
 
+ida_xref.casevec_t.insert():
+	
+	        insert(self, it, x) -> qvector< qvector< signed-ea-like-numeric-type > >::iterator
+	        
+
 ida_xref.casevec_t.pop_back():
 	
 	        pop_back(self)
+	        
+
+ida_xref.casevec_t.push_back():
+	
+	        push_back(self, x)
+	        push_back(self) -> qvector< signed-ea-like-numeric-type > &
 	        
 
 ida_xref.casevec_t.qclear():
@@ -53533,7 +56291,7 @@ idc.atoa():
 
 idc.attach_process():
 	
-	  attach_process(pid, event_id) -> int
+	  attach_process(pid=pid_t(-1), event_id=-1) -> int
 	
 	
 	  Attach the debugger to a running process. {Type, Asynchronous function
@@ -54144,8 +56902,8 @@ idc.diff_trace_file():
 
 idc.enable_bpt():
 	
-	    enable_bpt(ea, enable) -> bool
-	    enable_bpt(bptloc, enable) -> bool
+	    enable_bpt(ea, enable=True) -> bool
+	    enable_bpt(bptloc, enable=True) -> bool
 	    
 
 idc.enable_tracing():
@@ -55506,7 +58264,8 @@ idc.get_name_ea():
 	  database is not consulted for them. This function works only with
 	  regular names.
 	  
-	  @param _from (C++: ea_t)
+	  @param _from: linear address where the name is used. if not
+	                applicable, then should be  BADADDR . (C++: ea_t)
 	  @param name: any name in the program or NULL (C++: const char *)
 	  @return: address of the name or  BADADDR
 	  
@@ -56431,7 +59190,7 @@ idc.load_and_run_plugin():
 
 idc.load_debugger():
 	
-	  load_debugger(nonnul_dbgname, use_remote) -> bool
+	  load_debugger(dbgname, use_remote) -> bool
 	  
 
 idc.load_trace_file():
@@ -57225,7 +59984,7 @@ idc.select_thread():
 
 idc.selector_by_name():
 	
-	    Get segment by name
+	    Get segment selector by name
 	
 	    @param segname: name of segment
 	
@@ -57947,7 +60706,7 @@ idc.split_sreg_range():
 
 idc.start_process():
 	
-	  start_process(path, args, sdir) -> int
+	  start_process(path=None, args=None, sdir=None) -> int
 	
 	
 	  Start a process in the debugger. {Type, Asynchronous function -
@@ -58085,7 +60844,7 @@ idc.validate_idb_names():
 
 idc.wait_for_next_event():
 	
-	  wait_for_next_event(wfne, timeout_in_secs) -> dbg_event_code_t
+	  wait_for_next_event(wfne, timeout) -> dbg_event_code_t
 	
 	
 	  Wait for the next event.This function (optionally) resumes the process
@@ -58094,7 +60853,7 @@ idc.wait_for_next_event():
 	  
 	  @param wfne: combination of  Wait for debugger event flags  constants
 	               (C++: int)
-	  @param timeout_in_secs (C++: int)
+	  @param timeout: number of seconds to wait, -1-infinity (C++: int)
 	  @return: either an event_id_t (if > 0), or a dbg_event_code_t (if <=
 	           0)
 	  

@@ -40,6 +40,9 @@
   *($2) = BADADDR;
 }
 
+//<typemaps(py_segment)>
+//</typemaps(py_segment)>
+
 %include "segment.hpp"
 
 %inline %{

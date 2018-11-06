@@ -3,6 +3,11 @@ import sys
 
 ${IMPORTS}
 
+# guerilla-patch a few unfortunate overrides
+from ida_funcs import set_func_start
+from ida_funcs import set_func_end
+from ida_dbg import dbg_can_query
+
 class idaapi_Cvar(object):
     def __init__(self):
         # prevent endless recursion

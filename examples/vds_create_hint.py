@@ -1,6 +1,6 @@
-"""'Hints' plugin for Hexrays Decompiler
+"""'Hints' example for Hexrays Decompiler
 
-Hijack the 'hxe_create_hint' notification, to return our own.
+Handle 'hxe_create_hint' notification using hooks, to return our own.
 If the object under the cursor is:
  - a function call, prefix the original decompiler hint with "==> "
  - a local variable declaration, replace the hint with our own in the form of "!{varname}" (where '{varname}' is replaced w/ the variable name)
@@ -9,9 +9,8 @@ If the object under the cursor is:
 
 import ida_hexrays
 
-def create_hint_cb(event, *args):
-    if event == ida_hexrays.hxe_create_hint:
-        vu = args[0]
+class hint_hooks_t(ida_hexrays.Hexrays_Hooks):
+    def create_hint(self, vu):
         if vu.get_current_item(ida_hexrays.USE_MOUSE):
             cit = vu.item.citype
             if cit == ida_hexrays.VDI_LVAR:
@@ -22,11 +21,7 @@ def create_hint_cb(event, *args):
                     return 2, "==> ", 1
                 if ce.op == ida_hexrays.cit_if:
                     return 1, "condition", 1
-            return 0
-    return 0
+        return 0
 
-if ida_hexrays.init_hexrays_plugin():
-    ida_hexrays.install_hexrays_callback(create_hint_cb)
-else:
-    print 'hexrays is not available.'
-
+vds_hooks = hint_hooks_t()
+vds_hooks.hook()

@@ -5,7 +5,6 @@
 //---------------------------------------------------------------------------
 class plgform_t
 {
-private:
   ref_t py_obj;
   TWidget *widget;
 
@@ -15,24 +14,7 @@ private:
     PYW_GIL_GET;
 
     plgform_t *_this = (plgform_t *)ud;
-    if ( notification_code == ui_widget_visible )
-    {
-      TWidget *widget = va_arg(va, TWidget *);
-      if ( widget == _this->widget )
-      {
-        // Qt: QWidget*
-        // G: HWND
-        // We wrap and pass as a CObject in the hope that a Python UI framework
-        // can unwrap a CObject and get the hwnd/widget back
-        newref_t py_result(
-                PyObject_CallMethod(
-                        _this->py_obj.o,
-                        (char *)S_ON_CREATE, "O",
-                        PyCObject_FromVoidPtr(widget, NULL)));
-        PyW_ShowCbErr(S_ON_CREATE);
-      }
-    }
-    else if ( notification_code == ui_widget_invisible )
+    if ( notification_code == ui_widget_invisible )
     {
       TWidget *widget = va_arg(va, TWidget *);
       if ( widget == _this->widget )
@@ -62,15 +44,15 @@ private:
   }
 
 public:
-  plgform_t(): widget(NULL)
-  {
-  }
+  plgform_t() : widget(NULL) {}
 
   bool show(
           PyObject *obj,
           const char *caption,
           int options)
   {
+    const bool create_only = options == -1;
+
     // Already displayed?
     TWidget *f = find_widget(caption);
     if ( f != NULL )
@@ -79,7 +61,8 @@ public:
       if ( f == widget )
       {
         // Switch to it
-        activate_widget(widget, true);
+        if ( !create_only )
+          activate_widget(widget, true);
         return true;
       }
       // Fail to create
@@ -100,7 +83,20 @@ public:
     py_obj = borref_t(obj);
 
     this->widget = widget;
-    display_widget(widget, options);
+
+    // Qt: QWidget*
+    // G: HWND
+    // We wrap and pass as a CObject in the hope that a Python UI framework
+    // can unwrap a CObject and get the hwnd/widget back
+    newref_t py_result(
+            PyObject_CallMethod(
+                    py_obj.o,
+                    (char *)S_ON_CREATE, "O",
+                    PyCObject_FromVoidPtr(widget, NULL)));
+    PyW_ShowCbErr(S_ON_CREATE);
+
+    if ( !create_only )
+      display_widget(widget, options);
     return true;
   }
 
@@ -109,6 +105,8 @@ public:
     if ( widget != NULL )
       close_widget(widget, options);
   }
+
+  TWidget *get_widget() { return widget; }
 
   static PyObject *create()
   {
@@ -135,7 +133,7 @@ static bool plgform_show(
         PyObject *py_link,
         PyObject *py_obj,
         const char *caption,
-        int options = WOPN_TAB|WOPN_MENU|WOPN_RESTORE)
+        int options = WOPN_TAB|WOPN_RESTORE)
 {
   DECL_PLGFORM;
   return plgform->show(py_obj, caption, options);
@@ -148,6 +146,14 @@ static void plgform_close(
   DECL_PLGFORM;
   plgform->close(options);
 }
+
+static TWidget *plgform_get_widget(
+        PyObject *py_link)
+{
+  DECL_PLGFORM;
+  return plgform->get_widget();
+}
+
 #undef DECL_PLGFORM
 //</inline(py_kernwin_plgform)>
 

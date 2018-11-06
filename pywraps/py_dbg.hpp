@@ -76,13 +76,13 @@ public:
   bool hook() { return idapython_hook_to_notification_point(HT_DBG, DBG_Callback, this); }
   bool unhook() { return idapython_unhook_from_notification_point(HT_DBG, DBG_Callback, this); }
 
-  static int store_int(int rc, const debug_event_t *, int *warn)
+  static ssize_t store_int(int rc, const debug_event_t *, int *warn)
   {
     *warn = rc;
     return 0;
   }
 
-  static int store_int(int rc, thid_t, ea_t, int *warn)
+  static ssize_t store_int(int rc, thid_t, ea_t, int *warn)
   {
     *warn = rc;
     return 0;
@@ -98,7 +98,7 @@ ssize_t idaapi DBG_Callback(void *ud, int notification_code, va_list va)
 
   class DBG_Hooks *proxy = (class DBG_Hooks *)ud;
   debug_event_t *event;
-  int ret = 0;
+  ssize_t ret = 0;
 
   try
   {

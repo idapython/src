@@ -4,7 +4,6 @@ ua_mnem = print_insn_mnem
 
 #<pycode_BC695(py_ua)>
 import ida_idaapi
-@bc695redef
 def codeSeg(ea, opnum):
     insn = insn_t()
     if decode_insn(insn, ea):
@@ -17,7 +16,7 @@ get_dtyp_size=get_dtype_size
 get_operand_immvals=get_immvals
 op_t.dtyp = op_t.dtype
 cmd = insn_t()
-@bc695redef_with_pydoc(decode_insn.__doc__)
+@bc695redef
 def decode_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -26,7 +25,7 @@ def decode_insn(*args):
         return rc
     else:
         return _ida_ua.decode_insn(*args)
-@bc695redef_with_pydoc(create_insn.__doc__)
+@bc695redef
 def create_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -35,7 +34,7 @@ def create_insn(*args):
         return rc
     else:
         return _ida_ua.create_insn(*args)
-@bc695redef_with_pydoc(decode_prev_insn.__doc__)
+@bc695redef
 def decode_prev_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -44,7 +43,7 @@ def decode_prev_insn(*args):
         return rc
     else:
         return _ida_ua.decode_prev_insn(*args)
-@bc695redef_with_pydoc(decode_preceding_insn.__doc__)
+@bc695redef
 def decode_preceding_insn(*args):
     if len(args) == 1:
         tmp = insn_t()
@@ -62,25 +61,18 @@ tbo_213=0
 tbo_231=0
 tbo_312=0
 tbo_321=0
-@bc695redef
 def ua_add_cref(opoff, to, rtype):
     return cmd.add_cref(to, opoff, rtype)
-@bc695redef
 def ua_add_dref(opoff, to, rtype):
     return cmd.add_dref(to, opoff, rtype)
-@bc695redef
 def ua_add_off_drefs(x, rtype):
     return cmd.add_off_drefs(x, rtype, 0)
-@bc695redef
 def ua_add_off_drefs2(x, rtype, outf):
     return cmd.add_off_drefs(x, rtype, outf)
-@bc695redef
 def ua_dodata(ea, dtype):
     return cmd.create_op_data(ea, 0, dtype)
-@bc695redef
 def ua_dodata2(opoff, ea, dtype):
     return cmd.create_op_data(ea, opoff, dtype)
-@bc695redef
 def ua_stkvar2(x, v, flags):
     return cmd.create_stkvar(x, v, flags)
 #</pycode_BC695(py_ua)>

@@ -32,7 +32,6 @@
 %ignore til_next_macro;
 
 %ignore parse_subtype;
-%ignore calc_type_size;
 
 %ignore descr_t;
 
@@ -94,7 +93,6 @@
 %ignore max_ptr_size;
 %ignore based_ptr_name_and_size;
 
-%ignore apply_type;
 %ignore apply_callee_type;
 %ignore get_arg_addrs;
 %rename (get_arg_addrs) py_get_arg_addrs;
@@ -103,7 +101,9 @@
 %ignore idb_type_to_til;
 %ignore get_idb_type;
 
+%ignore calc_type_size;
 %rename (calc_type_size) py_calc_type_size;
+%ignore apply_type;
 %rename (apply_type) py_apply_type;
 
 %ignore use_regarg_type_cb;
@@ -128,6 +128,8 @@
 %ignore func_type_data_t::serialize;
 %ignore func_type_data_t::deserialize;
 %ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
+%ignore name_requires_qualifier;
+%ignore tinfo_visitor_t::level;
 
 %ignore custloc_desc_t;
 %ignore install_custom_argloc;
@@ -161,18 +163,6 @@
           const p_list *fields,
           const p_list *cmts = NULL)
   {
-    return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
-  }
-
-  bool deserialize(
-          const til_t *til,
-          const char *_type,
-          const char *_fields,
-          const char *_cmts = NULL)
-  {
-    const type_t *type = (const type_t *) _type;
-    const p_list *fields = (const p_list *) _fields;
-    const p_list *cmts = (const p_list *) _cmts;
     return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
   }
 
@@ -215,7 +205,7 @@
   }
 }
 %enddef
-%simple_tinfo_t_container_lifecycle(ptr_type_data_t, (tinfo_t c=tinfo_t(), uchar bps=0), (c, bps));
+%simple_tinfo_t_container_lifecycle(ptr_type_data_t, (tinfo_t c=tinfo_t(), uchar bps=0, tinfo_t p=tinfo_t(), int32 d=0), (c, bps, p, d));
 %simple_tinfo_t_container_lifecycle(array_type_data_t, (size_t b=0, size_t n=0), (b, n));
 %simple_tinfo_t_container_lifecycle(func_type_data_t, (), ());
 %simple_tinfo_t_container_lifecycle(udt_type_data_t, (), ());
@@ -223,13 +213,7 @@
 %template(funcargvec_t)   qvector<funcarg_t>;
 %template(udtmembervec_t) qvector<udt_member_t>;
 %template(reginfovec_t)   qvector<reg_info_t>;
-%ignore qvector<type_attr_t>::operator==;
-%ignore qvector<type_attr_t>::operator!=;
-%ignore qvector<type_attr_t>::find;
-%ignore qvector<type_attr_t>::has;
-%ignore qvector<type_attr_t>::del;
-%ignore qvector<type_attr_t>::add_unique;
-%template(type_attrs_t)   qvector<type_attr_t>;
+%uncomparable_elements_qvector(type_attr_t, type_attrs_t);
 
 %extend tinfo_t {
   PyObject *get_attr(const qstring &key, bool all_attrs=true)
@@ -260,6 +244,23 @@
         ea_t ea,
         char *buf,
         size_t bufsize); // idc_guess_type, idc_get_type
+
+// set_numbered_type()
+%typemap(in) const sclass_t * {
+  // %typemap(in) const sclass_t *
+  if ( $input == Py_None )
+    $1 = new sclass_t(sc_unk);
+  else if ( PyInt_Check($input) )
+    $1 = new sclass_t(sclass_t(PyInt_AsLong($input)));
+  else
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "invalid argument " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+%typemap(freearg) const sclass_t * {
+  // %typemap(freearg) const sclass_t *
+  delete $1;
+}
 
 %include "typeinf.hpp"
 

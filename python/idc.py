@@ -68,7 +68,6 @@ import time
 import types
 import sys
 
-__X64__  = sys.maxsize > 0xFFFFFFFF
 __EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
 WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF
 class DeprecatedIDCError(Exception):
@@ -2358,8 +2357,6 @@ def get_next_seg(ea):
     else:
         return nextseg.start_ea
 
-    return BADADDR
-
 
 def get_segm_start(ea):
     """
@@ -2604,7 +2601,7 @@ def set_segm_addressing(ea, bitness):
 
 def selector_by_name(segname):
     """
-    Get segment by name
+    Get segment selector by name
 
     @param segname: name of segment
 
@@ -3070,53 +3067,28 @@ def set_func_attr(ea, attr, value):
 FUNCATTR_START   =  0     # readonly: function start address
 FUNCATTR_END     =  4     # readonly: function end address
 FUNCATTR_FLAGS   =  8     # function flags
-FUNCATTR_FRAME   = 12     # readonly: function frame id
-FUNCATTR_FRSIZE  = 16     # readonly: size of local variables
-FUNCATTR_FRREGS  = 20     # readonly: size of saved registers area
-FUNCATTR_ARGSIZE = 24     # readonly: number of bytes purged from the stack
-FUNCATTR_FPD     = 28     # frame pointer delta
-FUNCATTR_COLOR   = 32     # function color code
-FUNCATTR_OWNER   = 12     # readonly: chunk owner (valid only for tail chunks)
-FUNCATTR_REFQTY  = 16     # readonly: number of chunk parents (valid only for tail chunks)
+FUNCATTR_FRAME   = 16     # readonly: function frame id
+FUNCATTR_FRSIZE  = 20     # readonly: size of local variables
+FUNCATTR_FRREGS  = 24     # readonly: size of saved registers area
+FUNCATTR_ARGSIZE = 28     # readonly: number of bytes purged from the stack
+FUNCATTR_FPD     = 32     # frame pointer delta
+FUNCATTR_COLOR   = 36     # function color code
+FUNCATTR_OWNER   = 16     # readonly: chunk owner (valid only for tail chunks)
+FUNCATTR_REFQTY  = 20     # readonly: number of chunk parents (valid only for tail chunks)
 
-if __X64__:
-    FUNCATTR_START   =  0
-    FUNCATTR_END     =  4
-    FUNCATTR_FLAGS   =  8
-    FUNCATTR_FRAME   = 16
-    FUNCATTR_FRSIZE  = 20
-    FUNCATTR_FRREGS  = 24
-    FUNCATTR_ARGSIZE = 28
-    FUNCATTR_FPD     = 32
-    FUNCATTR_COLOR   = 36
-    FUNCATTR_OWNER   = 16
-    FUNCATTR_REFQTY  = 20
-
-# Redefining the constants for 64-bit
+# Redefining the constants for ea64
 if __EA64__:
     FUNCATTR_START   =  0
     FUNCATTR_END     =  8
     FUNCATTR_FLAGS   = 16
-    FUNCATTR_FRAME   = 20
-    FUNCATTR_FRSIZE  = 28
-    FUNCATTR_FRREGS  = 36
-    FUNCATTR_ARGSIZE = 40
-    FUNCATTR_FPD     = 48
-    FUNCATTR_COLOR   = 56
-    FUNCATTR_OWNER   = 20
-    FUNCATTR_REFQTY  = 28
-    if __X64__:
-        FUNCATTR_START   =  0
-        FUNCATTR_END     =  8
-        FUNCATTR_FLAGS   = 16
-        FUNCATTR_FRAME   = 24
-        FUNCATTR_FRSIZE  = 32
-        FUNCATTR_FRREGS  = 40
-        FUNCATTR_ARGSIZE = 48
-        FUNCATTR_FPD     = 56
-        FUNCATTR_COLOR   = 64
-        FUNCATTR_OWNER   = 24
-        FUNCATTR_REFQTY  = 32
+    FUNCATTR_FRAME   = 24
+    FUNCATTR_FRSIZE  = 32
+    FUNCATTR_FRREGS  = 40
+    FUNCATTR_ARGSIZE = 48
+    FUNCATTR_FPD     = 56
+    FUNCATTR_COLOR   = 64
+    FUNCATTR_OWNER   = 24
+    FUNCATTR_REFQTY  = 32
 
 _FUNCATTRMAP = {
     FUNCATTR_START   : (True, 'start_ea'),

@@ -7,20 +7,24 @@ class PluginForm(object):
     This form can be used to host additional controls. Please check the PyQt example.
     """
 
-    WOPN_MDI      = 0x01
-    """start by default as MDI (obsolete)"""
+    WOPN_MDI      = 0x01 # no-op
     WOPN_TAB      = 0x02
     """attached by default to a tab"""
     WOPN_RESTORE  = 0x04
-    """restore state from desktop config"""
-    WOPN_ONTOP    = 0x08
-    """form should be "ontop"""
-    WOPN_MENU     = 0x10
-    """form must be listed in the windows menu (automatically set for all plugins)"""
-    WOPN_CENTERED = 0x20
-    """form will be centered on the screen"""
+    """
+    if the widget is the only widget in a floating area when
+    it is closed, remember that area's geometry. The next
+    time that widget is created as floating (i.e., no WOPN_TAB)
+    its geometry will be restored (e.g., "Execute script"
+    """
+    WOPN_ONTOP    = 0x08 # no-op
+    WOPN_MENU     = 0x10 # no-op
+    WOPN_CENTERED = 0x20 # no-op
     WOPN_PERSIST  = 0x40
     """form will persist until explicitly closed with Close()"""
+
+
+    WOPN_CREATE_ONLY = {}
 
 
     def __init__(self):
@@ -29,44 +33,64 @@ class PluginForm(object):
         self.__clink__ = _ida_kernwin.plgform_new()
 
 
-
-    def Show(self, caption, options = 0):
+    def Show(self, caption, options=0):
         """
         Creates the form if not was not created or brings to front if it was already created
 
         @param caption: The form caption
         @param options: One of PluginForm.WOPN_ constants
         """
-        options |= PluginForm.WOPN_TAB|PluginForm.WOPN_MENU|PluginForm.WOPN_RESTORE
+        if options == self.WOPN_CREATE_ONLY:
+            options = -1
+        else:
+            options |= PluginForm.WOPN_TAB|PluginForm.WOPN_RESTORE
         return _ida_kernwin.plgform_show(self.__clink__, self, caption, options)
 
 
     @staticmethod
-    def FormToPyQtWidget(form, ctx = sys.modules['__main__']):
-        """
-        Use this method to convert a TWidget* to a QWidget to be used by PyQt
+    def _ensure_widget_deps(ctx):
+        for key, modname in [("sip", "sip"), ("QtWidgets", "PyQt5.QtWidgets")]:
+            if not hasattr(ctx, key):
+                print "Note: importing '%s' module into %s" % (key, ctx)
+                import importlib
+                setattr(ctx, key, importlib.import_module(modname))
 
-        @param ctx: Context. Reference to a module that already imported SIP and QtGui modules
+
+    @staticmethod
+    def TWidgetToPyQtWidget(form, ctx = sys.modules['__main__']):
+        """
+        Convert a TWidget* to a QWidget to be used by PyQt
+
+        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
         """
         if type(form).__name__ == "SwigPyObject":
             ptr_l = long(form)
         else:
             ptr_l = form
-        for key, modname in [("sip", "sip"), ("QtWidgets", "PyQt5.QtWidgets")]:
-            if not hasattr(ctx, key):
-                print "Note: FormToPyQtWidget: importing '%s' module into %s" % (key, ctx)
-                import importlib
-                setattr(ctx, key, importlib.import_module(modname))
+        PluginForm._ensure_widget_deps(ctx)
         vptr = ctx.sip.voidptr(ptr_l)
         return ctx.sip.wrapinstance(vptr.__int__(), ctx.QtWidgets.QWidget)
+    FormToPyQtWidget = TWidgetToPyQtWidget
 
 
     @staticmethod
-    def FormToPySideWidget(form, ctx = sys.modules['__main__']):
+    def QtWidgetToTWidget(w, ctx = sys.modules['__main__']):
+        """
+        Convert a QWidget to a TWidget* to be used by IDA
+
+        @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
+        """
+        PluginForm._ensure_widget_deps(ctx)
+        as_long = long(ctx.sip.unwrapinstance(w))
+        return TWidget__from_ptrval__(as_long)
+
+
+    @staticmethod
+    def TWidgetToPySideWidget(form, ctx = sys.modules['__main__']):
         """
         Use this method to convert a TWidget* to a QWidget to be used by PySide
 
-        @param ctx: Context. Reference to a module that already imported QtGui module
+        @param ctx: Context. Reference to a module that already imported QtWidgets module
         """
         if form is None:
             return None
@@ -82,7 +106,7 @@ class PluginForm(object):
             pythonapi.PyCObject_AsVoidPtr.argtypes = [c_void_p, c_void_p]
             form = pythonapi.PyCObject_FromVoidPtr(ptr_l, 0)
         return ctx.QtGui.QWidget.FromCObject(form)
-
+    FormToPySideWidget = TWidgetToPySideWidget
 
     def OnCreate(self, form):
         """
@@ -112,6 +136,16 @@ class PluginForm(object):
         @return: None
         """
         return _ida_kernwin.plgform_close(self.__clink__, options)
+
+
+    def GetWidget(self):
+        """
+        Return the TWidget underlying this view.
+
+        @return: The TWidget underlying this view, or None.
+        """
+        return _ida_kernwin.plgform_get_widget(self.__clink__)
+
 
     WCLS_SAVE           = 0x1
     """Save state in desktop config"""

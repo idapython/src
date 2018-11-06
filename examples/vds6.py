@@ -80,14 +80,15 @@ def remove_spaces(sl):
 
     sl.line = "".join(out)
 
-def cb(event, *args):
-    if event == ida_hexrays.hxe_func_printed:
-        cf = args[0]
-        for sl in cf.get_pseudocode():
+
+class vds6_hooks_t(ida_hexrays.Hexrays_Hooks):
+    def func_printed(self, cfunc):
+        for sl in cfunc.get_pseudocode():
             remove_spaces(sl);
-    return 0
+        return 0
 
 if ida_hexrays.init_hexrays_plugin():
-    ida_hexrays.install_hexrays_callback(cb)
+    vds6_hooks = vds6_hooks_t()
+    vds6_hooks.hook()
 else:
     print 'remove spaces: hexrays is not available.'

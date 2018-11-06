@@ -2,8 +2,27 @@
 #<pycode(py_kernwin_custview)>
 class simplecustviewer_t(object):
     """The base class for implementing simple custom viewers"""
+
+    class UI_Hooks_Trampoline(UI_Hooks):
+        def __init__(self, v):
+            UI_Hooks.__init__(self)
+            self.hook()
+            import weakref
+            self.v = weakref.ref(v)
+
+        def populating_widget_popup(self, form, popup_handle):
+            my_form = self.v().GetWidget()
+            if form == my_form:
+                cb = self.v().OnPopup
+                from inspect import getargspec
+                if len(getargspec(cb).args) == 3:
+                    cb(my_form, popup_handle)
+                else:
+                    cb() # bw-compat
+
     def __init__(self):
         self.__this = None
+        self.ui_hooks_trampoline = self.UI_Hooks_Trampoline(self)
 
     def __del__(self):
         """Destructor. It also frees the associated C++ object"""
@@ -15,6 +34,13 @@ class simplecustviewer_t(object):
     @staticmethod
     def __make_sl_arg(line, fgcolor=None, bgcolor=None):
         return line if (fgcolor is None and bgcolor is None) else (line, fgcolor, bgcolor)
+
+    def OnPopup(self, form, popup_handle):
+        """
+        Context menu popup is about to be shown. Create items dynamically if you wish
+        @return: Boolean. True if you handled the event
+        """
+        pass
 
     def Create(self, title):
         """
@@ -199,13 +225,6 @@ class simplecustviewer_t(object):
 #        """
 #        print "OnKeydown, vk=%d shift=%d" % (vkey, shift)
 #        return False
-#
-#    def OnPopup(self):
-#        """
-#        Context menu popup is about to be shown. Create items dynamically if you wish
-#        @return: Boolean. True if you handled the event
-#        """
-#        print "OnPopup"
 #
 #    def OnHint(self, lineno):
 #        """

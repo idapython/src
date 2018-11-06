@@ -46,4 +46,7 @@
 //</inline(py_registry)>
 %}
 
+//<typemaps(registry)>
+//</typemaps(registry)>
+
 %include "registry.hpp"

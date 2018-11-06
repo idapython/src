@@ -168,18 +168,21 @@ class hexrays_callback_info(object):
 
         return
 
-    def event_callback(self, event, *args):
 
-        if event == idaapi.hxe_populating_popup:
-            widget, phandle, vu = args
-            res = idaapi.attach_action_to_popup(vu.ct, None, inverter_actname)
+class vds3_hooks_t(idaapi.Hexrays_Hooks):
+    def __init__(self, i):
+        idaapi.Hexrays_Hooks.__init__(self)
+        self.i = i
 
-        elif event == idaapi.hxe_maturity:
-            cfunc, maturity = args
-            if maturity == idaapi.CMAT_FINAL:
-                self.restore(cfunc)
-
+    def populating_popup(self, widget, phandle, vu):
+        idaapi.attach_action_to_popup(vu.ct, None, inverter_actname)
         return 0
+
+    def maturity(self, cfunc, maturity):
+        if maturity == idaapi.CMAT_FINAL:
+            self.i.restore(cfunc)
+        return 0
+
 
 if idaapi.init_hexrays_plugin():
     i = hexrays_callback_info()
@@ -189,7 +192,8 @@ if idaapi.init_hexrays_plugin():
             "Invert then/else",
             invert_action_handler_t(i),
             "I"))
-    idaapi.install_hexrays_callback(i.event_callback)
+    vds3_hooks = vds3_hooks_t(i)
+    vds3_hooks.hook()
 else:
     print 'invert-if: hexrays is not available.'
 

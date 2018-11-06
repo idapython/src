@@ -1,9 +1,0 @@
-* DONE need to support all modules
-* DONE cleanup idc.idc; have a map of correspondances so that we don't need /*ida_...*/ in idc.idc.
-* TODO need a chooser_t-backed Chooser2 impl.
-* TODO need a graph_viewer_t(or something)-backed GraphViewer impl.
-* TODO re-enalbe those: EMPTY_SEL=chooser_t.NO_SELECTION
-* TODO kernwin.py: add tests about add_menu_item/del_menu_item; it should be trivial to simulate with actions
-* DONE inf.minEA, inf.maxEA -- super frequent!
-* DONE ida_typeinf.cvar.idati doesn't exist anymore. Make it re-appear
-* DONE re-instate AddCommand on Choose2 & GraphViewer

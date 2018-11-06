@@ -59,7 +59,6 @@ def send_dbg_command(command):
 
 #<pycode_BC695(py_dbg)>
 import ida_idd
-@bc695redef
 def get_process_info(n, pi):
     pis = ida_idd.procinfo_vec_t()
     cnt = get_processes(pis)
@@ -68,8 +67,6 @@ def get_process_info(n, pi):
     pi.name = pis[n].name
     pi.pid = pis[n].pid
     return pi.pid
-
-@bc695redef
 def get_process_qty():
     pis = ida_idd.procinfo_vec_t()
     return get_processes(pis)

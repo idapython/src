@@ -31,7 +31,7 @@ ssize_t idaapi View_Callback(void *ud, int notification_code, va_list va)
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;
   class View_Hooks *proxy = (class View_Hooks *)ud;
-  int ret = 0;
+  ssize_t ret = 0;
   try
   {
     switch ( notification_code )

@@ -32,6 +32,18 @@ class Choose(object):
     default one
     """
 
+    CH_CAN_INS      = 0x000100
+    """allow to insert new items"""
+
+    CH_CAN_DEL      = 0x000200
+    """allow to delete existing item(s)"""
+
+    CH_CAN_EDIT     = 0x000400
+    """allow to edit existing item(s)"""
+
+    CH_CAN_REFRESH  = 0x000800
+    """allow to refresh chooser"""
+
     CH_QFLT         =  0x1000
     """open with quick filter enabled and focused"""
 
@@ -43,14 +55,10 @@ class Choose(object):
     CH_QFTYP_FUZZY       = 4 << CH_QFTYP_SHIFT
     CH_QFTYP_MASK        = 0x7 << CH_QFTYP_SHIFT
 
-    CH_CAN_INS      = 0x000100
-    """allow to insert new items"""
-    CH_CAN_DEL      = 0x000200
-    """allow to delete existing item(s)"""
-    CH_CAN_EDIT     = 0x000400
-    """allow to edit existing item(s)"""
-    CH_CAN_REFRESH  = 0x000800
-    """allow to refresh chooser"""
+    CH_NO_STATUS_BAR = 0x00010000
+    """don't show a status bar"""
+    CH_RESTORE       = 0x00020000
+    """restore floating position if present (equivalent of WOPN_RESTORE) (GUI version only)"""
 
     CH_BUILTIN_SHIFT = 19
     CH_BUILTIN_MASK = 0x1F << CH_BUILTIN_SHIFT
@@ -159,13 +167,10 @@ class Choose(object):
 
     def GetEmbSelection(self):
         """
-        Returns the selection associated with an embedded chooser
-
-        @return:
-            - None if chooser is not embedded
-            - A list with selection indexes (0-based)
+        Deprecated. For embedded choosers, the selection is
+        available through 'Form.EmbeddedChooserControl.selection'
         """
-        return _ida_kernwin.choose_get_embedded_selection(self)
+        return None
 
 
     def Show(self, modal=False):

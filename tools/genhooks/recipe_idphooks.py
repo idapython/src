@@ -59,7 +59,7 @@ recipe = {
         "params" : {
             "cc" : {
                 "type" : "int",
-                "convertor" : "IDP_Hooks::cm_t_to_int",
+                "convertor" : "IDP_Hooks::cm_t_to_ssize_t",
             },
             "outbuf" : { "suppress_for_call" : True, },
             "type" : {

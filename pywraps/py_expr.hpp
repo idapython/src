@@ -127,7 +127,7 @@ static bool py_add_idc_func(
         const idc_values_t &defvals,
         int flags)
 {
-  ext_idcfunc_t desc = { name, (idc_func_t *)fp_ptr, args, defvals.begin(), defvals.size(), flags };
+  ext_idcfunc_t desc = { name, (idc_func_t *)fp_ptr, args, defvals.begin(), (int)defvals.size(), flags };
   return add_idc_func(desc);
 }
 

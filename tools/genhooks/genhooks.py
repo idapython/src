@@ -149,8 +149,12 @@ for enumval_el in enum_el.findall("./enumvalue"):
         discarded = collect_all_text(enumval_el.find("./detaileddescription")).strip().startswith(args.discard_doc) or \
                     collect_all_text(enumval_el.find("./briefdescription")).strip().startswith(args.discard_doc)
     if not discarded:
-        if args.strip_prefix and name.startswith(args.strip_prefix):
-            name = name[len(args.strip_prefix):]
+        if args.strip_prefix:
+            pfxes = args.strip_prefix.split(",")
+            for pfx in pfxes:
+                if name.startswith(pfx):
+                    name = name[len(pfx):]
+                    break
         add_enum_value(enumval_el, name, enum_name)
 
 
@@ -198,6 +202,7 @@ def gen_methods(out):
                 ptype = p["type"]
             suppress_for_call = False
             final_name = pname
+            defstr = ""
             if "params" in recipe_data:
                 all_pdata = recipe_data["params"]
                 if pname in all_pdata:
@@ -208,8 +213,10 @@ def gen_methods(out):
                         suppress_for_call = pdata["suppress_for_call"]
                     if "rename" in pdata:
                         final_name = pdata["rename"]
+                    if "default" in pdata:
+                        defstr = "=%s" % pdata["default"]
             if not suppress_for_call:
-                arg_strs.append("%s %s" % (ptype, final_name))
+                arg_strs.append("%s %s%s" % (ptype, final_name, defstr))
                 qnotused_decls += "qnotused(%s); " % final_name
         text = "virtual %s %s(%s) {%s%s}\n" % (
             rdata["type"],
@@ -239,7 +246,7 @@ def gen_notifications(out):
             pname = p["name"]
             ptype = p["type"]
             pick_type = ptype
-            if ptype in ["bool", "char", "uchar", "uint16", "cref_t", "dref_t", "cm_t", "ui_notification_t", "dbg_notification_t", "tcc_renderer_type_t", "range_kind_t", "demreq_type_t"]:
+            if ptype in ["bool", "char", "uchar", "uint16", "cref_t", "dref_t", "cm_t", "ui_notification_t", "dbg_notification_t", "tcc_renderer_type_t", "range_kind_t", "demreq_type_t", "ctree_maturity_t"]:
                 cast = ptype
                 pick_type = "int"
             else:

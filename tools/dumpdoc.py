@@ -1,4 +1,5 @@
 
+import re
 import sys
 import inspect
 
@@ -15,12 +16,14 @@ ignore_python_builtin_docs = [
     tuple.__doc__,
 ]
 
-def dump_thing(f, label, thing):
+def dump_thing(f, label, thing, vec_info=None):
     try:
         doc = thing.__doc__
         if doc and not doc in ignore_python_builtin_docs:
             doc_lines = doc.split("\n")
             doc_lines = map(lambda l: "\t%s" % l, doc_lines)
+            if vec_info:
+                doc_lines = map(vec_info["process_line"], doc_lines)
             f.write("%s:\n%s\n\n" % (label, "\n".join(doc_lines)))
     except:
         pass
@@ -37,27 +40,6 @@ ignore_names = [
     "weakref_proxy",
     "thisown",
     ("ida_nalt", "strpath_ids_array", "data"),
-    ("ida_pro", "uvalvec_t", "at"),
-    ("ida_pro", "uvalvec_t", "begin"),
-    ("ida_pro", "uvalvec_t", "end"),
-    ("ida_pro", "uvalvec_t", "erase"),
-    ("ida_pro", "uvalvec_t", "extract"),
-    ("ida_pro", "uvalvec_t", "find"),
-    ("ida_pro", "uvalvec_t", "insert"),
-    ("ida_pro", "uvalvec_t", "push_back"),
-    ("ida_xref", "casevec_t", "at"),
-    ("ida_xref", "casevec_t", "begin"),
-    ("ida_xref", "casevec_t", "end"),
-    ("ida_xref", "casevec_t", "erase"),
-    ("ida_xref", "casevec_t", "extract"),
-    ("ida_xref", "casevec_t", "find"),
-    ("ida_xref", "casevec_t", "grow"),
-    ("ida_xref", "casevec_t", "insert"),
-    ("ida_xref", "casevec_t", "push_back"),
-    ("ida_funcs", "compute_func_sig"),
-    ("ida_funcs", "extract_func_md"),
-    ("ida_funcs", "func_md_t"),
-    ("ida_funcs", "func_pat_t"),
 ]
 def should_ignore_name(namespace_name, name):
     for ign in ignore_names:
@@ -68,7 +50,42 @@ def should_ignore_name(namespace_name, name):
             return True
     return False
 
-def dump_namespace(f, namespace, namespace_name, keys):
+def make_eavec_lines_processor(directives):
+    def f(l):
+        for tokens, replacement in directives:
+            for token in tokens:
+                l = l.replace(token, replacement)
+        return l
+    return f
+
+eavec_classes = {
+    "svalvec_t" :
+    {
+        "process_line" : make_eavec_lines_processor(
+            [
+                (("<(int)>", "<(long long)>"), "<(signed-ea-like-numeric-type)>"),
+                (("qvector< int >", "qvector< long long >"), "qvector< signed-ea-like-numeric-type >"),
+                (("-> int &", "-> long long &"), "-> signed-ea-like-numeric-type &"),
+                (("-> int *", "-> long long *"), "-> signed-ea-like-numeric-type *"),
+                (("-> int const &", "-> long long const &"), "-> signed-ea-like-numeric-type &"),
+            ])
+    },
+    "uvalvec_t" :
+    {
+        "process_line" : make_eavec_lines_processor(
+            [
+                (("<(unsigned int)>", "<(unsigned long long)>"), "<(unsigned-ea-like-numeric-type)>"),
+                (("qvector< unsigned int >", "qvector< unsigned long long >"), "qvector< unsigned-ea-like-numeric-type >"),
+                (("-> unsigned int &", "-> unsigned long long &"), "-> unsigned-ea-like-numeric-type &"),
+                (("-> unsigned int *", "-> unsigned long long *"), "-> unsigned-ea-like-numeric-type *"),
+                (("-> unsigned int const &", "-> unsigned long long const &"), "-> unsigned-ea-like-numeric-type &"),
+            ])
+    }
+}
+eavec_classes["casevec_t"] = eavec_classes["svalvec_t"]
+
+
+def dump_namespace(f, namespace, namespace_name, keys, vec_info=None):
     for thing_name in keys:
         if thing_name.startswith("_") and not thing_name in ["_print", "_free"]:
             continue
@@ -76,13 +93,14 @@ def dump_namespace(f, namespace, namespace_name, keys):
             continue
         thing = getattr(namespace, thing_name)
         if inspect.isclass(thing):
-            dump_thing(f, "class %s.%s()" % (namespace_name, thing_name), thing)
+            vec_info = eavec_classes.get(thing_name, None)
+            dump_thing(f, "class %s.%s()" % (namespace_name, thing_name), thing, vec_info)
             members = map(lambda t: t[0], inspect.getmembers(thing))
-            dump_namespace(f, thing, "%s.%s" % (namespace_name, thing_name), members)
+            dump_namespace(f, thing, "%s.%s" % (namespace_name, thing_name), members, vec_info)
         elif callable(thing):
-            dump_thing(f, "%s.%s()" % (namespace_name, thing_name), thing)
+            dump_thing(f, "%s.%s()" % (namespace_name, thing_name), thing, vec_info)
         elif not inspect.ismodule(thing):
-            dump_thing(f, "%s.%s" % (namespace_name, thing_name), thing)
+            dump_thing(f, "%s.%s" % (namespace_name, thing_name), thing, vec_info)
 
 output = idc.ARGV[1]
 wrappers_dir = idc.ARGV[2]

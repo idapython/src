@@ -32,7 +32,6 @@ class TestEmbeddedChooserClass(Choose):
 class MyForm(Form):
     def __init__(self):
         self.invert = False
-        self.EChooser = TestEmbeddedChooserClass("E1", flags=Choose.CH_MULTI)
         Form.__init__(self, r"""STARTITEM {id:rNormal}
 BUTTON YES* Yeah
 BUTTON NO Nope
@@ -85,7 +84,7 @@ The end!
             'cGroup1': Form.ChkGroupControl(("rNormal", "rError", "rWarnings")),
             'cGroup2': Form.RadGroupControl(("rRed", "rGreen", "rBlue")),
             'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
-            'cEChooser' : Form.EmbeddedChooserControl(self.EChooser)
+            'cEChooser' : Form.EmbeddedChooserControl(TestEmbeddedChooserClass("E1", flags=Choose.CH_MULTI))
         })
 
 
@@ -152,6 +151,7 @@ def ida_main():
 
     f.iColor1.value = 0x5bffff
     f.iDir.value = os.getcwd()
+    f.iChar.value = ord("a")
     f.rNormal.checked = True
     f.rWarnings.checked = True
     f.rGreen.selected = True
@@ -174,8 +174,7 @@ def ida_main():
         print("f.addr=%x" % f.iAddr.value)
         print("f.cGroup1=%x" % f.cGroup1.value)
         print("f.cGroup2=%x" % f.cGroup2.value)
-
-        sel = f.EChooser.GetEmbSelection()
+        sel = f.cEChooser.selection
         if sel is None:
             print("No selection")
         else:

@@ -77,6 +77,8 @@
 %rename (load_plugin) py_load_plugin;
 %ignore run_plugin;
 %rename (run_plugin) py_run_plugin;
+%ignore load_and_run_plugin;
+%rename (load_and_run_plugin) py_load_and_run_plugin;
 
 %extend qvector< snapshot_t *> {
     snapshot_t *at(size_t n) { return self->at(n); }

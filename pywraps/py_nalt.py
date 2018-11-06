@@ -6,6 +6,9 @@ def get_switch_info(*args):
     else:
         si, ea = args
     return None if _real_get_switch_info(si, ea) <= 0 else si
+def get_abi_name(*args):
+    import ida_typeinf
+    return ida_typeinf.get_abi_name(args)
 #</pycode(py_nalt)>
 
 #<pycode_BC695(py_nalt)>
@@ -28,7 +31,6 @@ SWI2_SUBTRACT=SWI_SUBTRACT >> 16
 import ida_netnode
 RIDX_AUTO_PLUGINS=ida_netnode.BADNODE
 change_encoding_name=rename_encoding
-@bc695redef
 def del_tinfo2(ea, n=None):
     if n is not None:
         return del_op_tinfo(ea, n)
@@ -43,7 +45,6 @@ def get_op_tinfo(*args):
         tif, ea, n = args
     return _ida_nalt.get_op_tinfo(tif, ea, n)
 get_op_tinfo2=get_op_tinfo
-@bc695redef
 def is_unicode(strtype):
     return (strtype & STRWIDTH_MASK) > 0
 set_op_tinfo2=set_op_tinfo

@@ -150,11 +150,10 @@ protected:
   {
     HAVE_HINT     = 0x0001,
     HAVE_KEYDOWN  = 0x0002,
-    HAVE_POPUP    = 0x0004,
-    HAVE_DBLCLICK = 0x0008,
-    HAVE_CURPOS   = 0x0010,
-    HAVE_CLICK    = 0x0020,
-    HAVE_CLOSE    = 0x0040
+    HAVE_DBLCLICK = 0x0004,
+    HAVE_CURPOS   = 0x0008,
+    HAVE_CLICK    = 0x0010,
+    HAVE_CLOSE    = 0x0020
   };
 private:
   struct cvw_popupctx_t
@@ -177,14 +176,6 @@ private:
     PYW_GIL_GET;
     customviewer_t *_this = (customviewer_t *)ud;
     return _this->on_keydown(vk_key, shift);
-  }
-
-  // The popup menu is being constructed
-  static void idaapi s_cv_popup(TWidget * /*cv*/, void *ud)
-  {
-    PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
-    _this->on_popup();
   }
 
   // The user clicked
@@ -219,30 +210,33 @@ private:
     customviewer_t *_this = (customviewer_t *)ud;
     switch ( code )
     {
-    case ui_get_custom_viewer_hint:
-      {
-        qstring &hint = *va_arg(va, qstring *);
-        TWidget *viewer = va_arg(va, TWidget *);
-        place_t *place = va_arg(va, place_t *);
-        int *important_lines = va_arg(va, int *);
-        if ( (_this->_features & HAVE_HINT) == 0 || place == NULL || _this->_cv != viewer )
-          return 0;
-        else
+      case ui_get_custom_viewer_hint:
+        {
+          qstring &hint = *va_arg(va, qstring *);
+          TWidget *viewer = va_arg(va, TWidget *);
+          place_t *place = va_arg(va, place_t *);
+          int *important_lines = va_arg(va, int *);
+          if ( (_this->_features & HAVE_HINT) == 0
+            || place == NULL
+            || _this->_cv != viewer )
+          {
+            return 0;
+          }
           return _this->on_hint(place, important_lines, hint) ? 1 : 0;
-      }
+        }
 
-    case ui_widget_invisible:
-      {
-        TWidget *widget = va_arg(va, TWidget *);
-        if ( _this->_cv != widget )
-          break;
-      }
-      // fallthrough...
-    case ui_term:
-      idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
-      _this->on_close();
-      _this->on_post_close();
-      break;
+      case ui_widget_invisible:
+        {
+          TWidget *widget = va_arg(va, TWidget *);
+          if ( _this->_cv != widget )
+            break;
+        }
+        // fallthrough...
+      case ui_term:
+        idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
+        _this->on_close();
+        _this->on_post_close();
+        break;
     }
 
     return 0;
@@ -275,9 +269,6 @@ public:
 
   // OnKeyDown
   virtual bool on_keydown(int /*vk_key*/, int /*shift*/) { return false; }
-
-  // OnPopupShow
-  virtual bool on_popup() { return false; }
 
   // OnHint
   virtual bool on_hint(place_t * /*place*/, int * /*important_lines*/, qstring &/*hint*/) { return false; }
@@ -425,9 +416,6 @@ public:
     if ( (features & HAVE_KEYDOWN) != 0 )
       handlers.keyboard = s_cv_keydown;
 
-    if ( (features & HAVE_POPUP) != 0 )
-      handlers.popup = s_cv_popup;
-
     if ( (features & HAVE_CLICK) != 0 )
       handlers.click = s_cv_click;
 
@@ -461,7 +449,7 @@ public:
     if ( _cv == NULL )
       return false;
 
-    display_widget(_cv, WOPN_TAB|WOPN_MENU|WOPN_RESTORE);
+    display_widget(_cv, WOPN_TAB|WOPN_RESTORE);
     return true;
   }
 };
@@ -554,12 +542,15 @@ private:
   // OnHostFormClose
   virtual void on_close()
   {
-    // Call the close method if it is there and the object is still bound
-    if ( (features & HAVE_CLOSE) != 0 && py_self != NULL )
+    if ( py_self != NULL )
     {
-      PYW_GIL_CHECK_LOCKED_SCOPE();
-      newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL));
-      PyW_ShowCbErr(S_ON_CLOSE);
+      // Call the close method if it is there and the object is still bound
+      if ( (features & HAVE_CLOSE) != 0 )
+      {
+        PYW_GIL_CHECK_LOCKED_SCOPE();
+        newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLOSE, NULL));
+        PyW_ShowCbErr(S_ON_CLOSE);
+      }
 
       // Cleanup
       Py_DECREF(py_self);
@@ -581,20 +572,6 @@ private:
                     shift));
 
     PyW_ShowCbErr(S_ON_KEYDOWN);
-    return py_result != NULL && PyObject_IsTrue(py_result.o);
-  }
-
-  //--------------------------------------------------------------------------
-// OnPopupShow
-  virtual bool on_popup()
-  {
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    newref_t py_result(
-            PyObject_CallMethod(
-                    py_self,
-                    (char *)S_ON_POPUP,
-                    NULL));
-    PyW_ShowCbErr(S_ON_POPUP);
     return py_result != NULL && PyObject_IsTrue(py_result.o);
   }
 
@@ -763,7 +740,6 @@ public:
       { S_ON_CLOSE,              HAVE_CLOSE },
       { S_ON_HINT,               HAVE_HINT },
       { S_ON_KEYDOWN,            HAVE_KEYDOWN },
-      { S_ON_POPUP,              HAVE_POPUP },
       { S_ON_DBL_CLICK,          HAVE_DBLCLICK },
       { S_ON_CURSOR_POS_CHANGED, HAVE_CURPOS }
     };

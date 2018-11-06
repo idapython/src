@@ -1,4 +1,4 @@
-""" Xref plugin for Hexrays Decompiler
+""" Xref script for Hexrays Decompiler
 
 Author: EiNSTeiN_ <einstein@g3nius.org>
 
@@ -283,27 +283,18 @@ class show_xrefs_ah_t(idaapi.action_handler_t):
 
         return idaapi.AST_ENABLE if self.sel else idaapi.AST_DISABLE
 
-class hexrays_callback_info(object):
 
-    def __init__(self):
-        return
-
-    def event_callback(self, event, *args):
-
-        try:
-            if event == idaapi.hxe_populating_popup:
-                widget, phandle, vu = args
-                idaapi.attach_action_to_popup(widget, phandle, "vdsxrefs:show", None)
-        except:
-            traceback.print_exc()
-
+class vds_xrefs_hooks_t(idaapi.Hexrays_Hooks):
+    def populating_popup(self, widget, phandle, vu):
+        idaapi.attach_action_to_popup(widget, phandle, "vdsxrefs:show", None)
         return 0
+
 
 if idaapi.init_hexrays_plugin():
     adesc = idaapi.action_desc_t('vdsxrefs:show', 'Show xrefs', show_xrefs_ah_t(), "Ctrl+X")
     if idaapi.register_action(adesc):
-        i = hexrays_callback_info()
-        idaapi.install_hexrays_callback(i.event_callback)
+        vds_xrefs_hooks = vds_xrefs_hooks_t()
+        vds_xrefs_hooks.hook()
     else:
         print "Couldn't register action."
 else:

@@ -33,7 +33,8 @@
 %ignore mutable_graph_t::del_edge;
 %ignore mutable_graph_t::del_node;
 %ignore mutable_graph_t::fix_collapsed_group_edges;
-%ignore mutable_graph_t::get_edge;
+%ignore mutable_graph_t::get_edge(edge_t);
+%rename (get_edge) my_get_edge;
 %ignore mutable_graph_t::groups_are_present;
 %ignore mutable_graph_t::insert_simple_nodes;
 %ignore mutable_graph_t::insert_visible_nodes;
@@ -55,18 +56,22 @@
 %ignore selection_item_t::selection_item_t(class graph_item_t &);
 %feature("nodirector") user_graph_place_t;
 
-// Those were deprecated before they were available
-// to IDAPython, so let's keep it that way.
-%ignore viewer_add_menu_item;
-%ignore viewer_del_menu_item;
-
 %extend graph_visitor_t {
 public:
   virtual int idaapi visit_node(int /*n*/, rect_t & /*r*/) { return 0; }
   virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { return 0; }
 }
 
+%extend mutable_graph_t {
+public:
+  virtual edge_info_t my_get_edge(edge_t e)
+  {
+    return *($self->get_edge(e));
+  }
+}
+
 %template(node_layout_t) qvector<rect_t>;
+%template(pointvec_t) qvector<point_t>;
 
 %include "graph.hpp"
 %ignore graph_visitor_t::visit_node;

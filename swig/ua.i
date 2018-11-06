@@ -10,6 +10,9 @@
 %ignore decode_preceding_insn;
 %ignore get_operand_immvals;
 %ignore get_immvals;
+%rename (get_immvals) py_get_immvals;
+%ignore get_printable_immvals;
+%rename (get_printable_immvals) py_get_printable_immvals;
 %ignore get_immval;
 %ignore insn_create_op_data;
 
@@ -142,7 +145,6 @@
 %include "ua.hpp"
 
 %rename (decode_preceding_insn) py_decode_preceding_insn;
-%rename (get_immvals) py_get_immvals;
 
 %{
 //<code(py_ua)>

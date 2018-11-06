@@ -45,23 +45,19 @@
 // Do not create separate wrappers for default arguments
 %feature("compactdefaultargs");
 
-void qvector<uval_t>::grow(const unsigned int &x=0);
-%ignore qvector<uval_t>::grow;
-
-void qvector<long long>::grow(const long long &x=0);
-%ignore qvector<long long>::grow;
-
 %ignore qvector::at(size_t);
 %ignore qvector::front;
 %ignore qvector::back;
 
-// simpleline_t doesn't implement '=='. Therefore, all these cannot be present in the instantiated template.
-%ignore qvector<simpleline_t>::operator==;
-%ignore qvector<simpleline_t>::operator!=;
-%ignore qvector<simpleline_t>::find;
-%ignore qvector<simpleline_t>::has;
-%ignore qvector<simpleline_t>::del;
-%ignore qvector<simpleline_t>::add_unique;
+%define %uncomparable_elements_qvector(ELEMENT_TYPE, VECTOR_TYPE)
+%ignore qvector<ELEMENT_TYPE>::operator==;
+%ignore qvector<ELEMENT_TYPE>::operator!=;
+%ignore qvector<ELEMENT_TYPE>::find;
+%ignore qvector<ELEMENT_TYPE>::has;
+%ignore qvector<ELEMENT_TYPE>::del;
+%ignore qvector<ELEMENT_TYPE>::add_unique;
+%template(VECTOR_TYPE) qvector<ELEMENT_TYPE>;
+%enddef
 
 %ignore wchar2char;
 %ignore hit_counter_t;
@@ -177,27 +173,15 @@ import sys
 _BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
 
 if _BC695:
-    # This is a decorator for eliminating false-positives when automatically
-    # performing diffs of API7.0 vs API6.95 (typically, the prototypes for the
-    # functions using this decorator will have changed, and this is used to
-    # mark that that change is on-purpose, under control, and should in fact
-    # provide bw-compat. Usually those prototypes went from '(*args)', to a
-    # more specialized argument list.)
+    # This is a helper for replacing an existing function, with a wrapper
+    # providing backwards-compatibility for API 6.95 -- typically because
+    # the number/types of arguments changed, while the function name itself
+    # remained the same in 7.0.
+    # (Note that this shouldn't be used for functions that don't exist
+    # in the vanilla 7.0 API, such as 'choose_named_type2'.)
     def bc695redef(func):
-        func.func_dict["bc695redef"] = True
+        ida_idaapi._BC695.replace_fun(func)
         return func
-
-    class bc695redef_with_pydoc(object):
-        def __init__(self, pydoc):
-            self.pydoc = pydoc
-
-        def __call__(self, f):
-            f.func_dict["bc695redef"] = True
-            def bc695redef_wrapper(*args):
-                return f(*args)
-            bc695redef_wrapper.func_dict["bc695redef"] = True
-            bc695redef_wrapper.__doc__ = self.pydoc
-            return bc695redef_wrapper
 }
 #endif // BC695
 
@@ -240,13 +224,11 @@ if _BC695:
 %{
 static void __raise_ba(const std::bad_alloc &ba)
 {
-  Py_INCREF(PyExc_MemoryError);
   PyErr_SetString(PyExc_MemoryError, "Out of memory (bad_alloc)");
 }
 
 static void __raise_u()
 {
-  Py_INCREF(PyExc_RuntimeError);
   PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
 }
 
@@ -259,14 +241,12 @@ static void __raise_e(const std::exception &e)
   }
   else
   {
-    Py_INCREF(PyExc_RuntimeError);
     PyErr_SetString(PyExc_RuntimeError, what);
   }
 }
 
 static void __raise_ie(const interr_exc_t &ie)
 {
-  Py_INCREF(PyExc_RuntimeError);
   qstring emsg;
   emsg.sprnt(INTERR_EXC_FMT, ie.code);
   PyErr_SetString(PyExc_RuntimeError, emsg.begin());
@@ -274,14 +254,20 @@ static void __raise_ie(const interr_exc_t &ie)
 
 static void __raise_de(const Swig::DirectorException &e)
 {
-  Py_INCREF(PyExc_RuntimeError);
   PyErr_SetString(PyExc_RuntimeError, e.getMessage());
 }
 
 static void __raise_oor(const std::out_of_range &e)
 {
-  Py_INCREF(PyExc_RuntimeError);
   PyErr_SetString(PyExc_IndexError, e.what());
+}
+
+static bool __chkthr()
+{
+  bool ok = is_main_thread();
+  if ( !ok )
+    PyErr_SetString(PyExc_RuntimeError, "Function can be called from the main thread only");
+  return ok;
 }
 
 %}
@@ -356,6 +342,14 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %typemap(directorin)  PyObject * "/*%din%*/Py_XINCREF($1_name);$input = $1_name;"
 %typemap(directorout) PyObject * "/*%dout%*/$result = result;Py_XINCREF($result);"
 
+//---------------------------------------------------------------------
+%define %treat_serialized_tinfo_raw_pointer_as_str(TYPE)
+%apply char * { TYPE * }
+%apply const char * { const TYPE * }
+%enddef
+%treat_serialized_tinfo_raw_pointer_as_str(type_t);
+%treat_serialized_tinfo_raw_pointer_as_str(p_list);
+
 //-------------------------------------------------------------------------
 // For some reason, SWIG converts char arrays by computing the size
 // from the end of the array, and stops when it encounters a '\0'.
@@ -377,13 +371,8 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   %set_output(SWIG_FromCharPtrAndSize($1, strnlen($1, $1_dim0)));
 }
 
-#ifdef __X64__
 %apply unsigned long long { size_t }
 %apply long long { ssize_t }
-#else
-%apply unsigned long { size_t }
-%apply long { ssize_t }
-#endif
 
 //---------------------------------------------------------------------
 // Convert an incoming Python list to a tid_t[] array
@@ -599,14 +588,22 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     $1 = $input;
 }
 %typemap(in) ea_t
-{
+{ // %typemap(in) ea_t
   uint64 $1_temp;
   if ( !PyW_GetNumber($input, &$1_temp) )
-  {
-    PyErr_SetString(PyExc_TypeError, "Expected an ea_t type");
-    return NULL;
-  }
+    SWIG_exception_fail(
+            SWIG_TypeError,
+            "in method '" "$symname" "', argument " "$argnum"" of type 'ea_t'");
   $1 = ea_t($1_temp);
+}
+%typemap(in) sval_t
+{ // %typemap(in) sval_t
+  uint64 $1_temp;
+  if ( !PyW_GetNumber($input, &$1_temp) )
+    SWIG_exception_fail(
+            SWIG_TypeError,
+            "in method '" "$symname" "', argument " "$argnum"" of type 'sval_t'");
+  $1 = sval_t($1_temp);
 }
 // Use PyLong_FromUnsignedLongLong, because 'long' is 4 bytes on
 // windows, and thus the ea_t would be truncated at the
@@ -619,7 +616,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 //---------------------------------------------------------------------
 //                       IN/OUT qstring/bytevec_t
 //---------------------------------------------------------------------
-%define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR)
+%define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR, INSTANCE_CAST)
 %typemap(in) REFTYPE
 { // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
   if ( PyString_Check($input) )
@@ -628,7 +625,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     char *buf = NULL;
     Py_ssize_t length = 0;
     /*int success =*/ PyString_AsStringAndSize($input, &buf, &length);
-    $1 = new CONTAINER_TYPE(buf, length); // build regardless of success
+    $1 = new CONTAINER_TYPE(INSTANCE_CAST buf, length); // build regardless of success
   }
   else
   {
@@ -696,10 +693,12 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 }
 %enddef
 
-%bytes_container(qstring *, qstring, c_str, length);
-%bytes_container(qstring &, qstring, c_str, length);
-%bytes_container(bytevec_t *, bytevec_t, begin, size);
-%bytes_container(bytevec_t &, bytevec_t, begin, size);
+%bytes_container(qstring *, qstring, c_str, length,);
+%bytes_container(qstring &, qstring, c_str, length,);
+%bytes_container(bytevec_t *, bytevec_t, begin, size,);
+%bytes_container(bytevec_t &, bytevec_t, begin, size,);
+%bytes_container(qtype *, qtype, begin, length, (const uchar *));
+%bytes_container(qtype &, qtype, begin, length, (const uchar *));
 
 //---------------------------------------------------------------------
 //                      varargs (mostly kernwin.hpp)
@@ -771,6 +770,10 @@ typedef          long long longlong;
 // (Very) heavily inspired by:
 // http://stackoverflow.com/questions/7713318/nested-structure-array-access-in-python-using-swig?rq=1
 //
+// NOTE: This should probably hold a (weak?) reference
+// to the parent PyObject, because it is technically possible
+// to end up with dangling pointers otherwise
+// See also dynamic_wrapped_array_t
 %immutable;
 %inline %{
 template <typename Type, size_t N>
@@ -792,6 +795,40 @@ struct wrapped_array_t {
 
   inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
     if (i >= N || i < 0)
+      throw std::out_of_range("out of bounds access");
+    $self->data[i] = v;
+  }
+
+  %pythoncode {
+    __iter__ = ida_idaapi._bounded_getitem_iterator
+  }
+}
+
+//-------------------------------------------------------------------------
+// NOTE: see note for wrapped_array_t
+%immutable;
+%inline %{
+template <typename Type>
+struct dynamic_wrapped_array_t {
+  Type *data;
+  size_t count;
+  dynamic_wrapped_array_t(Type *_data, size_t _count)
+    : data(_data), count(_count) { }
+};
+%}
+%mutable;
+
+%extend dynamic_wrapped_array_t {
+  inline size_t __len__() const { return $self->count; }
+
+  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+    if (i >= $self->count || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return $self->data[i];
+  }
+
+  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+    if (i >= $self->count || i < 0)
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
   }
@@ -901,18 +938,20 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
   $1 = $1_temp;
 }
 
-%typemap(in,numinputs=0) uint64 *result (uint64 temp)
+//-------------------------------------------------------------------------
+%define %uint_result_as_output(TYPE, CONVFUNC)
+%typemap(in,numinputs=0) TYPE *result (TYPE temp)
 {
-  // %typemap(in,numinputs=0) uint64 *result
+  // %typemap(in,numinputs=0) TYPE *result
   $1 = &temp;
 }
-%typemap(argout) uint64 *result
+%typemap(argout) TYPE *result
 {
-  // %typemap(argout) uint64 *result
+  // %typemap(argout) TYPE *result
   Py_XDECREF(resultobj);
   if (result > 0)
   {
-    resultobj  = PyLong_FromUnsignedLongLong(*(uint64 *) $1);
+    resultobj = CONVFUNC(*(TYPE *) $1);
   }
   else
   {
@@ -920,31 +959,28 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
     resultobj = Py_None;
   }
 }
+%enddef
+%uint_result_as_output(uint32, PyLong_FromUnsignedLong);
+%uint_result_as_output(uint64, PyLong_FromUnsignedLongLong);
+%apply uint32 *result { uint32 *out };
 %apply uint64 *result { uint64 *out };
+#ifdef __EA64__
+%apply uint64 *result { ea_t *result };
+#else
+%apply uint32 *result { ea_t *result };
+#endif
+// helpers to turn result into multiple values (just %apply, renaming 'appended_ea')
+%typemap(argout) ea_t *appended_ea
+{
+  // %typemap(argout) ea_t *appended_ea
+#ifdef __EA64__
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLongLong(*($1)));
+#else
+  $result = SWIG_Python_AppendOutput($result, PyLong_FromUnsignedLong(*($1)));
+#endif
+}
 
 //-------------------------------------------------------------------------
-%typemap(in,numinputs=0) uint32 *result (uint32 temp)
-{
-  // %typemap(in,numinputs=0) uint32 *result
-  $1 = &temp;
-}
-%typemap(argout) uint32 *result
-{
-  // %typemap(argout) uint32 *result
-  Py_XDECREF(resultobj);
-  if (result > 0)
-  {
-    resultobj  = PyLong_FromUnsignedLong(*(uint32 *) $1);
-  }
-  else
-  {
-    Py_INCREF(Py_None);
-    resultobj = Py_None;
-  }
-}
-%apply uint32 *result { uint32 *out };
-
-
 // Make get_any_cmt() work
 %apply unsigned char *OUTPUT { color_t *cmttype };
 
@@ -974,10 +1010,11 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
 %}
 %enddef
 
-%define %numbers_list_to_values_vec(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR)
-%typemap(arginit) VECTYPE * "VECTYPE $1_local_storage; // %numbers_list_to_values_vec(VECTYPE) %typemap(arginit) VECTYPE *" // *MUST NOT* be within '{}'s
-%typemap(in) VECTYPE *
-{ // %numbers_list_to_values_vec(VECTYPE) %typemap(in) VECTYPE *
+
+%define %numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, REFTYPE)
+%typemap(arginit) VECTYPE REFTYPE "VECTYPE $1_local_storage; // %numbers_list_to_values_vec(VECTYPE) %typemap(arginit) VECTYPE REFTYPE" // *MUST NOT* be within '{}'s
+%typemap(in) VECTYPE REFTYPE
+{ // %numbers_list_to_values_vec(VECTYPE) %typemap(in) VECTYPE REFTYPE
   if ( PySequence_Check($input) )
   {
     if ( PYLIST_CONVERTOR(&$1_local_storage, $input) < 0 )
@@ -993,8 +1030,67 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
     $1 = reinterpret_cast<VECTYPE*>($1_vptr);
   }
 }
+%typecheck(SWIG_TYPECHECK_POINTER) VECTYPE REFTYPE
+{
+  // %numbers_list_to_values_vec(VECTYPE) %typecheck(SWIG_TYPECHECK_POINTER) VECTYPE REFTYPE
+  if ( PySequence_Check($input) > 0 )
+  {
+    $1 = 1;
+  }
+  else
+  {
+    int res = SWIG_ConvertPtr($input, 0, SWIGTYPE, 0);
+    $1 = SWIG_CheckState(res);
+  }
+}
+%enddef
+
+//-------------------------------------------------------------------------
+// For e.g., get_idainfo_by_type()
+%apply uint32 * OUTPUT { flags_t *out_flags };
+%apply size_t * OUTPUT { size_t *out_size };
+%apply size_t * OUTPUT { size_t *out_alsize };
+%typemap(check) size_t *out_size "*($1) = 0; // %typemap(check) size_t *out_size";
+%typemap(check) size_t *out_alsize "*($1) = 0; // %typemap(check) size_t *out_alsize";
+%typemap(check) flags_t *out_flags "*($1) = 0; // %typemap(check) flags_t *out_flags";
+
+%typemap(in,numinputs=0) opinfo_t *out_mt (opinfo_t temp) {
+  // typemap(in,numinputs=0) opinfo_t *out_mt
+  $1 = &temp;
+}
+%typemap(argout) opinfo_t *out_mt
+{
+  // typemap(argout) opinfo_t *out_mt
+  if ( result )
+  {
+    PyObject *py_opinfo = SWIG_NewPointerObj(SWIG_as_voidptr(new opinfo_t(*($1))), SWIGTYPE_p_opinfo_t, SWIG_POINTER_NEW );
+    $result = SWIG_Python_AppendOutput($result, py_opinfo);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $result = SWIG_Python_AppendOutput($result, Py_None);
+  }
+}
+%typemap(freearg) opinfo_t *out_mt
+{
+  // typemap(freearg) opinfo_t *out_mt
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+
+//-------------------------------------------------------------------------
+%define %numbers_list_to_values_vec(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR)
+%numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, *);
+%numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, &);
 %enddef
 %numbers_list_to_values_vec(eavec_t, SWIGTYPE_p_qvectorT_unsigned_int_t, PyW_PyListToEaVec);
+
+//-------------------------------------------------------------------------
+// Make sure the GIL is released, in case 'NAME' is calling execute_sync
+// either directly, or indirectly
+%define %calls_execute_sync(NAME)
+%thread NAME;
+%enddef
 
 %{
 #include <expr.hpp>

@@ -290,12 +290,10 @@ class display_graph_ah_t(ida_kernwin.action_handler_t):
             ida_kernwin.AST_DISABLE_FOR_WIDGET
 
 
-def cb(event, *args):
-    if event == ida_hexrays.hxe_populating_popup:
-        widget, phandle, vu = args
-        res = idaapi.attach_action_to_popup(vu.ct, None, ACTION_NAME)
-    return 0
-
+class vds5_hooks_t(ida_hexrays.Hexrays_Hooks):
+    def populating_popup(self, widget, handle, vu):
+        idaapi.attach_action_to_popup(vu.ct, None, ACTION_NAME)
+        return 0
 
 if ida_hexrays.init_hexrays_plugin():
     ida_kernwin.register_action(
@@ -304,6 +302,8 @@ if ida_hexrays.init_hexrays_plugin():
             "Hex-Rays show C graph (IDAPython)",
             display_graph_ah_t(),
             ACTION_SHORTCUT))
-    idaapi.install_hexrays_callback(cb)
+    vds5_hooks = vds5_hooks_t()
+    vds5_hooks.hook()
 else:
     print 'hexrays-graph: hexrays is not available.'
+

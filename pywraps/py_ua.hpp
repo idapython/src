@@ -83,16 +83,31 @@ static int py_get_dtype_by_size(asize_t size)
 }
 
 //-------------------------------------------------------------------------
-PyObject *py_get_immvals(ea_t ea, int n)
+PyObject *py_get_immvals(ea_t ea, int n, flags_t F=0)
 {
   uvalvec_t storage;
   storage.resize(2 * UA_MAXOP);
-  flags_t F = get_flags(ea);
+  if ( F == 0 )
+    F = get_flags(ea);
   size_t cnt = get_immvals(storage.begin(), ea, n, F);
-  PyObject *result = PyList_New(cnt);
-  for ( size_t i = 0; i < cnt; ++i )
-    PyList_SetItem(result, i, Py_BuildValue(PY_BV_UVAL, bvuval_t(storage[i])));
-  return result;
+  storage.resize(cnt);
+  ref_t result(PyW_UvalVecToPyList(storage));
+  result.incref();
+  return result.o;
+}
+
+//-------------------------------------------------------------------------
+PyObject *py_get_printable_immvals(ea_t ea, int n, flags_t F=0)
+{
+  uvalvec_t storage;
+  storage.resize(2 * UA_MAXOP);
+  if ( F == 0 )
+    F = get_flags(ea);
+  size_t cnt = get_printable_immvals(storage.begin(), ea, n, F);
+  storage.resize(cnt);
+  ref_t result(PyW_UvalVecToPyList(storage));
+  result.incref();
+  return result.o;
 }
 
 //-------------------------------------------------------------------------

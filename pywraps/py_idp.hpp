@@ -600,9 +600,9 @@ ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va);
 class IDP_Hooks
 {
   friend ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va);
-  static int bool_to_insn_t_size(bool in, const insn_t *insn) { return in ? insn->size : 0; }
-  static int bool_to_1or0(bool in) { return in ? 1 : 0; }
-  static int cm_t_to_int(cm_t cm) { return int(cm); }
+  static ssize_t bool_to_insn_t_size(bool in, const insn_t *insn) { return in ? insn->size : 0; }
+  static ssize_t bool_to_1or0(bool in) { return in ? 1 : 0; }
+  static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
   static bool _handle_qstring_output(PyObject *o, qstring *buf)
   {
     bool is_str = o != NULL && PyString_Check(o);
@@ -611,13 +611,13 @@ class IDP_Hooks
     Py_XDECREF(o);
     return is_str;
   }
-  static int handle_custom_mnem_output(PyObject *o, qstring *out, const insn_t *)
+  static ssize_t handle_custom_mnem_output(PyObject *o, qstring *out, const insn_t *)
   {
     return _handle_qstring_output(o, out) && !out->empty() ? 1 : 0;
   }
-  static int handle_assemble_output(PyObject *o, uchar *bin, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/)
+  static ssize_t handle_assemble_output(PyObject *o, uchar *bin, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/)
   {
-    int rc = 0;
+    ssize_t rc = 0;
     if ( o != NULL && PyString_Check(o) )
     {
       char *s;
@@ -628,20 +628,20 @@ class IDP_Hooks
           len = MAXSTR;
         memcpy(bin, s, len);
       }
-      rc = int(len);
+      rc = ssize_t(len);
     }
     Py_XDECREF(o);
     return rc;
   }
-  static int handle_get_reg_name_output(PyObject *o, qstring *buf, int /*reg*/, size_t /*width*/, int /*reghi*/)
+  static ssize_t handle_get_reg_name_output(PyObject *o, qstring *buf, int /*reg*/, size_t /*width*/, int /*reghi*/)
   {
     return _handle_qstring_output(o, buf) ? buf->length() : 0;
   }
-  static int handle_decorate_name3_output(PyObject *o, qstring *outbuf, const char * /*name*/, bool /*mangle*/, int /*cc*/, const tinfo_t * /*type*/)
+  static ssize_t handle_decorate_name3_output(PyObject *o, qstring *outbuf, const char * /*name*/, bool /*mangle*/, int /*cc*/, const tinfo_t * /*type*/)
   {
     return _handle_qstring_output(o, outbuf) ? 1 : 0;
   }
-  static int handle_delay_slot_insn_output(PyObject *o, ea_t *pea, bool *pbexec, bool *pfexec)
+  static ssize_t handle_delay_slot_insn_output(PyObject *o, ea_t *pea, bool *pbexec, bool *pfexec)
   {
     if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
     {
@@ -664,9 +664,9 @@ class IDP_Hooks
     }
     return -1;
   }
-  static int handle_use_regarg_type_output(PyObject *o, int *idx, ea_t, const funcargvec_t *)
+  static ssize_t handle_use_regarg_type_output(PyObject *o, int *idx, ea_t, const funcargvec_t *)
   {
-    int rc = 0;
+    ssize_t rc = 0;
     if ( PySequence_Check(o) && PySequence_Size(o) == 2 )
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
@@ -679,7 +679,7 @@ class IDP_Hooks
     }
     return rc;
   }
-  static int handle_demangle_name_output(
+  static ssize_t handle_demangle_name_output(
           PyObject *o,
           int32 *out_res,
           qstring *out,
@@ -687,7 +687,7 @@ class IDP_Hooks
           uint32 disable_mask,
           demreq_type_t demreq)
   {
-    int rc = 0;
+    ssize_t rc = 0;
     if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
@@ -711,14 +711,14 @@ class IDP_Hooks
     }
     return rc;
   }
-  static int handle_find_value_output(
+  static ssize_t handle_find_value_output(
           PyObject *o,
           uval_t *out,
           const insn_t *pinsn,
           int reg)
   {
     uint64 num;
-    int rc = PyW_GetNumber(o, &num);
+    ssize_t rc = PyW_GetNumber(o, &num);
     if ( rc )
       *out = num;
     return rc;
@@ -751,7 +751,7 @@ ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va)
   // This hook gets called from the kernel. Ensure we hold the GIL.
   PYW_GIL_GET;
   IDP_Hooks *proxy = (IDP_Hooks *)ud;
-  int ret = 0;
+  ssize_t ret = 0;
   try
   {
     switch ( notification_code )

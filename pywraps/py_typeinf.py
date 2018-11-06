@@ -17,7 +17,6 @@ TERR_TOOLONGNAME=TERR_WRONGNAME
 def add_til(name, flags=0):
     return _ida_typeinf.add_til(name, flags)
 add_til2=add_til
-@bc695redef
 def apply_decl(arg0, arg1, arg2=None, arg3=0):
     if type(arg0) in [int, long]: # old apply_cdecl()
         return _ida_typeinf.apply_cdecl(cvar.idati, arg0, arg1, 0)
@@ -30,7 +29,6 @@ calc_c_cpp_name4=calc_c_cpp_name
 import ida_idaapi
 callregs_init_regs=ida_idaapi._BC695.dummy
 choose_local_type=choose_local_tinfo
-@bc695redef
 def choose_named_type2(root_til, title, ntf_flags, func, out_sym):
     class func_pred_t(predicate_t):
         def __init__(self, func):
@@ -45,15 +43,13 @@ extract_varloc=extract_argloc
 const_vloc_visitor_t=const_aloc_visitor_t
 for_all_const_varlocs=for_all_const_arglocs
 for_all_varlocs=for_all_arglocs
-@bc695redef
 def gen_decorate_name3(name, mangle, cc):
     return gen_decorate_name(name, mangle, cc, None) # ATM gen_decorate_name doesn't use its tinfo_t
 get_enum_member_expr2=get_enum_member_expr
 get_idainfo_by_type3=get_idainfo_by_type
-@bc695redef
 def guess_func_tinfo2(pfn, tif):
     return guess_tinfo(pfn.start_ea, tif)
-@bc695redef_with_pydoc(load_til.__doc__)
+@bc695redef
 def load_til(name, tildir=None, *args):
     # 6.95 C++ prototypes
     # idaman til_t *ida_export load_til(const char *tildir, const char *name, char *errbuf, size_t bufsize);
@@ -76,7 +72,6 @@ def load_til(name, tildir=None, *args):
 load_til2=load_til
 lower_type2=lower_type
 optimize_varloc=optimize_argloc
-@bc695redef
 def parse_decl2(til, decl, tif, flags):
     return _ida_typeinf.parse_decl(tif, til, decl, flags)
 @bc695redef
@@ -84,12 +79,10 @@ def print_type(ea, flags):
     if isinstance(flags, bool):
         flags = PRTYPE_1LINE if flags else 0
     return _ida_typeinf.print_type(ea, flags)
-@bc695redef
 def print_type2(ea, flags):
     return _ida_typeinf.print_type(ea, flags)
 print_type3=_ida_typeinf.print_type
 print_varloc=print_argloc
-@bc695redef
 def resolve_typedef2(til, p, *args):
     return _ida_typeinf.resolve_typedef(til, p)
 scattered_vloc_t=scattered_aloc_t

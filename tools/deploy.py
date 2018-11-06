@@ -23,7 +23,51 @@ parser.add_argument("-d", "--interface-dependencies", type=str, required=True)
 parser.add_argument("-l", "--lifecycle-aware", default=False, action="store_true")
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
 parser.add_argument("-b", "--bc695", default=False, action="store_true")
+parser.add_argument("-x", "--xml-doc-directory", required=True)
 args = parser.parse_args()
+
+this_dir, _ = os.path.split(__file__)
+sys.path.append(this_dir)
+import doxygen_utils
+
+typemaps = []
+
+# generate typemaps that will have to be injected for additional checks
+xml_tree = doxygen_utils.load_xml_for_module(args.xml_doc_directory, args.module, or_dummy=False)
+if xml_tree is not None:
+    all_functions = doxygen_utils.get_toplevel_functions(xml_tree)
+    for fun_node in all_functions:
+        fun_name = doxygen_utils.get_single_child_element_text_contents(fun_node, "name")
+        params = []
+        def reg_param(*args):
+            params.append(args)
+        doxygen_utils.for_each_param(fun_node, reg_param)
+        def relevant_and_non_null(ptyp, desc):
+            if ptyp.strip().startswith("qstring"):
+                return False
+            return (desc or "").lower().find("not be null") > -1
+
+        for name, ptyp, desc in params:
+            if relevant_and_non_null(ptyp, desc):
+                # generate 'check' typemap
+                signature = []
+                body = []
+                for idx, tpl in enumerate(params):
+                    name, ptyp, desc = tpl
+                    signature.append("%s %s" % (ptyp, name or ""))
+                    if relevant_and_non_null(ptyp, desc):
+                        body.append("if ( $%d == NULL )" % (idx+1))
+                        body.append("""  SWIG_exception_fail(SWIG_ValueError, "invalid null reference in method '$symname', argument $argnum of type '$%d_type'");""" % (idx+1))
+                    pass
+                typemaps.append("%%typemap(check) (%s)" % ", ".join(signature))
+                typemaps.append("{")
+                typemaps.extend(body)
+                typemaps.append("}")
+                break
+else:
+    if args.module not in ["idaapi", "idc"]:
+        raise Exception("Missing XML file for module '%s'" % args.module)
+
 
 # creates a regular expression
 def make_re(tag, module, prefix):
@@ -91,16 +135,29 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
 
         # create regular expressions
         tags = (
-            ('pycode', make_re('pycode', tagname, '#')),
-            ('code',   make_re('code', tagname, '//')),
-            ('inline', make_re('inline', tagname, '//')),
-            ('decls',  make_re('decls', tagname, '//')),
-            ('init',   make_re('init', tagname, '//')),
+            ('pycode',   make_re('pycode', tagname, '#')),
+            ('code',     make_re('code', tagname, '//')),
+            ('inline',   make_re('inline', tagname, '//')),
+            ('decls',    make_re('decls', tagname, '//')),
+            ('init',     make_re('init', tagname, '//')),
             ('pycode_BC695', make_re('pycode_BC695', tagname, '#')),
             )
 
         input_str = "".join(file(path, "r").readlines())
         template_str = apply_tags(template_str, input_str, tags, verbose, path)
+
+    # synthetic tags
+    if typemaps:
+        typemaps_str = "\n".join([
+            "//<typemaps(%s)>" % module,
+            "\n".join(typemaps),
+            "//</typemaps(%s)>" % module,
+        ])
+        synth_tags = (
+            ('typemaps', make_re('typemaps', module, '//')),
+        )
+        template_str = apply_tags(template_str, typemaps_str, synth_tags, verbose, "[generated]")
+
 
     # write output file
     with open(output, 'w') as f:

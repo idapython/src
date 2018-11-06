@@ -3,7 +3,6 @@
 //<inline(py_xref)>
 
 // important for SWiG to generate properly-wrapped vector classes
-typedef qvector<sval_t> svalvec_t;
 typedef qvector<svalvec_t> casevec_t;
 typedef qvector<ea_t> eavec_t;
 //

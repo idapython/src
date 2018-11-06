@@ -42,17 +42,7 @@ struct switch_info_t;
 // mov    %edx,0x4(%esp)
 // call   2d <_Z3barPv+0x16>
 
-#ifdef __X64__
 #define PTR2U64(Binding) (uint64(Binding))
-#else
-#define PTR2U64(Binding) (uint64(uint32(Binding)))
-#endif
-
-#if defined(__LINUX__) || defined(__MAC__)
-#define exported __attribute__((visibility("default")))
-#else
-#define exported
-#endif
 
 //------------------------------------------------------------------------
 #define S_IDA_IDAAPI_MODNAME                     "ida_idaapi"
@@ -101,6 +91,7 @@ static const char S_ON_FIND_COMPLETIONS[]    = "OnFindCompletions";
 static const char S_ON_CREATE[]              = "OnCreate";
 static const char S_ON_POPUP[]               = "OnPopup";
 static const char S_ON_HINT[]                = "OnHint";
+static const char S_ON_EDGE_HINT[]           = "OnEdgeHint";
 static const char S_ON_POPUP_MENU[]          = "OnPopupMenu";
 static const char S_ON_EDIT_LINE[]           = "OnEditLine";
 static const char S_ON_INSERT_LINE[]         = "OnInsertLine";
@@ -358,45 +349,45 @@ struct ref_vec_t : public qvector<ref_t>
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
 // Return value: New reference.
-exported ref_t ida_export PyW_TryImportModule(const char *name);
+idaman ref_t ida_export PyW_TryImportModule(const char *name);
 
 // Tries to get an attribute and swallows the exception if it fails and returns NULL
-exported ref_t ida_export PyW_TryGetAttrString(PyObject *py_var, const char *attr);
+idaman ref_t ida_export PyW_TryGetAttrString(PyObject *py_var, const char *attr);
 
 // Converts a Python number (LONGLONG or normal integer) to an IDC variable (VT_LONG or VT_INT64)
-exported bool ida_export PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
+idaman bool ida_export PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var);
 
 // Returns a qstring from a Python attribute string
-exported bool ida_export PyW_GetStringAttr(
+idaman bool ida_export PyW_GetStringAttr(
         PyObject *py_obj,
         const char *attr_name,
         qstring *str);
 
 // Converts a Python number to an uint64 and indicates whether the number was a long number
-exported bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
+idaman bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
 
 // Checks if an Python object can be treated like a sequence
-exported bool ida_export PyW_IsSequenceType(PyObject *obj);
+idaman bool ida_export PyW_IsSequenceType(PyObject *obj);
 
 // Returns an error string from the last exception (and clears it)
-exported bool ida_export PyW_GetError(qstring *out = NULL, bool clear_err = true);
+idaman bool ida_export PyW_GetError(qstring *out = NULL, bool clear_err = true);
 
 // If an error occurred (it calls PyGetError) it displays it and return TRUE
 // This function is used when calling callbacks
-exported bool ida_export PyW_ShowCbErr(const char *cb_name);
+idaman bool ida_export PyW_ShowCbErr(const char *cb_name);
 
 // Utility function to create linked class instances
-exported ref_t ida_export create_linked_class_instance(const char *modname, const char *clsname, void *lnk);
+idaman ref_t ida_export create_linked_class_instance(const char *modname, const char *clsname, void *lnk);
 
 // Returns the string representation of a PyObject
-exported bool ida_export PyW_ObjectToString(PyObject *obj, qstring *out);
+idaman bool ida_export PyW_ObjectToString(PyObject *obj, qstring *out);
 
 // Utility function to convert a python object to an IDC object
 // and sets a python exception on failure.
-exported bool ida_export pyvar_to_idcvar_or_error(const ref_t &py_obj, idc_value_t *idc_obj);
+idaman bool ida_export pyvar_to_idcvar_or_error(const ref_t &py_obj, idc_value_t *idc_obj);
 
 // Creates and initializes an IDC exception
-exported error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *msg);
+idaman error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *msg);
 
 //
 // Conversion functions
@@ -405,7 +396,7 @@ exported error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char 
 #define PYWCVTF_INT64_AS_UNSIGNED_PYLONG 0x2 // don't wrap int64 into 'PyIdc_cvt_int64__' objects, but make them 'long' instead
 
 // Converts from IDC to Python
-exported bool ida_export pyw_convert_idc_args(
+idaman bool ida_export pyw_convert_idc_args(
         const idc_value_t args[],
         int nargs,
         ref_vec_t &pargs,
@@ -414,7 +405,7 @@ exported bool ida_export pyw_convert_idc_args(
 
 // Converts from IDC to Python
 // We support converting VT_REF IDC variable types
-exported int ida_export idcvar_to_pyvar(
+idaman int ida_export idcvar_to_pyvar(
         const idc_value_t &idc_var,
         ref_t *py_var,
         uint32 flags=0);
@@ -422,41 +413,42 @@ exported int ida_export idcvar_to_pyvar(
 //-------------------------------------------------------------------------
 // Converts Python variable to IDC variable
 // gvar_sn is used in case the Python object was a created from a call to idcvar_to_pyvar and the IDC object was a VT_REF
-exported int ida_export pyvar_to_idcvar(
+idaman int ida_export pyvar_to_idcvar(
         const ref_t &py_var,
         idc_value_t *idc_var,
         int *gvar_sn = NULL);
 
 //-------------------------------------------------------------------------
 // Walks a Python list or Sequence and calls the callback
-exported Py_ssize_t ida_export pyvar_walk_list(
+idaman Py_ssize_t ida_export pyvar_walk_list(
         PyObject *py_list,
         int (idaapi *cb)(const ref_t &py_item, Py_ssize_t index, void *ud)=NULL,
         void *ud = NULL);
 
-// Converts a sizevec_t to a Python list object
-exported ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
+// Converts a vector to a Python list object
+idaman ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec);
+idaman ref_t ida_export PyW_UvalVecToPyList(const uvalvec_t &vec);
 
 // Converts a Python list, to a vector of the given type.
 // An exception will be raised in case:
 //  - py_list is not a sequence
 //  - a member of py_list cannot be converted to the numeric target type
-exported Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_list);
-exported Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
-exported Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
+idaman Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_list);
+idaman Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
+idaman Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
 
 //-------------------------------------------------------------------------
-exported bool ida_export PyWStringOrNone_Check(PyObject *tp);
+idaman bool ida_export PyWStringOrNone_Check(PyObject *tp);
 
 //-------------------------------------------------------------------------
 #include <idd.hpp>
-exported PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &ranges);
+idaman PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &ranges);
 
 //-------------------------------------------------------------------------
-exported void ida_export PyW_register_compiled_form(PyObject *py_form);
+idaman void ida_export PyW_register_compiled_form(PyObject *py_form);
 
 //-------------------------------------------------------------------------
-exported void ida_export PyW_unregister_compiled_form(PyObject *py_form);
+idaman void ida_export PyW_unregister_compiled_form(PyObject *py_form);
 
 //---------------------------------------------------------------------------
 // notify_when()
@@ -487,7 +479,7 @@ public:
   bool notify_va(int slot, va_list va);
   pywraps_notify_when_t() : in_notify(false) {}
 };
-exported bool ida_export add_notify_when(int when, PyObject *py_callable);
+idaman bool ida_export add_notify_when(int when, PyObject *py_callable);
 
 // void hexrays_clear_python_cfuncptr_t_references(void);
 
@@ -594,7 +586,17 @@ private:
   lookup_entries_t entries;
 };
 
-extern exported lookup_info_t ida_export_data pycim_lookup_info;
+#ifdef __NT__
+  #ifdef PLUGIN_SUBMODULE
+    #define plugin_export_data __declspec(dllimport)
+  #else
+    #define plugin_export_data __declspec(dllexport)
+  #endif
+#else // unix
+  #define plugin_export_data __attribute__((visibility("default")))
+#endif
+
+extern lookup_info_t plugin_export_data pycim_lookup_info;
 
 //-------------------------------------------------------------------------
 struct pycim_callback_id_t
@@ -710,7 +712,6 @@ class py_customidamemo_t
 
   // View events
   void on_view_mouse_moved(const view_mouse_event_t *event);
-  int get_py_method_arg_count(char *method_name);
 
   // View events that are bound with 'set_custom_viewer_handler()'.
   static void idaapi s_on_view_mouse_moved(
@@ -786,8 +787,8 @@ T *view_extract_this(PyObject *self)
 //-------------------------------------------------------------------------
 #include <typeinf.hpp>
 #define DECL_REG_UNREG_REFCOUNTED(Type)                                 \
-  exported void ida_export til_register_python_##Type##_instance(Type *inst); \
-  exported void ida_export til_deregister_python_##Type##_instance(Type *inst);
+  idaman void ida_export til_register_python_##Type##_instance(Type *inst); \
+  idaman void ida_export til_deregister_python_##Type##_instance(Type *inst);
 DECL_REG_UNREG_REFCOUNTED(tinfo_t);
 DECL_REG_UNREG_REFCOUNTED(ptr_type_data_t);
 DECL_REG_UNREG_REFCOUNTED(array_type_data_t);
@@ -803,17 +804,20 @@ struct py_timer_ctx_t
   qtimer_t timer_id;
   PyObject *pycallback;
 };
-exported py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback);
-exported void ida_export python_timer_del(py_timer_ctx_t *t);
+idaman py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback);
+idaman void ida_export python_timer_del(py_timer_ctx_t *t);
 
 //-------------------------------------------------------------------------
-exported ref_t ida_export try_create_swig_wrapper(ref_t mod, const char *clsname, void *cobj);
+idaman ref_t ida_export try_create_swig_wrapper(ref_t mod, const char *clsname, void *cobj);
+
+//-------------------------------------------------------------------------
+idaman ssize_t ida_export get_callable_arg_count(ref_t callable);
 
 //-------------------------------------------------------------------------
 // Useful for small operations that must not be interrupted: e.g., when
 // wrapping an insn_t into a SWiG proxy object, or when destroying
 // such an instance from the kernel. Use 'uninterruptible_op_t' if you can.
-exported void ida_export set_interruptible_state(bool interruptible);
+idaman void ida_export set_interruptible_state(bool interruptible);
 struct uninterruptible_op_t
 {
   uninterruptible_op_t() { set_interruptible_state(false); }
@@ -821,25 +825,11 @@ struct uninterruptible_op_t
 };
 
 // //-------------------------------------------------------------------------
-// class py_custom_data_type_t;
-// class py_custom_data_format_t;
-// typedef void py_custom_data_type_t_unregisterer_t(py_custom_data_type_t *inst);
-// typedef void py_custom_data_format_t_unregisterer_t(py_custom_data_format_t *inst);
-// exported void ida_export register_py_custom_data_type_and_format_unregisterer(
-//         py_custom_data_type_t_unregisterer_t cdt_unregisterer,
-//         py_custom_data_format_t_unregisterer_t cdf_unregisterer);
-// exported void ida_export register_py_custom_data_type_instance(py_custom_data_type_t *inst);
-// exported void ida_export register_py_custom_data_format_instance(py_custom_data_format_t *inst);
-// exported void ida_export unregister_py_custom_data_type_instance(py_custom_data_type_t *inst);
-// exported void ida_export unregister_py_custom_data_format_instance(py_custom_data_format_t *inst);
-// exported py_custom_data_type_t *py_custom_data_type_cast(data_type_t *inst);
-// exported py_custom_data_format_t *py_custom_data_format_cast(data_format_t *inst);
-
-exported bool ida_export idapython_hook_to_notification_point(
+idaman bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
         void *user_data);
-exported bool ida_export idapython_unhook_from_notification_point(
+idaman bool ida_export idapython_unhook_from_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
         void *user_data);
@@ -847,7 +837,7 @@ exported bool ida_export idapython_unhook_from_notification_point(
 #define unhook_from_notification_point USE_IDAPYTHON_UNHOOK_FROM_NOTIFICATION_POINT
 
 //-------------------------------------------------------------------------
-exported bool ida_export idapython_convert_cli_completions(
+idaman bool ida_export idapython_convert_cli_completions(
         qstrvec_t *out_completions,
         int *out_match_start,
         int *out_match_end,
@@ -861,7 +851,9 @@ struct module_callbacks_t
   void (*term) (void);
 };
 DECLARE_TYPE_AS_MOVABLE(module_callbacks_t);
-exported void register_module_lifecycle_callbacks(
+idaman void register_module_lifecycle_callbacks(
         const module_callbacks_t &cbs);
+
+idaman void ida_export prepare_programmatic_plugin_load(const char *path);
 
 #endif // __PYWRAPS_HPP__

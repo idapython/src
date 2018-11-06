@@ -257,119 +257,6 @@ lvar_t.is_spoiled_var = property(lvar_t.is_spoiled_var)
 lvar_t.is_mapdst_var = property(lvar_t.is_mapdst_var)
 
 # dictify all dict-like types
-
-def _map___iter__(self):
-    """ Iterate over dictionary keys. """
-    return self.iterkeys()
-
-def _map___getitem__(self, key):
-    """ Returns the value associated with the provided key. """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of key should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if key not in self:
-        raise KeyError('key not found')
-    return self.second(self.find(key))
-
-def _map___setitem__(self, key, value):
-    """ Returns the value associated with the provided key. """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if not isinstance(value, self.valuetype):
-        raise KeyError('type of `value` should be ' + repr(self.valuetype) + ' but got ' + type(value))
-    self.insert(key, value)
-    return
-
-def _map___delitem__(self, key):
-    """ Removes the value associated with the provided key. """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if key not in self:
-        raise KeyError('key not found')
-    self.erase(self.find(key))
-    return
-
-def _map___contains__(self, key):
-    """ Returns true if the specified key exists in the . """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if self.find(key) != self.end():
-        return True
-    return False
-
-def _map_clear(self):
-    self.clear()
-    return
-
-def _map_copy(self):
-    ret = {}
-    for k in self.iterkeys():
-        ret[k] = self[k]
-    return ret
-
-def _map_get(self, key, default=None):
-    if key in self:
-        return self[key]
-    return default
-
-def _map_iterkeys(self):
-    iter = self.begin()
-    while iter != self.end():
-        yield self.first(iter)
-        iter = self.next(iter)
-    return
-
-def _map_itervalues(self):
-    iter = self.begin()
-    while iter != self.end():
-        yield self.second(iter)
-        iter = self.next(iter)
-    return
-
-def _map_iteritems(self):
-    iter = self.begin()
-    while iter != self.end():
-        yield (self.first(iter), self.second(iter))
-        iter = self.next(iter)
-    return
-
-def _map_keys(self):
-    return list(self.iterkeys())
-
-def _map_values(self):
-    return list(self.itervalues())
-
-def _map_items(self):
-    return list(self.iteritems())
-
-def _map_has_key(self, key):
-    return key in self
-
-def _map_pop(self, key):
-    """ Sets the value associated with the provided key. """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if key not in self:
-        raise KeyError('key not found')
-    ret = self[key]
-    del self[key]
-    return ret
-
-def _map_popitem(self):
-    """ Sets the value associated with the provided key. """
-    if len(self) == 0:
-        raise KeyError('key not found')
-    key = self.keys()[0]
-    return (key, self.pop(key))
-
-def _map_setdefault(self, key, default=None):
-    """ Sets the value associated with the provided key. """
-    if not isinstance(key, self.keytype):
-        raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
-    if key in self:
-        return self[key]
-    self[key] = default
-    return default
-
 def _map_as_dict(maptype, name, keytype, valuetype):
 
     maptype.keytype = keytype
@@ -393,29 +280,141 @@ def _map_as_dict(maptype, name, keytype, valuetype):
     maptype.erase = lambda self, *args: self.__erase(self, *args)
     maptype.clear = lambda self, *args: self.__clear(self, *args)
     maptype.size = lambda self, *args: self.__size(self, *args)
+
+    def _map___iter__(self):
+        """ Iterate over dictionary keys. """
+        return self.iterkeys()
     maptype.__iter__ = _map___iter__
+
+    def _map___getitem__(self, key):
+        """ Returns the value associated with the provided key. """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of key should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if key not in self:
+            raise KeyError('key not found')
+        return self.second(self.find(key))
     maptype.__getitem__ = _map___getitem__
+
+    def _map___setitem__(self, key, value):
+        """ Returns the value associated with the provided key. """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if not isinstance(value, self.valuetype):
+            raise KeyError('type of `value` should be ' + repr(self.valuetype) + ' but got ' + type(value))
+        self.insert(key, value)
+        return
     maptype.__setitem__ = _map___setitem__
+
+    def _map___delitem__(self, key):
+        """ Removes the value associated with the provided key. """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if key not in self:
+            raise KeyError('key not found')
+        self.erase(self.find(key))
+        return
     maptype.__delitem__ = _map___delitem__
+
+    def _map___contains__(self, key):
+        """ Returns true if the specified key exists in the . """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if self.find(key) != self.end():
+            return True
+        return False
     maptype.__contains__ = _map___contains__
+
+    def _map_clear(self):
+        self.clear()
+        return
     maptype.clear = _map_clear
+
+    def _map_copy(self):
+        ret = {}
+        for k in self.iterkeys():
+            ret[k] = self[k]
+        return ret
     maptype.copy = _map_copy
+
+    def _map_get(self, key, default=None):
+        if key in self:
+            return self[key]
+        return default
     maptype.get = _map_get
+
+    def _map_iterkeys(self):
+        iter = self.begin()
+        while iter != self.end():
+            yield self.first(iter)
+            iter = self.next(iter)
+        return
     maptype.iterkeys = _map_iterkeys
+
+    def _map_itervalues(self):
+        iter = self.begin()
+        while iter != self.end():
+            yield self.second(iter)
+            iter = self.next(iter)
+        return
     maptype.itervalues = _map_itervalues
+
+    def _map_iteritems(self):
+        iter = self.begin()
+        while iter != self.end():
+            yield (self.first(iter), self.second(iter))
+            iter = self.next(iter)
+        return
     maptype.iteritems = _map_iteritems
+
+    def _map_keys(self):
+        return list(self.iterkeys())
     maptype.keys = _map_keys
+
+    def _map_values(self):
+        return list(self.itervalues())
     maptype.values = _map_values
+
+    def _map_items(self):
+        return list(self.iteritems())
     maptype.items = _map_items
+
+    def _map_has_key(self, key):
+        return key in self
     maptype.has_key = _map_has_key
+
+    def _map_pop(self, key):
+        """ Sets the value associated with the provided key. """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if key not in self:
+            raise KeyError('key not found')
+        ret = self[key]
+        del self[key]
+        return ret
     maptype.pop = _map_pop
+
+    def _map_popitem(self):
+        """ Sets the value associated with the provided key. """
+        if len(self) == 0:
+            raise KeyError('key not found')
+        key = self.keys()[0]
+        return (key, self.pop(key))
     maptype.popitem = _map_popitem
+
+    def _map_setdefault(self, key, default=None):
+        """ Sets the value associated with the provided key. """
+        if not isinstance(key, self.keytype):
+            raise KeyError('type of `key` should be ' + repr(self.keytype) + ' but got ' + repr(type(key)))
+        if key in self:
+            return self[key]
+        self[key] = default
+        return default
     maptype.setdefault = _map_setdefault
 
 #_map_as_dict(user_labels_t, 'user_labels', (int, long), qstring)
 _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
-_map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, (int, long))
+_map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, int)
 import ida_pro
 _map_as_dict(user_unions_t, 'user_unions', (int, long), ida_pro.intvec_t)
 _map_as_dict(eamap_t, 'eamap', long, cinsnptrvec_t)
@@ -476,6 +475,49 @@ def create_helper(*args):
     if res:
         res._own_and_register()
     return res
+
+# ----------------
+
+class __cbhooks_t(Hexrays_Hooks):
+
+    instances = []
+
+    def __init__(self, callback):
+        self.callback = callback
+        self.instances.append(self)
+        Hexrays_Hooks.__init__(self)
+
+    def maturity(self, *args): return self.callback(hxe_maturity, *args)
+    def interr(self, *args): return self.callback(hxe_interr, **args)
+    def print_func(self, *args): return self.callback(hxe_print_func, *args)
+    def func_printed(self, *args): return self.callback(hxe_func_printed, *args)
+    def open_pseudocode(self, *args): return self.callback(hxe_open_pseudocode, *args)
+    def switch_pseudocode(self, *args): return self.callback(hxe_switch_pseudocode, *args)
+    def refresh_pseudocode(self, *args): return self.callback(hxe_refresh_pseudocode, *args)
+    def close_pseudocode(self, *args): return self.callback(hxe_close_pseudocode, *args)
+    def keyboard(self, *args): return self.callback(hxe_keyboard, *args)
+    def right_click(self, *args): return self.callback(hxe_right_click, *args)
+    def double_click(self, *args): return self.callback(hxe_double_click, *args)
+    def curpos(self, *args): return self.callback(hxe_curpos, *args)
+    def create_hint(self, *args): return self.callback(hxe_create_hint, *args)
+    def text_ready(self, *args): return self.callback(hxe_text_ready, *args)
+    def populating_popup(self, *args): return self.callback(hxe_populating_popup, *args)
+
+
+def install_hexrays_callback(callback):
+    "Deprecated. Please use Hexrays_Hooks instead"
+    h = __cbhooks_t(callback)
+    h.hook()
+    return True
+
+def remove_hexrays_callback(callback):
+    "Deprecated. Please use Hexrays_Hooks instead"
+    for inst in __cbhooks_t.instances:
+        if inst.callback == callback:
+            inst.unhook()
+            __cbhooks_t.instances.remove(inst)
+            return 1
+    return 0
 
 #</pycode(py_hexrays)>
 

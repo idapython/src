@@ -47,8 +47,6 @@ except ImportError as e:
         print "\t%s" % p
     raise
 
-# __EA64__ is set if IDA is running in 64-bit mode
-__EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
 
 # -----------------------------------------------------------------------
 # Take over the standard text outputs
@@ -86,7 +84,7 @@ def runscript(script):
 def print_banner():
     banner = [
       "Python %s " % sys.version,
-      "IDAPython" + (" 64-bit" if __EA64__ else "") + " v%d.%d.%d %s (serial %d) (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
+      "IDAPython" + (" 64-bit" if ida_idaapi.__EA64__ else "") + " v%d.%d.%d %s (serial %d) (c) The IDAPython Team <idapython@googlegroups.com>" % IDAPYTHON_VERSION
     ]
     sepline = '-' * (max([len(s) for s in banner])+1)
 

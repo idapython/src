@@ -44,6 +44,8 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 
     def AddEdge(self, src_node, dest_node):
         """Creates an edge between two given node ids"""
+        assert src_node < len(self._nodes), "Source node %d is out of bounds" % src_node
+        assert dest_node < len(self._nodes), "Destination node %d is out of bounds" % dest_node
         self._edges.append( (src_node, dest_node) )
 
     def Clear(self):
@@ -165,6 +167,14 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 #        @return: None if no hint is avail or a string designating the hint
 #        """
 #        return "hint for " + str(node_id)
+#
+#    def OnEdgeHint(self, src, dst):
+#        """
+#        Triggered when the graph viewer wants to retrieve hint text associated with a edge
+#
+#        @return: None if no hint is avail or a string designating the hint
+#        """
+#        return "hint for edge %d -> %d" % (src, dst)
 #
 #    def OnClose(self):
 #        """Triggered when the graph viewer window is being closed

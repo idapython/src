@@ -32,6 +32,10 @@ parser.add_argument("-m", "--module", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
 args = parser.parse_args()
 
+this_dir, _ = os.path.split(__file__)
+sys.path.append(this_dir)
+import doxygen_utils
+
 DOCSTR_MARKER  = '"""'
 
 def verb(msg):
@@ -304,38 +308,18 @@ class fun_doc_t(base_doc_t):
         self.params = []
         self.retval = None
 
-    def _get_direct_text(self, n, tag):
-        c = n.find("./%s" % tag)
-        if c is not None:
-            return " ".join(c.itertext()).strip()
-
-    def _get_declname(self, n):
-        dn = self._get_direct_text(n, "declname")
-        if dn == "from":
-            dn = "_from" # SWiG will rename 'from' to '_from' automatically, and we want to match that
-        return dn
-
-    def _get_type(self, n):
-        return self._get_direct_text(n, "type")
-
     def traverse(self, node, swig_generated_param_names):
         self.brief = self.get_description(node, "briefdescription")
         self.detailed = self.get_description(node, "detaileddescription")
+
         # collect params
-        plist = node.find("./detaileddescription/para/parameterlist[@kind='param']")
-        for param in node.findall("./param"):
-            name, ptyp, desc = None, None, None
-            name = self._get_declname(param)
-            if name not in swig_generated_param_names:
-                continue
-            ptyp = self._get_type(param)
-            if name and plist is not None:
-                for plist_item in plist.findall("parameteritem"):
-                    if plist_item.find("./parameternamelist/[parametername='%s']" % name) is not None:
-                        pdesc_node = plist_item.find("./parameterdescription")
-                        if pdesc_node is not None:
-                            desc = " ".join(pdesc_node.itertext()).strip()
-            self.params.append(ioarg_t(name, ptyp, desc))
+        def add_param(name, ptyp, desc):
+            if name == "from":
+                name = "_from" # SWiG will rename 'from' to '_from' automatically, and we want to match that
+            if name in swig_generated_param_names:
+                self.params.append(ioarg_t(name, ptyp, desc))
+        doxygen_utils.for_each_param(node, add_param)
+
         # return value
         return_node = node.find(".//simplesect[@kind='return']")
         if return_node is not None:
@@ -435,10 +419,8 @@ class idaapi_fixer_t(object):
     def get_fun_info(self, fun_name, swig_generated_param_names):
         fun_info = self.collected_info["funcs"].get(fun_name)
         if not fun_info:
-            fnodes = []
-            for section_kind in ["func", "user-defined"]:
-                sect_fnodes = self.xml_tree.findall("./compounddef/sectiondef[@kind='%s']/memberdef[@kind='function']/[name='%s']" % (section_kind, fun_name))
-                fnodes.extend(map(lambda sfn: sfn, sect_fnodes))
+            # def get_all_functions(xml_tree, name=None):
+            fnodes = doxygen_utils.get_toplevel_functions(self.xml_tree, name=fun_name)
             nfnodes = len(fnodes)
             if nfnodes > 0:
                 if nfnodes > 1:
@@ -499,11 +481,12 @@ class idaapi_fixer_t(object):
         line = self.copy(out)
         doc_start_line_idx = len(out)
         if line.find(DOCSTR_MARKER) > -1:
-            # Determine indentation level
+            # Opening docstring line; determine indentation level
             indent = get_indent_string(line)
             while True:
                 line = self.next()
                 if line.find(DOCSTR_MARKER) > -1:
+                    # Closing docstring line
                     swig_generated_param_names = self.extract_swig_generated_param_names(fun_name, out[doc_start_line_idx:])
                     if class_info is None:
                         found = self.get_fun_info(fun_name, swig_generated_param_names)
@@ -515,12 +498,22 @@ class idaapi_fixer_t(object):
                         out.append("\n")
                         out.extend(map(lambda l: indent + l, found))
 
+
+                    #
                     # apply possible additional patches
+                    #
                     fun_patches = self.patches.get(fun_name, {})
+
                     example = fun_patches.get("+example", None)
                     if example:
                         ex_lines = map(lambda l: "Python> %s" % l, example.split("\n"))
                         out.extend(map(lambda l: indent + l, ["", "Example:"] + ex_lines))
+
+                    repl_text = fun_patches.get("repl_text", None)
+                    if repl_text:
+                        from_text, to_text = repl_text
+                        for i in xrange(doc_start_line_idx, len(out)):
+                            out[i] = out[i].replace(from_text, to_text)
 
                     out.append(line)
                     break
@@ -595,13 +588,7 @@ class idaapi_fixer_t(object):
         input_path, xml_dir_path, out_path = args.input, args.xml_doc_directory, args.output
         with open(input_path, "rt") as f:
             self.lines = split_oneliner_comments(f.readlines())
-        self.xml_tree = ET.Element("dummy")
-        for sfx in ["_8hpp", "_8h"]:
-            xml_path = os.path.join(xml_dir_path, "%s%s.xml" % (args.module, sfx))
-            if os.path.isfile(xml_path):
-                with open(xml_path, "rb") as f:
-                    self.xml_tree = ET.fromstring(f.read())
-                break
+        self.xml_tree = doxygen_utils.load_xml_for_module(xml_dir_path, args.module)
         out = []
         while len(self.lines) > 0:
             line = self.next()

@@ -88,4 +88,12 @@ def make_lflags_accessors(bit):
             self.lflags &= ~bit
     return getter, setter
 idainfo.wide_high_byte_first = property(*make_lflags_accessors(LFLG_WIDE_HBF))
+def make_obsolete_accessors():
+    def getter(self):
+        return False
+    def setter(self, value):
+        pass
+    return getter, setter
+idainfo.allow_nonmatched_ops = property(*make_obsolete_accessors())
+idainfo.check_manual_ops = property(*make_obsolete_accessors())
 #</pycode_BC695(py_ida)>

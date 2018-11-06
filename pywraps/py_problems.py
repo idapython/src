@@ -23,10 +23,8 @@ QueueGetMessage=get_problem_desc
 QueueGetType=get_problem
 QueueIsPresent=is_problem_present
 QueueSet=remember_problem
-@bc695redef
 def get_long_queue_name(t):
     return get_problem_name(t, True)
-@bc695redef
 def get_short_queue_name(t):
     return get_problem_name(t, False)
 #</pycode_BC695(py_problems)>

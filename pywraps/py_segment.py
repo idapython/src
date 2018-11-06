@@ -5,7 +5,6 @@ SEGDEL_KEEP=SEGMOD_KEEP
 SEGDEL_KEEP0=SEGMOD_KEEP0
 SEGDEL_PERM=SEGMOD_KILL
 SEGDEL_SILENT=SEGMOD_SILENT
-@bc695redef
 def del_segment_cmt(s, rpt):
     set_segment_cmt(s, "", rpt)
 ask_selector=sel2para

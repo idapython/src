@@ -38,11 +38,11 @@ ea_t segment_t_end_ea_get(segment_t *segm)
 //<inline(py_segment)>
 sel_t get_defsr(segment_t *s, int reg)
 {
-    return s->defsr[reg];
+  return s->defsr[reg];
 }
 void set_defsr(segment_t *s, int reg, sel_t value)
 {
-    s->defsr[reg] = value;
+  s->defsr[reg] = value;
 }
 int py_rebase_program(PyObject *delta, int flags)
 {

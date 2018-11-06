@@ -21,11 +21,11 @@ class pascal_data_type(data_type_t):
     def calc_item_size(self, ea, maxsize):
         # Custom data types may be used in structure definitions. If this case
         # ea is a member id. Check for this situation and return 1
-        if _idaapi.is_member_id(ea):
+        if idaapi.is_member_id(ea):
             return 1
 
         # get the length byte
-        n = _idaapi.get_byte(ea)
+        n = idaapi.get_byte(ea)
 
         # string too big?
         if n > maxsize:
@@ -71,10 +71,10 @@ class simplevm_data_type(data_type_t):
             asm_keyword)
 
     def calc_item_size(self, ea, maxsize):
-        if _idaapi.is_member_id(ea):
+        if idaapi.is_member_id(ea):
             return 1
         # get the opcode and see if it has an imm
-        n = 5 if (_idaapi.get_byte(ea) & 3) == 0 else 1
+        n = 5 if (idaapi.get_byte(ea) & 3) == 0 else 1
         # string too big?
         if n > maxsize:
             return 0

@@ -145,7 +145,6 @@ static PyObject *formchgcbfa_get_field_value(
   {
     // dropdown list
     case 8:
-    {
       // Readonly? Then return the selected index
       if ( sz == 1 )
       {
@@ -161,111 +160,101 @@ static PyObject *formchgcbfa_get_field_value(
           return PyString_FromString(val.c_str());
       }
       break;
-    }
+
     // multilinetext - tuple representing textctrl_info_t
     case 7:
-    {
-      textctrl_info_t ti;
-      if ( fa->get_text_value(fid, &ti) )
-        return Py_BuildValue("(sII)", ti.text.c_str(), ti.flags, ti.tabsize);
-      break;
-    }
+      {
+        textctrl_info_t ti;
+        if ( fa->get_text_value(fid, &ti) )
+          return Py_BuildValue("(sII)", ti.text.c_str(), ti.flags, ti.tabsize);
+        break;
+      }
     // button - uint32
     case 4:
-    {
-      uval_t val;
-      if ( fa->get_unsigned_value(fid, &val) )
-        return PyLong_FromUnsignedLong(val);
-      break;
-    }
+      {
+        uval_t val;
+        if ( fa->get_unsigned_value(fid, &val) )
+          return PyLong_FromUnsignedLong(val);
+        break;
+      }
     // ushort
     case 2:
-    {
-      ushort val;
-      if ( fa->_get_field_value(fid, &val) )
-        return PyLong_FromUnsignedLong(val);
-      break;
-    }
+      {
+        ushort val;
+        if ( fa->_get_field_value(fid, &val) )
+          return PyLong_FromUnsignedLong(val);
+        break;
+      }
     // string label
     case 1:
-    {
-      char val[MAXSTR];
-      if ( fa->get_string_value(fid, val, sizeof(val)) )
-        return PyString_FromString(val);
-      break;
-    }
+      {
+        char val[MAXSTR];
+        if ( fa->get_string_value(fid, val, sizeof(val)) )
+          return PyString_FromString(val);
+        break;
+      }
     // string input
     case 3:
-    {
-      qstring val;
-      val.resize(sz + 1);
-      if ( fa->get_string_value(fid, val.begin(), val.size()) )
-        return PyString_FromString(val.begin());
-      break;
-    }
-    case 5:
-    {
-      sizevec_t selection;
-      if ( fa->get_chooser_value(fid, &selection) )
       {
-        ref_t l(PyW_SizeVecToPyList(selection));
-        l.incref();
-        return l.o;
+        qstring val;
+        val.resize(sz + 1);
+        if ( fa->get_string_value(fid, val.begin(), val.size()) )
+          return PyString_FromString(val.begin());
+        break;
       }
-      break;
-    }
+    case 5:
+      {
+        sizevec_t selection;
+        if ( fa->get_chooser_value(fid, &selection) )
+        {
+          ref_t l(PyW_SizeVecToPyList(selection));
+          l.incref();
+          return l.o;
+        }
+        break;
+      }
     // Numeric control
     case 6:
-    {
-      union
       {
-        sel_t sel;
-        sval_t sval;
-        uval_t uval;
-        ulonglong ull;
-      } u;
-      switch ( sz )
-      {
-        case 'S': // sel_t
+        union
         {
-          if ( fa->get_segment_value(fid, &u.sel) )
-            return Py_BuildValue(PY_BV_SEL, bvsel_t(u.sel));
-          break;
-        }
-        // sval_t
-        case 'n':
-        case 'D':
-        case 'O':
-        case 'Y':
-        case 'H':
+          sel_t sel;
+          sval_t sval;
+          uval_t uval;
+          ulonglong ull;
+        } u;
+        switch ( sz )
         {
-          if ( fa->get_signed_value(fid, &u.sval) )
-            return Py_BuildValue(PY_BV_SVAL, bvsval_t(u.sval));
-          break;
+          case 'S': // sel_t
+            if ( fa->get_segment_value(fid, &u.sel) )
+              return Py_BuildValue(PY_BV_SEL, bvsel_t(u.sel));
+            break;
+          // sval_t
+          case 'n':
+          case 'D':
+          case 'O':
+          case 'Y':
+          case 'H':
+            if ( fa->get_signed_value(fid, &u.sval) )
+              return Py_BuildValue(PY_BV_SVAL, bvsval_t(u.sval));
+            break;
+          case 'L': // uint64
+          case 'l': // int64
+            if ( fa->_get_field_value(fid, &u.ull) )
+              return Py_BuildValue("K", u.ull);
+            break;
+          case 'N':
+          case 'M': // uval_t
+            if ( fa->get_unsigned_value(fid, &u.uval) )
+              return Py_BuildValue(PY_BV_UVAL, bvuval_t(u.uval));
+            break;
+          case '$': // ea_t
+            if ( fa->get_ea_value(fid, &u.uval) )
+              return Py_BuildValue(PY_BV_UVAL, bvuval_t(u.uval));
+            break;
         }
-        case 'L': // uint64
-        case 'l': // int64
-        {
-          if ( fa->_get_field_value(fid, &u.ull) )
-            return Py_BuildValue("K", u.ull);
-          break;
-        }
-        case 'N':
-        case 'M': // uval_t
-        {
-          if ( fa->get_unsigned_value(fid, &u.uval) )
-            return Py_BuildValue(PY_BV_UVAL, bvuval_t(u.uval));
-          break;
-        }
-        case '$': // ea_t
-        {
-          if ( fa->get_ea_value(fid, &u.uval) )
-            return Py_BuildValue(PY_BV_UVAL, bvuval_t(u.uval));
-          break;
-        }
+        break;
       }
-      break;
-    }
   }
   Py_RETURN_NONE;
 }
@@ -284,7 +273,6 @@ static bool formchgcbfa_set_field_value(
   {
     // dropdown list
     case 8:
-    {
       // Editable dropdown list
       if ( PyString_Check(py_val) )
       {
@@ -298,47 +286,47 @@ static bool formchgcbfa_set_field_value(
         return fa->set_combobox_value(fid, &sel_idx);
       }
       break;
-    }
+
     // multilinetext - textctrl_info_t
     case 7:
-    {
-      textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
-      return ti == NULL ? false : fa->set_text_value(fid, ti);
-    }
+      {
+        textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(py_val);
+        return ti == NULL ? false : fa->set_text_value(fid, ti);
+      }
     // button - uint32
     case 4:
-    {
-      uval_t val = PyLong_AsUnsignedLong(py_val);
-      return fa->set_unsigned_value(fid, &val);
-    }
+      {
+        uval_t val = PyLong_AsUnsignedLong(py_val);
+        return fa->set_unsigned_value(fid, &val);
+      }
     // ushort
     case 2:
-    {
-      ushort val = PyLong_AsUnsignedLong(py_val) & 0xffff;
-      return fa->_set_field_value(fid, &val);
-    }
+      {
+        ushort val = PyLong_AsUnsignedLong(py_val) & 0xffff;
+        return fa->_set_field_value(fid, &val);
+      }
     // strings
     case 3:
     case 1:
       return fa->set_string_value(fid, PyString_AsString(py_val));
     // intvec_t
     case 5:
-    {
-      sizevec_t selection;
-      if ( !PySequence_Check(py_val)
-        || PyW_PyListToSizeVec(&selection, py_val) < 0 )
       {
-        break;
+        sizevec_t selection;
+        if ( !PySequence_Check(py_val)
+          || PyW_PyListToSizeVec(&selection, py_val) < 0 )
+        {
+          break;
+        }
+        return fa->set_chooser_value(fid, &selection);
       }
-      return fa->set_chooser_value(fid, &selection);
-    }
     // Numeric
     case 6:
-    {
-      uint64 num;
-      if ( PyW_GetNumber(py_val, &num) )
-        return fa->_set_field_value(fid, &num);
-    }
+      {
+        uint64 num;
+        if ( PyW_GetNumber(py_val, &num) )
+          return fa->_set_field_value(fid, &num);
+      }
   }
   return false;
 }

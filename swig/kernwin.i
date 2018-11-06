@@ -1,5 +1,6 @@
 %{
 #include <kernwin.hpp>
+#include <parsejson.hpp>
 %}
 
 %{
@@ -9,6 +10,13 @@ idaman __declspec(dllimport) plugin_t PLUGIN;
 extern plugin_t PLUGIN;
 #endif
 %}
+
+
+%typemap(out) void *get_window_id
+{
+  // %typemap(out) void *get_window_id
+  $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+}
 
 // Ignore the va_list functions
 %ignore vask_form;
@@ -27,6 +35,18 @@ extern plugin_t PLUGIN;
 %ignore vask_text;
 %ignore ask_text;
 %ignore vwarning;
+// Note: don't do that for ask_form(), since that calls back into Python.
+%thread ask_addr;
+%thread ask_seg;
+%thread ask_long;
+%thread ask_yn;
+%thread ask_buttons;
+%thread ask_file;
+
+%calls_execute_sync(clr_cancelled);
+%calls_execute_sync(set_cancelled);
+%calls_execute_sync(user_cancelled);
+%calls_execute_sync(hide_wait_box);
 
 %ignore choose_idasgn;
 %rename (choose_idasgn) py_choose_idasgn;
@@ -39,9 +59,6 @@ extern plugin_t PLUGIN;
 
 %ignore msg;
 %rename (msg) py_msg;
-
-%ignore umsg;
-%rename (umsg) py_umsg;
 
 %ignore vinfo;
 %ignore UI_Callback;
@@ -110,18 +127,15 @@ extern plugin_t PLUGIN;
 %rename (_ask_addr) ask_addr;
 %rename (_ask_seg) ask_seg;
 
-%ignore qvector<disasm_line_t>::operator==;
-%ignore qvector<disasm_line_t>::operator!=;
-%ignore qvector<disasm_line_t>::find;
-%ignore qvector<disasm_line_t>::has;
-%ignore qvector<disasm_line_t>::del;
-%ignore qvector<disasm_line_t>::add_unique;
-
 %ignore gen_disasm_text;
 %rename (gen_disasm_text) py_gen_disasm_text;
 
 %ignore UI_Hooks::handle_hint_output;
 %ignore UI_Hooks::handle_get_ea_hint_output;
+%ignore UI_Hooks::wrap_widget_cfg;
+%ignore UI_Hooks::handle_create_desktop_widget_output;
+%ignore jobj_wrapper_t::jobj_wrapper_t;
+%ignore jobj_wrapper_t::~jobj_wrapper_t;
 
 // We will %ignore those ATM, since they cannot be trivially
 // wrapped: bytevec_t is not exposed.
@@ -176,7 +190,7 @@ struct py_action_handler_t : public action_handler_t
     if ( !has_activate )
       return 0;
     PYW_GIL_GET_AND_REPORT_ERROR;
-    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_activation_ctx_t, 0));
+    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"activate", (char *) "O", pyctx.o));
     return PyErr_Occurred() ? 0 : ((pyres != NULL && PyInt_Check(pyres.o)) ? PyInt_AsLong(pyres.o) : 0);
   }
@@ -185,7 +199,7 @@ struct py_action_handler_t : public action_handler_t
     if ( !has_update )
       return AST_DISABLE;
     PYW_GIL_GET_AND_REPORT_ERROR;
-    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_update_ctx_t, 0));
+    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
     return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && PyInt_Check(pyres.o)) ? action_state_t(PyInt_AsLong(pyres.o)) : AST_DISABLE);
   }
@@ -207,8 +221,12 @@ void refresh_choosers(void)
 }
 %}
 
-# This is for get_cursor()
+// get_cursor()
 %apply int *OUTPUT {int *x, int *y};
+
+// get_navband_pixel()
+%apply bool *OUTPUT {bool *out_is_vertical};
+
 
 %ignore textctrl_info_t;
 SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
@@ -239,9 +257,12 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 %ignore remove_command_interpreter;
 %rename (remove_command_interpreter) py_remove_command_interpreter;
 
+//<typemaps(kernwin)>
+//</typemaps(kernwin)>
+
 %include "kernwin.hpp"
 
-%template(disasm_text_t) qvector<disasm_line_t>;
+%uncomparable_elements_qvector(disasm_line_t, disasm_text_t);
 
 %extend action_desc_t {
   action_desc_t(
@@ -283,8 +304,6 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 
 %extend action_ctx_base_t {
 
-  int _get_reg() const { return $self->reg; }
-
 #ifdef BC695
   TWidget *_get_form() const { return $self->widget; }
   twidget_type_t _get_form_type() const { return $self->widget_type; }
@@ -292,7 +311,6 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 #endif
 
   %pythoncode {
-    reg = property(_get_reg)
 #ifdef BC695
     form = property(_get_form)
     form_type = property(_get_form_type)

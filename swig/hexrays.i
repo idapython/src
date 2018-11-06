@@ -69,6 +69,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore casm_t::print;
 %ignore cgoto_t::print;
 %ignore cexpr_t::is_aliasable;
+%ignore cexpr_t::like_boolean;
 %ignore cexpr_t::contains_expr;
 %ignore cexpr_t::contains_expr;
 %ignore cexpr_t::cexpr_t(mbl_array_t *mba, const lvar_t &v);
@@ -96,19 +97,19 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 
 // ignore microcode related stuff for now
 %ignore bitset_t;
-%ignore ivlset_t;
-%ignore ivl_t;
 %ignore mlist_t;
 %ignore rlist_t;
 %ignore mbl_array_t;
+%ignore mbl_graph_t;
 %ignore mblock_t;
 %ignore minsn_t;
 %ignore mop_t;
+%ignore mcode_t;
 %ignore mop_addr_t;
 %ignore mop_pair_t;
 %ignore mcases_t;
-%ignore mfuncarg_t;
-%ignore mfuncinfo_t;
+%ignore mcallarg_t;
+%ignore mcallinfo_t;
 %ignore mnumber_t;
 %ignore lvar_ref_t;
 %ignore stkvar_ref_t;
@@ -116,6 +117,7 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore op_parent_info_t;
 %ignore scif_visitor_t;
 %ignore mop_visitor_t;
+%ignore mlist_mop_visitor_t;
 %ignore minsn_visitor_t;
 %ignore srcop_visitor_t;
 %ignore chain_t;
@@ -126,21 +128,20 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore block_chains_end;
 %ignore block_chains_erase;
 %ignore block_chains_find;
-%ignore block_chains_first;
 %ignore block_chains_free;
+%ignore block_chains_get;
 %ignore block_chains_insert;
 %ignore block_chains_new;
 %ignore block_chains_next;
 %ignore block_chains_prev;
-%ignore block_chains_second;
 %ignore block_chains_size;
 %ignore graph_chains_t;
 %ignore chain_visitor_t;
+%ignore gctype_t;
 %ignore simple_graph_t;
-%ignore mcode_t;
 %ignore get_signed_mcode;
 %ignore get_unsigned_mcode;
-%ignore is_dest_target_mcode;
+%ignore mcode_modifies_d;
 %ignore is_may_access;
 %ignore is_mcode_addsub;
 %ignore is_mcode_call;
@@ -158,6 +159,8 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore is_mcode_xdsu;
 %ignore is_signed_mcode;
 %ignore is_unsigned_mcode;
+%ignore is_kreg;
+%ignore get_first_stack_reg;
 %ignore jcnd2set;
 %ignore must_mcode_close_block;
 %ignore negate_mcode_relation;
@@ -186,6 +189,24 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore mba_range_iterator_t;
 %ignore mba_ranges_t;
 %ignore deserialize_mbl_array;
+%ignore get_temp_regs;
+%ignore ivl_t;
+%ignore ivlset_t;
+%ignore ivl_with_name_t;
+%ignore vivl_t;
+%ignore voff_t;
+%ignore voff_set_t;
+%ignore gco_info_t;
+%ignore get_current_operand;
+%ignore valrng_t;
+
+// "Warning 473: Returning a pointer or reference in a director method is not recommended."
+// In this particular case, we are telling SWiG that the object is always a
+// %newobject (thus: even for base classes), but it seems it's not enough to
+// shut the warning up.
+%warnfilter(473) codegen_t::emit_micro_mvm;
+%newobject codegen_t::emit_micro_mvm;
+%newobject codegen_t::emit;
 
 %apply uchar { char ignore_micro };
 %feature("nodirector") udc_filter_t::apply;
@@ -209,9 +230,18 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %rename (_ll_make_num) make_num;
 %rename (_ll_create_helper) create_helper;
 
-
 %extend cfunc_t {
     %immutable argidx;
+
+   PyObject *find_item_coords(const citem_t *item)
+   {
+     int px = 0;
+     int py = 0;
+     if ( $self->find_item_coords(item, &px, &py) )
+       return Py_BuildValue("(ii)", px, py);
+     else
+       return Py_BuildValue("(OO)", Py_None, Py_None);
+   }
 
    qstring __str__() const {
      qstring qs;
@@ -241,25 +271,12 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %rename(dereference_uint16) operator uint16*;
 %rename(dereference_const_uint16) operator const uint16*;
 
-#if !defined(__MAC__) || (MACSDKVER >= 1006)
-#define HAS_MAP_AT
-#endif
-
 // Provide trivial std::map facade so basic operations are available.
 template<class key_type, class mapped_type> class std::map {
 public:
-#ifdef HAS_MAP_AT
     mapped_type& at(const key_type& _Keyval);
-#endif
     size_t size() const;
 };
-
-#ifndef HAS_MAP_AT
-#warning "std::map doesn't provide at(). Augmenting it."
-%extend std::map {
-    mapped_type& at(const key_type& _Keyval) { return $self->operator[](_Keyval); }
-}
-#endif
 
 //-------------------------------------------------------------------------
 %typemap(check) citem_t *self
@@ -306,6 +323,11 @@ public:
       op = property(
               _get_op,
               lambda self, v: self._ensure_no_op() and self._set_op(v))
+
+      def _ensure_cond(self, ok, cond_str):
+          if not ok:
+              raise Exception("Condition \"%s\" not verified" % cond_str)
+          return True
 
       def _ensure_no_op(self):
           if self.op not in [cot_empty, cit_empty]:
@@ -368,7 +390,8 @@ public:
   %pythoncode {                                                         \
     PName = property(                                                   \
             lambda self: self._get_##PName() if Cond else Defval,       \
-            lambda self, v: Cond                                        \
+            lambda self, v:                                             \
+                self._ensure_cond(Cond, #Cond)                          \
                 and self._ensure_no_obj(self._get_##PName(), #PName, Acquire) \
                 and self._acquire_ownership(v, Acquire)                 \
                 and self._set_##PName(v))                               \
@@ -517,10 +540,10 @@ public:
 /* for qvector instanciations where the class is a pointer (cinsn_t, citem_t) we need
    to fix the at() return type, otherwise swig mistakenly thinks it is "cinsn_t *&" and nonsense ensues. */
 %extend qvector< cinsn_t *> {
-    cinsn_t *at(size_t n) { return self->at(n); }
+  cinsn_t *at(size_t n) { return self->at(n); }
 };
 %extend qvector< citem_t *> {
-    citem_t *at(size_t n) { return self->at(n); }
+  citem_t *at(size_t n) { return self->at(n); }
 };
 
 // ignore future declarations of at() for these classes
@@ -530,11 +553,6 @@ public:
 %ignore qvector< citem_t *>::at(size_t);
 %ignore qvector< citem_t *>::grow;
 %ignore qvector< cinsn_t *>::grow;
-
-
-//~ %template(qwstrvec_t) qvector<qwstring>; // vector of unicode strings
-typedef intvec_t svalvec_t; // vector of signed values
-//typedef intvec_t eavec_t;// vector of addresses
 
 // At this point, SWIG doesn't know about this
 // type yet (kernwin.i is included later). Therefore,
@@ -559,6 +577,15 @@ typedef qvector<simpleline_t> strvec_t;
 %template(cinsnptrvec_t) qvector<cinsn_t *>;
 %template(eamap_t) std::map<ea_t, cinsnptrvec_t>;
 %template(boundaries_t) std::map<cinsn_t *, rangeset_t>;
+
+%define %constify_iterator_value(NameBase, ReturnType)
+%ignore NameBase ## _second;
+%rename (NameBase ## _second) py_ ## NameBase ## _second;
+%inline %{
+inline const ReturnType &py_ ## NameBase ## _second(NameBase ## _iterator_t p) { return NameBase ## _second(p); }
+%}
+%enddef
+%constify_iterator_value(user_iflags, int32);
 
 %ignore boundaries_find;
 %rename (boundaries_find) py_boundaries_find;
@@ -605,7 +632,9 @@ typedef qlist<cinsn_t>::iterator qlist_cinsn_t_iterator;
 class qlist_cinsn_t_iterator {};
 %extend qlist_cinsn_t_iterator {
     const cinsn_t &cur { return *(*self); }
-    qlist_cinsn_t_iterator &next(void) { (*self)++; return *self; }
+    void next(void) { (*self)++; }
+    bool operator==(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) == &(x->operator*()); }
+    bool operator!=(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) != &(x->operator*()); }
 };
 
 %extend qlist<cinsn_t> {
@@ -673,10 +702,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %rename(init_hexrays_plugin) py_init_hexrays_plugin;
 
 %ignore install_hexrays_callback;
-%rename(install_hexrays_callback) py_install_hexrays_callback;
-
 %ignore remove_hexrays_callback;
-%rename(remove_hexrays_callback) py_remove_hexrays_callback;
 
 %ignore decompile_many;
 %rename (decompile_many) py_decompile_many;
@@ -726,7 +752,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 }
 %enddef
 
-%python_callback_in(PyObject *hx_cblist_callback);
+%python_callback_in(PyObject *hx_callback);
 %python_callback_in(PyObject *custom_viewer_popup_item_callback);
 
 %ignore cexpr_t::get_1num_op(const cexpr_t **, const cexpr_t **) const;
@@ -766,9 +792,26 @@ void qswap(cinsn_t &a, cinsn_t &b);
 //</inline(py_hexrays)>
 %}
 
+%ignore Hexrays_Callback;
+
+%inline %{
+//<inline(py_hexrays_hooks)>
+//</inline(py_hexrays_hooks)>
+%}
+
+%{
+//<code(py_hexrays_hooks)>
+//</code(py_hexrays_hooks)>
+%}
+
 %include "hexrays.hpp"
 %exception; // Delete & restore handlers
 %exception_set_default_handlers();
+
+// These are microcode-related. Let's not expose them right now.
+/* %template(ivl_t) ivl_tpl<uval_t>; */
+/* %template(ivlset_t) ivlset_tpl<ivl_t, uval_t>; */
+/* %template(array_of_ivlsets) qvector<ivlset_t>; */
 
 %pythoncode %{
 #<pycode(py_hexrays)>

@@ -96,6 +96,7 @@ patches = [
     "virtual mreg_t idaapi load_operand",
     "virtual merror_t idaapi analyze_prolog",
     "virtual merror_t idaapi gen_micro",
+    "virtual minsn_t *idaapi emit_micro_mvm",
 ]
 
 

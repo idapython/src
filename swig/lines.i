@@ -34,6 +34,24 @@
 %ignore tag_advance;
 %rename (tag_advance) py_tag_advance;
 
+%typemap(argout) (qstring *buf, ea_t ea, int what)
+{
+  // typemap(argout) (qstring *buf, ea_t ea, int what)
+  Py_XDECREF(resultobj);
+  if (result >= 0)
+  {
+    resultobj = PyString_FromStringAndSize((const char *) $1->c_str(), $1->length());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    resultobj = Py_None;
+  }
+}
+
+//<typemaps(lines)>
+//</typemaps(lines)>
+
 %include "lines.hpp"
 
 %{

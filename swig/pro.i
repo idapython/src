@@ -21,6 +21,7 @@
 %ignore utf8_wchar16;
 %ignore utf8_wchar32;
 %ignore skip_utf8;
+%ignore qustrncpy;
 %ignore expand_argv;
 %ignore free_argv;
 %ignore qwait;
@@ -28,6 +29,12 @@
 %ignore qwait_timed;
 %ignore ida_true_type;
 %ignore ida_false_type;
+%ignore bitcount;
+%ignore round_up_power2;
+%ignore round_down_power2;
+
+//<typemaps(pro)>
+//</typemaps(pro)>
 
 %include "pro.h"
 
@@ -39,12 +46,27 @@
 %import "netnode.hpp"
 //
 
+void qvector<int>::grow(const int &x=0);
+%ignore qvector<int>::grow;
+void qvector<unsigned int>::grow(const unsigned int &x=0);
+%ignore qvector<unsigned int>::grow;
+void qvector<long long>::grow(const long long &x=0);
+%ignore qvector<long long>::grow;
+void qvector<unsigned long long>::grow(const unsigned long long &x=0);
+%ignore qvector<unsigned long long>::grow;
+
 //---------------------------------------------------------------------
-%template(uvalvec_t)  qvector<uval_t>; // unsigned values
-%template(intvec_t)   qvector<int>;
-%template(int64vec_t) qvector<long long>; // for EA64 svalvec_t objects
-%template(boolvec_t)  qvector<bool>;
-%template(strvec_t)   qvector<simpleline_t>;
+%template(intvec_t)       qvector<int>;
+%template(uintvec_t)      qvector<unsigned int>;
+%template(longlongvec_t)  qvector<long long>;
+%template(ulonglongvec_t) qvector<unsigned long long>;
+%template(boolvec_t)      qvector<bool>;
+
+%pythoncode %{
+%}
+
+
+%uncomparable_elements_qvector(simpleline_t, strvec_t);
 %template(sizevec_t)  qvector<size_t>;
 typedef uvalvec_t eavec_t;// vector of addresses
 

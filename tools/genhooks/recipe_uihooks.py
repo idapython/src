@@ -50,4 +50,33 @@ recipe = {
     "idp_event" : {"ignore" : True},
     "refresh_choosers" : {"ignore" : True},
     "load_dbg_dbginfo" : {"ignore" : True},
+
+    "populating_widget_popup" : {
+        "params" : {
+            "ctx" : {
+                "default" : "NULL",
+            },
+        },
+    },
+    "finish_populating_widget_popup" : {
+        "params" : {
+            "ctx" : {
+                "default" : "NULL",
+            },
+        },
+    },
+    "create_desktop_widget" : {
+        "params" : {
+            "cfg" : {
+                "type" : "jobj_wrapper_t",
+                "convertor" : "UI_Hooks::wrap_widget_cfg",
+                "convertor_pass_args" : True,
+            },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "UI_Hooks::handle_create_desktop_widget_output",
+         }
+    },
 }

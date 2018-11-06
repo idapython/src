@@ -70,6 +70,7 @@ static bool g_instance_initialized = false; // This instance of the plugin is th
 static int  g_run_when = -1;
 static char g_run_script[QMAXPATH];
 static char g_idapython_dir[QMAXPATH];
+static qstring requested_plugin_path;
 
 //-------------------------------------------------------------------------
 // Prototypes and forward declarations
@@ -82,6 +83,8 @@ static char g_idapython_dir[QMAXPATH];
 bool idaapi run(size_t);
 static PyObject *get_module_globals_from_path(const char *path);
 
+//lint -e818 could be pointer to const
+
 //-------------------------------------------------------------------------
 // This is a simple tracing code for debugging purposes.
 // It might evolve into a tracing facility for user scripts.
@@ -90,23 +93,22 @@ static PyObject *get_module_globals_from_path(const char *path);
 #ifdef ENABLE_PYTHON_PROFILING
 #include "compile.h"
 #include "frameobject.h"
-
-int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
+static int tracefunc(PyObject *obj, _frame *frame, int what, PyObject *arg)
 {
-    PyObject *str;
+  PyObject *str;
 
-    /* Catch line change events. */
-    /* Print the filename and line number */
-    if ( what == PyTrace_LINE )
+  /* Catch line change events. */
+  /* Print the filename and line number */
+  if ( what == PyTrace_LINE )
+  {
+    str = PyObject_Str(frame->f_code->co_filename);
+    if ( str != NULL )
     {
-        str = PyObject_Str(frame->f_code->co_filename);
-        if ( str )
-        {
-            msg("PROFILING: %s:%d\n", PyString_AsString(str), frame->f_lineno);
-            Py_DECREF(str);
-        }
+      msg("PROFILING: %s:%d\n", PyString_AsString(str), frame->f_lineno);
+      Py_DECREF(str);
     }
-    return 0;
+  }
+  return 0;
 }
 #endif
 
@@ -184,9 +186,9 @@ static execution_t execution;
 
 //#define LOG_EXEC 1
 #ifdef LOG_EXEC
-#define LEXEC(Format, ...) msg("IDAPython exec: " Format, __VA_ARGS__)
+#define LEXEC(...) msg("IDAPython exec: " __VA_ARGS__)
 #else
-#define LEXEC(Format, ...)
+#define LEXEC(...)
 #endif
 
 //-------------------------------------------------------------------------
@@ -267,10 +269,17 @@ bool execution_t::can_interrupt_current(time_t now) const
 int execution_t::on_trace(PyObject *obj, _frame *frame, int what, PyObject *arg)
 {
   LEXEC("on_trace() (steps=%d, nentries=%d)\n",
-      int(execution.steps_before_action), int(execution.entries.size()));
+        int(execution.steps_before_action),
+        int(execution.entries.size()));
   // we don't want to query for time at every trace event
   if ( execution.steps_before_action-- > 0 )
     return 0;
+
+  if ( get_active_modal_widget() != NULL )
+  {
+    LEXEC("on_trace()::a modal widget is active. Not showing the wait dialog.\n");
+    return 0;
+  }
 
   execution.reset_steps();
   time_t now = time(NULL);
@@ -336,6 +345,12 @@ struct new_execution_t
 void ida_export set_interruptible_state(bool interruptible)
 {
   execution.set_interruptible(interruptible);
+}
+
+//-------------------------------------------------------------------------
+void ida_export prepare_programmatic_plugin_load(const char *path)
+{
+  requested_plugin_path = path;
 }
 
 //-------------------------------------------------------------------------
@@ -576,7 +591,7 @@ static int PyRunFile(const char *FileName)
 #endif
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e605
+  PyObject *file_obj = PyFile_FromString((char*)FileName, "r"); //lint !e605 !e1776
   PyObject *globals = get_module_globals();
   if ( globals == NULL || file_obj == NULL )
   {
@@ -810,14 +825,13 @@ static bool idaapi IDAPython_extlang_call_func(
     if ( !ok )
       break;
 
-    if ( imported_module )
+    const char *final_modname = imported_module ? modname : S_MAIN;
+    module = PyImport_ImportModule(final_modname);
+    if ( module == NULL )
     {
-      module = PyImport_ImportModule(modname);
-    }
-    else
-    {
-      module = PyImport_AddModule(S_MAIN);
-      QASSERT(30156, module != NULL);
+      errbuf->sprnt("couldn't import module %s", final_modname);
+      ok = false;
+      break;
     }
 
     PyObject *globals = PyModule_GetDict(module);
@@ -1416,7 +1430,7 @@ static bool idaapi IDAPython_cli_find_completions(
   if ( py_fc == NULL )
     return false;
 
-  newref_t py_res(PyObject_CallFunction(py_fc.o, "si", line, x)); //lint !e605
+  newref_t py_res(PyObject_CallFunction(py_fc.o, "si", line, x)); //lint !e605 !e1776
   if ( PyErr_Occurred() != NULL )
     return false;
   return idapython_convert_cli_completions(
@@ -1427,10 +1441,35 @@ static bool idaapi IDAPython_cli_find_completions(
 }
 
 //-------------------------------------------------------------------------
+static PyObject *get_module_globals_from_path_with_kind(const char *path, const char *kind)
+{
+  const char *fname = qbasename(path);
+  if ( fname != NULL )
+  {
+    const char *ext = get_file_ext(fname);
+    if ( ext == NULL )
+      ext = tail(fname);
+    else
+      --ext;
+    if ( ext > fname )
+    {
+      int len = ext - fname;
+      qstring modname;
+      modname.sprnt("__%s__%*.*s", kind, len, len, fname);
+      return get_module_globals(modname.begin());
+    }
+  }
+  return NULL;
+}
+
+//-------------------------------------------------------------------------
 static PyObject *get_module_globals_from_path(const char *path)
 {
   if ( (extlang_python.flags & EXTLANG_NS_AWARE) != 0 )
   {
+    if ( requested_plugin_path == path )
+      return get_module_globals_from_path_with_kind(path, PLG_SUBDIR);
+
     char dirpath[QMAXPATH];
     if ( qdirname(dirpath, sizeof(dirpath), path) )
     {
@@ -1439,22 +1478,7 @@ static PyObject *get_module_globals_from_path(const char *path)
         || streq(dirname, IDP_SUBDIR)
         || streq(dirname, LDR_SUBDIR) )
       {
-        const char *fname = qbasename(path);
-        if ( fname != NULL )
-        {
-          const char *ext = get_file_ext(fname);
-          if ( ext == NULL )
-            ext = tail(fname);
-          else
-            --ext;
-          if ( ext > fname )
-          {
-            int len = ext - fname;
-            qstring modname;
-            modname.sprnt("__%s__%*.*s", dirname, len, len, fname);
-            return get_module_globals(modname.begin());
-          }
-        }
+        return get_module_globals_from_path_with_kind(path, dirname);
       }
     }
   }
@@ -1464,15 +1488,15 @@ static PyObject *get_module_globals_from_path(const char *path)
 //-------------------------------------------------------------------------
 static const cli_t cli_python =
 {
-    sizeof(cli_t),
-    0,
-    "Python",
-    "Python - IDAPython plugin",
-    "Enter any Python expression",
-    IDAPython_cli_execute_line,
-    NULL,
-    NULL,
-    IDAPython_cli_find_completions,
+  sizeof(cli_t),
+  0,
+  "Python",
+  "Python - IDAPython plugin",
+  "Enter any Python expression",
+  IDAPython_cli_execute_line,
+  NULL,
+  NULL,
+  IDAPython_cli_find_completions,
 };
 
 //-------------------------------------------------------------------------
@@ -1480,9 +1504,9 @@ static const cli_t cli_python =
 idaman void ida_export enable_python_cli(bool enable)
 {
   if ( enable )
-      install_command_interpreter(&cli_python);
+    install_command_interpreter(&cli_python);
   else
-      remove_command_interpreter(&cli_python);
+    remove_command_interpreter(&cli_python);
 }
 
 //------------------------------------------------------------------------
@@ -2018,21 +2042,21 @@ bool idaapi run(size_t arg)
   {
     switch ( arg )
     {
-    case IDAPYTHON_RUNSTATEMENT:
-      IDAPython_RunStatement();
-      break;
-    case IDAPYTHON_ENABLE_EXTLANG:
-      enable_extlang_python(true);
-      break;
-    case IDAPYTHON_DISABLE_EXTLANG:
-      enable_extlang_python(false);
-      break;
-    default:
-      warning("IDAPython: unknown plugin argument %d", int(arg));
-      break;
+      case IDAPYTHON_RUNSTATEMENT:
+        IDAPython_RunStatement();
+        break;
+      case IDAPYTHON_ENABLE_EXTLANG:
+        enable_extlang_python(true);
+        break;
+      case IDAPYTHON_DISABLE_EXTLANG:
+        enable_extlang_python(false);
+        break;
+      default:
+        warning("IDAPython: unknown plugin argument %d", int(arg));
+        break;
     }
   }
-  catch(...)
+  catch(...)    //lint !e1766 without preceding catch clause
   {
     warning("Exception in Python interpreter. Reloading...");
     IDAPython_Term();

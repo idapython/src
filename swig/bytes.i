@@ -181,6 +181,9 @@
   }
 }
 
+//<typemaps(bytes)>
+//</typemaps(bytes)>
+
 %include "bytes.hpp"
 
 %apply (char *STRING, int LENGTH) { (const uchar *image, size_t len) };

@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------
 //<inline(py_name)>
 //------------------------------------------------------------------------
-PyObject *py_get_debug_names(ea_t ea1, ea_t ea2)
+PyObject *get_debug_names(ea_t ea1, ea_t ea2)
 {
   // Get debug names
   ea_name_vec_t names;

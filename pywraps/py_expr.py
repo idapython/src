@@ -138,7 +138,6 @@ VarCopy=copy_idcv
 VarDelAttr=del_idcv_attr
 VarDeref=deref_idcv
 VarFirstAttr=first_idcv_attr
-@bc695redef
 def VarGetAttr(obj, attr, res, may_use_getattr=False):
     return get_idcv_attr(res, obj, attr, may_use_getattr)
 VarGetClassName=get_idcv_class_name
@@ -155,20 +154,15 @@ VarSetAttr=set_idcv_attr
 VarSetSlice=set_idcv_slice
 VarString2=idcv_string
 VarSwap=swap_idcvs
-@bc695redef
 def calc_idc_expr(where, expr, res):
     return eval_idc_expr(res, where, expr)
-@bc695redef
 def calcexpr(where, expr, res):
     return eval_expr(res, where, expr)
-@bc695redef
 def dosysfile(complain_if_no_file, fname):
     return exec_system_script(fname, complain_if_no_file)
-@bc695redef
 def execute(line):
     return eval_idc_snippet(None, line)
 py_set_idc_func_ex=py_add_idc_func
-@bc695redef
 def set_idc_func_ex(name, fp=None, args=(), flags=0):
     return add_idc_func(name, fp, args, (), flags)
 #</pycode_BC695(py_expr)>

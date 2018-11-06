@@ -86,6 +86,17 @@ ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec)
   return ref_t(py_list);
 }
 
+//---------------------------------------------------------------------------
+ref_t ida_export PyW_UvalVecToPyList(const uvalvec_t &vec)
+{
+  size_t n = vec.size();
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_list(PyList_New(n));
+  for ( size_t i = 0; i < n; ++i )
+    PyList_SetItem(py_list.o, i, Py_BuildValue(PY_BV_UVAL, bvuval_t(vec[i])));
+  return ref_t(py_list);
+}
+
 //-------------------------------------------------------------------------
 static Py_ssize_t pyvar_walk_list(
         const ref_t &py_list,
@@ -495,93 +506,92 @@ int ida_export pyvar_to_idcvar(
       //
       // INT64
       //
-    case PY_ICID_INT64:
-      {
-        // Get the value attribute
-        ref_t attr(PyW_TryGetAttrString(py_var.o, S_PY_IDCCVT_VALUE_ATTR));
-        if ( attr == NULL )
-          return false;
-        idc_var->set_int64(PyLong_AsLongLong(attr.o));
-        return CIP_OK;
-      }
+      case PY_ICID_INT64:
+        {
+          // Get the value attribute
+          ref_t attr(PyW_TryGetAttrString(py_var.o, S_PY_IDCCVT_VALUE_ATTR));
+          if ( attr == NULL )
+            return false;
+          idc_var->set_int64(PyLong_AsLongLong(attr.o));
+          return CIP_OK;
+        }
       //
       // BYREF
       //
-    case PY_ICID_BYREF:
-      {
-        // BYREF always require this parameter
-        if ( gvar_sn == NULL )
-          return CIP_FAILED;
-
-        // Get the value attribute
-        ref_t attr(PyW_TryGetAttrString(py_var.o, S_PY_IDCCVT_VALUE_ATTR));
-        if ( attr == NULL )
-          return CIP_FAILED;
-
-        // Create a global variable
-        char buf[MAXSTR];
-        qsnprintf(buf, sizeof(buf), S_PY_IDC_GLOBAL_VAR_FMT, *gvar_sn);
-        idc_value_t *gvar = add_idc_gvar(buf);
-        // Convert the python value into the IDC global variable
-        bool ok = pyvar_to_idcvar(attr, gvar, gvar_sn) >= CIP_OK;
-        if ( ok )
+      case PY_ICID_BYREF:
         {
-          (*gvar_sn)++;
-          // Create a reference to this global variable
-          create_idcv_ref(idc_var, gvar);
+          // BYREF always require this parameter
+          if ( gvar_sn == NULL )
+            return CIP_FAILED;
+
+          // Get the value attribute
+          ref_t attr(PyW_TryGetAttrString(py_var.o, S_PY_IDCCVT_VALUE_ATTR));
+          if ( attr == NULL )
+            return CIP_FAILED;
+
+          // Create a global variable
+          char buf[MAXSTR];
+          qsnprintf(buf, sizeof(buf), S_PY_IDC_GLOBAL_VAR_FMT, *gvar_sn);
+          idc_value_t *gvar = add_idc_gvar(buf);
+          // Convert the python value into the IDC global variable
+          bool ok = pyvar_to_idcvar(attr, gvar, gvar_sn) >= CIP_OK;
+          if ( ok )
+          {
+            (*gvar_sn)++;
+            // Create a reference to this global variable
+            create_idcv_ref(idc_var, gvar);
+          }
+          return ok ? CIP_OK : CIP_FAILED;
         }
-        return ok ? CIP_OK : CIP_FAILED;
-      }
       //
       // OPAQUE
       //
-    case PY_ICID_OPAQUE:
-      {
+      case PY_ICID_OPAQUE:
         if ( !wrap_PyObject_ptr(py_var, idc_var) )
           return CIP_FAILED;
         return CIP_OK_OPAQUE;
-      }
       //
       // Other objects
       //
-    default:
-      // A normal object?
-      newref_t py_dir(PyObject_Dir(py_var.o));
-      Py_ssize_t size = PyList_Size(py_dir.o);
-      if ( py_dir == NULL || !PyList_Check(py_dir.o) || size == 0 )
-        return CIP_FAILED;
-      // Create the IDC object
-      idcv_object(idc_var);
-      for ( Py_ssize_t i=0; i < size; i++ )
-      {
-        borref_t item(PyList_GetItem(py_dir.o, i));
-        const char *field_name = PyString_AsString(item.o);
-        if ( field_name == NULL )
-          continue;
-
-        size_t len = strlen(field_name);
-
-        // Skip private attributes
-        if ( (len > 2 )
-          && (strncmp(field_name, "__", 2) == 0 )
-          && (strncmp(field_name+len-2, "__", 2) == 0) )
-        {
-          continue;
-        }
-
-        idc_value_t v;
-        // Get the non-private attribute from the object
-        newref_t attr(PyObject_GetAttrString(py_var.o, field_name));
-        if ( attr == NULL
-          // Convert the attribute into an IDC value
-          || pyvar_to_idcvar(attr, &v, gvar_sn) < CIP_OK )
-        {
+      default:
+        // A normal object?
+        newref_t py_dir(PyObject_Dir(py_var.o));
+        Py_ssize_t size = PyList_Size(py_dir.o);
+        if ( py_dir == NULL || !PyList_Check(py_dir.o) || size == 0 )
           return CIP_FAILED;
-        }
+        // Create the IDC object
+        idcv_object(idc_var);
+        for ( Py_ssize_t i=0; i < size; i++ )
+        {
+          borref_t item(PyList_GetItem(py_dir.o, i));
+          const char *field_name = PyString_AsString(item.o);
+          if ( field_name == NULL )
+            continue;
 
-        // Store the attribute
-        set_idcv_attr(idc_var, field_name, v);
-      }
+          size_t len = strlen(field_name);
+
+          // Skip private attributes
+          if ( (len > 2 )
+            && (strncmp(field_name, "__", 2) == 0 )
+            && (strncmp(field_name+len-2, "__", 2) == 0) )
+          {
+            continue;
+          }
+
+          idc_value_t v;
+          // Get the non-private attribute from the object
+          newref_t attr(PyObject_GetAttrString(py_var.o, field_name));
+          if ( attr == NULL
+            // Convert the attribute into an IDC value
+            || pyvar_to_idcvar(attr, &v, gvar_sn) < CIP_OK )
+          {
+            return CIP_FAILED;
+          }
+
+          // Store the attribute
+          set_idcv_attr(idc_var, field_name, v);
+        }
+        break;
     }
   }
   return CIP_OK;
@@ -611,187 +621,187 @@ int ida_export idcvar_to_pyvar(
   PYW_GIL_CHECK_LOCKED_SCOPE();
   switch ( idc_var.vtype )
   {
-  case VT_PVOID:
-    if ( *py_var == NULL )
-    {
-      newref_t nr(PyCObject_FromVoidPtr(idc_var.pvoid, NULL));
-      *py_var = nr;
-    }
-    else
-    {
-      return CIP_IMMUTABLE;
-    }
-    break;
-
-  case VT_INT64:
-    {
-      bool as_pylong = (flags & PYWCVTF_INT64_AS_UNSIGNED_PYLONG) != 0;
-      if ( as_pylong )
+    case VT_PVOID:
+      if ( *py_var == NULL )
       {
-        QASSERT(30513, *py_var == NULL); // recycling not supported in this case
-        *py_var = newref_t(PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) idc_var.i64));
-        return CIP_OK;
+        newref_t nr(PyCObject_FromVoidPtr(idc_var.pvoid, NULL));
+        *py_var = nr;
       }
       else
       {
-        // Recycle?
-        if ( *py_var != NULL )
+        return CIP_IMMUTABLE;
+      }
+      break;
+
+    case VT_INT64:
+      {
+        bool as_pylong = (flags & PYWCVTF_INT64_AS_UNSIGNED_PYLONG) != 0;
+        if ( as_pylong )
         {
-          // Recycling an int64 object?
-          int t = get_pyidc_cvt_type(py_var->o);
-          if ( t != PY_ICID_INT64 )
-            return CIP_IMMUTABLE; // Cannot recycle immutable object
-          // Update the attribute
-          PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, PyLong_FromLongLong(idc_var.i64));
+          QASSERT(30513, *py_var == NULL); // recycling not supported in this case
+          *py_var = newref_t(PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) idc_var.i64));
           return CIP_OK;
         }
-        ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_INT64));
-        if ( py_cls == NULL )
-          return CIP_FAILED;
-        *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, PyLong_FromLongLong(idc_var.i64), NULL));
-        if ( PyW_GetError() || *py_var == NULL )
-          return CIP_FAILED;
+        else
+        {
+          // Recycle?
+          if ( *py_var != NULL )
+          {
+            // Recycling an int64 object?
+            int t = get_pyidc_cvt_type(py_var->o);
+            if ( t != PY_ICID_INT64 )
+              return CIP_IMMUTABLE; // Cannot recycle immutable object
+            // Update the attribute
+            PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, PyLong_FromLongLong(idc_var.i64));
+            return CIP_OK;
+          }
+          ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_INT64));
+          if ( py_cls == NULL )
+            return CIP_FAILED;
+          *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, PyLong_FromLongLong(idc_var.i64), NULL));
+          if ( PyW_GetError() || *py_var == NULL )
+            return CIP_FAILED;
+        }
+        break;
       }
-      break;
-    }
 
-  case VT_STR:
-    if ( *py_var == NULL )
-    {
-      const qstring &s = idc_var.qstr();
-      *py_var = newref_t(PyString_FromStringAndSize(s.begin(), s.length()));
-      break;
-    }
-    else
-      return CIP_IMMUTABLE; // Cannot recycle immutable object
-  case VT_LONG:
-    // Cannot recycle immutable objects
-    if ( *py_var != NULL )
-      return CIP_IMMUTABLE;
-    *py_var = newref_t(cvt_to_pylong(idc_var.num));
-    break;
-  case VT_FLOAT:
-    if ( *py_var == NULL )
-    {
-      double x;
-      if ( ph.realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
-        INTERR(30160);
-
-      *py_var = newref_t(PyFloat_FromDouble(x));
-      break;
-    }
-    else
-      return CIP_IMMUTABLE;
-
-  case VT_REF:
-    {
+    case VT_STR:
       if ( *py_var == NULL )
       {
-        ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_BYREF));
-        if ( py_cls == NULL )
-          return CIP_FAILED;
-
-        // Create a byref object with None value. We populate it later
-        *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, Py_None, NULL));
-        if ( PyW_GetError() || *py_var == NULL )
-          return CIP_FAILED;
-      }
-      int t = get_pyidc_cvt_type(py_var->o);
-      if ( t != PY_ICID_BYREF )
-        return CIP_FAILED;
-
-      // Dereference
-      // (Since we are not using VREF_COPY flag, we can safely const_cast)
-      idc_value_t *dref_v = deref_idcv(const_cast<idc_value_t *>(&idc_var), VREF_LOOP);
-      if ( dref_v == NULL )
-        return CIP_FAILED;
-
-      // Can we recycle the object?
-      ref_t new_py_val(PyW_TryGetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR));
-      if ( new_py_val != NULL )
-      {
-        // Recycle
-        t = idcvar_to_pyvar(*dref_v, &new_py_val);
-
-        // Success? Nothing more to be done
-        if ( t == CIP_OK )
-          return CIP_OK;
-
-        // Clear it so we don't recycle it
-        new_py_val = ref_t();
-      }
-      // Try to convert (not recycle)
-      if ( idcvar_to_pyvar(*dref_v, &new_py_val) != CIP_OK )
-        return CIP_FAILED;
-
-      // Update the attribute
-      PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, new_py_val.o);
-      break;
-    }
-
-    // Can convert back into a Python object or Python dictionary
-    // (Depending if py_var will be recycled and it was a dictionary)
-  case VT_OBJ:
-    {
-      // Check if this IDC object has __cvt_id__ and the __idc_cvt_value__ fields
-      idc_value_t idc_val;
-      if ( get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_ID_ATTR) == eOk
-        && get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_VALUE_ATTR) == eOk )
-      {
-        // Extract the object
-        *py_var = borref_t((PyObject *) idc_val.pvoid);
-        return CIP_OK_OPAQUE;
-      }
-      ref_t obj;
-      bool is_dict = false;
-
-      // Need to create a new object?
-      if ( *py_var == NULL )
-      {
-        // Get skeleton class reference
-        ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_APPCALL_SKEL_OBJ));
-        if ( py_cls == NULL )
-          return CIP_FAILED;
-
-        // Call constructor
-        obj = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, NULL));
-        if ( PyW_GetError() || obj == NULL )
-          return CIP_FAILED;
+        const qstring &s = idc_var.qstr();
+        *py_var = newref_t(PyString_FromStringAndSize(s.begin(), s.length()));
+        break;
       }
       else
-      {
-        // Recycle existing variable
-        obj = *py_var;
-        if ( PyDict_Check(obj.o) )
-          is_dict = true;
-      }
-
-      // Walk the IDC attributes and store into python
-      for ( const char *attr_name = first_idcv_attr(&idc_var);
-            attr_name != NULL;
-            attr_name = next_idcv_attr(&idc_var, attr_name) )
-      {
-        // Get the attribute
-        idc_value_t v;
-        get_idcv_attr(&v, &idc_var, attr_name, true);
-
-        // Convert attribute to a python value (recursively)
-        ref_t py_attr;
-        int cvt = idcvar_to_pyvar(v, &py_attr);
-        if ( cvt <= CIP_IMMUTABLE )
-          return CIP_FAILED;
-        if ( is_dict )
-          PyDict_SetItemString(obj.o, attr_name, py_attr.o);
-        else
-          PyObject_SetAttrString(obj.o, attr_name, py_attr.o);
-      }
-      *py_var = obj;
+        return CIP_IMMUTABLE; // Cannot recycle immutable object
+    case VT_LONG:
+      // Cannot recycle immutable objects
+      if ( *py_var != NULL )
+        return CIP_IMMUTABLE;
+      *py_var = newref_t(cvt_to_pylong(idc_var.num));
       break;
-    }
-    // Unhandled type
-  default:
-    *py_var = ref_t();
-    return CIP_FAILED;
+    case VT_FLOAT:
+      if ( *py_var == NULL )
+      {
+        double x;
+        if ( ph.realcvt(&x, (uint16 *)idc_var.e, (sizeof(x)/2-1)|010) != 1 )
+          INTERR(30160);
+
+        *py_var = newref_t(PyFloat_FromDouble(x));
+        break;
+      }
+      else
+        return CIP_IMMUTABLE;
+
+    case VT_REF:
+      {
+        if ( *py_var == NULL )
+        {
+          ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_CVT_BYREF));
+          if ( py_cls == NULL )
+            return CIP_FAILED;
+
+          // Create a byref object with None value. We populate it later
+          *py_var = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, Py_None, NULL));
+          if ( PyW_GetError() || *py_var == NULL )
+            return CIP_FAILED;
+        }
+        int t = get_pyidc_cvt_type(py_var->o);
+        if ( t != PY_ICID_BYREF )
+          return CIP_FAILED;
+
+        // Dereference
+        // (Since we are not using VREF_COPY flag, we can safely const_cast)
+        idc_value_t *dref_v = deref_idcv(const_cast<idc_value_t *>(&idc_var), VREF_LOOP);
+        if ( dref_v == NULL )
+          return CIP_FAILED;
+
+        // Can we recycle the object?
+        ref_t new_py_val(PyW_TryGetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR));
+        if ( new_py_val != NULL )
+        {
+          // Recycle
+          t = idcvar_to_pyvar(*dref_v, &new_py_val);
+
+          // Success? Nothing more to be done
+          if ( t == CIP_OK )
+            return CIP_OK;
+
+          // Clear it so we don't recycle it
+          new_py_val = ref_t();
+        }
+        // Try to convert (not recycle)
+        if ( idcvar_to_pyvar(*dref_v, &new_py_val) != CIP_OK )
+          return CIP_FAILED;
+
+        // Update the attribute
+        PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, new_py_val.o);
+        break;
+      }
+
+      // Can convert back into a Python object or Python dictionary
+      // (Depending if py_var will be recycled and it was a dictionary)
+    case VT_OBJ:
+      {
+        // Check if this IDC object has __cvt_id__ and the __idc_cvt_value__ fields
+        idc_value_t idc_val;
+        if ( get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_ID_ATTR) == eOk
+          && get_idcv_attr(&idc_val, &idc_var, S_PY_IDCCVT_VALUE_ATTR) == eOk )
+        {
+          // Extract the object
+          *py_var = borref_t((PyObject *) idc_val.pvoid);
+          return CIP_OK_OPAQUE;
+        }
+        ref_t obj;
+        bool is_dict = false;
+
+        // Need to create a new object?
+        if ( *py_var == NULL )
+        {
+          // Get skeleton class reference
+          ref_t py_cls(get_idaapi_attr_by_id(PY_CLSID_APPCALL_SKEL_OBJ));
+          if ( py_cls == NULL )
+            return CIP_FAILED;
+
+          // Call constructor
+          obj = newref_t(PyObject_CallFunctionObjArgs(py_cls.o, NULL));
+          if ( PyW_GetError() || obj == NULL )
+            return CIP_FAILED;
+        }
+        else
+        {
+          // Recycle existing variable
+          obj = *py_var;
+          if ( PyDict_Check(obj.o) )
+            is_dict = true;
+        }
+
+        // Walk the IDC attributes and store into python
+        for ( const char *attr_name = first_idcv_attr(&idc_var);
+              attr_name != NULL;
+              attr_name = next_idcv_attr(&idc_var, attr_name) )
+        {
+          // Get the attribute
+          idc_value_t v;
+          get_idcv_attr(&v, &idc_var, attr_name, true);
+
+          // Convert attribute to a python value (recursively)
+          ref_t py_attr;
+          int cvt = idcvar_to_pyvar(v, &py_attr);
+          if ( cvt <= CIP_IMMUTABLE )
+            return CIP_FAILED;
+          if ( is_dict )
+            PyDict_SetItemString(obj.o, attr_name, py_attr.o);
+          else
+            PyObject_SetAttrString(obj.o, attr_name, py_attr.o);
+        }
+        *py_var = obj;
+        break;
+      }
+      // Unhandled type
+    default:
+      *py_var = ref_t();
+      return CIP_FAILED;
   }
   return CIP_OK;
 }
@@ -1034,7 +1044,7 @@ static ref_t get_idaapi_attr_by_id(const int class_id)
     return ref_t();
 
   // Some class names. The array is parallel with the PY_CLSID_xxx consts
-  static const char *class_names[]=
+  static const char *class_names[] =
   {
     "PyIdc_cvt_int64__",
     "object_t",
@@ -1092,7 +1102,7 @@ ref_t ida_export PyW_TryImportModule(const char *name)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t result(PyImport_ImportModule(name));
   if ( result == NULL && PyErr_Occurred() )
-      PyErr_Clear();
+    PyErr_Clear();
   return result;
 }
 
@@ -2117,6 +2127,29 @@ ref_t ida_export try_create_swig_wrapper(ref_t mod, const char *clsname, void *c
     res = newref_t(PyObject_CallFunction(py_cls_wrapper_inst.o, "(K)", uint64(cobj)));
   }
   return res;
+}
+
+//-------------------------------------------------------------------------
+ssize_t ida_export get_callable_arg_count(ref_t callable)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  newref_t py_module(PyImport_ImportModule("inspect"));
+  ssize_t cnt = -1;
+  if ( py_module != NULL )
+  {
+    ref_t py_fun = PyW_TryGetAttrString(py_module.o, "getargspec");
+    if ( py_fun != NULL )
+    {
+      newref_t py_tuple(PyObject_CallFunctionObjArgs(py_fun.o, callable.o, NULL));
+      if ( PyTuple_Check(py_tuple.o) )
+      {
+        borref_t py_args(PyTuple_GetItem(py_tuple.o, 0));
+        if ( py_args != NULL && PySequence_Check(py_args.o) )
+          cnt = PySequence_Length(py_args.o);
+      }
+    }
+  }
+  return cnt;
 }
 
 //-------------------------------------------------------------------------

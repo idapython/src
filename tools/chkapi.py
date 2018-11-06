@@ -86,8 +86,15 @@ def check_cpp(opts):
             "mustcall" : "PyString_FromStringAndSize",
             },
         "_wrap_get_ip_val" : {
-            "string" : "resultobj  = PyLong_FromUnsigned",
+            "string" : "resultobj = PyLong_FromUnsigned",
         },
+        "_wrap_calc_thunk_func_target" : {
+            "string" : ["SWIG_Python_AppendOutput", "PyLong_FromUnsigned"],
+        },
+        "SwigDirector_UI_Hooks::populating_widget_popup" : {
+            "string" : "get_callable_arg_count",
+        },
+
         # "_wrap_get_array_parameters" : {
         #     "string" : "resultobj = PyLong_FromLongLong(result)",
         #     },
@@ -147,7 +154,6 @@ def check_cpp(opts):
             "nullptrcheck" : 1,
         },
         "_wrap_load_debugger" : {
-            "nullptrcheck" : 1,
             "string" : ["SWIG_PYTHON_THREAD_BEGIN_ALLOW", "SWIG_PYTHON_THREAD_END_ALLOW"],
         },
         "_wrap_AssembleLine" : {
@@ -162,7 +168,7 @@ def check_cpp(opts):
             "nostring" : ["SWIGTYPE_p_qoff64_t", "qoff64_t *"],
         },
 
-        }
+    }
 
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
@@ -403,14 +409,13 @@ def check_python(opts):
         "regvar_t" : { "mustinherit" : "ida_range.range_t" },
         "segment_t" : { "mustinherit" : "ida_range.range_t" },
         "sreg_range_t" : { "mustinherit" : "ida_range.range_t" },
+        "memory_info_t" : { "mustinherit" : "ida_range.range_t" },
 
         "GraphViewer" : { "mustinherit" : "ida_kernwin.CustomIDAMemo" },
         "IDAViewWrapper" : { "mustinherit" : "CustomIDAMemo" },
         "PyIdc_cvt_int64__" : { "mustinherit" : "pyidc_cvt_helper__" },
         "PyIdc_cvt_refclass__" : { "mustinherit" : "pyidc_cvt_helper__" },
         "_qstrvec_t" : { "mustinherit" : "ida_idaapi.py_clinked_object_t" },
-        "action_activation_ctx_t" : { "mustinherit" : "action_ctx_base_t" },
-        "action_update_ctx_t" : { "mustinherit" : "action_ctx_base_t" },
         "argpart_t" : { "mustinherit" : "argloc_t" },
         "cli_t" : { "mustinherit" : "ida_idaapi.pyidc_opaque_object_t" },
         "enumplace_t" : { "mustinherit" : "place_t" },
@@ -457,6 +462,7 @@ def check_python(opts):
         "qstring_printer_t" : { "mustinherit" : "vc_printer_t" },
         "vc_printer_t" : { "mustinherit" : "vd_printer_t" },
         "vd_interr_t" : { "mustinherit" : "vd_failure_t" },
+        # "vivl_t" : { "mustinherit" : "ivl_t" },
     }
 
     types_coherence = types_coherence_base.copy()
