@@ -411,7 +411,7 @@ static void PythonEvalOrExec(
   // Compile as an expression
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyCompilerFlags cf = {0};
-  newref_t py_code(Py_CompileStringFlags(str, filename, Py_eval_input, &cf));
+  newref_t py_code(Py_CompileStringFlags(str, filename, Py_single_input, &cf));
   if ( py_code == NULL || PyErr_Occurred() )
   {
     // Not an expression?
