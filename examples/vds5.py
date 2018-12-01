@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import ida_pro
 import ida_hexrays
@@ -305,5 +306,5 @@ if ida_hexrays.init_hexrays_plugin():
     vds5_hooks = vds5_hooks_t()
     vds5_hooks.hook()
 else:
-    print 'hexrays-graph: hexrays is not available.'
+    print('hexrays-graph: hexrays is not available.')
 

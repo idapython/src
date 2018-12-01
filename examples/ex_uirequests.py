@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the execute_ui_requests()
 # and the idautils.ProcessUiActions()
@@ -16,7 +17,7 @@ class __process_ui_actions_helper(object):
         elif isinstance(actions, (list, tuple)):
             lst = actions
         else:
-            raise ValueError, "Must pass a string, list or a tuple"
+            raise ValueError("Must pass a string, list or a tuple")
 
         # Remember the action list and the flags
         self.__action_list = lst
@@ -39,7 +40,7 @@ class __process_ui_actions_helper(object):
 
         # Move to next action
         self.__idx += 1
-        print "index=%d" % self.__idx
+        print("index=%d" % self.__idx)
 
         # Reschedule
         return True

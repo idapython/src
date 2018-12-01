@@ -1,3 +1,4 @@
+from __future__ import print_function
 import idaapi
 
 class SayHi(idaapi.action_handler_t):
@@ -6,7 +7,7 @@ class SayHi(idaapi.action_handler_t):
         self.message = message
 
     def activate(self, ctx):
-        print "Hi, %s" % (self.message)
+        print("Hi, %s" % (self.message))
         return 1
 
     # You can implement update(), to inform IDA when:
@@ -27,7 +28,7 @@ class SayHi(idaapi.action_handler_t):
         return idaapi.AST_ENABLE_FOR_WIDGET if ctx.widget_type == idaapi.BWN_DISASM else idaapi.AST_DISABLE_FOR_WIDGET
 
 
-print "Creating a custom icon from raw data!"
+print("Creating a custom icon from raw data!")
 # Stunned panda face icon data.
 icon_data = "".join([
         "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52\x00\x00\x00\x10\x00\x00\x00\x10\x08\x06\x00\x00\x00\x1F\xF3\xFF\x61\x00\x00\x02\xCA\x49\x44\x41\x54\x78\x5E\x65",
@@ -60,19 +61,19 @@ if idaapi.register_action(idaapi.action_desc_t(
         "Ctrl+F12",         # Shortcut (optional)
         "Greets the user",  # Tooltip (optional)
         act_icon)):         # Icon ID (optional)
-    print "Action registered. Attaching to menu."
+    print("Action registered. Attaching to menu.")
 
     # Insert the action in the menu
     if idaapi.attach_action_to_menu("Edit/Export data", act_name, idaapi.SETMENU_APP):
-        print "Attached to menu."
+        print("Attached to menu.")
     else:
-        print "Failed attaching to menu."
+        print("Failed attaching to menu.")
 
     # Insert the action in a toolbar
     if idaapi.attach_action_to_toolbar("AnalysisToolBar", act_name):
-        print "Attached to toolbar."
+        print("Attached to toolbar.")
     else:
-        print "Failed attaching to toolbar."
+        print("Failed attaching to toolbar.")
 
     # We will also want our action to be available in the context menu
     # for the "IDA View-A" widget.
@@ -106,13 +107,13 @@ if idaapi.register_action(idaapi.action_desc_t(
     hooks = Hooks()
     hooks.hook()
 else:
-    print "Action found; unregistering."
+    print("Action found; unregistering.")
     # No need to call detach_action_from_menu(); it'll be
     # done automatically on destruction of the action.
     if idaapi.unregister_action(act_name):
-        print "Unregistered."
+        print("Unregistered.")
     else:
-        print "Failed to unregister action."
+        print("Failed to unregister action.")
 
     if hooks is not None:
         hooks.unhook()

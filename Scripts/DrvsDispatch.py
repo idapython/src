@@ -6,6 +6,7 @@ Copyright (c) 1990-2018 Hex-Rays
 ALL RIGHTS RESERVED.
 
 """
+from __future__ import print_function
 
 import re
 
@@ -54,7 +55,7 @@ def GetDriverDispatch():
 
     # force reloading of module symbols
     if not CmdReloadForce():
-        print "Could not communicate with WinDbg, make sure the debugger is running!"
+        print("Could not communicate with WinDbg, make sure the debugger is running!")
         return None
 
     # get driver list
@@ -75,7 +76,7 @@ def GetDriverDispatch():
       tbl_out = CmdDrvObj(drvname)
 
       if not tbl_out:
-          print "Failed to get driver object for", drvname
+          print("Failed to get driver object for", drvname)
           continue
 
       # for each line
@@ -116,4 +117,4 @@ if r:
     c = DispatchChoose("Dispatch table browser", r)
     c.Show(True)
 else:
-    print "Failed to retrieve dispatchers list!"
+    print("Failed to retrieve dispatchers list!")

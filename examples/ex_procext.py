@@ -1,3 +1,4 @@
+from __future__ import print_function
 # this script implements disassembly of BUG_INSTR used in Linux kernel BUG() macro 
 # normally it's architecturally undefined and is not disassembled by IDA's ARM module
 # see Linux/arch/arm/include/asm/bug.h
@@ -37,7 +38,7 @@ class MyHooks(idaapi.IDP_Hooks):
 if idaapi.ph.id == idaapi.PLFM_ARM:
     bahooks = MyHooks()
     bahooks.hook()
-    print "BUG_INSTR processor extension installed"
+    print("BUG_INSTR processor extension installed")
 else:
     warning("This script only supports ARM files")
 

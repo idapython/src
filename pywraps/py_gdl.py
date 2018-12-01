@@ -57,7 +57,7 @@ class FlowChart(object):
         @param bounds: A tuple of the form (start, end). Used if "f" is None
         @param flags: one of the FC_xxxx flags. One interesting flag is FC_PREDS
         """
-        if (f is None) and (bounds is None or type(bounds) != types.TupleType):
+        if (f is None) and (bounds is None or type(bounds) != tuple):
             raise Exception("Please specifiy either a function or start/end pair")
 
         if bounds is None:

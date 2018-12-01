@@ -1,3 +1,4 @@
+from __future__ import print_function
 #
 # This example tries to load a decompiler plugin corresponding to the current
 # architecture (and address size) right after auto-analysis is performed,

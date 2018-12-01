@@ -5,6 +5,7 @@ hexrays plugin 'hexrays_sample6.cpp', shipped with the Hex-Rays decompiler.
 
 It modifies the decompilation output: removes some space characters.
 """
+from __future__ import print_function
 
 import idautils
 import idc
@@ -91,4 +92,4 @@ if ida_hexrays.init_hexrays_plugin():
     vds6_hooks = vds6_hooks_t()
     vds6_hooks.hook()
 else:
-    print 'remove spaces: hexrays is not available.'
+    print('remove spaces: hexrays is not available.')

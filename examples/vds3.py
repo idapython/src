@@ -4,6 +4,7 @@ Author: EiNSTeiN_ <einstein@g3nius.org>
 
 This is a rewrite in Python of the vds3 example that comes with hexrays sdk.
 """
+from __future__ import print_function
 
 import idautils
 import idaapi
@@ -53,9 +54,9 @@ class hexrays_callback_info(object):
             data = self.node.getblob(0, 'I')
             if data:
                 self.stored = eval(data)
-                print 'Invert-if: Loaded %s' % (repr(self.stored), )
+                print('Invert-if: Loaded %s' % (repr(self.stored), ))
         except:
-            print 'Failed to load invert-if locations'
+            print('Failed to load invert-if locations')
             traceback.print_exc()
             return
 
@@ -66,7 +67,7 @@ class hexrays_callback_info(object):
         try:
             self.node.setblob(repr(self.stored), 0, 'I')
         except:
-            print 'Failed to save invert-if locations'
+            print('Failed to save invert-if locations')
             traceback.print_exc()
             return
 
@@ -195,5 +196,5 @@ if idaapi.init_hexrays_plugin():
     vds3_hooks = vds3_hooks_t(i)
     vds3_hooks.hook()
 else:
-    print 'invert-if: hexrays is not available.'
+    print('invert-if: hexrays is not available.')
 

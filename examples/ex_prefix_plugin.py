@@ -1,3 +1,4 @@
+from __future__ import print_function
 import idaapi
 
 PREFIX = idaapi.SCOLOR_INV + ' ' + idaapi.SCOLOR_INV

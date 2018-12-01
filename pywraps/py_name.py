@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 #<pycode(py_name)>
 import _ida_idaapi

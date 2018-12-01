@@ -150,7 +150,7 @@ def cblock_iter(self):
     iter = self.begin()
     for i in range(self.size()):
         yield iter.cur
-        iter.next()
+        next(iter)
 
     return
 cblock_t.__iter__ = cblock_iter
@@ -163,7 +163,7 @@ def cblock_find(self, item):
     for i in range(self.size()):
         if iter.cur == item:
             return iter
-        iter.next()
+        next(iter)
 
     return
 cblock_t.find = cblock_find
@@ -175,7 +175,7 @@ def cblock_index(self, item):
     for i in range(self.size()):
         if iter.cur == item:
             return i
-        iter.next()
+        next(iter)
 
     return
 cblock_t.index = cblock_index
@@ -187,7 +187,7 @@ def cblock_at(self, index):
     for i in range(self.size()):
         if i == index:
             return iter.cur
-        iter.next()
+        next(iter)
 
     return
 cblock_t.at = cblock_at
@@ -525,5 +525,5 @@ def remove_hexrays_callback(callback):
 get_tform_vdui=get_widget_vdui
 hx_get_tform_vdui=hx_get_widget_vdui
 HEXRAYS_API_MAGIC1=(HEXRAYS_API_MAGIC>>32)
-HEXRAYS_API_MAGIC2=(HEXRAYS_API_MAGIC&0xFFFFFFFFL)
+HEXRAYS_API_MAGIC2=(HEXRAYS_API_MAGIC&0xFFFFFFFF)
 #</pycode_BC695(py_hexrays)>

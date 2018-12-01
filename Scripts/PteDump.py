@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import ida_kernwin
 import ida_segment

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # VirusTotal IDA Plugin
 # By Elias Bachaalany <elias at hex-rays.com>

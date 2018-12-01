@@ -1,3 +1,4 @@
+from __future__ import print_function
 #
 # Reference Lister
 #
@@ -26,12 +27,12 @@ def main():
     seg_end = seg.end_ea
     while func is not None and func.start_ea < seg_end:
         funcea = func.start_ea
-        print "Function %s at 0x%x" % (get_func_name(funcea), funcea)
+        print("Function %s at 0x%x" % (get_func_name(funcea), funcea))
 
         ref = get_first_cref_to(funcea)
 
         while ref != BADADDR:
-            print "  called from %s(0x%x)" % (get_func_name(ref), ref)
+            print("  called from %s(0x%x)" % (get_func_name(ref), ref))
             ref = get_next_cref_to(funcea, ref)
 
         func = get_next_func(funcea)

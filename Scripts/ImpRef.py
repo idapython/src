@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to enumerate all addresses
 # that refer to all imported functions in a given module
@@ -47,7 +48,7 @@ def find_import_ref(dllname):
                 continue
 
             # save results
-            if not R.has_key(i):
+            if i not in R:
                 R[i] = []
 
             R[i].append(ea)

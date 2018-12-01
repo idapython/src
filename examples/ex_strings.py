@@ -1,3 +1,4 @@
+from __future__ import print_function
 import idautils
 
 s = idautils.Strings(False)

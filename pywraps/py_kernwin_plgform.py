@@ -1,3 +1,4 @@
+from __future__ import print_function
 #<pycode(py_kernwin_plgform)>
 import sys
 class PluginForm(object):
@@ -51,7 +52,7 @@ class PluginForm(object):
     def _ensure_widget_deps(ctx):
         for key, modname in [("sip", "sip"), ("QtWidgets", "PyQt5.QtWidgets")]:
             if not hasattr(ctx, key):
-                print "Note: importing '%s' module into %s" % (key, ctx)
+                print("Note: importing '%s' module into %s" % (key, ctx))
                 import importlib
                 setattr(ctx, key, importlib.import_module(modname))
 

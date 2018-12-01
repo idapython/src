@@ -6,6 +6,7 @@ Copyright (c) 1990-2009 Hex-Rays
 ALL RIGHTS RESERVED.
 
 """
+from __future__ import print_function
 
 import re
 
@@ -81,4 +82,4 @@ def main():
     return (True, "Success!")
 r = main()
 if not r[0]:
-    print r[1]
+    print(r[1])

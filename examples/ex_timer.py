@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -------------------------------------------------------------------------
 # This is an example illustrating how to use timers
 # (c) Hex-Rays
@@ -10,7 +11,7 @@ class timercallback_t(object):
         self.interval = 1000
         self.obj = idaapi.register_timer(self.interval, self)
         if self.obj is None:
-            raise RuntimeError, "Failed to register timer"
+            raise RuntimeError("Failed to register timer")
         self.times = 5
 
     def __call__(self):
@@ -30,7 +31,7 @@ def main():
 		# No need to unregister the timer.
 		# It will unregister itself in the callback when it returns -1
     except Exception as e:
-        print "Error: %s" % e
+        print("Error: %s" % e)
 
 
 # -------------------------------------------------------------------------

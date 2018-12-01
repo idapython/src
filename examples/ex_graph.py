@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the user graphing functionality
 # in Python
@@ -66,7 +67,7 @@ class MyGraph(GraphViewer):
 def show_graph():
     f = idaapi.get_func(here())
     if not f:
-        print "Must be in a function"
+        print("Must be in a function")
         return
     # Iterate through all function instructions and take only call instructions
     result = {}
@@ -86,4 +87,4 @@ def show_graph():
 
 g = show_graph()
 if g:
-    print "Graph created and displayed!"
+    print("Graph created and displayed!")

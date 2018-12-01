@@ -1,8 +1,9 @@
+from __future__ import print_function
 
 try:
   from argparse import ArgumentParser
 except:
-  print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
+  print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
   raise
 
 parser = ArgumentParser(description='Patch calling conventions for some functions, so it builds on windows')

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use customview in Python
 # The sample will allow you to open an assembly file and display it in color
@@ -192,9 +193,9 @@ class asmview_t(ida_kernwin.simplecustviewer_t, asm_colorizer_t):
             self.ClearLines()
             self.Refresh()
         elif vkey == ord('S'):
-            print "Selection (x1, y1, x2, y2) = ", self.GetSelection()
+            print("Selection (x1, y1, x2, y2) = ", self.GetSelection())
         elif vkey == ord('I'):
-            print "Position (line, x, y) = ", self.GetPos(mouse = 0)
+            print("Position (line, x, y) = ", self.GetPos(mouse = 0))
         else:
             return False
         return True

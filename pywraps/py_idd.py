@@ -23,8 +23,8 @@ class Appcall_array__(object):
     def pack(self, L):
         """Packs a list or tuple into a byref buffer"""
         t = type(L)
-        if not (t == types.ListType or t == types.TupleType):
-            raise ValueError, "Either a list or a tuple must be passed"
+        if not (t == list or t == tuple):
+            raise ValueError("Either a list or a tuple must be passed")
         self.__size = len(L)
         if self.__size == 1:
             self.__typedobj = Appcall__.typedobj(self.__type + ";")
@@ -52,12 +52,12 @@ class Appcall_array__(object):
             buf = buf.value
 
         # we can only unpack from strings
-        if type(buf) != types.StringType:
-            raise ValueError, "Cannot unpack this type!"
+        if type(buf) != bytes:
+            raise ValueError("Cannot unpack this type!")
         # now unpack
         ok, obj = self.__typedobj.retrieve(buf)
         if not ok:
-            raise ValueError, "Failed while unpacking!"
+            raise ValueError("Failed while unpacking!")
         if not as_list:
             return obj
         return self.try_to_convert_to_list(obj)
@@ -115,7 +115,7 @@ class Appcall_callable__(object):
     def __call__(self, *args):
         """Make object callable. We redirect execution to idaapi.appcall()"""
         if self.ea is None:
-            raise ValueError, "Object not callable!"
+            raise ValueError("Object not callable!")
 
         # convert arguments to a list
         arg_list = list(args)
@@ -141,7 +141,7 @@ class Appcall_callable__(object):
 
         # Return or re-raise exception
         if e_obj:
-            raise Exception, e_obj
+            raise Exception(e_obj)
 
         return r
 
@@ -189,7 +189,7 @@ class Appcall_callable__(object):
         if src is None:
             src = self.ea
 
-        if type(src) == types.StringType:
+        if type(src) == bytes:
             return _ida_typeinf.unpack_object_from_bv(None, self.type, self.fields, src, flags)
         else:
             return _ida_typeinf.unpack_object_from_idb(None, self.type, self.fields, src, flags)
@@ -232,7 +232,7 @@ class Appcall_consts__(object):
     def __getattr__(self, attr):
         v = Appcall__.valueof(attr, self.__default)
         if v is None:
-            raise ValueError, "No constant with name " + attr
+            raise ValueError("No constant with name " + attr)
         return v
 
 # -----------------------------------------------------------------------
@@ -281,13 +281,13 @@ class Appcall__(object):
         """
 
         # a string? try to resolve it
-        if type(name_or_ea) == types.StringType:
+        if type(name_or_ea) == bytes:
             ea = _ida_name.get_name_ea(_ida_idaapi.BADADDR, name_or_ea)
         else:
             ea = name_or_ea
         # could not resolve name or invalid address?
         if ea == _ida_idaapi.BADADDR or not _ida_bytes.is_mapped(ea):
-            raise ValueError, "Undefined function " + name_or_ea
+            raise ValueError("Undefined function " + name_or_ea)
         return ea
 
     @staticmethod
@@ -310,7 +310,7 @@ class Appcall__(object):
 
         result = _ida_typeinf.idc_parse_decl(None, prototype, flags)
         if result is None:
-            raise ValueError, "Could not parse type: " + prototype
+            raise ValueError("Could not parse type: " + prototype)
 
         # Return the callable method with type info
         return Appcall_callable__(ea, result[1], result[2])
@@ -320,7 +320,7 @@ class Appcall__(object):
         # resolve and raise exception on error
         ea = self.__name_or_ea(name_or_ea)
         if ea == _ida_idaapi.BADADDR:
-            raise ValueError, "Undefined function " + name
+            raise ValueError("Undefined function " + name)
         # Return the callable method
         return Appcall_callable__(ea)
 
@@ -400,7 +400,7 @@ class Appcall__(object):
         # parse the type
         result = _ida_typeinf.idc_parse_decl(None, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
         if result is None:
-            raise ValueError, "Could not parse type: " + typestr
+            raise ValueError("Could not parse type: " + typestr)
         # Return the callable method with type info
         return Appcall_callable__(ea, result[1], result[2])
 
