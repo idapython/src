@@ -1,0 +1,16 @@
+language: cpp
+compiler:
+  - clang
+addons:
+  apt:
+    packages:
+    - python-pip
+matrix:
+  include:
+    - os: linux
+      env: __LINUX__=1
+    # - os: osx  # TODO: add macOS after Linux is working
+    #   env: __MAC__=1
+script:
+  - make
+  - python2 build.py
