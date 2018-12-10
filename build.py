@@ -22,7 +22,7 @@ What follows, are example build commands
 
 ### Windows (assume SWiG is installed in C:\swigwin-2.0.12, and IDA is in C:\Program Files\IDA7)
 
-  python build.py \\
+  python2 build.py \\
       --with-hexrays \\
       --swig-home C:/swigwin-2.0.12 \\
       --idc "c:/Program\ Files/IDA_7.0-171130-tests/idc/idc.idc"
@@ -30,7 +30,7 @@ What follows, are example build commands
 
 ### Linux/OSX (assume SWiG is installed in /opt/swiglinux-2.0.12, and IDA is in /opt/my-ida-install)
 
-  python build.py \\
+  python2 build.py \\
       --with-hexrays \\
       --swig-home /opt/swiglinux-2.0.12 \\
       --idc /opt/my-ida-install/idc/idc.idc
