@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to:
 # - enumerate imports
@@ -100,7 +101,7 @@ class ImpExpForm_t(PluginForm):
         """
         global ImpExpForm
         del ImpExpForm
-        print "Closed"
+        print("Closed")
 
 
     def Show(self):

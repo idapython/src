@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -------------------------------------------------------------------------
 # This is an example illustrating how to visit all patched bytes in Python
 # (c) Hex-Rays

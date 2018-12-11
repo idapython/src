@@ -1,10 +1,11 @@
+from __future__ import print_function
 
 import os, sys, pickle, subprocess
 
 try:
   from argparse import ArgumentParser
 except:
-  print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
+  print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
   raise
 
 parser = ArgumentParser()
@@ -21,11 +22,11 @@ sk_orig = sorted(orig.keys())
 sk_then = sorted(then.keys())
 for key in sk_orig:
     if not key in sk_then:
-        print "Missing expected key: %s" % key
+        print("Missing expected key: %s" % key)
 
 for key in sk_then:
     if not key in sk_orig:
-        print "Unexpected key found: %s" % key
+        print("Unexpected key found: %s" % key)
 
 subprocess.check_call(["rm", "-r", "-f", "/tmp/diffs"])
 subprocess.check_call(["mkdir", "/tmp/diffs"])

@@ -4,6 +4,7 @@ Original code by Bryce Boe: http://www.bryceboe.com/2010/09/01/submitting-binari
 Modified by Elias Bachaalany <elias at hex-rays.com>
 
 """
+from __future__ import print_function
 
 import hashlib, httplib, mimetypes, os, pprint, simplejson, sys, urlparse
 

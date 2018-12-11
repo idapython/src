@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to manipulate an existing IDA-provided
 # view (and thus its graph), in Python.
@@ -15,21 +16,21 @@ class Worker(threading.Thread):
     def req_SetCurrentRendererType(self, switch_to):
         w = self.w
         def f():
-            print "Switching.."
+            print("Switching..")
             w.SetCurrentRendererType(switch_to)
         idaapi.execute_sync(f, idaapi.MFF_FAST)
 
     def req_SetNodeInfo(self, node, info, flags):
         w = self.w
         def f():
-            print "Setting node info.."
+            print("Setting node info..")
             w.SetNodeInfo(node, info, flags)
         idaapi.execute_sync(f, idaapi.MFF_FAST)
 
     def req_DelNodesInfos(self, *nodes):
         w = self.w
         def f():
-            print "Deleting nodes infos.."
+            print("Deleting nodes infos..")
             w.DelNodesInfos(*nodes)
         idaapi.execute_sync(f, idaapi.MFF_FAST)
 
@@ -63,7 +64,7 @@ class Worker(threading.Thread):
         self.req_DelNodesInfos(0)
         sleep(3)
 
-        print "Done."
+        print("Done.")
 
 class MyIDAViewWrapper(IDAViewWrapper):
     # A wrapper around the standard IDA view wrapper.
@@ -79,9 +80,9 @@ class MyIDAViewWrapper(IDAViewWrapper):
         stack = inspect.stack()
         frame, _, _, _, _, _ = stack[1]
         args, _, _, values = inspect.getargvalues(frame)
-        print "EVENT: %s: args=%s" % (
+        print("EVENT: %s: args=%s" % (
             inspect.getframeinfo(frame)[2],
-            [(i, values[i]) for i in args[1:]])
+            [(i, values[i]) for i in args[1:]]))
 
     def OnViewKeydown(self, key, state):
         self.printPrevFrame()
@@ -103,7 +104,7 @@ class MyIDAViewWrapper(IDAViewWrapper):
 viewName = "IDA View-A"
 w = MyIDAViewWrapper(viewName)
 if w.Bind():
-    print "Succesfully bound to %s" % viewName
+    print("Succesfully bound to %s" % viewName)
 
     # We'll launch the sequence of operations in another thread,
     # so that sleep() calls don't freeze the UI
@@ -111,4 +112,4 @@ if w.Bind():
     worker.start()
 
 else:
-    print "Couldn't bind to view %s. Is it available?" % viewName
+    print("Couldn't bind to view %s. Is it available?" % viewName)

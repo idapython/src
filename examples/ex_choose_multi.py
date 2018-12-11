@@ -1,3 +1,4 @@
+from __future__ import print_function
 from ida_kernwin import Choose
 
 
@@ -37,4 +38,4 @@ def test_choose(num):
 
 # -----------------------------------------------------------------------
 if __name__ == '__main__':
-    print test_choose(11)
+    print(test_choose(11))

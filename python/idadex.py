@@ -1,3 +1,4 @@
+from __future__ import print_function
 #---------------------------------------------------------------------
 # IDAPython - Python plugin for Interactive Disassembler
 #
@@ -26,7 +27,7 @@ uint64 = ctypes.c_uint64
 uint16 = ctypes.c_ushort
 ushort = uint16
 # __EA64__ is set if IDA is running in 64-bit mode
-__EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+__EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
 ea_t = uint64 if __EA64__ else uint32
 
 # parse a ctypes struct from byte data in str_ at 'off'
@@ -92,8 +93,8 @@ def unpack_dq(buf, off):
     (xl, off) = unpack_dd(buf, off)
     (xh, off) = unpack_dd(buf, off)
     x = (long(xh) << 32) | xl
-    if x > 0x8000000000000000L:
-        x = x - 0x10000000000000000L
+    if x > 0x8000000000000000:
+        x = x - 0x10000000000000000
     return (x, off)
 
 def unpack_ea(buf, off):
@@ -282,7 +283,7 @@ class Dex(object):
         nn_var = self.get_nn_var(from_ea)
         val = nn_var.supval(method_idx, Dex.DEXVAR_METHOD)
         if len(val) != ctypes.sizeof(dex_method):
-            print "bad data in DEXVAR_METHOD for index 0x%X" % method_idx
+            print("bad data in DEXVAR_METHOD for index 0x%X" % method_idx)
             return None
         method = get_struct(val,0, dex_method)
         return method
@@ -430,7 +431,7 @@ class Dex(object):
         nn_var = self.get_nn_var(from_ea)
         val = nn_var.supval(field_idx, Dex.DEXVAR_FIELD)
         if len(val) != ctypes.sizeof(dex_field):
-            print "bad data in DEXVAR_FIELD for index 0x%X" % field_idx
+            print("bad data in DEXVAR_FIELD for index 0x%X" % field_idx)
             return None
         field = get_struct(val,0, dex_field)
         return field
@@ -462,14 +463,14 @@ if __name__ == '__main__':
     # reproduce IDA function header
     f = idaapi.get_func(here())
     if not f:
-        print "ERROR: must be in a function!"
+        print("ERROR: must be in a function!")
         exit(1)
 
     func_start_ea = f.start_ea
     methno = dex.get_method_idx(func_start_ea)
     func_method = dex.get_method(func_start_ea, methno)
     if func_method is None:
-        print "ERROR: Missing method info"
+        print("ERROR: Missing method info")
         exit(1)
     out = ""
     # Return type
@@ -495,9 +496,9 @@ if __name__ == '__main__':
         out += "%x" % methno
     # Method parameters
     if func_method.nparams == 0:
-        print out + "()"
+        print(out + "()")
     else:
-        print out + "("
+        print(out + "(")
         out = ""
         maxp = min(func_method.nparams, 32)
         start_reg = func_method.reg_total - func_method.reg_params
@@ -519,4 +520,4 @@ if __name__ == '__main__':
             else:
                 out += r.user
             out += ')' if i + 1 == maxp else ','
-            print out
+            print(out)

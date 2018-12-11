@@ -25,6 +25,7 @@ the byte value). These 32 bits are used in get_full_flags/get_flags functions.
 This file is subject to change without any notice.
 Future versions of IDA may use other definitions.
 """
+from __future__ import print_function
 # FIXME: Perhaps those should be loaded on-demand
 import ida_idaapi
 import ida_auto
@@ -68,7 +69,7 @@ import time
 import types
 import sys
 
-__EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+__EA64__ = ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
 WORDMASK = 0xFFFFFFFFFFFFFFFF if __EA64__ else 0xFFFFFFFF
 class DeprecatedIDCError(Exception):
     """
@@ -94,7 +95,7 @@ def _IDC_GetAttr(obj, attrmap, attroffs):
         return getattr(obj, attrmap[attroffs][1])
     else:
         errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-        raise KeyError, errormsg
+        raise KeyError(errormsg)
 
 
 def _IDC_SetAttr(obj, attrmap, attroffs, value):
@@ -105,11 +106,11 @@ def _IDC_SetAttr(obj, attrmap, attroffs, value):
     # check for read-only atributes
     if attroffs in attrmap:
         if attrmap[attroffs][0]:
-            raise KeyError, "attribute with offset %d is read-only" % attroffs
+            raise KeyError("attribute with offset %d is read-only" % attroffs)
         elif hasattr(obj, attrmap[attroffs][1]):
             return setattr(obj, attrmap[attroffs][1], value)
     errormsg = "attribute with offset %d not found, check the offset and report the problem" % attroffs
-    raise KeyError, errormsg
+    raise KeyError(errormsg)
 
 
 BADADDR         = ida_idaapi.BADADDR # Not allowed address value
@@ -293,12 +294,12 @@ NEF_FLAT   = ida_loader.NEF_FLAT   # Autocreated FLAT group (PE)
 # ----------------------------------------------------------------------------
 #                       M I S C E L L A N E O U S
 # ----------------------------------------------------------------------------
-def value_is_string(var): raise NotImplementedError, "this function is not needed in Python"
-def value_is_long(var):   raise NotImplementedError, "this function is not needed in Python"
-def value_is_float(var):  raise NotImplementedError, "this function is not needed in Python"
-def value_is_func(var):   raise NotImplementedError, "this function is not needed in Python"
-def value_is_pvoid(var):  raise NotImplementedError, "this function is not needed in Python"
-def value_is_int64(var):  raise NotImplementedError, "this function is not needed in Python"
+def value_is_string(var): raise NotImplementedError("this function is not needed in Python")
+def value_is_long(var):   raise NotImplementedError("this function is not needed in Python")
+def value_is_float(var):  raise NotImplementedError("this function is not needed in Python")
+def value_is_func(var):   raise NotImplementedError("this function is not needed in Python")
+def value_is_pvoid(var):  raise NotImplementedError("this function is not needed in Python")
+def value_is_int64(var):  raise NotImplementedError("this function is not needed in Python")
 
 def to_ea(seg, off):
     """
@@ -307,19 +308,19 @@ def to_ea(seg, off):
     return (seg << 4) + off
 
 def form(format, *args):
-    raise DeprecatedIDCError, "form() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError("form() is deprecated. Use python string operations instead.")
 
 def substr(s, x1, x2):
-    raise DeprecatedIDCError, "substr() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError("substr() is deprecated. Use python string operations instead.")
 
 def strstr(s1, s2):
-    raise DeprecatedIDCError, "strstr() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError("strstr() is deprecated. Use python string operations instead.")
 
 def strlen(s):
-    raise DeprecatedIDCError, "strlen() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError("strlen() is deprecated. Use python string operations instead.")
 
 def xtol(s):
-    raise DeprecatedIDCError, "xtol() is deprecated. Use python long() instead."
+    raise DeprecatedIDCError("xtol() is deprecated. Use python long() instead.")
 
 def atoa(ea):
     """
@@ -332,10 +333,10 @@ def atoa(ea):
     return ida_kernwin.ea2str(ea)
 
 def ltoa(n, radix):
-    raise DeprecatedIDCError, "ltoa() is deprecated. Use python string operations instead."
+    raise DeprecatedIDCError("ltoa() is deprecated. Use python string operations instead.")
 
 def atol(s):
-    raise DeprecatedIDCError, "atol() is deprecated. Use python long() instead."
+    raise DeprecatedIDCError("atol() is deprecated. Use python long() instead.")
 
 
 def rotate_left(value, count, nbits, offset):
@@ -414,7 +415,7 @@ def eval_idc(expr):
         elif rv.vtype == '\x07': # VT_STR
             return rv.c_str()
         else:
-            raise NotImplementedError, "eval_idc() supports only expressions returning strings or longs"
+            raise NotImplementedError("eval_idc() supports only expressions returning strings or longs")
 
 
 def EVAL_FAILURE(code):
@@ -425,7 +426,7 @@ def EVAL_FAILURE(code):
 
     @return: True if there was an evaluation error
     """
-    return type(code) == types.StringType and code.startswith("IDC_FAILURE: ")
+    return type(code) == bytes and code.startswith("IDC_FAILURE: ")
 
 
 def save_database(idbname, flags=0):
@@ -855,15 +856,15 @@ def set_array_params(ea, flags, litems, align):
     """
     return eval_idc("set_array_params(0x%X, 0x%X, %d, %d)"%(ea, flags, litems, align))
 
-AP_ALLOWDUPS    = 0x00000001L     # use 'dup' construct
-AP_SIGNED       = 0x00000002L     # treats numbers as signed
-AP_INDEX        = 0x00000004L     # display array element indexes as comments
-AP_ARRAY        = 0x00000008L     # reserved (this flag is not stored in database)
-AP_IDXBASEMASK  = 0x000000F0L     # mask for number base of the indexes
-AP_IDXDEC       = 0x00000000L     # display indexes in decimal
-AP_IDXHEX       = 0x00000010L     # display indexes in hex
-AP_IDXOCT       = 0x00000020L     # display indexes in octal
-AP_IDXBIN       = 0x00000030L     # display indexes in binary
+AP_ALLOWDUPS    = 0x00000001     # use 'dup' construct
+AP_SIGNED       = 0x00000002     # treats numbers as signed
+AP_INDEX        = 0x00000004     # display array element indexes as comments
+AP_ARRAY        = 0x00000008     # reserved (this flag is not stored in database)
+AP_IDXBASEMASK  = 0x000000F0     # mask for number base of the indexes
+AP_IDXDEC       = 0x00000000     # display indexes in decimal
+AP_IDXHEX       = 0x00000010     # display indexes in hex
+AP_IDXOCT       = 0x00000020     # display indexes in octal
+AP_IDXBIN       = 0x00000030     # display indexes in binary
 
 op_bin = ida_bytes.op_bin
 op_oct = ida_bytes.op_oct
@@ -1790,7 +1791,7 @@ def get_inf_attr(offset):
 
 def set_inf_attr(offset, value):
     if offset == INF_PROCNAME:
-        raise NotImplementedError, "Please use ida_idp.set_processor_type() to change processor"
+        raise NotImplementedError("Please use ida_idp.set_processor_type() to change processor")
     # We really want to go through IDC's equivalent, because it might
     # have side-effects (i.e., send a notification, etc...)
     return eval_idc("set_inf_attr(%d, %d)" % (offset, value))
@@ -2872,26 +2873,26 @@ def get_xref_type():
 
     @return: constants fl_* or dr_*
     """
-    raise DeprecatedIDCError, "use XrefsFrom() XrefsTo() from idautils instead."
+    raise DeprecatedIDCError("use XrefsFrom() XrefsTo() from idautils instead.")
 
 
 #----------------------------------------------------------------------------
 #                            F I L E   I / O
 #----------------------------------------------------------------------------
 def fopen(f, mode):
-    raise DeprecatedIDCError, "fopen() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fopen() deprecated. Use Python file objects instead.")
 
 def fclose(handle):
-    raise DeprecatedIDCError, "fclose() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fclose() deprecated. Use Python file objects instead.")
 
 def filelength(handle):
-    raise DeprecatedIDCError, "filelength() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("filelength() deprecated. Use Python file objects instead.")
 
 def fseek(handle, offset, origin):
-    raise DeprecatedIDCError, "fseek() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fseek() deprecated. Use Python file objects instead.")
 
 def ftell(handle):
-    raise DeprecatedIDCError, "ftell() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("ftell() deprecated. Use Python file objects instead.")
 
 
 def LoadFile(filepath, pos, ea, size):
@@ -2945,31 +2946,31 @@ def savefile(filepath, pos, ea, size): return SaveFile(filepath, pos, ea, size)
 
 
 def fgetc(handle):
-    raise DeprecatedIDCError, "fgetc() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fgetc() deprecated. Use Python file objects instead.")
 
 def fputc(byte, handle):
-    raise DeprecatedIDCError, "fputc() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fputc() deprecated. Use Python file objects instead.")
 
 def fprintf(handle, format, *args):
-    raise DeprecatedIDCError, "fprintf() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("fprintf() deprecated. Use Python file objects instead.")
 
 def readshort(handle, mostfirst):
-    raise DeprecatedIDCError, "readshort() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("readshort() deprecated. Use Python file objects instead.")
 
 def readlong(handle, mostfirst):
-    raise DeprecatedIDCError, "readlong() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("readlong() deprecated. Use Python file objects instead.")
 
 def writeshort(handle, word, mostfirst):
-    raise DeprecatedIDCError, "writeshort() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("writeshort() deprecated. Use Python file objects instead.")
 
 def writelong(handle, dword, mostfirst):
-    raise DeprecatedIDCError, "writelong() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("writelong() deprecated. Use Python file objects instead.")
 
 def readstr(handle):
-    raise DeprecatedIDCError, "readstr() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("readstr() deprecated. Use Python file objects instead.")
 
 def writestr(handle, s):
-    raise DeprecatedIDCError, "writestr() deprecated. Use Python file objects instead."
+    raise DeprecatedIDCError("writestr() deprecated. Use Python file objects instead.")
 
 # ----------------------------------------------------------------------------
 #                           F U N C T I O N S
@@ -4376,11 +4377,11 @@ def next_func_chunk(funcea, tailea):
            fci.chunk().end_ea > tailea:
             found = True
             break
-        if not fci.next():
+        if not next(fci):
             break
 
     # Return the next chunk, if there is one
-    if found and fci.next():
+    if found and next(fci):
         return fci.chunk().start_ea
     else:
         return BADADDR
@@ -5484,7 +5485,7 @@ def send_dbg_command(cmd):
     """
     s = eval_idc('send_dbg_command("%s");' % ida_kernwin.str2user(cmd))
     if s.startswith("IDC_FAILURE"):
-        raise Exception, "Debugger command is available only when the debugger is active!"
+        raise Exception("Debugger command is available only when the debugger is active!")
     return s
 
 # wfne flag is combination of the following:
@@ -5773,10 +5774,10 @@ def set_reg_value(value, name):
            A register name in the left side of an assignment will do too.
     """
     rv = ida_idd.regval_t()
-    if type(value) == types.StringType:
+    if type(value) == bytes:
         value = int(value, 16)
-    elif type(value) != types.IntType and type(value) != types.LongType:
-        print "set_reg_value: value must be integer!"
+    elif type(value) != int and type(value) != int:
+        print("set_reg_value: value must be integer!")
         return BADADDR
 
     if value < 0:
@@ -6067,7 +6068,7 @@ def get_color(ea, what):
     @return: color code in RGB (hex 0xBBGGRR)
     """
     if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
-        raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
+        raise ValueError("'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM")
 
     if what == CIC_ITEM:
         return ida_nalt.get_item_color(ea)
@@ -6105,7 +6106,7 @@ def set_color(ea, what, color):
     @return: success (True or False)
     """
     if what not in [ CIC_ITEM, CIC_FUNC, CIC_SEGM ]:
-        raise ValueError, "'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM"
+        raise ValueError("'what' must be one of CIC_ITEM, CIC_FUNC and CIC_SEGM")
 
     if what == CIC_ITEM:
         return ida_nalt.set_item_color(ea, color)

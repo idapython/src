@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 #<pycode(py_bytes_custdata)>
 DTP_NODUP = 0x0001
@@ -59,14 +60,14 @@ def register_data_types_and_formats(formats):
               return False
         attach_custom_data_format(dtid, dfid)
         if dtid == 0:
-            print "Registered format '%s' with built-in types, ID=%d" % (df.name, dfid)
+            print("Registered format '%s' with built-in types, ID=%d" % (df.name, dfid))
         else:
-            print "   Registered format '%s', ID=%d (dtid=%d)" % (df.name, dfid, dtid)
+            print("   Registered format '%s', ID=%d (dtid=%d)" % (df.name, dfid, dtid))
         return True
 
     def __reg_type(dt):
         register_custom_data_type(dt)
-        print "Registered type '%s', ID=%d" % (dt.name, dt.id)
+        print("Registered type '%s', ID=%d" % (dt.name, dt.id))
         return dt.id != -1
     ok = __walk_types_and_formats(formats, __reg_type, __reg_format, True)
     return 1 if ok else -1
@@ -77,12 +78,12 @@ def unregister_data_types_and_formats(formats):
     unregisters multiple data types and formats at once.
     """
     def __unreg_format(df, dtid):
-        print "%snregistering format '%s'" % ("U" if dtid == 0 else "   u", df.name)
+        print("%snregistering format '%s'" % ("U" if dtid == 0 else "   u", df.name))
         unregister_custom_data_format(df.id)
         return True
 
     def __unreg_type(dt):
-        print "Unregistering type '%s', ID=%d" % (dt.name, dt.id)
+        print("Unregistering type '%s', ID=%d" % (dt.name, dt.id))
         unregister_custom_data_type(dt.id)
         return True
     ok = __walk_types_and_formats(formats, __unreg_type, __unreg_format, False)

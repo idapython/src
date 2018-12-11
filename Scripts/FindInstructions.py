@@ -16,6 +16,7 @@ The general syntax is:
 Copyright (c) 1990-2018 Hex-Rays
 ALL RIGHTS RESERVED.
 """
+from __future__ import print_function
 import re
 
 import ida_idaapi
@@ -73,7 +74,7 @@ def FindInstructions(instr, asm_where=None):
     bin_str = ' '.join(["%02X" % ord(x) for x in buf])
 
     # find all binary strings
-    print "Searching for: [%s]" % bin_str
+    print("Searching for: [%s]" % bin_str)
     ea = ida_ida.cvar.inf.min_ea
     ret = []
     while True:
@@ -154,7 +155,7 @@ def find(s=None, x=False, asm_where=None):
         c = SearchResultChoose(title, results)
         c.Show(True)
     else:
-        print ret
+        print(ret)
 
 # -----------------------------------------------------------------------
-print "Please use find('asm_stmt1;xx yy;...', x=Bool,asm_where=ea) to search for instructions or opcodes. Specify x=true to filter out non-executable segments"
+print("Please use find('asm_stmt1;xx yy;...', x=Bool,asm_where=ea) to search for instructions or opcodes. Specify x=true to filter out non-executable segments")

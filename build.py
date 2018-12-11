@@ -11,6 +11,7 @@
 #---------------------------------------------------------------------
 # build.py - Makefile wrapper script
 #---------------------------------------------------------------------
+from __future__ import print_function
 import os, sys, argparse
 
 parser = argparse.ArgumentParser(epilog="""
@@ -52,7 +53,7 @@ assert os.path.exists(_probe), "Could not find IDA SDK include path (looked for:
 
 def run(proc_argv, env=None):
     import subprocess
-    print "Running: \"%s\", with additional environment: \"%s\"" % (" ".join(proc_argv), str(env))
+    print("Running: \"%s\", with additional environment: \"%s\"" % (" ".join(proc_argv), str(env)))
     full_env = os.environ.copy()
     full_env.update(env)
     subprocess.check_call(proc_argv, env=full_env)
@@ -89,7 +90,7 @@ def main():
         else:
             if "__EA64__" in env:
                 del env["__EA64__"]
-        print "\n### Building EAsize=%d(bit) version of the plugin" % (64 if ea64 else 32)
+        print("\n### Building EAsize=%d(bit) version of the plugin" % (64 if ea64 else 32))
         run(argv, env=env)
 
 # -----------------------------------------------------------------------

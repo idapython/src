@@ -8,6 +8,7 @@ Show decompiler-style Xref when the X key is pressed in the Decompiler window.
 - It supports structure member.
 
 """
+from __future__ import print_function
 
 import idautils
 import idaapi
@@ -114,9 +115,9 @@ class XrefsForm(idaapi.PluginForm):
 
     def get_decompiled_line(self, cfunc, ea):
 
-        print repr(ea)
+        print(repr(ea))
         if ea not in cfunc.eamap:
-            print 'strange, %x is not in %x eamap' % (ea, cfunc.entry_ea)
+            print('strange, %x is not in %x eamap' % (ea, cfunc.entry_ea))
             return
 
         insnvec = cfunc.eamap[ea]
@@ -147,7 +148,7 @@ class XrefsForm(idaapi.PluginForm):
                 self.items.append((ea, idc.get_func_name(cfunc.entry_ea), self.get_decompiled_line(cfunc, ea)))
 
             except Exception as e:
-                print 'could not decompile: %s' % (str(e), )
+                print('could not decompile: %s' % (str(e), ))
                 raise
 
         return
@@ -167,7 +168,7 @@ class XrefsForm(idaapi.PluginForm):
             try:
                 cfunc = idaapi.decompile(ea)
             except:
-                print 'Decompilation of %x failed' % (ea, )
+                print('Decompilation of %x failed' % (ea, ))
                 continue
 
             str(cfunc)
@@ -195,14 +196,14 @@ class XrefsForm(idaapi.PluginForm):
                     parent = cfunc.body.find_parent_of(parent)
 
                 if not parent:
-                    print 'cannot find parent statement (?!)'
+                    print('cannot find parent statement (?!)')
                     continue
 
                 if parent.ea in addresses:
                     continue
 
                 if parent.ea == idaapi.BADADDR:
-                    print 'parent.ea is BADADDR'
+                    print('parent.ea is BADADDR')
                     continue
 
                 addresses.append(parent.ea)
@@ -259,7 +260,7 @@ class show_xrefs_ah_t(idaapi.action_handler_t):
     def activate(self, ctx):
         vu = idaapi.get_widget_vdui(ctx.widget)
         if not vu or not self.sel:
-            print "No vdui? Strange, since this action should be enabled only for pseudocode views."
+            print("No vdui? Strange, since this action should be enabled only for pseudocode views.")
             return 0
 
         form = XrefsForm(self.sel)
@@ -296,6 +297,6 @@ if idaapi.init_hexrays_plugin():
         vds_xrefs_hooks = vds_xrefs_hooks_t()
         vds_xrefs_hooks.hook()
     else:
-        print "Couldn't register action."
+        print("Couldn't register action.")
 else:
-    print 'hexrays is not available.'
+    print('hexrays is not available.')

@@ -1,3 +1,4 @@
+from __future__ import print_function
 #---------------------------------------------------------------------
 # Colour test
 #
@@ -14,6 +15,6 @@ set_color(here(), CIC_FUNC, 0x208020)
 set_color(here(), CIC_ITEM, 0x2020c0)
 
 # Print the colours just set
-print "%x" % get_color(here(), CIC_SEGM)
-print "%x" % get_color(here(), CIC_FUNC)
-print "%x" % get_color(here(), CIC_ITEM)
+print("%x" % get_color(here(), CIC_SEGM))
+print("%x" % get_color(here(), CIC_FUNC))
+print("%x" % get_color(here(), CIC_ITEM))

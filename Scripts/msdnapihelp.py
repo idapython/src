@@ -6,6 +6,7 @@ and returns the results in a new web browser page.
 
 This script depends on the feedparser package: http://code.google.com/p/feedparser/
 """
+from __future__ import print_function
 
 # -----------------------------------------------------------------------
 import ida_kernwin
@@ -57,11 +58,11 @@ class msdnapihelp_plugin_t(ida_idaapi.plugin_t):
         v = ida_kernwin.get_current_viewer()
         ident, ok = ida_kernwin.get_highlight(v)
         if not ok:
-            print "No identifier was highlighted"
+            print("No identifier was highlighted")
             return
 
         ident = self.sanitize_name(ident)
-        print "Looking up '%s' in MSDN online" % ident
+        print("Looking up '%s' in MSDN online" % ident)
         d = feedparser.parse(get_url(ident))
         if len(d['entries']) > 0:
             url = d['entries'][0].link
@@ -71,7 +72,7 @@ class msdnapihelp_plugin_t(ida_idaapi.plugin_t):
                 import webbrowser
                 webbrowser.open_new_tab(url)
         else:
-            print "API documentation not found for: %s" % ident
+            print("API documentation not found for: %s" % ident)
 
 
     def term(self):

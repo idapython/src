@@ -107,7 +107,7 @@ def CallStackWalk(nn):
     sp = idautils.cpu.Esp - word_size
     while sp < stack_seg.end_ea:
         sp += word_size
-        ptr = idautils.GetDataList(sp, 1, word_size).next()
+        ptr = next(idautils.GetDataList(sp, 1, word_size))
         seg = ida_segment.getseg(ptr)
         # only accept executable segments
         if (not seg) or ((seg.perm & ida_segment.SEGPERM_EXEC) == 0):

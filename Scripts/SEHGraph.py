@@ -7,6 +7,7 @@ It will be easy to see what thread uses what handler and what handlers are commo
 Copyright (c) 1990-2018 Hex-Rays
 ALL RIGHTS RESERVED.
 """
+from __future__ import print_function
 
 import ida_kernwin
 import ida_graph
@@ -88,7 +89,7 @@ class SEHGraph(ida_graph.GraphViewer):
 
               # Get the node id given the handler address
               # We use an addr -> id dictionary so that similar addresses get similar node id
-              if not addr_id.has_key(handler):
+              if handler not in addr_id:
                   id = self.AddNode( (False, handler, s) )
                   addr_id[handler] = id # add this ID
               else:
@@ -113,12 +114,12 @@ class SEHGraph(ida_graph.GraphViewer):
             self.Show()
             s = "SEH chain for " + hex(value)
             t = "-" * len(s)
-            print t
-            print s
-            print t
+            print(t)
+            print(s)
+            print(t)
             for handler in self.result[value]:
-                print "%x: %s" % (handler, self.names[handler])
-            print t
+                print("%x: %s" % (handler, self.names[handler]))
+            print(t)
         else:
             ida_kernwin.jumpto(value)
         return True
@@ -127,7 +128,7 @@ class SEHGraph(ida_graph.GraphViewer):
 # -----------------------------------------------------------------------
 def main():
     if not ida_idd.dbg_can_query():
-        print "The debugger must be active and suspended before using this script!"
+        print("The debugger must be active and suspended before using this script!")
         return
 
     # Save current thread id

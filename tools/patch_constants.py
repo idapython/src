@@ -1,10 +1,11 @@
+from __future__ import print_function
 
 import re
 
 try:
   from argparse import ArgumentParser
 except:
-  print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
+  print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
   raise
 
 parser = ArgumentParser(description='Patch calling conventions for some functions, so it builds on windows')
@@ -171,13 +172,13 @@ with open(args.file, "rb") as f:
             if almost_there_re.match(line):
                 status = STAT_ALMOST_THERE
                 if args.verbose:
-                    print "Almost there at line: '%s'" % line
+                    print("Almost there at line: '%s'" % line)
             outlines.append(line)
         elif status == STAT_ALMOST_THERE:
             if start_collecting_re.match(line):
                 status = STAT_COLLECTING
                 if args.verbose:
-                    print "Starting to collect at line: '%s'" % line
+                    print("Starting to collect at line: '%s'" % line)
                 outlines.append("#ifdef __NT__\n")
                 outlines.append("#pragma warning(disable: 4883)\n")
                 outlines.append("#endif // __NT__\n")
@@ -191,14 +192,14 @@ with open(args.file, "rb") as f:
 
                 status = STAT_SEEKING
                 if args.verbose:
-                    print "Done collecting at line: '%s'" % line
+                    print("Done collecting at line: '%s'" % line)
             else:
                 match = set_constant_re.search(line)
                 if match:
                     tpl = (match.group(1), match.group(2))
                     constants.append(tpl)
                     if args.verbose:
-                        print "Found 'SetConstant' expression: %s => %s" % tpl
+                        print("Found 'SetConstant' expression: %s => %s" % tpl)
                 else:
                     outlines.append(line)
 

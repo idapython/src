@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # Debugger command prompt with CustomViewers
 # (c) Hex-Rays
@@ -96,7 +97,7 @@ class dbgcmd_t(ida_kernwin.simplecustviewer_t):
 def show_win():
     x = dbgcmd_t()
     if not x.Create():
-        print "Failed to create debugger command line!"
+        print("Failed to create debugger command line!")
         return None
     x.Show()
 

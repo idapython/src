@@ -1,3 +1,4 @@
+from __future__ import print_function
 #
 # This (non-idiomatic) python script is in charge of
 #   1) Parsing all .i files in the 'swig/' directory, and
@@ -19,7 +20,7 @@ import xml.etree.ElementTree as ET
 try:
     from argparse import ArgumentParser
 except:
-    print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
+    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
     raise
 
 parser = ArgumentParser()
@@ -40,7 +41,7 @@ DOCSTR_MARKER  = '"""'
 
 def verb(msg):
     if args.verbose:
-        print msg
+        print(msg)
 
 # --------------------------------------------------------------------------
 def load_patches(args):
@@ -148,7 +149,7 @@ class collect_pydoc_t(object):
     def collect_fun(self, fun_name):
         collected = []
         while len(self.lines) > 0:
-            line = self.next()
+            line = next(self)
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -172,7 +173,7 @@ class collect_pydoc_t(object):
     def collect_method(self, cls, method_name):
         collected = []
         while len(self.lines) > 0:
-            line = self.next()
+            line = next(self)
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -194,7 +195,7 @@ class collect_pydoc_t(object):
         collected = []
         cls = {"methods":{},"doc":None}
         while len(self.lines) > 0:
-            line = self.next()
+            line = next(self)
             if self.state is self.S_IN_PYDOC:
                 if line.startswith("    def "):
                     self.collect_method(cls, get_fun_name(line))
@@ -220,7 +221,7 @@ class collect_pydoc_t(object):
         context = None
         doc = []
         while len(self.lines) > 0:
-            line = self.next()
+            line = next(self)
             if self.state is self.S_UNKNOWN:
                 if line.startswith(self.PYDOC_START):
                     self.state = self.S_IN_PYDOC
@@ -409,7 +410,7 @@ class idaapi_fixer_t(object):
         return line
 
     def copy(self, out):
-        line = self.next()
+        line = next(self)
         out.append(line)
         return line
 
@@ -484,7 +485,7 @@ class idaapi_fixer_t(object):
             # Opening docstring line; determine indentation level
             indent = get_indent_string(line)
             while True:
-                line = self.next()
+                line = next(self)
                 if line.find(DOCSTR_MARKER) > -1:
                     # Closing docstring line
                     swig_generated_param_names = self.extract_swig_generated_param_names(fun_name, out[doc_start_line_idx:])
@@ -537,7 +538,7 @@ class idaapi_fixer_t(object):
         # If class has doc, maybe inject additional <pydoc>
         if line.find(DOCSTR_MARKER) > -1:
             while True:
-                line = self.next()
+                line = next(self)
                 if line.find(DOCSTR_MARKER) > -1:
                     doc = found["doc"]
                     if doc is not None:
@@ -553,7 +554,7 @@ class idaapi_fixer_t(object):
         # their docstring
         method_start = indent + "def "
         while True:
-            line = self.next()
+            line = next(self)
             # print "Fixing methods.. Line is '%s'" % line
             if line.startswith(indent) or line.strip() == "":
                 if line.startswith(method_start):
@@ -568,7 +569,7 @@ class idaapi_fixer_t(object):
     def fix_assignment(self, out, match):
         # out.append("LOL: %s" % match.group(1))
         line = self.copy(out)
-        line = self.next()
+        line = next(self)
         if not line.startswith(DOCSTR_MARKER):
             # apparently no epydoc-compliant docstring follows. Let's
             # look for a possible match in the xml doc.
@@ -591,7 +592,7 @@ class idaapi_fixer_t(object):
         self.xml_tree = doxygen_utils.load_xml_for_module(xml_dir_path, args.module)
         out = []
         while len(self.lines) > 0:
-            line = self.next()
+            line = next(self)
             if line.startswith("def "):
                 self.push_front(line)
                 self.fix_fun(out)

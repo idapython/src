@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use custom data types in Python
 # (c) Hex-Rays
@@ -218,7 +219,7 @@ def nw_handler(code, old=0):
     # delete notifications
     if code == NW_OPENIDB:
         if not idaapi.register_data_types_and_formats(new_formats):
-            print "Failed to register types!"
+            print("Failed to register types!")
     elif code == NW_CLOSEIDB:
         idaapi.unregister_data_types_and_formats(new_formats)
     elif code == NW_TERMIDA:
@@ -228,9 +229,9 @@ def nw_handler(code, old=0):
 # Check if already installed
 if idaapi.find_custom_data_type(pascal_data_format.FORMAT_NAME) == -1:
     if not idaapi.register_data_types_and_formats(new_formats):
-        print "Failed to register types!"
+        print("Failed to register types!")
     else:
         idaapi.notify_when(NW_TERMIDA | NW_OPENIDB | NW_CLOSEIDB, nw_handler)
-        print "Formats installed!"
+        print("Formats installed!")
 else:
-    print "Formats already installed!"
+    print("Formats already installed!")

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 try:
     import pywraps
@@ -12,7 +13,7 @@ import datetime
 
 #<pycode(py_idaapi)>
 
-__EA64__ = BADADDR == 0xFFFFFFFFFFFFFFFFL
+__EA64__ = BADADDR == 0xFFFFFFFFFFFFFFFF
 
 import struct
 import traceback
@@ -67,7 +68,7 @@ def _replace_module_function(replacement):
     orig = getattr(mod, name)
     replacement.__doc__ = orig.__doc__
     replacement.__name__ = name
-    replacement.func_dict["orig"] = orig
+    replacement.__dict__["orig"] = orig
     setattr(mod, name, replacement)
 
 def replfun(func):
@@ -447,7 +448,7 @@ def IDAPython_LoadProcMod(script, g, print_error=True):
     Load processor module.
     """
     script = _utf8_native(script)
-    pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
+    pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
 
     scriptpath, scriptname = os.path.split(script)
@@ -488,7 +489,7 @@ def IDAPython_UnLoadProcMod(script, g, print_error=True):
     Unload processor module.
     """
     script = _utf8_native(script)
-    pname = g['__name__'] if g and g.has_key("__name__") else '__main__'
+    pname = g['__name__'] if g and "__name__" in g else '__main__'
     parent = sys.modules[pname]
 
     scriptname = os.path.split(script)[1]
@@ -648,7 +649,7 @@ class __BC695:
         pass
 
     def replace_fun(self, new):
-        new.func_dict["bc695redef"] = True
+        new.__dict__["bc695redef"] = True
         _replace_module_function(new)
 
 _BC695 = __BC695()

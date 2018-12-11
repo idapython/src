@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use customview in Python
 # (c) Hex-Rays
@@ -13,7 +14,7 @@ class say_something_handler_t(idaapi.action_handler_t):
         self.thing = thing
 
     def activate(self, ctx):
-        print self.thing
+        print(self.thing)
 
     def update(self, ctx):
         return idaapi.AST_ENABLE_ALWAYS
@@ -52,7 +53,7 @@ class mycv_t(simplecustviewer_t):
         @param shift: Shift flag
         @return: Boolean. True if you handled the event
         """
-        print "OnClick, shift=%d" % shift
+        print("OnClick, shift=%d" % shift)
         return True
 
     def OnPopup(self, form, popup_handle):
@@ -69,7 +70,7 @@ class mycv_t(simplecustviewer_t):
         """
         word = self.GetCurrentWord()
         if not word: word = "<None>"
-        print "OnDblClick, shift=%d, current word=%s" % (shift, word)
+        print("OnDblClick, shift=%d, current word=%s" % (shift, word))
         return True
 
     def OnCursorPosChanged(self):
@@ -77,14 +78,14 @@ class mycv_t(simplecustviewer_t):
         Cursor position changed.
         @return: Nothing
         """
-        print "OnCurposChanged"
+        print("OnCurposChanged")
 
     def OnClose(self):
         """
         The view is closing. Use this event to cleanup.
         @return: Nothing
         """
-        print "OnClose " + self.title
+        print("OnClose " + self.title)
 
     def OnKeydown(self, vkey, shift):
         """
@@ -93,7 +94,7 @@ class mycv_t(simplecustviewer_t):
         @param shift: Shift flag
         @return: Boolean. True if you handled the event
         """
-        print "OnKeydown, vk=%d shift=%d" % (vkey, shift)
+        print("OnKeydown, vk=%d shift=%d" % (vkey, shift))
         # ESCAPE?
         if vkey == 27:
             self.Close()
@@ -103,7 +104,7 @@ class mycv_t(simplecustviewer_t):
             if n is not None:
                 self.DelLine(n)
                 self.Refresh()
-                print "Deleted line %d" % n
+                print("Deleted line %d" % n)
         # Goto?
         elif vkey == ord('G'):
             n = self.GetLineNo()
@@ -112,17 +113,17 @@ class mycv_t(simplecustviewer_t):
                 if v:
                     self.Jump(v, 0, 5)
         elif vkey == ord('R'):
-            print "refreshing...."
+            print("refreshing....")
             self.Refresh()
         elif vkey == ord('C'):
-            print "refreshing current line..."
+            print("refreshing current line...")
             self.RefreshCurrent()
         elif vkey == ord('A'):
             s = idaapi.ask_str("NewLine%d" % self.Count(), 0, "Append new line")
             self.AddLine(s)
             self.Refresh()
         elif vkey == ord('X'):
-            print "Clearing all lines"
+            print("Clearing all lines")
             self.ClearLines()
             self.Refresh()
         elif vkey == ord('I'):
@@ -135,11 +136,11 @@ class mycv_t(simplecustviewer_t):
             if not l:
                 return False
             n = self.GetLineNo()
-            print "curline=<%s>" % l
+            print("curline=<%s>" % l)
             l = l + idaapi.COLSTR("*", idaapi.SCOLOR_VOIDOP)
             self.EditLine(n, l)
             self.RefreshCurrent()
-            print "Edited line %d" % n
+            print("Edited line %d" % n)
         else:
             return False
         return True
@@ -158,7 +159,7 @@ class mycv_t(simplecustviewer_t):
 try:
     # created already?
     mycv
-    print "Already created, will close it..."
+    print("Already created, will close it...")
     mycv.Close()
     del mycv
 except:
@@ -167,7 +168,7 @@ except:
 def show_win():
     x = mycv_t()
     if not x.Create():
-        print "Failed to create!"
+        print("Failed to create!")
         return None
     x.Show()
     tcc = x.GetWidget()

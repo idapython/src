@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import sys
 import shutil
@@ -98,14 +99,14 @@ def patch_docs():
             lines = r
         r = add_footer(lines)
         if not r:
-            print "-",
+            print("-", end=' ')
             continue
 
         with open(fn, 'w') as f:
             f.write(r)
-        print "+",
+        print("+", end=' ')
 
-    print "\nDocumentation patched!"
+    print("\nDocumentation patched!")
 
 # --------------------------------------------------------------------------
 def main():
@@ -118,11 +119,11 @@ def main():
     old_dir = os.getcwd()
 
     try:
-        print "Generating documentation....."
+        print("Generating documentation.....")
         import ida_pro
         try:
             ida_pro._BC695
-            print "'ida_pro._BC695' exists. Please recompile with BC695=0 (see makefile). Bailing out."
+            print("'ida_pro._BC695' exists. Please recompile with BC695=0 (see makefile). Bailing out.")
             return -1
         except:
             pass # ok
@@ -133,7 +134,7 @@ def main():
         os.chdir(DOC_DIR)
         patch_docs()
 
-        print "Documentation generated!"
+        print("Documentation generated!")
 
     finally:
         os.chdir(old_dir)

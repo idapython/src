@@ -1,3 +1,4 @@
+from __future__ import print_function
 import ida_kernwin
 from ida_kernwin import Choose
 
@@ -10,7 +11,7 @@ class chooser_handler_t(ida_kernwin.action_handler_t):
         sel = []
         for idx in ctx.chooser_selection:
             sel.append(str(idx))
-        print "command %s selected @ %s" % (self.thing, ", ".join(sel))
+        print("command %s selected @ %s" % (self.thing, ", ".join(sel)))
 
     def update(self, ctx):
         return ida_kernwin.AST_ENABLE_FOR_WIDGET \
@@ -45,7 +46,7 @@ class MyChoose(Choose):
         print("created %s" % str(self))
 
     def OnInit(self):
-        print "inited", str(self)
+        print("inited", str(self))
         return True
 
     def OnGetSize(self):
@@ -60,7 +61,7 @@ class MyChoose(Choose):
     def OnGetIcon(self, n):
         r = self.items[n]
         t = self.icon + r[1].count("*")
-        print "geticon", n, t
+        print("geticon", n, t)
         return t
 
     def OnGetLineAttr(self, n):
@@ -95,7 +96,7 @@ class MyChoose(Choose):
         return (Choose.NOTHING_CHANGED, )
 
     def OnClose(self):
-        print "closed", str(self)
+        print("closed", str(self))
 
     def OnPopup(self, form, popup_handle):
         for c in ["A", "B"]:

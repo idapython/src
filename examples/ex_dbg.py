@@ -1,3 +1,4 @@
+from __future__ import print_function
 from tempo import *;
 
 def test_getmeminfo():
@@ -12,7 +13,7 @@ def test_getmeminfo():
     f.write("\n".join(out))
     f.close()
 
-    print "dumped meminfo!"
+    print("dumped meminfo!")
 
 
 def test_getregs():
@@ -29,6 +30,6 @@ def test_getregs():
     f.write("\n".join(out))
     f.close()
 
-    print "dumped regs!"
+    print("dumped regs!")
 
 

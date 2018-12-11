@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import os
 
@@ -8,7 +9,7 @@ def __sys(cmd, fmt=None, echo=True):
     r = []
     for cmd in [x for x in (cmd % fmt).split("\n") if len(x)]:
         if echo:
-            print ">>>", cmd
+            print(">>>", cmd)
         r.append((os.system(cmd), cmd))
     return r
 
@@ -48,12 +49,12 @@ void func%(n)d()
 """
 
 if len(sys.argv) < 2:
-    print "usage: gen nb_calls pause_frequency"
+    print("usage: gen nb_calls pause_frequency")
     sys.exit(0)
 
 n = int(sys.argv[1])
 if n < 1:
-    print "at least one call should be passed!"
+    print("at least one call should be passed!")
     sys.exit(1)
 
 m = int(sys.argv[2])

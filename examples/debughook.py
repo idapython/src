@@ -1,3 +1,4 @@
+from __future__ import print_function
 #---------------------------------------------------------------------
 # Debug notification hook test
 #
@@ -32,10 +33,10 @@ class MyDbgHook(DBG_Hooks):
         return 0
 
     def dbg_library_load(self, pid, tid, ea, name, base, size):
-        print "Library loaded: pid=%d tid=%d name=%s base=%x" % (pid, tid, name, base)
+        print("Library loaded: pid=%d tid=%d name=%s base=%x" % (pid, tid, name, base))
 
     def dbg_bpt(self, tid, ea):
-        print "Break point at 0x%x pid=%d" % (ea, tid)
+        print("Break point at 0x%x pid=%d" % (ea, tid))
         # return values:
         #   -1 - to display a breakpoint warning dialog
         #        if the process is suspended.
@@ -44,7 +45,7 @@ class MyDbgHook(DBG_Hooks):
         return 0
 
     def dbg_suspend_process(self):
-        print "Process suspended"
+        print("Process suspended")
 
     def dbg_exception(self, pid, tid, ea, exc_code, exc_can_cont, exc_ea, exc_info):
         print("Exception: pid=%d tid=%d ea=0x%x exc_code=0x%x can_continue=%d exc_ea=0x%x exc_info=%s" % (
@@ -68,7 +69,7 @@ class MyDbgHook(DBG_Hooks):
         self.dbg_step_over()
 
     def dbg_run_to(self, pid, tid=0, ea=0):
-        print "Runto: tid=%d" % tid
+        print("Runto: tid=%d" % tid)
         idaapi.continue_process()
 
 

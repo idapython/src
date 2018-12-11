@@ -11,6 +11,7 @@
 # -----------------------------------------------------------------------
 # init.py - Essential init routines
 # -----------------------------------------------------------------------
+from __future__ import print_function
 import os
 import sys
 import time
@@ -22,7 +23,7 @@ lib_dynload = os.path.join(
     IDAPYTHON_DYNLOAD_BASE,
     "python", "lib", "python2.7", "lib-dynload")
 
-is_x64 = sys.maxint >= 0x100000000L
+is_x64 = sys.maxsize >= 0x100000000
 if is_x64:
     # x64 python requires our lib_dynload to be added; sys.path seems
     # to be composed differently than x86 builds.
@@ -42,9 +43,9 @@ try:
     import ida_kernwin
     import ida_diskio
 except ImportError as e:
-    print "Import failed: %s. Current sys.path:" % str(e)
+    print("Import failed: %s. Current sys.path:" % str(e))
     for p in sys.path:
-        print "\t%s" % p
+        print("\t%s" % p)
     raise
 
 

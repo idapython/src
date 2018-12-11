@@ -6,6 +6,7 @@ Copyright (c) 1990-2009 Hex-Rays
 ALL RIGHTS RESERVED.
 
 """
+from __future__ import print_function
 
 import re
 
@@ -51,4 +52,4 @@ def main():
 
 ok, r = main()
 if not ok:
-    print r
+    print(r)

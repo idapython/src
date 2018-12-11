@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to use the Form class
 # (c) Hex-Rays
@@ -128,15 +129,15 @@ The end!
 def stdalone_main():
     f = MyForm()
     f, args = f.Compile()
-    print args[0]
-    print args[1:]
+    print(args[0])
+    print(args[1:])
     f.rNormal.checked = True
     f.rWarnings.checked = True
-    print hex(f.cGroup1.value)
+    print(hex(f.cGroup1.value))
 
     f.rGreen.selected = True
-    print f.cGroup2.value
-    print "Title: '%s'" % f.title
+    print(f.cGroup2.value)
+    print("Title: '%s'" % f.title)
 
     f.Free()
 
@@ -247,7 +248,7 @@ Form Test
             pass
         elif fid == -2:
             ti = self.GetControlValue(self.txtMultiLineText)
-            print "ti.text = %s" % ti.text
+            print("ti.text = %s" % ti.text)
         else:
             print(">>fid:%d" % fid)
         return 1
@@ -260,13 +261,13 @@ def test_multilinetext(execute=True):
     if execute:
         ok = f.Execute()
     else:
-        print args[0]
-        print args[1:]
+        print(args[0])
+        print(args[1:])
         ok = 0
 
     if ok == 1:
         assert f.txtMultiLineText.text == f.txtMultiLineText.value
-        print f.txtMultiLineText.text
+        print(f.txtMultiLineText.text)
 
     f.Free()
 
@@ -325,7 +326,7 @@ Dropdown list test
             self.RefreshField(self.cbReadonly)
         elif fid == -2:
             s = self.GetControlValue(self.cbEditable)
-            print "user entered: %s" % s
+            print("user entered: %s" % s)
             sel_idx = self.GetControlValue(self.cbReadonly)
 
         return 1
@@ -338,13 +339,13 @@ def test_dropdown(execute=True):
     if execute:
         ok = f.Execute()
     else:
-        print args[0]
-        print args[1:]
+        print(args[0])
+        print(args[1:])
         ok = 0
 
     if ok == 1:
-        print "Editable: %s" % f.cbEditable.value
-        print "Readonly: %s" % f.cbReadonly.value
+        print("Editable: %s" % f.cbEditable.value)
+        print("Readonly: %s" % f.cbReadonly.value)
 
     f.Free()
 

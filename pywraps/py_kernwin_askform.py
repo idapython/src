@@ -1112,7 +1112,7 @@ class Form(object):
                 # Push argument(s)
                 # (Some controls need more than one argument)
                 arg = ctrl.get_arg()
-                if isinstance(arg, (types.ListType, types.TupleType)):
+                if isinstance(arg, (list, tuple)):
                     # Push all args
                     args.extend(arg)
                 else:
@@ -1337,14 +1337,14 @@ class Form(object):
         elif isinstance(ctrl, Form.InputControl):
             return (1, ctrl.size)
         else:
-            raise NotImplementedError, "Not yet implemented"
+            raise NotImplementedError("Not yet implemented")
 
 # --------------------------------------------------------------------------
 # Instantiate ask_form function pointer
 try:
     import ctypes
     # Setup the numeric argument size
-    Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL
+    Form.NumericArgument.DefI64 = _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF
     __ask_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_ask_form())
     __open_form_callable = ctypes.CFUNCTYPE(ctypes.c_long)(_ida_kernwin.py_get_open_form())
 except:

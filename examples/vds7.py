@@ -4,6 +4,7 @@ Author: EiNSTeiN_ <einstein@g3nius.org>
 
 This is a rewrite in Python of the vds7 example that comes with hexrays sdk.
 """
+from __future__ import print_function
 
 import idautils
 import idaapi
@@ -29,9 +30,9 @@ class cblock_visitor_t(idaapi.ctree_visitor_t):
 
     def dump_block(self, ea, b):
         # iterate over all block instructions
-        print "dumping block %x" % (ea, )
+        print("dumping block %x" % (ea, ))
         for ins in b:
-            print "  %x: insn %s" % (ins.ea, ins.opname)
+            print("  %x: insn %s" % (ins.ea, ins.opname))
 
         return
 
@@ -48,4 +49,4 @@ if idaapi.init_hexrays_plugin():
     vds7_hooks = vds7_hooks_t()
     vds7_hooks.hook()
 else:
-    print 'cblock visitor: hexrays is not available.'
+    print('cblock visitor: hexrays is not available.')

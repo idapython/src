@@ -1,3 +1,4 @@
+from __future__ import print_function
 #---------------------------------------------------------------------
 # This script demonstrates the usage of hotkeys.
 #
@@ -9,7 +10,7 @@
 import idaapi
 
 def foo():
- print "Hotkey activated!"
+ print("Hotkey activated!")
 
 # IDA binds hotkeys to IDC functions so a trampoline IDC function
 # must be created

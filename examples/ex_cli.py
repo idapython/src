@@ -1,3 +1,4 @@
+from __future__ import print_function
 # -----------------------------------------------------------------------
 # This is an example illustrating how to implement a CLI
 # (c) Hex-Rays
@@ -19,7 +20,7 @@ class mycli_t(cli_t):
         @param line: typed line(s)
         @return Boolean: True-executed line, False-ask for more lines
         """
-        print "OnExecute:", line
+        print("OnExecute:", line)
         return True
 
     def OnKeydown(self, line, x, sellen, vkey, shift):
@@ -40,7 +41,7 @@ class mycli_t(cli_t):
             tuple(line, x, sellen, vkey): if either of the input line or the x coordinate or the selection length has been modified.
             It is possible to return a tuple with None elements to preserve old values. Example: tuple(new_line, None, None, None) or tuple(new_line)
         """
-        print "Onkeydown: line=%s x=%d sellen=%d vkey=%d shift=%d" % (line, x, sellen, vkey, shift)
+        print("Onkeydown: line=%s x=%d sellen=%d vkey=%d shift=%d" % (line, x, sellen, vkey, shift))
         return None
 
     def OnCompleteLine(self, prefix, n, line, prefix_start):
@@ -56,20 +57,20 @@ class mycli_t(cli_t):
 
         @return: None if no completion could be generated otherwise a String with the completion suggestion
         """
-        print "OnCompleteLine: prefix=%s n=%d line=%s prefix_start=%d" % (prefix, n, line, prefix_start)
+        print("OnCompleteLine: prefix=%s n=%d line=%s prefix_start=%d" % (prefix, n, line, prefix_start))
         return None
 
 
 # -----------------------------------------------------------------------
 def nw_handler(code, old=0):
     if code == NW_OPENIDB:
-        print "nw_handler(): installing CLI"
+        print("nw_handler(): installing CLI")
         mycli.register()
     elif code == NW_CLOSEIDB:
-        print "nw_handler(): removing CLI"
+        print("nw_handler(): removing CLI")
         mycli.unregister()
     elif code == NW_TERMIDA:
-        print "nw_handler(): uninstalled nw handler"
+        print("nw_handler(): uninstalled nw handler")
         idaapi.notify_when(NW_TERMIDA | NW_OPENIDB | NW_CLOSEIDB | NW_REMOVE, nw_handler)
 
 # -----------------------------------------------------------------------
@@ -89,10 +90,10 @@ finally:
 
 # register CLI
 if mycli.register():
-    print "CLI installed"
+    print("CLI installed")
     # install new handler
     idaapi.notify_when(NW_TERMIDA | NW_OPENIDB | NW_CLOSEIDB, nw_handler)
 else:
     del mycli
-    print "Failed to install CLI"
+    print("Failed to install CLI")
 

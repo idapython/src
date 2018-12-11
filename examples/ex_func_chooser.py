@@ -1,3 +1,4 @@
+from __future__ import print_function
 import idautils
 import idc
 from ida_kernwin import Choose
@@ -39,7 +40,7 @@ class MyChoose(Choose):
         return [Choose.ALL_CHANGED] + self.adjust_last_item(n)
 
     def OnClose(self):
-        print "closed ", self.title
+        print("closed ", self.title)
 
 c = MyChoose("My functions list")
 c.Show()

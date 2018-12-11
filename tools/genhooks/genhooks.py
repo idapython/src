@@ -1,3 +1,4 @@
+from __future__ import print_function
 # TODO:
 # * auto_queue_empty must return 1 by default. How should
 #   that be specified? In idp.hpp, or in a specific, 'recipe' file?
@@ -30,7 +31,7 @@ p.add_argument("-s", "--strip-prefix",  required=False, dest="strip_prefix",  he
 args = p.parse_args()
 
 def warn(msg):
-    print "#### WARNING: %s" % msg
+    print("#### WARNING: %s" % msg)
 
 if args.recipe:
     execfile(args.recipe)
@@ -160,12 +161,12 @@ for enumval_el in enum_el.findall("./enumvalue"):
 
 def dump():
     for enumerator in enumerators:
-        print "%s:" % enumerator["name"]
+        print("%s:" % enumerator["name"])
         rdata = enumerator["params"][0]
-        print "\t%s: %s (default=%s)" % (
-            rdata["name"], rdata["type"], rdata["default"])
+        print("\t%s: %s (default=%s)" % (
+            rdata["name"], rdata["type"], rdata["default"]))
         for p in enumerator["params"][1:]:
-            print "\t%s: %s" % (p["name"], p["type"])
+            print("\t%s: %s" % (p["name"], p["type"]))
 
 #dump()
 

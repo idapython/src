@@ -263,7 +263,7 @@ def Chunks(start):
     while status:
         chunk = func_iter.chunk()
         yield (chunk.start_ea, chunk.end_ea)
-        status = func_iter.next()
+        status = next(func_iter)
 
 
 def Modules():
@@ -419,7 +419,7 @@ def GetDataList(ea, count, itemsize=1):
     elif itemsize == 8:
         getdata = ida_bytes.get_qword
     else:
-        raise ValueError, "Invalid data size! Must be 1, 2, 4 or 8"
+        raise ValueError("Invalid data size! Must be 1, 2, 4 or 8")
 
     endea = ea + itemsize * count
     curea = ea
@@ -593,7 +593,7 @@ def _Assemble(ea, line):
     """
     Please refer to Assemble() - INTERNAL USE ONLY
     """
-    if type(line) == types.StringType:
+    if type(line) == bytes:
         lines = [line]
     else:
         lines = line
@@ -636,7 +636,7 @@ def _copy_obj(src, dest, skip_list = None):
                  Otherwise dest should be an instance of another class
     @return: A new instance or "dest"
     """
-    if type(dest) == types.StringType:
+    if type(dest) == bytes:
         # instantiate a new destination class of the specified type name?
         dest = new.classobj(dest, (), {})
     for x in dir(src):
@@ -703,7 +703,7 @@ class __process_ui_actions_helper(object):
         elif isinstance(actions, (list, tuple)):
             lst = actions
         else:
-            raise ValueError, "Must pass a string, list or a tuple"
+            raise ValueError("Must pass a string, list or a tuple")
 
         # Remember the action list and the flags
         self.__action_list = lst

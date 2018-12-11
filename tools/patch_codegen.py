@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import os
 import re
@@ -7,7 +8,7 @@ import xml.etree.ElementTree as ET
 try:
     from argparse import ArgumentParser
 except:
-    print "Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'"
+    print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
     raise
 
 parser = ArgumentParser(description='Patch some code generation, so it builds')
