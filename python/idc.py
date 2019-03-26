@@ -4054,7 +4054,7 @@ def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=
                    -1 means to add at the end of the structure
     @param flag: type of the new member. Should be one of
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-    @param typeid: if isStruc(flag) then typeid specifies the structure id for the member
+    @param typeid: if is_struct(flag) then typeid specifies the structure id for the member
                    if is_off0(flag) then typeid specifies the offset base.
                    if is_strlit(flag) then typeid specifies the string type (STRTYPE_...).
                    if is_stroff(flag) then typeid specifies the structure id
@@ -4135,7 +4135,7 @@ def set_member_type(sid, member_offset, flag, typeid, nitems, target=-1, tdelta=
     @param member_offset: offset of the member
     @param flag: new type of the member. Should be one of
                  FF_BYTE..FF_PACKREAL (see above) combined with FF_DATA
-    @param typeid: if isStruc(flag) then typeid specifies the structure id for the member
+    @param typeid: if is_struct(flag) then typeid specifies the structure id for the member
                    if is_off0(flag) then typeid specifies the offset base.
                    if is_strlit(flag) then typeid specifies the string type (STRTYPE_...).
                    if is_stroff(flag) then typeid specifies the structure id
