@@ -5161,7 +5161,7 @@ def get_local_tinfo(ordinal):
     Get local type information as 'typeinfo' object
 
     @param ordinal:  slot number (1...NumberOfLocalTypes)
-    @return: None on failure, or (type, fields, name) tuple.
+    @return: None on failure, or (type, fields) tuple.
     """
     return ida_typeinf.idc_get_local_type_raw(ordinal)
 
