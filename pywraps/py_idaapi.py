@@ -700,7 +700,7 @@ class IDAPython_displayhook:
         try:
             storage = []
             import ida_idp
-            num_printer = hex
+            num_printer = lambda x: '0x%x' % x
             dn = ida_idp.ph_get_flag() & ida_idp.PR_DEFNUM
             if dn == ida_idp.PRN_OCT:
                 num_printer = oct
