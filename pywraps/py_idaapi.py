@@ -693,6 +693,10 @@ class IDAPython_displayhook:
         else:
             storage.append(str(item))
 
+    def _print_hex(self, x):
+        s = hex(x)
+        return s[0:-1] if s.endswith("L") else s
+
     def displayhook(self, item):
         if item is None or type(item) is bool:
             self.orig_displayhook(item)
@@ -700,7 +704,7 @@ class IDAPython_displayhook:
         try:
             storage = []
             import ida_idp
-            num_printer = lambda x: '0x%x' % x
+            num_printer = self._print_hex
             dn = ida_idp.ph_get_flag() & ida_idp.PR_DEFNUM
             if dn == ida_idp.PRN_OCT:
                 num_printer = oct
