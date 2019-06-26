@@ -8,10 +8,10 @@ class Choose(object):
     Please refer to kernwin.hpp for more information.
     """
 
-    CH_MODAL        = 0x01
+    CH_MODAL        = _ida_kernwin.CH_MODAL
     """Modal chooser"""
 
-    CH_MULTI        = 0x04
+    CH_MULTI        = _ida_kernwin.CH_MULTI
     """
     Allow multi selection.
     Refer the description of the OnInsertLine(), OnDeleteLine(),
@@ -19,65 +19,67 @@ class Choose(object):
     see a difference between single and multi selection callbacks.
     """
 
-    CH_NOBTNS       = 0x10
+    CH_NOBTNS       = _ida_kernwin.CH_NOBTNS
 
-    CH_ATTRS        = 0x20
+    CH_ATTRS        = _ida_kernwin.CH_ATTRS
 
-    CH_NOIDB        = 0x40
+    CH_NOIDB        = _ida_kernwin.CH_NOIDB
     """use the chooser even without an open database, same as x0=-2"""
 
-    CH_FORCE_DEFAULT = 0x80
+    CH_FORCE_DEFAULT = _ida_kernwin.CH_FORCE_DEFAULT
     """
     If a non-modal chooser was already open, change selection to the given
     default one
     """
 
-    CH_CAN_INS      = 0x000100
+    CH_CAN_INS      = _ida_kernwin.CH_CAN_INS
     """allow to insert new items"""
 
-    CH_CAN_DEL      = 0x000200
+    CH_CAN_DEL      = _ida_kernwin.CH_CAN_DEL
     """allow to delete existing item(s)"""
 
-    CH_CAN_EDIT     = 0x000400
+    CH_CAN_EDIT     = _ida_kernwin.CH_CAN_EDIT
     """allow to edit existing item(s)"""
 
-    CH_CAN_REFRESH  = 0x000800
+    CH_CAN_REFRESH  = _ida_kernwin.CH_CAN_REFRESH
     """allow to refresh chooser"""
 
-    CH_QFLT         =  0x1000
+    CH_QFLT         =  _ida_kernwin.CH_QFLT
     """open with quick filter enabled and focused"""
 
-    CH_QFTYP_SHIFT  = 13
-    CH_QFTYP_DEFAULT     = 0 << CH_QFTYP_SHIFT
-    CH_QFTYP_NORMAL      = 1 << CH_QFTYP_SHIFT
-    CH_QFTYP_WHOLE_WORDS = 2 << CH_QFTYP_SHIFT
-    CH_QFTYP_REGEX       = 3 << CH_QFTYP_SHIFT
-    CH_QFTYP_FUZZY       = 4 << CH_QFTYP_SHIFT
-    CH_QFTYP_MASK        = 0x7 << CH_QFTYP_SHIFT
+    CH_QFTYP_SHIFT  = _ida_kernwin.CH_QFTYP_SHIFT
+    CH_QFTYP_DEFAULT     = _ida_kernwin.CH_QFTYP_DEFAULT
+    CH_QFTYP_NORMAL      = _ida_kernwin.CH_QFTYP_NORMAL
+    CH_QFTYP_WHOLE_WORDS = _ida_kernwin.CH_QFTYP_WHOLE_WORDS
+    CH_QFTYP_REGEX       = _ida_kernwin.CH_QFTYP_REGEX
+    CH_QFTYP_FUZZY       = _ida_kernwin.CH_QFTYP_FUZZY
+    CH_QFTYP_MASK        = _ida_kernwin.CH_QFTYP_MASK
 
-    CH_NO_STATUS_BAR = 0x00010000
+    CH_NO_STATUS_BAR = _ida_kernwin.CH_NO_STATUS_BAR
     """don't show a status bar"""
-    CH_RESTORE       = 0x00020000
+    CH_RESTORE       = _ida_kernwin.CH_RESTORE
     """restore floating position if present (equivalent of WOPN_RESTORE) (GUI version only)"""
 
-    CH_BUILTIN_SHIFT = 19
-    CH_BUILTIN_MASK = 0x1F << CH_BUILTIN_SHIFT
+    CH_BUILTIN_SHIFT = _ida_kernwin.CH_BUILTIN_SHIFT
+    CH_BUILTIN_MASK = _ida_kernwin.CH_BUILTIN_MASK
 
     # column flags (are specified in the widths array)
-    CHCOL_PLAIN  =  0x00000000
-    CHCOL_PATH   =  0x00010000
-    CHCOL_HEX    =  0x00020000
-    CHCOL_DEC    =  0x00030000
-    CHCOL_FORMAT =  0x00070000
+    CHCOL_PLAIN  =  _ida_kernwin.CHCOL_PLAIN
+    CHCOL_PATH   =  _ida_kernwin.CHCOL_PATH
+    CHCOL_HEX    =  _ida_kernwin.CHCOL_HEX
+    CHCOL_DEC    =  _ida_kernwin.CHCOL_DEC
+    CHCOL_EA     =  _ida_kernwin.CHCOL_EA
+    CHCOL_FNAME  =  _ida_kernwin.CHCOL_FNAME
+    CHCOL_FORMAT =  _ida_kernwin.CHCOL_FORMAT
 
     # special values of the chooser index
     NO_SELECTION   = -1
     """there is no selected item"""
-    EMPTY_CHOOSER  = -4
+    EMPTY_CHOOSER  = -2
     """the chooser is initialized"""
-    ALREADY_EXISTS = -5
+    ALREADY_EXISTS = -3
     """the non-modal chooser with the same data is already open"""
-    NO_ATTR        = -6
+    NO_ATTR        = -4
     """some mandatory attribute is missing"""
 
     # return value of ins(), del(), edit(), enter(), refresh() callbacks
@@ -155,14 +157,17 @@ class Choose(object):
         self.ui_hooks_trampoline = None # set on Show
 
 
-    def Embedded(self):
+    def Embedded(self, create_chobj=False):
         """
         Creates an embedded chooser (as opposed to Show())
         @return: Returns 0 on success or NO_ATTR
         """
         if not self.embedded:
           return Choose.NO_ATTR
-        return _ida_kernwin.choose_create(self)
+        if create_chobj:
+            return _ida_kernwin.choose_create_embedded_chobj(self)
+        else:
+            return _ida_kernwin.choose_choose(self)
 
 
     def GetEmbSelection(self):
@@ -195,7 +200,7 @@ class Choose(object):
 
             # Disable the timeout
             old = _ida_idaapi.set_script_timeout(0)
-            n = _ida_kernwin.choose_create(self)
+            n = _ida_kernwin.choose_choose(self)
             _ida_idaapi.set_script_timeout(old)
 
             # Delete the modal chooser instance
@@ -204,7 +209,7 @@ class Choose(object):
             return n
         else:
             self.flags &= ~Choose.CH_MODAL
-            return _ida_kernwin.choose_create(self)
+            return _ida_kernwin.choose_choose(self)
 
 
     def Activate(self):
@@ -219,7 +224,8 @@ class Choose(object):
 
     def Close(self):
         """Closes the chooser"""
-        _ida_kernwin.choose_close(self)
+        if not self.embedded:
+            _ida_kernwin.choose_close(self)
 
     def GetWidget(self):
         """

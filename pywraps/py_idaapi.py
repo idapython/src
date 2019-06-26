@@ -604,6 +604,7 @@ def _listify_types(*classes):
         cls.at = cls.__getitem__ # '__getitem__' has bounds checkings
         cls.__len__ = cls.size
         cls.__iter__ = _bounded_getitem_iterator
+        cls.append = cls.push_back
 
 # The general callback format of notify_when() is:
 #    def notify_when_callback(nw_code)
@@ -621,6 +622,26 @@ NW_REMOVE     = 0x0010
 """Use this flag with other flags to uninstall a notifywhen callback"""
 
 
+_notify_when_dispatcher = None
+
+def notify_when(when, callback):
+    """
+    Register a callback that will be called when an event happens.
+    @param when: one of NW_XXXX constants
+    @param callback: This callback prototype varies depending on the 'when' parameter:
+                     The general callback format:
+                         def notify_when_callback(nw_code)
+                     In the case of NW_OPENIDB:
+                         def notify_when_callback(nw_code, is_old_database)
+    @return: Boolean
+    """
+    global _notify_when_dispatcher
+    import ida_idp
+    if _notify_when_dispatcher is None:
+        _notify_when_dispatcher = ida_idp._notify_when_dispatcher_t()
+    return _notify_when_dispatcher.notify_when(when, callback)
+
+
 # Since version 5.5, PyQt5 doesn't simply print the PyQt exceptions by default
 # anymore: https://github.com/baoboa/pyqt5/commit/1e1d8a3ba677ef3e47b916b8a5b9c281d0f8e4b5#diff-848704a82f6a6e3a13112145ce32ac69L63
 # The default behavior now is that qFatal() is called, causing the application
@@ -633,6 +654,69 @@ def __install_excepthook():
     sys.excepthook = lambda *args: real_hook(*args)
 __install_excepthook()
 
+
+# ------------------------------------------------------------
+class IDAPython_displayhook:
+    def __init__(self):
+        self.orig_displayhook = sys.displayhook
+
+    def format_seq(self, num_printer, storage, item, opn, cls):
+        storage.append(opn)
+        for idx, el in enumerate(item):
+            if idx > 0:
+                storage.append(', ')
+            self.format_item(num_printer, storage, el)
+        storage.append(cls)
+
+    def format_item(self, num_printer, storage, item):
+        if item is None or isinstance(item, bool):
+            storage.append(repr(item))
+        elif isinstance(item, basestring):
+            storage.append(_ida_idaapi.format_basestring(item))
+        elif isinstance(item, (int, long)):
+            storage.append(num_printer(item))
+        elif isinstance(item, list):
+            self.format_seq(num_printer, storage, item, '[', ']')
+        elif isinstance(item, tuple):
+            self.format_seq(num_printer, storage, item, '(', ')')
+        elif isinstance(item, set):
+            self.format_seq(num_printer, storage, item, 'set([', '])')
+        elif isinstance(item, (dict,)):
+            storage.append('{')
+            for idx, pair in enumerate(item.iteritems()):
+                if idx > 0:
+                    storage.append(', ')
+                self.format_item(num_printer, storage, pair[0])
+                storage.append(": ")
+                self.format_item(num_printer, storage, pair[1])
+            storage.append('}')
+        else:
+            storage.append(str(item))
+
+    def displayhook(self, item):
+        if item is None or type(item) is bool:
+            self.orig_displayhook(item)
+            return
+        try:
+            storage = []
+            import ida_idp
+            num_printer = hex
+            dn = ida_idp.ph_get_flag() & ida_idp.PR_DEFNUM
+            if dn == ida_idp.PRN_OCT:
+                num_printer = oct
+            elif dn == ida_idp.PRN_DEC:
+                num_printer = str
+            elif dn == ida_idp.PRN_BIN:
+                num_printer = bin
+            self.format_item(num_printer, storage, item)
+            sys.stdout.write("%s\n" % "".join(storage))
+        except:
+            import traceback
+            traceback.print_exc()
+            self.orig_displayhook(item)
+
+_IDAPython_displayhook = IDAPython_displayhook()
+sys.displayhook = _IDAPython_displayhook.displayhook
 
 # ----------------------------------- helpers for bw-compat w/ 6.95 API
 class __BC695:

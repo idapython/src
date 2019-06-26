@@ -3,8 +3,6 @@
 #include <struct.hpp>
 %}
 
-%import "idp.i"
-
 // Most of these could be wrapped if needed
 %ignore get_cc;
 %ignore get_cc_type_size;
@@ -130,6 +128,7 @@
 %ignore tinfo_t::serialize(qtype *, qtype *, qtype *, int) const;
 %ignore name_requires_qualifier;
 %ignore tinfo_visitor_t::level;
+%ignore tinfo_t::deserialize(const til_t *, const qtype *, const qtype *, const qtype *);
 
 %ignore custloc_desc_t;
 %ignore install_custom_argloc;
@@ -149,6 +148,7 @@
   }
 }
 
+//-------------------------------------------------------------------------
 %extend tinfo_t {
 
   PyObject *serialize(
@@ -166,38 +166,29 @@
     return $self->deserialize(til, &type, &fields, cmts == NULL ? NULL : &cmts);
   }
 
-  // The typemap in typeconv.i will take care of registering newly-constructed
-  // tinfo_t instances. However, there's no such thing as a destructor typemap.
-  // Therefore, we need to do the grunt work of de-registering ourselves.
-  // Note: The 'void' here is important: Without it, SWIG considers it to
-  //       be a different destructor (which, of course, makes a ton of sense.)
-  ~tinfo_t(void)
+  tinfo_t copy() const
   {
-    til_deregister_python_tinfo_t_instance($self);
-    delete $self;
+    return *$self;
   }
 
-  qstring __str__() const {
+  qstring __str__() const
+  {
     qstring qs;
     $self->print(&qs);
     return qs;
   }
 }
-%ignore tinfo_t::~tinfo_t(void);
 
 //---------------------------------------------------------------------
-// NOTE: This will ***NOT*** work for tinfo_t objects. Those must
-// be created and owned (or not) according to the kind of access.
-// To implement that, we use typemaps (see typeconv.i).
-%define %simple_tinfo_t_container_lifecycle(Type, CtorSig, ParamsList)
+%define %tinfo_t_or_simple_tinfo_t_container_lifecycle(Type)
+// Instead of re-defining all constructors, add the registering
+// to a specialized 'ret' typemap
+%typemap(ret) Type* Type::Type
+{
+  // %typemap(ret) Type* Type::Type
+  til_register_python_##Type##_instance($1);
+}
 %extend Type {
-  Type CtorSig
-  {
-    Type *inst = new Type ParamsList;
-    til_register_python_##Type##_instance(inst);
-    return inst;
-  }
-
   ~Type(void)
   {
     til_deregister_python_##Type##_instance($self);
@@ -205,14 +196,22 @@
   }
 }
 %enddef
-%simple_tinfo_t_container_lifecycle(ptr_type_data_t, (tinfo_t c=tinfo_t(), uchar bps=0, tinfo_t p=tinfo_t(), int32 d=0), (c, bps, p, d));
-%simple_tinfo_t_container_lifecycle(array_type_data_t, (size_t b=0, size_t n=0), (b, n));
-%simple_tinfo_t_container_lifecycle(func_type_data_t, (), ());
-%simple_tinfo_t_container_lifecycle(udt_type_data_t, (), ());
 
-%template(funcargvec_t)   qvector<funcarg_t>;
-%template(udtmembervec_t) qvector<udt_member_t>;
-%template(reginfovec_t)   qvector<reg_info_t>;
+%tinfo_t_or_simple_tinfo_t_container_lifecycle(tinfo_t);
+%tinfo_t_or_simple_tinfo_t_container_lifecycle(ptr_type_data_t);
+%tinfo_t_or_simple_tinfo_t_container_lifecycle(array_type_data_t);
+%tinfo_t_or_simple_tinfo_t_container_lifecycle(func_type_data_t);
+%tinfo_t_or_simple_tinfo_t_container_lifecycle(udt_type_data_t);
+
+%ignore tinfo_t::~tinfo_t(void);
+
+%template(funcargvec_t)      qvector<funcarg_t>;
+%template(udtmembervec_t)    qvector<udt_member_t>;
+%template(reginfovec_t)      qvector<reg_info_t>;
+%template(enum_member_vec_t) qvector<enum_member_t>;
+%template(argpartvec_t)      qvector<argpart_t>;
+%uncomparable_elements_qvector(valstr_t, valstrvec_t);
+%uncomparable_elements_qvector(regobj_t, regobjvec_t);
 %uncomparable_elements_qvector(type_attr_t, type_attrs_t);
 
 %extend tinfo_t {

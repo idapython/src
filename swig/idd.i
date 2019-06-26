@@ -5,8 +5,6 @@
 #include <err.h>
 %}
 
-%import "range.i"
-
 %ignore free_debug_event;
 %ignore copy_debug_event;
 %ignore debugger_t;
@@ -14,12 +12,19 @@
 %ignore lowcnd_vec_t;
 %ignore update_bpt_info_t;
 %ignore update_bpt_vec_t;
-%ignore register_info_t;
 %ignore appcall;
 %ignore idd_opinfo_t;
 %ignore gdecode_t;
+%ignore memory_buffer_t;
 %ignore debug_event_t::exit_code();
+%ignore append_regval;
+%ignore extract_regvals;
+%ignore unpack_regvals;
 %apply unsigned char { op_dtype_t dtype };
+%ignore regval_t::_set_int;
+%ignore regval_t::_set_float;
+%ignore regval_t::_set_bytes;
+%ignore regval_t::_set_unavailable;
 
 %uncomparable_elements_qvector(exception_info_t, excvec_t);
 %uncomparable_elements_qvector(process_info_t, procinfo_vec_t);

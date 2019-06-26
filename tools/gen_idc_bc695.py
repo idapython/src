@@ -126,6 +126,7 @@ symbols_modules = {
     "ask_long" : "ida_kernwin",
     "is_mapped" : "ida_bytes",
     "decode_insn" : "ida_ua",
+    "HIST_IDENT" : "ida_kernwin",
 }
 
 import re

@@ -74,7 +74,7 @@ public:
     if ( widget == NULL )
       return false;
 
-    if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this) )
+    if ( !idapython_hook_to_notification_point(HT_UI, s_callback, this, /*is_hooks_base=*/ false) )
     {
       widget = NULL;
       return false;
@@ -133,7 +133,7 @@ static bool plgform_show(
         PyObject *py_link,
         PyObject *py_obj,
         const char *caption,
-        int options = WOPN_TAB|WOPN_RESTORE)
+        int options = WOPN_DP_TAB|WOPN_RESTORE)
 {
   DECL_PLGFORM;
   return plgform->show(py_obj, caption, options);

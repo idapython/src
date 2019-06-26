@@ -2,7 +2,12 @@
 #include <hexrays.hpp>
 %}
 
-%import "typeinf.i"
+%{
+SWIGINTERN void __raise_vdf(const vd_failure_t &e)
+{
+  PyErr_SetString(PyExc_RuntimeError, e.desc().c_str());
+}
+%}
 
 // KLUDGE: I have no idea how to force SWiG to declare a type for a module,
 // unless that type is indeed used. That's why this wrapper exists..
@@ -41,14 +46,35 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %include <windows.i>
 #endif
 
-//---------------------------------------------------------------------
-// some defines to calm SWIG down.
-#define DEFINE_MEMORY_ALLOCATION_FUNCS()
-//#define DECLARE_UNCOPYABLE(f)
-#define AS_PRINTF(format_idx, varg_idx)
+%define %define_hexrays_lifecycle_object(TypeName)
+%feature("ref") TypeName
+{
+  hexrays_register_python_clearable_instance($this, hxclr_##TypeName);
+}
+%feature("unref") TypeName
+{
+  hexrays_deregister_python_clearable_instance($this);
+  delete $this;
+}
+%extend TypeName {
+  void _register() { hexrays_register_python_clearable_instance($self, hxclr_##TypeName); }
+  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
+}
+%enddef
 
-%ignore vd_printer_t::vprint;
-%ignore vd_printer_t::tmpbuf;
+%typemap(directorin) (const char *format, ...)
+{
+  // %typemap(directorin) (const char *format, ...)
+  // AFAICT we should only ever be called from C++, so we can assume
+  // 'format' is followed with actual parameters, should it require them.
+  qstring $input_buf;
+  va_list $input_va;
+  va_start($input_va, format);
+  $input_buf.vsprnt(format, $input_va);
+  va_end($input_va);
+  $input = SWIG_Python_str_FromChar($input_buf.c_str());
+}
+
 %ignore string_printer_t::vprint;
 %ignore vdui_t::vdui_t;
 %ignore cblock_t::find;
@@ -94,119 +120,130 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 %ignore term_hexrays_plugin;
 %rename (term_hexrays_plugin) py_term_hexrays_plugin;
 %rename (debug_hexrays_ctree) py_debug_hexrays_ctree;
+%ignore vd_interr_t::vd_interr_t(ea_t, const qstring &);
 
-// ignore microcode related stuff for now
-%ignore bitset_t;
-%ignore mlist_t;
-%ignore rlist_t;
-%ignore mbl_array_t;
-%ignore mbl_graph_t;
-%ignore mblock_t;
-%ignore minsn_t;
-%ignore mop_t;
-%ignore mcode_t;
-%ignore mop_addr_t;
-%ignore mop_pair_t;
-%ignore mcases_t;
-%ignore mcallarg_t;
-%ignore mcallinfo_t;
-%ignore mnumber_t;
-%ignore lvar_ref_t;
-%ignore stkvar_ref_t;
-%ignore scif_t;
-%ignore op_parent_info_t;
-%ignore scif_visitor_t;
-%ignore mop_visitor_t;
-%ignore mlist_mop_visitor_t;
-%ignore minsn_visitor_t;
-%ignore srcop_visitor_t;
-%ignore chain_t;
-%ignore block_chains_t;
-%ignore block_chains_iterator_t;
-%ignore block_chains_begin;
-%ignore block_chains_clear;
-%ignore block_chains_end;
-%ignore block_chains_erase;
-%ignore block_chains_find;
-%ignore block_chains_free;
-%ignore block_chains_get;
-%ignore block_chains_insert;
-%ignore block_chains_new;
-%ignore block_chains_next;
-%ignore block_chains_prev;
-%ignore block_chains_size;
-%ignore graph_chains_t;
-%ignore chain_visitor_t;
-%ignore gctype_t;
-%ignore simple_graph_t;
-%ignore get_signed_mcode;
-%ignore get_unsigned_mcode;
-%ignore mcode_modifies_d;
-%ignore is_may_access;
-%ignore is_mcode_addsub;
-%ignore is_mcode_call;
-%ignore is_mcode_commutative;
-%ignore is_mcode_convertible_to_jmp;
-%ignore is_mcode_convertible_to_set;
-%ignore is_mcode_fpu;
-%ignore is_mcode_j1;
-%ignore is_mcode_jcond;
-%ignore is_mcode_propagatable;
-%ignore is_mcode_rotate;
-%ignore is_mcode_set;
-%ignore is_mcode_set1;
-%ignore is_mcode_shift;
-%ignore is_mcode_xdsu;
-%ignore is_signed_mcode;
-%ignore is_unsigned_mcode;
-%ignore is_kreg;
-%ignore get_first_stack_reg;
-%ignore jcnd2set;
-%ignore must_mcode_close_block;
-%ignore negate_mcode_relation;
-%ignore set2jcnd;
-%ignore swap_mcode_relation;
-%ignore get_mreg_name;
-%ignore gen_microcode;
-%ignore install_optinsn_handler;
-%ignore remove_optinsn_handler;
-%ignore install_optblock_handler;
-%ignore remove_optblock_handler;
-%ignore optinsn_t;
-%ignore optblock_t;
-%ignore getf_reginsn;
-%ignore getb_reginsn;
-%ignore reg2mreg;
-%ignore mreg2reg;
-%ignore chain_keeper_t;
+%ignore bitset_t::print;
+%ignore bitset_t::extract;
+%ignore bitset_t::fill_gaps;
+%template(array_of_bitsets) qvector<bitset_t>;
+
+%ignore ivl_t::print;
+%ignore ivl_t::allmem;
+
+%ignore mlist_t::has_allmem;
+
+%ignore mbl_array_t::mbl_array_t;
+%ignore mbl_array_t::reserved;
+%ignore mbl_array_t::vdump_mba;
+%ignore mbl_array_t::idaloc2vd(const argloc_t &, int, sval_t);
+%ignore mbl_array_t::idaloc2vd(const mbl_array_t *, const argloc_t &, int);
+%ignore mbl_array_t::range_contains;
+%ignore mbl_array_t::get_stkvar;
+
+%ignore simple_graph_t::simple_graph_t;
+%ignore simple_graph_t::~simple_graph_t;
+%ignore mbl_graph_t::mbl_graph_t;
+%ignore mbl_graph_t::~mbl_graph_t;
+
+%define_hexrays_lifecycle_object(minsn_t);
+%ignore minsn_t::find_ins_op(const mop_t **, mcode_t) const;
+%ignore minsn_t::find_num_op(const mop_t **) const;
+%ignore minsn_t::set_combined;
+
+%define_hexrays_lifecycle_object(mop_t);
+%ignore mop_t::_make_strlit(qstring *);
+%template(mopvec_t) qvector<mop_t>;
+
+%template(mcallargs_t) qvector<mcallarg_t>;
+
+%uncomparable_elements_qvector(block_chains_t, block_chains_vec_t);
+
+%ignore mblock_t::mblock_t;
+%ignore mblock_t::find_first_use(mlist_t *, const minsn_t *, const minsn_t *, maymust_t) const;
+%ignore mblock_t::find_redefinition(const mlist_t &, const minsn_t *, const minsn_t *, maymust_t) const;
+%ignore mblock_t::reserved;
+%ignore mblock_t::vdump_block;
+// Note: we cannot use %delobject here, as that would disown
+// the block itself, not the instruction.
+%feature("pythonappend") mblock_t::insert_into_block %{
+    mn = args[0]
+    mn._maybe_disown_and_deregister()
+%}
+// Note: we could be using %newobject here, but for the sake of
+// symmetry with 'insert_into_block', let's go with "pythonappend".
+%feature("pythonprepend") mblock_t::remove_from_block %{
+    mn = args[0]
+%}
+%feature("pythonappend") mblock_t::remove_from_block %{
+    if mn:
+      mn._own_and_register()
+%}
+%feature("nodirector") mblock_t;
+%extend mblock_t {
+   %pythoncode {
+     def preds(self):
+         """
+         Iterates the list of predecessor blocks
+         """
+         for ser in self.predset:
+             yield self.mba.get_mblock(ser)
+
+     def succs(self):
+         """
+         Iterates the list of successor blocks
+         """
+         for ser in self.succset:
+             yield self.mba.get_mblock(ser)
+   }
+};
+
+%ignore op_parent_info_t::really_alloc;
+
+%ignore getf_reginsn(const minsn_t *);
+%ignore getb_reginsn(const minsn_t *);
 %ignore lvar_t::dstr;
 %ignore lvar_locator_t::dstr;
 %ignore fnumber_t::dstr;
-%ignore dstr;
 %ignore range_item_iterator_t;
 %ignore mba_item_iterator_t;
 %ignore range_chunk_iterator_t;
-%ignore mba_range_iterator_t;
-%ignore mba_ranges_t;
-%ignore deserialize_mbl_array;
-%ignore get_temp_regs;
-%ignore ivl_t;
-%ignore ivlset_t;
-%ignore ivl_with_name_t;
-%ignore vivl_t;
-%ignore voff_t;
-%ignore voff_set_t;
-%ignore gco_info_t;
-%ignore get_current_operand;
-%ignore valrng_t;
+%ignore mba_ranges_t::range_contains;
+
+%newobject gen_microcode;
+%define_hexrays_lifecycle_object(mbl_array_t);
+
+%define_hexrays_lifecycle_object(valrng_t);
+%apply ulonglong *OUTPUT { uvlr_t *v };    // valrng_t::cvt_to_single_value
+%apply ulonglong *OUTPUT { uvlr_t *val };  // valrng_t::cvt_to_cmp
+%apply int       *OUTPUT { cmpop_t *cmp }; // valrng_t::cvt_to_cmp
+
+%define %def_opt_handler(TypeName, Install, Remove)
+%ignore Install;
+%ignore Remove;
+%extend TypeName {
+    void install()
+    {
+        hexrays_register_python_clearable_instance($self, hxclr_optinsn_t);
+        Install($self);
+    }
+    bool remove()
+    {
+        hexrays_deregister_python_clearable_instance($self);
+        return Remove($self);
+    }
+    ~TypeName()
+    {
+      hexrays_deregister_python_clearable_instance($self);
+      Remove($self);
+      delete $self;
+    }
+};
+%enddef
+%def_opt_handler(optinsn_t, install_optinsn_handler, remove_optinsn_handler);
+%def_opt_handler(optblock_t, install_optblock_handler, remove_optblock_handler)
 
 // "Warning 473: Returning a pointer or reference in a director method is not recommended."
-// In this particular case, we are telling SWiG that the object is always a
-// %newobject (thus: even for base classes), but it seems it's not enough to
-// shut the warning up.
 %warnfilter(473) codegen_t::emit_micro_mvm;
-%newobject codegen_t::emit_micro_mvm;
-%newobject codegen_t::emit;
 
 %apply uchar { char ignore_micro };
 %feature("nodirector") udc_filter_t::apply;
@@ -279,59 +316,22 @@ public:
 };
 
 //-------------------------------------------------------------------------
-%typemap(check) citem_t *self
-{
-  if ( $1 == INS_EPILOG )
-    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
-}
-
-%typemap(check) cinsn_t *self
-{
-  if ( $1 == INS_EPILOG )
-    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
-}
-
-//-------------------------------------------------------------------------
-//                             citem_t
-//---------------------------------------------------------------------
-%extend citem_t {
-    // define these two struct members that can be used for casting.
-    cinsn_t *cinsn const { return (cinsn_t *)self; }
-    cexpr_t *cexpr const { return (cexpr_t *)self; }
-
-    ctype_t _get_op() const { return self->op; }
-    void _set_op(ctype_t v) { self->op = v; }
-
-    PyObject *_obj_id() const { return PyLong_FromSize_t(size_t(self)); }
-
-#ifdef TESTABLE_BUILD
-    qstring __dbg_get_meminfo() const
-    {
-      qstring s;
-      s.sprnt("%p (op=%s)", self, get_ctype_name(self->op));
-      return s;
-    }
+%define %monitored_lifecycle_object_t(TypeName)
+%extend TypeName {
 
     int __dbg_get_registered_kind() const
     {
       return hexrays_is_registered_python_clearable_instance(self);
     }
-#endif
+
+    PyObject *_obj_id() const { return PyLong_FromSize_t(size_t(self)); }
 
     %pythoncode {
       obj_id = property(_obj_id)
-      op = property(
-              _get_op,
-              lambda self, v: self._ensure_no_op() and self._set_op(v))
 
       def _ensure_cond(self, ok, cond_str):
           if not ok:
               raise Exception("Condition \"%s\" not verified" % cond_str)
-          return True
-
-      def _ensure_no_op(self):
-          if self.op not in [cot_empty, cit_empty]:
-              raise Exception("%s has op %s; cannot be modified" % (self, self.op))
           return True
 
       def _ensure_no_obj(self, o, attr, attr_is_acquired):
@@ -364,29 +364,35 @@ public:
           o._maybe_disown_and_deregister()
           self._replace_by(o)
 
-#ifdef TESTABLE_BUILD
       def _meminfo(self):
           cpp = self.__dbg_get_meminfo()
           rkind = self.__dbg_get_registered_kind()
           rkind_str = [
                   "(not owned)",
-                  "cfuncptr",
-                  "cinsn",
-                  "cexpr",
-                  "cblock"][rkind]
+                  "cfuncptr_t",
+                  "cinsn_t",
+                  "cexpr_t",
+                  "cblock_t",
+                  "mbl_array_t",
+                  "mop_t",
+                  "minsn_t",
+                  "optinsn_t",
+                  "optblock_t",
+                  "valrng_t"][rkind]
           return "%s [thisown=%s, owned by IDAPython as=%s]" % (
                   cpp,
                   self.thisown,
                   rkind_str)
       meminfo = property(_meminfo)
-#endif
     }
 };
+%enddef
 
-//-------------------------------------------------------------------------
-#define ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, Setexpr) \
+#define ___MEMBER_REF_BASE__ACCESSORS(Type, PName, Setexpr)             \
   Type _get_##PName() const { return self->##PName; }                   \
-  void _set_##PName(Type _v) { self->##PName = Setexpr; }               \
+  void _set_##PName(Type _v) { self->##PName = Setexpr; }
+
+#define ___MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval, Acquire)      \
   %pythoncode {                                                         \
     PName = property(                                                   \
             lambda self: self._get_##PName() if Cond else Defval,       \
@@ -397,6 +403,165 @@ public:
                 and self._set_##PName(v))                               \
       }
 
+//-------------------------------------------------------------------------
+#define ___MEMBER_REF_BASE(Type, PName, Cond, Defval, Acquire, Setexpr) \
+  ___MEMBER_REF_BASE__ACCESSORS(Type, PName, Setexpr)                   \
+  ___MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval, Acquire)
+
+//-------------------------------------------------------------------------
+#define ___SCALAR_MEMBER_REF_BASE__PROPERTY(PName, Cond, Defval)        \
+  %pythoncode {                                                         \
+    PName = property(                                                   \
+            lambda self: self._get_##PName() if Cond else Defval,       \
+            lambda self, v:                                             \
+                self._ensure_cond(Cond, #Cond)                          \
+                and self._set_##PName(v))                               \
+      }
+
+
+//-------------------------------------------------------------------------
+//                               mop_t
+//-------------------------------------------------------------------------
+#define MOP_MEMBER_REF(Type, PName, Mopt)                             \
+  ___MEMBER_REF_BASE(Type, PName, self.t == Mopt, None, True, _v)
+
+#define MOP_SCALAR_MEMBER_REF(Type, PName, Mopt)                      \
+  ___MEMBER_REF_BASE__ACCESSORS(Type, PName, _v)                      \
+  ___SCALAR_MEMBER_REF_BASE__PROPERTY(PName, self.t == Mopt, None)
+
+#define MOP_CSTRING_MEMBER_REF(PName, Mopt)                           \
+  const char *_get_##PName() const { return self->PName; }            \
+  void _set_##PName(const char *_v)                                   \
+  {                                                                   \
+    if ( $self->PName != NULL )                                       \
+    {                                                                 \
+      ::qfree($self->PName);                                          \
+      $self->PName = NULL;                                            \
+    }                                                                 \
+    $self->PName = ::qstrdup(_v);                                     \
+  }                                                                   \
+  ___MEMBER_REF_BASE__PROPERTY(PName, self.t == Mopt, None, False)
+
+
+%extend mop_t {
+  MOP_SCALAR_MEMBER_REF(mreg_t, r, mop_r);
+  MOP_MEMBER_REF(mnumber_t*, nnn, mop_n);
+  MOP_CSTRING_MEMBER_REF(cstr, mop_str);
+  MOP_MEMBER_REF(minsn_t*, d, mop_d)
+  MOP_MEMBER_REF(stkvar_ref_t*, s, mop_S);
+  MOP_SCALAR_MEMBER_REF(ea_t, g, mop_v);
+  MOP_SCALAR_MEMBER_REF(int, b, mop_b);
+  MOP_MEMBER_REF(mcallinfo_t*, f, mop_f);
+  MOP_MEMBER_REF(lvar_ref_t*, l, mop_l);
+  MOP_MEMBER_REF(mop_addr_t*, a, mop_a);
+  MOP_CSTRING_MEMBER_REF(helper, mop_h);
+  MOP_MEMBER_REF(mcases_t*, c, mop_c);
+  MOP_MEMBER_REF(fnumber_t*, fpc, mop_fn);
+  MOP_MEMBER_REF(mop_pair_t*, pair, mop_p);
+  MOP_MEMBER_REF(scif_t*, scif, mop_sc);
+
+    mopt_t _get_t() const { return self->t; }
+    void _set_t(mopt_t v) { self->t = v; }
+    %pythoncode {
+      def _ensure_no_t(self):
+          if self.t not in [mop_z]:
+              raise Exception("%s has type %s; cannot be modified" % (self, self.t))
+          return True
+      t = property(
+              _get_t,
+              lambda self, v: self._ensure_no_t() and self._set_t(v))
+    }
+
+    qstring __dbg_get_meminfo() const
+    {
+      qstring s;
+      s.sprnt("%p (t=%d)", self, self->t);
+      return s;
+    }
+}
+#undef MOP_MEMBER_REF
+%monitored_lifecycle_object_t(mop_t);
+
+//-------------------------------------------------------------------------
+//                               minsn_t
+//-------------------------------------------------------------------------
+%extend minsn_t {
+    qstring __dbg_get_meminfo() const
+    {
+      qstring s;
+      s.sprnt("%p (opcode=%d)", self, self->opcode);
+      return s;
+    }
+}
+%monitored_lifecycle_object_t(minsn_t);
+
+
+//-------------------------------------------------------------------------
+//                               bitset_t
+//-------------------------------------------------------------------------
+%extend bitset_t {
+
+    int itv(const_iterator it) { qnotused(self); return *it; }
+
+    %pythoncode {
+     __len__ = count
+     def __iter__(self):
+         it = self.begin()
+         for i in xrange(self.count()):
+             yield self.itv(it)
+             self.inc(it)
+    }
+};
+
+
+//-------------------------------------------------------------------------
+//
+//-------------------------------------------------------------------------
+%typemap(check) citem_t *self
+{
+  if ( $1 == INS_EPILOG )
+    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+
+%typemap(check) cinsn_t *self
+{
+  if ( $1 == INS_EPILOG )
+    SWIG_exception_fail(SWIG_ValueError, "invalid INS_EPILOG " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+
+//-------------------------------------------------------------------------
+//                             citem_t
+//---------------------------------------------------------------------
+%extend citem_t {
+    // define these two struct members that can be used for casting.
+    cinsn_t *cinsn const;
+    cexpr_t *cexpr const;
+
+    ctype_t _get_op() const { return self->op; }
+    void _set_op(ctype_t v) { self->op = v; }
+    %pythoncode {
+      def _ensure_no_op(self):
+          if self.op not in [cot_empty, cit_empty]:
+              raise Exception("%s has op %s; cannot be modified" % (self, self.op))
+          return True
+      op = property(
+              _get_op,
+              lambda self, v: self._ensure_no_op() and self._set_op(v))
+    }
+
+    qstring __dbg_get_meminfo() const
+    {
+      qstring s;
+      s.sprnt("%p (op=%s)", self, get_ctype_name(self->op));
+      return s;
+    }
+};
+%monitored_lifecycle_object_t(citem_t);
+
+%{
+cinsn_t *citem_t_cinsn_get(citem_t *item) { return (cinsn_t *) item; }
+cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
+%}
 
 //---------------------------------------------------------------------
 //                               cinsn_t
@@ -404,21 +569,8 @@ public:
 #define CINSN_MEMBER_REF(Name)                                          \
   ___MEMBER_REF_BASE(c##Name##_t*, c##Name, self.op == cit_##Name, None, True, _v)
 
-%feature("ref") cinsn_t
-{
-  hexrays_register_python_clearable_instance($this, hxclr_cinsn);
-  if ( $this->op == cit_empty )
-    $this->cblock = NULL; // force clean instance
-}
-%feature("unref") cinsn_t
-{
-  hexrays_deregister_python_clearable_instance($this);
-  delete $this;
-}
+%define_hexrays_lifecycle_object(cinsn_t);
 %extend cinsn_t {
-  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
-  void _register() { hexrays_register_python_clearable_instance($self, hxclr_cinsn); }
-
   CINSN_MEMBER_REF(block);
   CINSN_MEMBER_REF(expr);
   CINSN_MEMBER_REF(if);
@@ -448,19 +600,8 @@ public:
 #define CEXPR_MEMBER_REF_STR(Type, PName, Cond, Defval)      \
   ___MEMBER_REF_BASE(Type, PName, Cond, Defval, False, ::qstrdup(_v))
 
-%feature("ref") cexpr_t
-{
-  hexrays_register_python_clearable_instance($this, hxclr_cexpr);
-}
-%feature("unref") cexpr_t
-{
-  hexrays_deregister_python_clearable_instance($this);
-  delete $this;
-}
+%define_hexrays_lifecycle_object(cexpr_t);
 %extend cexpr_t {
-  void _deregister() { hexrays_deregister_python_clearable_instance($self); }
-  void _register() { hexrays_register_python_clearable_instance($self, hxclr_cexpr); }
-
   CEXPR_MEMBER_REF(cnumber_t*, n, self.op == cot_num, None, True);
   CEXPR_MEMBER_REF(fnumber_t*, fpc, self.op == cot_fnum, None, True);
   var_ref_t* get_v() { if ( self->op == cot_var ) { return &self->v; } else { return NULL; } }
@@ -530,8 +671,12 @@ public:
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(cinsn_t*, i, VDI_EXPR);
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(lvar_t*, l, VDI_LVAR);
   CTREE_CONDITIONAL_ITEM_MEMBER_REF(cfunc_t*, f, VDI_FUNC);
-  treeloc_t* loc const { if ( self->citype == VDI_TAIL ) { return &self->loc; } else { return NULL; } }
+  treeloc_t *loc const;
 };
+
+%{
+treeloc_t *ctree_item_t_loc_get(ctree_item_t *item) { return item->citype == VDI_TAIL ? &item->loc : NULL; }
+%}
 
 #undef CTREE_CONDITIONAL_ITEM_MEMBER_REF
 #undef CTREE_ITEM_MEMBER_REF
@@ -656,12 +801,13 @@ class qlist_cinsn_t_iterator {};
 %template(qvector_carg_t) qvector<carg_t>;
 %template(qvector_ccase_t) qvector<ccase_t>;
 %template(lvar_saved_infos_t) qvector<lvar_saved_info_t>;
+%template(ui_stroff_ops_t) qvector<ui_stroff_op_t>;
 
 %extend cblock_t {
   cblock_t(void)
   {
     cblock_t *cb = new cblock_t();
-    hexrays_register_python_clearable_instance(cb, hxclr_cblock);
+    hexrays_register_python_clearable_instance(cb, hxclr_cblock_t);
     return cb;
   }
 
@@ -704,13 +850,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %ignore install_hexrays_callback;
 %ignore remove_hexrays_callback;
 
-%ignore decompile_many;
-%rename (decompile_many) py_decompile_many;
-
-%ignore decompile;
-%ignore decompile_func;
 %ignore decompile_snippet;
-%rename (decompile) decompile_func;
 
 %ignore get_widget_vdui;
 %rename (get_widget_vdui) py_get_widget_vdui;
@@ -738,8 +878,6 @@ void qswap(cinsn_t &a, cinsn_t &b);
 #else
 #error Ensure cfuncptr_t wrapping is compatible with this version of SWIG
 #endif
-
-%ignore decompile;
 
 //---------------------------------------------------------------------
 %define %python_callback_in(CB)
@@ -792,7 +930,8 @@ void qswap(cinsn_t &a, cinsn_t &b);
 //</inline(py_hexrays)>
 %}
 
-%ignore Hexrays_Callback;
+%define_Hooks_class(Hexrays);
+%ignore Hexrays_Hooks::hooked;
 
 %inline %{
 //<inline(py_hexrays_hooks)>
@@ -804,14 +943,14 @@ void qswap(cinsn_t &a, cinsn_t &b);
 //</code(py_hexrays_hooks)>
 %}
 
-%include "hexrays.hpp"
+%import "hexrays_templates.hpp";
+%template(uval_ivl_t) ivl_tpl<uval_t>;
+%template(uval_ivl_ivlset_t) ivlset_tpl<ivl_t, uval_t>;
+%template(array_of_ivlsets) qvector<ivlset_t>;
+
+%include "hexrays_notemplates.hpp"
 %exception; // Delete & restore handlers
 %exception_set_default_handlers();
-
-// These are microcode-related. Let's not expose them right now.
-/* %template(ivl_t) ivl_tpl<uval_t>; */
-/* %template(ivlset_t) ivlset_tpl<ivl_t, uval_t>; */
-/* %template(array_of_ivlsets) qvector<ivlset_t>; */
 
 %pythoncode %{
 #<pycode(py_hexrays)>

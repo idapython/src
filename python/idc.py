@@ -1473,7 +1473,7 @@ def func_contains(func_ea, ea):
 GN_VISIBLE = ida_name.GN_VISIBLE     # replace forbidden characters by SUBSTCHAR
 GN_COLORED = ida_name.GN_COLORED     # return colored name
 GN_DEMANGLED = ida_name.GN_DEMANGLED # return demangled name
-GN_STRICT = ida_name.GN_STRICT       # fail if can not demangle
+GN_STRICT = ida_name.GN_STRICT       # fail if cannot demangle
 GN_SHORT = ida_name.GN_SHORT         # use short form of demangled name
 GN_LONG = ida_name.GN_LONG           # use long form of demangled name
 GN_LOCAL = ida_name.GN_LOCAL         # try to get local name first; if failed, get global
@@ -1690,13 +1690,46 @@ GetCommentEx = ida_bytes.get_cmt
 get_cmt = GetCommentEx
 get_forced_operand = ida_bytes.get_forced_operand
 
-STRTYPE_C       = ida_nalt.STRTYPE_TERMCHR # C-style ASCII string
-STRTYPE_PASCAL  = ida_nalt.STRTYPE_PASCAL  # Pascal-style ASCII string (length byte)
-STRTYPE_LEN2    = ida_nalt.STRTYPE_LEN2    # Pascal-style, length is 2 bytes
-STRTYPE_C_16    = ida_nalt.STRTYPE_C_16    # Unicode string
-STRTYPE_LEN4    = ida_nalt.STRTYPE_LEN4    # Pascal-style, length is 4 bytes
-STRTYPE_LEN2_16 = ida_nalt.STRTYPE_LEN2_16 # Pascal-style Unicode, length is 2 bytes
-STRTYPE_LEN4_16 = ida_nalt.STRTYPE_LEN4_16 # Pascal-style Unicode, length is 4 bytes
+BPU_1B = ida_nalt.BPU_1B
+BPU_2B = ida_nalt.BPU_2B
+BPU_4B = ida_nalt.BPU_4B
+
+STRWIDTH_1B   = ida_nalt.STRWIDTH_1B
+STRWIDTH_2B   = ida_nalt.STRWIDTH_2B
+STRWIDTH_4B   = ida_nalt.STRWIDTH_4B
+STRWIDTH_MASK = ida_nalt.STRWIDTH_MASK
+
+STRLYT_TERMCHR = ida_nalt.STRLYT_TERMCHR
+STRLYT_PASCAL1 = ida_nalt.STRLYT_PASCAL1
+STRLYT_PASCAL2 = ida_nalt.STRLYT_PASCAL2
+STRLYT_PASCAL4 = ida_nalt.STRLYT_PASCAL4
+STRLYT_MASK    = ida_nalt.STRLYT_MASK
+STRLYT_SHIFT   = ida_nalt.STRLYT_SHIFT
+
+# Character-terminated string. The termination characters
+# are kept in the next bytes of string type.
+STRTYPE_TERMCHR   = ida_nalt.STRTYPE_TERMCHR
+# C-style string.
+STRTYPE_C         = ida_nalt.STRTYPE_C
+# Zero-terminated 16bit chars
+STRTYPE_C_16      = ida_nalt.STRTYPE_C_16
+# Zero-terminated 32bit chars
+STRTYPE_C_32      = ida_nalt.STRTYPE_C_32
+# Pascal-style, one-byte length prefix
+STRTYPE_PASCAL    = ida_nalt.STRTYPE_PASCAL
+# Pascal-style, 16bit chars, one-byte length prefix
+STRTYPE_PASCAL_16 = ida_nalt.STRTYPE_PASCAL_16
+# Pascal-style, two-byte length prefix
+STRTYPE_LEN2      = ida_nalt.STRTYPE_LEN2
+# Pascal-style, 16bit chars, two-byte length prefix
+STRTYPE_LEN2_16   = ida_nalt.STRTYPE_LEN2_16
+# Pascal-style, four-byte length prefix
+STRTYPE_LEN4      = ida_nalt.STRTYPE_LEN4
+# Pascal-style, 16bit chars, four-byte length prefix
+STRTYPE_LEN4_16   = ida_nalt.STRTYPE_LEN4_16
+
+# alias
+STRTYPE_C16       = STRTYPE_C_16
 
 def get_strlit_contents(ea, length = -1, strtype = STRTYPE_C):
     """
@@ -1780,26 +1813,11 @@ def process_config_line(directive):
 # The following functions allow you to set/get common parameters.
 # Please note that not all parameters can be set directly.
 
-def get_inf_attr(offset):
-    """
-    """
-    val = _IDC_GetAttr(ida_ida.cvar.inf, _INFMAP, offset)
-    if offset == INF_PROCNAME:
-        # procName is a character array
-        val = ida_idaapi.as_cstr(val)
-    return val
-
-def set_inf_attr(offset, value):
-    if offset == INF_PROCNAME:
-        raise NotImplementedError("Please use ida_idp.set_processor_type() to change processor")
-    # We really want to go through IDC's equivalent, because it might
-    # have side-effects (i.e., send a notification, etc...)
-    return eval_idc("set_inf_attr(%d, %d)" % (offset, value))
 
 
-INF_VERSION    = 4            # short;   Version of database
-INF_PROCNAME   = 6            # char[8]; Name of current processor
-INF_GENFLAGS   = 22           # ushort;  General flags:
+INF_VERSION    = 0            # short;   Version of database
+INF_PROCNAME   = 1            # char[8]; Name of current processor
+INF_GENFLAGS   = 2            # ushort;  General flags:
 INFFL_AUTO     = 0x01         #              Autoanalysis is enabled?
 INFFL_ALLASM   = 0x02         #              May use constructs not supported by
                               #              the target assembler
@@ -1809,7 +1827,7 @@ INFFL_READONLY = 0x10         #              (internal) temporary interdiction t
 INFFL_CHKOPS   =  0x20        #              check manual operands?
 INFFL_NMOPS    =  0x40        #              allow non-matched operands?
 INFFL_GRAPH_VIEW= 0x80        #              currently using graph options (\dto{graph})
-INF_LFLAGS     = 24           # uint32;  IDP-dependent flags
+INF_LFLAGS     = 3            # uint32;  IDP-dependent flags
 LFLG_PC_FPP    = 0x00000001   #              decode floating point processor
                               #              instructions?
 LFLG_PC_FLAT   = 0x00000002   #              Flat model?
@@ -1824,9 +1842,10 @@ LFLG_PACK      = 0x00000200   # pack the database?
 LFLG_COMPRESS  = 0x00000400   # compress the database?
 LFLG_KERNMODE  = 0x00000800   # is kernel mode binary?
 
-INF_CHANGE_COUNTER= 28        # uint32; database change counter; keeps track of byte and segment modifications
+INF_DATABASE_CHANGE_COUNT= 4  # uint32; database change counter; keeps track of byte and segment modifications
+INF_CHANGE_COUNTER=INF_DATABASE_CHANGE_COUNT
 
-INF_FILETYPE   = 32           # short;   type of input file (see ida.hpp)
+INF_FILETYPE   = 5            # short;   type of input file (see ida.hpp)
 FT_EXE_OLD     = 0            #              MS DOS EXE File (obsolete)
 FT_COM_OLD     = 1            #              MS DOS COM File (obsolete)
 FT_BIN         = 2            #              Binary File
@@ -1853,12 +1872,12 @@ FT_EXE         = 22           #              MS DOS EXE File
 FT_COM         = 23           #              MS DOS COM File
 FT_AIXAR       = 24           #              AIX ar library
 FT_MACHO       = 25           #              Mac OS X Mach-O file
-INF_OSTYPE     = 34           # short;   FLIRT: OS type the program is for
+INF_OSTYPE     = 6            # short;   FLIRT: OS type the program is for
 OSTYPE_MSDOS= 0x0001
 OSTYPE_WIN  = 0x0002
 OSTYPE_OS2  = 0x0004
 OSTYPE_NETW = 0x0008
-INF_APPTYPE    = 36           # short;   FLIRT: Application type
+INF_APPTYPE    = 7            # short;   FLIRT: Application type
 APPT_CONSOLE= 0x0001          #              console
 APPT_GRAPHIC= 0x0002          #              graphics
 APPT_PROGRAM= 0x0004          #              EXE
@@ -1868,10 +1887,10 @@ APPT_1THREAD= 0x0020          #              Singlethread
 APPT_MTHREAD= 0x0040          #              Multithread
 APPT_16BIT  = 0x0080          #              16 bit application
 APPT_32BIT  = 0x0100          #              32 bit application
-INF_ASMTYPE    = 38           # char;    target assembler number (0..n)
-INF_SPECSEGS   = 39
+INF_ASMTYPE    = 8            # char;    target assembler number (0..n)
+INF_SPECSEGS   = 9
 
-INF_AF         = 40           # uint32;   Analysis flags:
+INF_AF         = 10           # uint32;   Analysis flags:
 AF_CODE        = 0x00000001   #              Trace execution flow
 AF_MARKCODE    = 0x00000002   #              Mark typical code sequences as code
 AF_JUMPTBL     = 0x00000004   #              Locate and create jump tables
@@ -1910,54 +1929,62 @@ AF_DODATA      = 0x20000000   #              Coagulate data segs at the final pa
 AF_DOCODE      = 0x40000000   #              Coagulate code segs at the final pass
 AF_FINAL       = 0x80000000   #              Final pass of analysis
 
-INF_AF2        = 44           # uint32;  Analysis flags 2
+INF_AF2        = 11           # uint32;  Analysis flags 2
 
 AF2_DOEH       = 0x00000001   #              Handle EH information
 AF2_DORTTI     = 0x00000002   #              Handle RTTI information
+AF2_MACRO      = 0x00000004   #              Try to combine several instructions into a macro instruction
 
-INF_BASEADDR   = 48           # uval_t;  base paragraph of the program
-INF_START_SS   = 52           # int32;   value of SS at the start
-INF_START_CS   = 56           # int32;   value of CS at the start
-INF_START_IP   = 60           # ea_t;    IP register value at the start of
+INF_BASEADDR   = 12           # uval_t;  base paragraph of the program
+INF_START_SS   = 13           # int32;   value of SS at the start
+INF_START_CS   = 14           # int32;   value of CS at the start
+INF_START_IP   = 15           # ea_t;    IP register value at the start of
                               #          program execution
-INF_START_EA   = 64           # ea_t;    Linear address of program entry point
-INF_START_SP   = 68           # ea_t;    SP register value at the start of
+INF_START_EA   = 16           # ea_t;    Linear address of program entry point
+INF_START_SP   = 17           # ea_t;    SP register value at the start of
                               #          program execution
-INF_MAIN       = 72           # ea_t;    address of main()
-INF_MIN_EA     = 76           # ea_t;    The lowest address used
+INF_MAIN       = 18           # ea_t;    address of main()
+INF_MIN_EA     = 19           # ea_t;    The lowest address used
                               #          in the program
-INF_MAX_EA     = 80           # ea_t;    The highest address used
+INF_MAX_EA     = 20           # ea_t;    The highest address used
                               #          in the program - 1
-INF_OMIN_EA    = 84
-INF_OMAX_EA    = 88
-INF_LOW_OFF    = 92           # ea_t;    low limit of voids
-INF_HIGH_OFF   = 96           # ea_t;    high limit of voids
-INF_MAXREF     = 100          # uval_t;  max xref depth
-INF_START_PRIVRANGE     = 104 # uval_t; Range of addresses reserved for internal use.
-INF_END_PRIVRANGE       = 108 # uval_t; Initially (MAXADDR, MAXADDR+0x100000)
+INF_OMIN_EA    = 21
+INF_OMAX_EA    = 22
+INF_LOWOFF     = 23           # ea_t;    low limit of voids
+INF_LOW_OFF=INF_LOWOFF
+INF_HIGHOFF    = 24           # ea_t;    high limit of voids
+INF_HIGH_OFF=INF_HIGHOFF
+INF_MAXREF     = 25           # uval_t;  max xref depth
+INF_PRIVRANGE_START_EA = 27   # uval_t; Range of addresses reserved for internal use.
+INF_START_PRIVRANGE=INF_PRIVRANGE_START_EA
+INF_PRIVRANGE_END_EA = 28     # uval_t; Initially (MAXADDR, MAXADDR+0x100000)
+INF_END_PRIVRANGE=INF_PRIVRANGE_END_EA
 
-INF_NETDELTA            = 112 # sval_t; Delta value to be added to all adresses for mapping to netnodes.
+INF_NETDELTA   = 29           # sval_t; Delta value to be added to all adresses for mapping to netnodes.
                               # Initially 0.
 # CROSS REFERENCES
-INF_XREFNUM    = 116          # char;    Number of references to generate
+INF_XREFNUM    = 30           # char;    Number of references to generate
                               #          0 - xrefs won't be generated at all
-INF_TYPE_XREFS = 117          # char;    Number of references to generate
+INF_TYPE_XREFNUM = 31        # char;    Number of references to generate
                               #          in the struct & enum windows
                               #          0 - xrefs won't be generated at all
-INF_REFCMTS    = 118          # uchar; number of comment lines to
+INF_TYPE_XREFS=INF_TYPE_XREFNUM
+INF_REFCMTNUM  = 32          # uchar; number of comment lines to
                               #        generate for refs to ASCII
                               #        string or demangled name
                               #        0 - such comments won't be
                               #        generated at all
-INF_XREFS      = 119          # char;    xrefs representation:
+INF_REFCMTS=INF_REFCMTNUM
+INF_XREFFLAG   = 33          # char;    xrefs representation:
+INF_XREFS=INF_XREFFLAG
 SW_SEGXRF      = 0x01         #              show segments in xrefs?
 SW_XRFMRK      = 0x02         #              show xref type marks?
 SW_XRFFNC      = 0x04         #              show function offsets?
 SW_XRFVAL      = 0x08         #              show xref values? (otherwise-"...")
 
 # NAMES
-INF_MAX_AUTONAME_LEN = 120    # ushort;  max name length (without zero byte)
-INF_NAMETYPE   = 122          # char;    dummy names represenation type
+INF_MAX_AUTONAME_LEN = 34     # ushort;  max name length (without zero byte)
+INF_NAMETYPE   = 35           # char;    dummy names represenation type
 NM_REL_OFF     = 0
 NM_PTR_OFF     = 1
 NM_NAM_OFF     = 2
@@ -1969,27 +1996,29 @@ NM_EA4         = 7
 NM_EA8         = 8
 NM_SHORT       = 9
 NM_SERIAL      = 10
-INF_SHORT_DN   = 124          # int32;   short form of demangled names
-INF_LONG_DN    = 128          # int32;   long form of demangled names
+INF_SHORT_DEMNAMES = 36      # int32;   short form of demangled names
+INF_SHORT_DN=INF_SHORT_DEMNAMES
+INF_LONG_DEMNAMES = 37       # int32;   long form of demangled names
                               #          see demangle.h for definitions
-INF_DEMNAMES   = 132          # char;    display demangled names as:
+INF_LONG_DN=INF_LONG_DEMNAMES
+INF_DEMNAMES   = 38           # char;    display demangled names as:
 DEMNAM_CMNT = 0               #              comments
 DEMNAM_NAME = 1               #              regular names
 DEMNAM_NONE = 2               #              don't display
 DEMNAM_GCC3 = 4               #          assume gcc3 names (valid for gnu compiler)
 DEMNAM_FIRST= 8               #          override type info
-INF_LISTNAMES  = 133          # uchar;   What names should be included in the list?
+INF_LISTNAMES  = 39           # uchar;   What names should be included in the list?
 LN_NORMAL      = 0x01         #              normal names
 LN_PUBLIC      = 0x02         #              public names
 LN_AUTO        = 0x04         #              autogenerated names
 LN_WEAK        = 0x08         #              weak names
 
 # DISASSEMBLY LISTING DETAILS
-INF_INDENT     = 134          # char;    Indention for instructions
-INF_COMMENT    = 135          # char;    Indention for comments
-INF_MARGIN     = 136          # ushort;  max length of data lines
-INF_LENXREF    = 138          # ushort;  max length of line with xrefs
-INF_OUTFLAGS   = 140          # uint32;  output flags
+INF_INDENT     = 40           # char;    Indention for instructions
+INF_COMMENT    = 41           # char;    Indention for comments
+INF_MARGIN     = 42           # ushort;  max length of data lines
+INF_LENXREF    = 43           # ushort;  max length of line with xrefs
+INF_OUTFLAGS   = 44           # uint32;  output flags
 OFLG_SHOW_VOID = 0x0002       #              Display void marks?
 OFLG_SHOW_AUTO = 0x0004       #              Display autoanalysis indicator?
 OFLG_GEN_NULL  = 0x0010       #              Generate empty lines?
@@ -1999,66 +2028,43 @@ OFLG_LZERO     = 0x0080       #              generate leading zeroes in numbers
 OFLG_GEN_ORG   = 0x0100       #              Generate 'org' directives?
 OFLG_GEN_ASSUME= 0x0200       #              Generate 'assume' directives?
 OFLG_GEN_TRYBLKS = 0x0400     #              Generate try/catch directives?
-INF_CMTFLAG    = 144          # char;    comments:
+INF_CMTFLG     = 45           # char;    comments:
+INF_CMTFLAG=INF_CMTFLG
 SW_RPTCMT      = 0x01         #              show repeatable comments?
 SW_ALLCMT      = 0x02         #              comment all lines?
 SW_NOCMT       = 0x04         #              no comments at all
 SW_LINNUM      = 0x08         #              show source line numbers
-INF_BORDER     = 145          # char;    Generate borders?
-INF_BINPREF    = 146          # short;   # of instruction bytes to show
+INF_LIMITER    = 46           # char;    Generate borders?
+INF_BORDER=INF_LIMITER
+INF_BIN_PREFIX_SIZE = 47     # short;   # of instruction bytes to show
                               #          in line prefix
-INF_PREFFLAG   = 148          # char;    line prefix type:
+INF_BINPREF=INF_BIN_PREFIX_SIZE
+INF_PREFFLAG   = 48           # char;    line prefix type:
 PREF_SEGADR    = 0x01         #              show segment addresses?
 PREF_FNCOFF    = 0x02         #              show function offsets?
 PREF_STACK     = 0x04         #              show stack pointer?
 
 # STRING LITERALS
-INF_STRLIT_FLAGS= 149         # uchar;   string literal flags
+INF_STRLIT_FLAGS= 49          # uchar;   string literal flags
 STRF_GEN       = 0x01         #              generate names?
 STRF_AUTO      = 0x02         #              names have 'autogenerated' bit?
 STRF_SERIAL    = 0x04         #              generate serial names?
 STRF_COMMENT   = 0x10         #              generate auto comment for string references?
 STRF_SAVECASE  = 0x20         #              preserve case of strings for identifiers
-INF_STRLIT_BREAK= 150         # char;    string literal line break symbol
-INF_STRLIT_ZEROES= 151        # char;    leading zeroes
-INF_STRTYPE    = 152          # int32;   current ascii string type
+INF_STRLIT_BREAK= 50         # char;    string literal line break symbol
+INF_STRLIT_ZEROES= 51        # char;    leading zeroes
+INF_STRTYPE    = 52          # int32;   current ascii string type
                               #          is considered as several bytes:
                               #      low byte:
-BPU_1B = 1
-BPU_2B = 2
-BPU_4B = 4
 
-STRWIDTH_1B = 0
-STRWIDTH_2B = 1
-STRWIDTH_4B = 2
-STRWIDTH_MASK = 0x03
-
-STRLYT_TERMCHR = 0
-STRLYT_PASCAL1 = 1
-STRLYT_PASCAL2 = 2
-STRLYT_PASCAL4 = 3
-STRLYT_MASK = 0xFC
-STRLYT_SHIFT = 2
-
-STRTYPE_TERMCHR   = STRWIDTH_1B|STRLYT_TERMCHR<<STRLYT_SHIFT
-STRTYPE_C         = STRTYPE_TERMCHR
-STRTYPE_C16       = STRWIDTH_2B|STRLYT_TERMCHR<<STRLYT_SHIFT
-STRTYPE_C_32      = STRWIDTH_4B|STRLYT_TERMCHR<<STRLYT_SHIFT
-STRTYPE_PASCAL    = STRWIDTH_1B|STRLYT_PASCAL1<<STRLYT_SHIFT
-STRTYPE_PASCAL_16 = STRWIDTH_2B|STRLYT_PASCAL1<<STRLYT_SHIFT
-STRTYPE_LEN2      = STRWIDTH_1B|STRLYT_PASCAL2<<STRLYT_SHIFT
-STRTYPE_LEN2_16   = STRWIDTH_2B|STRLYT_PASCAL2<<STRLYT_SHIFT
-STRTYPE_LEN4      = STRWIDTH_1B|STRLYT_PASCAL4<<STRLYT_SHIFT
-STRTYPE_LEN4_16   = STRWIDTH_2B|STRLYT_PASCAL4<<STRLYT_SHIFT
-
-INF_STRLIT_PREF  = 156        # char[16];ASCII names prefix
-INF_STRLIT_SERNUM= 172        # uint32;  serial number
+INF_STRLIT_PREF  = 53         # char[16];ASCII names prefix
+INF_STRLIT_SERNUM= 54         # uint32;  serial number
 
 # DATA ITEMS
-INF_DATATYPES    = 176        # int32;   data types allowed in data carousel
+INF_DATATYPES    = 55         # int32;   data types allowed in data carousel
 
 # COMPILER
-INF_COMPILER   = 180          # uchar;   compiler
+INF_CC_ID        = 57         # uchar;   compiler
 COMP_MASK    = 0x0F           #              mask to apply to get the pure compiler id
 COMP_UNK     = 0x00           # Unknown
 COMP_MS      = 0x01           # Visual C++
@@ -2067,16 +2073,26 @@ COMP_WATCOM  = 0x03           # Watcom C++
 COMP_GNU     = 0x06           # GNU C++
 COMP_VISAGE  = 0x07           # Visual Age C++
 COMP_BP      = 0x08           # Delphi
-INF_MODEL       = 181         # uchar;  memory model & calling convention
-INF_SIZEOF_INT  = 182         # uchar;  sizeof(int)
-INF_SIZEOF_BOOL = 183         # uchar;  sizeof(bool)
-INF_SIZEOF_ENUM = 184         # uchar;  sizeof(enum)
-INF_SIZEOF_ALGN = 185         # uchar;  default alignment
-INF_SIZEOF_SHORT= 186
-INF_SIZEOF_LONG = 187
-INF_SIZEOF_LLONG= 188
-INF_SIZEOF_LDBL = 189         # uchar;  sizeof(long double)
-INF_ABIBITS= 192              # uint32; ABI features
+INF_CC_CM        = 58         # uchar;  memory model & calling convention
+INF_CC_SIZE_I    = 59         # uchar;  sizeof(int)
+INF_CC_SIZE_B    = 60         # uchar;  sizeof(bool)
+INF_CC_SIZE_E    = 61         # uchar;  sizeof(enum)
+INF_CC_DEFALIGN  = 62         # uchar;  default alignment
+INF_CC_SIZE_S    = 63
+INF_CC_SIZE_L    = 64
+INF_CC_SIZE_LL   = 65
+INF_CC_SIZE_LDBL = 66         # uchar;  sizeof(long double)
+INF_COMPILER    = INF_CC_ID
+INF_MODEL       = INF_CC_CM
+INF_SIZEOF_INT  = INF_CC_SIZE_I
+INF_SIZEOF_BOOL = INF_CC_SIZE_B
+INF_SIZEOF_ENUM = INF_CC_SIZE_E
+INF_SIZEOF_ALGN = INF_CC_DEFALIGN
+INF_SIZEOF_SHORT= INF_CC_SIZE_S
+INF_SIZEOF_LONG = INF_CC_SIZE_L
+INF_SIZEOF_LLONG= INF_CC_SIZE_LL
+INF_SIZEOF_LDBL = INF_CC_SIZE_LDBL
+INF_ABIBITS= 67               # uint32; ABI features
 ABI_8ALIGN4      = 0x00000001 #   4 byte alignment for 8byte scalars (__int64/double) inside structures?
 ABI_PACK_STKARGS = 0x00000002 #   do not align stack arguments to stack slots
 ABI_BIGARG_ALIGN = 0x00000004 #   use natural type alignment for argument if the alignment exceeds native word size (e.g. __int64 argument should be 8byte aligned on some 32bit platforms)
@@ -2084,149 +2100,37 @@ ABI_STACK_LDBL   = 0x00000008 #   long double areuments are passed on stack
 ABI_STACK_VARARGS= 0x00000010 #   varargs are always passed on stack (even when there are free registers)
 ABI_HARD_FLOAT   = 0x00000020 #   use the floating-point register set
 ABI_SET_BY_USER  = 0x00000040 #   compiler/abi were set by user flag
-INF_APPCALL_OPTIONS= 196      # uint32; appcall options
+ABI_GCC_LAYOUT   = 0x00000080 #   use gcc layout for udts (used for mingw)
+ABI_MAP_STKARGS  = 0x00000100 #   register arguments are mapped to stack area (and consume stack slots)
+INF_APPCALL_OPTIONS= 68       # uint32; appcall options
 
-# Redefine these offsets for 64-bit version
-if __EA64__:
-    INF_VERSION              =   4
-    INF_PROCNAME             =   6
-    INF_GENFLAGS             =   22
-    INF_LFLAGS               =   24
-    INF_CHANGE_COUNTER       =   28
-    INF_FILETYPE             =   32
-    INF_OSTYPE               =   34
-    INF_APPTYPE              =   36
-    INF_ASMTYPE              =   38
-    INF_SPECSEGS             =   39
-    INF_AF                   =   40
-    INF_AF2                  =   44
-    INF_BASEADDR             =   48
-    INF_START_SS             =   56
-    INF_START_CS             =   64
-    INF_START_IP             =   72
-    INF_START_EA             =   80
-    INF_START_SP             =   88
-    INF_MAIN                 =   96
-    INF_MIN_EA               =  104
-    INF_MAX_EA               =  112
-    INF_OMIN_EA              =  120
-    INF_OMAX_EA              =  128
-    INF_LOW_OFF              =  136
-    INF_HIGH_OFF             =  144
-    INF_MAXREF               =  152
-    INF_START_PRIVRANGE      =  160
-    INF_END_PRIVRANGE        =  168
-    INF_NETDELTA             =  176
-    INF_XREFNUM              =  184
-    INF_TYPE_XREFS           =  185
-    INF_REFCMTS              =  186
-    INF_XREFS                =  187
-    INF_MAX_AUTONAME_LEN     =  188
-    INF_NAMETYPE             =  190
-    INF_SHORT_DN             =  192
-    INF_LONG_DN              =  196
-    INF_DEMNAMES             =  200
-    INF_LISTNAMES            =  201
-    INF_INDENT               =  202
-    INF_COMMENT              =  203
-    INF_MARGIN               =  204
-    INF_LENXREF              =  206
-    INF_OUTFLAGS             =  208
-    INF_CMTFLAG              =  212
-    INF_BORDER               =  213
-    INF_BINPREF              =  214
-    INF_PREFFLAG             =  216
-    INF_STRLIT_FLAGS         =  217
-    INF_STRLIT_BREAK         =  218
-    INF_STRLIT_ZEROES        =  219
-    INF_STRTYPE              =  220
-    INF_STRLIT_PREF          =  224
-    INF_STRLIT_SERNUM        =  240
-    INF_DATATYPES            =  248
-    INF_COMPILER             =  256
-    INF_MODEL                =  257
-    INF_SIZEOF_INT           =  258
-    INF_SIZEOF_BOOL          =  259
-    INF_SIZEOF_ENUM          =  260
-    INF_SIZEOF_ALGN          =  261
-    INF_SIZEOF_SHORT         =  262
-    INF_SIZEOF_LONG          =  263
-    INF_SIZEOF_LLONG         =  264
-    INF_SIZEOF_LDBL          =  265
-    INF_ABIBITS              =  268
-    INF_APPCALL_OPTIONS      =  272
+_signed_inf_attrs = [
+    INF_NETDELTA,
+    INF_NAMETYPE,
+    INF_BIN_PREFIX_SIZE,
+    INF_STRLIT_ZEROES,
+    INF_STRTYPE,
+]
 
-_INFMAP = {
-INF_VERSION     : (False, 'version'),      # short;   Version of database
-INF_PROCNAME    : (False, 'procname'),     # char[8]; Name of current processor
-INF_LFLAGS      : (False, 'lflags'),       # char;    IDP-dependent flags
-INF_DEMNAMES    : (False, 'demnames'),     # char;    display demangled names as:
-INF_FILETYPE    : (False, 'filetype'),     # short;   type of input file (see ida.hpp)
-INF_OSTYPE      : (False, 'ostype'),       # short;   FLIRT: OS type the program is for
-INF_APPTYPE     : (False, 'apptype'),      # short;   FLIRT: Application type
-INF_START_SP    : (False, 'start_sp'),     # long;    SP register value at the start of
-INF_AF          : (False, 'af'),           # uint32;  Analysis flags
-INF_AF2         : (False, 'af2'),          # uint32;  Analysis flags 2
-INF_START_IP    : (False, 'start_ip'),     # long;    IP register value at the start of
-INF_START_EA    : (False, 'start_ea'),     # long;    Linear address of program entry point
-INF_MIN_EA      : (False, 'min_ea'),       # long;    The lowest address used
-INF_MAX_EA      : (False, 'max_ea'),       # long;    The highest address used
-INF_OMIN_EA     : (False, 'omin_ea'),
-INF_OMAX_EA     : (False, 'omax_ea'),
-INF_LOW_OFF     : (False, 'lowoff'),       # long;    low limit of voids
-INF_HIGH_OFF    : (False, 'highoff'),      # long;    high limit of voids
-INF_MAXREF      : (False, 'maxref'),       # long;    max xref depth
-INF_STRLIT_BREAK: (False, 'strlit_break'), # char;    string literal line break symbol
-INF_INDENT      : (False, 'indent'),       # char;    Indention for instructions
-INF_COMMENT     : (False, 'comment'),      # char;    Indention for comments
-INF_XREFNUM     : (False, 'xrefnum'),      # char;    Number of references to generate
-INF_TYPE_XREFS  : (False, 'type_xrefnum'), # char;    Number of references to generate in the struct & enum windows
-INF_SPECSEGS    : (False, 'specsegs'),
-INF_BORDER      : (False, 's_limiter'),    # char;    Generate borders?
-INF_GENFLAGS    : (False, 's_genflags'),   # ushort;  General flags:
-INF_ASMTYPE     : (False, 'asmtype'),      # char;    target assembler number (0..n)
-INF_BASEADDR    : (False, 'baseaddr'),     # long;    base paragraph of the program
-INF_XREFS       : (False, 's_xrefflag'),   # char;    xrefs representation:
-INF_BINPREF     : (False, 'bin_prefix_size'),
-                                           # short;   # of instruction bytes to show
-INF_CMTFLAG     : (False, 's_cmtflg'),     # char;    comments:
-INF_NAMETYPE    : (False, 'nametype'),     # char;    dummy names represenation type
-INF_PREFFLAG    : (False, 's_prefflag'),   # char;    line prefix type:
-INF_STRLIT_FLAGS: (False, 'strlit_flags'),   # uchar;   string literal flags
-INF_LISTNAMES   : (False, 'listnames'),    # uchar;   What names should be included in the list?
-INF_STRLIT_PREF   : (False, 'strlit_pref'),   # char[16];ASCII names prefix
-INF_STRLIT_SERNUM : (False, 'strlit_sernum'), # ulong;   serial number
-INF_STRLIT_ZEROES : (False, 'strlit_zeroes'), # char;    leading zeroes
-INF_START_SS    : (False, 'start_ss'),     # long;    value of SS at the start
-INF_START_CS    : (False, 'start_cs'),     # long;    value of CS at the start
-INF_MAIN        : (False, 'main'),         # long;    address of main()
-INF_SHORT_DN    : (False, 'short_demnames'), # long;    short form of demangled names
-INF_LONG_DN     : (False, 'long_demnames'), # long;    long form of demangled names
-INF_DATATYPES   : (False, 'datatypes'),    # long;    data types allowed in data carousel
-INF_STRTYPE     : (False, 'strtype'),      # long;    current ascii string type
-INF_MAX_AUTONAME_LEN : (False, 'max_autoname_len'),      # ushort;  max name length (without zero byte)
-INF_MARGIN      : (False, 'margin'),       # ushort;  max length of data lines
-INF_LENXREF     : (False, 'lenxref'),      # ushort;  max length of line with xrefs
-INF_OUTFLAGS    : (False, 'outflags'),     # uchar;   output flags
-INF_COMPILER    : (False, 'cc'),           # uchar;   compiler
+def get_inf_attr(attr):
+    """
+    """
+    if attr == INF_PROCNAME:
+        return eval_idc("get_processor_name()")
+    v = eval_idc("get_inf_attr(%d)" % attr)
+    if v < 0 and not attr in _signed_inf_attrs:
+        if abs(v) < (1 << 32):
+            v = (1 << 32) + v
+        else:
+            v = (1 << 64) + v
+    return v
 
-#INF_MODEL       = 184             # uchar;   memory model & calling convention
-#INF_SIZEOF_INT  = 185             # uchar;   sizeof(int)
-#INF_SIZEOF_BOOL = 186             # uchar;   sizeof(bool)
-#INF_SIZEOF_ENUM = 187             # uchar;   sizeof(enum)
-#INF_SIZEOF_ALGN = 188             # uchar;   default alignment
-#INF_SIZEOF_SHORT = 189
-#INF_SIZEOF_LONG  = 190
-#INF_SIZEOF_LLONG = 191
-INF_CHANGE_COUNTER  : (False, 'database_change_count'),
-INF_APPCALL_OPTIONS : (False, 'appcall_options'),
-INF_ABIBITS         : (False, 'abibits'),       # uint32; ABI features
-INF_REFCMTS         : (False, 'refcmtnum'),
-#INF_NETDELTA        : (False, 'netdelta'),
-#INF_START_PRIVRANGE : (False, 'privrange.start_ea'),
-#INF_END_PRIVRANGE   : (False, 'privrange.end_ea')
-}
-
+def set_inf_attr(attr, value):
+    if attr == INF_PROCNAME:
+        raise NotImplementedError("Please use ida_idp.set_processor_type() to change processor")
+    # We really want to go through IDC's equivalent, because it might
+    # have side-effects (i.e., send a notification, etc...)
+    return eval_idc("set_inf_attr(%d, %d)" % (attr, value))
 
 set_processor_type  = ida_idp.set_processor_type
 
@@ -2456,7 +2360,7 @@ ADDSEG_FILLGAP = ida_segment.ADDSEG_FILLGAP # If there is a gap between the new 
                                             # previous segment and adding .align directive
                                             # to it. This way we avoid gaps between segments.
                                             # Too many gaps lead to a virtual array failure.
-                                            # It can not hold more than ~1000 gaps.
+                                            # It cannot hold more than ~1000 gaps.
 ADDSEG_SPARSE  = ida_segment.ADDSEG_SPARSE  # Use sparse storage method for the new segment
 
 def AddSeg(startea, endea, base, use32, align, comb):
@@ -5206,6 +5110,29 @@ def apply_type(ea, py_type, flags = TINFO_DEFINITE):
           pt = py_type
     return ida_typeinf.apply_type(None, pt[0], pt[1], ea, flags)
 
+
+PT_SIL      = ida_typeinf.PT_SIL      # silent, no messages
+PT_NDC      = ida_typeinf.PT_NDC      # don't decorate names
+PT_TYP      = ida_typeinf.PT_TYP      # return declared type information
+PT_VAR      = ida_typeinf.PT_VAR      # return declared object information
+PT_PACKMASK = ida_typeinf.PT_PACKMASK # mask for pack alignment values
+PT_HIGH     = ida_typeinf.PT_HIGH     # assume high level prototypes (with hidden args, etc)
+PT_LOWER    = ida_typeinf.PT_LOWER    # lower the function prototypes
+PT_REPLACE  = ida_typeinf.PT_REPLACE  # replace the old type (used in idc)
+PT_RAWARGS  = ida_typeinf.PT_RAWARGS  # leave argument names unchanged (do not remove underscores)
+
+PT_SILENT = PT_SIL # alias
+PT_PAKDEF = 0x0000 # default pack value
+PT_PAK1   = 0x0010 # #pragma pack(1)
+PT_PAK2   = 0x0020 # #pragma pack(2)
+PT_PAK4   = 0x0030 # #pragma pack(4)
+PT_PAK8   = 0x0040 # #pragma pack(8)
+PT_PAK16  = 0x0050 # #pragma pack(16)
+
+# idc.py-specific
+PT_FILE = 0x00010000 # input if a file name (otherwise contains type declarations)
+
+
 def SetType(ea, newtype):
     """
     Set type of function/variable
@@ -5219,7 +5146,7 @@ def SetType(ea, newtype):
     @return: 1-ok, 0-failed.
     """
     if newtype is not '':
-        pt = parse_decl(newtype, 1) # silent
+        pt = parse_decl(newtype, PT_SIL)
         if pt is None:
           # parsing failed
           return None
@@ -5250,19 +5177,6 @@ def parse_decls(inputtype, flags = 0):
     @return: number of parsing errors (0 no errors)
     """
     return ida_typeinf.idc_parse_types(inputtype, flags)
-
-
-PT_FILE =   0x0001  # input if a file name (otherwise contains type declarations)
-PT_SILENT = 0x0002  # silent mode
-PT_PAKDEF = 0x0000  # default pack value
-PT_PAK1 =   0x0010  # #pragma pack(1)
-PT_PAK2 =   0x0020  # #pragma pack(2)
-PT_PAK4 =   0x0030  # #pragma pack(4)
-PT_PAK8 =   0x0040  # #pragma pack(8)
-PT_PAK16 =  0x0050  # #pragma pack(16)
-PT_HIGH  =  0x0080  # assume high level prototypes
-                    # (with hidden args, etc)
-PT_LOWER =  0x0100  # lower the function prototypes
 
 
 def print_decls(ordinals, flags):
@@ -5756,10 +5670,7 @@ def get_reg_value(name):
 
     @return: register value (integer or floating point)
     """
-    rv = ida_idd.regval_t()
-    res = ida_dbg.get_reg_val(name, rv)
-    assert res, "get_reg_val() failed, bogus register name ('%s') perhaps?" % name
-    return rv.ival
+    return ida_dbg.get_reg_val(name)
 
 
 def set_reg_value(value, name):
@@ -5773,19 +5684,7 @@ def set_reg_value(value, name):
            It is not necessary to use this function to set register values.
            A register name in the left side of an assignment will do too.
     """
-    rv = ida_idd.regval_t()
-    if type(value) == bytes:
-        value = int(value, 16)
-    elif type(value) != int and type(value) != int:
-        print("set_reg_value: value must be integer!")
-        return BADADDR
-
-    if value < 0:
-        #ival_set cannot handle negative numbers
-        value &= 0xFFFFFFFF
-
-    rv.ival = value
-    return ida_dbg.set_reg_val(name, rv)
+    return ida_dbg.set_reg_val(name, value)
 
 
 def get_bpt_qty():

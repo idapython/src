@@ -2,8 +2,6 @@
 #include <frame.hpp>
 %}
 
-%import "range.i"
-
 %ignore add_frame_spec_member;
 %ignore del_stkvars;
 %ignore calc_frame_offset;

@@ -100,6 +100,20 @@ static bool py_load_and_run_plugin(const char *name, size_t arg)
   return rc;
 }
 
+//-------------------------------------------------------------------------
+static PyObject *py_extract_module_from_archive(const char *fname, bool is_remote=false)
+{
+  char *temp_file_ptr = NULL;
+  char fname_buf[QMAXPATH];
+  qstrncpy(fname_buf, fname, sizeof(fname_buf));
+  bool ok = extract_module_from_archive(
+          fname_buf,
+          sizeof(fname_buf),
+          &temp_file_ptr,
+          is_remote);
+  return Py_BuildValue("(ss)", ok ? fname_buf : NULL, ok ? temp_file_ptr : NULL);
+}
+
 //</inline(py_loader)>
 
 #endif

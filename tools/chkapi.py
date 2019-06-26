@@ -48,44 +48,44 @@ def check_cpp(opts):
         #
         "_wrap_qstrvec_t_assign" : {
             "mustcall" : "qstrvec_t_assign"
-            },
+        },
         "_wrap_qstrvec_t_addressof" : {
             "mustcall" : "qstrvec_t_addressof"
-            },
+        },
         "_wrap_qstrvec_t_set" : {
             "mustcall" : "qstrvec_t_set"
-            },
+        },
         "_wrap_qstrvec_t_from_list" : {
             "mustcall" : "qstrvec_t_from_list"
-            },
+        },
         "_wrap_qstrvec_t_size" : {
             "mustcall" : "qstrvec_t_size"
-            },
+        },
         "_wrap_qstrvec_t_get" : {
             "mustcall" : "qstrvec_t_get"
-            },
+        },
         "_wrap_qstrvec_t_add" : {
             "mustcall" : "qstrvec_t_add"
-            },
+        },
         "_wrap_qstrvec_t_clear" : {
             "mustcall" : "qstrvec_t_clear"
-            },
+        },
         "_wrap_qstrvec_t_insert" : {
             "mustcall" : "qstrvec_t_insert"
-            },
+        },
         "_wrap_qstrvec_t_remove" : {
             "mustcall" : "qstrvec_t_remove"
-            },
+        },
 
         #
         # Misc.
         #
-        "_wrap_tinfo_t_deserialize__SWIG_2" : {
-            "mustcall" : "tinfo_t_deserialize__SWIG_2",
-            },
+        "_wrap_tinfo_t_deserialize__SWIG_1" : {
+            "mustcall" : "tinfo_t_deserialize__SWIG_1",
+        },
         "_wrap_get_bpt_group" : {
-            "mustcall" : "PyString_FromStringAndSize",
-            },
+            "mustcall" : "_maybe_sized_cstring_result",
+        },
         "_wrap_get_ip_val" : {
             "string" : "resultobj = PyLong_FromUnsigned",
         },
@@ -94,6 +94,15 @@ def check_cpp(opts):
         },
         "SwigDirector_UI_Hooks::populating_widget_popup" : {
             "string" : "get_callable_arg_count",
+        },
+        "_wrap_idc_get_local_type" : {
+            "mustcall" : "__chkreqidb"
+        },
+        "_wrap_append_argloc" : {
+            "mustcall" : "__chkreqidb"
+        },
+        "_wrap_is_type_ptr" : {
+            "nostring" : "__chkreqidb",
         },
 
         # "_wrap_get_array_parameters" : {
@@ -125,14 +134,14 @@ def check_cpp(opts):
         #     },
         "_wrap_guess_tinfo" : {
             "mustcall" : "PyW_GetNumber",
-            },
+        },
         "_wrap_IDP_Hooks_ev_adjust_refinfo" : {
             "string" : "fixup_data_t",
-            },
+        },
         # char[ANY] out typemap
         "_wrap_idainfo_tag_get" : {
             "nostring" : " --size;",
-            },
+        },
 
         "_wrap_warning__varargs__" : {
             "nullptrcheck" : 1, # 1st arg
@@ -174,28 +183,28 @@ def check_cpp(opts):
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
             "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
-            },
+        },
         "_wrap_cfunc_t___str__" : {
             "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
-            },
+        },
         "_wrap_hexrays_failure_t_desc" : {
             "mustcall" : "PyString_FromStringAndSize",
-            },
+        },
         "_wrap_vd_failure_t_desc" : {
             "mustcall" : "PyString_FromStringAndSize",
-            },
+        },
         "_wrap_create_field_name" : {
             "mustcall" : "PyString_FromStringAndSize",
-            },
+        },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
-            },
-        "_wrap__decompile" : {
+        },
+        "_wrap_decompile" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
-            },
+        },
         "_wrap_vdui_t_cfunc_get" : {
             "mustcall" : "hexrays_register_python_clearable_instance",
-            },
+        },
         "delete_cexpr_t" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
         },
@@ -229,26 +238,30 @@ def check_cpp(opts):
         "_wrap_boundaries_find" : {
             "nostring" : "SWIGTYPE_p_p_cinsn_t",
         },
+        "mbl_array_t_serialize" : {
+            "string" : "bytes_container typemap(argout) (bytevec_t &vout)",
+            "mustcall" : "PyString_FromStringAndSize",
+        },
 
         #
         # qvector<simpleline_t>
         #
         "_wrap_strvec_t___len__" : {
             "mustcall" : "qvector_Sl_simpleline_t_Sg____len__",
-            },
+        },
         "_wrap_strvec_t___setitem__" : {
             "mustcall" : "qvector_Sl_simpleline_t_Sg____setitem__",
-            },
+        },
         "_wrap_strvec_t___getitem__" : {
             "mustcall" : "qvector_Sl_simpleline_t_Sg____getitem__",
-            },
+        },
         #
         # vdui_t::cfunc
         #
         "_wrap_vdui_t_cfunc_get" : {
             "string" : "SWIGTYPE_p_qrefcnt_tT_cfunc_t_t",  # proper typemap must be used
-            },
-        }
+        },
+    }
 
     functions_coherence = functions_coherence_base.copy()
     if opts.with_hexrays:
@@ -385,6 +398,12 @@ def check_cpp(opts):
             "func_pat_t_relbits_set",
             "new_func_md_t",
             "new_func_pat_t",
+            "DBG_Hooks_dump_state",
+            "Hexrays_Hooks_dump_state",
+            "IDB_Hooks_dump_state",
+            "IDP_Hooks_dump_state",
+            "UI_Hooks_dump_state",
+            "View_Hooks_dump_state",
         ]
         to_report = sorted(filter(
             lambda fn: fn not in ignorable_functions,
@@ -426,7 +445,7 @@ def check_python(opts):
         "insn_t" : { "mustinherit" : "object" },
         "op_t" : { "mustinherit" : "object" },
         "plugin_t" : { "mustinherit" : "pyidc_opaque_object_t" },
-        "processor_t" : { "mustinherit" : "ida_idaapi.pyidc_opaque_object_t" },
+        "processor_t" : { "mustinherit" : "IDP_Hooks" },
         "py_clinked_object_t" : { "mustinherit" : "pyidc_opaque_object_t" },
         "segm_move_infos_t" : { "mustinherit" : "segm_move_info_vec_t" },
         "simpleline_place_t" : { "mustinherit" : "place_t" },
@@ -463,7 +482,10 @@ def check_python(opts):
         "qstring_printer_t" : { "mustinherit" : "vc_printer_t" },
         "vc_printer_t" : { "mustinherit" : "vd_printer_t" },
         "vd_interr_t" : { "mustinherit" : "vd_failure_t" },
+        # "casm_t" : { "mustinherit" : "eavec_t" },
         # "vivl_t" : { "mustinherit" : "ivl_t" },
+        "ivl_t" : { "mustinherit" : "uval_ivl_t" },
+        "ivlset_t" : { "mustinherit" : "uval_ivl_ivlset_t" },
     }
 
     types_coherence = types_coherence_base.copy()

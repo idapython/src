@@ -398,7 +398,7 @@ PyObject *py_pack_object_to_bv(
     &bytes,
     NULL,
     pio_flags);
-  if ( err == eOk && !bytes.relocate(base_ea, inf.is_be()) )
+  if ( err == eOk && !bytes.relocate(base_ea, inf_is_be()) )
     err = -1;
   Py_END_ALLOW_THREADS;
   if ( err == eOk )
@@ -409,14 +409,18 @@ PyObject *py_pack_object_to_bv(
 
 //-------------------------------------------------------------------------
 /* Parse types from a string or file. See ParseTypes() in idc.py */
+#define PT_FILE 0x00010000
 int idc_parse_types(const char *input, int flags)
 {
   int hti = ((flags >> 4) & 7) << HTI_PAK_SHIFT;
 
-  if ( (flags & 1) != 0 )
+  if ( (flags & PT_FILE) != 0 )
+  {
     hti |= HTI_FIL;
+    flags &= ~PT_FILE;
+  }
 
-  return parse_decls(NULL, input, (flags & 2) == 0 ? msg : NULL, hti);
+  return parse_decls(NULL, input, (flags & PT_SIL) == 0 ? msg : NULL, hti);
 }
 
 //-------------------------------------------------------------------------

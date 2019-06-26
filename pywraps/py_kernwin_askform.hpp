@@ -48,18 +48,14 @@ static bool textctrl_info_t_set_flags(PyObject *self, unsigned int flags)
 }
 
 //-------------------------------------------------------------------------
-static unsigned int textctrl_info_t_get_flags(
-        PyObject *self,
-        unsigned int flags)
+static unsigned int textctrl_info_t_get_flags(PyObject *self)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
   return ti == NULL ? 0 : ti->flags;
 }
 
 //-------------------------------------------------------------------------
-static bool textctrl_info_t_set_tabsize(
-        PyObject *self,
-        unsigned int tabsize)
+static bool textctrl_info_t_set_tabsize(PyObject *self, unsigned int tabsize)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
   if ( ti == NULL )
@@ -69,9 +65,7 @@ static bool textctrl_info_t_set_tabsize(
 }
 
 //-------------------------------------------------------------------------
-static unsigned int textctrl_info_t_get_tabsize(
-        PyObject *self,
-        unsigned int tabsize)
+static unsigned int textctrl_info_t_get_tabsize(PyObject *self)
 {
   textctrl_info_t *ti = (textctrl_info_t *)pyobj_get_clink(self);
   return ti == NULL ? 0 : ti->tabsize;

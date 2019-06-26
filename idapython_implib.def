@@ -10,6 +10,7 @@ EXPORTS
   PyW_IsSequenceType
   PyW_ObjectToString
   PyW_PyListToEaVec
+  PyW_PyListToEa64Vec
   PyW_PyListToSizeVec
   PyW_PyListToStrVec
   PyW_register_compiled_form
@@ -17,7 +18,6 @@ EXPORTS
   PyW_TryGetAttrString
   PyW_TryImportModule
   PyW_unregister_compiled_form
-  add_notify_when
   create_linked_class_instance
   disable_script_timeout
   enable_extlang_python
@@ -51,6 +51,7 @@ EXPORTS
   pyw_convert_idc_args
   set_script_timeout
   set_interruptible_state
+  setup_new_execution
   til_deregister_python_array_type_data_t_instance
   til_deregister_python_func_type_data_t_instance
   til_deregister_python_ptr_type_data_t_instance

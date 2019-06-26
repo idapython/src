@@ -11,6 +11,7 @@ import _ida_name
 import _ida_bytes
 import _ida_ida
 import ida_idaapi
+import ida_typeinf
 
 dbg_can_query = _ida_dbg.dbg_can_query
 
@@ -79,13 +80,27 @@ class Appcall_callable__(object):
       i = byref(5)
       appcall.funcname(arg1, i, "hello", o)
     """
-    def __init__(self, ea, tp = None, fld = None):
+    def __init__(self, ea, tinfo_or_typestr = None, fields = None):
         """Initializes an appcall with a given function ea"""
-        self.__ea     = ea
-        self.__type   = tp
-        self.__fields = fld
+        self.__ea      = ea
+        self.__tif     = None
+        self.__type    = None
+        self.__fields  = None
         self.__options = None # Appcall options
         self.__timeout = None # Appcall timeout
+
+        if tinfo_or_typestr:
+          if type(tinfo_or_typestr) == types.StringType:
+            # a type string? assume (typestr, fields), try to deserialize
+            tif = ida_typeinf.tinfo_t()
+            if not tif.deserialize(None, tinfo_or_typestr, fields):
+              raise ValueError, "Could not deserialize type string"
+          else:
+            if not isinstance(tinfo_or_typestr, ida_typeinf.tinfo_t):
+              raise ValueError, "Invalid argument 'tinfo_or_typestr'"
+            tif = tinfo_or_typestr
+          self.__tif = tif
+          (self.__type, self.__fields, _) = tif.serialize()
 
     def __get_timeout(self):
         return self.__timeout
@@ -125,25 +140,16 @@ class Appcall_callable__(object):
         Appcall__.set_appcall_options(self.options)
 
         # Do the Appcall (use the wrapped version)
-        e_obj = None
         try:
-            r = _ida_idd.appcall(
-               self.ea,
-               _ida_dbg.get_current_thread(),
-               self.type,
-               self.fields,
-               arg_list)
-        except Exception as e:
-            e_obj = e
-
-        # Restore appcall options
-        Appcall__.set_appcall_options(old_opt)
-
-        # Return or re-raise exception
-        if e_obj:
-            raise Exception(e_obj)
-
-        return r
+            return _ida_idd.appcall(
+                self.ea,
+                _ida_dbg.get_current_thread(),
+                self.type,
+                self.fields,
+                arg_list)
+        finally:
+            # Restore appcall options
+            Appcall__.set_appcall_options(old_opt)
 
     def __get_ea(self):
         return self.__ea
@@ -153,6 +159,12 @@ class Appcall_callable__(object):
 
     ea = property(__get_ea, __set_ea)
     """Returns or sets the EA associated with this object"""
+
+    def __get_tif(self):
+        return self.__tif
+
+    tif = property(__get_tif)
+    """Returns the tinfo_t object"""
 
     def __get_size(self):
         if self.__type == None:
@@ -291,11 +303,34 @@ class Appcall__(object):
         return ea
 
     @staticmethod
-    def proto(name_or_ea, prototype, flags = None):
+    def __typedecl_or_tinfo(typedecl_or_tinfo, flags = None):
+        """
+        Function that accepts a tinfo_t object or type declaration as a string
+        If a type declaration is passed then ida_typeinf.parse_decl() is applied to prepare tinfo_t object
+        @return:
+            - Returns the tinfo_t object
+            - Raises an exception if the declaration cannot be parsed
+        """
+
+        # a string? try to parse it
+        if type(typedecl_or_tinfo) == types.StringType:
+          if flags is None:
+              flags = ida_typeinf.PT_SIL|ida_typeinf.PT_NDC|ida_typeinf.PT_TYP
+          tif = ida_typeinf.tinfo_t()
+          if ida_typeinf.parse_decl(tif, None, typedecl_or_tinfo, flags) == None:
+            raise ValueError, "Could not parse type: " + typedecl_or_tinfo
+        else:
+            if not isinstance(typedecl_or_tinfo, ida_typeinf.tinfo_t):
+              raise ValueError, "Invalid argument 'typedecl_or_tinfo'"
+            tif = typedecl_or_tinfo
+        return tif
+
+    @staticmethod
+    def proto(name_or_ea, proto_or_tinfo, flags = None):
         """
         Allows you to instantiate an appcall (callable object) with the desired prototype
         @param name_or_ea: The name of the function (will be resolved with LocByName())
-        @param prototype:
+        @param proto_or_tinfo: function prototype as a string or type of the function as tinfo_t object
         @return:
             - On failure it raises an exception if the prototype could not be parsed
               or the address is not resolvable
@@ -304,16 +339,12 @@ class Appcall__(object):
 
         # resolve and raise exception on error
         ea = Appcall__.__name_or_ea(name_or_ea)
-        # parse the type
-        if flags is None:
-            flags = 1 | 2 | 4 # PT_SIL | PT_NDC | PT_TYP
 
-        result = _ida_typeinf.idc_parse_decl(None, prototype, flags)
-        if result is None:
-            raise ValueError("Could not parse type: " + prototype)
+        # parse the type if it is given as (prototype, flags)
+        tif = Appcall__.__typedecl_or_tinfo(proto_or_tinfo, flags)
 
         # Return the callable method with type info
-        return Appcall_callable__(ea, result[1], result[2])
+        return Appcall_callable__(ea, tif)
 
     def __getattr__(self, name_or_ea):
         """Allows you to call functions as if they were member functions (by returning a callable object)"""
@@ -390,19 +421,18 @@ class Appcall__(object):
         return Appcall_array__(type_name)
 
     @staticmethod
-    def typedobj(typestr, ea=None):
+    def typedobj(typedecl_or_tinfo, ea=None):
         """
-        Parses a type string and returns an appcall object.
+        Returns an appcall object for a type (can be given as tinfo_t object or
+        as a string declaration)
         One can then use retrieve() member method
         @param ea: Optional parameter that later can be used to retrieve the type
         @return: Appcall object or raises ValueError exception
         """
-        # parse the type
-        result = _ida_typeinf.idc_parse_decl(None, typestr, 1 | 2 | 4) # PT_SIL | PT_NDC | PT_TYP
-        if result is None:
-            raise ValueError("Could not parse type: " + typestr)
+        # parse the type if it is given as string
+        tif = Appcall__.__typedecl_or_tinfo(typedecl_or_tinfo)
         # Return the callable method with type info
-        return Appcall_callable__(ea, result[1], result[2])
+        return Appcall_callable__(ea, tif)
 
     @staticmethod
     def set_appcall_options(opt):

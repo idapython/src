@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------
 //<inline(py_name)>
 //------------------------------------------------------------------------
-PyObject *get_debug_names(ea_t ea1, ea_t ea2)
+PyObject *get_debug_names(ea_t ea1, ea_t ea2, bool return_list=false)
 {
   // Get debug names
   ea_name_vec_t names;
@@ -16,11 +16,21 @@ PyObject *get_debug_names(ea_t ea1, ea_t ea2)
   PyObject *dict = Py_BuildValue("{}");
   if ( dict != NULL )
   {
-    for ( ea_name_vec_t::iterator it=names.begin(); it != names.end(); ++it )
+    ea_t last_ea = BADADDR;
+    PyObject *list = NULL;
+    for ( ea_name_vec_t::iterator it = names.begin(); it != names.end(); ++it )
     {
-      PyDict_SetItem(dict,
-                     Py_BuildValue(PY_BV_EA, bvea_t(it->ea)),
-                     PyString_FromString(it->name.c_str()));
+      PyObject *name_obj = PyString_FromString(it->name.c_str());
+      if ( it->ea != last_ea )
+      {
+        if ( return_list )
+          list = PyList_New(0);
+        PyObject *ea_obj = Py_BuildValue(PY_BV_EA, bvea_t(it->ea));
+        PyDict_SetItem(dict, ea_obj, return_list ? list : name_obj);
+        last_ea = it->ea;
+      }
+      if ( return_list )
+        PyList_Append(list, name_obj);
     }
   }
   return dict;

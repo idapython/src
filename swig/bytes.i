@@ -2,8 +2,6 @@
 #include <bytes.hpp>
 %}
 
-%import "range.i"
-
 // Unexported and kernel-only declarations
 %ignore testf_t;
 %ignore next_that;

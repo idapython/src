@@ -15,9 +15,6 @@ import idautils
 
 #--------------------------------------------------------------------------
 class assemble_idp_hook_t(idaapi.IDP_Hooks):
-    def __init__(self):
-        idaapi.IDP_Hooks.__init__(self)
-
     def assemble(self, ea, cs, ip, use32, line):
         line = line.strip()
         if line == "xor eax, eax":

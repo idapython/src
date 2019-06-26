@@ -193,27 +193,27 @@ def XrefsTo(ea, flags=0):
 
 
 def Threads():
-    """Returns all thread IDs"""
+    """Returns all thread IDs for the current debugee"""
     for i in xrange(0, idc.get_thread_qty()):
         yield idc.getn_thread(i)
 
 
 def Heads(start=None, end=None):
     """
-    Get a list of heads (instructions or data)
+    Get a list of heads (instructions or data items)
 
     @param start: start address (default: inf.min_ea)
     @param end:   end address (default: inf.max_ea)
 
     @return: list of heads between start and end
     """
-    if not start: start = ida_ida.cvar.inf.min_ea
-    if not end:   end = ida_ida.cvar.inf.max_ea
+    if start is None: start = ida_ida.cvar.inf.min_ea
+    if end is None:   end = ida_ida.cvar.inf.max_ea
 
     ea = start
     if not idc.is_head(ida_bytes.get_flags(ea)):
         ea = ida_bytes.next_head(ea, end)
-    while ea != ida_idaapi.BADADDR:
+    while ea < end and ea != ida_idaapi.BADADDR:
         yield ea
         ea = ida_bytes.next_head(ea, end)
 
@@ -225,15 +225,15 @@ def Functions(start=None, end=None):
     @param start: start address (default: inf.min_ea)
     @param end:   end address (default: inf.max_ea)
 
-    @return: list of heads between start and end
+    @return: list of function entrypoints between start and end
 
     @note: The last function that starts before 'end' is included even
     if it extends beyond 'end'. Any function that has its chunks scattered
     in multiple segments will be reported multiple times, once in each segment
     as they are listed.
     """
-    if not start: start = ida_ida.cvar.inf.min_ea
-    if not end:   end = ida_ida.cvar.inf.max_ea
+    if start is None: start = ida_ida.cvar.inf.min_ea
+    if end is None:   end = ida_ida.cvar.inf.max_ea
 
     # find first function head chunk in the range
     chunk = ida_funcs.get_fchunk(start)
@@ -303,7 +303,7 @@ def Segments():
 
 def Entries():
     """
-    Returns a list of entry points
+    Returns a list of entry points (exports)
 
     @return: List of tuples (index, ordinal, ea, name)
     """
@@ -317,7 +317,7 @@ def Entries():
 
 def FuncItems(start):
     """
-    Get a list of function items
+    Get a list of function items (instruction or data items inside function boundaries)
 
     @param start: address of the function
 

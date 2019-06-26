@@ -126,7 +126,7 @@ recipe = {
     },
     "ev_demangle_name" : {
         "params" : {
-            "outbuf" : { "suppress_for_call" : True, },
+            "out" : { "suppress_for_call" : True, },
             "res" : { "suppress_for_call" : True, },
             "demreq" : { "cast_needed" : "int", "type" : "int" },
         },
@@ -156,6 +156,28 @@ recipe = {
             "type" : "PyObject *",
             "retexpr" : "Py_RETURN_NONE",
             "convertor" : "IDP_Hooks::handle_find_value_output",
+            "convertor_pass_args" : True,
+        }
+    },
+    "ev_get_autocmt" : {
+        "params" : {
+            "buf" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_get_autocmt_output",
+            "convertor_pass_args" : True,
+        }
+    },
+    "ev_get_operand_string" : {
+        "params" : {
+            "buf" : { "suppress_for_call" : True, },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "IDP_Hooks::handle_get_operand_string_output",
             "convertor_pass_args" : True,
         }
     },

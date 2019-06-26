@@ -1,5 +1,10 @@
 
 recipe = {
+    "stkpnts" : {
+        "params" : {
+            "stkpnts" : { "rename" : "_sps", },
+        },
+    },
     "create_hint" : {
         "params" : {
             "result_hint" : { "suppress_for_call" : True, },

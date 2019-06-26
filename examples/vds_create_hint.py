@@ -7,6 +7,7 @@ If the object under the cursor is:
  - an 'if' statement, replace the hint with our own, saying "condition"
 """
 
+import ida_idaapi
 import ida_hexrays
 
 class hint_hooks_t(ida_hexrays.Hexrays_Hooks):

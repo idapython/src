@@ -2,8 +2,7 @@
 %cstring_bounded_output(char *dstname, MAXSTR);
 %cstring_bounded_output(char *buf, MAXSTR);
 
-%apply unsigned long *OUTPUT { uval_t *value }; // get_name_value
-%apply unsigned long *INPUT { ea_t *ea_ptr }; // get_debug_name
+%typemap(check) uval_t *value { *($1) = BADADDR; } // get_name_value
 
 // FIXME: These should be fixed
 %ignore get_struct_operand;

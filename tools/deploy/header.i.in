@@ -1,8 +1,12 @@
+#ifndef __HEADER_I__
+#define __HEADER_I__
 %{
 #ifndef USE_DANGEROUS_FUNCTIONS
   #define USE_DANGEROUS_FUNCTIONS 1
 #endif
 #include <pro.h>
+#undef DEPRECATED
+#define DEPRECATED
 %}
 
 // Auto-inserted header
@@ -18,8 +22,6 @@
 %feature("nodirector") qstring_printer_t;
 %feature("nodirector") simpleline_place_t;
 %feature("nodirector") structplace_t;
-%feature("nodirector") vc_printer_t;
-%feature("nodirector") vd_printer_t;
 %feature("nodirector") qflow_chart_t;
 %feature("nodirector") lowertype_helper_t;
 %feature("nodirector") ida_lowertype_helper_t;
@@ -119,6 +121,7 @@
 %ignore clear_bit;
 %ignore set_all_bits;
 %ignore clear_all_bits;
+%ignore interval::last;
 %ignore interval::overlap;
 %ignore interval::includes;
 %ignore interval::contains;
@@ -158,11 +161,6 @@
 // Do not move this. We need to override the define from pro.h
 #define CASSERT(type)
 
-// If the module is 'pro', don't import pro.h, or the %include
-// at the beginning of pro.i won't have any effect. Same for all
-// modules.
-${ALL_IMPORTS}
-
 %pythoncode {
 import ida_idaapi
 }
@@ -199,13 +197,13 @@ if _BC695:
   // instead of that:
   //    resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(*result));
   inline const T& __getitem__(size_t i) const {
-    if (i >= $self->size() || i < 0)
+    if ( i >= $self->size() )
       throw std::out_of_range("out of bounds access");
     return $self->at(i);
   }
 
   inline void __setitem__(size_t i, const T& v) {
-    if (i >= $self->size() || i < 0)
+    if ( i >= $self->size() )
       throw std::out_of_range("out of bounds access");
     $self->at(i) = v;
   }
@@ -221,56 +219,13 @@ if _BC695:
   }
 }
 
-%{
-static void __raise_ba(const std::bad_alloc &ba)
-{
-  PyErr_SetString(PyExc_MemoryError, "Out of memory (bad_alloc)");
-}
-
-static void __raise_u()
-{
-  PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
-}
-
-static void __raise_e(const std::exception &e)
-{
-  const char *what = e.what();
-  if ( what == NULL || what[0] == '\0' )
-  {
-    __raise_u();
-  }
-  else
-  {
-    PyErr_SetString(PyExc_RuntimeError, what);
-  }
-}
-
-static void __raise_ie(const interr_exc_t &ie)
-{
-  qstring emsg;
-  emsg.sprnt(INTERR_EXC_FMT, ie.code);
-  PyErr_SetString(PyExc_RuntimeError, emsg.begin());
-}
-
-static void __raise_de(const Swig::DirectorException &e)
-{
-  PyErr_SetString(PyExc_RuntimeError, e.getMessage());
-}
-
-static void __raise_oor(const std::out_of_range &e)
-{
-  PyErr_SetString(PyExc_IndexError, e.what());
-}
-
-static bool __chkthr()
-{
-  bool ok = is_main_thread();
-  if ( !ok )
-    PyErr_SetString(PyExc_RuntimeError, "Function can be called from the main thread only");
-  return ok;
-}
-
-%}
+#if IDAPYTHON_MODULE_hexrays
+%define %ida_hexrays_wrapper_exception_catch()
+    catch ( const vd_failure_t &e ) { __raise_vdf(e); SWIG_fail; }
+%enddef
+#else
+%define %ida_hexrays_wrapper_exception_catch()%enddef
+#endif
 
 %define %exception_set_default_handlers()
 %exception {
@@ -280,7 +235,7 @@ static bool __chkthr()
     }
     catch ( const std::bad_alloc &ba ) { __raise_ba(ba); SWIG_fail; }
     catch ( const std::out_of_range &e ) { __raise_oor(e); SWIG_fail; }
-    catch ( const interr_exc_t &e ) { __raise_ie(e); SWIG_fail; }
+    catch ( const interr_exc_t &e ) { __raise_ie(e); SWIG_fail; }%ida_hexrays_wrapper_exception_catch()
     catch ( const std::exception &e ) { __raise_e(e); SWIG_fail; }
     catch ( const Swig::DirectorException &e ) { __raise_de(e); SWIG_fail; }
     catch ( ... ) { __raise_u(); SWIG_fail; }
@@ -432,48 +387,73 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     $2 = int(temp.size());
 }
 
+%{
+SWIGINTERN PyObject *_maybe_cstring_result(
+        PyObject *resultobj,
+        const char *cstr,
+        int result)
+{
+  Py_XDECREF(resultobj);
+  if ( result <= 0 )
+    Py_RETURN_NONE;
+  return PyString_FromString(cstr);
+}
+
+SWIGINTERN PyObject *_maybe_sized_cstring_result(
+        PyObject *resultobj,
+        const char *cstr,
+        size_t cstrsz,
+        int result)
+{
+  Py_XDECREF(resultobj);
+  if ( result <= 0 )
+    Py_RETURN_NONE;
+  return PyString_FromStringAndSize(cstr, cstrsz);
+}
+
+SWIGINTERN PyObject *_maybe_binary_result(
+        PyObject *resultobj,
+        void *buf,
+        ssize_t result)
+{
+  Py_XDECREF(resultobj);
+  if ( result <= 0 )
+    Py_RETURN_NONE;
+  return PyString_FromStringAndSize((const char *) buf, result);
+}
+%}
+
+
 //---------------------------------------------------------------------
-%define %cstring_output_maxstr_none(TYPEMAP, SIZE)
-%typemap (default) SIZE {
-    $1 = MAXSTR;
+%define %cstring_output_maxstr_none(BUFFER_ARG, SIZE_ARG)
+%typemap(default) (BUFFER_ARG, SIZE_ARG) {
+    // %cstring_output_maxstr_none(BUFFER_ARG, SIZE_ARG) %typemap(default) (BUFFER_ARG, SIZE_ARG)
+    $2 = MAXSTR;
  }
-%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
+%typemap(in,numinputs=0) (BUFFER_ARG, SIZE_ARG) {
+    // %cstring_output_maxstr_none(BUFFER_ARG, SIZE_ARG) %typemap(in,numinputs=0) (BUFFER_ARG, SIZE_ARG)
     $1 = ($1_ltype) qalloc(MAXSTR+1);
 }
-%typemap(argout) (TYPEMAP,SIZE) {
-    Py_XDECREF(resultobj);
-    if (result > 0)
-    {
-        resultobj = PyString_FromString($1);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
+%typemap(argout) (BUFFER_ARG, SIZE_ARG) {
+    // %cstring_output_maxstr_none(BUFFER_ARG, SIZE_ARG) %typemap(argout) (BUFFER_ARG, SIZE_ARG)
+    resultobj = _maybe_cstring_result(resultobj, $1, int(result));
     qfree($1);
 }
 %enddef
 
 //---------------------------------------------------------------------
-%define %binary_output_or_none(TYPEMAP, SIZE)
-%typemap (default) SIZE {
-    $1 = MAXSPECSIZE;
+%define %binary_output_or_none(BUFFER_ARG, SIZE_ARG)
+%typemap(default) (BUFFER_ARG, SIZE_ARG) {
+    // %binary_output_or_none(BUFFER_ARG, SIZE_ARG) %typemap(default) (BUFFER_ARG, SIZE_ARG)
+    $2 = MAXSPECSIZE;
 }
-%typemap(in,numinputs=0) (TYPEMAP, SIZE) {
+%typemap(in,numinputs=0) (BUFFER_ARG, SIZE_ARG) {
+    // %binary_output_or_none(BUFFER_ARG, SIZE_ARG) %typemap(in,numinputs=0) (BUFFER_ARG, SIZE_ARG)
     $1 = (char *) qalloc(MAXSPECSIZE+1);
 }
-%typemap(argout) (TYPEMAP,SIZE) {
-    Py_XDECREF(resultobj);
-    if (result > 0)
-    {
-        resultobj = PyString_FromStringAndSize((char *)$1, result);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
+%typemap(argout) (BUFFER_ARG, SIZE_ARG) {
+    // %binary_output_or_none(BUFFER_ARG, SIZE_ARG) %typemap(argout) (BUFFER_ARG, SIZE_ARG)
+    resultobj = _maybe_binary_result(resultobj, $1, ssize_t(result));
     qfree((void *)$1);
 }
 %enddef
@@ -617,6 +597,10 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 //                       IN/OUT qstring/bytevec_t
 //---------------------------------------------------------------------
 %define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR, INSTANCE_CAST)
+%typemap(typecheck) REFTYPE
+{ // bytes_container REFTYPE typemap(typecheck)
+  $1 = PyString_Check($input) ? 1 : 0;
+}
 %typemap(in) REFTYPE
 { // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
   if ( PyString_Check($input) )
@@ -657,23 +641,29 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
   // bytes_container typemap(in,numinputs=0) CONTAINER_TYPE *result (CONTAINER_TYPE temp)
   $1 = &temp;
 }
+%typemap(in,numinputs=0) CONTAINER_TYPE &result (CONTAINER_TYPE temp)
+{
+  // bytes_container typemap(in,numinputs=0) CONTAINER_TYPE &result (CONTAINER_TYPE temp)
+  $1 = &temp;
+}
 %typemap(argout) CONTAINER_TYPE *result
 {
   // bytes_container typemap(argout) CONTAINER_TYPE *result
-  Py_XDECREF(resultobj);
-  if (result > 0)
-  {
-    resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
-  }
-  else
-  {
-    Py_INCREF(Py_None);
-    resultobj = Py_None;
-  }
+  resultobj = _maybe_sized_cstring_result(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
+}
+%typemap(argout) CONTAINER_TYPE &result
+{
+  // bytes_container typemap(argout) CONTAINER_TYPE &result
+  resultobj = _maybe_sized_cstring_result(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
 }
 %typemap(freearg) CONTAINER_TYPE* result
 {
   // bytes_container typemap(freearg) CONTAINER_TYPE *result
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+%typemap(freearg) CONTAINER_TYPE& result
+{
+  // bytes_container typemap(freearg) CONTAINER_TYPE &result
   // Nothing. We certainly don't want 'temp' to be deleted.
 }
 // We determine that the following parameter: "CONTAINER_TYPE *vout" has the
@@ -684,12 +674,35 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 //
 // Re-use the 'CONTAINER_TYPE *result' typemaps, ...
 %apply CONTAINER_TYPE *result { CONTAINER_TYPE *vout };
+%apply CONTAINER_TYPE &result { CONTAINER_TYPE &vout };
 // ...but override the argout one, so that it doesn't rely on a 'result'
 %typemap(argout) (CONTAINER_TYPE *vout)
 {
   // bytes_container typemap(argout) (CONTAINER_TYPE *vout)
   Py_XDECREF(resultobj);
   resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+}
+%typemap(argout) (CONTAINER_TYPE &vout)
+{
+  // bytes_container typemap(argout) (CONTAINER_TYPE &vout)
+  Py_XDECREF(resultobj);
+  resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+}
+%typemap(directorin) CONTAINER_TYPE *
+{ // bytes_container typemap(directorin) CONTAINER_TYPE *
+  if ( $1 != NULL )
+  {
+    $input = PyString_FromStringAndSize($1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    $input = Py_None;
+  }
+}
+%typemap(directorin) REFTYPE
+{ // bytes_container typemap(directorin) REFTYPE
+  $input = PyString_FromStringAndSize($1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 %enddef
 
@@ -733,26 +746,27 @@ typedef          long long longlong;
 #endif
 
 #ifdef __EA64__
-%apply longlong  *INOUT { sval_t  *value };
+%apply longlong  *INOUT { sval_t *value };
 %apply longlong  *INOUT { adiff_t *disp };
-%apply ulonglong *INOUT { ea_t    *addr };
-%apply ulonglong *INOUT { sel_t   *sel };
+%apply ulonglong *INOUT { ea_t *addr };
+%apply ulonglong *INPUT { ea_t *ea_ptr }; // get_debug_name
+%apply ulonglong *INOUT { sel_t *sel };
 %apply ulonglong *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
 %apply ulonglong *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
+%apply ulonglong *OUTPUT { uval_t *value }; // get_name_value
 #else
 %apply int          *INOUT { sval_t  *value };
 %apply int          *INOUT { adiff_t *disp };
-%apply unsigned int *INOUT { ea_t    *addr };
-%apply unsigned int *INOUT { sel_t   *sel };
+%apply unsigned int *INOUT { ea_t *addr };
+%apply unsigned int *INPUT { ea_t *ea_ptr }; // get_debug_name
+%apply unsigned int *INOUT { sel_t *sel };
 %apply unsigned int *OUTPUT { ea_t *ea1, ea_t *ea2 }; // read_range_selection()
 %apply unsigned int *OUTPUT { ea_t *from, ea_t *to, asize_t *size }; // get_mapping()
+%apply unsigned int *OUTPUT { uval_t *value }; // get_name_value
 #endif
 
 %apply long long { qoff64_t };
 
-%apply qstring *result { qstring *label };
-%apply qstring *result { qstring *shortcut };
-%apply qstring *result { qstring *tooltip };
 %apply qstring *result { qstring *out };
 %apply qstring *result { qstring *buf };
 %apply qstring *result { qstring *errbuf };
@@ -785,16 +799,16 @@ struct wrapped_array_t {
 %mutable;
 
 %extend wrapped_array_t {
-  inline size_t __len__() const { return N; }
+  inline size_t __len__() const { qnotused($self); return N; }
 
   inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
-    if (i >= N || i < 0)
+    if ( i >= N )
       throw std::out_of_range("out of bounds access");
     return $self->data[i];
   }
 
   inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
-    if (i >= N || i < 0)
+    if ( i >= N )
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
   }
@@ -822,13 +836,13 @@ struct dynamic_wrapped_array_t {
   inline size_t __len__() const { return $self->count; }
 
   inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
-    if (i >= $self->count || i < 0)
+    if ( i >= $self->count )
       throw std::out_of_range("out of bounds access");
     return $self->data[i];
   }
 
   inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
-    if (i >= $self->count || i < 0)
+    if ( i >= $self->count )
       throw std::out_of_range("out of bounds access");
     $self->data[i] = v;
   }
@@ -849,27 +863,6 @@ struct dynamic_wrapped_array_t {
   $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
 }
 
-
-// KLUDGE: We'll let the compiler (or at worse the runtime)
-// decide of the flags to use, depending on the method we are currently
-// wrapping: at new-time, a SWIG_POINTER_NEW is required.
-%typemap(out) tinfo_t* {}
-%typemap(ret) tinfo_t*
-{
-  // ret tinfo_t*
-  tinfo_t *ni = new tinfo_t(*($1));
-  til_register_python_tinfo_t_instance(ni);
-  if ( strcmp("new_tinfo_t", "$symname") == 0 )
-  {
-    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_NEW | 0);
-    delete $1;
-  }
-  else
-  {
-    $result = SWIG_NewPointerObj(SWIG_as_voidptr(ni), $1_descriptor, SWIG_POINTER_OWN | 0);
-  }
-}
-
 %typemap(check) tinfo_t*
 {
   if ( $1 == NULL )
@@ -883,12 +876,12 @@ struct dynamic_wrapped_array_t {
 %cstring_output_maxstr_none(char *buf, size_t bufsize);
 %cstring_output_maxstr_none(char *buf, int bufsize);
 %binary_output_or_none(void *buf, size_t bufsize);
-%binary_output_with_size(void *buf, size_t *bufsize);
 
 
 // Accept single Python string for const void * + size input arguments
 // For example: put_many_bytes() and patch_many_bytes()
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t size) };
+%apply (char *STRING, int LENGTH) { (const void *buf, size_t bufsize) };
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
 %apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
 %apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
@@ -906,7 +899,7 @@ struct dynamic_wrapped_array_t {
 
 
 %{
-static PyObject *qstrvec2pylist(const qstrvec_t &vec)
+SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
 {
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);
@@ -942,14 +935,14 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
 %define %uint_result_as_output(TYPE, CONVFUNC)
 %typemap(in,numinputs=0) TYPE *result (TYPE temp)
 {
-  // %typemap(in,numinputs=0) TYPE *result
+  // %uint_result_as_output(TYPE, CONVFUNC) %typemap(in,numinputs=0) TYPE *result
   $1 = &temp;
 }
 %typemap(argout) TYPE *result
 {
-  // %typemap(argout) TYPE *result
+  // %uint_result_as_output(TYPE, CONVFUNC) %typemap(argout) TYPE *result
   Py_XDECREF(resultobj);
-  if (result > 0)
+  if ( int(result) > 0 )
   {
     resultobj = CONVFUNC(*(TYPE *) $1);
   }
@@ -1083,7 +1076,11 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
 %numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, *);
 %numbers_list_to_values_vec_helper(VECTYPE, SWIGTYPE, PYLIST_CONVERTOR, &);
 %enddef
+#ifdef __EA64__
+%numbers_list_to_values_vec(eavec_t, SWIGTYPE_p_qvectorT_unsigned_long_long_t, PyW_PyListToEaVec);
+#else
 %numbers_list_to_values_vec(eavec_t, SWIGTYPE_p_qvectorT_unsigned_int_t, PyW_PyListToEaVec);
+#endif
 
 //-------------------------------------------------------------------------
 // Make sure the GIL is released, in case 'NAME' is calling execute_sync
@@ -1092,10 +1089,123 @@ static PyObject *qstrvec2pylist(const qstrvec_t &vec)
 %thread NAME;
 %enddef
 
+#ifdef TESTABLE_BUILD
+#  define HOOKS_DUMP_STATE() %ignore NAME##_Hooks::dump_state;
+#else
+#  define HOOKS_DUMP_STATE()
+#endif
+
+%define %define_Hooks_class(NAME)
+%ignore NAME##_Callback;
+%ignore NAME##_Hooks::dispatch;
+%ignore NAME##_Hooks::mappings;
+%ignore NAME##_Hooks::mappings_size;
+HOOKS_DUMP_STATE();
+%enddef
+
 %{
 #include <expr.hpp>
 #include <ieee.h>
 #include "../../../pywraps.hpp"
 %}
 
+%{
+#ifdef __EA64__
+#  define ea_t_SWIGTYPE_name SWIGTYPE_p_unsigned_long_long
+#else
+#  define ea_t_SWIGTYPE_name SWIGTYPE_p_unsigned_int
+#endif
+
+SWIGINTERN void __raise_ba(const std::bad_alloc &SWIGUNUSEDPARM(ba))
+{
+  PyErr_SetString(PyExc_MemoryError, "Out of memory (bad_alloc)");
+}
+
+SWIGINTERN void __raise_u()
+{
+  PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
+}
+
+SWIGINTERN void __raise_e(const std::exception &e)
+{
+  const char *what = e.what();
+  if ( what == NULL || what[0] == '\0' )
+  {
+    __raise_u();
+  }
+  else
+  {
+    PyErr_SetString(PyExc_RuntimeError, what);
+  }
+}
+
+SWIGINTERN void __raise_ie(const interr_exc_t &ie)
+{
+  qstring emsg;
+  emsg.sprnt(INTERR_EXC_FMT, ie.code);
+  PyErr_SetString(PyExc_RuntimeError, emsg.begin());
+}
+
+SWIGINTERN void __raise_de(const Swig::DirectorException &e)
+{
+  bool handled = false;
+  if ( PyErr_Occurred() != NULL )
+  {
+    // Add the new bits of info to the error
+    PyObject *exception, *v, *tb;
+    PyErr_Fetch(&exception, &v, &tb);
+    if ( exception != NULL )
+    {
+      PyErr_NormalizeException(&exception, &v, &tb);
+      if ( exception != NULL )
+      {
+        // FIXME: We retrieve the message, but not the context (i.e., the
+        // stack trace.) Ideally we should perhaps swoop in our own
+        // 'sys.stderr', call PyErr_Print(), retrieve the result, and
+        // append that to the new exception message.
+        newref_t as_str(PyObject_Str(v));
+        if ( as_str != NULL )
+        {
+          qstring buf(e.getMessage());
+          buf.append(" : ");
+          buf.append(PyString_AsString(as_str.o));
+          PyErr_SetString(PyExc_RuntimeError, buf.c_str());
+          handled = true;
+        }
+      }
+    }
+  }
+  if ( !handled )
+    PyErr_SetString(PyExc_RuntimeError, e.getMessage());
+}
+
+SWIGINTERN void __raise_oor(const std::out_of_range &e)
+{
+  PyErr_SetString(PyExc_IndexError, e.what());
+}
+
+SWIGINTERN bool __chkthr()
+{
+  bool ok = is_main_thread();
+  if ( !ok )
+    PyErr_SetString(PyExc_RuntimeError, "Function can be called from the main thread only");
+  return ok;
+}
+
+SWIGINTERN bool __chkreqidb()
+{
+  bool ok = netnode::inited();
+  if ( !ok )
+    PyErr_SetString(PyExc_RuntimeError, "Function requires a database");
+  return ok;
+}
+
+%}
+
+// If the module is 'pro', don't import pro.h, or the %include
+// at the beginning of pro.i won't have any effect. Same for all
+// modules.
+${ALL_IMPORTS}
+
+#endif // __HEADER_I__
 // END: auto-inserted header

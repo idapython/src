@@ -5,7 +5,10 @@
 #include <auto.hpp>
 #include <fixup.hpp>
 #include <tryblks.hpp>
+
+struct undo_records_t;
 %}
+
 // Ignore the following symbols
 %ignore rginfo;
 %ignore insn_t::get_canon_mnem;
@@ -29,6 +32,9 @@
 %ignore cfgopt_t__apply;
 %ignore parse_config_value;
 
+%define_Hooks_class(IDP);
+%ignore _wrap_addr_in_pycobject;
+
 %ignore s_preline;
 %ignore ca_operation_t;
 %ignore _chkarg_cmd;
@@ -40,7 +46,7 @@
 %ignore instruc_t;
 %ignore processor_t;
 %ignore ph;
-%ignore IDP_Callback;
+%ignore IDP_Hooks::dispatch;
 %ignore _py_getreg;
 
 // @arnaud
@@ -121,7 +127,7 @@
 #include <enum.hpp>
 %}
 
-%ignore IDB_Callback;
+%define_Hooks_class(IDB);
 
 %inline %{
 //<inline(py_idp_idbhooks)>
@@ -132,3 +138,23 @@
 //<code(py_idp_idbhooks)>
 //</code(py_idp_idbhooks)>
 %}
+
+%pythoncode %{
+#<pycode(py_idp_idbhooks)>
+#</pycode(py_idp_idbhooks)>
+%}
+
+
+//-------------------------------------------------------------------------
+//                             notify_when()
+//-------------------------------------------------------------------------
+%{
+//<code(py_idp_notify_when)>
+//</code(py_idp_notify_when)>
+%}
+
+%pythoncode %{
+#<pycode(py_idp_notify_when)>
+#</pycode(py_idp_notify_when)>
+%}
+

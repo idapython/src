@@ -44,6 +44,7 @@ static int idaapi py_visit_patched_bytes_cb(
 }
 
 //-------------------------------------------------------------------------
+static void ida_bytes_init(void) {}
 static void ida_bytes_term(void) {}
 
 //-------------------------------------------------------------------------

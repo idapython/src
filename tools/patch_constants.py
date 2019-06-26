@@ -9,7 +9,8 @@ except:
   raise
 
 parser = ArgumentParser(description='Patch calling conventions for some functions, so it builds on windows')
-parser.add_argument("-f", "--file", required=True)
+parser.add_argument("-i", "--input", required=True)
+parser.add_argument("-o", "--output", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
 args = parser.parse_args()
 
@@ -132,7 +133,7 @@ static const ida_local struct ci_t
                 cast = subexpr.cast
                 subexpr.found_any = True
                 break
-        outlines.append("\t{%s, {%s: (%s) (%s)}, %s},\n" % (name, init, cast, expr, citype))
+        outlines.append("\t{%s, {.%s = (%s) (%s)}, %s},\n" % (name, init, cast, expr, citype))
 
     outlines.append("""
 };
@@ -164,7 +165,7 @@ for ( size_t _cidx = 0; _cidx < qnumber(cis); ++_cidx )
 }
 """)
 
-with open(args.file, "rb") as f:
+with open(args.input, "rb") as f:
     constants = []
 
     for line in f:
@@ -209,4 +210,4 @@ temp.write("".join(outlines))
 temp.close()
 
 import shutil
-shutil.move(temp.name, args.file)
+shutil.move(temp.name, args.output)

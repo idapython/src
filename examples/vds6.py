@@ -9,6 +9,7 @@ from __future__ import print_function
 
 import idautils
 import idc
+import ida_idaapi
 import ida_hexrays
 import ida_lines
 

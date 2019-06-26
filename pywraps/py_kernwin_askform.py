@@ -680,8 +680,11 @@ class Form(object):
             if chooser is None or not isinstance(chooser, Choose):
                 raise ValueError("Invalid chooser passed.")
 
-            # Create an embedded chooser structure from the Choose instance
-            if chooser.Embedded() != 0:
+            # Create an embedded chooser structure from the Choose instance,
+            # and retrieve the pointer to the chooser_base_t.
+            emb = chooser.Embedded(create_chobj=True)
+            # if chooser.Embedded() != 0:
+            if emb is None:
                 raise ValueError("Failed to create embedded chooser instance.")
 
             # Construct input control
@@ -689,9 +692,8 @@ class Form(object):
 
             self.selobj = ida_pro.sizevec_t()
 
-            # Get a pointer to the chooser_info_t and the selection vector
-            # (These two parameters are the needed arguments for the ask_form())
-            emb = _ida_kernwin._choose_get_embedded_chobj_pointer(chooser)
+            # Get a pointer to the selection vector
+            # emb = _ida_kernwin._choose_get_embedded_chobj_pointer(chooser)
             sel = self.selobj.this.__long__()
 
             # Get a pointer to a c_void_p constructed from an address
@@ -1045,6 +1047,7 @@ class Form(object):
             return form, i1, i2, ctrlname
 
 
+        control_count = 0
         last_input_field_index = 0
         # First pass: assign input_field_index values to controls
         p = 0
@@ -1061,10 +1064,15 @@ class Form(object):
             if ctrl is None:
                 raise ValueError("No matching control '%s'" % ctrlname)
 
+            if isinstance(ctrl, Form.FormChangeCb) and control_count > 0:
+                raise SyntaxError("Control '%s' should be the first control in the form" % ctrlname)
+
             # If this control is an input, assign its index
             if ctrl.is_input_field():
                 ctrl.input_field_index = last_input_field_index
                 last_input_field_index += 1
+
+            control_count += 1
 
 
         p = 0

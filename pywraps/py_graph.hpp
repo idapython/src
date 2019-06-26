@@ -132,9 +132,6 @@ private:
     // out: 0-ok, 1-ignore click
     //graph_viewer_t *v   = va_arg(va, graph_viewer_t *);
     //selection_item_t *s = va_arg(va, selection_item_t *);
-    if ( item == NULL || !item->is_node )
-      return 1;
-
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t result(
             PyObject_CallMethod(
@@ -197,7 +194,7 @@ private:
   }
 
   // a group is being created
-  int on_creating_group(mutable_graph_t *my_g, intvec_t *my_nodes)
+  int on_creating_group(mutable_graph_t * /*my_g*/, intvec_t *my_nodes)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_nodes(PyList_New(my_nodes->size()));
@@ -216,7 +213,7 @@ private:
   }
 
   // a group is being deleted
-  int on_deleting_group(mutable_graph_t * /*g*/, int old_group)
+  int on_deleting_group(mutable_graph_t * /*g*/, int /*old_group*/)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     // TODO
@@ -224,7 +221,7 @@ private:
   }
 
   // a group is being collapsed/uncollapsed
-  int on_group_visibility(mutable_graph_t * /*g*/, int group, bool expand)
+  int on_group_visibility(mutable_graph_t * /*g*/, int /*group*/, bool /*expand*/)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     // TODO
@@ -236,7 +233,7 @@ private:
   {
     TWidget *view;
     if ( pycim_lookup_info.find_by_py_view(&view, this) )
-      display_widget(view, WOPN_TAB);
+      display_widget(view, WOPN_DP_TAB);
   }
 
   void jump_to_node(int nid)
@@ -285,7 +282,7 @@ private:
       this->self = borref_t(self);
       graph_viewer_t *pview = create_graph_viewer(title, id, s_callback, this, 0);
       this->self = ref_t();
-      display_widget(pview, WOPN_TAB);
+      display_widget(pview, WOPN_DP_TAB);
       newref_t ret(PyObject_CallMethod(self, "hook", NULL));
       if ( pview != NULL )
         viewer_fit_window(pview);
@@ -579,17 +576,22 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
       break;
       //
     case grcode_dblclicked:
-      if ( has_callback(GRCODE_HAVE_DBL_CLICKED) )
       {
-        graph_viewer_t *view     = va_arg(va, graph_viewer_t *);
-        selection_item_t *item = va_arg(va, selection_item_t *);
-        ret = on_dblclicked(view, item);
+        bool handled = has_callback(GRCODE_HAVE_DBL_CLICKED);
+        if ( handled )
+        {
+          graph_viewer_t *view = va_arg(va, graph_viewer_t *);
+          selection_item_t *item = va_arg(va, selection_item_t *);
+          handled = item != NULL && item->is_node;
+          if ( handled )
+            ret = on_dblclicked(view, item);
+        }
+        if ( !handled )
+          ret = 0; // We don't want to ignore the double click, but rather
+                   // fallback to the default behavior (e.g., double-clicking
+                   // on an edge will to jump to the node on the other side
+                   // of that edge.)
       }
-      else
-        ret = 0; // We don't want to ignore the double click, but rather
-                 // fallback to the default behavior (e.g., double-clicking
-                 // on an edge will to jump to the node on the other side
-                 // of that edge.)
       break;
       //
     case grcode_gotfocus:
@@ -614,7 +616,7 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
       //
     case grcode_user_hint:
       {
-        mutable_graph_t *g = va_arg(va, mutable_graph_t *);
+        /*mutable_graph_t *g =*/ va_arg(va, mutable_graph_t *);
         int node = va_arg(va, int);
         int src = va_arg(va, int);
         int dest = va_arg(va, int);

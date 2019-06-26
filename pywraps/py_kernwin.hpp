@@ -684,7 +684,7 @@ static bool py_execute_ui_requests(PyObject *py_list)
 
     static int idaapi s_py_list_walk_cb(
             const ref_t &py_item,
-            Py_ssize_t index,
+            Py_ssize_t /*index*/,
             void *ud)
     {
       PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -812,6 +812,38 @@ public:
     }
     Py_RETURN_NONE;
   }
+
+  static bool fill_jobj_from_dict(jobj_t *out, PyObject *dict)
+  {
+    if ( PyDict_Check(dict) )
+    {
+      newref_t json_module(PyImport_ImportModule("json"));
+      if ( json_module != NULL )
+      {
+        borref_t json_globals(PyModule_GetDict(json_module.o));
+        if ( json_globals != NULL )
+        {
+          borref_t json_dumps(PyDict_GetItemString(json_globals.o, "dumps"));
+          if ( json_dumps != NULL )
+          {
+            newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
+            Py_ssize_t len;
+            char *s;
+            if ( PyString_AsStringAndSize(str.o, &s, &len) != -1 )
+            {
+              jvalue_t tmp;
+              if ( parse_json_string(&tmp, s) == eOk )
+              {
+                out->swap(tmp.obj());
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
 };
 
 //---------------------------------------------------------------------------
@@ -931,24 +963,32 @@ class UI_Hooks(object):
 
 #</pydoc>
 */
-class UI_Hooks
+struct UI_Hooks : public hooks_base_t
 {
-public:
-  virtual ~UI_Hooks()
+  // hookgenUI:methodsinfo_decl
+
+  UI_Hooks(uint32 _flags=0)
+    : hooks_base_t("ida_kernwin.UI_Hooks", UI_Callback, HT_UI, _flags) {}
+
+  bool hook() { return hooks_base_t::hook(); }
+  bool unhook() { return hooks_base_t::unhook(); }
+#ifdef TESTABLE_BUILD
+  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+#endif
+
+  // hookgenUI:methods
+
+  ssize_t dispatch(int code, va_list va)
   {
-    unhook();
+    ssize_t ret = 0;
+    switch ( code )
+    {
+      // hookgenUI:notifications
+    }
+    return ret;
   }
 
-  bool hook()
-  {
-    return idapython_hook_to_notification_point(HT_UI, UI_Callback, this);
-  }
-
-  bool unhook()
-  {
-    return idapython_unhook_from_notification_point(HT_UI, UI_Callback, this);
-  }
-
+private:
   static ssize_t handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
     ssize_t rc = 0;
@@ -1018,7 +1058,10 @@ public:
     return ssize_t(widget);
   }
 
-  // hookgenUI:methods
+  static ssize_t handle_widget_cfg_output(PyObject *o, const TWidget *, jobj_t *cfg)
+  {
+    return jobj_wrapper_t::fill_jobj_from_dict(cfg, o);
+  }
 };
 
 //-------------------------------------------------------------------------
@@ -1128,7 +1171,6 @@ void py_gen_disasm_text(disasm_text_t &text, ea_t ea1, ea_t ea2, bool truncate_l
   }
 }
 
-//-------------------------------------------------------------------------
 /*
 #<pydoc>
 def set_nav_colorizer(callback):
@@ -1162,12 +1204,12 @@ def set_nav_colorizer(callback):
     pass
 #</pydoc>
 */
-nav_colorizer_t *py_set_nav_colorizer(PyObject *new_py_colorizer)
+PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
 {
   static ref_t py_colorizer;
   struct ida_local lambda_t
   {
-    static uint32 idaapi call_py_colorizer(ea_t ea, asize_t nbytes)
+    static uint32 idaapi call_py_colorizer(ea_t ea, asize_t nbytes, void *)
     {
       PYW_GIL_GET;
 
@@ -1198,8 +1240,17 @@ nav_colorizer_t *py_set_nav_colorizer(PyObject *new_py_colorizer)
   // (e.g., updating the legend.)
   bool first_install = py_colorizer == NULL;
   py_colorizer = borref_t(new_py_colorizer);
-  nav_colorizer_t *prev = set_nav_colorizer(lambda_t::call_py_colorizer);
-  return first_install ? prev : NULL;
+  nav_colorizer_t *was_fun = NULL;
+  void *was_ud = NULL;
+  set_nav_colorizer(&was_fun, &was_ud, lambda_t::call_py_colorizer, NULL);
+  if ( !first_install )
+    Py_RETURN_NONE;
+  PyObject *was_fun_ptr = PyCObject_FromVoidPtr((void *) was_fun, NULL);
+  PyObject *was_ud_ptr = PyCObject_FromVoidPtr(was_ud, NULL);
+  PyObject *dict = PyDict_New();
+  PyDict_SetItemString(dict, "fun", was_fun_ptr);
+  PyDict_SetItemString(dict, "ud", was_ud_ptr);
+  return dict;
 }
 
 //-------------------------------------------------------------------------
@@ -1209,19 +1260,26 @@ def call_nav_colorizer(colorizer, ea, nbytes):
     """
     To be used with the IDA-provided colorizer, that is
     returned as result of the first call to set_nav_colorizer().
-
-    This is a trivial trampoline, so that SWIG can generate a
-    wrapper that will do the types checking.
     """
     pass
 #</pydoc>
 */
 uint32 py_call_nav_colorizer(
-        nav_colorizer_t *col,
+        PyObject *dict,
         ea_t ea,
         asize_t nbytes)
 {
-  return col(ea, nbytes);
+  if ( !PyDict_Check(dict) )
+    return 0;
+  borref_t py_fun(PyDict_GetItemString(dict, "fun"));
+  borref_t py_ud(PyDict_GetItemString(dict, "ud"));
+  if ( py_fun == NULL || !PyCObject_Check(py_fun.o) || !PyCObject_Check(py_ud.o) )
+    return 0;
+  nav_colorizer_t *fun = (nav_colorizer_t *) PyCObject_AsVoidPtr(py_fun.o);
+  void *ud = PyCObject_AsVoidPtr(py_ud.o);
+  if ( fun == NULL )
+    return 0;
+  return fun(ea, nbytes, ud);
 }
 
 PyObject *py_msg_get_lines(int count=-1)
@@ -1273,32 +1331,31 @@ static TWidget *TWidget__from_ptrval__(size_t ptrval)
   return (TWidget *) ptrval;
 }
 
+//-------------------------------------------------------------------------
+static PyObject *py_add_spaces(const char *s, size_t len)
+{
+  qstring qbuf(s);
+  const size_t slen = tag_strlen(qbuf.c_str());
+  const size_t delta = qbuf.length() - slen;
+  if ( len > slen )
+    qbuf.resize(len + delta);
+  // we use the actual 'size' because we know that
+  // 'add_spaces()' will add a terminating zero anyway
+  add_spaces(qbuf.begin(), qbuf.size(), len);
+  return PyString_FromString(qbuf.c_str());
+}
+
 //</inline(py_kernwin)>
 
 //---------------------------------------------------------------------------
 //<code(py_kernwin)>
+
+// hookgenUI:methodsinfo_def
+
 //---------------------------------------------------------------------------
-ssize_t idaapi UI_Callback(void *ud, int notification_code, va_list va)
+ssize_t idaapi UI_Callback(void *ud, int code, va_list va)
 {
-  // This hook gets called from the kernel. Ensure we hold the GIL.
-  PYW_GIL_GET;
-  UI_Hooks *proxy = (UI_Hooks *)ud;
-  ssize_t ret = 0;
-  try
-  {
-    switch ( notification_code )
-    {
-      // hookgenUI:notifications
-    }
-  }
-  catch (Swig::DirectorException &e)
-  {
-    msg("Exception in UI Hook function: %s\n", e.getMessage());
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( PyErr_Occurred() )
-      PyErr_Print();
-  }
-  return ret;
+  // hookgenUI:safecall=UI_Hooks
 }
 
 //------------------------------------------------------------------------

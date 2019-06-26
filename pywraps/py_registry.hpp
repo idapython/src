@@ -32,7 +32,6 @@ PyObject *py_reg_read_string(const char *name, const char *subkey = NULL, const 
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring utf8;
-  bool ok;
   Py_BEGIN_ALLOW_THREADS;
   if ( !reg_read_string(&utf8, name, subkey) && def != NULL )
     utf8 = def;

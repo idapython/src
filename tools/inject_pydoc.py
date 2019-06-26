@@ -31,6 +31,7 @@ parser.add_argument("-x", "--xml-doc-directory", required=True)
 parser.add_argument("-e", "--epydoc-injections", required=True)
 parser.add_argument("-m", "--module", required=True)
 parser.add_argument("-v", "--verbose", default=False, action="store_true")
+parser.add_argument("-d", "--debug", default=False, action="store_true")
 args = parser.parse_args()
 
 this_dir, _ = os.path.split(__file__)
@@ -42,6 +43,10 @@ DOCSTR_MARKER  = '"""'
 def verb(msg):
     if args.verbose:
         print(msg)
+
+def dbg(msg):
+    if args.debug:
+        print("DEBUG: " + msg)
 
 # --------------------------------------------------------------------------
 def load_patches(args):
@@ -240,30 +245,72 @@ class collect_pydoc_t(object):
 
 
 class base_doc_t:
+
+    class context_t:
+        def __init__(self):
+            self.tokens = [] # pending to be textwrap'd
+            self.lines = [] # already textwrap'd
+
+        def add_token_nostrip(self, token):
+            if token:
+                self.tokens.append(token)
+
+        def add_token(self, token):
+            if token:
+                return self.add_token_nostrip(token.strip())
+
+        def add_line(self, line):
+            self.lines.append(line)
+
+        def wrap_flush(self):
+            if self.tokens:
+                lines = textwrap.wrap("".join(self.tokens))
+                self.lines.extend(lines)
+                self.tokens = []
+
     def __init__(self):
         self.brief = None
         self.detailed = None
 
-    def add_token_nostrip(self, out, token):
-        if token:
-            out.append(token)
-
-    def add_token(self, out, token):
-        if token:
-            return self.add_token_nostrip(out, token.strip())
-
-    def get_text_with_refs1(self, out, node):
+    def get_text_with_refs1(self, ctx, node):
+        process_children = True
         if node.tag == "simplesect" and node.attrib.get("kind") == "return":
             return
         if node.tag == "parameterlist":
             return
         if node.tag == "ref":
-            self.add_token_nostrip(out, " '%s' " % node.text)
+            ctx.add_token_nostrip(" '%s' " % node.text)
+        elif node.tag == "lsquo":
+            ctx.add_token_nostrip(" `")
+        elif node.tag == "rsquo":
+            ctx.add_token_nostrip("' ")
+        elif node.tag == "sp":
+            ctx.add_token_nostrip(" ")
+        elif node.tag == "computeroutput":
+            for child in node:
+                tmp = base_doc_t.context_t()
+                self.get_text_with_refs1(tmp, child)
+                ctx.add_token_nostrip("".join(tmp.tokens))
+            txt = (node.text or "").strip()
+            if txt:
+                ctx.add_token_nostrip(" '%s' " % txt)
+        elif node.tag == "programlisting":
+            ctx.wrap_flush()
+            ctx.add_line("")
+            for child in node:
+                if child.tag == "codeline":
+                    tmp = base_doc_t.context_t()
+                    self.get_text_with_refs1(tmp, child)
+                    code_line = "".join(tmp.tokens)
+                    ctx.add_line(code_line)
+            ctx.add_line("")
+            process_children = False
         else:
-            self.add_token(out, node.text)
-        self.add_token(out, node.tail)
-        for child in node:
-            self.get_text_with_refs1(out, child)
+            ctx.add_token(node.text)
+        ctx.add_token(node.tail)
+        if process_children:
+            for child in node:
+                self.get_text_with_refs1(ctx, child)
 
     def remove_empty_header_or_footer_lines(self, lines):
         while lines and not lines[0].strip():
@@ -275,12 +322,11 @@ class base_doc_t:
     def get_description(self, node, child_tag):
         out = []
         for child in node.findall("./%s" % child_tag):
-            one = []
-            self.get_text_with_refs1(one, child)
-            if one:
-                clob = "".join(one)
-                if clob:
-                    out.extend(textwrap.wrap(clob))
+            ctx = base_doc_t.context_t()
+            self.get_text_with_refs1(ctx, child)
+            ctx.wrap_flush()
+            if ctx.lines:
+                out.extend(ctx.lines)
         return self.remove_empty_header_or_footer_lines(out)
 
     def is_valid(self):
@@ -373,7 +419,7 @@ class def_doc_t(base_doc_t):
         if self.detailed:
             out.extend(self.detailed)
         out = self.remove_empty_header_or_footer_lines(out)
-        return [DOCSTR_MARKER] + out + [DOCSTR_MARKER]
+        return [DOCSTR_MARKER] + map(lambda s : s.replace('\\', '\\\\'), out) + [DOCSTR_MARKER]
 
 
 # --------------------------------------------------------------------------

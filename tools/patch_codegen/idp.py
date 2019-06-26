@@ -1,4 +1,10 @@
 {
+    "SwigDirector_IDP_Hooks::SwigDirector_IDP_Hooks" : [
+        ("maybe_collect_director_fixed_method_set", None),
+    ],
+    "SwigDirector_IDB_Hooks::SwigDirector_IDB_Hooks" : [
+        ("maybe_collect_director_fixed_method_set", None),
+    ],
     "SwigDirector_IDP_Hooks::ev_get_bg_color" : [
 
         ("director_method_call_arity_cap", (

@@ -324,7 +324,6 @@ def ph_get_regnames():
 */
 static PyObject *ph_get_regnames()
 {
-  Py_ssize_t i = 0;
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *py_result = PyList_New(ph.regs_num);
   for ( Py_ssize_t i=0; i < ph.regs_num; i++ )
@@ -597,9 +596,32 @@ struct proc_def;
 struct libfunc_t;
 
 ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va);
-class IDP_Hooks
+struct IDP_Hooks : public hooks_base_t
 {
-  friend ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va);
+  // hookgenIDP:methodsinfo_decl
+
+  IDP_Hooks(uint32 _flags=0)
+    : hooks_base_t("ida_idp.IDP_Hooks", IDP_Callback, HT_IDP, _flags) {}
+
+  bool hook() { return hooks_base_t::hook(); }
+  bool unhook() { return hooks_base_t::unhook(); }
+#ifdef TESTABLE_BUILD
+  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+#endif
+
+  // hookgenIDP:methods
+
+  ssize_t dispatch(int code, va_list va)
+  {
+    ssize_t ret = 0;
+    switch ( code )
+    {
+      // hookgenIDP:notifications
+    }
+    return ret;
+  }
+
+private:
   static ssize_t bool_to_insn_t_size(bool in, const insn_t *insn) { return in ? insn->size : 0; }
   static ssize_t bool_to_1or0(bool in) { return in ? 1 : 0; }
   static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
@@ -615,7 +637,14 @@ class IDP_Hooks
   {
     return _handle_qstring_output(o, out) && !out->empty() ? 1 : 0;
   }
-  static ssize_t handle_assemble_output(PyObject *o, uchar *bin, ea_t /*ea*/, ea_t /*cs*/, ea_t /*ip*/, bool /*use32*/, const char */*line*/)
+  static ssize_t handle_assemble_output(
+          PyObject *o,
+          uchar *bin,
+          ea_t /*ea*/,
+          ea_t /*cs*/,
+          ea_t /*ip*/,
+          bool /*use32*/,
+          const char * /*line*/)
   {
     ssize_t rc = 0;
     if ( o != NULL && PyString_Check(o) )
@@ -649,7 +678,7 @@ class IDP_Hooks
       newref_t py_bexec(PySequence_GetItem(o, 1));
       newref_t py_fexec(PySequence_GetItem(o, 2));
       uint64 nea = 0;
-      if ( PyW_GetNumber(py_ea.o, &nea, NULL)
+      if ( PyW_GetNumber(py_ea.o, &nea)
         && PyBool_Check(py_bexec.o)
         && PyBool_Check(py_fexec.o) )
       {
@@ -683,9 +712,9 @@ class IDP_Hooks
           PyObject *o,
           int32 *out_res,
           qstring *out,
-          const char *name,
-          uint32 disable_mask,
-          demreq_type_t demreq)
+          const char * /*name*/,
+          uint32 /*disable_mask*/,
+          demreq_type_t /*demreq*/)
   {
     ssize_t rc = 0;
     if ( PySequence_Check(o) && PySequence_Size(o) == 3 )
@@ -714,8 +743,8 @@ class IDP_Hooks
   static ssize_t handle_find_value_output(
           PyObject *o,
           uval_t *out,
-          const insn_t *pinsn,
-          int reg)
+          const insn_t * /*pinsn*/,
+          int /*reg*/)
   {
     uint64 num;
     ssize_t rc = PyW_GetNumber(o, &num);
@@ -723,50 +752,76 @@ class IDP_Hooks
       *out = num;
     return rc;
   }
-
-public:
-  virtual ~IDP_Hooks()
+  static ssize_t handle_get_autocmt_output(
+          PyObject *o,
+          qstring *buf,
+          const insn_t * /*pinsn*/)
   {
-    unhook();
+    ssize_t rc = 0;
+    if ( PyString_Check(o) )
+    {
+      char *s;
+      Py_ssize_t len = 0;
+      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
+      {
+        buf->qclear();
+        buf->append(s, len);
+        rc = 1;
+      }
+    }
+    return rc;
   }
-
-  bool hook()
+  static ssize_t handle_get_operand_string_output(
+          PyObject *o,
+          qstring *buf,
+          const insn_t * /*pinsn*/,
+          int /*opnum*/)
   {
-    return idapython_hook_to_notification_point(HT_IDP, IDP_Callback, this);
+    ssize_t rc = 0;
+    if ( PyString_Check(o) )
+    {
+      char *s;
+      Py_ssize_t len = 0;
+      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
+      {
+        buf->qclear();
+        buf->append(s, len);
+        rc = 1;
+      }
+    }
+    return rc;
   }
-
-  bool unhook()
-  {
-    return idapython_unhook_from_notification_point(HT_IDP, IDP_Callback, this);
-  }
-  // hookgenIDP:methods
 };
+
+//-------------------------------------------------------------------------
+static PyObject *_wrap_addr_in_pycobject(void *addr);
+PyObject *get_idp_notifier_addr(PyObject *)
+{
+  return _wrap_addr_in_pycobject((void *) IDP_Callback);
+}
+
+//-------------------------------------------------------------------------
+PyObject *get_idp_notifier_ud_addr(IDP_Hooks *hooks)
+{
+  return _wrap_addr_in_pycobject(hooks);
+}
 //</inline(py_idp)>
 
 //-------------------------------------------------------------------------
 //<code(py_idp)>
+
+// hookgenIDP:methodsinfo_def
+
 //-------------------------------------------------------------------------
-ssize_t idaapi IDP_Callback(void *ud, int notification_code, va_list va)
+static PyObject *_wrap_addr_in_pycobject(void *addr)
 {
-  // This hook gets called from the kernel. Ensure we hold the GIL.
-  PYW_GIL_GET;
-  IDP_Hooks *proxy = (IDP_Hooks *)ud;
-  ssize_t ret = 0;
-  try
-  {
-    switch ( notification_code )
-    {
-      // hookgenIDP:notifications
-    }
-  }
-  catch (Swig::DirectorException &e)
-  {
-    msg("Exception in IDP Hook function: %s\n", e.getMessage());
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( PyErr_Occurred() )
-      PyErr_Print();
-  }
-  return ret;
+  return PyCObject_FromVoidPtr(addr, NULL);
+}
+
+//-------------------------------------------------------------------------
+ssize_t idaapi IDP_Callback(void *ud, int code, va_list va)
+{
+  // hookgenIDP:safecall=IDP_Hooks
 }
 
 //-------------------------------------------------------------------------

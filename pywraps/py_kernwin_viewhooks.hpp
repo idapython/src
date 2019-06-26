@@ -5,47 +5,41 @@
 // View hooks
 //---------------------------------------------------------------------------
 ssize_t idaapi View_Callback(void *ud, int notification_code, va_list va);
-class View_Hooks
+struct View_Hooks : public hooks_base_t
 {
-public:
-  virtual ~View_Hooks() { unhook(); }
+  // hookgenVIEW:methodsinfo_decl
 
-  bool hook()
-  {
-    return idapython_hook_to_notification_point(HT_VIEW, View_Callback, this);
-  }
-  bool unhook()
-  {
-    return idapython_unhook_from_notification_point(HT_VIEW, View_Callback, this);
-  }
+  View_Hooks(uint32 _flags=0)
+    : hooks_base_t("ida_kernwin.View_Hooks", View_Callback, HT_VIEW, _flags) {}
+
+  bool hook() { return hooks_base_t::hook(); }
+  bool unhook() { return hooks_base_t::unhook(); }
+#ifdef TESTABLE_BUILD
+  qstring dump_state() { return hooks_base_t::dump_state(mappings, mappings_size); }
+#endif
 
   // hookgenVIEW:methods
+
+  ssize_t dispatch(int code, va_list va)
+  {
+    switch ( code )
+    {
+      // hookgenVIEW:notifications
+    }
+    return 0;
+  }
 };
+
 //</inline(py_kernwin_viewhooks)>
 
 
 //<code(py_kernwin_viewhooks)>
+
+// hookgenVIEW:methodsinfo_def
+
 //---------------------------------------------------------------------------
-ssize_t idaapi View_Callback(void *ud, int notification_code, va_list va)
+ssize_t idaapi View_Callback(void *ud, int code, va_list va)
 {
-  // This hook gets called from the kernel. Ensure we hold the GIL.
-  PYW_GIL_GET;
-  class View_Hooks *proxy = (class View_Hooks *)ud;
-  ssize_t ret = 0;
-  try
-  {
-    switch ( notification_code )
-    {
-      // hookgenVIEW:notifications
-    }
-  }
-  catch (Swig::DirectorException &e)
-  {
-    msg("Exception in View Hook function: %s\n", e.getMessage());
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( PyErr_Occurred() )
-      PyErr_Print();
-  }
-  return 0;
+  // hookgenVIEW:safecall=View_Hooks
 }
 //</code(py_kernwin_viewhooks)>

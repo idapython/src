@@ -3,8 +3,6 @@
 #include <loader.hpp>
 %}
 
-%import "idd.i"
-
 %ignore dbg;
 %ignore register_srcinfo_provider;
 %ignore unregister_srcinfo_provider;
@@ -34,6 +32,12 @@
 %ignore set_dbg_options;
 %ignore set_int_dbg_options;
 %ignore set_dbg_default_options;
+
+%ignore set_reg_val;
+%rename (set_reg_val) py_set_reg_val;
+%ignore request_set_reg_val;
+%rename (request_set_reg_val) py_request_set_reg_val;
+%rename (get_reg_val) py_get_reg_val;
 
 /* %ignore invalidate_dbg_state; */
 /* %ignore is_request_running; */
@@ -80,13 +84,7 @@ bool request_run_to(ea_t ea, pid_t pid = NO_PROCESS, thid_t tid = NO_THREAD);
 // network traffic.
 %include "dbg.hpp"
 %nothread;
-%ignore DBG_Callback;
-%ignore DBG_Hooks::store_int;
-
-%{
-//<code(py_dbg)>
-//</code(py_dbg)>
-%}
+%define_Hooks_class(DBG);
 
 //-------------------------------------------------------------------------
 //                                 bpt_t
@@ -147,9 +145,21 @@ void bpt_t_elang_set(bpt_t *bpt, PyObject *val)
   %}
 }
 
+%{
+static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObject *o);
+static PyObject *_from_reg_val(
+        const char *name,
+        const regval_t &rv);
+%}
+
 %inline %{
 //<inline(py_dbg)>
 //</inline(py_dbg)>
+%}
+
+%{
+//<code(py_dbg)>
+//</code(py_dbg)>
 %}
 
 %pythoncode %{

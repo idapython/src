@@ -40,14 +40,19 @@ ignore_names = [
     "weakref_proxy",
     "thisown",
     ("ida_nalt", "strpath_ids_array", "data"),
+    re.compile(".*dump_state$"),
 ]
 def should_ignore_name(namespace_name, name):
     for ign in ignore_names:
         if isinstance(ign, tuple):
             if ".".join(ign) == ".".join((namespace_name, name)):
                 return True
-        elif ign == name:
-            return True
+        elif isinstance(ign, basestring):
+            if ign == name:
+                return True
+        else:
+            if ign.match(".".join((namespace_name, name))):
+                return True
     return False
 
 def make_eavec_lines_processor(directives):
@@ -58,7 +63,7 @@ def make_eavec_lines_processor(directives):
         return l
     return f
 
-eavec_classes = {
+classes = {
     "svalvec_t" :
     {
         "process_line" : make_eavec_lines_processor(
@@ -80,10 +85,27 @@ eavec_classes = {
                 (("-> unsigned int *", "-> unsigned long long *"), "-> unsigned-ea-like-numeric-type *"),
                 (("-> unsigned int const &", "-> unsigned long long const &"), "-> unsigned-ea-like-numeric-type &"),
             ])
-    }
+    },
+    "uval_ivl_t" : {
+        "process_line" : make_eavec_lines_processor(
+            [
+                (("-> unsigned int", "-> unsigned long long"), "-> unsigned-ea-like-numeric-type"),
+            ])
+    },
+    "uval_ivl_ivlset_t" : {
+        "process_line" : make_eavec_lines_processor(
+            [
+                (("-> ivlset_tpl< ivl_t,unsigned int >",
+                  "-> ivlset_tpl< ivl_t,unsigned long long >"),
+                 "-> ivlset_tpl< ivl_t,unsigned-ea-like-numeric-type >"),
+            ])
+    },
 }
-eavec_classes["casevec_t"] = eavec_classes["svalvec_t"]
-
+classes["casevec_t"] = classes["svalvec_t"]
+classes["eavec_t"] = classes["uvalvec_t"]
+classes["casm_t"] = classes["eavec_t"]
+classes["ivl_t"] = classes["uval_ivl_t"]
+classes["ivlset_t"] = classes["uval_ivl_ivlset_t"]
 
 def dump_namespace(f, namespace, namespace_name, keys, vec_info=None):
     for thing_name in keys:
@@ -93,7 +115,7 @@ def dump_namespace(f, namespace, namespace_name, keys, vec_info=None):
             continue
         thing = getattr(namespace, thing_name)
         if inspect.isclass(thing):
-            vec_info = eavec_classes.get(thing_name, None)
+            vec_info = classes.get(thing_name, None)
             dump_thing(f, "class %s.%s()" % (namespace_name, thing_name), thing, vec_info)
             members = map(lambda t: t[0], inspect.getmembers(thing))
             dump_namespace(f, thing, "%s.%s" % (namespace_name, thing_name), members, vec_info)

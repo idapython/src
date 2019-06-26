@@ -3,30 +3,6 @@
 
 //<code(py_kernwin_choose)>
 
-//------------------------------------------------------------------------
-// Helper functions
-class py_choose_t;
-typedef std::map<PyObject *, py_choose_t *> py2c_choose_map_t;
-static py2c_choose_map_t choosers;
-
-py_choose_t *choose_find_instance(PyObject *self)
-{
-  py2c_choose_map_t::iterator it = choosers.find(self);
-  return it == choosers.end() ? NULL : it->second;
-}
-
-void choose_add_instance(PyObject *self, py_choose_t *pych)
-{
-  choosers[self] = pych;
-}
-
-void choose_del_instance(PyObject *self)
-{
-  py2c_choose_map_t::iterator it = choosers.find(self);
-  if ( it != choosers.end() )
-    choosers.erase(it);
-}
-
 // set `prm` to the integer value of the `name` attribute
 template <class T>
 static void py_get_int(PyObject *self, T *prm, const char *name)
@@ -36,239 +12,39 @@ static void py_get_int(PyObject *self, T *prm, const char *name)
     *prm = T(PyInt_AsLong(attr.o));
 }
 
-//------------------------------------------------------------------------
-// Python's chooser class
-class py_choose_t
+enum feature_t
 {
-public:
-  // Python object link
-  PyObject *self;
-
-  // the chooser object will be created in the create() method
-  chooser_base_t *chobj;
-
-  enum
-  {
-    CHOOSE_HAVE_INIT      = 0x0001,
-    CHOOSE_HAVE_GETICON   = 0x0002,
-    CHOOSE_HAVE_GETATTR   = 0x0004,
-    CHOOSE_HAVE_INS       = 0x0008,
-    CHOOSE_HAVE_DEL       = 0x0010,
-    CHOOSE_HAVE_EDIT      = 0x0020,
-    CHOOSE_HAVE_ENTER     = 0x0040,
-    CHOOSE_HAVE_REFRESH   = 0x0080,
-    CHOOSE_HAVE_SELECT    = 0x0100,
-    CHOOSE_HAVE_ONCLOSE   = 0x0200,
-    CHOOSE_IS_EMBEDDED    = 0x0400,
-  };
-
-  // Callback flags (to tell which callback exists and which not)
-  // One of CHOOSE_xxxx
-  uint32 cb_flags;
-
-  // Chooser title
-  qstring title;
-
-  // Column widths
-  intvec_t widths;
-
-  // Chooser headers
-  qstrvec_t header_strings;
-  qvector<const char *> header;
-
-public:
-  py_choose_t(PyObject *self_) : self(self_), chobj(NULL), cb_flags(0)
-  {
-    PYW_GIL_GET;
-    choose_add_instance(self, this);
-
-    // Increase object reference
-    Py_INCREF(self);
-  }
-
-  // if the chooser object was created it will delete linked Python's
-  // chooser.
-  // if it was not created (e.g. because of the lack of a mandatory
-  // callback) it will be deleted in choose_close().
-  ~py_choose_t()
-  {
-    PYW_GIL_GET;
-    // Remove from list
-    choose_del_instance(self);
-
-    Py_XDECREF(self);
-  }
-
-  // common callbacks
-  bool idaapi init()
-  {
-    if ( (cb_flags & CHOOSE_HAVE_INIT) == 0 )
-      return chobj->chooser_base_t::init();
-    PYW_GIL_GET;
-    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_INIT, NULL));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chobj->chooser_base_t::init();
-    return bool(PyInt_AsLong(pyres.result.o));
-  }
-
-  size_t idaapi get_count() const
-  {
-    PYW_GIL_GET;
-    pycall_res_t pyres(PyObject_CallMethod(self, (char *)S_ON_GET_SIZE, NULL));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return 0;
-
-    return size_t(PyInt_AsLong(pyres.result.o));
-  }
-
-  void idaapi get_row(
-          qstrvec_t *cols,
-          int *icon_,
-          chooser_item_attrs_t *attrs,
-          size_t n) const
-  {
-    PYW_GIL_GET;
-
-    // Call Python
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    pycall_res_t list(
-            PyObject_CallMethod(
-                    self, (char *)S_ON_GET_LINE,
-                    "i", int(n)));
-    if ( list.result != NULL )
-    {
-      // Go over the List returned by Python and convert to C strings
-      for ( int i = chobj->columns - 1; i >= 0; --i )
-      {
-        borref_t item(PyList_GetItem(list.result.o, Py_ssize_t(i)));
-        if ( item == NULL )
-          continue;
-
-        const char *str = PyString_AsString(item.o);
-        if ( str != NULL )
-          (*cols)[i] = str;
-      }
-    }
-
-    *icon_ = chobj->icon;
-    if ( (cb_flags & CHOOSE_HAVE_GETICON) != 0 )
-    {
-      pycall_res_t pyres(
-              PyObject_CallMethod(
-                      self, (char *)S_ON_GET_ICON,
-                      "i", int(n)));
-      if ( pyres.result != NULL )
-        *icon_ = PyInt_AsLong(pyres.result.o);
-    }
-
-    if ( (cb_flags & CHOOSE_HAVE_GETATTR) != 0 )
-    {
-      pycall_res_t pyres(
-              PyObject_CallMethod(
-                      self, (char *)S_ON_GET_LINE_ATTR,
-                      "i", int(n)));
-      if ( pyres.result != NULL && PyList_Check(pyres.result.o) )
-      {
-        PyObject *item;
-        if ( (item = PyList_GetItem(pyres.result.o, 0)) != NULL )
-          attrs->color = PyInt_AsLong(item);
-        if ( (item = PyList_GetItem(pyres.result.o, 1)) != NULL )
-          attrs->flags = PyInt_AsLong(item);
-      }
-    }
-  }
-
-  void idaapi closed()
-  {
-    if ( (cb_flags & CHOOSE_HAVE_ONCLOSE) == 0 )
-    {
-      chobj->chooser_base_t::closed();
-      return;
-    }
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(self, (char *)S_ON_CLOSE, NULL));
-    // delete UI hook
-    PyObject_DelAttrString(self, "ui_hooks_trampoline");
-  }
-
-public:
-  static py_choose_t *find_chooser(const char *title)
-  {
-    return static_cast<py_choose_t *>(::get_chooser_obj(title));
-  }
-
-  void close()
-  {
-    // will trigger closed()
-    close_chooser(chobj->title);
-  }
-
-  bool activate()
-  {
-    TWidget *widget = get_widget();
-    if ( widget == NULL )
-      return false;
-
-    activate_widget(widget, true);
-    return true;
-  }
-
-  TWidget *get_widget()
-  {
-    return find_widget(chobj->title);
-  }
-
-  // Create a chooser.
-  // If it doesn't detect the "embedded" attribute, then the chooser window
-  // is created and displayed.
-  // See ::choose() for the returned values.
-  // \retval NO_ATTR  some mandatory attribute is missing
-  int create();
-
-  inline PyObject *get_self()
-  {
-    return self;
-  }
-
-  void do_refresh()
-  {
-    refresh_chooser(chobj->title);
-  }
-
-  chooser_base_t *get_chobj() const
-  {
-    return chobj;
-  }
-
-  bool is_valid() const
-  {
-    return chobj != NULL;
-  }
-
-  bool is_embedded() const
-  {
-    return (cb_flags & CHOOSE_IS_EMBEDDED) != 0;
-  }
-};
-
-//------------------------------------------------------------------------
-// link from the chooser object to the Python's chooser
-struct py_chooser_link_t
-{
-  py_choose_t *link;  // link to Python's chooser
-  py_chooser_link_t(py_choose_t *pych) : link(pych) {}
-  ~py_chooser_link_t() { delete link; }
+  CFEAT_INIT      = 0x0001,
+  CFEAT_GETICON   = 0x0002,
+  CFEAT_GETATTR   = 0x0004,
+  CFEAT_INS       = 0x0008,
+  CFEAT_DEL       = 0x0010,
+  CFEAT_EDIT      = 0x0020,
+  CFEAT_ENTER     = 0x0040,
+  CFEAT_REFRESH   = 0x0080,
+  CFEAT_SELECT    = 0x0100,
+  CFEAT_ONCLOSE   = 0x0200,
+  CFEAT_EMBEDDED  = 0x0400,
 };
 
 //------------------------------------------------------------------------
 // we do not use virtual subclasses so we use #define for common code
 #define DEFINE_COMMON_CALLBACKS                                         \
-  virtual void *get_chooser_obj() ida_override { return link; }         \
-  virtual bool idaapi init() ida_override { return link->init(); }      \
+  virtual const void *get_obj_id(size_t *len) const ida_override        \
+  {                                                                     \
+    return mixin_get_obj_id(len);                                       \
+  }                                                                     \
+  virtual void *get_chooser_obj() ida_override                          \
+  {                                                                     \
+    return mixin_get_chooser_obj();                                     \
+  }                                                                     \
+  virtual bool idaapi init() ida_override                               \
+  {                                                                     \
+    return mixin_init(this);                                            \
+  }                                                                     \
   virtual size_t idaapi get_count() const ida_override                  \
   {                                                                     \
-    return link->get_count();                                           \
+    return mixin_get_count();                                           \
   }                                                                     \
   virtual void idaapi get_row(                                          \
           qstrvec_t *cols,                                              \
@@ -276,296 +52,94 @@ struct py_chooser_link_t
           chooser_item_attrs_t *attrs,                                  \
           size_t n) const ida_override                                  \
   {                                                                     \
-    link->get_row(cols, icon_, attrs, n);                               \
+    mixin_get_row(cols, icon_, attrs, n, this);                         \
   }                                                                     \
-  virtual void idaapi closed() ida_override { link->closed(); }
+  virtual void idaapi closed() ida_override                             \
+  {                                                                     \
+    mixin_closed(this);                                                 \
+  }
 
-//------------------------------------------------------------------------
-// chooser class without multi-selection
-class py_chooser_single_t
-  : public py_chooser_link_t,
-    public chooser_t
+
+//-------------------------------------------------------------------------
+struct py_chooser_props_t
 {
-public:
-  py_chooser_single_t(
-          py_choose_t *pych,
-          uint32 flags_ = 0,
-          int columns_ = 0,
-          const int *widths_ = NULL,
-          const char *const *header_ = NULL,
-          const char *title_ = NULL)
-    : py_chooser_link_t(pych),
-      chooser_t(flags_, columns_, widths_, header_, title_) {}
+  qstring title;            // Chooser title
+  intvec_t widths;          // Column widths
+  qstrvec_t header_strings; // Chooser headers
+  qvector<const char *> header;
+  // Features flags (to tell which callback exists and which not)
+  // See CHOOSE_xxxx
+  uint32 features;
+  uint32 flags;
 
-  DEFINE_COMMON_CALLBACKS
+  py_chooser_props_t() : features(0), flags(0) {}
 
-  virtual cbret_t idaapi ins(ssize_t n) ida_override
+  void swap(py_chooser_props_t &o)
   {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_INS) == 0 )
-      return chooser_t::ins(n);
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_INSERT_LINE,
-                    "i", int(n)));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_t::ins(n);
-    return py_as_cbret(pyres.result.o);
+    title.swap(o.title);
+    widths.swap(o.widths);
+    header_strings.swap(o.header_strings);
+    header.swap(o.header);
+    qswap(features, o.features);
+    qswap(flags, o.flags);
   }
 
-  virtual cbret_t idaapi del(size_t n) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_DEL) == 0 )
-      return chooser_t::del(n);
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_DELETE_LINE,
-                    "i", int(n)));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_t::del(n);
-    return py_as_cbret(pyres.result.o);
-  }
+  bool has_feature(feature_t f) const { return (features & f) == f; }
 
-  virtual cbret_t idaapi edit(size_t n) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_EDIT) == 0 )
-      return chooser_t::edit(n);
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_EDIT_LINE,
-                    "i", int(n)));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_t::edit(n);
-    return py_as_cbret(pyres.result.o);
-  }
+  static bool extract_from_pyobject(
+          py_chooser_props_t *out,
+          PyObject *o,
+          bool title_only=false);
 
-  virtual cbret_t idaapi enter(size_t n) ida_override
+  static bool get_title_from_pyobject(qstring *out, PyObject *o)
   {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_ENTER) == 0 )
-      return chooser_t::enter(n);
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_SELECT_LINE,
-                    "i", int(n)));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_t::enter(n);
-    return py_as_cbret(pyres.result.o);
-  }
-
-  virtual cbret_t idaapi refresh(ssize_t n) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_REFRESH) == 0 )
-      return chooser_t::refresh(n);
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_REFRESH,
-                    "i", int(n)));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_t::refresh(n);
-    return py_as_cbret(pyres.result.o);
-  }
-
-  virtual void idaapi select(ssize_t n) const ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_SELECT) == 0 )
-    {
-      chooser_t::select(n);
-      return;
-    }
-    PYW_GIL_GET;
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_SELECTION_CHANGE,
-                    "i", int(n)));
-  }
-
-protected:
-  // [ changed, idx ]
-  static cbret_t py_as_cbret(PyObject *py_ret)
-  {
-    cbret_t ret;
-    if ( PySequence_Check(py_ret) )
-    {
-      {
-        newref_t item(PySequence_GetItem(py_ret, 0));
-        if ( item.o != NULL && PyInt_Check(item.o) )
-          ret.changed = cbres_t(PyInt_AsLong(item.o));
-      }
-      if ( ret.changed != NOTHING_CHANGED )
-      {
-        newref_t item(PySequence_GetItem(py_ret, 1));
-        if ( item.o != NULL && PyInt_Check(item.o) )
-          ret.idx = ssize_t(PyInt_AsSsize_t(item.o));
-      }
-    }
-    return ret;
+    py_chooser_props_t props;
+    bool ok = extract_from_pyobject(&props, o, /*title_only=*/ true);
+    if ( ok )
+      out->swap(props.title);
+    return ok;
   }
 };
 
-//------------------------------------------------------------------------
-// chooser class with multi-selection
-class py_chooser_multi_t
-  : public py_chooser_link_t,
-    public chooser_multi_t
-{
-public:
-  py_chooser_multi_t(
-          py_choose_t *pych,
-          uint32 flags_ = 0,
-          int columns_ = 0,
-          const int *widths_ = NULL,
-          const char *const *header_ = NULL,
-          const char *title_ = NULL)
-    : py_chooser_link_t(pych),
-      chooser_multi_t(flags_, columns_, widths_, header_, title_) {}
-
-  DEFINE_COMMON_CALLBACKS
-
-  virtual cbres_t idaapi ins(sizevec_t *sel) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_INS) == 0 )
-      return chooser_multi_t::ins(sel);
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(*sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_INSERT_LINE,
-                    "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_multi_t::ins(sel);
-    return py_as_cbres_sel(sel, pyres.result.o);
-  }
-
-  virtual cbres_t idaapi del(sizevec_t *sel) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_DEL) == 0 )
-      return chooser_multi_t::del(sel);
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(*sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_DELETE_LINE,
-                    "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_multi_t::del(sel);
-    return py_as_cbres_sel(sel, pyres.result.o);
-  }
-
-  virtual cbres_t idaapi edit(sizevec_t *sel) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_EDIT) == 0 )
-      return chooser_multi_t::edit(sel);
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(*sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_EDIT_LINE,
-                    "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_multi_t::edit(sel);
-    return py_as_cbres_sel(sel, pyres.result.o);
-  }
-
-  virtual cbres_t idaapi enter(sizevec_t *sel) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_ENTER) == 0 )
-      return chooser_multi_t::enter(sel);
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(*sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_SELECT_LINE,
-                    "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_multi_t::enter(sel);
-    return py_as_cbres_sel(sel, pyres.result.o);
-  }
-
-  virtual cbres_t idaapi refresh(sizevec_t *sel) ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_REFRESH) == 0 )
-      return chooser_multi_t::refresh(sel);
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(*sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_REFRESH,
-                    "O", py_list.o));
-    if ( pyres.result == NULL || pyres.result.o == Py_None )
-      return chooser_multi_t::refresh(sel);
-    return py_as_cbres_sel(sel, pyres.result.o);
-  }
-
-  virtual void idaapi select(const sizevec_t &sel) const ida_override
-  {
-    if ( (link->cb_flags & py_choose_t::CHOOSE_HAVE_SELECT) == 0 )
-    {
-      chooser_multi_t::select(sel);
-      return;
-    }
-    PYW_GIL_GET;
-    ref_t py_list(PyW_SizeVecToPyList(sel));
-    pycall_res_t pyres(
-            PyObject_CallMethod(
-                    link->self, (char *)S_ON_SELECTION_CHANGE,
-                    "O", py_list.o));
-  }
-
-protected:
-  // [ changed, idx, ... ]
-  static cbres_t py_as_cbres_sel(sizevec_t *sel, PyObject *py_ret)
-  {
-    // this is an easy but not an optimal way of converting
-    if ( !PySequence_Check(py_ret)
-      || PyW_PyListToSizeVec(sel, py_ret) <= 0 )
-    {
-      sel->clear();
-      return NOTHING_CHANGED;
-    }
-    cbres_t res = cbres_t(sel->front());
-    sel->erase(sel->begin());
-    return res;
-  }
-};
-
-//------------------------------------------------------------------------
-int py_choose_t::create()
+//-------------------------------------------------------------------------
+bool py_chooser_props_t::extract_from_pyobject(
+        py_chooser_props_t *out,
+        PyObject *o,
+        bool title_only)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
+  // Get the title
+  if ( !PyW_GetStringAttr(o, S_TITLE, &out->title) )
+    return false;
+  if ( title_only )
+    return true;
+
   // Get flags
-  uint32 flags;
-  ref_t flags_attr(PyW_TryGetAttrString(self, S_FLAGS));
+  out->flags = 0;
+  ref_t flags_attr(PyW_TryGetAttrString(o, S_FLAGS));
   if ( flags_attr == NULL )
-    return chooser_base_t::NO_ATTR;
+    return false;
   if ( PyInt_Check(flags_attr.o) )
-    flags = uint32(PyInt_AsLong(flags_attr.o));
+    out->flags = uint32(PyInt_AsLong(flags_attr.o));
   // instruct TChooser destructor to delete this chooser when window
   // closes
-  flags &= ~CH_KEEP;
-
-  // Get the title
-  if ( !PyW_GetStringAttr(self, S_TITLE, &title) )
-    return chooser_base_t::NO_ATTR;
+  out->flags &= ~CH_KEEP;
 
   // Get columns
-  ref_t cols_attr(PyW_TryGetAttrString(self, "cols"));
+  ref_t cols_attr(PyW_TryGetAttrString(o, "cols"));
   if ( cols_attr == NULL )
-    return chooser_base_t::NO_ATTR;
+    return false;
 
   // Get col count
   int columns = int(PyList_Size(cols_attr.o));
   if ( columns < 1 )
-    return chooser_base_t::NO_ATTR;
+    return false;
 
   // Get columns caption and widthes
-  header_strings.resize(columns);
-  header.resize(columns);
-  widths.resize(columns);
+  out->header_strings.resize(columns);
+  out->header.resize(columns);
+  out->widths.resize(columns);
   for ( int i = 0; i < columns; ++i )
   {
     // get list item: [name, width]
@@ -574,8 +148,8 @@ int py_choose_t::create()
 
     // Extract string
     const char *str = v == NULL ? "" : PyString_AsString(v.o);
-    header_strings[i] = str;
-    header[i] = header_strings[i].c_str();
+    out->header_strings[i] = str;
+    out->header[i] = out->header_strings[i].c_str();
 
     // Extract width
     int width;
@@ -585,7 +159,7 @@ int py_choose_t::create()
       width = strlen(str);
     else
       width = PyInt_AsLong(v2.o);
-    widths[i] = width;
+    out->widths[i] = width;
   }
 
   // Check what callbacks we have
@@ -596,72 +170,368 @@ int py_choose_t::create()
     int chooser_t_flags;
   } callbacks[] =
   {
-    { S_ON_INIT,             CHOOSE_HAVE_INIT,    0 },
+    { S_ON_INIT,             CFEAT_INIT,    0 },
     { S_ON_GET_SIZE,         0 },
     { S_ON_GET_LINE,         0 },
-    { S_ON_GET_ICON,         CHOOSE_HAVE_GETICON, 0 },
-    { S_ON_GET_LINE_ATTR,    CHOOSE_HAVE_GETATTR, 0 },
-    { S_ON_INSERT_LINE,      CHOOSE_HAVE_INS,     CH_CAN_INS },
-    { S_ON_DELETE_LINE,      CHOOSE_HAVE_DEL,     CH_CAN_DEL },
-    { S_ON_EDIT_LINE,        CHOOSE_HAVE_EDIT,    CH_CAN_EDIT },
-    { S_ON_SELECT_LINE,      CHOOSE_HAVE_ENTER,   0 },
-    { S_ON_REFRESH,          CHOOSE_HAVE_REFRESH, CH_CAN_REFRESH },
-    { S_ON_SELECTION_CHANGE, CHOOSE_HAVE_SELECT,  0 },
-    { S_ON_CLOSE,            CHOOSE_HAVE_ONCLOSE, 0 },
+    { S_ON_GET_ICON,         CFEAT_GETICON, 0 },
+    { S_ON_GET_LINE_ATTR,    CFEAT_GETATTR, 0 },
+    { S_ON_INSERT_LINE,      CFEAT_INS,     CH_CAN_INS },
+    { S_ON_DELETE_LINE,      CFEAT_DEL,     CH_CAN_DEL },
+    { S_ON_EDIT_LINE,        CFEAT_EDIT,    CH_CAN_EDIT },
+    { S_ON_SELECT_LINE,      CFEAT_ENTER,   0 },
+    { S_ON_REFRESH,          CFEAT_REFRESH, CH_CAN_REFRESH },
+    { S_ON_SELECTION_CHANGE, CFEAT_SELECT,  0 },
+    { S_ON_CLOSE,            CFEAT_ONCLOSE, 0 },
   };
   // we can forbid some callbacks explicitly
   uint32 forbidden_cb = 0;
-  ref_t forbidden_cb_attr(PyW_TryGetAttrString(self, "forbidden_cb"));
+  ref_t forbidden_cb_attr(PyW_TryGetAttrString(o, "forbidden_cb"));
   if ( forbidden_cb_attr != NULL && PyInt_Check(forbidden_cb_attr.o) )
     forbidden_cb = uint32(PyInt_AsLong(forbidden_cb_attr.o));
-  cb_flags = 0;
+
+  out->features = 0;
   for ( int i = 0; i < qnumber(callbacks); ++i )
   {
-    ref_t cb_attr(PyW_TryGetAttrString(self, callbacks[i].name));
+    ref_t cb_attr(PyW_TryGetAttrString(o, callbacks[i].name));
     bool have_cb = cb_attr != NULL && PyCallable_Check(cb_attr.o);
     if ( have_cb && (forbidden_cb & callbacks[i].have) == 0 )
     {
-      cb_flags |= callbacks[i].have;
-      flags |= callbacks[i].chooser_t_flags;
+      out->features |= callbacks[i].have;
+      out->flags |= callbacks[i].chooser_t_flags;
     }
     else
     {
       // Mandatory field?
       if ( callbacks[i].have == 0 )
-        return chooser_base_t::NO_ATTR;
+        return false;
     }
   }
 
-  // create chooser object
-  if ( (flags & CH_MULTI) == 0 )
+  // Check if *embedded
+  ref_t emb_attr(PyW_TryGetAttrString(o, S_EMBEDDED));
+  if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
+    out->features |= CFEAT_EMBEDDED;
+
+  return true;
+}
+
+//-------------------------------------------------------------------------
+struct py_chooser_mixin_t
+{
+  ref_t self; // link to actual Python object
+  py_chooser_props_t props;
+
+  py_chooser_mixin_t(PyObject *_self, py_chooser_props_t &_props)
+    : self(borref_t(_self))
   {
-    chobj = new py_chooser_single_t(
-                        this,
-                        flags,
-                        columns, widths.begin(), header.begin(),
-                        title.c_str());
+    props.swap(_props);
   }
+  ~py_chooser_mixin_t()
+  {
+    PYW_GIL_GET;
+    self = newref_t(NULL);
+  }
+
+  bool has_feature(feature_t f) const { return props.has_feature(f); }
+  static chooser_base_t *create_concrete_instance(
+          py_chooser_props_t &props,
+          PyObject *o);
+
+protected:
+  const void *mixin_get_obj_id(size_t *len) const { *len = sizeof(self.o); return self.o; }
+  void *mixin_get_chooser_obj() { return self.o; }
+  bool mixin_init(chooser_base_t *chobj);
+  size_t mixin_get_count() const;
+  void mixin_get_row(
+          qstrvec_t *cols,
+          int *icon_,
+          chooser_item_attrs_t *attrs,
+          size_t n,
+          const chooser_base_t *chobj) const;
+  void mixin_closed(chooser_base_t *chobj);
+};
+
+//-------------------------------------------------------------------------
+bool py_chooser_mixin_t::mixin_init(chooser_base_t *chobj)
+{
+  if ( !has_feature(CFEAT_INIT) )
+    return chobj->chooser_base_t::init();
+  PYW_GIL_GET;
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_INIT, NULL));
+  if ( pyres.result == NULL || pyres.result.o == Py_None )
+    return chobj->chooser_base_t::init();
+  return bool(PyInt_AsLong(pyres.result.o));
+}
+
+//-------------------------------------------------------------------------
+size_t py_chooser_mixin_t::mixin_get_count() const
+{
+  PYW_GIL_GET;
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_GET_SIZE, NULL));
+  if ( pyres.result == NULL || pyres.result.o == Py_None )
+    return 0;
+  return size_t(PyInt_AsLong(pyres.result.o));
+}
+
+//-------------------------------------------------------------------------
+void py_chooser_mixin_t::mixin_get_row(
+        qstrvec_t *cols,
+        int *icon_,
+        chooser_item_attrs_t *attrs,
+        size_t n,
+        const chooser_base_t *chobj) const
+{
+  PYW_GIL_GET;
+
+  // Call Python
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  pycall_res_t list(
+          PyObject_CallMethod(
+                  self.o, (char *)S_ON_GET_LINE,
+                  "i", int(n)));
+  if ( list.result != NULL )
+  {
+    // Go over the List returned by Python and convert to C strings
+    for ( int i = chobj->columns - 1; i >= 0; --i )
+    {
+      borref_t item(PyList_GetItem(list.result.o, Py_ssize_t(i)));
+      if ( item == NULL )
+        continue;
+
+      const char *str = PyString_AsString(item.o);
+      if ( str != NULL )
+        (*cols)[i] = str;
+    }
+  }
+
+  *icon_ = chobj->icon;
+  if ( has_feature(CFEAT_GETICON) )
+  {
+    pycall_res_t pyres(
+            PyObject_CallMethod(
+                    self.o, (char *)S_ON_GET_ICON,
+                    "i", int(n)));
+    if ( pyres.result != NULL )
+      *icon_ = PyInt_AsLong(pyres.result.o);
+  }
+
+  if ( has_feature(CFEAT_GETATTR) )
+  {
+    pycall_res_t pyres(
+            PyObject_CallMethod(
+                    self.o, (char *)S_ON_GET_LINE_ATTR,
+                    "i", int(n)));
+    if ( pyres.result != NULL && PyList_Check(pyres.result.o) )
+    {
+      PyObject *item;
+      if ( (item = PyList_GetItem(pyres.result.o, 0)) != NULL )
+        attrs->color = PyInt_AsLong(item);
+      if ( (item = PyList_GetItem(pyres.result.o, 1)) != NULL )
+        attrs->flags = PyInt_AsLong(item);
+    }
+  }
+}
+
+//-------------------------------------------------------------------------
+void py_chooser_mixin_t::mixin_closed(chooser_base_t *chobj)
+{
+  if ( !has_feature(CFEAT_ONCLOSE) )
+  {
+    chobj->chooser_base_t::closed();
+    return;
+  }
+  PYW_GIL_GET;
+  pycall_res_t pyres(PyObject_CallMethod(self.o, (char *)S_ON_CLOSE, NULL));
+  PyObject_DelAttrString(self.o, "ui_hooks_trampoline"); // delete UI hook
+}
+
+//------------------------------------------------------------------------
+// chooser class without multi-selection
+class py_chooser_t : public chooser_t, public py_chooser_mixin_t
+{
+  bool _call(cbret_t *out, feature_t feature, const char *name, int n) const
+  {
+    if ( !has_feature(feature) )
+      return false;
+    PYW_GIL_GET;
+    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) name, "i", n));
+    if ( pyres.result == NULL || pyres.result.o == Py_None )
+      return false;
+    if ( out != NULL )
+    {
+      // [ changed, idx ]
+      cbret_t ret;
+      if ( PySequence_Check(pyres.result.o) )
+      {
+        {
+          newref_t item(PySequence_GetItem(pyres.result.o, 0));
+          if ( item.o != NULL && PyInt_Check(item.o) )
+            ret.changed = cbres_t(PyInt_AsLong(item.o));
+        }
+        if ( ret.changed != NOTHING_CHANGED )
+        {
+          newref_t item(PySequence_GetItem(pyres.result.o, 1));
+          if ( item.o != NULL && PyInt_Check(item.o) )
+            ret.idx = ssize_t(PyInt_AsSsize_t(item.o));
+        }
+      }
+      *out = ret;
+    }
+    return true;
+  }
+
+public:
+  py_chooser_t(PyObject *self_, py_chooser_props_t &props_)
+    : chooser_t(
+            props_.flags,
+            props_.widths.size(),
+            props_.widths.begin(),
+            props_.header.begin(),
+            props_.title.c_str()),
+      py_chooser_mixin_t(self_, props_) {}
+
+  DEFINE_COMMON_CALLBACKS
+
+  virtual cbret_t idaapi ins(ssize_t n) ida_override
+  {
+    cbret_t res;
+    return _call(&res, CFEAT_INS, S_ON_INSERT_LINE, int(n)) ? res : chooser_t::ins(n);
+  }
+
+  virtual cbret_t idaapi del(size_t n) ida_override
+  {
+    cbret_t res;
+    return _call(&res, CFEAT_DEL, S_ON_DELETE_LINE, int(n)) ? res : chooser_t::del(n);
+  }
+
+  virtual cbret_t idaapi edit(size_t n) ida_override
+  {
+    cbret_t res;
+    return _call(&res, CFEAT_EDIT, S_ON_EDIT_LINE, int(n)) ? res : chooser_t::edit(n);
+  }
+
+  virtual cbret_t idaapi enter(size_t n) ida_override
+  {
+    cbret_t res;
+    return _call(&res, CFEAT_ENTER, S_ON_SELECT_LINE, int(n)) ? res : chooser_t::enter(n);
+  }
+
+  virtual cbret_t idaapi refresh(ssize_t n) ida_override
+  {
+    cbret_t res;
+    return _call(&res, CFEAT_REFRESH, S_ON_REFRESH, int(n)) ? res : chooser_t::refresh(n);
+  }
+
+  virtual void idaapi select(ssize_t n) const ida_override
+  {
+    _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, int(n));
+  }
+};
+
+//------------------------------------------------------------------------
+// chooser class with multi-selection
+class py_chooser_multi_t : public chooser_multi_t, public py_chooser_mixin_t
+{
+  bool _call(cbres_t *out, feature_t feature, const char *name, sizevec_t *sel) const
+  {
+    if ( !has_feature(feature) )
+      return false;
+    PYW_GIL_GET;
+    ref_t py_list(PyW_SizeVecToPyList(*sel));
+    pycall_res_t pyres(PyObject_CallMethod(self.o, (char *) name, "O", py_list.o));
+    if ( pyres.result == NULL || pyres.result.o == Py_None )
+      return false;
+    // [ changed, idx, ... ]
+    cbres_t res;
+    // this is an easy but not an optimal way of converting
+    if ( !PySequence_Check(pyres.result.o)
+      || PyW_PyListToSizeVec(sel, pyres.result.o) <= 0 )
+    {
+      sel->clear();
+      res = NOTHING_CHANGED;
+    }
+    else
+    {
+      res = cbres_t(sel->front());
+      sel->erase(sel->begin());
+    }
+    if ( out != NULL )
+      *out = res;
+    return true;
+  }
+
+public:
+  py_chooser_multi_t(PyObject *self_, py_chooser_props_t &props_)
+    : chooser_multi_t(
+            props_.flags,
+            props_.widths.size(),
+            props_.widths.begin(),
+            props_.header.begin(),
+            props_.title.c_str()),
+      py_chooser_mixin_t(self_, props_) {}
+
+ DEFINE_COMMON_CALLBACKS
+
+  virtual cbres_t idaapi ins(sizevec_t *sel) ida_override
+  {
+    cbres_t res = NOTHING_CHANGED;
+    return _call(&res, CFEAT_INS, S_ON_INSERT_LINE, sel) ? res : chooser_multi_t::ins(sel);
+  }
+
+  virtual cbres_t idaapi del(sizevec_t *sel) ida_override
+  {
+    cbres_t res = NOTHING_CHANGED;
+    return _call(&res, CFEAT_DEL, S_ON_DELETE_LINE, sel) ? res : chooser_multi_t::del(sel);
+  }
+
+  virtual cbres_t idaapi edit(sizevec_t *sel) ida_override
+  {
+    cbres_t res = NOTHING_CHANGED;
+    return _call(&res, CFEAT_EDIT, S_ON_EDIT_LINE, sel) ? res : chooser_multi_t::edit(sel);
+  }
+
+  virtual cbres_t idaapi enter(sizevec_t *sel) ida_override
+  {
+    cbres_t res = NOTHING_CHANGED;
+    return _call(&res, CFEAT_ENTER, S_ON_SELECT_LINE, sel) ? res : chooser_multi_t::enter(sel);
+  }
+
+  virtual cbres_t idaapi refresh(sizevec_t *sel) ida_override
+  {
+    cbres_t res = NOTHING_CHANGED;
+    return _call(&res, CFEAT_REFRESH, S_ON_REFRESH, sel) ? res : chooser_multi_t::refresh(sel);
+  }
+
+  virtual void idaapi select(const sizevec_t &_sel) const ida_override
+  {
+    sizevec_t sel = _sel;
+    _call(NULL, CFEAT_SELECT, S_ON_SELECTION_CHANGE, &sel);
+  }
+};
+
+//-------------------------------------------------------------------------
+chooser_base_t *py_chooser_mixin_t::create_concrete_instance(
+        py_chooser_props_t &props,
+        PyObject *o)
+{
+  chooser_base_t *chobj = NULL;
+  if ( (props.flags & CH_MULTI) == 0 )
+    chobj = new py_chooser_t(o, props);
   else
-  {
-    chobj = new py_chooser_multi_t(
-                        this,
-                        flags,
-                        columns, widths.begin(), header.begin(),
-                        title.c_str());
-  }
+    chobj = new py_chooser_multi_t(o, props);
 
   // Get *x1,y1,x2,y2
-  py_get_int(self, &chobj->x0, "x1");
-  py_get_int(self, &chobj->y0, "y1");
-  py_get_int(self, &chobj->x1, "x2");
-  py_get_int(self, &chobj->y1, "y2");
+  py_get_int(o, &chobj->x0, "x1");
+  py_get_int(o, &chobj->y0, "y1");
+  py_get_int(o, &chobj->x1, "x2");
+  py_get_int(o, &chobj->y1, "y2");
 
   // Get *icon
-  py_get_int(self, &chobj->icon, "icon");
+  py_get_int(o, &chobj->icon, "icon");
 
   // Get *popup names
   // An array of 4 strings: ("Insert", "Delete", "Edit", "Refresh")
-  ref_t pn_attr(PyW_TryGetAttrString(self, S_POPUP_NAMES));
+  ref_t pn_attr(PyW_TryGetAttrString(o, S_POPUP_NAMES));
   if ( pn_attr != NULL && PyList_Check(pn_attr.o) )
   {
     int npopups = int(PyList_Size(pn_attr.o));
@@ -674,24 +544,29 @@ int py_choose_t::create()
     }
   }
 
-  // Check if *embedded
-  ref_t emb_attr(PyW_TryGetAttrString(self, S_EMBEDDED));
-  if ( emb_attr != NULL && PyObject_IsTrue(emb_attr.o) == 1 )
+  if ( props.has_feature(CFEAT_EMBEDDED) )
   {
-    cb_flags |= CHOOSE_IS_EMBEDDED;
-    py_get_int(self, &chobj->width, "width");
-    py_get_int(self, &chobj->height, "height");
-    return 0; // success
+    py_get_int(o, &chobj->width, "width");
+    py_get_int(o, &chobj->height, "height");
   }
+  return chobj;
+}
 
-  // run
+//-------------------------------------------------------------------------
+int choose_choose(PyObject *self)
+{
+  py_chooser_props_t props;
+  if ( !py_chooser_props_t::extract_from_pyobject(&props, self) )
+    return chooser_base_t::NO_SELECTION;
+  chooser_base_t *chobj = py_chooser_mixin_t::create_concrete_instance(props, self);
+
   ssize_t res;
   if ( !chobj->is_multi() )
   {
     // Get *deflt
     ssize_t deflt = 0;
     py_get_int(self, &deflt, "deflt");
-    res = ((chooser_t *)chobj)->choose(deflt);
+    res = ((chooser_t *) chobj)->choose(deflt);
   }
   else
   {
@@ -712,88 +587,61 @@ int py_choose_t::create()
 }
 
 //------------------------------------------------------------------------
-int choose_create(PyObject *self)
-{
-  py_choose_t *pych;
-
-  pych = choose_find_instance(self);
-  if ( pych != NULL && pych->is_valid() )
-  {
-    if ( !pych->is_embedded() )
-      pych->activate();
-    return chooser_base_t::ALREADY_EXISTS;
-  }
-
-  if ( pych == NULL )
-    pych = new py_choose_t(self);
-  // assert: returned value != chooser_base_t::ALREADY_EXISTS
-  return pych->create();
-}
-
-//------------------------------------------------------------------------
 void choose_close(PyObject *self)
 {
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych == NULL )
-    return;
-
-  if ( !pych->is_valid() )
-  {
-    // the chooser object is not created
-    // so we delete Python's chooser ourself
-    delete pych;
-    return;
-  }
-
-  // embedded chooser is deleted by form
-  if ( pych->is_embedded() )
-    return;
-
-  // modal chooser is closed and deleted in py_choose_t::create()
-  // assert: !pych->is_modal()
-
-  // close the non-modal chooser,
-  // in turn this will lead to the deletion of the object
-  pych->close();
+  qstring title;
+  if ( py_chooser_props_t::get_title_from_pyobject(&title, self) )
+    close_chooser(title.c_str());
 }
 
 //------------------------------------------------------------------------
 void choose_refresh(PyObject *self)
 {
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych != NULL && pych->is_valid() )
-    pych->do_refresh();
+  qstring title;
+  if ( py_chooser_props_t::get_title_from_pyobject(&title, self) )
+    refresh_chooser(title.c_str());
+}
+
+//-------------------------------------------------------------------------
+TWidget *choose_get_widget(PyObject *self)
+{
+  qstring title;
+  return py_chooser_props_t::get_title_from_pyobject(&title, self)
+       ? find_widget(title.c_str())
+       : NULL;
 }
 
 //------------------------------------------------------------------------
 void choose_activate(PyObject *self)
 {
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych != NULL && pych->is_valid() )
-    pych->activate();
+  TWidget *w = choose_get_widget(self);
+  if ( w != NULL )
+    activate_widget(w, true);
 }
 
 //------------------------------------------------------------------------
 // Return the C instance as 64bit number
-uint64 _choose_get_embedded_chobj_pointer(PyObject *self)
+uint64 choose_create_embedded_chobj(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   uint64 ptr = 0;
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych != NULL && pych->is_valid() && pych->is_embedded() )
-    ptr = uint64(pych->get_chobj());
+  py_chooser_props_t props;
+  if ( py_chooser_props_t::extract_from_pyobject(&props, self) )
+  {
+    chooser_base_t *chobj = py_chooser_mixin_t::create_concrete_instance(props, self);
+    ptr = uint64(chobj);
+  }
   return ptr;
 }
 
 //------------------------------------------------------------------------
 PyObject *choose_find(const char *title)
 {
-  py_choose_t *pych = py_choose_t::find_chooser(title);
-  if ( pych == NULL || !pych->is_valid() )
+  PyObject *o = static_cast<PyObject*>(::get_chooser_obj(title));
+  if ( o == NULL )
     Py_RETURN_NONE;
-  PyObject *self = pych->get_self();
-  Py_INCREF(self);
-  return self;
+  Py_INCREF(o);
+  return o;
 }
 //</code(py_kernwin_choose)>
 
@@ -802,9 +650,11 @@ PyObject *choose_find(const char *title)
 PyObject *choose_find(const char *title);
 void choose_refresh(PyObject *self);
 void choose_close(PyObject *self);
-int choose_create(PyObject *self);
+// int choose_create(PyObject *self);
+TWidget *choose_get_widget(PyObject *self);
+int choose_choose(PyObject *self);
 void choose_activate(PyObject *self);
-uint64 _choose_get_embedded_chobj_pointer(PyObject *self);
+uint64 choose_create_embedded_chobj(PyObject *self);
 
 PyObject *py_get_chooser_data(const char *chooser_caption, int n)
 {
@@ -815,15 +665,6 @@ PyObject *py_get_chooser_data(const char *chooser_caption, int n)
   for ( size_t i = 0; i < data.size(); ++i )
     PyList_SetItem(py_list, i, PyString_FromString(data[i].c_str()));
   return py_list;
-}
-
-//-------------------------------------------------------------------------
-TWidget *choose_get_widget(PyObject *self)
-{
-  py_choose_t *pych = choose_find_instance(self);
-  if ( pych == NULL || !pych->is_valid() )
-    return NULL;
-  return pych->get_widget();
 }
 
 //</inline(py_kernwin_choose)>

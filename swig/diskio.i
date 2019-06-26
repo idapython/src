@@ -33,6 +33,7 @@
 %ignore qlfile;
 %ignore make_linput;
 %ignore unmake_linput;
+%ignore linput_buffer_t;
 
 %ignore eread;
 %ignore ewrite;

@@ -1,7 +1,5 @@
 // Ignore functions with callbacks
 
-%import "range.i"
-
 %ignore enumerate_selectors;
 %ignore enumerate_segments_with_selector;
 

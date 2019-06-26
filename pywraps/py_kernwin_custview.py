@@ -24,13 +24,6 @@ class simplecustviewer_t(object):
         self.__this = None
         self.ui_hooks_trampoline = self.UI_Hooks_Trampoline(self)
 
-    def __del__(self):
-        """Destructor. It also frees the associated C++ object"""
-        try:
-            _ida_kernwin.pyscv_delete(self.__this)
-        except:
-            pass
-
     @staticmethod
     def __make_sl_arg(line, fgcolor=None, bgcolor=None):
         return line if (fgcolor is None and bgcolor is None) else (line, fgcolor, bgcolor)
@@ -75,7 +68,7 @@ class simplecustviewer_t(object):
 
     def RefreshCurrent(self):
         """Refreshes the current line only"""
-        return _ida_kernwin.pyscv_refresh_current(self.__this)
+        return _ida_kernwin.pyscv_refresh(self.__this)
 
     def Count(self):
         """Returns the number of lines in the view"""

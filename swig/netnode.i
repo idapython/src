@@ -71,6 +71,7 @@
 %ignore netnode_setblob;
 %ignore netnode_delblob;
 %ignore netnode_inited;
+%ignore netnode_is_available;
 %ignore netnode_copy;
 %ignore netnode_altshift;
 %ignore netnode_charshift;
@@ -89,6 +90,7 @@
 %ignore netnode::upgrade;
 %ignore netnode::compress;
 %ignore netnode::inited;
+%ignore netnode::is_available;
 %ignore netnode::init;
 %ignore netnode::can_write;
 %ignore netnode::flush;

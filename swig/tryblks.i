@@ -2,8 +2,6 @@
 #include <tryblks.hpp>
 %}
 
-%import "range.i"
-
 %ignore tryblk_t::reserve;
 %ignore tryblk_t::cpp() const;
 %ignore tryblk_t::seh() const;

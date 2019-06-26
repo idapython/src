@@ -36,6 +36,8 @@
 %rename (reg_subkey_values) py_reg_subkey_values;
 %ignore reg_subkey_children;
 
+%apply qstrvec_t *out { qstrvec_t *list };
+
 %{
 //<code(py_registry)>
 //</code(py_registry)>

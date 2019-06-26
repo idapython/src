@@ -9,13 +9,12 @@ class PluginForm(object):
     """
 
     WOPN_MDI      = 0x01 # no-op
-    WOPN_TAB      = 0x02
-    """attached by default to a tab"""
+    WOPN_TAB      = 0x02 # no-op
     WOPN_RESTORE  = 0x04
     """
     if the widget is the only widget in a floating area when
     it is closed, remember that area's geometry. The next
-    time that widget is created as floating (i.e., no WOPN_TAB)
+    time that widget is created as floating (i.e., WOPN_DP_FLOATING)
     its geometry will be restored (e.g., "Execute script"
     """
     WOPN_ONTOP    = 0x08 # no-op
@@ -23,6 +22,31 @@ class PluginForm(object):
     WOPN_CENTERED = 0x20 # no-op
     WOPN_PERSIST  = 0x40
     """form will persist until explicitly closed with Close()"""
+    WOPN_DP_LEFT    = 0x00010000
+    """ Dock widget to the left of dest_ctrl"""
+    WOPN_DP_TOP     = 0x00020000
+    """ Dock widget above dest_ctrl"""
+    WOPN_DP_RIGHT   = 0x00040000
+    """ Dock widget to the right of dest_ctrl"""
+    WOPN_DP_BOTTOM  = 0x00080000
+    """ Dock widget below dest_ctrl"""
+    WOPN_DP_INSIDE  = 0x00100000
+    """ Create a new tab bar with both widget and dest_ctrl"""
+    WOPN_DP_TAB     = 0x00400000
+    """
+    Place widget into a tab next to dest_ctrl,
+    if dest_ctrl is in a tab bar
+    (otherwise the same as #WOPN_DP_INSIDE)
+    """
+    WOPN_DP_BEFORE  = 0x00200000
+    """
+    place widget before dst_form in the tab bar instead of after
+    used with #WOPN_DP_INSIDE and #WOPN_DP_TAB
+    """
+    WOPN_DP_FLOATING=0x00800000
+    """ Make widget floating"""
+    WOPN_DP_INSIDE_BEFORE = WOPN_DP_INSIDE | WOPN_DP_BEFORE
+    WOPN_DP_TAB_BEFORE = WOPN_DP_TAB | WOPN_DP_BEFORE
 
 
     WOPN_CREATE_ONLY = {}
@@ -44,7 +68,7 @@ class PluginForm(object):
         if options == self.WOPN_CREATE_ONLY:
             options = -1
         else:
-            options |= PluginForm.WOPN_TAB|PluginForm.WOPN_RESTORE
+            options |= PluginForm.WOPN_DP_TAB|PluginForm.WOPN_RESTORE
         return _ida_kernwin.plgform_show(self.__clink__, self, caption, options)
 
 

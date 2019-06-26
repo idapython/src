@@ -15,13 +15,16 @@ class MyUiHook(idaapi.UI_Hooks):
         idaapi.UI_Hooks.__init__(self)
         self.cmdname = "<no command>"
 
-    def preprocess(self, name):
-        print("IDA preprocessing command: %s" % name)
+    def _log(self, msg):
+        print(">>> MyUiHook: %s" % msg)
+
+    def preprocess_action(self, name):
+        self._log("IDA preprocessing command: %s" % name)
         self.cmdname = name
         return 0
 
-    def postprocess(self):
-        print("IDA finished processing command: %s" % self.cmdname)
+    def postprocess_action(self):
+        self._log("IDA finished processing command: %s" % self.cmdname)
         return 0
 
     def saving(self):
@@ -30,7 +33,7 @@ class MyUiHook(idaapi.UI_Hooks):
 
         @return: Ignored
         """
-        print("Saving....")
+        self._log("Saving....")
 
     def saved(self):
         """
@@ -38,7 +41,7 @@ class MyUiHook(idaapi.UI_Hooks):
 
         @return: Ignored
         """
-        print("Saved")
+        self._log("Saved")
 
     def term(self):
         """
@@ -47,7 +50,7 @@ class MyUiHook(idaapi.UI_Hooks):
 
         This callback is best used within the context of a plugin_t with PLUGIN_FIX flags
         """
-        print("IDA terminated")
+        self._log("IDA terminated")
 
     def get_ea_hint(self, ea):
         """
@@ -56,21 +59,21 @@ class MyUiHook(idaapi.UI_Hooks):
         @param ea: The address
         @return: String with the hint or None
         """
-        print("get_ea_hint(%x)" % ea)
+        self._log("get_ea_hint(%x)" % ea)
 
     def populating_widget_popup(self, widget, popup, ctx):
         """
         The UI is currently populating the widget popup. Now is a good time to
         attach actions.
         """
-        print("populating_widget_popup; title: %s" % (ctx.widget_title,))
+        self._log("populating_widget_popup; title: %s" % (ctx.widget_title,))
 
     def finish_populating_widget_popup(self, widget, popup, ctx):
         """
         The UI is done populating the widget popup. Now is the last chance to
         attach actions.
         """
-        print("finish_populating_widget_popup; title: %s" % (ctx.widget_title,))
+        self._log("finish_populating_widget_popup; title: %s" % (ctx.widget_title,))
 
 
 #---------------------------------------------------------------------
@@ -80,12 +83,14 @@ try:
     print("UI hook: checking for hook...")
     uihook
     print("UI hook: unhooking....")
+    ui_hook_stat2 = ""
     uihook.unhook()
     del uihook
 except:
     print("UI hook: not installed, installing now....")
     ui_hook_stat = ""
+    ui_hook_stat2 = "un"
     uihook = MyUiHook()
     uihook.hook()
 
-print("UI hook %sinstalled. Run the script again to %sinstall" % (ui_hook_stat, ui_hook_stat))
+print("UI hook %sinstalled. Run the script again to %sinstall" % (ui_hook_stat, ui_hook_stat2))

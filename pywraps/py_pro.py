@@ -10,6 +10,7 @@ if ida_idaapi.__EA64__:
 else:
     svalvec_t = intvec_t
     uvalvec_t = uintvec_t
+eavec_t = uvalvec_t
 
 ida_idaapi._listify_types(
         intvec_t,

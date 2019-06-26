@@ -30,6 +30,7 @@
 %ignore outctx_base_t::gen_vprintf;
 %ignore outctx_base_t::get_xrefgen_state;
 %ignore outctx_base_t::get_cmtgen_state;
+%ignore outctx_base_t::get_binop_state;
 
 %ignore outctx_base_t::regname_idx;
 %ignore outctx_base_t::suspop;

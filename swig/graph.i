@@ -58,8 +58,8 @@
 
 %extend graph_visitor_t {
 public:
-  virtual int idaapi visit_node(int /*n*/, rect_t & /*r*/) { return 0; }
-  virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { return 0; }
+  virtual int idaapi visit_node(int /*n*/, rect_t & /*r*/) { qnotused(self); return 0; }
+  virtual int idaapi visit_edge(edge_t /*e*/, edge_info_t * /*ei*/) { qnotused(self); return 0; }
 }
 
 %extend mutable_graph_t {
@@ -70,6 +70,7 @@ public:
   }
 }
 
+%template(screen_graph_selection_base_t) qvector<selection_item_t>;
 %template(node_layout_t) qvector<rect_t>;
 %template(pointvec_t) qvector<point_t>;
 

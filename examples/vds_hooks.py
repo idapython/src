@@ -3,6 +3,7 @@ Various hooks for Hexrays Decompiler
 """
 from __future__ import print_function
 
+import ida_idaapi
 import ida_typeinf
 import ida_hexrays
 

@@ -121,7 +121,6 @@ private:
     if ( ok )
     {
       Py_ssize_t sz = PyTuple_Size(result.o);
-      PyObject *item;
 
 #define GET_TUPLE_ENTRY(col, PyThingy, AsThingy, out)                   \
       do                                                                \
@@ -227,7 +226,6 @@ public:
 
       // Create a new instance
       py_cli = new py_cli_t();
-      PyObject *attr;
 
       // Start populating the 'cli' member
       py_cli->cli.size = sizeof(cli_t);

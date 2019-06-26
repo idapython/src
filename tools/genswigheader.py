@@ -24,7 +24,9 @@ with open(args.input, "rb") as fin:
         def add_imports_from_dep(depname):
             DEPNAME = depname.upper()
             for dep in glob.glob(os.path.join(args.sdk, "%s.*" % depname)):
-                parts.append("  #ifndef HAS_DEP_ON_INTERFACE_%s" % DEPNAME)
+                parts.append("  #ifdef HAS_DEP_ON_INTERFACE_%s" % DEPNAME)
+                parts.append("  %import \"{0}.i\"".format(depname))
+                parts.append("  #else")
                 parts.append("  %import \"{0}\"".format(os.path.basename(dep)))
                 parts.append("  #endif")
                 parts.append("")
@@ -32,7 +34,7 @@ with open(args.input, "rb") as fin:
         parts.append("#if defined(IDA_MODULE_PRO)")
         parts.append("// nothing; has to be handled in pro.i")
         parts.append("#else")
-        required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt"]
+        required_headers = ["pro", "ida", "xref", "typeinf", "enum", "netnode", "range", "lines", "kernwin", "bytes", "auto", "nalt", "idd", "idp"]
         for rh in required_headers:
             add_imports_from_dep(rh)
         parts.append("#endif")

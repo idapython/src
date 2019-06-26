@@ -3,13 +3,8 @@ recipe = {
     "null" : {"ignore" : True},
     "last" : {"ignore" : True},
     "gen_idanode_text" : {"ignore" : True}, # text_t & friends not exposed
+    "get_lines_rendering_info" : {"ignore" : True},
 
-    "debugger_menu_change" : {
-        "return" : {
-            "type" : "int",
-            "retexpr" : "return 1",
-        }
-    },
     "get_ea_hint" : {
         "params" : {
             "buf" : { "suppress_for_call" : True, },
@@ -50,6 +45,7 @@ recipe = {
     "idp_event" : {"ignore" : True},
     "refresh_choosers" : {"ignore" : True},
     "load_dbg_dbginfo" : {"ignore" : True},
+    "broadcast" : {"ignore" : True},
 
     "populating_widget_popup" : {
         "params" : {
@@ -78,5 +74,27 @@ recipe = {
             "retexpr" : "Py_RETURN_NONE",
             "convertor" : "UI_Hooks::handle_create_desktop_widget_output",
          }
+    },
+    "get_widget_config" : {
+        "params" : {
+            "cfg" : {
+                "ignore" : True,
+            },
+        },
+        "return" : {
+            "type" : "PyObject *",
+            "retexpr" : "Py_RETURN_NONE",
+            "convertor" : "UI_Hooks::handle_widget_cfg_output",
+            "convertor_pass_args" : True,
+        },
+    },
+    "set_widget_config" : {
+        "params" : {
+            "cfg" : {
+                "type" : "jobj_wrapper_t",
+                "convertor" : "UI_Hooks::wrap_widget_cfg",
+                "convertor_pass_args" : True,
+            },
+        },
     },
 }

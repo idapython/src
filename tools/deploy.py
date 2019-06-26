@@ -184,12 +184,13 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
 %%init %%{
 {
   module_callbacks_t module_lfc;
-  module_lfc.closebase = ida_%s_closebase;
+  module_lfc.init = ida_%s_init;
   module_lfc.term = ida_%s_term;
+  module_lfc.closebase = ida_%s_closebase;
   register_module_lifecycle_callbacks(module_lfc);
 }
 %%}
-""" % (module, module))
+""" % (module, module, module))
 
 deploy(
     args.module,

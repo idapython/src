@@ -10,6 +10,7 @@ global:
   PyW_IsSequenceType;
   PyW_ObjectToString;
   PyW_PyListToEaVec;
+  PyW_PyListToEa64Vec;
   PyW_PyListToSizeVec;
   PyW_PyListToStrVec;
   PyW_ShowCbErr;
@@ -19,7 +20,6 @@ global:
   PyW_TryImportModule;
   PyW_register_compiled_form;
   PyW_unregister_compiled_form;
-  add_notify_when;
   create_linked_class_instance;
   disable_script_timeout;
   enable_extlang_python;
@@ -58,6 +58,7 @@ global:
   register_module_lifecycle_callbacks;
   set_script_timeout;
   set_interruptible_state;
+  setup_new_execution;
   til_deregister_python_array_type_data_t_instance;
   til_deregister_python_func_type_data_t_instance;
   til_deregister_python_ptr_type_data_t_instance;

@@ -133,19 +133,6 @@ static const char S_PY_IDA_IDAAPI_MODNAME[] = S_IDA_IDAAPI_MODNAME;
 #define PY_ICID_OPAQUE                           2
 
 //------------------------------------------------------------------------
-// Constants used with the notify_when()
-#define NW_OPENIDB          0x0001
-#define NW_OPENIDB_SLOT     0
-#define NW_CLOSEIDB         0x0002
-#define NW_CLOSEIDB_SLOT    1
-#define NW_INITIDA          0x0004
-#define NW_INITIDA_SLOT     2
-#define NW_TERMIDA          0x0008
-#define NW_TERMIDA_SLOT     3
-#define NW_REMOVE           0x0010 // Uninstall flag
-#define NW_EVENTSCNT        4 // Count of notify_when codes
-
-//------------------------------------------------------------------------
 // Constants used by the pyvar_to_idcvar and idcvar_to_pyvar functions
 #define CIP_FAILED      -1 // Conversion error
 #define CIP_IMMUTABLE    0 // Immutable object passed. Will not update the object but no error occurred
@@ -209,11 +196,6 @@ struct exc_report_t
 // Returns the linked object (void *) from a PyObject
 idaman void * ida_export pyobj_get_clink(PyObject *pyobj);
 
-//------------------------------------------------------------------------
-// All the exported functions from PyWraps are forward declared here
-inline insn_t *insn_t_get_clink(PyObject *self) { return (insn_t *)pyobj_get_clink(self); }
-inline op_t *op_t_get_clink(PyObject *self) { return (op_t *)pyobj_get_clink(self); }
-inline switch_info_t *switch_info_t_get_clink(PyObject *self) { return (switch_info_t *)pyobj_get_clink(self); }
 
 //-------------------------------------------------------------------------
 // The base for a reference. Will automatically increase the reference
@@ -340,12 +322,20 @@ struct ref_vec_t : public qvector<ref_t>
 {
   void to_pyobject_pointers(qvector<PyObject*> *out)
   {
-    size_t n = size();
-    out->resize(n);
-    for ( size_t i = 0; i < n; ++i )
+    size_t _n = size();
+    out->resize(_n);
+    for ( size_t i = 0; i < _n; ++i )
       out->at(i) = at(i).o;
   }
 };
+
+#ifdef _MSC_VER
+// warning C4190: 'PyW_TryImportModule' has C-linkage specified, but returns UDT 'ref_t' which is incompatible with C
+#pragma warning(disable : 4190)
+#elif defined(__MAC__)
+GCC_DIAG_OFF(return-type-c-linkage);
+#endif
+
 
 // Tries to import a module and swallows the exception if it fails and returns NULL
 // Return value: New reference.
@@ -416,7 +406,7 @@ idaman int ida_export idcvar_to_pyvar(
 idaman int ida_export pyvar_to_idcvar(
         const ref_t &py_var,
         idc_value_t *idc_var,
-        int *gvar_sn = NULL);
+        int *gvar_sn=NULL);
 
 //-------------------------------------------------------------------------
 // Walks a Python list or Sequence and calls the callback
@@ -437,6 +427,16 @@ idaman Py_ssize_t ida_export PyW_PyListToSizeVec(sizevec_t *out, PyObject *py_li
 idaman Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list);
 idaman Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list);
 
+#ifndef LUMINA_HPP // I'd rather put the def of ea64_t and ea64vec_t into pro.h...
+#ifdef __EA64__
+typedef ea_t ea64_t;
+#else
+typedef uint64 ea64_t;
+#endif
+typedef qvector<ea64_t> ea64vec_t;
+#endif // LUMINA_HPP
+idaman Py_ssize_t ida_export PyW_PyListToEa64Vec(ea64vec_t *out, PyObject *py_list);
+
 //-------------------------------------------------------------------------
 idaman bool ida_export PyWStringOrNone_Check(PyObject *tp);
 
@@ -449,41 +449,6 @@ idaman void ida_export PyW_register_compiled_form(PyObject *py_form);
 
 //-------------------------------------------------------------------------
 idaman void ida_export PyW_unregister_compiled_form(PyObject *py_form);
-
-//---------------------------------------------------------------------------
-// notify_when()
-class pywraps_notify_when_t
-{
-  ref_vec_t table[NW_EVENTSCNT];
-  qstring err;
-  bool in_notify;
-  struct notify_when_args_t
-  {
-    int when;
-    PyObject *py_callable;
-  };
-  typedef qvector<notify_when_args_t> notify_when_args_vec_t;
-  notify_when_args_vec_t delayed_notify_when_list;
-
-  static ssize_t idaapi idp_callback(void *ud, int event_id, va_list va);
-  static ssize_t idaapi idb_callback(void *ud, int event_id, va_list va);
-  bool unnotify_when(int when, PyObject *py_callable);
-  void register_callback(int slot, PyObject *py_callable);
-  void unregister_callback(int slot, PyObject *py_callable);
-
-public:
-  bool init();
-  bool deinit();
-  bool notify_when(int when, PyObject *py_callable);
-  bool notify(int slot, ...);
-  bool notify_va(int slot, va_list va);
-  pywraps_notify_when_t() : in_notify(false) {}
-};
-idaman bool ida_export add_notify_when(int when, PyObject *py_callable);
-
-// void hexrays_clear_python_cfuncptr_t_references(void);
-
-// void free_compiled_form_instances(void);
 
 // #define PYGDBG_ENABLED
 #ifdef PYGDBG_ENABLED
@@ -824,17 +789,159 @@ struct uninterruptible_op_t
   ~uninterruptible_op_t() { set_interruptible_state(true); }
 };
 
-// //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+struct new_execution_t;
+idaman void ida_export setup_new_execution(new_execution_t *instance, bool setup);
+struct new_execution_t
+{
+  bool created;
+  new_execution_t() { setup_new_execution(this, true); }
+  ~new_execution_t() { setup_new_execution(this, false); }
+};
+
+//-------------------------------------------------------------------------
 idaman bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
-        void *user_data);
+        void *user_data,
+        bool is_hooks_base);
 idaman bool ida_export idapython_unhook_from_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
         void *user_data);
 #define hook_to_notification_point USE_IDAPYTHON_HOOK_TO_NOTIFICATION_POINT
 #define unhook_from_notification_point USE_IDAPYTHON_UNHOOK_FROM_NOTIFICATION_POINT
+
+//-------------------------------------------------------------------------
+#define HBF_CALL_WITH_NEW_EXEC  0x00000001
+#define HBF_VOLATILE_METHOD_SET 0x00000002
+struct hooks_base_t
+{
+  const char *class_name;
+  qstring identifier;
+  hook_cb_t *cb;
+  hook_type_t type;
+  uint32 flags;
+  typedef std::map<int,uchar> has_nondef_map_t;
+  has_nondef_map_t has_nondef;
+
+  bool hook() { return cb != NULL ? idapython_hook_to_notification_point(type, cb, this, true) : false; }
+  bool unhook() { return cb != NULL ? idapython_unhook_from_notification_point(type, cb, this) : false; }
+
+  bool call_requires_new_execution() const { return (flags & HBF_CALL_WITH_NEW_EXEC) != 0; }
+  bool has_fixed_method_set() const { return (flags & HBF_VOLATILE_METHOD_SET) == 0; }
+
+  hooks_base_t(
+          const char *_class_name,
+          hook_cb_t *_cb,
+          hook_type_t _type,
+          uint32 _flags=0)
+    : class_name(_class_name),
+      cb(_cb),
+      type(_type),
+      flags(_flags) {}
+
+  virtual ~hooks_base_t() { unhook(); }
+
+  struct ida_local event_code_to_method_name_t
+  {
+    int code;
+    const char *method_name;
+  };
+
+protected:
+  void init_director_hooks(
+          PyObject *self,
+          const event_code_to_method_name_t *mappings,
+          size_t count)
+  {
+    // identifier
+    {
+      ref_t py_id = newref_t(PyObject_GetAttrString(self, "id"));
+      if ( py_id == NULL || !PyString_Check(py_id.o) )
+        py_id = newref_t(PyObject_Repr(self));
+      if ( py_id != NULL && PyString_Check(py_id.o) )
+        identifier = PyString_AsString(py_id.o);
+    }
+
+    // method set
+    QASSERT(30588, has_fixed_method_set());
+    qstring buf(class_name);
+    QASSERT(30589, !buf.empty());
+    char *p = qstrchr(buf.begin(), '.');
+    QASSERT(30590, p != NULL);
+    *p++ = '\0';
+    newref_t py_mod(PyImport_ImportModule(buf.c_str()));
+#ifdef TESTABLE_BUILD
+    QASSERT(30591, py_mod != NULL);
+#endif
+    if ( py_mod != NULL )
+    {
+      newref_t py_def_class(PyObject_GetAttrString(py_mod.o, p));
+      newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
+#ifdef TESTABLE_BUILD
+      QASSERT(30592, py_def_class != NULL && py_this_class != NULL);
+#endif
+      if ( py_def_class != NULL && py_this_class != NULL )
+      {
+        for ( size_t i = 0; i < count; ++i )
+        {
+          const event_code_to_method_name_t &cur = mappings[i];
+          uchar _has_nondef = 0;
+          newref_t py_def_meth(PyObject_GetAttrString(py_def_class.o, cur.method_name));
+          newref_t py_this_meth(PyObject_GetAttrString(py_this_class.o, cur.method_name));
+#ifdef TESTABLE_BUILD
+          QASSERT(30593, py_def_meth != NULL && py_this_meth != NULL);
+#endif
+          if ( py_def_meth != NULL && py_this_meth != NULL )
+          {
+#ifdef BC695
+            if ( PyObject_HasAttrString(py_def_meth.o, "bc695_trampoline") > 0 )
+              _has_nondef = 2;
+            else
+#endif
+              _has_nondef = PyObject_Compare(py_this_meth.o, py_def_meth.o) != 0 ? 1 : 0;
+          }
+          has_nondef[cur.code] = _has_nondef;
+        }
+      }
+    }
+  }
+
+  qstring dump_state(
+          const event_code_to_method_name_t *mappings,
+          size_t mappings_size) const
+  {
+    qstring buf;
+#ifdef TESTABLE_BUILD
+    buf.sprnt("%s(this=%p) \"%s\" {type=%d, cb=%p, flags=%x}",
+              class_name, this, identifier.c_str(), int(type), cb, flags);
+    if ( has_fixed_method_set() )
+    {
+      for ( size_t i = 0; i < mappings_size; ++i )
+      {
+        const hooks_base_t::event_code_to_method_name_t &m = mappings[i];
+        has_nondef_map_t::const_iterator it = has_nondef.find(m.code);
+        if ( it != has_nondef.end() && it->second > 0 )
+          buf.cat_sprnt("\n\treimplements \"%s\"%s",
+                        m.method_name,
+                        it->second > 1 ? " (as 6.95 bw-compat)" : "");
+      }
+    }
+    else
+    {
+      buf.append(" is fully dynamic, and won't use 'has_nondef' lookup");
+      QASSERT(30594, has_nondef.empty());
+    }
+    if ( buf.last() != '\n' )
+      buf.append('\n');
+#else
+    qnotused(mappings);
+    qnotused(mappings_size);
+#endif
+    return buf;
+  }
+};
 
 //-------------------------------------------------------------------------
 idaman bool ida_export idapython_convert_cli_completions(
@@ -844,11 +951,19 @@ idaman bool ida_export idapython_convert_cli_completions(
         ref_t py_res);
 
 //-------------------------------------------------------------------------
+idaman void ida_export dump_hooks_state(
+        qstrvec_t *out,
+        const hooks_base_t &h,
+        const hooks_base_t::event_code_to_method_name_t *mappings,
+        size_t mappings_size);
+
+//-------------------------------------------------------------------------
 struct module_callbacks_t
 {
   module_callbacks_t() { memset(this, 0, sizeof(*this)); }
-  void (*closebase) (void);
+  void (*init) (void);
   void (*term) (void);
+  void (*closebase) (void);
 };
 DECLARE_TYPE_AS_MOVABLE(module_callbacks_t);
 idaman void register_module_lifecycle_callbacks(

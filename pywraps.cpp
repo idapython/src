@@ -187,6 +187,31 @@ Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list)
   return pyvar_walk_list(py_list, lambda_t::cvt, out);
 }
 
+//-------------------------------------------------------------------------
+Py_ssize_t ida_export PyW_PyListToEa64Vec(ea64vec_t *out, PyObject *py_list)
+{
+  out->clear();
+  struct ida_local lambda_t
+  {
+    static int idaapi cvt(const ref_t &py_item, Py_ssize_t /*i*/, void *ud)
+    {
+      ea64vec_t &ea64vec = *(ea64vec_t *) ud;
+      ea64_t v = 0;
+      {
+        if ( PyInt_Check(py_item.o) )
+          v = PyInt_AsUnsignedLongMask(py_item.o);
+        else if ( PyLong_Check(py_item.o) )
+          v = uint64(PyLong_AsUnsignedLongLong(py_item.o));
+        else
+          return CIP_FAILED;
+      }
+      ea64vec.push_back(v);
+      return CIP_OK;
+    }
+  };
+  return pyvar_walk_list(py_list, lambda_t::cvt, out);
+}
+
 //---------------------------------------------------------------------------
 Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list)
 {
@@ -369,12 +394,24 @@ static const ext_idcfunc_t opaque_dtor_desc =
 //-------------------------------------------------------------------------
 // Converts a Python variable into an IDC variable
 // This function returns on one CIP_XXXX
-int ida_export pyvar_to_idcvar(
+static int pyvar_to_idcvar1(
         const ref_t &py_var,
         idc_value_t *idc_var,
-        int *gvar_sn)
+        int *gvar_sn,
+        qvector<const PyObject *> &_visited);
+static int pyvar_to_idcvar2(
+        const ref_t &py_var,
+        idc_value_t *idc_var,
+        int *gvar_sn,
+        qvector<const PyObject *> &visited)
 {
-  PYW_GIL_CHECK_LOCKED_SCOPE();
+  if ( !visited.add_unique(py_var.o) )
+  {
+    qstring buf;
+    buf.sprnt("<PyObject-%p-snipped-to-prevent-infinite-recursion>", py_var.o);
+    idc_var->_set_string(buf.c_str());
+    return CIP_OK;
+  }
 
   // None / NULL
   if ( py_var == NULL || py_var.o == Py_None )
@@ -390,6 +427,12 @@ int ida_export pyvar_to_idcvar(
   else if ( PyString_Check(py_var.o) )
   {
     idc_var->_set_string(PyString_AsString(py_var.o), PyString_Size(py_var.o));
+  }
+  // Unicode
+  else if ( PyUnicode_Check(py_var.o) )
+  {
+    newref_t utf8(PyUnicode_AsEncodedString(py_var.o, ENC_UTF8, "strict"));
+    return pyvar_to_idcvar1(utf8, idc_var, gvar_sn, visited);
   }
   // Boolean
   else if ( PyBool_Check(py_var.o) )
@@ -432,7 +475,7 @@ int ida_export pyvar_to_idcvar(
 
       // Convert the item into an IDC variable
       idc_value_t v;
-      ok = pyvar_to_idcvar(py_item, &v, gvar_sn) >= CIP_OK;
+      ok = pyvar_to_idcvar1(py_item, &v, gvar_sn, visited) >= CIP_OK;
       if ( ok )
       {
         // Form the attribute name
@@ -475,7 +518,7 @@ int ida_export pyvar_to_idcvar(
 
       // Convert the attribute into an IDC value
       idc_value_t v;
-      ok = pyvar_to_idcvar(val, &v, gvar_sn) >= CIP_OK;
+      ok = pyvar_to_idcvar1(val, &v, gvar_sn, visited) >= CIP_OK;
       if ( ok )
       {
         // Store the attribute
@@ -534,7 +577,7 @@ int ida_export pyvar_to_idcvar(
           qsnprintf(buf, sizeof(buf), S_PY_IDC_GLOBAL_VAR_FMT, *gvar_sn);
           idc_value_t *gvar = add_idc_gvar(buf);
           // Convert the python value into the IDC global variable
-          bool ok = pyvar_to_idcvar(attr, gvar, gvar_sn) >= CIP_OK;
+          bool ok = pyvar_to_idcvar1(attr, gvar, gvar_sn, visited) >= CIP_OK;
           if ( ok )
           {
             (*gvar_sn)++;
@@ -555,46 +598,71 @@ int ida_export pyvar_to_idcvar(
       //
       default:
         // A normal object?
-        newref_t py_dir(PyObject_Dir(py_var.o));
-        Py_ssize_t size = PyList_Size(py_dir.o);
-        if ( py_dir == NULL || !PyList_Check(py_dir.o) || size == 0 )
-          return CIP_FAILED;
-        // Create the IDC object
-        idcv_object(idc_var);
-        for ( Py_ssize_t i=0; i < size; i++ )
         {
-          borref_t item(PyList_GetItem(py_dir.o, i));
-          const char *field_name = PyString_AsString(item.o);
-          if ( field_name == NULL )
-            continue;
-
-          size_t len = strlen(field_name);
-
-          // Skip private attributes
-          if ( (len > 2 )
-            && (strncmp(field_name, "__", 2) == 0 )
-            && (strncmp(field_name+len-2, "__", 2) == 0) )
-          {
-            continue;
-          }
-
-          idc_value_t v;
-          // Get the non-private attribute from the object
-          newref_t attr(PyObject_GetAttrString(py_var.o, field_name));
-          if ( attr == NULL
-            // Convert the attribute into an IDC value
-            || pyvar_to_idcvar(attr, &v, gvar_sn) < CIP_OK )
-          {
+          newref_t py_dir(PyObject_Dir(py_var.o));
+          Py_ssize_t size = PyList_Size(py_dir.o);
+          if ( py_dir == NULL || !PyList_Check(py_dir.o) || size == 0 )
             return CIP_FAILED;
-          }
+          // Create the IDC object
+          idcv_object(idc_var);
+          for ( Py_ssize_t i=0; i < size; i++ )
+          {
+            borref_t item(PyList_GetItem(py_dir.o, i));
+            const char *field_name = PyString_AsString(item.o);
+            if ( field_name == NULL )
+              continue;
 
-          // Store the attribute
-          set_idcv_attr(idc_var, field_name, v);
+            size_t len = strlen(field_name);
+
+            // Skip private attributes
+            if ( (len > 2 )
+              && (strncmp(field_name, "__", 2) == 0 )
+              && (strncmp(field_name+len-2, "__", 2) == 0) )
+            {
+              continue;
+            }
+
+            idc_value_t v;
+            newref_t attr(PyObject_GetAttrString(py_var.o, field_name));
+            if ( attr == NULL )
+              return CIP_FAILED;
+            else if ( pyvar_to_idcvar1(attr, &v, gvar_sn, visited) < CIP_OK )
+              return CIP_FAILED;
+
+            // Store the attribute
+            set_idcv_attr(idc_var, field_name, v);
+          }
         }
         break;
     }
   }
   return CIP_OK;
+}
+
+//-------------------------------------------------------------------------
+// Converts a Python variable into an IDC variable
+// This function returns on one CIP_XXXX
+static int pyvar_to_idcvar1(
+        const ref_t &py_var,
+        idc_value_t *idc_var,
+        int *gvar_sn,
+        qvector<const PyObject *> &_visited)
+{
+  qvector<const PyObject *> visited = _visited;
+  return pyvar_to_idcvar2(py_var, idc_var, gvar_sn, visited);
+}
+
+//-------------------------------------------------------------------------
+// Converts a Python variable into an IDC variable
+// This function returns on one CIP_XXXX
+int ida_export pyvar_to_idcvar(
+        const ref_t &py_var,
+        idc_value_t *idc_var,
+        int *gvar_sn)
+{
+  PYW_GIL_CHECK_LOCKED_SCOPE();
+  qvector<const PyObject *> visited;
+  return pyvar_to_idcvar1(py_var, idc_var, gvar_sn, visited);
 }
 
 //-------------------------------------------------------------------------
@@ -1112,21 +1180,14 @@ ref_t ida_export PyW_TryImportModule(const char *name)
 // If the number does not fit then VT_INT64 will be used
 bool ida_export PyW_GetNumberAsIDC(PyObject *py_var, idc_value_t *idc_var)
 {
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
+  uint64 num;
+  bool is_64;
+  if ( !PyW_GetNumber(py_var, &num, &is_64) )
     return false;
-
-  PY_LONG_LONG pyll = PyLong_AsLongLong(py_var);
-  if ( PyErr_Occurred() )
-    return false;
-
-  bool as_i64 = pyll >= 0
-              ? pyll > (PY_LONG_LONG) SVAL_MAX    //-V547 'pyll > (__int64) SVAL_MAX' is always false
-              : pyll < (PY_LONG_LONG) SVAL_MIN;   //-V547 is always false
-  if ( as_i64 )                                   //-V547 'as_i64' is always false
-    idc_var->set_int64(int64(pyll));
+  if ( !is_64 || int64(num) >= SVAL_MIN && int64(num) <= SVAL_MAX ) //-V560 is always true
+    idc_var->set_long(sval_t(num));
   else
-    idc_var->set_long(sval_t(pyll));
+    idc_var->set_int64(int64(num));
   return true;
 }
 
@@ -1153,11 +1214,13 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
       break;
     }
 
+    constexpr bool is_long_64 = sizeof(long) > 4;
+
     // Can we convert to C long?
     long l = PyInt_AsLong(py_var);
     if ( !PyErr_Occurred() )
     {
-      SETNUM(uint64(l), false);
+      SETNUM(uint64(l), is_long_64);
       break;
     }
 
@@ -1168,7 +1231,7 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
     unsigned long ul = PyLong_AsUnsignedLong(py_var);
     if ( !PyErr_Occurred() )    //-V547 '!PyErr_Occurred()' is always false
     {
-      SETNUM(uint64(ul), false);
+      SETNUM(uint64(ul), is_long_64);
       break;
     }
     PyErr_Clear();
@@ -1325,19 +1388,6 @@ bool ida_export PyW_GetError(qstring *out, bool clear_err)
 }
 
 //-------------------------------------------------------------------------
-static bool PyW_GetError(char *buf, size_t bufsz, bool clear_err)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  qstring s;
-  if ( !PyW_GetError(&s, clear_err) )
-    return false;
-
-  qstrncpy(buf, s.c_str(), bufsz);
-  return true;
-}
-
-//-------------------------------------------------------------------------
 // A loud version of PyGetError() which gets the error and displays it
 // This method is used to display errors that occurred in a callback
 bool ida_export PyW_ShowCbErr(const char *cb_name)
@@ -1361,279 +1411,6 @@ void *ida_export pyobj_get_clink(PyObject *pyobj)
   ref_t attr(PyW_TryGetAttrString(pyobj, S_CLINK_NAME));
   void *t = attr != NULL && PyCObject_Check(attr.o) ? PyCObject_AsVoidPtr(attr.o) : NULL;
   return t;
-}
-
-//------------------------------------------------------------------------
-ssize_t idaapi pywraps_notify_when_t::idp_callback(void *ud, int event_id, va_list va)
-{
-  pywraps_notify_when_t *_this = (pywraps_notify_when_t *)ud;
-  switch ( event_id )
-  {
-    case processor_t::ev_newfile:
-    case processor_t::ev_oldfile:
-      {
-        // This hook gets called from the kernel. Ensure we hold the GIL.
-        // Note that PYW_GIL_GET appears in each case of the switch, which is to
-        // ensure that the GIL is retrieved ONLY when we need it. If PYW_GIL_GET
-        // appears outside the switch, it will be executed each time this callback
-        // is called, which results in a huge slowdown (at least on mac).
-        PYW_GIL_GET;
-        int old = event_id == processor_t::ev_oldfile ? 1 : 0;
-        char *dbname = va_arg(va, char *);
-        _this->notify(NW_OPENIDB_SLOT, old);
-      }
-      break;
-  }
-  // event not processed, let other plugins or the processor module handle it
-  return 0;
-}
-
-//------------------------------------------------------------------------
-ssize_t idaapi pywraps_notify_when_t::idb_callback(void *ud, int event_id, va_list va)
-{
-  pywraps_notify_when_t *_this = (pywraps_notify_when_t *)ud;
-  switch ( event_id )
-  {
-    case idb_event::closebase:
-      {
-        PYW_GIL_GET;
-        _this->notify(NW_CLOSEIDB_SLOT);
-      }
-      break;
-  }
-  // event not processed, let other plugins or the processor module handle it
-  return 0;
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::unnotify_when(int when, PyObject *py_callable)
-{
-  int cnt = 0;
-  for ( int slot=0; slot < NW_EVENTSCNT; slot++ )
-  {
-    // convert index to flag and see
-    if ( ((1 << slot) & when) != 0 )
-    {
-      unregister_callback(slot, py_callable);
-      ++cnt;
-    }
-  }
-  return cnt > 0;
-}
-
-//------------------------------------------------------------------------
-void pywraps_notify_when_t::register_callback(int slot, PyObject *py_callable)
-{
-  borref_t callable_ref(py_callable);
-  ref_vec_t &tbl = table[slot];
-  ref_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, callable_ref);
-
-  // Already added
-  if ( it != it_end )
-    return;
-
-  // Insert the element
-  tbl.push_back(callable_ref);
-}
-
-//------------------------------------------------------------------------
-void pywraps_notify_when_t::unregister_callback(int slot, PyObject *py_callable)
-{
-  borref_t callable_ref(py_callable);
-  ref_vec_t &tbl = table[slot];
-  ref_vec_t::iterator it_end = tbl.end(), it = std::find(tbl.begin(), it_end, callable_ref);
-
-  // Not found?
-  if ( it == it_end )
-    return;
-
-  // Delete the element
-  tbl.erase(it);
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::init()
-{
-  return hook_to_notification_point(HT_IDP, idp_callback, this);
-  return hook_to_notification_point(HT_IDB, idb_callback, this);
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::deinit()
-{
-  // Uninstall all objects
-  ref_vec_t::iterator it, it_end;
-  for ( int slot=0; slot < NW_EVENTSCNT; slot++ )
-  {
-    for ( it = table[slot].begin(), it_end = table[slot].end(); it != it_end; ++it )
-      unregister_callback(slot, it->o);
-  }
-  // ...and remove the notification
-  bool ok = unhook_from_notification_point(HT_IDP, idp_callback, this);
-  return unhook_from_notification_point(HT_IDB, idb_callback, this) && ok;
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::notify_when(int when, PyObject *py_callable)
-{
-  // While in notify() do not allow insertion or deletion to happen on the spot
-  // Instead we will queue them so that notify() will carry the action when it finishes
-  // dispatching the notification handlers
-  if ( in_notify )
-  {
-    notify_when_args_t &args = delayed_notify_when_list.push_back();
-    args.when = when;
-    args.py_callable = py_callable;
-    return true;
-  }
-  // Uninstalling the notification?
-  if ( (when & NW_REMOVE) != 0 )
-    return unnotify_when(when & ~NW_REMOVE, py_callable);
-
-  int cnt = 0;
-  for ( int slot=0; slot < NW_EVENTSCNT; slot++ )
-  {
-    // is this flag set?
-    if ( ((1 << slot) & when) != 0 )
-    {
-      register_callback(slot, py_callable);
-      ++cnt;
-    }
-  }
-  return cnt > 0;
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::notify(int slot, ...)
-{
-  va_list va;
-  va_start(va, slot);
-  bool ok = notify_va(slot, va);
-  va_end(va);
-  return ok;
-}
-
-//------------------------------------------------------------------------
-bool pywraps_notify_when_t::notify_va(int slot, va_list va)
-{
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  // Sanity bounds check!
-  if ( slot < 0 || slot >= NW_EVENTSCNT )
-    return false;
-
-  bool ok = true;
-  in_notify = true;
-  int old = slot == NW_OPENIDB_SLOT ? va_arg(va, int) : 0;
-
-  for ( ref_vec_t::iterator it = table[slot].begin(), it_end = table[slot].end();
-        it != it_end;
-        ++it )
-  {
-    // Form the notification code
-    newref_t py_code(PyInt_FromLong(1 << slot));
-    ref_t py_result;
-    switch ( slot )
-    {
-      case NW_CLOSEIDB_SLOT:
-      case NW_INITIDA_SLOT:
-      case NW_TERMIDA_SLOT:
-        {
-          py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, NULL));
-          break;
-        }
-      case NW_OPENIDB_SLOT:
-        {
-          newref_t py_old(PyInt_FromLong(old));
-          py_result = newref_t(PyObject_CallFunctionObjArgs(it->o, py_code.o, py_old.o, NULL));
-        }
-        break;
-    }
-    if ( PyW_GetError(&err) || py_result == NULL )
-    {
-      PyErr_Clear();
-      warning("notify_when(): Error occurred while notifying object.\n%s", err.c_str());
-      ok = false;
-    }
-  }
-  in_notify = false;
-
-  // Process any delayed notify_when() calls that
-  if ( !delayed_notify_when_list.empty() )
-  {
-    notify_when_args_vec_t::iterator it, it_end;
-    for ( it = delayed_notify_when_list.begin(), it_end=delayed_notify_when_list.end();
-          it != it_end;
-          ++it )
-    {
-      notify_when(it->when, it->py_callable);
-    }
-    delayed_notify_when_list.qclear();
-  }
-
-  return ok;
-}
-
-//-------------------------------------------------------------------------
-static pywraps_notify_when_t *g_nw = NULL;
-
-//-------------------------------------------------------------------------
-bool ida_export add_notify_when(int when, PyObject *py_callable)
-{
-  return g_nw != NULL && g_nw->notify_when(when, py_callable);
-}
-
-//------------------------------------------------------------------------
-// Initializes the notify_when mechanism
-// (Normally called by IDAPython plugin.init())
-static bool pywraps_nw_init()
-{
-  if ( g_nw != NULL )
-    return true;
-
-  g_nw = new pywraps_notify_when_t();
-  if ( g_nw->init() )
-    return true;
-
-  // Things went bad, undo!
-  delete g_nw;
-  g_nw = NULL;
-  return false;
-}
-
-//------------------------------------------------------------------------
-static bool pywraps_nw_notify(int slot, ...)
-{
-  if ( g_nw == NULL )
-    return false;
-
-  // Appears to be called from 'driver_notifywhen.cpp', which
-  // itself is called from possibly non-python code.
-  // I.e., we must acquire the GIL.
-  PYW_GIL_GET;
-  va_list va;
-  va_start(va, slot);
-  bool ok = g_nw->notify_va(slot, va);
-  va_end(va);
-
-  return ok;
-}
-
-//------------------------------------------------------------------------
-// Deinitializes the notify_when mechanism
-static bool pywraps_nw_term()
-{
-  if ( g_nw == NULL )
-    return true;
-
-  // If could not deinitialize then return w/o stopping nw
-  if ( !g_nw->deinit() )
-    return false;
-
-  // Cleanup
-  delete g_nw;
-  g_nw = NULL;
-  return true;
 }
 
 //-------------------------------------------------------------------------
@@ -2141,7 +1918,7 @@ ssize_t ida_export get_callable_arg_count(ref_t callable)
     if ( py_fun != NULL )
     {
       newref_t py_tuple(PyObject_CallFunctionObjArgs(py_fun.o, callable.o, NULL));
-      if ( PyTuple_Check(py_tuple.o) )
+      if ( py_tuple != NULL && PyTuple_Check(py_tuple.o) )
       {
         borref_t py_args(PyTuple_GetItem(py_tuple.o, 0));
         if ( py_args != NULL && PySequence_Check(py_args.o) )
@@ -2164,34 +1941,33 @@ void register_module_lifecycle_callbacks(
 //-------------------------------------------------------------------------
 //                                    hooks
 //-------------------------------------------------------------------------
-#ifdef TESTABLE_BUILD
 struct hook_data_t
 {
   hook_type_t type;
   hook_cb_t *cb;
   void *ud;
+  bool is_hooks_base;
 };
 DECLARE_TYPE_AS_MOVABLE(hook_data_t);
 typedef qvector<hook_data_t> hook_data_vec_t;
 static hook_data_vec_t hook_data_vec;
-#endif // TESTABLE_BUILD
 
 //-------------------------------------------------------------------------
 bool ida_export idapython_hook_to_notification_point(
         hook_type_t hook_type,
         hook_cb_t *cb,
-        void *user_data)
+        void *user_data,
+        bool is_hooks_base)
 {
   bool ok = hook_to_notification_point(hook_type, cb, user_data);
-#ifdef TESTABLE_BUILD
   if ( ok )
   {
     hook_data_t &hd = hook_data_vec.push_back();
     hd.type = hook_type;
     hd.cb = cb;
     hd.ud = user_data;
+    hd.is_hooks_base = is_hooks_base;
   }
-#endif // TESTABLE_BUILD
   return ok;
 }
 
@@ -2202,7 +1978,6 @@ bool ida_export idapython_unhook_from_notification_point(
         void *user_data)
 {
   bool ok = unhook_from_notification_point(hook_type, cb, user_data);
-#ifdef TESTABLE_BUILD
   if ( ok )
   {
     bool found = false;
@@ -2216,9 +1991,10 @@ bool ida_export idapython_unhook_from_notification_point(
         break;
       }
     }
+#ifdef TESTABLE_BUILD
     QASSERT(30510, found);
-  }
 #endif // TESTABLE_BUILD
+  }
   return ok;
 }
 

@@ -2,41 +2,21 @@
 #define __PYWRAPS_CUSTVIEWER__
 //<code(py_kernwin_custview)>
 //---------------------------------------------------------------------------
-// Base class for all custviewer place_t providers
-class custviewer_data_t
+class cvdata_simpleline_t
 {
-public:
-  virtual void    *get_ud() = 0;
-  virtual place_t *get_min() = 0;
-  virtual place_t *get_max() = 0;
-};
-
-//---------------------------------------------------------------------------
-class cvdata_simpleline_t: public custviewer_data_t
-{
-private:
   strvec_t lines;
   simpleline_place_t pl_min, pl_max;
+
 public:
+  void *get_ud() { return &lines; }
+  place_t *get_min() { return &pl_min; }
+  place_t *get_max() { return &pl_max; }
+  strvec_t &get_lines() { return lines; }
 
-  void *get_ud()
+  void clear()
   {
-    return &lines;
-  }
-
-  place_t *get_min()
-  {
-    return &pl_min;
-  }
-
-  place_t *get_max()
-  {
-    return &pl_max;
-  }
-
-  strvec_t &get_lines()
-  {
-    return lines;
+    lines.clear();
+    set_minmax();
   }
 
   void set_minmax(size_t start=0, size_t end=size_t(-1))
@@ -97,18 +77,9 @@ public:
     return true;
   }
 
-  const size_t to_lineno(place_t *pl) const
+  size_t to_lineno(place_t *pl) const
   {
     return ((simpleline_place_t *)pl)->n;
-  }
-
-  bool curline(place_t *pl, size_t *n)
-  {
-    if ( pl == NULL )
-      return false;
-
-    *n = to_lineno(pl);
-    return true;
   }
 
   simpleline_t *get_line(size_t nline)
@@ -121,7 +92,7 @@ public:
     return pl == NULL ? NULL : get_line(((simpleline_place_t *)pl)->n);
   }
 
-  const size_t count() const
+  size_t count() const
   {
     return lines.size();
   }
@@ -137,14 +108,18 @@ public:
 // FIXME: This should inherit py_view_base.hpp's py_customidamemo_t,
 // just like py_graph.hpp's py_graph_t does.
 // There should be a way to "merge" the two mechanisms; they are similar.
-class customviewer_t
+class py_simplecustview_t
 {
-protected:
-  qstring _title;
-  TWidget *_cv;
-  custviewer_data_t *_data;
-  int _features;
+  qstring title;
+  TWidget *widget;
   custom_viewer_handlers_t handlers;
+
+  cvdata_simpleline_t data;
+  PyObject *py_self;
+  PyObject *py_this;
+  PyObject *py_last_link;
+
+  int features;
 
   enum
   {
@@ -155,17 +130,6 @@ protected:
     HAVE_CLICK    = 0x0010,
     HAVE_CLOSE    = 0x0020
   };
-private:
-  struct cvw_popupctx_t
-  {
-    size_t menu_id;
-    customviewer_t *cv;
-    cvw_popupctx_t(): menu_id(0), cv(NULL) {}
-    cvw_popupctx_t(size_t mid, customviewer_t *v): menu_id(mid), cv(v) {}
-  };
-  typedef std::map<unsigned int, cvw_popupctx_t> cvw_popupmap_t;
-  static size_t _global_popup_id;
-  qstring _curline;
 
   static bool idaapi s_cv_keydown(
           TWidget * /*cv*/,
@@ -174,7 +138,7 @@ private:
           void *ud)
   {
     PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
+    py_simplecustview_t *_this = (py_simplecustview_t *)ud;
     return _this->on_keydown(vk_key, shift);
   }
 
@@ -182,7 +146,7 @@ private:
   static bool idaapi s_cv_click(TWidget * /*cv*/, int shift, void *ud)
   {
     PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
+    py_simplecustview_t *_this = (py_simplecustview_t *)ud;
     return _this->on_click(shift);
   }
 
@@ -190,7 +154,7 @@ private:
   static bool idaapi s_cv_dblclick(TWidget * /*cv*/, int shift, void *ud)
   {
     PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
+    py_simplecustview_t *_this = (py_simplecustview_t *)ud;
     return _this->on_dblclick(shift);
   }
 
@@ -198,7 +162,7 @@ private:
   static void idaapi s_cv_curpos(TWidget * /*cv*/, void *ud)
   {
     PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
+    py_simplecustview_t *_this = (py_simplecustview_t *)ud;
     _this->on_curpos_changed();
   }
 
@@ -207,261 +171,40 @@ private:
   {
     // This hook gets called from the kernel. Ensure we hold the GIL.
     PYW_GIL_GET;
-    customviewer_t *_this = (customviewer_t *)ud;
+    py_simplecustview_t *_this = (py_simplecustview_t *)ud;
     switch ( code )
     {
       case ui_get_custom_viewer_hint:
         {
+          if ( (_this->features & HAVE_HINT) == 0 )
+            return 0;
           qstring &hint = *va_arg(va, qstring *);
           TWidget *viewer = va_arg(va, TWidget *);
-          place_t *place = va_arg(va, place_t *);
-          int *important_lines = va_arg(va, int *);
-          if ( (_this->_features & HAVE_HINT) == 0
-            || place == NULL
-            || _this->_cv != viewer )
-          {
+          if ( _this->widget != viewer )
             return 0;
-          }
+          place_t *place = va_arg(va, place_t *);
+          if ( place == NULL )
+            return 0;
+          int *important_lines = va_arg(va, int *);
           return _this->on_hint(place, important_lines, hint) ? 1 : 0;
         }
 
       case ui_widget_invisible:
         {
           TWidget *widget = va_arg(va, TWidget *);
-          if ( _this->_cv != widget )
+          if ( _this->widget != widget )
             break;
         }
         // fallthrough...
       case ui_term:
         idapython_unhook_from_notification_point(HT_UI, s_ui_cb, _this);
         _this->on_close();
-        _this->on_post_close();
+        _this->init_vars();
         break;
     }
 
     return 0;
   }
-
-  void on_post_close()
-  {
-    init_vars();
-  }
-
-public:
-
-  inline TWidget *get_widget() { return _cv; }
-
-  //
-  // All the overridable callbacks
-  //
-
-  // OnClick
-  virtual bool on_click(int /*shift*/) { return false; }
-
-  // OnDblClick
-  virtual bool on_dblclick(int /*shift*/) { return false; }
-
-  // OnCurorPositionChanged
-  virtual void on_curpos_changed() {}
-
-  // OnHostFormClose
-  virtual void on_close() {}
-
-  // OnKeyDown
-  virtual bool on_keydown(int /*vk_key*/, int /*shift*/) { return false; }
-
-  // OnHint
-  virtual bool on_hint(place_t * /*place*/, int * /*important_lines*/, qstring &/*hint*/) { return false; }
-
-  // OnPopupMenuClick
-  virtual bool on_popup_menu(size_t menu_id) { return false; }
-
-  void init_vars()
-  {
-    _data = NULL;
-    _features = 0;
-    _curline.clear();
-    _cv = NULL;
-  }
-
-  customviewer_t()
-  {
-    init_vars();
-  }
-
-  ~customviewer_t()
-  {
-  }
-
-  //--------------------------------------------------------------------------
-  void close()
-  {
-    if ( _cv != NULL )
-      close_widget(_cv, WCLS_SAVE | WCLS_CLOSE_LATER);
-  }
-
-  //--------------------------------------------------------------------------
-  bool set_range(
-    const place_t *minplace = NULL,
-    const place_t *maxplace = NULL)
-  {
-    if ( _cv == NULL )
-      return false;
-
-    set_custom_viewer_range(
-      _cv,
-      minplace == NULL ? _data->get_min() : minplace,
-      maxplace == NULL ? _data->get_max() : maxplace);
-    return true;
-  }
-
-  place_t *get_place(
-    bool mouse = false,
-    int *x = 0,
-    int *y = 0)
-  {
-    return _cv == NULL ? NULL : get_custom_viewer_place(_cv, mouse, x, y);
-  }
-
-  //--------------------------------------------------------------------------
-  bool refresh()
-  {
-    if ( _cv == NULL )
-      return false;
-
-    refresh_custom_viewer(_cv);
-    return true;
-  }
-
-  //--------------------------------------------------------------------------
-  bool refresh_current()
-  {
-    return refresh();
-  }
-
-  //--------------------------------------------------------------------------
-  bool get_current_word(bool mouse, qstring &word)
-  {
-    // query the cursor position
-    int x, y;
-    if ( get_place(mouse, &x, &y) == NULL )
-      return false;
-
-    // query the line at the cursor
-    const char *line = get_current_line(mouse, true);
-    if ( line == NULL )
-      return false;
-
-    if ( x >= (int)strlen(line) )
-      return false;
-
-    // find the beginning of the word
-    const char *ptr = line + x;
-    while ( ptr > line && !qisspace(ptr[-1]) )
-      ptr--;
-
-    // find the end of the word
-    const char *begin = ptr;
-    ptr = line + x;
-    while ( !qisspace(*ptr) && *ptr != '\0' )
-      ptr++;
-
-    word.qclear();
-    word.append(begin, ptr-begin);
-    return true;
-  }
-
-  //--------------------------------------------------------------------------
-  const char *get_current_line(bool mouse, bool notags)
-  {
-    const char *r = get_custom_viewer_curline(_cv, mouse);
-    if ( r == NULL || !notags )
-      return r;
-
-    _curline = r;
-    tag_remove(&_curline);
-    return _curline.c_str();
-  }
-
-  //--------------------------------------------------------------------------
-  bool is_focused()
-  {
-    return get_current_viewer() == _cv;
-  }
-
-  //--------------------------------------------------------------------------
-  bool jumpto(place_t *place, int x, int y)
-  {
-    return ::jumpto(_cv, place, x, y);
-  }
-
-  bool create(const char *title, int features, custviewer_data_t *data)
-  {
-    // Already created? (in the instance)
-    if ( _cv != NULL )
-      return true;
-
-    // Already created? (in IDA windows list)
-    TWidget *found = find_widget(title);
-    if ( found != NULL )
-      return false;
-
-    _title    = title;
-    _data     = data;
-    _features = features;
-
-    //
-    // Prepare handlers
-    //
-    if ( (features & HAVE_KEYDOWN) != 0 )
-      handlers.keyboard = s_cv_keydown;
-
-    if ( (features & HAVE_CLICK) != 0 )
-      handlers.click = s_cv_click;
-
-    if ( (features & HAVE_DBLCLICK) != 0 )
-      handlers.dblclick = s_cv_dblclick;
-
-    if ( (features & HAVE_CURPOS) != 0 )
-      handlers.curpos = s_cv_curpos;
-
-    // Create the viewer
-    _cv = create_custom_viewer(
-      title,
-      _data->get_min(),
-      _data->get_max(),
-      _data->get_min(),
-      (const renderer_info_t *) NULL,
-      _data->get_ud(),
-      &handlers,
-      this);
-
-    // Hook to UI notifications (for TWidget close event)
-    idapython_hook_to_notification_point(HT_UI, s_ui_cb, this);
-
-    return true;
-  }
-
-  //--------------------------------------------------------------------------
-  bool show()
-  {
-    // Closed already?
-    if ( _cv == NULL )
-      return false;
-
-    display_widget(_cv, WOPN_TAB|WOPN_RESTORE);
-    return true;
-  }
-};
-
-size_t customviewer_t::_global_popup_id = 0;
-//---------------------------------------------------------------------------
-class py_simplecustview_t: public customviewer_t
-{
-private:
-  cvdata_simpleline_t data;
-  PyObject *py_self, *py_this, *py_last_link;
-  int features;
 
   //-------------------------------------------------------------------------
   static bool get_color(uint32 *out, ref_t obj)
@@ -511,7 +254,7 @@ private:
   //
   // Callbacks
   //
-  virtual bool on_click(int shift)
+  bool on_click(int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CLICK, "i", shift));
@@ -521,7 +264,7 @@ private:
 
   //--------------------------------------------------------------------------
   // OnDblClick
-  virtual bool on_dblclick(int shift)
+  bool on_dblclick(int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_DBL_CLICK, "i", shift));
@@ -531,7 +274,7 @@ private:
 
   //--------------------------------------------------------------------------
   // OnCurorPositionChanged
-  virtual void on_curpos_changed()
+  void on_curpos_changed()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(PyObject_CallMethod(py_self, (char *)S_ON_CURSOR_POS_CHANGED, NULL));
@@ -539,8 +282,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnHostFormClose
-  virtual void on_close()
+  void on_close()
   {
     if ( py_self != NULL )
     {
@@ -559,8 +301,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnKeyDown
-  virtual bool on_keydown(int vk_key, int shift)
+  bool on_keydown(int vk_key, int shift)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(
@@ -576,8 +317,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnHint
-  virtual bool on_hint(place_t *place, int *important_lines, qstring &hint)
+  bool on_hint(place_t *place, int *important_lines, qstring &hint)
   {
     size_t ln = data.to_lineno(place);
     PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -600,8 +340,7 @@ private:
   }
 
   //--------------------------------------------------------------------------
-  // OnPopupMenuClick
-  virtual bool on_popup_menu(size_t menu_id)
+  bool on_popup_menu(size_t menu_id)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     newref_t py_result(
@@ -625,12 +364,147 @@ public:
   py_simplecustview_t()
   {
     py_this = py_self = py_last_link = NULL;
+    init_vars();
   }
-  ~py_simplecustview_t()
+  ~py_simplecustview_t() {}
+
+  TWidget *get_widget() { return widget; }
+
+  void init_vars()
   {
+    data.clear();
+    features = 0;
+    widget = NULL;
   }
 
-  //--------------------------------------------------------------------------
+  void close()
+  {
+    if ( widget != NULL )
+      close_widget(widget, WCLS_SAVE | WCLS_CLOSE_LATER);
+  }
+
+  bool set_range(
+          const place_t *minplace = NULL,
+          const place_t *maxplace = NULL)
+  {
+    if ( widget == NULL )
+      return false;
+
+    set_custom_viewer_range(
+      widget,
+      minplace == NULL ? data.get_min() : minplace,
+      maxplace == NULL ? data.get_max() : maxplace);
+    return true;
+  }
+
+  place_t *get_place(
+    bool mouse = false,
+    int *x = 0,
+    int *y = 0)
+  {
+    return widget == NULL ? NULL : get_custom_viewer_place(widget, mouse, x, y);
+  }
+
+  bool refresh()
+  {
+    if ( widget == NULL )
+      return false;
+
+    refresh_custom_viewer(widget);
+    return true;
+  }
+
+  bool get_current_word(bool mouse, qstring &word)
+  {
+    // query the cursor position
+    int x, y;
+    if ( get_place(mouse, &x, &y) == NULL )
+      return false;
+
+    // query the line at the cursor
+    qstring qline;
+    get_current_line(&qline, mouse, true);
+    const char *line = qline.begin();
+    if ( line == NULL )
+      return false;
+
+    if ( x >= (int)qstrlen(line) )
+      return false;
+
+    // find the beginning of the word
+    const char *ptr = line + x;
+    while ( ptr > line && !qisspace(ptr[-1]) )
+      ptr--;
+
+    // find the end of the word
+    const char *begin = ptr;
+    ptr = line + x;
+    while ( !qisspace(*ptr) && *ptr != '\0' )
+      ptr++;
+
+    word.qclear();
+    word.append(begin, ptr-begin);
+    return true;
+  }
+
+  void get_current_line(qstring *out, bool mouse, bool notags)
+  {
+    *out = get_custom_viewer_curline(widget, mouse);
+    if ( notags )
+      tag_remove(out);
+  }
+
+  bool is_focused()
+  {
+    return get_current_viewer() == widget;
+  }
+
+  bool create(const char *_title, int _features)
+  {
+    // Already created? (in the instance)
+    if ( widget != NULL )
+      return true;
+
+    // Already created? (in IDA windows list)
+    TWidget *found = find_widget(_title);
+    if ( found != NULL )
+      return false;
+
+    title    = _title;
+    features = _features;
+
+    //
+    // Prepare handlers
+    //
+    if ( (features & HAVE_KEYDOWN) != 0 )
+      handlers.keyboard = s_cv_keydown;
+
+    if ( (features & HAVE_CLICK) != 0 )
+      handlers.click = s_cv_click;
+
+    if ( (features & HAVE_DBLCLICK) != 0 )
+      handlers.dblclick = s_cv_dblclick;
+
+    if ( (features & HAVE_CURPOS) != 0 )
+      handlers.curpos = s_cv_curpos;
+
+    // Create the viewer
+    widget = create_custom_viewer(
+            title.c_str(),
+            data.get_min(),
+            data.get_max(),
+            data.get_min(),
+            (const renderer_info_t *) NULL,
+            data.get_ud(),
+            &handlers,
+            this);
+
+    // Hook to UI notifications (for TWidget close event)
+    idapython_hook_to_notification_point(HT_UI, s_ui_cb, this, /*is_hooks_base=*/ false);
+
+    return true;
+  }
+
   // Edits an existing line
   bool edit_line(size_t nline, PyObject *py_sl)
   {
@@ -667,7 +541,6 @@ public:
     return true;
   }
 
-  //--------------------------------------------------------------------------
   bool del_line(size_t nline)
   {
     bool ok = data.del_line(nline);
@@ -676,7 +549,6 @@ public:
     return ok;
   }
 
-  //--------------------------------------------------------------------------
   // Gets the position and returns a tuple (lineno, x, y)
   PyObject *get_pos(bool mouse)
   {
@@ -689,7 +561,6 @@ public:
     return Py_BuildValue("(" PY_BV_SZ "ii)", bvsz_t(data.to_lineno(pl)), x, y);
   }
 
-  //--------------------------------------------------------------------------
   // Returns the line tuple
   PyObject *get_line(size_t nline)
   {
@@ -701,7 +572,7 @@ public:
   }
 
   // Returns the count of lines
-  const size_t count() const
+  size_t count() const
   {
     return data.count();
   }
@@ -713,23 +584,21 @@ public:
     refresh_range();
   }
 
-  //--------------------------------------------------------------------------
   bool jumpto(size_t ln, int x, int y)
   {
     simpleline_place_t l(ln);
-    return customviewer_t::jumpto(&l, x, y);
+    return ::jumpto(widget, &l, x, y);
   }
 
-  //--------------------------------------------------------------------------
   // Initializes and links the Python object to this class
   bool init(PyObject *py_link, const char *title)
   {
     // Already created?
-    if ( _cv != NULL )
+    if ( widget != NULL )
       return true;
 
     // Probe callbacks
-    features = 0;
+    int collected_features = 0;
     static struct
     {
       const char *cb_name;
@@ -746,12 +615,10 @@ public:
 
     PYW_GIL_CHECK_LOCKED_SCOPE();
     for ( size_t i=0; i < qnumber(cbtable); i++ )
-    {
       if ( PyObject_HasAttrString(py_link, cbtable[i].cb_name) )
-        features |= cbtable[i].feature;
-    }
+        collected_features |= cbtable[i].feature;
 
-    if ( !create(title, features, &data) )
+    if ( !create(title, collected_features) )
       return false;
 
     // Hold a reference to this object
@@ -765,26 +632,30 @@ public:
     return true;
   }
 
-  //--------------------------------------------------------------------------
   bool show()
   {
-    if ( _cv == NULL && py_last_link != NULL )
+    if ( widget == NULL && py_last_link != NULL )
     {
       // Re-create the view (with same previous parameters)
-      if ( !init(py_last_link, _title.c_str()) )
+      if ( !init(py_last_link, title.c_str()) )
         return false;
     }
-    return customviewer_t::show();
+
+    // Closed already?
+    if ( widget == NULL )
+      return false;
+
+    display_widget(widget, WOPN_DP_TAB|WOPN_RESTORE);
+    return true;
   }
 
-  //--------------------------------------------------------------------------
   bool get_selection(size_t *x1, size_t *y1, size_t *x2, size_t *y2)
   {
-    if ( _cv == NULL )
+    if ( widget == NULL )
       return false;
 
     twinpos_t p1, p2;
-    if ( !::read_selection(_cv, &p1, &p2) )
+    if ( !::read_selection(widget, &p1, &p2) )
       return false;
 
     if ( y1 != NULL )
@@ -820,7 +691,6 @@ public:
     return py_this;
   }
 };
-
 //</code(py_kernwin_custview)>
 
 //---------------------------------------------------------------------------
@@ -849,29 +719,7 @@ PyObject *pyscv_init(PyObject *py_link, const char *title)
 bool pyscv_refresh(PyObject *py_this)
 {
   DECL_THIS;
-  if ( _this == NULL )
-    return false;
-  return _this->refresh();
-}
-
-//--------------------------------------------------------------------------
-bool pyscv_delete(PyObject *py_this)
-{
-  DECL_THIS;
-  if ( _this == NULL )
-    return false;
-  _this->close();
-  delete _this;
-  return true;
-}
-
-//--------------------------------------------------------------------------
-bool pyscv_refresh_current(PyObject *py_this)
-{
-  DECL_THIS;
-  if ( _this == NULL )
-    return false;
-  return _this->refresh_current();
+  return _this != NULL && _this->refresh();
 }
 
 //--------------------------------------------------------------------------
@@ -879,10 +727,13 @@ PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
 {
   DECL_THIS;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  const char *line;
-  if ( _this == NULL || (line = _this->get_current_line(mouse, notags)) == NULL )
+  if ( _this == NULL )
     Py_RETURN_NONE;
-  return PyString_FromString(line);
+  qstring line;
+  _this->get_current_line(&line, mouse, notags);
+  if ( line.empty() )
+    Py_RETURN_NONE;
+  return PyString_FromStringAndSize(line.c_str(), line.length());
 }
 
 //--------------------------------------------------------------------------

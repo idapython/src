@@ -1,6 +1,6 @@
 
 # Hex-Rays Decompiler project
-# Copyright (c) 2007-2018 by Hex-Rays, support@hex-rays.com
+# Copyright (c) 2007-2019 by Hex-Rays, support@hex-rays.com
 # ALL RIGHTS RESERVED.
 #
 # Sample script for Hex-Rays Decompiler usage of udc_filter_t
@@ -10,6 +10,7 @@
 #
 # It is also added into the right-click menu as "vds8.py:Toggle UDC"
 
+import ida_idaapi
 import ida_hexrays
 import ida_kernwin
 import ida_allins
@@ -64,9 +65,6 @@ class toggle_udc_ah_t(ida_kernwin.action_handler_t):
 
 # --------------------------------------------------------------------------
 class my_hooks_t(ida_kernwin.UI_Hooks):
-    def __init__(self):
-        ida_kernwin.UI_Hooks.__init__(self)
-
     def populating_widget_popup(self, widget, popup):
         if ida_kernwin.get_widget_type(widget) == ida_kernwin.BWN_PSEUDOCODE:
             ida_kernwin.attach_action_to_popup(widget, popup, ACTION_NAME)

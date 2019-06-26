@@ -42,8 +42,15 @@ else
 endif
 ifndef __MKDEP__
   I = $(ST_SDK)/
-else
-  # HACK for mkdep to add dependencies for $(F)python$(O)
+endif
+
+# HACK HIJACK the $(LIBDIR) variable to point to our staging SDK
+ifneq ($(OUT_OF_TREE_BUILD),)
+  LIBDIR = $(IDA)lib/$(TARGET_PROCESSOR_NAME)_$(SYSNAME)_$(COMPILER_NAME)_$(ADRSIZE)$(STATSUF)
+endif
+
+# HACK for mkdep to add dependencies for $(F)python$(O)
+ifdef __MKDEP__
   OBJS += $(F)python$(O)
 endif
 
@@ -103,9 +110,14 @@ ifdef DO_IDAMAKE_SIMPLIFY
   QGEN_IDC_BC695 = @echo $(call qcolor,gen_idc_bc695) $< && #
   QINJECT_PLFM = @echo $(call qcolor,inject_plfm) $< && #
   QINJECT_PYDOC = @echo $(call qcolor,inject_pydoc) $$< && #
+  QINJECT_BASE_HOOKS_FLAGS = @echo $(call qcolor,inject_base_hooks_flags) $< && #
   QPATCH_CODEGEN = @echo $(call qcolor,patch_codegen) $$< && #
+  QPATCH_H_CODEGEN = @echo $(call qcolor,patch_h_codegen) $$< && #
+  QPATCH_PYTHON_CODEGEN = @echo $(call qcolor,patch_python_codegen) $$< && #
   QSWIG = @echo $(call qcolor,swig) $$< && #
-  QUPATE_SDK = @echo $(call qcolor,update_sdk) $< && #
+  QUPDATE_SDK = @echo $(call qcolor,update_sdk) $< && #
+  QSPLIT_HEXRAYS_TEMPLATES = @echo $(call qcolor,split_hexrays_templates) $< && #
+  QPYDOC_INJECTIONS = @echo $(call qcolor,check_injections) $@ && #
 endif
 
 #----------------------------------------------------------------------
@@ -127,6 +139,9 @@ DEPLOY_IDAUTILS_PY=$(DEPLOY_PYDIR)/idautils.py
 DEPLOY_IDC_BC695_PY=$(DEPLOY_PYDIR)/idc_bc695.py
 DEPLOY_IDAAPI_PY=$(DEPLOY_PYDIR)/idaapi.py
 DEPLOY_IDADEX_PY=$(DEPLOY_PYDIR)/idadex.py
+ifdef TESTABLE_BUILD
+  DEPLOY_LUMINA_MODEL_PY=$(DEPLOY_PYDIR)/lumina_model.py
+endif
 ifeq ($(OUT_OF_TREE_BUILD),)
   TEST_IDC=test_idc
   IDC_BC695_IDC_SOURCE?=$(DEPLOY_PYDIR)/../idc/idc.idc
@@ -184,6 +199,9 @@ MODULES_NAMES += idp
 MODULES_NAMES += kernwin
 MODULES_NAMES += lines
 MODULES_NAMES += loader
+ifdef TESTABLE_BUILD
+  MODULES_NAMES += lumina
+endif
 MODULES_NAMES += moves
 MODULES_NAMES += nalt
 MODULES_NAMES += name
@@ -251,7 +269,8 @@ pyfiles: $(DEPLOY_IDAUTILS_PY)  \
          $(DEPLOY_IDC_BC695_PY) \
          $(DEPLOY_INIT_PY)      \
          $(DEPLOY_IDAAPI_PY)    \
-         $(DEPLOY_IDADEX_PY)
+         $(DEPLOY_IDADEX_PY)    \
+         $(DEPLOY_LUMINA_MODEL_PY)
 
 GENHOOKS=tools/genhooks/
 
@@ -271,6 +290,9 @@ $(DEPLOY_IDAAPI_PY): python/idaapi.py tools/genidaapi.py $(IDAPYTHON_MODULES)
 	$(QGENIDAAPI)$(PYTHON) tools/genidaapi.py -i $< -o $@ -m $(subst $(space),$(comma),$(MODULES_NAMES))
 
 $(DEPLOY_IDADEX_PY): python/idadex.py
+	$(CP) $? $@
+
+$(DEPLOY_LUMINA_MODEL_PY): python/lumina_model.py
 	$(CP) $? $@
 
 $(DEPLOY_PYDIR)/lib/%: precompiled/lib/%
@@ -306,12 +328,34 @@ $(foreach d,$(sort $(DIRLIST)),$(if $(wildcard $(d)),,$(shell mkdir -p $(d))))
 
 #----------------------------------------------------------------------
 # obj/.../idasdk/*.h[pp]
+# NOTE: Because we have the following sequence in hexrays.hpp:
+#  - definition of template "template <class T> struct ivl_tpl"
+#  - instantiation of template into "typedef ivl_tpl<uval_t> uval_ivl_t;"
+#  - subclassing of "uval_ivl_t": "struct ivl_t : public uval_ivl_t",
+# we are in trouble in our hexrays.i file, because by the time SWiG
+# processes "struct ivl_t", it won't have properly instantiated the
+# template, leading to the IDAPython proxy class "ivl_t" not subclassing
+# "uval_ivl_t". Therefore, we have to split the hexrays.hpp header file
+# into two: one that defines the template, and one that instantiates it.
+# This way, we can '%import "hexrays_templates.hpp"', then do the SWiG
+# template incantation, and finally '%include "hexrays_notemplates.hpp"'
+# to actually generate wrappers.
 ifeq ($(OUT_OF_TREE_BUILD),)
 $(ST_SDK)/%.h: $(IDA_INCLUDE)/%.h
-	$(QUPATE_SDK)$(PYTHON) ../../bin/update_sdk.py $(FILTER_SDK_FLAGS) -filter-file -input $^ -output $@
+	$(QUPDATE_SDK) perl ../../etc/sdk/filter_src.pl $^ $@
 $(ST_SDK)/%.hpp: $(IDA_INCLUDE)/%.hpp
-	$(QUPATE_SDK)$(PYTHON) ../../bin/update_sdk.py $(FILTER_SDK_FLAGS) -filter-file -input $^ -output $@
+	$(QUPDATE_SDK) perl ../../etc/sdk/filter_src.pl $^ $@
+HEXRAYS_HPP_SPLIT_DIR:=$(ST_SDK)
+else
+HEXRAYS_HPP_SPLIT_DIR:=$(F)
 endif
+
+$(HEXRAYS_HPP_SPLIT_DIR)/hexrays_notemplates.hpp: $(ST_SDK)/hexrays.hpp tools/split_hexrays_templates.py
+	$(QSPLIT_HEXRAYS_TEMPLATES)$(PYTHON) tools/split_hexrays_templates.py \
+	--input $< \
+	--out-templates $(HEXRAYS_HPP_SPLIT_DIR)/hexrays_templates.hpp \
+	--out-body=$(HEXRAYS_HPP_SPLIT_DIR)/hexrays_notemplates.hpp
+SWIGFLAGS += -I$(HEXRAYS_HPP_SPLIT_DIR)
 
 #----------------------------------------------------------------------
 # obj/.../pywraps/*
@@ -329,6 +373,7 @@ $(ST_PYW)/py_idp.hpp: pywraps/py_idp.hpp \
         $(GENHOOKS)recipe_idphooks.py \
         $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+                -c IDP_Hooks \
                 -x $(ST_PARSED_HEADERS)/structprocessor__t.xml -e event_t \
                 -r int -n 0 -m hookgenIDP -q "processor_t::" \
                 -R $(GENHOOKS)recipe_idphooks.py
@@ -337,15 +382,17 @@ $(ST_PYW)/py_idp_idbhooks.hpp: pywraps/py_idp_idbhooks.hpp \
         $(GENHOOKS)recipe_idbhooks.py \
         $(GENHOOKS)genhooks.py $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+                -c IDB_Hooks \
                 -x $(ST_PARSED_HEADERS)/namespaceidb__event.xml -e event_code_t \
-                -r int -n 0 -m hookgenIDB -q "idb_event::" \
+                -r void -n 0 -m hookgenIDB -q "idb_event::" \
                 -R $(GENHOOKS)recipe_idbhooks.py
 $(ST_PYW)/py_dbg.hpp: pywraps/py_dbg.hpp \
         $(I)dbg.hpp \
         $(GENHOOKS)recipe_dbghooks.py \
         $(GENHOOKS)genhooks.py $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
-                -x $(ST_PARSED_HEADERS)/dbg_8hpp.xml -e dbg_notification_t \
+                -c DBG_Hooks \
+                -x $(ST_PARSED_HEADERS)/dbg_8hpp.xml -q "dbg_notification_t::" -e dbg_notification_t \
                 -r void -n 0 -m hookgenDBG \
                 -R $(GENHOOKS)recipe_dbghooks.py
 $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
@@ -353,7 +400,9 @@ $(ST_PYW)/py_kernwin.hpp: pywraps/py_kernwin.hpp \
         $(GENHOOKS)recipe_uihooks.py \
         $(GENHOOKS)genhooks.py $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+                -c UI_Hooks \
                 -x $(ST_PARSED_HEADERS)/kernwin_8hpp.xml -e ui_notification_t \
+	        -q "ui_notification_t::" \
                 -r void -n 0 -m hookgenUI \
                 -R $(GENHOOKS)recipe_uihooks.py \
                 -d "ui_dbg_,ui_obsolete" -D "ui:" -s "ui_"
@@ -362,15 +411,19 @@ $(ST_PYW)/py_kernwin_viewhooks.hpp: pywraps/py_kernwin_viewhooks.hpp \
         $(GENHOOKS)recipe_viewhooks.py \
         $(GENHOOKS)genhooks.py $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+                -c View_Hooks \
                 -x $(ST_PARSED_HEADERS)/kernwin_8hpp.xml -e view_notification_t \
+                -q "view_notification_t::" \
                 -r void -n 0 -m hookgenVIEW \
                 -R $(GENHOOKS)recipe_viewhooks.py
 $(ST_PYW)/py_hexrays_hooks.hpp: pywraps/py_hexrays_hooks.hpp \
-        $(I)hexrays.hpp \
+        $(HEXRAYS_HPP_SPLIT_DIR)/hexrays_notemplates.hpp \
         $(GENHOOKS)recipe_hexrays.py \
         $(GENHOOKS)genhooks.py $(PARSED_HEADERS_MARKER) $(MAKEFILE_DEP) | $(SDK_SOURCES)
 	$(QGENHOOKS)$(PYTHON) $(GENHOOKS)genhooks.py -i $< -o $@ \
+                -c Hexrays_Hooks \
                 -x $(ST_PARSED_HEADERS)/hexrays_8hpp.xml -e hexrays_event_t \
+                -q "hexrays_event_t::" \
                 -r int -n 0 -m hookgenHEXRAYS \
                 -R $(GENHOOKS)recipe_hexrays.py \
                 -s "hxe_,lxe_"
@@ -382,8 +435,8 @@ CC_DEFS += $(BC695_CC_DEF)
 CC_DEFS += $(DEF_TYPE_TABLE)
 CC_DEFS += $(WITH_HEXRAYS_DEF)
 CC_DEFS += USE_STANDARD_FILE_FUNCTIONS
-CC_DEFS += VER_MAJOR="1"
-CC_DEFS += VER_MINOR="7"
+CC_DEFS += VER_MAJOR="7"
+CC_DEFS += VER_MINOR="3"
 CC_DEFS += VER_PATCH="0"
 CC_DEFS += __EXPR_SRC
 CC_INCP += $(F)
@@ -391,8 +444,23 @@ CC_INCP += $(IDA_INCLUDE)
 CC_INCP += $(ST_SWIG)
 CC_INCP += .
 
-# suppress warnings
-WARNS = $(NOWARNS)
+ifdef __UNIX__
+  # suppress some warnings
+  # see https://github.com/swig/swig/pull/801
+  # FIXME: remove these once swig is fixed
+  CC_WNO += -Wno-shadow
+  CC_WNO += -Wno-unused-parameter
+  # FIXME: these should be fixed and removed
+  CC_WNO += -Wno-attributes
+  CC_WNO += -Wno-delete-non-virtual-dtor
+  CC_WNO += -Wno-deprecated-declarations
+  CC_WNO += -Wno-format-nonliteral
+  CC_WNO += -Wno-write-strings
+  ifdef __MAC__
+    # additional switches for clang
+    CC_WNO += -Wno-deprecated-register
+  endif
+endif
 
 # disable -pthread in CFLAGS
 PTHR_SWITCH =
@@ -403,7 +471,6 @@ NO_OBSOLETE_FUNCS =
 #----------------------------------------------------------------------
 ifdef TESTABLE_BUILD
   SWIGFLAGS+=-DTESTABLE_BUILD
-  FILTER_SDK_FLAGS+=-testable-build
 endif
 
 ST_SWIG_HEADER = $(ST_SWIG)/header.i
@@ -416,11 +483,16 @@ endif
 
 find-pywraps-deps = $(wildcard pywraps/py_$(subst .i,,$(notdir $(1)))*.hpp) $(wildcard pywraps/py_$(subst .i,,$(notdir $(1)))*.py)
 find-pydoc-patches-deps = $(wildcard tools/inject_pydoc/$(1).py)
-
+find-patch-codegen-deps = $(wildcard tools/patch_codegen/*$(1)*.py)
 
 ADDITIONAL_PYWRAP_DEP_idp=$(ST_PYW)/py_idp.py
 $(ST_PYW)/py_idp.py: pywraps/py_idp.py.in tools/inject_plfm.py $(ST_SDK)/idp.hpp
 	$(QINJECT_PLFM)$(PYTHON) tools/inject_plfm.py -i $< -o $@ -d $(ST_SDK)/idp.hpp
+
+ADDITIONAL_PYWRAP_DEP_idaapi=$(ST_PYW)/py_idaapi.hpp
+$(ST_PYW)/py_idaapi.hpp: pywraps/py_idaapi.hpp.in tools/inject_base_hooks_flags.py pywraps.hpp
+	$(QINJECT_BASE_HOOKS_FLAGS)$(PYTHON) tools/inject_base_hooks_flags.py -i $< -o $@ -f pywraps.hpp
+
 
 # Some .i files depend on some other .i files in order to be parseable by SWiG
 # (e.g., segregs.i imports range.i). Declare the list of such dependencies here
@@ -430,7 +502,7 @@ SWIG_IFACE_dbg=idd
 SWIG_IFACE_frame=range
 SWIG_IFACE_funcs=range
 SWIG_IFACE_gdl=range
-SWIG_IFACE_hexrays=typeinf
+SWIG_IFACE_hexrays=pro typeinf xref
 SWIG_IFACE_idd=range
 SWIG_IFACE_segment=range
 SWIG_IFACE_segregs=range
@@ -439,6 +511,7 @@ SWIG_IFACE_tryblks=range
 
 MODULE_LIFECYCLE_hexrays=--lifecycle-aware
 MODULE_LIFECYCLE_bytes=--lifecycle-aware
+MODULE_LIFECYCLE_idaapi=--lifecycle-aware
 
 define make-module-rules
 
@@ -454,7 +527,7 @@ define make-module-rules
     # files.
 
     # ../../bin/x86_linux_gcc/python/ida_$(1).py (note: dep. on .cpp. See note above.)
-    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) | tools/inject_pydoc.py
+    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1)) | tools/inject_pydoc.py
 	$(QINJECT_PYDOC)$(PYTHON) tools/inject_pydoc.py \
                 -x $(ST_PARSED_HEADERS) \
                 -m $(1) \
@@ -477,17 +550,29 @@ define make-module-rules
 		--xml-doc-directory $(ST_PARSED_HEADERS)
 
     # obj/x86_linux_gcc/wrappers/X.cpp
-    $(ST_WRAP)/$(1).cpp: $(ST_SWIG)/$(1).i tools/patch_codegen.py $(PATCH_DIRECTORS_SCRIPT) $(PARSED_HEADERS_MARKER) tools/chkapi.py
+    $(ST_WRAP)/$(1).cpp: $(ST_SWIG)/$(1).i tools/patch_codegen.py tools/patch_python_codegen.py $(PATCH_DIRECTORS_SCRIPT) $(PARSED_HEADERS_MARKER) tools/chkapi.py
 	$(QSWIG)$(SWIG) -modern $(addprefix -D,$(WITH_HEXRAYS_DEF)) -python -threads -c++ -shadow \
           -D__GNUC__ $(SWIGFLAGS) $(addprefix -D,$(DEF64)) -I$(ST_SWIG) \
-          -outdir $(ST_WRAP) -o $$@ -I$(ST_SDK) $$<
-	$(Q)$(PYTHON) tools/patch_constants.py --file $(ST_WRAP)/$(1).cpp
+          -outdir $(ST_WRAP) -o $$@.in1 -oh $(ST_WRAP)/$(1).h -I$(ST_SDK) -DIDAPYTHON_MODULE_$(1)=1 $$<
+	$(Q)$(PYTHON) tools/patch_constants.py \
+	        --input $(ST_WRAP)/$(1).cpp.in1 \
+	        --output $(ST_WRAP)/$(1).cpp.in2
 	$(QPATCH_CODEGEN)$(PYTHON) tools/patch_codegen.py \
                 --apply-valist-patches \
-                --file $(ST_WRAP)/$(1).cpp \
+                --input $(ST_WRAP)/$(1).cpp.in2 \
+	        --output $(ST_WRAP)/$(1).cpp \
                 --module $(1) \
                 --xml-doc-directory $(ST_PARSED_HEADERS) \
-                --patches tools/patch_codegen/$(1).py
+                --patches tools/patch_codegen/$(1).py \
+		--batch-patches tools/patch_codegen/$(1)_batch.py
+	$(QPATCH_H_CODEGEN)$(PYTHON) tools/patch_h_codegen.py \
+                --file $(ST_WRAP)/$(1).h \
+                --module $(1) \
+                --patches tools/patch_codegen/$(1)_h.py
+	$(QPATCH_PYTHON_CODEGEN)$(PYTHON) tools/patch_python_codegen.py \
+                --file $(ST_WRAP)/ida_$(1).py \
+                --module $(1) \
+                --patches tools/patch_codegen/ida_$(1).py
     ifdef __NT__
 	$(PYTHON) $(PATCH_DIRECTORS_SCRIPT) --file $(ST_WRAP)/$(1).h
     endif
@@ -505,9 +590,10 @@ vpath %.cpp $(ST_WRAP)
 ifdef __NT__
   # remove warnings from generated code:
   # error C4296: '<': expression is always false
+  # warning C4647: behavior change: __is_pod(type) has different value in previous versions
   # warning C4700: uninitialized local variable 'c_result' used
   # warning C4706: assignment within conditional expression
-  $(X_O): CFLAGS += /wd4296 /wd4700 /wd4706
+  $(X_O): CFLAGS += /wd4296 /wd4647 /wd4700 /wd4706
 endif
 # disable -fno-rtti
 $(X_O): NORTTI =
@@ -544,7 +630,11 @@ $(DEPLOY_LIBDIR)/_ida_%$(MODULE_SFX): $(F)_ida_%$(MODULE_SFX)
 	$(Q)$(CP) $< $@
 
 #----------------------------------------------------------------------
+ifdef TESTABLE_BUILD
 API_CONTENTS = api_contents.txt
+else
+API_CONTENTS = release_api_contents.txt
+endif
 ST_API_CONTENTS = $(F)$(API_CONTENTS)
 .PRECIOUS: $(ST_API_CONTENTS)
 
@@ -562,7 +652,11 @@ endif
 
 #----------------------------------------------------------------------
 # Check that doc injection is stable
+ifdef TESTABLE_BUILD
 PYDOC_INJECTIONS = pydoc_injections.txt
+else
+PYDOC_INJECTIONS = release_pydoc_injections.txt
+endif
 ST_PYDOC_INJECTIONS = $(F)$(PYDOC_INJECTIONS)
 .PRECIOUS: $(ST_PYDOC_INJECTIONS)
 
@@ -572,7 +666,7 @@ ifdef __CODE_CHECKER__
 	$(Q)touch $@
 else
   ifeq ($(OUT_OF_TREE_BUILD),)
-	$(Q)$(IDA_CMD) $(BATCH_SWITCH) -OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO -S"$< $@ $(ST_WRAP)" -t -L$(F)dumpdoc.log >/dev/null
+	$(QPYDOC_INJECTIONS)$(IDA_CMD) $(BATCH_SWITCH) -OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO -S"$< $@ $(ST_WRAP)" -t -L$(F)dumpdoc.log >/dev/null
 	$(Q)(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
           (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
            echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \

@@ -11,6 +11,9 @@
 %ignore idainfo::idainfo;
 %ignore idainfo::~idainfo;
 
+%ignore inf_get_procname();
+%ignore inf_get_strlit_pref();
+
 %ignore hook_cb_t;
 %ignore hook_type_t;
 %ignore hook_to_notification_point;
@@ -20,10 +23,18 @@
 %ignore register_post_event_visitor;
 %ignore unregister_post_event_visitor;
 
+%ignore getinf;
+%ignore getinf_buf;
+%ignore getinf_flag;
+%ignore setinf;
+%ignore setinf_buf;
+%ignore setinf_flag;
+
 %extend idainfo
 {
   qstring get_abiname()
   {
+    qnotused($self);
     qstring buf;
     get_abi_name(&buf);
     return buf;
@@ -62,3 +73,8 @@
 %include "ida.hpp"
 
 %clear(char *buf);
+
+%pythoncode %{
+#<pycode(py_ida)>
+#</pycode(py_ida)>
+%}

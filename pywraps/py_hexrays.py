@@ -2,7 +2,12 @@
 #<pycode(py_hexrays)>
 import ida_funcs
 
-hexrays_failure_t.__str__ = lambda self: str(self.str)
+hexrays_failure_t.__str__ = lambda self: str("%x: %s" % (self.errea, self.desc()))
+
+# ---------------------------------------------------------------------
+# Renamings
+is_allowed_on_small_struni = accepts_small_udts
+is_small_struni = is_small_udt
 
 # ---------------------------------------------------------------------
 class DecompilationFailure(Exception):
@@ -17,7 +22,7 @@ class DecompilationFailure(Exception):
         return
 
 # ---------------------------------------------------------------------
-def decompile(ea, hf=None):
+def decompile(ea, hf=None, flags=0):
     if isinstance(ea, (int, long)):
         func = ida_funcs.get_func(ea)
         if not func: return
@@ -29,7 +34,7 @@ def decompile(ea, hf=None):
     if hf is None:
         hf = hexrays_failure_t()
 
-    ptr = _decompile(func, hf)
+    ptr = _ida_hexrays.decompile_func(func, hf, flags)
 
     if ptr.__deref__() is None:
         raise DecompilationFailure(hf)
@@ -53,7 +58,8 @@ ida_idaapi._listify_types(
         qvector_ccase_t,
         hexwarns_t,
         history_t,
-        lvar_saved_infos_t)
+        lvar_saved_infos_t,
+        ui_stroff_ops_t)
 
 def citem_to_specific_type(self):
     """ cast the citem_t object to its more specific type, either cexpr_t or cinsn_t. """
@@ -488,7 +494,7 @@ class __cbhooks_t(Hexrays_Hooks):
         Hexrays_Hooks.__init__(self)
 
     def maturity(self, *args): return self.callback(hxe_maturity, *args)
-    def interr(self, *args): return self.callback(hxe_interr, **args)
+    def interr(self, *args): return self.callback(hxe_interr, *args)
     def print_func(self, *args): return self.callback(hxe_print_func, *args)
     def func_printed(self, *args): return self.callback(hxe_func_printed, *args)
     def open_pseudocode(self, *args): return self.callback(hxe_open_pseudocode, *args)

@@ -2,8 +2,6 @@
 #include <segregs.hpp>
 %}
 
-%import "range.i"
-
 // Ignore kernel-only symbols
 %ignore delete_v660_segreg_t;
 %ignore v660_segreg_t;

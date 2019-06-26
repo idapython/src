@@ -3,6 +3,10 @@
 #include <parsejson.hpp>
 %}
 
+%apply qstring *result { qstring *label };
+%apply qstring *result { qstring *shortcut };
+%apply qstring *result { qstring *tooltip };
+
 %{
 #ifdef __NT__
 idaman __declspec(dllimport) plugin_t PLUGIN;
@@ -17,6 +21,8 @@ extern plugin_t PLUGIN;
   // %typemap(out) void *get_window_id
   $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
 }
+
+%ignore sync_source_t::sync_source_t();
 
 // Ignore the va_list functions
 %ignore vask_form;
@@ -43,6 +49,8 @@ extern plugin_t PLUGIN;
 %thread ask_buttons;
 %thread ask_file;
 
+%ignore simpleline_t::simpleline_t(const qstring &);
+
 %calls_execute_sync(clr_cancelled);
 %calls_execute_sync(set_cancelled);
 %calls_execute_sync(user_cancelled);
@@ -61,7 +69,9 @@ extern plugin_t PLUGIN;
 %rename (msg) py_msg;
 
 %ignore vinfo;
-%ignore UI_Callback;
+
+%define_Hooks_class(UI);
+
 %ignore vnomem;
 %ignore vmsg;
 %ignore show_wait_box_v;
@@ -98,6 +108,9 @@ extern plugin_t PLUGIN;
 %ignore get_registered_actions;
 %rename (get_registered_actions) py_get_registered_actions;
 
+%ignore add_spaces;
+%rename (add_spaces) py_add_spaces;
+
 %include "typemaps.i"
 
 %rename (ask_text) py_ask_text;
@@ -130,12 +143,9 @@ extern plugin_t PLUGIN;
 %ignore gen_disasm_text;
 %rename (gen_disasm_text) py_gen_disasm_text;
 
-%ignore UI_Hooks::handle_hint_output;
-%ignore UI_Hooks::handle_get_ea_hint_output;
-%ignore UI_Hooks::wrap_widget_cfg;
-%ignore UI_Hooks::handle_create_desktop_widget_output;
 %ignore jobj_wrapper_t::jobj_wrapper_t;
 %ignore jobj_wrapper_t::~jobj_wrapper_t;
+%ignore jobj_wrapper_t::fill_jobj_from_dict;
 
 // We will %ignore those ATM, since they cannot be trivially
 // wrapped: bytevec_t is not exposed.
@@ -232,10 +242,6 @@ void refresh_choosers(void)
 SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %{
-static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
-%}
-
-%{
 //<decls(py_kernwin)>
 //</decls(py_kernwin)>
 %}
@@ -311,6 +317,7 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 #endif
 
   %pythoncode {
+    cur_extracted_ea = cur_value
 #ifdef BC695
     form = property(_get_form)
     form_type = property(_get_form_type)
@@ -332,7 +339,7 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
     int deflnnum = 0;
     color_t pfx_color = 0;
     bgcolor_t bgcolor = DEFCOLOR;
-    int generated = $self->generate(&lines, &deflnnum, &pfx_color, &bgcolor, ud, maxsize);
+    /*int generated = */ $self->generate(&lines, &deflnnum, &pfx_color, &bgcolor, ud, maxsize);
     PyObject *tuple = PyTuple_New(4);
     PyTuple_SetItem(tuple, 0, qstrvec2pylist(lines));
     PyTuple_SetItem(tuple, 1, PyLong_FromLong(deflnnum));
@@ -438,7 +445,7 @@ static void _py_unregister_compiled_form(PyObject *py_form, bool shutdown);
 //-------------------------------------------------------------------------
 //                              CustomIDAMemo
 //-------------------------------------------------------------------------
-%ignore View_Callback;
+%define_Hooks_class(View);
 
 %inline %{
 //<inline(py_kernwin_viewhooks)>

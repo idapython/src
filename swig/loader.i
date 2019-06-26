@@ -80,6 +80,9 @@
 %ignore load_and_run_plugin;
 %rename (load_and_run_plugin) py_load_and_run_plugin;
 
+%ignore extract_module_from_archive;
+%rename (extract_module_from_archive) py_extract_module_from_archive;
+
 %extend qvector< snapshot_t *> {
     snapshot_t *at(size_t n) { return self->at(n); }
 };
