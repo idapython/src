@@ -25,7 +25,7 @@ PyObject *py_get_stkvar(const insn_t &insn, const op_t &op, sval_t v)
     Py_RETURN_NONE;
 
   return Py_BuildValue("(O" PY_BV_SVAL ")",
-                       SWIG_NewPointerObj(SWIG_as_voidptr(member), SWIGTYPE_p_member_t, 0),
+                       SWIG_InternalNewPointerObj(SWIG_as_voidptr(member), SWIGTYPE_p_member_t, 0),
                        bvsval_t(actval));
 }
 //</inline(py_frame)>

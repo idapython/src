@@ -5,9 +5,12 @@
 #include <Python.h>
 
 #include "pywraps.hpp"
+#include "extapi.hpp"
 
 #undef hook_to_notification_point
 #undef unhook_from_notification_point
+#undef show_wait_box
+#undef hide_wait_box
 
 //lint -esym(843,pywraps_initialized) could be declared const
 //lint -esym(843,g_nw) could be declared const
@@ -82,7 +85,13 @@ ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t py_list(PyList_New(n));
   for ( size_t i = 0; i < n; ++i )
+  {
+#ifdef PY3
+    PyList_SetItem(py_list.o, i, PyLong_FromSize_t(vec[i]));
+#else
     PyList_SetItem(py_list.o, i, PyInt_FromSize_t(vec[i]));
+#endif
+  }
   return ref_t(py_list);
 }
 
@@ -122,11 +131,23 @@ static Py_ssize_t pyvar_walk_list(
       py_item = newref_t(PySequence_GetItem(o, i));
     else
       py_item = borref_t(PyList_GetItem(o, i));
-    if ( py_item == NULL || cb(py_item, i, ud) != CIP_OK )
+    bool ok = py_item != NULL && cb(py_item, i, ud) == CIP_OK;
+    if ( ok )
     {
-      qstring m;
-      m.sprnt("Sequence item #%d cannot be converted", int(i));
-      PyErr_SetString(PyExc_ValueError, m.c_str());
+      // We cannot have, at the same time, a 'successful conversion', and
+      // the Python runtime raising an exception. It's up to the callback
+      // implementation to ensure that whatever it did, didn't cause an
+      // error to be set.
+      QASSERT(30604, PyErr_Occurred() == NULL);
+    }
+    else
+    {
+      if ( PyErr_Occurred() == NULL )
+      {
+        qstring m;
+        m.sprnt("Sequence item #%d cannot be converted", int(i));
+        PyErr_SetString(PyExc_ValueError, m.c_str());
+      }
       return CIP_FAILED;
     }
   }
@@ -173,12 +194,28 @@ Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list)
       eavec_t &eavec = *(eavec_t *) ud;
       ea_t ea = BADADDR;
       {
+#ifdef PY3
+        if ( PyLong_Check(py_item.o) )
+        {
+          unsigned long long ull = PyLong_AsUnsignedLongLong(py_item.o);
+          if ( ull == -1ULL && PyErr_Occurred() != NULL )
+            return CIP_FAILED;
+          ea = ea_t(ull);
+        }
+        else
+        {
+          return CIP_FAILED;
+        }
+#else
         if ( PyInt_Check(py_item.o) )
           ea = PyInt_AsUnsignedLongMask(py_item.o);
         else if ( PyLong_Check(py_item.o) )
           ea = ea_t(PyLong_AsUnsignedLongLong(py_item.o));
         else
           return CIP_FAILED;
+        if ( PyErr_Occurred() != NULL )
+          return CIP_FAILED;
+#endif
       }
       eavec.push_back(ea);
       return CIP_OK;
@@ -198,12 +235,28 @@ Py_ssize_t ida_export PyW_PyListToEa64Vec(ea64vec_t *out, PyObject *py_list)
       ea64vec_t &ea64vec = *(ea64vec_t *) ud;
       ea64_t v = 0;
       {
+#ifdef PY3
+        if ( PyLong_Check(py_item.o) )
+        {
+          unsigned long long ull = PyLong_AsUnsignedLongLong(py_item.o);
+          if ( ull == -1ULL && PyErr_Occurred() != NULL )
+            return CIP_FAILED;
+          v = uint64(ull);
+        }
+        else
+        {
+          return CIP_FAILED;
+        }
+#else
         if ( PyInt_Check(py_item.o) )
           v = PyInt_AsUnsignedLongMask(py_item.o);
         else if ( PyLong_Check(py_item.o) )
           v = uint64(PyLong_AsUnsignedLongLong(py_item.o));
         else
           return CIP_FAILED;
+        if ( PyErr_Occurred() != NULL )
+          return CIP_FAILED;
+#endif
       }
       ea64vec.push_back(v);
       return CIP_OK;
@@ -221,19 +274,13 @@ Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list)
     static int idaapi cvt(const ref_t &py_item, Py_ssize_t /*i*/, void *ud)
     {
       qstrvec_t &strvec = *(qstrvec_t *)ud;
-      if ( !PyString_Check(py_item.o) )
+      if ( !IDAPyStr_Check(py_item.o) )
         return CIP_FAILED;
-      strvec.push_back(PyString_AsString(py_item.o));
+      IDAPyStr_AsUTF8(&strvec.push_back(), py_item.o);
       return CIP_OK;
     }
   };
   return pyvar_walk_list(py_list, lambda_t::cvt, out);
-}
-
-//-------------------------------------------------------------------------
-bool ida_export PyWStringOrNone_Check(PyObject *tp)
-{
-  return tp == Py_None || PyString_Check(tp);
 }
 
 //-------------------------------------------------------------------------
@@ -306,9 +353,9 @@ static int get_pyidc_cvt_type(PyObject *py_var)
 
   // Check if this our special by reference object
   ref_t attr(PyW_TryGetAttrString(py_var, S_PY_IDCCVT_ID_ATTR));
-  if ( attr == NULL || (!PyInt_Check(attr.o) && !PyLong_Check(attr.o)) )
+  if ( attr == NULL || !IDAPyIntOrLong_Check(attr.o) )
     return -1;
-  return (int)PyInt_AsLong(attr.o);
+  return int(IDAPyIntOrLong_AsLong(attr.o));
 }
 
 //-------------------------------------------------------------------------
@@ -424,15 +471,28 @@ static int pyvar_to_idcvar2(
     return CIP_OK;
   }
   // String
+#ifdef PY3
+  else if ( PyBytes_Check(py_var.o) )
+  {
+    idc_var->_set_string(PyBytes_AsString(py_var.o), PyBytes_Size(py_var.o));
+  }
+#else
   else if ( PyString_Check(py_var.o) )
   {
     idc_var->_set_string(PyString_AsString(py_var.o), PyString_Size(py_var.o));
   }
+#endif
   // Unicode
   else if ( PyUnicode_Check(py_var.o) )
   {
+#ifdef PY3
+    qstring utf8;
+    IDAPyStr_AsUTF8(&utf8, py_var.o);
+    idc_var->_set_string(utf8.c_str(), utf8.length());
+#else
     newref_t utf8(PyUnicode_AsEncodedString(py_var.o, ENC_UTF8, "strict"));
     return pyvar_to_idcvar1(utf8, idc_var, gvar_sn, visited);
+#endif
   }
   // Boolean
   else if ( PyBool_Check(py_var.o) )
@@ -447,9 +507,9 @@ static int pyvar_to_idcvar2(
     idc_var->vtype = VT_FLOAT;
   }
   // void*
-  else if ( PyCObject_Check(py_var.o) )
+  else if ( PyCapsule_IsValid(py_var.o, VALID_CAPSULE_NAME) )
   {
-    idc_var->set_pvoid(PyCObject_AsVoidPtr(py_var.o));
+    idc_var->set_pvoid(PyCapsule_GetPointer(py_var.o, VALID_CAPSULE_NAME));
   }
   // Python list?
   else if ( PyList_CheckExact(py_var.o) || PyW_IsSequenceType(py_var.o) )
@@ -479,7 +539,11 @@ static int pyvar_to_idcvar2(
       if ( ok )
       {
         // Form the attribute name
+#ifdef PY3
+        newref_t py_int(PyLong_FromSsize_t(i));
+#else
         newref_t py_int(PyInt_FromSsize_t(i));
+#endif
         ok = PyW_ObjectToString(py_int.o, &attr_name);
         if ( !ok )
           break;
@@ -608,7 +672,13 @@ static int pyvar_to_idcvar2(
           for ( Py_ssize_t i=0; i < size; i++ )
           {
             borref_t item(PyList_GetItem(py_dir.o, i));
+#ifdef PY3
+            qstring field_name_buf;
+            IDAPyStr_AsUTF8(&field_name_buf, item.o);
+            const char *field_name = field_name_buf.begin();
+#else
             const char *field_name = PyString_AsString(item.o);
+#endif
             if ( field_name == NULL )
               continue;
 
@@ -692,7 +762,7 @@ int ida_export idcvar_to_pyvar(
     case VT_PVOID:
       if ( *py_var == NULL )
       {
-        newref_t nr(PyCObject_FromVoidPtr(idc_var.pvoid, NULL));
+        newref_t nr(PyCapsule_New(idc_var.pvoid, VALID_CAPSULE_NAME, NULL));
         *py_var = nr;
       }
       else
@@ -737,7 +807,10 @@ int ida_export idcvar_to_pyvar(
       if ( *py_var == NULL )
       {
         const qstring &s = idc_var.qstr();
-        *py_var = newref_t(PyString_FromStringAndSize(s.begin(), s.length()));
+        if ( (flags & PYWCVTF_STR_AS_BYTES) != 0 )
+          *py_var = newref_t(IDAPyBytes_FromMemAndSize(s.begin(), s.length()));
+        else
+          *py_var = newref_t(IDAPyStr_FromUTF8AndSize(s.begin(), s.length()));
         break;
       }
       else
@@ -1093,7 +1166,7 @@ ref_t ida_export create_linked_class_instance(
     ref_t py_class = PyW_TryGetAttrString(py_module.o, clsname);
     if ( py_class != NULL )
     {
-      newref_t py_lnk(PyCObject_FromVoidPtr(lnk, NULL));
+      newref_t py_lnk(PyCapsule_New(lnk, VALID_CAPSULE_NAME, NULL));
       ref_t py_obj = newref_t(PyObject_CallFunctionObjArgs(py_class.o, py_lnk.o, NULL));
       if ( !PyW_GetError() && py_obj != NULL )
         result = py_obj;
@@ -1143,12 +1216,7 @@ bool ida_export PyW_GetStringAttr(
   ref_t py_attr(PyW_TryGetAttrString(py_obj, attr_name));
   if ( py_attr == NULL )
     return false;
-
-  bool ok = PyString_Check(py_attr.o);
-  if ( ok )
-    *str = PyString_AsString(py_attr.o);
-
-  return ok;
+  return IDAPyStr_Check(py_attr.o) != 0 && IDAPyStr_AsUTF8(str, py_attr.o);
 }
 
 //------------------------------------------------------------------------
@@ -1208,7 +1276,11 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
 
   do
   {
+#ifdef PY3
+    if ( !PyLong_CheckExact(py_var) )
+#else
     if ( !(PyInt_CheckExact(py_var) || PyLong_CheckExact(py_var)) )
+#endif
     {
       rc = false;
       break;
@@ -1217,7 +1289,11 @@ bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64)
     constexpr bool is_long_64 = sizeof(long) > 4;
 
     // Can we convert to C long?
+#ifdef PY3
+    long l = PyLong_AsLong(py_var);
+#else
     long l = PyInt_AsLong(py_var);
+#endif
     if ( !PyErr_Occurred() )
     {
       SETNUM(uint64(l), is_long_64);
@@ -1308,8 +1384,13 @@ bool ida_export PyW_ObjectToString(PyObject *obj, qstring *out)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t py_str(PyObject_Str(obj));
   bool ok = py_str != NULL;
+#ifdef PY3
+  if ( ok )
+    IDAPyStr_AsUTF8(out, py_str.o);
+#else
   if ( ok )
     *out = PyString_AsString(py_str.o);
+#endif
   else
     out->qclear();
   return ok;
@@ -1325,65 +1406,51 @@ bool ida_export PyW_GetError(qstring *out, bool clear_err)
   if ( PyErr_Occurred() == NULL )
     return false;
 
-  // Error occurred but details not needed?
-  if ( out == NULL )
+  if ( out != NULL )
   {
-    // Just clear the error
+    // Get the exception info (this also clears the exception)
+    PyObject *err_type, *err_value, *err_traceback;
+    PyErr_Fetch(&err_type, &err_value, &err_traceback);
+
+    // Try helper first
+    ref_t py_ret;
+    ref_t py_fmtexc(get_idaapi_attr(S_IDAAPI_FORMATEXC));
+    if ( py_fmtexc != NULL )
+    {
+      py_ret = newref_t(PyObject_CallFunctionObjArgs(
+                                py_fmtexc.o,
+                                err_type,
+                                err_value,
+                                err_traceback,
+                                NULL));
+    }
+
+    // and fallback to simple stringification if needed
+    if ( py_ret == NULL )
+      py_ret = newref_t(PyObject_Str(err_value));
+
+    if ( py_ret != NULL )
+      IDAPyStr_AsUTF8(out, py_ret.o);
+    else
+      *out = "IDAPython: unknown error";
+
     if ( clear_err )
-      PyErr_Clear();
-    return true;
-  }
-
-  // Get the exception info
-  PyObject *err_type, *err_value, *err_traceback, *py_ret(NULL);
-  PyErr_Fetch(&err_type, &err_value, &err_traceback);
-
-  if ( !clear_err )
-    PyErr_Restore(err_type, err_value, err_traceback);
-
-  // Resolve FormatExc()
-  ref_t py_fmtexc(get_idaapi_attr(S_IDAAPI_FORMATEXC));
-
-  // Helper there?
-  if ( py_fmtexc != NULL )
-  {
-    // Call helper
-    py_ret = PyObject_CallFunctionObjArgs(
-      py_fmtexc.o,
-      err_type,
-      err_value,
-      err_traceback,
-      NULL);
-  }
-
-  // Clear the error
-  if ( clear_err )
-    PyErr_Clear();
-
-  // Helper failed?!
-  if ( py_ret == NULL )
-  {
-    // Just convert the 'value' part of the original error
-    py_ret = PyObject_Str(err_value);
-  }
-
-  // No exception text?
-  if ( py_ret == NULL )
-  {
-    *out = "IDAPython: unknown error!";
+    {
+      Py_XDECREF(err_traceback);
+      Py_XDECREF(err_value);
+      Py_XDECREF(err_type);
+    }
+    else
+    {
+      PyErr_Restore(err_type, err_value, err_traceback);
+    }
   }
   else
   {
-    *out = PyString_AsString(py_ret);
-    Py_DECREF(py_ret);
+    if ( clear_err )
+      PyErr_Clear();
   }
 
-  if ( clear_err )
-  {
-    Py_XDECREF(err_traceback);
-    Py_XDECREF(err_value);
-    Py_XDECREF(err_type);
-  }
   return true;
 }
 
@@ -1409,7 +1476,9 @@ void *ida_export pyobj_get_clink(PyObject *pyobj)
 
   // Try to query the link attribute
   ref_t attr(PyW_TryGetAttrString(pyobj, S_CLINK_NAME));
-  void *t = attr != NULL && PyCObject_Check(attr.o) ? PyCObject_AsVoidPtr(attr.o) : NULL;
+  void *t = attr != NULL && PyCapsule_IsValid(attr.o, VALID_CAPSULE_NAME)
+          ? PyCapsule_GetPointer(attr.o, VALID_CAPSULE_NAME)
+          : NULL;
   return t;
 }
 
@@ -1487,132 +1556,6 @@ lookup_info_t pycim_lookup_info;
 //-------------------------------------------------------------------------
 //                         py_customidamemo_t
 //-------------------------------------------------------------------------
-void py_customidamemo_t::convert_node_info(
-        node_info_t *out,
-        uint32 *out_flags,
-        ref_t py_nodeinfo)
-{
-  if ( out_flags != NULL )
-    *out_flags = 0;
-#define COPY_PROP(checker, converter, pname, flag)                      \
-  do                                                                    \
-  {                                                                     \
-    newref_t pname(PyObject_GetAttrString(py_nodeinfo.o, #pname));      \
-    if ( pname != NULL && checker(pname.o) )                            \
-    {                                                                   \
-      out->pname = converter(pname.o);                                  \
-      if ( out_flags != NULL )                                          \
-        *out_flags |= flag;                                             \
-    }                                                                   \
-  } while ( false )
-#define COPY_ULONG_PROP(pname, flag) COPY_PROP(PyNumber_Check, PyLong_AsUnsignedLong, pname, flag)
-#define COPY_STRING_PROP(pname, flag) COPY_PROP(PyString_Check, PyString_AsString, pname, flag)
-  COPY_ULONG_PROP(bg_color, NIF_BG_COLOR);
-  COPY_ULONG_PROP(frame_color, NIF_FRAME_COLOR);
-  COPY_ULONG_PROP(flags, NIF_FLAGS);
-  COPY_ULONG_PROP(ea, NIF_EA);
-  COPY_STRING_PROP(text, NIF_TEXT);
-#undef COPY_STRING_PROP
-#undef COPY_ULONG_PROP
-#undef COPY_PROP
-}
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_set_node_info(
-        py_customidamemo_t *_this,
-        PyObject *py_node_idx,
-        PyObject *py_node_info,
-        PyObject *py_flags)
-{
-  if ( !PyNumber_Check(py_node_idx) || !PyNumber_Check(py_flags) )
-    return;
-  borref_t py_idx(py_node_idx);
-  borref_t py_ni(py_node_info);
-  borref_t py_fl(py_flags);
-  node_info_t ni;
-  _this->convert_node_info(&ni, NULL, py_ni);
-  int idx = PyInt_AsLong(py_idx.o);
-  uint32 flgs = PyLong_AsLong(py_fl.o);
-  viewer_set_node_info(_this->view, idx, ni, flgs);
-}
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_set_nodes_infos(
-        py_customidamemo_t *_this,
-        PyObject *dict)
-{
-  if ( !PyDict_Check(dict) )
-    return;
-  Py_ssize_t pos = 0;
-  PyObject *o_key, *o_value;
-  while ( PyDict_Next(dict, &pos, &o_key, &o_value) )
-  {
-    borref_t key(o_key);
-    borref_t value(o_value);
-    if ( !PyNumber_Check(key.o) )
-      continue;
-    uint32 flags;
-    node_info_t ni;
-    _this->convert_node_info(&ni, &flags, value);
-    int idx = PyInt_AsLong(key.o);
-    viewer_set_node_info(_this->view, idx, ni, flags);
-  }
-}
-
-//-------------------------------------------------------------------------
-PyObject *ida_export py_customidamemo_t_get_node_info(
-        py_customidamemo_t *_this,
-        PyObject *py_node_idx)
-{
-  if ( !PyNumber_Check(py_node_idx) )
-    Py_RETURN_NONE;
-  node_info_t ni;
-  if ( !viewer_get_node_info(_this->view, &ni, PyInt_AsLong(py_node_idx)) )
-    Py_RETURN_NONE;
-  return Py_BuildValue("(kkks)", ni.bg_color, ni.frame_color, ni.ea, ni.text.c_str());
-}
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_del_nodes_infos(
-        py_customidamemo_t *_this,
-        PyObject *py_nodes)
-{
-  if ( !PySequence_Check(py_nodes) )
-    return;
-  Py_ssize_t sz = PySequence_Size(py_nodes);
-  for ( Py_ssize_t i = 0; i < sz; ++i )
-  {
-    newref_t item(PySequence_GetItem(py_nodes, i));
-    if ( !PyNumber_Check(item.o) )
-      continue;
-    int idx = PyInt_AsLong(item.o);
-    viewer_del_node_info(_this->view, idx);
-  }
-}
-
-//-------------------------------------------------------------------------
-PyObject *ida_export py_customidamemo_t_get_current_renderer_type(
-        py_customidamemo_t *_this)
-{
-  tcc_renderer_type_t rt = get_view_renderer_type(_this->view);
-  return PyLong_FromLong(long(rt));
-}
-
-//-------------------------------------------------------------------------
-void ida_export py_customidamemo_t_set_current_renderer_type(
-        py_customidamemo_t *_this,
-        PyObject *py_rto)
-{
-  tcc_renderer_type_t rt = TCCRT_INVALID;
-  borref_t py_rt(py_rto);
-  if ( PyNumber_Check(py_rt.o) )
-  {
-    rt = tcc_renderer_type_t(PyLong_AsLong(py_rt.o));
-    set_view_renderer_type(_this->view, rt);
-  }
-}
-
-//-------------------------------------------------------------------------
 PyObject *ida_export py_customidamemo_t_create_groups(
         py_customidamemo_t *_this,
         PyObject *_groups_infos)
@@ -1631,19 +1574,19 @@ PyObject *ida_export py_customidamemo_t_create_groups(
     if ( nodes.o == NULL || !PySequence_Check(nodes.o) )
       continue;
     borref_t text(PyDict_GetItemString(item.o, "text"));
-    if ( text.o == NULL || !PyString_Check(text.o) )
+    if ( text.o == NULL || !IDAPyStr_Check(text.o) )
       continue;
     group_crinfo_t gi;
     Py_ssize_t nodes_cnt = PySequence_Size(nodes.o);
     for ( Py_ssize_t k = 0; k < nodes_cnt; ++k )
     {
       newref_t node(PySequence_GetItem(nodes.o, k));
-      if ( PyInt_Check(node.o) )
-        gi.nodes.add_unique(PyInt_AsLong(node.o));
+      if ( IDAPyInt_Check(node.o) )
+        gi.nodes.add_unique(IDAPyInt_AsLong(node.o));
     }
     if ( !gi.nodes.empty() )
     {
-      gi.text = PyString_AsString(text.o);
+      IDAPyStr_AsUTF8(&gi.text, text.o);
       gis.push_back(gi);
     }
   }
@@ -1653,7 +1596,7 @@ PyObject *ida_export py_customidamemo_t_create_groups(
 
   PyObject *py_groups = PyList_New(0);
   for ( intvec_t::const_iterator it = groups.begin(); it != groups.end(); ++it )
-    PyList_Append(py_groups, PyInt_FromLong(long(*it)));
+    PyList_Append(py_groups, IDAPyInt_FromLong(long(*it)));
   return py_groups;
 }
 
@@ -1664,9 +1607,9 @@ static void pynodes_to_idanodes(intvec_t *idanodes, ref_t pynodes)
   for ( Py_ssize_t i = 0; i < sz; ++i )
   {
     newref_t item(PySequence_GetItem(pynodes.o, i));
-    if ( !PyInt_Check(item.o) )
+    if ( !IDAPyInt_Check(item.o) )
       continue;
-    idanodes->add_unique(PyInt_AsLong(item.o));
+    idanodes->add_unique(IDAPyInt_AsLong(item.o));
   }
 }
 
@@ -1684,7 +1627,7 @@ PyObject *ida_export py_customidamemo_t_delete_groups(
   pynodes_to_idanodes(&ida_groups, groups);
   if ( ida_groups.empty() )
     Py_RETURN_NONE;
-  if ( viewer_delete_groups(_this->view, ida_groups, int(PyInt_AsLong(new_current.o))) )
+  if ( viewer_delete_groups(_this->view, ida_groups, int(IDAPyInt_AsLong(new_current.o))) )
     Py_RETURN_TRUE;
   else
     Py_RETURN_FALSE;
@@ -1708,7 +1651,11 @@ PyObject *ida_export py_customidamemo_t_set_groups_visibility(
   pynodes_to_idanodes(&ida_groups, groups);
   if ( ida_groups.empty() )
     Py_RETURN_NONE;
+#ifdef PY3
+  if ( viewer_set_groups_visibility(_this->view, ida_groups, expand.o == Py_True, int(PyLong_AsLong(new_current.o))) )
+#else
   if ( viewer_set_groups_visibility(_this->view, ida_groups, expand.o == Py_True, int(PyInt_AsLong(new_current.o))) )
+#endif
     Py_RETURN_TRUE;
   else
     Py_RETURN_FALSE;
@@ -1722,7 +1669,7 @@ bool ida_export py_customidamemo_t_bind(py_customidamemo_t *_this, PyObject *sel
   PYGLOG("%p: py_customidamemo_t::bind(self=%p, view=%p)\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  newref_t py_cobj(PyCObject_FromVoidPtr(_this, NULL));
+  newref_t py_cobj(PyCapsule_New(_this, VALID_CAPSULE_NAME, NULL));
   PyObject_SetAttrString(self, S_M_THIS, py_cobj.o);
 
   _this->self = borref_t(self);
@@ -1737,8 +1684,7 @@ void ida_export py_customidamemo_t_unbind(py_customidamemo_t *_this, bool clear_
     return;
   PYGLOG("%p: py_customidamemo_t::unbind(); self.o=%p, view=%p\n", _this, _this->self.o, _this->view);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_cobj(PyCObject_FromVoidPtr(NULL, NULL));
-  PyObject_SetAttrString(_this->self.o, S_M_THIS, py_cobj.o);
+  PyObject_SetAttrString(_this->self.o, S_M_THIS, Py_None);
   _this->self = newref_t(NULL);
   if ( clear_view )
     _this->view = NULL;
@@ -1863,8 +1809,7 @@ static qvector<py_timer_ctx_t*> live_timers;
 py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback)
 {
   py_timer_ctx_t *t = new py_timer_ctx_t();
-  t->pycallback = py_callback;
-  Py_INCREF(t->pycallback);
+  t->pyfunc = borref_t(py_callback);
   live_timers.push_back(t);
   return t;
 }
@@ -1873,7 +1818,6 @@ py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback)
 void ida_export python_timer_del(py_timer_ctx_t *t)
 {
   QASSERT(30491, live_timers.del(t));
-  Py_DECREF(t->pycallback);
   delete t;
 }
 
@@ -1914,7 +1858,11 @@ ssize_t ida_export get_callable_arg_count(ref_t callable)
   ssize_t cnt = -1;
   if ( py_module != NULL )
   {
+#ifdef PY3
+    ref_t py_fun = PyW_TryGetAttrString(py_module.o, "getfullargspec");
+#else
     ref_t py_fun = PyW_TryGetAttrString(py_module.o, "getargspec");
+#endif
     if ( py_fun != NULL )
     {
       newref_t py_tuple(PyObject_CallFunctionObjArgs(py_fun.o, callable.o, NULL));
@@ -1977,7 +1925,7 @@ bool ida_export idapython_unhook_from_notification_point(
         hook_cb_t *cb,
         void *user_data)
 {
-  bool ok = unhook_from_notification_point(hook_type, cb, user_data);
+  bool ok = unhook_from_notification_point(hook_type, cb, user_data) > 0;
   if ( ok )
   {
     bool found = false;
@@ -2013,14 +1961,14 @@ bool ida_export idapython_convert_cli_completions(
     borref_t i0(PyTuple_GetItem(py_res.o, 0));
     borref_t i1(PyTuple_GetItem(py_res.o, 1));
     borref_t i2(PyTuple_GetItem(py_res.o, 2));
-    ok = PyList_Check(i0.o) && PyInt_Check(i1.o) && PyInt_Check(i2.o);
+    ok = PyList_Check(i0.o) && IDAPyInt_Check(i1.o) && IDAPyInt_Check(i2.o);
     if ( ok )
     {
       ok = PyW_PyListToStrVec(out_completions, i0.o) > 0;
       if ( ok )
       {
-        *out_match_start = PyInt_AsLong(i1.o);
-        *out_match_end = PyInt_AsLong(i2.o);
+        *out_match_start = IDAPyInt_AsLong(i1.o);
+        *out_match_end = IDAPyInt_AsLong(i2.o);
         ok = PyErr_Occurred() == NULL;
       }
       else
@@ -2032,5 +1980,23 @@ bool ida_export idapython_convert_cli_completions(
   }
   return ok;
 }
+
+//-------------------------------------------------------------------------
+int ida_export pylong_to_byte_array(
+        bytevec_t *out_allocated_buffer,
+        PyObject *in,
+        bool little_endian,
+        bool is_signed)
+{
+  if ( !PyLong_Check(in) )
+    return -1;
+  return extapi._PyLong_AsByteArray_ptr(
+          in,
+          out_allocated_buffer->begin(),
+          out_allocated_buffer->size(),
+          little_endian,
+          is_signed);
+}
+
 
 #undef DEF_REG_UNREG_REFCOUNTED

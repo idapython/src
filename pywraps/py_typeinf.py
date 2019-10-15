@@ -18,7 +18,7 @@ def add_til(name, flags=0):
     return _ida_typeinf.add_til(name, flags)
 add_til2=add_til
 def apply_decl(arg0, arg1, arg2=None, arg3=0):
-    if type(arg0) in [int, long]: # old apply_cdecl()
+    if type(arg0) in ida_idaapi.integer_types: # old apply_cdecl()
         return _ida_typeinf.apply_cdecl(cvar.idati, arg0, arg1, 0)
     else:
         assert(arg2 is not None)

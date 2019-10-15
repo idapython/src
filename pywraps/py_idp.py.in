@@ -548,21 +548,6 @@ ph_get_regLastSreg=ph_get_reg_last_sreg
 removing_func_tail=deleting_func_tail
 segm_attrs_changed=segm_attrs_updated
 str2regf=str2reg
-def __wrap_insn_func(name):
-    def __wrapper(*args):
-        arg0 = args[0]
-        import ida_ua
-        if not isinstance(arg0, ida_ua.insn_t):
-            tmp = ida_ua.insn_t()
-            if not ida_ua.decode_insn(tmp, arg0):
-                return False
-            arg0 = tmp
-        return getattr(_ida_idp, name)(arg0, *args[1:])
-    globals()[name] = __wrapper
-__wrap_insn_func("is_call_insn")
-__wrap_insn_func("is_ret_insn")
-__wrap_insn_func("is_indirect_jump_insn")
-__wrap_insn_func("is_basic_block_end")
 def parse_reg_name(*args):
     if isinstance(args[1], reg_info_t): # 6.95: regname, reg_info_t
           regname, ri = args

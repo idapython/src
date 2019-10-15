@@ -21,7 +21,8 @@ import warnings
 lib_dynload = os.path.join(
     sys.executable,
     IDAPYTHON_DYNLOAD_BASE,
-    "python", "lib", "python2.7", "lib-dynload")
+    "python",
+    str(sys.version_info.major))
 
 is_x64 = sys.maxsize >= 0x100000000
 if is_x64:
@@ -139,5 +140,21 @@ if IDAPYTHON_COMPAT_AUTOIMPORT_MODULES:
 userrc = os.path.join(ida_diskio.get_user_idadir(), "idapythonrc.py")
 if os.path.exists(userrc):
     ida_idaapi.IDAPython_ExecScript(userrc, globals())
+
+# In Python3, some modules (e.g., subprocess) will load the 'signal'
+# module which, upon loading, will registers default handlers for some
+# signals. In particular, for SIGINT, which we don't want to handle
+# since it'll prevent us from killing IDA with Ctrl+C on a TTY.
+if sys.version_info.major >= 3:
+    import signal
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+    # Also, embedded Python3 will not include the 'site packages' by
+    # default, which means many packages provided by the distribution
+    # would not be reachable. Let's provide a way to load them.
+    import site
+    for sp in site.getsitepackages():
+        if sp not in sys.path:
+            sys.path.append(sp)
 
 # All done, ready to rock.

@@ -14,7 +14,7 @@ PyObject *idc_parse_decl(til_t *ti, const char *decl, int flags)
 
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
-    return Py_BuildValue("(sss)",
+    return Py_BuildValue("(s" PY_BV_TYPE PY_BV_FIELDS ")",
                          name.c_str(),
                          (char *)type.c_str(),
                          (char *)fields.c_str());
@@ -39,11 +39,11 @@ def calc_type_size(ti, tp):
 PyObject *py_calc_type_size(const til_t *ti, PyObject *tp)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_Check(tp) )
+  if ( IDAPyBytes_Check(tp) )
   {
     // To avoid release of 'data' during Py_BEGIN|END_ALLOW_THREADS section.
     borref_t tpref(tp);
-    const type_t *data = (type_t *)PyString_AsString(tp);
+    const type_t *data = (type_t *)IDAPyBytes_AsString(tp);
     size_t sz;
     Py_BEGIN_ALLOW_THREADS;
     tinfo_t tif;
@@ -77,21 +77,21 @@ def apply_type(ti, ea, tp_name, py_type, py_fields, flags)
     pass
 #</pydoc>
 */
-static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_t ea, int flags)
+static bool py_apply_type(
+        til_t *ti,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        ea_t ea,
+        int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-  const type_t *type   = (const type_t *) PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   bool rc;
   Py_BEGIN_ALLOW_THREADS;
   struc_t *sptr;
   member_t *mptr = get_member_by_id(ea, &sptr);
-  if ( type[0] == '\0' )
+  if ( type == NULL || type[0] == '\0' )
   {
     if ( mptr != NULL )
     {
@@ -113,7 +113,7 @@ static bool py_apply_type(til_t *ti, PyObject *py_type, PyObject *py_fields, ea_
     if ( rc )
     {
       if ( mptr != NULL )
-        rc = set_member_tinfo(sptr, mptr, 0, tif, 0);
+        rc = set_member_tinfo(sptr, mptr, 0, tif, 0) > SMT_FAILED;
       else
         rc = apply_tinfo(ea, tif, flags);
     }
@@ -161,25 +161,14 @@ def py_unpack_object_from_idb(ti, tp, fields, ea, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_idb(
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t ea,
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Unpack
-  const type_t *type = (const type_t *) PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -229,31 +218,13 @@ def unpack_object_from_bv(ti, tp, fields, bytes, pio_flags = 0):
 */
 PyObject *py_unpack_object_from_bv(
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
-        PyObject *py_bytes,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        const bytevec_t &bytes,
         int pio_flags = 0)
 {
-  PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) || !PyString_Check(py_bytes) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Incorrect argument type!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Get type strings
-  const type_t *type = (const type_t *) PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
-
-  // Make a byte vector
-  bytevec_t bytes;
-  bytes.resize(PyString_Size(py_bytes));
-  memcpy(bytes.begin(), PyString_AsString(py_bytes), bytes.size());
-
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   idc_value_t idc_obj;
   error_t err;
   Py_BEGIN_ALLOW_THREADS;
@@ -301,17 +272,12 @@ def pack_object_to_idb(obj, ti, tp, fields, ea, pio_flags = 0):
 PyObject *py_pack_object_to_idb(
         PyObject *py_obj,
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t ea,
         int pio_flags = 0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
@@ -319,13 +285,8 @@ PyObject *py_pack_object_to_idb(
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Get type strings
-  const type_t *type = (const type_t *)PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   // error_t err;
@@ -360,17 +321,12 @@ def pack_object_to_bv(obj, ti, tp, fields, base_ea, pio_flags = 0):
 PyObject *py_pack_object_to_bv(
         PyObject *py_obj,
         til_t *ti,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
         ea_t base_ea,
         int pio_flags=0)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
 
   // Convert Python object to IDC object
   idc_value_t idc_obj;
@@ -378,13 +334,8 @@ PyObject *py_pack_object_to_bv(
   if ( !pyvar_to_idcvar_or_error(py_obj_ref, &idc_obj) )
     return NULL;
 
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
-  // Get type strings
-  const type_t *type = (const type_t *)PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
 
   // Pack
   relobj_t bytes;
@@ -402,7 +353,7 @@ PyObject *py_pack_object_to_bv(
     err = -1;
   Py_END_ALLOW_THREADS;
   if ( err == eOk )
-    return Py_BuildValue("(is#)", 1, bytes.begin(), bytes.size());
+    return Py_BuildValue("(i" PY_BV_BYTES "#)", 1, bytes.begin(), bytes.size());
   else
     return Py_BuildValue("(ii)", 0, err);
 }
@@ -433,7 +384,7 @@ PyObject *py_idc_get_type_raw(ea_t ea)
     ok = tif.serialize(&type, &fields, NULL, SUDT_FAST);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
-    return Py_BuildValue("(ss)", (char *)type.c_str(), (char *)fields.c_str());
+    return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS ")", (char *)type.c_str(), (char *)fields.c_str());
   else
     Py_RETURN_NONE;
 }
@@ -446,7 +397,7 @@ PyObject *py_idc_get_local_type_raw(int ordinal)
   bool ok = get_numbered_type(NULL, ordinal, &type, &fields);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( ok )
-    return Py_BuildValue("(ss)", (char *)type, (char *)fields);
+    return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS ")", (char *)type, (char *)fields);
   Py_RETURN_NONE;
 }
 
@@ -532,22 +483,16 @@ int idc_get_local_type(int ordinal, int flags, char *buf, size_t maxsize)
 }
 
 //-------------------------------------------------------------------------
-PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *name, int flags)
+PyObject *idc_print_type(
+        const bytevec_t &_type,
+        const bytevec_t &_fields,
+        const char *name,
+        int flags)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyString_Check(py_type) || !PyWStringOrNone_Check(py_fields) )
-  {
-    PyErr_SetString(PyExc_ValueError, "Typestring must be passed!");
-    return NULL;
-  }
-
-  // To avoid release of 'type'/'fields' during Py_BEGIN|END_ALLOW_THREADS section.
-  borref_t py_type_ref(py_type);
-  borref_t py_fields_ref(py_fields);
-
   qstring res;
-  const type_t *type   = (type_t *)PyString_AsString(py_type);
-  const p_list *fields = PyW_Fields(py_fields);
+  const type_t *type   = (const type_t *) _type.begin();
+  const p_list *fields = (const p_list *) _fields.begin();
   bool ok;
   Py_BEGIN_ALLOW_THREADS;
   tinfo_t tif;
@@ -555,7 +500,7 @@ PyObject *idc_print_type(PyObject *py_type, PyObject *py_fields, const char *nam
     && tif.print(&res, name, flags, 2, 40);
   Py_END_ALLOW_THREADS;
   if ( ok )
-    return PyString_FromString(res.begin());
+    return IDAPyStr_FromUTF8(res.begin());
   else
     Py_RETURN_NONE;
 }
@@ -615,10 +560,10 @@ PyObject *py_get_named_type(const til_t *til, const char *name, int ntf_flags)
   } while ( false )
 
   ADD(PyInt_FromLong(long(code)));
-  ADD(PyString_FromString((const char *) type));
-  ADD_OR_NONE(fields != NULL, PyString_FromString((const char *) fields));
-  ADD_OR_NONE(cmt != NULL, PyString_FromString(cmt));
-  ADD_OR_NONE(field_cmts != NULL, PyString_FromString((const char *) field_cmts));
+  ADD(IDAPyBytes_FromMem((const char *) type));
+  ADD_OR_NONE(fields != NULL, IDAPyBytes_FromMem((const char *) fields));
+  ADD_OR_NONE(cmt != NULL, IDAPyStr_FromUTF8(cmt));
+  ADD_OR_NONE(field_cmts != NULL, IDAPyStr_FromUTF8((const char *) field_cmts));
   ADD(PyInt_FromLong(long(sclass)));
   if ( (ntf_flags & NTF_64BIT) != 0 )
     ADD(PyLong_FromUnsignedLongLong(value));
@@ -636,12 +581,12 @@ PyObject *py_get_named_type64(const til_t *til, const char *name, int ntf_flags)
 }
 
 //-------------------------------------------------------------------------
-int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint32 flags)
+PyObject *py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint32 flags)
 {
   if ( !PyList_Check(py_ordinals) )
   {
     PyErr_SetString(PyExc_ValueError, "'ordinals' must be a list");
-    return 0;
+    return NULL;
   }
 
   Py_ssize_t nords = PyList_Size(py_ordinals);
@@ -650,38 +595,17 @@ int py_print_decls(text_sink_t &printer, til_t *til, PyObject *py_ordinals, uint
   for ( Py_ssize_t i = 0; i < nords; ++i )
   {
     borref_t item(PyList_GetItem(py_ordinals, i));
-    if ( item == NULL
-      || (!PyInt_Check(item.o) && !PyLong_Check(item.o)) )
+    if ( item == NULL || !IDAPyIntOrLong_Check(item.o) )
     {
       qstring msg;
       msg.sprnt("ordinals[%d] is not a valid value", int(i));
       PyErr_SetString(PyExc_ValueError, msg.begin());
-      return 0;
+      return NULL;
     }
-    uint32 ord = PyInt_Check(item.o) ? PyInt_AsLong(item.o) : PyLong_AsLong(item.o);
+    uint32 ord = IDAPyIntOrLong_AsLong(item.o);
     ordinals.push_back(ord);
   }
-  return print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags);
-}
-
-//-------------------------------------------------------------------------
-til_t *py_load_til(const char *name, const char *tildir)
-{
-  qstring errbuf;
-  til_t *res = load_til(name, &errbuf, tildir);
-  if ( res == NULL )
-    PyErr_SetString(PyExc_RuntimeError, errbuf.c_str());
-  return res;
-}
-
-//-------------------------------------------------------------------------
-til_t *py_load_til_header(const char *tildir, const char *name)
-{
-  qstring errbuf;
-  til_t *res = load_til_header(tildir, name, &errbuf);
-  if ( res == NULL )
-    PyErr_SetString(PyExc_RuntimeError, errbuf.c_str());
-  return res;
+  return IDAPyInt_FromLong(print_decls(printer, til, ordinals.empty() ? NULL : &ordinals, flags));
 }
 
 #ifdef BC695
@@ -707,7 +631,7 @@ static PyObject *py_get_numbered_type(const til_t *til, uint32 ordinal)
   const p_list *fieldcmts;
   sclass_t sclass;
   if ( get_numbered_type(til, ordinal, &type, &fields, &cmt, &fieldcmts, &sclass) )
-    return Py_BuildValue("(ssssi)", type, fields, cmt, fieldcmts, sclass);
+    return Py_BuildValue("(" PY_BV_TYPE PY_BV_FIELDS "ssi)", type, fields, cmt, fieldcmts, sclass);
   else
     Py_RETURN_NONE;
 }
@@ -715,12 +639,6 @@ static PyObject *py_get_numbered_type(const til_t *til, uint32 ordinal)
 //</inline(py_typeinf)>
 
 //<code(py_typeinf)>
-//-------------------------------------------------------------------------
-inline const p_list * PyW_Fields(PyObject *tp)
-{
-  return tp == Py_None ? NULL : (const p_list *) PyString_AsString(tp);
-}
-
 //-------------------------------------------------------------------------
 // tuple(type_str, fields_str, field_cmts) on success
 static PyObject *py_tinfo_t_serialize(
@@ -739,7 +657,7 @@ static PyObject *py_tinfo_t_serialize(
     if ( (Thing).empty() )                                      \
       Py_INCREF(Py_None);                                       \
     else                                                        \
-      o = PyString_FromString((const char *) (Thing).begin());  \
+      o = IDAPyBytes_FromMem((const char *) (Thing).begin());   \
     PyTuple_SetItem(tuple, ctr, o);                             \
     ++ctr;                                                      \
   } while ( false )

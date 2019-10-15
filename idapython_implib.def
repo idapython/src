@@ -1,5 +1,4 @@
 EXPORTS
-  PyWStringOrNone_Check
   PyW_CreateIdcException
   PyW_GetError
   PyW_GetNumber
@@ -22,6 +21,7 @@ EXPORTS
   disable_script_timeout
   enable_extlang_python
   enable_python_cli
+  is_api695_compat_enabled
   idcvar_to_pyvar
   lookup_info_t_commit
   lookup_info_t_del_by_py_view
@@ -33,15 +33,10 @@ EXPORTS
   py_customidamemo_t_collect_class_callbacks_ids
   py_customidamemo_t_collect_pyobject_callbacks
   py_customidamemo_t_create_groups
-  py_customidamemo_t_del_nodes_infos
   py_customidamemo_t_delete_groups
-  py_customidamemo_t_get_current_renderer_type
-  py_customidamemo_t_get_node_info
-  py_customidamemo_t_set_current_renderer_type
   py_customidamemo_t_set_groups_visibility
-  py_customidamemo_t_set_node_info
-  py_customidamemo_t_set_nodes_infos
   py_customidamemo_t_unbind
+  pylong_to_byte_array
   pyobj_get_clink
   python_timer_new
   python_timer_del
@@ -66,6 +61,8 @@ EXPORTS
   get_callable_arg_count
   idapython_hook_to_notification_point
   idapython_unhook_from_notification_point
+  idapython_show_wait_box
+  idapython_hide_wait_box
   register_module_lifecycle_callbacks
   prepare_programmatic_plugin_load
   pycim_lookup_info DATA

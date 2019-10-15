@@ -36,6 +36,11 @@
 //</inline(py_idaapi)>
 %}
 
+%pythoncode %{
+import types
+uses_swig_builtins = isinstance(get_inf_structure, types.BuiltinFunctionType)
+%}
+
 //-------------------------------------------------------------------------
 %inline %{
 //<inline(py_idaapi_loader_input)>

@@ -21,15 +21,7 @@ static void idaapi s_py_get_user_defined_prefix(
   // Error? Display it
   // No error? Copy the buffer
   if ( !PyW_ShowCbErr("py_get_user_defined_prefix") )
-  {
-    Py_ssize_t py_len;
-    char *py_str;
-    if ( PyString_AsStringAndSize(py_ret.o, &py_str, &py_len) != -1 )
-    {
-      buf->qclear();
-      buf->append(py_str, py_len);
-    }
-  }
+    IDAPyStr_AsUTF8(buf, py_ret.o);
 }
 //</code(py_lines)>
 
@@ -110,7 +102,7 @@ PyObject *py_tag_remove(const char *instr)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   qstring qbuf;
   tag_remove(&qbuf, instr);
-  return PyString_FromString(qbuf.c_str());
+  return IDAPyStr_FromUTF8(qbuf.c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -119,7 +111,7 @@ PyObject *py_tag_addr(ea_t ea)
   qstring tag;
   tag_addr(&tag, ea);
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyString_FromString(tag.begin());
+  return IDAPyStr_FromUTF8(tag.begin());
 }
 
 //-------------------------------------------------------------------------
@@ -183,7 +175,7 @@ PyObject *py_generate_disassembly(
       tag_remove(&qbuf, l);
       s = qbuf.c_str();
     }
-    PyTuple_SetItem(py_tuple.o, i, PyString_FromString(s));
+    PyTuple_SetItem(py_tuple.o, i, IDAPyStr_FromUTF8(s));
   }
   return Py_BuildValue("(iO)", lnnum, py_tuple.o);
 }

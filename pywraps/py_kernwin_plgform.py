@@ -1,6 +1,9 @@
 from __future__ import print_function
 #<pycode(py_kernwin_plgform)>
 import sys
+
+import ida_idaapi
+
 class PluginForm(object):
     """
     PluginForm class.
@@ -74,24 +77,28 @@ class PluginForm(object):
 
     @staticmethod
     def _ensure_widget_deps(ctx):
-        for key, modname in [("sip", "sip"), ("QtWidgets", "PyQt5.QtWidgets")]:
-            if not hasattr(ctx, key):
-                print("Note: importing '%s' module into %s" % (key, ctx))
+        for modname in ["sip", "QtWidgets"]:
+            if not hasattr(ctx, modname):
                 import importlib
-                setattr(ctx, key, importlib.import_module(modname))
+                setattr(ctx, modname, importlib.import_module("PyQt5." + modname))
 
+
+    VALID_CAPSULE_NAME = b"$valid$"
 
     @staticmethod
-    def TWidgetToPyQtWidget(form, ctx = sys.modules['__main__']):
+    def TWidgetToPyQtWidget(tw, ctx = sys.modules['__main__']):
         """
         Convert a TWidget* to a QWidget to be used by PyQt
 
         @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
         """
-        if type(form).__name__ == "SwigPyObject":
-            ptr_l = long(form)
+        if type(tw).__name__ == "SwigPyObject":
+            ptr_l = ida_idaapi.long_type(tw)
         else:
-            ptr_l = form
+            import ctypes
+            ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
+            ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
+            ptr_l = ctypes.pythonapi.PyCapsule_GetPointer(tw, PluginForm.VALID_CAPSULE_NAME)
         PluginForm._ensure_widget_deps(ctx)
         vptr = ctx.sip.voidptr(ptr_l)
         return ctx.sip.wrapinstance(vptr.__int__(), ctx.QtWidgets.QWidget)
@@ -106,31 +113,32 @@ class PluginForm(object):
         @param ctx: Context. Reference to a module that already imported SIP and QtWidgets modules
         """
         PluginForm._ensure_widget_deps(ctx)
-        as_long = long(ctx.sip.unwrapinstance(w))
+        as_long = ida_idaapi.long_type(ctx.sip.unwrapinstance(w))
         return TWidget__from_ptrval__(as_long)
 
 
     @staticmethod
-    def TWidgetToPySideWidget(form, ctx = sys.modules['__main__']):
+    def TWidgetToPySideWidget(tw, ctx = sys.modules['__main__']):
         """
         Use this method to convert a TWidget* to a QWidget to be used by PySide
 
         @param ctx: Context. Reference to a module that already imported QtWidgets module
         """
-        if form is None:
+        if tw is None:
             return None
-        if type(form).__name__ == "SwigPyObject":
-            # Since 'form' is a SwigPyObject, we first need to convert it to a PyCObject.
+        if type(tw).__name__ == "SwigPyObject":
+            # Since 'tw' is a SwigPyObject, we first need to convert it to a PyCapsule.
             # However, there's no easy way of doing it, so we'll use a rather brutal approach:
             # converting the SwigPyObject to a 'long' (will go through 'SwigPyObject_long',
             # that will return the pointer's value as a long), and then convert that value
-            # back to a pointer into a PyCObject.
-            ptr_l = long(form)
-            from ctypes import pythonapi, c_void_p, py_object
-            pythonapi.PyCObject_FromVoidPtr.restype  = py_object
-            pythonapi.PyCObject_AsVoidPtr.argtypes = [c_void_p, c_void_p]
-            form = pythonapi.PyCObject_FromVoidPtr(ptr_l, 0)
-        return ctx.QtGui.QWidget.FromCObject(form)
+            # back to a pointer into a PyCapsule.
+            ptr_l = ida_idaapi.long_type(tw)
+            # Warning: this is untested
+            import ctypes
+            ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
+            ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_void_p]
+            tw = ctypes.pythonapi.PyCapsule_New(ptr_l, PluginForm.VALID_CAPSULE_NAME, 0)
+        return ctx.QtGui.QWidget.FromCapsule(tw)
     FormToPySideWidget = TWidgetToPySideWidget
 
     def OnCreate(self, form):

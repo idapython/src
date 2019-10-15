@@ -96,11 +96,11 @@ private:
   // Returns: true-modified input line or x coordinate or selection length
   // This callback is optional
   bool on_keydown(
-    qstring *line,
-    int *p_x,
-    int *p_sellen,
-    int *vk_key,
-    int shift)
+          qstring *line,
+          int *p_x,
+          int *p_sellen,
+          int *vk_key,
+          int shift)
   {
     PYW_GIL_GET;
     newref_t result(
@@ -121,6 +121,12 @@ private:
     if ( ok )
     {
       Py_ssize_t sz = PyTuple_Size(result.o);
+      if ( sz > 0 )
+      {
+        borref_t _r(PyTuple_GetItem(result.o, 0));
+        if ( _r != NULL && IDAPyStr_Check(_r.o) )
+          IDAPyStr_AsUTF8(line, _r.o);
+      }
 
 #define GET_TUPLE_ENTRY(col, PyThingy, AsThingy, out)                   \
       do                                                                \
@@ -132,8 +138,6 @@ private:
             *out = PyThingy##_##AsThingy(_r.o);                         \
         }                                                               \
       } while ( false )
-
-      GET_TUPLE_ENTRY(0, PyString, AsString, line);
       GET_TUPLE_ENTRY(1, PyInt, AsLong, p_x);
       GET_TUPLE_ENTRY(2, PyInt, AsLong, p_sellen);
       GET_TUPLE_ENTRY(3, PyInt, AsLong, vk_key);
@@ -167,10 +171,10 @@ private:
                     line,
                     x));
 
-    bool ok = result != NULL && PyString_Check(result.o);
+    bool ok = result != NULL && IDAPyStr_Check(result.o);
     PyW_ShowCbErr(S_ON_COMPLETE_LINE);
     if ( ok )
-      *completion = PyString_AsString(result.o);
+      IDAPyStr_AsUTF8(completion, result.o);
     return ok;
   }
 

@@ -20,7 +20,7 @@ PyObject *get_debug_names(ea_t ea1, ea_t ea2, bool return_list=false)
     PyObject *list = NULL;
     for ( ea_name_vec_t::iterator it = names.begin(); it != names.end(); ++it )
     {
-      PyObject *name_obj = PyString_FromString(it->name.c_str());
+      PyObject *name_obj = IDAPyStr_FromUTF8(it->name.c_str());
       if ( it->ea != last_ea )
       {
         if ( return_list )
@@ -49,7 +49,7 @@ PyObject *py_validate_name(const char *name, nametype_t type, int flags=0)
 {
   qstring qname(name);
   if ( validate_name(&qname, type, flags) )
-    return PyString_FromStringAndSize(qname.c_str(), qname.length());
+    return IDAPyStr_FromUTF8AndSize(qname.c_str(), qname.length());
   else
     Py_RETURN_NONE;
 }

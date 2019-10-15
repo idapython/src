@@ -1,5 +1,7 @@
 #--------------------------------------------------------------------------
 #<pycode(py_kernwin_choose)>
+import _ida_kernwin
+
 class Choose(object):
     """
     Chooser wrapper class.
@@ -106,12 +108,12 @@ class Choose(object):
             import weakref
             self.v = weakref.ref(v)
 
-        def populating_widget_popup(self, form, popup_handle):
+        def populating_widget_popup(self, widget, popup_handle):
             chooser = self.v()
-            if form == chooser.GetWidget() and \
+            if widget == chooser.GetWidget() and \
                hasattr(chooser, "OnPopup") and \
                callable(getattr(chooser, "OnPopup")):
-                chooser.OnPopup(form, popup_handle)
+                chooser.OnPopup(widget, popup_handle)
 
     def __init__(self, title, cols, flags = 0, popup_names = None,
                  icon=-1, x1=-1, y1=-1, x2=-1, y2=-1,
@@ -155,6 +157,10 @@ class Choose(object):
         self.height = height
         self.forbidden_cb = forbidden_cb
         self.ui_hooks_trampoline = None # set on Show
+        def _qccb(ctx, cmd_id):
+            for idx in ctx.chooser_selection:
+                self.OnCommand(idx, cmd_id)
+        self._quick_commands = quick_widget_commands_t(_qccb)
 
 
     def Embedded(self, create_chobj=False):
@@ -250,4 +256,23 @@ class Choose(object):
         if n >= cnt:
             n = cnt - 1
         return [n]
+
+    def AddCommand(self,
+                   caption,
+                   flags = _ida_kernwin.CHOOSER_POPUP_MENU,
+                   menu_index = -1,
+                   icon = -1,
+                   emb=None,
+                   shortcut=None):
+        return self._quick_commands.add(
+            caption=caption,
+            flags=flags,
+            menu_index=menu_index,
+            icon=icon,
+            emb=emb,
+            shortcut=shortcut)
+
+    def OnPopup(self, widget, popup_handle):
+        self._quick_commands.populate_popup(widget, popup_handle)
+
 #</pycode(py_kernwin_choose)>

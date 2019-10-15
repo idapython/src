@@ -40,7 +40,7 @@ static int idaapi py_visit_patched_bytes_cb(
                   o,
                   v));
   PyW_ShowCbErr("visit_patched_bytes");
-  return (py_result != NULL && PyInt_Check(py_result.o)) ? PyInt_AsLong(py_result.o) : 0;
+  return (py_result != NULL && IDAPyInt_Check(py_result.o)) ? IDAPyInt_AsLong(py_result.o) : 0;
 }
 
 //-------------------------------------------------------------------------
@@ -70,7 +70,8 @@ static bool py_do_get_bytes(
       break;
 
     // Allocate memory via Python
-    newref_t py_bytes(PyString_FromStringAndSize(NULL, Py_ssize_t(size)));
+
+    newref_t py_bytes(IDAPyBytes_FromMemAndSize(NULL, Py_ssize_t(size)));
     if ( py_bytes == NULL )
       break;
 
@@ -79,7 +80,7 @@ static bool py_do_get_bytes(
       mask.resize((size + 7) / 8, 0);
 
     // Read bytes
-    int code = get_bytes(PyString_AsString(py_bytes.o),
+    int code = get_bytes(IDAPyBytes_AsString(py_bytes.o),
                          size,
                          ea,
                          gmb_flags,
@@ -90,7 +91,7 @@ static bool py_do_get_bytes(
     // note: specify size, as '0' bytes would otherwise cut the mask short
     if ( has_mask )
     {
-      newref_t py_mask(PyString_FromStringAndSize(
+      newref_t py_mask(IDAPyBytes_FromMemAndSize(
                                (const char *) mask.begin(),
                                mask.size()));
       if ( py_mask == NULL )
@@ -260,7 +261,7 @@ static PyObject *py_get_strlit_contents(
   if ( type == STRTYPE_C && buf.length() > 0 && buf.last() == '\0' )
     buf.remove_last();
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_buf(PyString_FromStringAndSize(buf.begin(), buf.length()));
+  newref_t py_buf(IDAPyBytes_FromMemAndSize(buf.begin(), buf.length()));
   py_buf.incref();
   return py_buf.o;
 }
@@ -269,17 +270,20 @@ static PyObject *py_get_strlit_contents(
 static ea_t py_bin_search(
         ea_t start_ea,
         ea_t end_ea,
-        const uchar *image,
-        size_t len,
-        const uchar *mask,
+        const bytevec_t &image,
+        const bytevec_t &imask,
         int step,
         int flags)
 {
+  if ( image.empty() )
+    return BADADDR;
   if ( step != /* old value of BIN_SEARCH_FORWARD*/ 1
     && step != /* new value of BIN_SEARCH_FORWARD */ 0 )
   {
     flags |= BIN_SEARCH_BACKWARD;
   }
+  const size_t len = image.size();
+  const uchar *mask = imask.begin();
   bytevec_t lmask;
   if ( mask != NULL )
   {
@@ -299,7 +303,7 @@ static ea_t py_bin_search(
       mask = lmask.begin();
     }
   }
-  return bin_search2(start_ea, end_ea, image, mask, len, flags);
+  return bin_search2(start_ea, end_ea, image.begin(), mask, len, flags);
 }
 
 //-------------------------------------------------------------------------

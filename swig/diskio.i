@@ -51,6 +51,8 @@
 // %ignore fopenM;
 // %ignore fopenA;
 
+%apply Pointer NONNULL { linput_t *li };
+
 %ignore qfsize;
 %ignore echsize;
 %ignore get_free_disk_space;

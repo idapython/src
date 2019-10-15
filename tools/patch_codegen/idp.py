@@ -1,6 +1,9 @@
 {
     "SwigDirector_IDP_Hooks::SwigDirector_IDP_Hooks" : [
-        ("maybe_collect_director_fixed_method_set", None),
+        ("maybe_collect_director_fixed_method_set",
+         [
+             ("auto_queue_empty", "ev_auto_queue_empty"),
+         ]),
     ],
     "SwigDirector_IDB_Hooks::SwigDirector_IDB_Hooks" : [
         ("maybe_collect_director_fixed_method_set", None),
@@ -21,10 +24,10 @@ if ( __argcnt == 2 )
   {
     result = PyInt_FromLong(0);
   }
-  else if ( PyInt_Check(result) )
+  else if ( IDAPyInt_Check(result) )
   {
-    *color = bgcolor_t(PyInt_AsLong(result));
-    result = PyInt_FromLong(1);
+    *color = bgcolor_t(IDAPyInt_AsLong(result));
+    result = IDAPyInt_FromLong(1);
   }
 }
 """)),

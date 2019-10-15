@@ -15,8 +15,8 @@ parser.add_argument("-o", "--output", required=True)
 parser.add_argument("-m", "--modules", required=True)
 args = parser.parse_args()
 
-with open(args.input, "rb") as fin:
-    with open(args.output, "wb") as fout:
+with open(args.input) as fin:
+    with open(args.output, "w") as fout:
         template = string.Template(fin.read())
         kvps = {
             "MODULES" : args.modules,

@@ -30,6 +30,6 @@ kvps = {
     "BASE_HOOKS_FLAGS" : "\n".join(decls)
 }
 
-with open(args.output, "wt") as fout:
+with open(args.output, "w") as fout:
     fout.write(template.substitute(kvps))
 

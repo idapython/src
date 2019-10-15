@@ -40,6 +40,7 @@
 %ignore perform_funcarg_conversion;
 %ignore get_argloc_info;
 %ignore argloc_t::dstr;
+%ignore argloc_t::consume_scattered(scattered_aloc_t *p);
 %ignore argpart_t::copy_from;
 
 %ignore get_numbered_type(const til_t *, uint32, const type_t **, const p_list **, const char **, const p_list **, sclass_t *);
@@ -135,10 +136,19 @@
 %ignore remove_custom_argloc;
 %ignore retrieve_custom_argloc;
 
+%make_argout_errbuf_raise_when_null_result();
+
 %{
 //<code(py_typeinf)>
 //</code(py_typeinf)>
 %}
+
+%extend argloc_t {
+  void consume_scattered(const scattered_aloc_t &p)
+  {
+    $self->consume_scattered(new scattered_aloc_t(p));
+  }
+}
 
 %extend til_t {
 
@@ -197,11 +207,21 @@
 }
 %enddef
 
-%tinfo_t_or_simple_tinfo_t_container_lifecycle(tinfo_t);
 %tinfo_t_or_simple_tinfo_t_container_lifecycle(ptr_type_data_t);
 %tinfo_t_or_simple_tinfo_t_container_lifecycle(array_type_data_t);
 %tinfo_t_or_simple_tinfo_t_container_lifecycle(func_type_data_t);
 %tinfo_t_or_simple_tinfo_t_container_lifecycle(udt_type_data_t);
+
+// We can't use tinfo_t_or_simple_tinfo_t_container_lifecycle() for tinfo_t,
+// as it would call til_register_python_tinfo_t_instance() a second time
+// after '%typemap(out) tinfo_t *' already did it.
+%extend tinfo_t {
+  ~tinfo_t(void)
+  {
+    til_deregister_python_tinfo_t_instance($self);
+    delete $self;
+  }
+}
 
 %ignore tinfo_t::~tinfo_t(void);
 
@@ -219,9 +239,7 @@
   {
     bytevec_t bv;
     if ( $self->get_attr(key, &bv, all_attrs) )
-      return PyString_FromStringAndSize(
-              (const char *) bv.begin(),
-              bv.size());
+      return IDAPyStr_FromUTF8AndSize((const char *) bv.begin(), bv.size());
     else
       Py_RETURN_NONE;
   }
@@ -229,11 +247,6 @@
 %ignore tinfo_t::get_attr;
 
 %feature("director") predicate_t;
-
-%ignore load_til;
-%rename (load_til) py_load_til;
-%ignore load_til_header;
-%rename (load_til_header) py_load_til_header;
 
 %ignore remove_tinfo_pointer;
 %rename (remove_tinfo_pointer) py_remove_tinfo_pointer;
@@ -249,8 +262,8 @@
   // %typemap(in) const sclass_t *
   if ( $input == Py_None )
     $1 = new sclass_t(sc_unk);
-  else if ( PyInt_Check($input) )
-    $1 = new sclass_t(sclass_t(PyInt_AsLong($input)));
+  else if ( IDAPyInt_Check($input) )
+    $1 = new sclass_t(sclass_t(IDAPyInt_AsLong($input)));
   else
     SWIG_exception_fail(
             SWIG_ValueError,

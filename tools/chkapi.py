@@ -1,46 +1,20 @@
 from __future__ import with_statement
 from __future__ import print_function
 
-import sys, optparse, re, pprint
+import sys
+import os
+import argparse
+import re
+import six
+import pprint
 
-class TextStream:
-    def __init__(self, text):
-        self.text = text
-        self.point = 0
-        self.maxpoint = len(self.text)
-        self.line_nr = 0
-        self.char_nr = 0
+mydir, _ = os.path.split(__file__)
+if mydir not in sys.path:
+    sys.path.append(mydir)
 
-    def line(self):
-        pt = self.point
-        self.advance_to_newline()
-        return self.text[pt : self.point]
+import wrapper_utils
 
-    def char(self):
-        c, self.point = self.text[self.point], self.point + 1
-        if c == '\n':
-            self.line_nr += 1
-            self.char_nr = 0
-        return c
-
-    def advance_to_newline(self):
-        p = self.point
-        while self.text[p] != '\n':
-            p += 1
-        p += 1
-        self.line_nr += 1
-        self.char_nr = 0
-        self.point = p
-
-    def empty(self):
-        return self.point >= self.maxpoint
-
-
-def check_cpp(opts):
-
-    api_contents = {
-        "functions" : []
-        }
+def check_cpp(args):
 
     functions_coherence_base = {
         #
@@ -145,11 +119,11 @@ def check_cpp(opts):
 
         "_wrap_warning__varargs__" : {
             "nullptrcheck" : 1, # 1st arg
-            "mustcall" : "PyString_AsString",
+            "mustcall" : "IDAPyStr_AsUTF8",
         },
         "_wrap_error__varargs__" : {
             "nullptrcheck" : 1,
-            "mustcall" : "PyString_AsString",
+            "mustcall" : "IDAPyStr_AsUTF8",
         },
         "_wrap_tag_remove" : {
             "nullptrcheck" : 1,
@@ -182,19 +156,19 @@ def check_cpp(opts):
 
     functions_coherence_hexrays = {
         "_wrap_cfuncptr_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
+            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
         },
         "_wrap_cfunc_t___str__" : {
-            "mustcall" : ["cfunc_t___str__", "PyString_FromStringAndSize"],
+            "mustcall" : ["cfunc_t___str__", "IDAPyStr_FromUTF8AndSize"],
         },
         "_wrap_hexrays_failure_t_desc" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
         },
         "_wrap_vd_failure_t_desc" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
         },
         "_wrap_create_field_name" : {
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "IDAPyStr_FromUTF8AndSize",
         },
         "delete_qrefcnt_t_Sl_cfunc_t_Sg_" : {
             "mustcall" : "hexrays_deregister_python_clearable_instance",
@@ -240,7 +214,7 @@ def check_cpp(opts):
         },
         "mbl_array_t_serialize" : {
             "string" : "bytes_container typemap(argout) (bytevec_t &vout)",
-            "mustcall" : "PyString_FromStringAndSize",
+            "mustcall" : "_sized_binary_result",
         },
 
         #
@@ -264,7 +238,7 @@ def check_cpp(opts):
     }
 
     functions_coherence = functions_coherence_base.copy()
-    if opts.with_hexrays:
+    if args.with_hexrays:
         functions_coherence.update(functions_coherence_hexrays)
 
     # Mark all functions as not-spotted.
@@ -272,103 +246,68 @@ def check_cpp(opts):
         chk = functions_coherence[fname]
         chk["spotted"] = False
 
-    def dbg(msg):
-        if opts.verbose:
+    def verb(msg):
+        if args.verbose:
             print("DEBUG: %s" % msg)
 
-    def is_fundecl(line):
-        if len(line) <= 2:
-            return False
-        if line[0:1].isspace():
-            return False
-        if line[len(line)-1:] != "{":
-            return False
-        if line.find("(") == -1 or line.find(")") == -1:
-            return False
-        return True
+    api_functions_names = []
+    for one_file in args.cpp_input.split(","):
+        verb("Handling file: '%s'" % one_file)
+        parser = wrapper_utils.cpp_wrapper_file_parser_t(args)
+        functions = parser.parse(one_file)
 
-    def collect_funbody_lines(ts):
-        pt = ts.point
-        braces_cnt = 1
-        while True:
-            c = ts.char()
-            if c == "{":
-                braces_cnt = braces_cnt + 1
-            elif c == "}":
-                braces_cnt = braces_cnt - 1
-                if braces_cnt == 0:
-                    break;
-            # TODO: Skip strings!
-        return ts.text[pt : ts.point].split("\n")
-
-    api_fname_regex = re.compile(".*PyObject \\*_wrap_([^\\(]*)\\(.*\\).*")
-
-    KICKME_functions_lines = {}
-
-    # Read and go through lines
-    for one_file in opts.files.split(","):
-        with open(one_file, "r") as f:
-            raw = f.read()
         # ensure we have improved director out type reporting
-        if raw.find("""in output value of type '""int""'");""") > -1:
+        if parser.text.find("""in output value of type '""int""'");""") > -1:
             raise Exception("Director output value type reporting doesn't appear to be patched")
-        ts = TextStream(raw)
 
-        # Process lines
-        while not ts.empty():
-            line = ts.line().rstrip()
-            # dbg("Line: '%s'" % line)
+        for fname, fdef in six.iteritems(functions):
 
-            if is_fundecl(line):
-                # dbg("Entering function (from line %d: '%s')" % (ts.line_nr, line))
-                funstart = line
-                match = api_fname_regex.match(funstart)
-                if match:
-                    fname = match.group(1)
-                    api_contents["functions"].append(fname)
-                funlines = collect_funbody_lines(ts)
-                KICKME_functions_lines[fname] = funlines
-                # Do we care about this function?
-                check_for = None
-                for fname in functions_coherence.keys():
-                    if funstart.find(fname + "(") > -1:
-                        check_for = fname
-                        break
-                if check_for:
-                    dbg("Checking function at line %d: '%s'" % (ts.line_nr, check_for))
-                    chk = functions_coherence[check_for]
-                    chk["spotted"] = True
-                    def look_for_stuff(stuff, is_funcall, lookForPresence=True):
-                        if isinstance(stuff, str):
-                            stuff = [stuff]
-                        for bit in stuff:
-                            found = False
-                            bit_pat = ("%s(" % bit) if is_funcall else bit
-                            dbg("Thing to look for: '%s'" % bit_pat)
-                            for funline in funlines:
-                                # dbg("Testing line: '%s'" % funline)
-                                if funline.find(bit_pat) > -1:
-                                    found = True
-                                    break
-                            if lookForPresence:
-                                if not found:
-                                    raise Exception("Couldn't find '%s', from function '%s' (lines: %s)" %
-                                                    (bit_pat, check_for, "\n".join([""] + funlines)))
-                            else:
-                                if found:
-                                    raise Exception("Did find unwanted '%s', from function '%s' (lines: %s)" %
-                                                    (bit_pat, check_for, "\n".join([""] + funlines)))
+            if fdef.api_function_name:
+                api_functions_names.append(fdef.api_function_name)
 
-                    if "mustcall" in chk:
-                        look_for_stuff(chk["mustcall"], True)
-                    if "string" in chk:
-                        look_for_stuff(chk["string"], False)
-                    if "nostring" in chk:
-                        look_for_stuff(chk["nostring"], False, lookForPresence=False)
-                    if "nullptrcheck" in chk:
-                        look_for_stuff('"invalid null pointer " "in method \'" "%s" "\', argument " "%d""' % (
-                            fname.replace("_wrap_", "").replace("__varargs__", ""),
-                            chk["nullptrcheck"]), False)
+            # Do we care about this function?
+            funstart = fdef.contents[0]
+            check_for = None
+            for fname in functions_coherence.keys():
+                if funstart.find(fname + "(") > -1:
+                    check_for = fname
+                    break
+
+            if check_for:
+                verb("Checking function at line %d: '%s'" % (fdef.line_nr, check_for))
+                chk = functions_coherence[check_for]
+                chk["spotted"] = True
+                def look_for_stuff(stuff, is_funcall, lookForPresence=True):
+                    if isinstance(stuff, str):
+                        stuff = [stuff]
+                    for bit in stuff:
+                        found = False
+                        bit_pat = ("%s(" % bit) if is_funcall else bit
+                        verb("Thing to look for: '%s'" % bit_pat)
+                        for funline in fdef.contents[1:]:
+                            # verb("Testing line: '%s'" % funline)
+                            if funline.find(bit_pat) > -1:
+                                found = True
+                                break
+                        if lookForPresence:
+                            if not found:
+                                raise Exception("Couldn't find '%s', from function '%s' (lines: %s)" %
+                                                (bit_pat, check_for, "\n".join(fdef.contents)))
+                        else:
+                            if found:
+                                raise Exception("Did find unwanted '%s', from function '%s' (lines: %s)" %
+                                                (bit_pat, check_for, "\n".join(fdef.contents)))
+
+                if "mustcall" in chk:
+                    look_for_stuff(chk["mustcall"], True)
+                if "string" in chk:
+                    look_for_stuff(chk["string"], False)
+                if "nostring" in chk:
+                    look_for_stuff(chk["nostring"], False, lookForPresence=False)
+                if "nullptrcheck" in chk:
+                    look_for_stuff('"invalid null pointer " "in method \'" "%s" "\', argument " "%d""' % (
+                        fname.replace("_wrap_", "").replace("__varargs__", ""),
+                        chk["nullptrcheck"]), False)
 
     # Ensure all functions were spotted.
     for fname in functions_coherence.keys():
@@ -377,7 +316,7 @@ def check_cpp(opts):
             raise Exception("Couldn't spot function '%s'" % fname)
 
     # Report contents
-    if opts.report_contents:
+    if args.report_contents:
 
         ignorable_functions = [
             "citem_t___dbg_get_meminfo",
@@ -407,21 +346,17 @@ def check_cpp(opts):
         ]
         to_report = sorted(filter(
             lambda fn: fn not in ignorable_functions,
-            api_contents["functions"]))
+            api_functions_names))
 
         # NB: we use "wb" here so that the endlines
         # are written as-is, in Unix format
         # and so 'diff' does not report bogus changes
         # against the file from repository
-        with open(opts.report_contents, "wb") as f:
-            f.write(pprint.pformat({"functions" : to_report}))
-
-    # import pickle
-    # with open("/tmp/funlines.last", "wb") as fo:
-    #     pickle.dump(KICKME_functions_lines, fo)
+        with open(args.report_contents, "wb") as f:
+            f.write(pprint.pformat({"functions" : to_report}).encode("UTF-8"))
 
 
-def check_python(opts):
+def check_python(args):
     types_coherence_base = {
         "func_t" : { "mustinherit" : "ida_range.range_t" },
         "hidden_range_t" : { "mustinherit" : "ida_range.range_t" },
@@ -489,7 +424,7 @@ def check_python(opts):
     }
 
     types_coherence = types_coherence_base.copy()
-    if opts.with_hexrays:
+    if args.with_hexrays:
         types_coherence.update(types_coherence_hexrays)
 
     # Mark all types as not-spotted.
@@ -499,9 +434,9 @@ def check_python(opts):
 
     class_re = re.compile("^class ([a-zA-Z0-9_]*)\\(([a-zA-Z0-9_\\.]*)\\):")
     var_re = re.compile("^([a-zA-Z0-9_]*) = .*")
-    for one_file in opts.python_files.split(","):
-        with open(one_file, "r") as f:
-            ts = TextStream(f.read())
+    for one_file in args.python_input.split(","):
+        with open(one_file) as f:
+            ts = wrapper_utils.TextStream(f.read())
 
         while not ts.empty():
             line = ts.line().rstrip()
@@ -535,17 +470,17 @@ def check_python(opts):
 
 if __name__ == "__main__":
 
-    p = optparse.OptionParser(description='Check the generated idaapi_include.cpp file')
-    p.add_option('-v', "--verbose", dest="verbose", action="store_true")
-    p.add_option('-i', "--input", dest="files", type="string")
-    p.add_option('-p', "--python-input", dest="python_files", type="string")
-    p.add_option('-x', "--with-hexrays", dest="with_hexrays", action="store_true")
-    p.add_option('-r', "--report-contents", dest="report_contents", type="string")
-    opts, _ = p.parse_args(sys.argv[1:])
+    p = argparse.ArgumentParser(description='Check the generated idaapi_include.cpp file')
+    p.add_argument('-v', "--verbose", action="store_true")
+    p.add_argument('-i', "--cpp-input", type=str)
+    p.add_argument('-p', "--python-input", type=str)
+    p.add_argument('-x', "--with-hexrays", action="store_true")
+    p.add_argument('-r', "--report-contents", type=str)
+    args = p.parse_args()
 
-    if not opts.files or not opts.python_files:
+    if not args.cpp_input or not args.python_input:
         p.print_help()
         sys.exit(1)
 
-    check_cpp(opts)
-    check_python(opts)
+    check_cpp(args)
+    check_python(args)

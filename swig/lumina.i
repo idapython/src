@@ -75,17 +75,35 @@
 //-------------------------------------------------------------------------
 //                               metadata_t
 //-------------------------------------------------------------------------
-%bytes_container(metadata_t *, metadata_t, begin, size,);
-%bytes_container(metadata_t &, metadata_t, begin, size,);
+#ifdef PY3
+%bytes_container_ptr_and_ref(
+        metadata_t,
+        begin,
+        size,
+        ,
+        IDAPyBytes_Check,
+        IDAPyBytes_AsBytes,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "bytes",
+        "bytes");
+#else
+%bytes_container_ptr_and_ref(
+        metadata_t,
+        begin,
+        size,
+        ,
+        IDAPyBytes_Check,
+        IDAPyBytes_AsBytes,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "string",
+        "str");
+#endif
 
-%typemap(argout) (qstring *errbuf) {
-  if ( !$1->empty() )
-  {
-    if ( $result != NULL )
-      delete $result;
-    SWIG_exception_fail(SWIG_RuntimeError, $1->c_str());
-  }
-}
+%make_argout_errbuf_raise_exception_when_non_empty();
 
 %uncomparable_elements_qvector(func_info_t, func_info_vec_t);
 %uncomparable_elements_qvector(func_info_and_frequency_t, func_info_and_frequency_vec_t);
@@ -103,15 +121,13 @@
 //-------------------------------------------------------------------------
 %typemap(in) (const uchar *ptr, const uchar *end) // for _wrap_extract_..._from_metadata
 {
-  if ( !PyString_Check($input) )
+  if ( !IDAPyStr_Check($input) )
     SWIG_exception_fail(SWIG_TypeError, "Expected string in method '$symname', argument $argnum of type 'str'");
-  char *buf = NULL;
-  Py_ssize_t length = 0;
-  int success = PyString_AsStringAndSize($input, &buf, &length);
-  if ( success >= 0 )
+  qstring buf;
+  if ( IDAPyStr_AsUTF8(&buf, $input) )
   {
-    $1 = (uchar *) buf;
-    $2 = $1 + length;
+    $1 = (uchar *) buf.c_str();
+    $2 = $1 + buf.length();
     QASSERT(30575, $2 >= $1);
   }
 }
@@ -120,7 +136,7 @@
 %typemap(argout) (metadata_t *out_md)
 {
   // bytes_container typemap(argout) (metadata_t *out_md)
-  PyObject *py_md = PyString_FromStringAndSize((const char *) $1->begin(), $1->size());
+  PyObject *py_md = IDAPyBytes_FromMemAndSize((const char *) $1->begin(), $1->size());
   $result = SWIG_Python_AppendOutput($result, py_md);
 }
 
@@ -131,11 +147,10 @@
 %typemap(in) md5_t *md5 // for _wrap_input_file_t_md5_set
 {
   // typemap(in) md5_t *
-  char *buf = NULL;
-  Py_ssize_t length = 0;
-  /*int success =*/ PyString_AsStringAndSize($input, &buf, &length);
+  qstring buf;
+  IDAPyStr_AsUTF8(&buf, $input);
   $1 = new md5_t;
-  memmove($1->hash, buf, qmin(sizeof($1->hash), length));
+  memmove($1->hash, buf.c_str(), qmin(sizeof($1->hash), buf.length()));
 }
 
 %typemap(freearg) md5_t *md5 // for _wrap_input_file_t_md5_set
@@ -146,7 +161,7 @@
 
 %typemap(out) md5_t *
 { // typemap(out) md5_t *
-  $result = PyString_FromStringAndSize((const char *) $1->hash, sizeof($1->hash));
+  $result = IDAPyBytes_FromMemAndSize((const char *) $1->hash, sizeof($1->hash));
 }
 
 // suppress the output parameter as an input.
@@ -158,7 +173,7 @@
 %typemap(argout) (md5_t *out)
 {
   // typemap(argout) (md5_t *out)
-  PyObject *py_hash = PyString_FromStringAndSize((const char *) $1->hash, sizeof($1->hash));
+  PyObject *py_hash = IDAPyBytes_FromMemAndSize((const char *) $1->hash, sizeof($1->hash));
   $result = SWIG_Python_AppendOutput($result, py_hash);
 }
 

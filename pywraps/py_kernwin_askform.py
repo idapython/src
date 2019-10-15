@@ -1,5 +1,7 @@
 # --------------------------------------------------------------------------
 #<pycode(py_kernwin_askform)>
+import sys
+
 import ida_idaapi, _ida_idaapi
 import ida_pro
 
@@ -161,6 +163,17 @@ class Form(object):
     FT_RADGRP2= 'r'
 
     @staticmethod
+    def create_string_buffer(value, size=None):
+        if value is None:
+            assert(size is not None)
+            return ctypes.create_string_buffer(size)
+        else:
+            if sys.version_info.major >= 3:
+                return ctypes.create_string_buffer(value.encode("UTF-8"), size)
+            else:
+                return ctypes.create_string_buffer(value, size)
+
+    @staticmethod
     def fieldtype_to_ctype(tp, i64 = False):
         """
         Factory method returning a ctype class corresponding to the field type string
@@ -211,16 +224,15 @@ class Form(object):
         def __init__(self, size=None, value=None):
             if size is None:
                 raise SyntaxError("The string size must be passed")
-
-            if value is None:
-                self.arg = ctypes.create_string_buffer(size)
-            else:
-                self.arg = ctypes.create_string_buffer(value, size)
             self.size = size
+            self.arg = Form.create_string_buffer(value, size)
+
+        def __get_value(self):
+            return self.arg.value.decode("UTF-8")
 
         def __set_value(self, v):
-            self.arg.value = v
-        value = property(lambda self: self.arg.value, __set_value)
+            self.arg.value = v.encode("UTF-8")
+        value = property(__get_value, __set_value)
 
 
     #
@@ -288,7 +300,7 @@ class Form(object):
         """
         String label control
         """
-        def __init__(self, value, tp=None, sz=1024):
+        def __init__(self, value, tp=None, size=1024):
             """
             Type field can be one of:
             A - ascii string
@@ -301,8 +313,8 @@ class Form(object):
             if tp is None:
                 tp = Form.FT_ASCII
             Form.LabelControl.__init__(self, tp)
-            self.size  = sz
-            self.arg = ctypes.create_string_buffer(value, sz)
+            self.size = size
+            self.arg = Form.create_string_buffer(value, size)
 
 
     class NumericLabel(LabelControl, NumericArgument):
@@ -693,8 +705,10 @@ class Form(object):
             self.selobj = ida_pro.sizevec_t()
 
             # Get a pointer to the selection vector
-            # emb = _ida_kernwin._choose_get_embedded_chobj_pointer(chooser)
-            sel = self.selobj.this.__long__()
+            if sys.version_info.major >= 3:
+                sel = self.selobj.this.__int__()
+            else:
+                sel = self.selobj.this.__long__()
 
             # Get a pointer to a c_void_p constructed from an address
             p_embedded = ctypes.pointer(ctypes.c_void_p.from_address(emb))
@@ -979,7 +993,7 @@ class Form(object):
         """
 
         # Create group item controls for each child
-        for child_name in Group.children_names:
+        for child_name in sorted(Group.children_names):
             self.Add(
                 child_name,
                 # Use the class factory
@@ -993,9 +1007,9 @@ class Form(object):
         The dictionary key is the control name and the value is a Form.Control object
         @param controls: The control dictionary
         """
-        for name, ctrl in controls.items():
+        for name in sorted(controls.keys()):
             # Add the control
-            self.Add(name, ctrl, mkattr)
+            self.Add(name, controls[name], mkattr)
 
 
     def CompileEx(self, form):
@@ -1146,7 +1160,11 @@ class Form(object):
             args.insert(inspos, fccb.get_arg())
 
         # Patch in the final form string
-        args[0] = form
+
+        if sys.version_info.major >= 3:
+            args[0] = form.encode("UTF-8")
+        else:
+            args[0] = form
 
         self.title = self._ParseFormTitle(form)
         return args
@@ -1285,12 +1303,12 @@ class Form(object):
             - dropdown list controls: string (when editable) or index (when readonly)
             - None: on failure
         """
-        tid, sz = self.ControlToFieldTypeIdAndSize(ctrl)
+        tid, size = self.ControlToFieldTypeIdAndSize(ctrl)
         r = _ida_kernwin.formchgcbfa_get_field_value(
                     self.p_fa,
                     ctrl.id,
                     tid,
-                    sz)
+                    size)
         # Multilinetext? Unpack the tuple into a new textctrl_info_t instance
         if r is not None and tid == 7:
             return textctrl_info_t(text=r[0], flags=r[1], tabsize=r[2])

@@ -1,6 +1,8 @@
 from __future__ import print_function
 
 import os
+import six
+
 from argparse import ArgumentParser
 
 parser = ArgumentParser(description='Patch some Python code generation, so it builds')
@@ -12,6 +14,7 @@ args = parser.parse_args()
 
 if os.path.isfile(args.patches):
     with open(args.file) as fin:
+        # strip newlines for easier matching
         lines = map(str.rstrip, fin.readlines())
 
     patches = {}
@@ -20,7 +23,7 @@ if os.path.isfile(args.patches):
 
     all_lines = []
     for l in lines:
-        for patch_kind, patch_data in patches.iteritems():
+        for patch_kind, patch_data in six.iteritems(patches):
             if patch_kind == "repl_line":
                 for from_, to in patch_data:
                     if l == from_:
@@ -28,7 +31,8 @@ if os.path.isfile(args.patches):
         all_lines.append(l)
 
     import tempfile
-    temp = tempfile.NamedTemporaryFile(delete=False)
+    temp = tempfile.NamedTemporaryFile(mode="w", delete=False)
+    # since we had stripped newlines, need to add them back explicitly
     temp.write("\n".join(all_lines))
     temp.close()
 

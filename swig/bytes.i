@@ -184,8 +184,7 @@
 
 %include "bytes.hpp"
 
-%apply (char *STRING, int LENGTH) { (const uchar *image, size_t len) };
-%apply (char *) { (const uchar *mask) };
+%apply (const bytevec_t &_fields) { const bytevec_t &imask };
 
 %clear(void *buf, ssize_t size);
 

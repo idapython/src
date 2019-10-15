@@ -44,7 +44,7 @@ class Appcall_array__(object):
             return obj
         # at this point, we are sure we have an "idc list"
         # let us convert to a Python list
-        return [getattr(obj, str(x)) for x in xrange(0, self.__size)]
+        return [getattr(obj, str(x)) for x in range(0, self.__size)]
 
     def unpack(self, buf, as_list=True):
         """Unpacks an array back into a list or an object"""
@@ -90,14 +90,14 @@ class Appcall_callable__(object):
         self.__timeout = None # Appcall timeout
 
         if tinfo_or_typestr:
-          if type(tinfo_or_typestr) == types.StringType:
+          if isinstance(tinfo_or_typestr, ida_idaapi.string_types):
             # a type string? assume (typestr, fields), try to deserialize
             tif = ida_typeinf.tinfo_t()
             if not tif.deserialize(None, tinfo_or_typestr, fields):
-              raise ValueError, "Could not deserialize type string"
+              raise ValueError("Could not deserialize type string")
           else:
             if not isinstance(tinfo_or_typestr, ida_typeinf.tinfo_t):
-              raise ValueError, "Invalid argument 'tinfo_or_typestr'"
+              raise ValueError("Invalid argument 'tinfo_or_typestr'")
             tif = tinfo_or_typestr
           self.__tif = tif
           (self.__type, self.__fields, _) = tif.serialize()
@@ -236,8 +236,10 @@ class Appcall_callable__(object):
 
 # -----------------------------------------------------------------------
 class Appcall_consts__(object):
-    """Helper class used by Appcall.Consts attribute
-    It is used to retrieve constants via attribute access"""
+    """
+    Helper class used by Appcall.Consts attribute
+    It is used to retrieve constants via attribute access
+    """
     def __init__(self, default=None):
         self.__default = default
 
@@ -293,7 +295,7 @@ class Appcall__(object):
         """
 
         # a string? try to resolve it
-        if type(name_or_ea) == bytes:
+        if type(name_or_ea) in ida_idaapi.string_types:
             ea = _ida_name.get_name_ea(_ida_idaapi.BADADDR, name_or_ea)
         else:
             ea = name_or_ea
@@ -313,15 +315,15 @@ class Appcall__(object):
         """
 
         # a string? try to parse it
-        if type(typedecl_or_tinfo) == types.StringType:
+        if isinstance(typedecl_or_tinfo, ida_idaapi.string_types):
           if flags is None:
               flags = ida_typeinf.PT_SIL|ida_typeinf.PT_NDC|ida_typeinf.PT_TYP
           tif = ida_typeinf.tinfo_t()
           if ida_typeinf.parse_decl(tif, None, typedecl_or_tinfo, flags) == None:
-            raise ValueError, "Could not parse type: " + typedecl_or_tinfo
+            raise ValueError("Could not parse type: " + typedecl_or_tinfo)
         else:
             if not isinstance(typedecl_or_tinfo, ida_typeinf.tinfo_t):
-              raise ValueError, "Invalid argument 'typedecl_or_tinfo'"
+              raise ValueError("Invalid argument 'typedecl_or_tinfo'")
             tif = typedecl_or_tinfo
         return tif
 
@@ -412,8 +414,9 @@ class Appcall__(object):
         return ida_idaapi.as_cstr(val)
 
     @staticmethod
-    def unicode(s):
-        return ida_idaapi.as_unicode(s)
+    def UTF16(s):
+        return ida_idaapi.as_UTF16(s)
+    unicode = UTF16
 
     @staticmethod
     def array(type_name):

@@ -16,10 +16,23 @@ REQUIREMENTS
  - Python [2.5.1, 2.6.1, 2.7]
    http://www.python.org/
 
- - Simplified Wrapper Interface Generator (SWIG) [2.0.12]
-   http://www.swig.org/
+ - Simplified Wrapper Interface Generator (SWIG)
+    - if you intend to build for Python 2.x: [4.0.1]
+    - if you intend to build for Python 3.x: [4.0.1, with support for -py3-limited-api]
+
    Hex-Rays cannot guarantee support for IDAPython
    versions built with other versions of SWIG.
+
+   If building for Python 3.x:
+       You can obtain the correct version of swig like so:
+         `git clone --branch py3-stable-abi https://github.com/idapython/swig.git swig-py3-stable-abi`,
+       and then compile it.
+
+       On Windows, please refer to the following instructions:
+         `http://www.swig.org/Doc4.0/Windows.html#Windows_cygwin_mingw`
+       On Linux or OSX,
+         `sh autogen.sh`, then
+         `configure --prefix=/my/swig-4.0.1-py3-install && make && make install`
 
  - Unix utilities (GNU patch on Windows):
    http://www.research.att.com/sw/tools/uwin/ or
@@ -40,7 +53,7 @@ BUILDING
 Make sure all the needed tools (compiler, swig) are on the PATH.
 
 1. Unpack the IDA SDK into:
-   '.../idasdk69'
+   '.../idasdk74'
 
 Note: the path you unpack the IDA SDK into cannot contain white spaces,
    or special characters (such as '(', etc...)
@@ -56,41 +69,21 @@ Note: the path you unpack the IDA SDK into cannot contain white spaces,
 
 
 3. Place the IDAPython sources into the SDK directory, such that the file:
-   '.../idasdk69/plugins/idapython/BUILDING.txt' exists
+   '.../idasdk74/plugins/idapython/BUILDING.txt' exists
 
-Note: To build with Hex-Rays decompiler support, you will need to copy
-   .../ida_install/plugins/hexrays_sdk/include/hexrays.hpp -> .../idasdk69/include/hexrays.hpp
+   Note: To build with Hex-Rays decompiler support, you will need to copy
+      .../ida_install/plugins/hexrays_sdk/include/hexrays.hpp -> .../idasdk74/include/hexrays.hpp
 
-Note: on Windows, you will also have to
-   - copy .../idasdk69/lib/x86_win_vc_32 -> .../idasdk69/lib/x86_win_vc_32_opt
-   - copy .../idasdk69/lib/x86_win_vc_64 -> .../idasdk69/lib/x86_win_vc_64_opt
-   This is a kludge, which we will solve for the next version
-
+   Note: If you want to build for Python3 (let's say you are building for Python 3.8),
+      please set the following environment variables:
+      - export PYTHON_VERSION_MAJOR=3 ('set PYTHON_VERSION_MAJOR=3' on Windows)
+      - export PYTHON_VERSION_MAJOR=8 ('set PYTHON_VERSION_MINOR=8 on Windows)
 
 4. Build the plugin
 
-   python build.py
+   python build.py --swig-home /my/swig-4.0.1-py3-install --with-hexrays --idc /path/to/ida74_install/idc/idc.idc
 
-   It is possible to build the plugin for different Python versions by
-   running build.py with the corresponding Python binary.
-
-   Run 'build.py --help' for more information.
+   You can also run 'build.py --help' for more information.
 
 
 5. Install the components as described in README.md
-
-
-MISC
-----
-
-On 64 bits distributions, you may need to compile Python to generate a 32bit
-version of the interpreter:
-
-1. tar xvf Python-2.6.6.tar.bz2
-2. cd Python-2.6.6
-3. CC="gcc -m32" CXX="c++ -m32" ./configure --prefix=/path/to/py32 --enable-shared
-4. make
-5. make install
-6. cd /path/to/py32/lib
-7. ln -s libpython2.6.so.1.0 libpython2.6.so.1
-8. PYTHONHOME=/path/to/py32 LD_LIBRARY_PATH=/path/to/py32/lib idaq

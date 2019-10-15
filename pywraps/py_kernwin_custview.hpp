@@ -216,9 +216,9 @@ class py_simplecustview_t
     }
     else
     {
-      ok = PyInt_Check(obj.o);
+      ok = IDAPyInt_Check(obj.o) != 0;
       if ( ok )
-        *out = uint32(PyInt_AsLong(obj.o));
+        *out = uint32(IDAPyInt_AsLong(obj.o));
     }
     return ok;
   }
@@ -229,9 +229,9 @@ class py_simplecustview_t
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
 
-    if ( PyString_Check(py) )
+    if ( IDAPyStr_Check(py) )
     {
-      sl.line = PyString_AsString(py);
+      IDAPyStr_AsUTF8(&sl.line, py);
       return true;
     }
     Py_ssize_t sz;
@@ -239,10 +239,10 @@ class py_simplecustview_t
       return false;
 
     PyObject *py_val = PyTuple_GetItem(py, 0);
-    if ( !PyString_Check(py_val) )
+    if ( !IDAPyStr_Check(py_val) )
       return false;
 
-    sl.line = PyString_AsString(py_val);
+    IDAPyStr_AsUTF8(&sl.line, py_val);
     uint32 col;
     if ( sz > 1 && get_color(&col, borref_t(PyTuple_GetItem(py, 1))) )
       sl.color = color_t(col);
@@ -329,12 +329,14 @@ class py_simplecustview_t
                     bvsz_t(ln)));
 
     PyW_ShowCbErr(S_ON_HINT);
-    bool ok = py_result != NULL && PyTuple_Check(py_result.o) && PyTuple_Size(py_result.o) == 2;
+    bool ok = py_result != NULL
+           && PyTuple_Check(py_result.o)
+           && PyTuple_Size(py_result.o) == 2;
     if ( ok )
     {
       if ( important_lines != NULL )
         *important_lines = PyInt_AsLong(PyTuple_GetItem(py_result.o, 0));
-      hint = PyString_AsString(PyTuple_GetItem(py_result.o, 1));
+      IDAPyStr_AsUTF8(&hint, PyTuple_GetItem(py_result.o, 1));
     }
     return ok;
   }
@@ -627,7 +629,7 @@ public:
 
     // Return a reference to the C++ instance (only once)
     if ( py_this == NULL )
-      py_this = PyCObject_FromVoidPtr(this, NULL);
+      py_this = PyCapsule_New(this, VALID_CAPSULE_NAME, NULL);
 
     return true;
   }
@@ -683,7 +685,9 @@ public:
   static py_simplecustview_t *get_this(PyObject *py_this)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyCObject_Check(py_this) ? (py_simplecustview_t *) PyCObject_AsVoidPtr(py_this) : NULL;
+    return PyCapsule_IsValid(py_this, VALID_CAPSULE_NAME)
+         ? (py_simplecustview_t *) PyCapsule_GetPointer(py_this, VALID_CAPSULE_NAME)
+         : NULL;
   }
 
   PyObject *get_pythis()
@@ -733,16 +737,14 @@ PyObject *pyscv_get_current_line(PyObject *py_this, bool mouse, bool notags)
   _this->get_current_line(&line, mouse, notags);
   if ( line.empty() )
     Py_RETURN_NONE;
-  return PyString_FromStringAndSize(line.c_str(), line.length());
+  return IDAPyStr_FromUTF8AndSize(line.c_str(), line.length());
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_is_focused(PyObject *py_this)
 {
   DECL_THIS;
-  if ( _this == NULL )
-    return false;
-  return _this->is_focused();
+  return _this != NULL && _this->is_focused();
 }
 
 size_t pyscv_count(PyObject *py_this)
@@ -754,7 +756,7 @@ size_t pyscv_count(PyObject *py_this)
 bool pyscv_show(PyObject *py_this)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->show();
+  return _this != NULL && _this->show();
 }
 
 void pyscv_close(PyObject *py_this)
@@ -767,9 +769,7 @@ void pyscv_close(PyObject *py_this)
 bool pyscv_jumpto(PyObject *py_this, size_t ln, int x, int y)
 {
   DECL_THIS;
-  if ( _this == NULL )
-    return false;
-  return _this->jumpto(ln, x, y);
+  return _this != NULL && _this->jumpto(ln, x, y);
 }
 
 // Returns the line tuple
@@ -812,28 +812,28 @@ PyObject *pyscv_clear_lines(PyObject *py_this)
 bool pyscv_add_line(PyObject *py_this, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->add_line(py_sl);
+  return _this != NULL && _this->add_line(py_sl);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_insert_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->insert_line(nline, py_sl);
+  return _this != NULL && _this->insert_line(nline, py_sl);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_patch_line(PyObject *py_this, size_t nline, size_t offs, int value)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->patch_line(nline, offs, value);
+  return _this != NULL && _this->patch_line(nline, offs, value);
 }
 
 //--------------------------------------------------------------------------
 bool pyscv_del_line(PyObject *py_this, size_t nline)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->del_line(nline);
+  return _this != NULL && _this->del_line(nline);
 }
 
 //--------------------------------------------------------------------------
@@ -857,7 +857,7 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
   {
     qstring word;
     if ( _this->get_current_word(mouse, word) )
-      return PyString_FromString(word.c_str());
+      return IDAPyStr_FromUTF8(word.c_str());
   }
   Py_RETURN_NONE;
 }
@@ -867,7 +867,7 @@ PyObject *pyscv_get_current_word(PyObject *py_this, bool mouse)
 bool pyscv_edit_line(PyObject *py_this, size_t nline, PyObject *py_sl)
 {
   DECL_THIS;
-  return _this == NULL ? false : _this->edit_line(nline, py_sl);
+  return _this != NULL && _this->edit_line(nline, py_sl);
 }
 
 //-------------------------------------------------------------------------

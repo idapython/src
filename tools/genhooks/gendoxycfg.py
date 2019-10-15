@@ -8,8 +8,8 @@ p.add_argument("-o", "--output",   required=True,  dest="output",        help="O
 p.add_argument("-I", "--includes", required=True)
 args = p.parse_args()
 
-with open(args.input, "rb") as fin:
-    with open(args.output, "wb") as fout:
+with open(args.input) as fin:
+    with open(args.output, "w") as fout:
         template = string.Template(fin.read())
         kvps = {
             "INCLUDES" : " ".join(args.includes.split(",")),

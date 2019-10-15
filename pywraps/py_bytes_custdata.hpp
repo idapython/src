@@ -188,7 +188,7 @@ private:
     PYW_GIL_GET;
 
     // Build a string from the buffer
-    newref_t py_value(PyString_FromStringAndSize(
+    newref_t py_value(IDAPyBytes_FromMemAndSize(
                               (const char *)value,
                               Py_ssize_t(size)));
     if ( py_value == NULL )
@@ -209,15 +209,10 @@ private:
       return false;
 
     bool ok = false;
-    if ( PyString_Check(py_result.o) )
+    if ( IDAPyStr_Check(py_result.o) )
     {
-      Py_ssize_t len;
-      char *buf;
-      if ( out != NULL && PyString_AsStringAndSize(py_result.o, &buf, &len) != -1 )
-      {
-        out->qclear();
-        out->append(buf, len);
-      }
+      if ( out != NULL )
+        IDAPyStr_AsUTF8(out, py_result.o);
       ok = true;
     }
     return ok;
@@ -258,7 +253,7 @@ private:
       borref_t py_val(PyTuple_GetItem(py_result.o, 1));
 
       // Get return code from Python
-      ok = PyObject_IsTrue(py_bool.o);
+      ok = PyObject_IsTrue(py_bool.o) != 0;
 
       // We expect None or the value (depending on probe)
       if ( ok )
@@ -269,7 +264,7 @@ private:
 
         Py_ssize_t len;
         char *buf;
-        if ( PyString_AsStringAndSize(py_val.o, &buf, &len) != -1 )
+        if ( IDAPyBytes_AsMemAndSize(py_val.o, &buf, &len) != -1 )
         {
           value->qclear();
           value->append(buf, len);
@@ -279,13 +274,13 @@ private:
       else
       {
         // Make sure the user returned (False, String)
-        if ( py_bool.o != Py_False || !PyString_Check(py_val.o) )
+        if ( py_bool.o != Py_False || !IDAPyStr_Check(py_val.o) )
         {
           *errstr = "Invalid return value returned from the Python callback!";
           break;
         }
         // Get the error message
-        *errstr = PyString_AsString(py_val.o);
+        IDAPyStr_AsUTF8(errstr, py_val.o);
       }
     } while ( false );
     return ok;

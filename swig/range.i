@@ -17,10 +17,21 @@
      def __getitem__(self, idx):
          return self.getrange(idx)
 
-     import ida_idaapi
      __len__ = nranges
      __iter__ = ida_idaapi._bounded_getitem_iterator
    }
 };
+
+%extend range_t {
+   %pythoncode {
+     startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
+     endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
+   }
+};
+
+%pythoncode %{
+#<pycode(py_range)>
+#</pycode(py_range)>
+%}
 
 %include "range.hpp"

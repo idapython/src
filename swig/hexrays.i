@@ -211,6 +211,12 @@ static void _kludge_use_TPopupMenu(TPopupMenu *m);
 
 %newobject gen_microcode;
 %define_hexrays_lifecycle_object(mbl_array_t);
+#ifdef PY3
+%const_void_pointer_and_size(uchar, bytes, nbytes);
+#else
+%apply (char *STRING, int LENGTH) { (const uchar *bytes, size_t nbytes) };
+%apply Pointer NONNULL { const uchar *bytes };
+#endif
 
 %define_hexrays_lifecycle_object(valrng_t);
 %apply ulonglong *OUTPUT { uvlr_t *v };    // valrng_t::cvt_to_single_value
@@ -340,7 +346,7 @@ public:
           return True
 
       def _acquire_ownership(self, v, acquire):
-          if acquire and (v is not None) and not isinstance(v, (int, long)):
+          if acquire and (v is not None) and not isinstance(v, ida_idaapi.integer_types):
               if not v.thisown:
                   raise Exception("%s is already owned, and cannot be reused" % v)
               v.thisown = False
@@ -495,6 +501,20 @@ public:
 }
 %monitored_lifecycle_object_t(minsn_t);
 
+%typemap(in,numinputs=0) (mop_t **other) (mop_t *tmp_op)
+{
+  // %typemap(in,numinputs=0) (mop_t **other)
+  $1 = &tmp_op;
+}
+%typemap(argout) (mop_t **other)
+{
+  // %typemap(argout) (mop_t **other)
+  $result = Py_BuildValue(
+          "(OO)",
+          $result,
+          SWIG_NewPointerObj(SWIG_as_voidptr(result != nullptr ? *$1 : nullptr), SWIGTYPE_p_mop_t, 0 | 0));
+}
+
 
 //-------------------------------------------------------------------------
 //                               bitset_t
@@ -507,7 +527,7 @@ public:
      __len__ = count
      def __iter__(self):
          it = self.begin()
-         for i in xrange(self.count()):
+         for i in range(self.count()):
              yield self.itv(it)
              self.inc(it)
     }
@@ -582,7 +602,7 @@ cexpr_t *citem_t_cexpr_get(citem_t *item) { return (cexpr_t *) item; }
   CINSN_MEMBER_REF(goto);
   CINSN_MEMBER_REF(asm);
 
-  static bool insn_is_epilog(const cinsn_t *insn) const { return insn == INS_EPILOG; }
+  static bool insn_is_epilog(const cinsn_t *insn) { return insn == INS_EPILOG; }
 
   %pythoncode {
     def is_epilog(self):
@@ -692,10 +712,10 @@ treeloc_t *ctree_item_t_loc_get(ctree_item_t *item) { return item->citype == VDI
 };
 
 // ignore future declarations of at() for these classes
-%ignore qvector< cinsn_t *>::at(size_t) const;
-%ignore qvector< cinsn_t *>::at(size_t);
-%ignore qvector< citem_t *>::at(size_t) const;
-%ignore qvector< citem_t *>::at(size_t);
+/* %ignore qvector< cinsn_t *>::at(size_t) const; */
+/* %ignore qvector< cinsn_t *>::at(size_t); */
+/* %ignore qvector< citem_t *>::at(size_t) const; */
+/* %ignore qvector< citem_t *>::at(size_t); */
 %ignore qvector< citem_t *>::grow;
 %ignore qvector< cinsn_t *>::grow;
 
@@ -777,9 +797,12 @@ typedef qlist<cinsn_t>::iterator qlist_cinsn_t_iterator;
 class qlist_cinsn_t_iterator {};
 %extend qlist_cinsn_t_iterator {
     const cinsn_t &cur { return *(*self); }
-    void next(void) { (*self)++; }
+    void __next__(void) { (*self)++; }
     bool operator==(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) == &(x->operator*()); }
     bool operator!=(const qlist_cinsn_t_iterator *x) const { return &(self->operator*()) != &(x->operator*()); }
+    %pythoncode {
+      next = __next__
+    }
 };
 
 %extend qlist<cinsn_t> {
@@ -856,7 +879,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %rename (get_widget_vdui) py_get_widget_vdui;
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x20012
+#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) cfuncptr_t {}
 %typemap(ret) cfuncptr_t
 {

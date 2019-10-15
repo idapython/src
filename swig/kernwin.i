@@ -54,7 +54,12 @@ extern plugin_t PLUGIN;
 %calls_execute_sync(clr_cancelled);
 %calls_execute_sync(set_cancelled);
 %calls_execute_sync(user_cancelled);
-%calls_execute_sync(hide_wait_box);
+%calls_execute_sync(py_hide_wait_box);
+
+%ignore show_wait_box;
+%rename (show_wait_box) py_show_wait_box;
+%ignore hide_wait_box;
+%rename (hide_wait_box) py_hide_wait_box;
 
 %ignore choose_idasgn;
 %rename (choose_idasgn) py_choose_idasgn;
@@ -147,17 +152,16 @@ extern plugin_t PLUGIN;
 %ignore jobj_wrapper_t::~jobj_wrapper_t;
 %ignore jobj_wrapper_t::fill_jobj_from_dict;
 
-// We will %ignore those ATM, since they cannot be trivially
-// wrapped: bytevec_t is not exposed.
-// (besides, serializing/deserializing should probably
-// be done by locstack_t instances only.)
-%ignore place_t::serialize;
 %ignore place_t__serialize;
-%ignore place_t::deserialize;
+%ignore place_t::deserialize(const uchar **pptr, const uchar *end);
 %ignore place_t__deserialize;
 %ignore place_t::generate;
 %ignore place_t__generate;
 %rename (generate) py_generate;
+%newobject place_t::clone;
+
+// For place_t::serialize()
+%apply bytevec_t *vout { bytevec_t *out };
 
 %ignore register_place_class;
 %ignore register_loc_converter;
@@ -200,18 +204,18 @@ struct py_action_handler_t : public action_handler_t
     if ( !has_activate )
       return 0;
     PYW_GIL_GET_AND_REPORT_ERROR;
-    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
+    newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"activate", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? 0 : ((pyres != NULL && PyInt_Check(pyres.o)) ? PyInt_AsLong(pyres.o) : 0);
+    return PyErr_Occurred() ? 0 : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? IDAPyInt_AsLong(pyres.o) : 0);
   }
   virtual action_state_t idaapi update(action_update_ctx_t *ctx)
   {
     if ( !has_update )
       return AST_DISABLE;
     PYW_GIL_GET_AND_REPORT_ERROR;
-    newref_t pyctx(SWIG_NewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
+    newref_t pyctx(SWIG_InternalNewPointerObj(SWIG_as_voidptr(ctx), SWIGTYPE_p_action_ctx_base_t, 0));
     newref_t pyres(PyObject_CallMethod(pyah.o, (char *)"update", (char *) "O", pyctx.o));
-    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && PyInt_Check(pyres.o)) ? action_state_t(PyInt_AsLong(pyres.o)) : AST_DISABLE);
+    return PyErr_Occurred() ? AST_DISABLE_ALWAYS : ((pyres != NULL && IDAPyInt_Check(pyres.o)) ? action_state_t(IDAPyInt_AsLong(pyres.o)) : AST_DISABLE);
   }
 
 private:
@@ -270,6 +274,14 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 
 %uncomparable_elements_qvector(disasm_line_t, disasm_text_t);
 
+%extend place_t {
+  virtual bool idaapi deserialize(const bytevec_t &in)
+  {
+    const uchar *ptr = in.begin();
+    return $self->deserialize(&ptr, ptr + in.size());
+  }
+}
+
 %extend action_desc_t {
   action_desc_t(
           const char *name,
@@ -327,11 +339,15 @@ SWIG_DECLARE_PY_CLINKED_OBJECT(textctrl_info_t)
 }
 
 //-------------------------------------------------------------------------
+%newobject place_t::as_idaplace_t;
+%newobject place_t::as_enumplace_t;
+%newobject place_t::as_structplace_t;
+%newobject place_t::as_simpleline_place_t;
 %extend place_t {
-  static idaplace_t *as_idaplace_t(place_t *p) { return (idaplace_t *) p; }
-  static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p; }
-  static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p; }
-  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p; }
+  static idaplace_t *as_idaplace_t(place_t *p) { return (idaplace_t *) p->clone(); }
+  static enumplace_t *as_enumplace_t(place_t *p) { return (enumplace_t *) p->clone(); }
+  static structplace_t *as_structplace_t(place_t *p) { return (structplace_t *) p->clone(); }
+  static simpleline_place_t *as_simpleline_place_t(place_t *p) { return (simpleline_place_t *) p->clone(); }
 
   PyObject *py_generate(void *ud, int maxsize)
   {

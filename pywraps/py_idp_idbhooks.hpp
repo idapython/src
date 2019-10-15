@@ -33,13 +33,13 @@ struct IDB_Hooks : public hooks_base_t
 //-------------------------------------------------------------------------
 PyObject *get_idb_notifier_addr(PyObject *)
 {
-  return _wrap_addr_in_pycobject((void *) IDB_Callback);
+  return _wrap_addr_in_pycapsule((void *) IDB_Callback);
 }
 
 //-------------------------------------------------------------------------
 PyObject *get_idb_notifier_ud_addr(IDB_Hooks *hooks)
 {
-  return _wrap_addr_in_pycobject(hooks);
+  return _wrap_addr_in_pycapsule(hooks);
 }
 //</inline(py_idp_idbhooks)>
 

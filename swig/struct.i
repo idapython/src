@@ -3,7 +3,7 @@
 %}
 // Kernel-only symbols
 %ignore save_structs;
-%ignore get_struc_name(tid_t);
+%ignore get_struc_name(tid_t, int);
 %ignore get_member_name(tid_t);
 %ignore get_member_by_id(tid_t, struc_t **); // allow version w/ qstring* only
 
@@ -15,7 +15,7 @@
 %typemap(argout) qstring *out_mname {
   if (result)
   {
-    %append_output(PyString_FromStringAndSize($1->begin(), $1->length()));
+    %append_output(IDAPyStr_FromUTF8AndSize($1->begin(), $1->length()));
   }
   else
   {

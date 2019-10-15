@@ -3,8 +3,8 @@
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
@@ -12,11 +12,11 @@ PyObject *py_appcall(
   if ( !PyList_Check(arg_list) )
     return NULL;
 
-  const char *type   = py_type == Py_None ? NULL : PyString_AS_STRING(py_type);
-  const char *fields = py_fields == Py_None ? NULL : PyString_AS_STRING(py_fields);
+  const type_t *type   = (const type_t *) _type_or_none.begin();
+  const type_t *fields = (const p_list *) _fields.begin();
   tinfo_t tif;
   tinfo_t *ptif = NULL;
-  if ( tif.deserialize(NULL, (const type_t **)&type, (const p_list **)&fields) )
+  if ( tif.deserialize(NULL, &type, &fields) )
     ptif = &tif;
 
   // Convert Python arguments into IDC values
@@ -125,9 +125,12 @@ PyObject *py_appcall(
       return NULL;
     }
   }
+
   // Convert the result from IDC back to Python
+  // Any set of bytes (stored in a VT_STR), will have to be converted
+  // to a 'bytes' object, not a string
   ref_t py_result;
-  if ( idcvar_to_pyvar(idc_result, &py_result) <= CIP_IMMUTABLE )
+  if ( idcvar_to_pyvar(idc_result, &py_result, PYWCVTF_STR_AS_BYTES) <= CIP_IMMUTABLE )
   {
     PyErr_SetString(PyExc_ValueError, "PyAppCall: Failed while converting IDC return value to Python return value");
     return NULL;
@@ -185,7 +188,7 @@ static PyObject *dbg_get_registers()
       for ( int i=0; i < nbits; i++ )
       {
         const char *s = ri.bit_strings[i];
-        PyList_SetItem(py_bits, i, PyString_FromString(s == NULL ? "" : s));
+        PyList_SetItem(py_bits, i, IDAPyStr_FromUTF8(s == NULL ? "" : s));
       }
     }
     else
@@ -222,22 +225,12 @@ def dbg_get_thread_sreg_base(tid, sreg_value):
     pass
 #</pydoc>
 */
-static PyObject *dbg_get_thread_sreg_base(PyObject *py_tid, PyObject *py_sreg_value)
+static PyObject *dbg_get_thread_sreg_base(thid_t tid, int sreg_value)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-
-  if ( !dbg_can_query()
-    || (!PyInt_Check(py_tid) && !PyLong_Check(py_tid))
-    || (!PyInt_Check(py_sreg_value) && !PyLong_Check(py_sreg_value)) )
-  {
-    Py_RETURN_NONE;
-  }
   ea_t answer;
-  thid_t tid = PyLong_AsLong(py_tid);
-  int sreg_value = PyLong_AsLong(py_sreg_value);
-  if ( internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
+  if ( !dbg_can_query() || internal_get_sreg_base(&answer, tid, sreg_value) != DRC_OK )
     Py_RETURN_NONE;
-
   return Py_BuildValue(PY_BV_EA, bvea_t(answer));
 }
 
@@ -254,29 +247,25 @@ def dbg_read_memory(ea, sz):
     pass
 #</pydoc>
 */
-static PyObject *dbg_read_memory(PyObject *py_ea, PyObject *py_sz)
+static PyObject *dbg_read_memory(ea_t ea, size_t sz)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  uint64 ea, sz;
-  if ( !dbg_can_query() || !PyW_GetNumber(py_ea, &ea) || !PyW_GetNumber(py_sz, &sz) )
+  if ( !dbg_can_query() )
     Py_RETURN_NONE;
 
   // Create a Python string
-  PyObject *ret = PyString_FromStringAndSize(NULL, Py_ssize_t(sz));
+  PyObject *ret = IDAPyBytes_FromMemAndSize(NULL, Py_ssize_t(sz));
   if ( ret == NULL )
     Py_RETURN_NONE;
 
   // Get the internal buffer
   Py_ssize_t len;
   char *buf;
-  PyString_AsStringAndSize(ret, &buf, &len);
-
-  if ( (size_t)read_dbg_memory(ea_t(ea), buf, size_t(sz)) != sz )
+  IDAPyBytes_AsMemAndSize(ret, &buf, &len);
+  if ( size_t(read_dbg_memory(ea, buf, sz)) != sz )
   {
-    // Release the string on failure
     Py_DECREF(ret);
-    // Return None on failure
     Py_RETURN_NONE;
   }
   return ret;
@@ -293,17 +282,16 @@ def dbg_write_memory(ea, buffer):
     pass
 #</pydoc>
 */
-static PyObject *dbg_write_memory(PyObject *py_ea, PyObject *py_buf)
+static PyObject *dbg_write_memory(
+        ea_t ea,
+        const bytevec_t &buf)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  uint64 ea;
-  if ( !dbg_can_query() || !PyString_Check(py_buf) || !PyW_GetNumber(py_ea, &ea) )
+  if ( !dbg_can_query() )
     Py_RETURN_NONE;
 
-  size_t sz = PyString_GET_SIZE(py_buf);
-  void *buf = (void *)PyString_AS_STRING(py_buf);
-  if ( write_dbg_memory(ea_t(ea), buf, sz) != sz )
+  if ( write_dbg_memory(ea, buf.begin(), buf.size()) != buf.size() )
     Py_RETURN_FALSE;
   Py_RETURN_TRUE;
 }
@@ -326,7 +314,7 @@ static PyObject *dbg_get_name()
   if ( dbg == NULL )
     Py_RETURN_NONE;
   else
-    return PyString_FromString(dbg->name);
+    return IDAPyStr_FromUTF8(dbg->name);
 }
 
 //-------------------------------------------------------------------------
@@ -364,8 +352,8 @@ static PyObject *dbg_get_memory_info()
 PyObject *py_appcall(
         ea_t func_ea,
         thid_t tid,
-        PyObject *py_type,
-        PyObject *py_fields,
+        const bytevec_t &_type_or_none,
+        const bytevec_t &_fields,
         PyObject *arg_list);
 
 char get_event_module_name(const debug_event_t *ev, char *buf, size_t bufsize)

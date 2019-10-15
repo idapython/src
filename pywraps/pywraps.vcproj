@@ -1822,18 +1822,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<Filter
-			Name="swig_stub"
-			>
-			<File
-				RelativePath=".\swig_stub.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\swig_stub.h"
-				>
-			</File>
-		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

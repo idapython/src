@@ -16,6 +16,7 @@ import os
 import re
 import textwrap
 import xml.etree.ElementTree as ET
+import six
 
 try:
     from argparse import ArgumentParser
@@ -23,9 +24,16 @@ except:
     print("Failed to import module 'argparse'. Upgrade to Python 2.7, copy argparse.py to this directory or try 'apt-get install python-argparse'")
     raise
 
+mydir, _ = os.path.split(__file__)
+if mydir not in sys.path:
+    sys.path.append(mydir)
+
+import wrapper_utils
+
 parser = ArgumentParser()
 parser.add_argument("-i", "--input", required=True)
-parser.add_argument("-w", "--wrapper", required=True)
+parser.add_argument("-s", "--interface", required=True)
+parser.add_argument("-w", "--cpp-wrapper", required=True)
 parser.add_argument("-o", "--output", required=True)
 parser.add_argument("-x", "--xml-doc-directory", required=True)
 parser.add_argument("-e", "--epydoc-injections", required=True)
@@ -38,7 +46,8 @@ this_dir, _ = os.path.split(__file__)
 sys.path.append(this_dir)
 import doxygen_utils
 
-DOCSTR_MARKER  = '"""'
+DOCSTR_MARKER = '"""'
+DOCSTR_MARKER_START_RAW  = 'r"""'
 
 def verb(msg):
     if args.verbose:
@@ -60,11 +69,16 @@ def load_patches(args):
     return patches
 
 # --------------------------------------------------------------------------
-def split_oneliner_comments(lines):
+def split_oneliner_comments_and_remove_property_docstrings(lines):
     out_lines = []
+    pat = re.compile('(.*= property\(.*), doc=r""".*"""(\))')
     for line in lines:
 
         line = line.rstrip()
+
+        m = pat.match(line)
+        if m:
+            line = m.group(1) + m.group(2)
 
         if line.startswith("#"):
             out_lines.append(line)
@@ -74,22 +88,48 @@ def split_oneliner_comments(lines):
             out_lines.append("")
             continue
 
-        pfx = None
-        while line.find(DOCSTR_MARKER) > -1:
-            idx  = line.find(DOCSTR_MARKER)
-            meat = line[0:idx]
-            try:
-                if len(meat.strip()) == 0:
-                    pfx = meat
+        handled = False
+        if line.endswith(DOCSTR_MARKER):
+            emarker_idx = line.rfind(DOCSTR_MARKER)
+            if line.lstrip().startswith(DOCSTR_MARKER_START_RAW):
+                smarker = DOCSTR_MARKER_START_RAW
+                smarker_idx = line.find(DOCSTR_MARKER_START_RAW)
+            elif line.lstrip().startswith(DOCSTR_MARKER):
+                smarker = DOCSTR_MARKER
+                smarker_idx = line.find(DOCSTR_MARKER)
+            else:
+                smarker_idx = -1
+            if smarker_idx > -1:
+                pfx = line[0:smarker_idx]
+                meat = line[smarker_idx+len(smarker):emarker_idx]
+                if len(meat.strip()):
+                    out_lines.append(pfx + smarker)
+                    out_lines.append(pfx + meat)
                     out_lines.append(pfx + DOCSTR_MARKER)
-                else:
-                    out_lines.append((pfx if pfx is not None else "") + meat)
-                    out_lines.append((pfx if pfx is not None else "") + DOCSTR_MARKER)
-            except:
-                raise BaseException("Error at line: " + line)
-            line = line[idx + len(DOCSTR_MARKER):]
-        if len(line.strip()) > 0:
-            out_lines.append((pfx if pfx is not None else "") + line)
+                    handled = True
+        if not handled:
+            out_lines.append(line)
+                # meat = line[0:idx]
+
+        # pfx = None
+        # while line.find(DOCSTR_MARKER) > -1:
+        #     idx = line.find(DOCSTR_MARKER)
+        #     if idx > 0 and line[idx-1] == 'r':
+        #         idx -= 1
+        #     meat = line[0:idx]
+        #     # print("MEAT: '%s'" % meat)
+        #     try:
+        #         if len(meat.strip()) == 0:
+        #             pfx = meat
+        #             out_lines.append(pfx + DOCSTR_MARKER)
+        #         else:
+        #             out_lines.append((pfx if pfx is not None else "") + meat)
+        #             out_lines.append((pfx if pfx is not None else "") + DOCSTR_MARKER)
+        #     except:
+        #         raise BaseException("Error at line: " + line)
+        #     line = line[idx + len(DOCSTR_MARKER):]
+        # if len(line.strip()) > 0:
+        #     out_lines.append((pfx if pfx is not None else "") + line)
     return out_lines
 
 # --------------------------------------------------------------------------
@@ -154,7 +194,7 @@ class collect_pydoc_t(object):
     def collect_fun(self, fun_name):
         collected = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -178,7 +218,7 @@ class collect_pydoc_t(object):
     def collect_method(self, cls, method_name):
         collected = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -200,7 +240,7 @@ class collect_pydoc_t(object):
         collected = []
         cls = {"methods":{},"doc":None}
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith("    def "):
                     self.collect_method(cls, get_fun_name(line))
@@ -221,12 +261,12 @@ class collect_pydoc_t(object):
 
     def collect_file_pydoc(self, filename):
         self.state = self.S_UNKNOWN
-        with open(filename, "rt") as f:
-            self.lines = split_oneliner_comments(f.readlines())
+        with open(filename) as f:
+            self.lines = split_oneliner_comments_and_remove_property_docstrings(f.readlines())
         context = None
         doc = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_UNKNOWN:
                 if line.startswith(self.PYDOC_START):
                     self.state = self.S_IN_PYDOC
@@ -334,6 +374,7 @@ class base_doc_t:
 
     def append_lines(self, out):
         tmp = self.generate_lines()
+        # dbg("generate_lines() returned %s" % tmp)
         tmp = self.remove_empty_header_or_footer_lines(tmp)
         if tmp:
             out.extend(tmp)
@@ -361,8 +402,12 @@ class fun_doc_t(base_doc_t):
 
         # collect params
         def add_param(name, ptyp, desc):
-            if name == "from":
-                name = "_from" # SWiG will rename 'from' to '_from' automatically, and we want to match that
+            # dbg("add_param(name=%s, ptyp=%s, desc=%s)" % (name, ptyp, desc))
+            # SWiG will rename e.g., 'from' to '_from' automatically, and we want to match that
+            for candidate in ["from", "with"]:
+                if name == candidate:
+                    name = "_%s" % name
+            # dbg("==> name='%s', swig_generated_param_names='%s'" % (name, swig_generated_param_names))
             if name in swig_generated_param_names:
                 self.params.append(ioarg_t(name, ptyp, desc))
         doxygen_utils.for_each_param(node, add_param)
@@ -419,7 +464,7 @@ class def_doc_t(base_doc_t):
         if self.detailed:
             out.extend(self.detailed)
         out = self.remove_empty_header_or_footer_lines(out)
-        return [DOCSTR_MARKER] + map(lambda s : s.replace('\\', '\\\\'), out) + [DOCSTR_MARKER]
+        return [DOCSTR_MARKER] + list(map(lambda s : s.replace('\\', '\\\\'), out)) + [DOCSTR_MARKER]
 
 
 # --------------------------------------------------------------------------
@@ -434,9 +479,10 @@ def collect_structured_fun_doc(node, swig_generated_param_names):
 class idaapi_fixer_t(object):
     lines = None
 
-    def __init__(self, collected_info, patches):
+    def __init__(self, collected_info, patches, cpp_wrapper_functions):
         self.collected_info = collected_info
         self.patches = patches
+        self.cpp_wrapper_functions = cpp_wrapper_functions
         # Since variables cannot have a docstring in Python,
         # but epydoc supports the syntax:
         # ---
@@ -456,7 +502,7 @@ class idaapi_fixer_t(object):
         return line
 
     def copy(self, out):
-        line = next(self)
+        line = self.next()
         out.append(line)
         return line
 
@@ -464,12 +510,16 @@ class idaapi_fixer_t(object):
         self.lines.insert(0, line)
 
     def get_fun_info(self, fun_name, swig_generated_param_names):
+        # dbg("idaapi_fixer_t.get_fun_info(fun_name=%s, swig_generated_param_names=%s)" % (
+        #     fun_name,
+        #     str(list(swig_generated_param_names))));
         fun_info = self.collected_info["funcs"].get(fun_name)
         if not fun_info:
             # def get_all_functions(xml_tree, name=None):
             fnodes = doxygen_utils.get_toplevel_functions(self.xml_tree, name=fun_name)
             nfnodes = len(fnodes)
             if nfnodes > 0:
+                # dbg("idaapi_fixer_t.get_fun_info: got doxygen information")
                 if nfnodes > 1:
                     print("Warning: more than 1 function doc found for '%s'; picking first" % fun_name)
 
@@ -518,8 +568,36 @@ class idaapi_fixer_t(object):
                    and idx_close_paren > idx_open_paren+1:
                     clob = l[idx_open_paren+1:idx_close_paren]
                     parts = clob.split(",")
-                    return map(sanitize_param_name, parts)
+                    return list(map(sanitize_param_name, parts))
         return []
+
+    def maybe_fix_swig_generated_docstring_prototype(self, fun_name, line):
+        forced_output_type = None
+        fdef = None
+        for _, one in six.iteritems(self.cpp_wrapper_functions):
+            if one.api_function_name == fun_name:
+                fdef = one
+                break
+        if fdef:
+            for l in fdef.contents:
+                for pattern, forced in [
+                        ("resultobj = _maybe_sized_cstring_result(", "str"),
+                        ("resultobj = _maybe_cstring_result(", "str"),
+                        ("resultobj = _maybe_binary_result(", "str"),
+                        ("resultobj = _maybe_cstring_result_on_charptr_using_allocated_buf(", "str"),
+                        ("resultobj = _maybe_cstring_result_on_charptr_using_qbuf(", "str"),
+                        ("resultobj = _maybe_byte_array_as_hex_or_none_result(", "str"),
+                        ("resultobj = _sized_cstring_result(", "str"),
+                ]:
+                    if l.find(pattern) > -1:
+                        assert(forced_output_type is None);
+                        forced_output_type = forced
+        if forced_output_type:
+            splitter = " -> "
+            idx = line.find(splitter)
+            if idx > -1:
+                line = line[0:idx + len(splitter)] + forced_output_type
+        return line
 
     def fix_fun(self, out, class_info=None):
         line = self.copy(out)
@@ -530,9 +608,14 @@ class idaapi_fixer_t(object):
         if line.find(DOCSTR_MARKER) > -1:
             # Opening docstring line; determine indentation level
             indent = get_indent_string(line)
+            docstring_line_nr = 0
             while True:
-                line = next(self)
+                line = self.next()
+                if docstring_line_nr == 0:
+                    line = self.maybe_fix_swig_generated_docstring_prototype(fun_name, line)
+
                 if line.find(DOCSTR_MARKER) > -1:
+
                     # Closing docstring line
                     swig_generated_param_names = self.extract_swig_generated_param_names(fun_name, out[doc_start_line_idx:])
                     if class_info is None:
@@ -543,7 +626,7 @@ class idaapi_fixer_t(object):
                         verb("fix_%s: found info for %s" % (
                             "method" if class_info else "fun", fun_name));
                         out.append("\n")
-                        out.extend(map(lambda l: indent + l, found))
+                        out.extend(list(map(lambda l: indent + l, found)))
 
 
                     #
@@ -553,19 +636,20 @@ class idaapi_fixer_t(object):
 
                     example = fun_patches.get("+example", None)
                     if example:
-                        ex_lines = map(lambda l: "Python> %s" % l, example.split("\n"))
-                        out.extend(map(lambda l: indent + l, ["", "Example:"] + ex_lines))
+                        ex_lines = list(map(lambda l: "Python> %s" % l, example.split("\n")))
+                        out.extend(list(map(lambda l: indent + l, ["", "Example:"] + ex_lines)))
 
                     repl_text = fun_patches.get("repl_text", None)
                     if repl_text:
                         from_text, to_text = repl_text
-                        for i in xrange(doc_start_line_idx, len(out)):
+                        for i in range(doc_start_line_idx, len(out)):
                             out[i] = out[i].replace(from_text, to_text)
 
                     out.append(line)
                     break
                 else:
                     out.append(line)
+                docstring_line_nr += 1
 
     def fix_method(self, class_info, out):
         return self.fix_fun(out, class_info)
@@ -584,7 +668,7 @@ class idaapi_fixer_t(object):
         # If class has doc, maybe inject additional <pydoc>
         if line.find(DOCSTR_MARKER) > -1:
             while True:
-                line = next(self)
+                line = self.next()
                 if line.find(DOCSTR_MARKER) > -1:
                     doc = found["doc"]
                     if doc is not None:
@@ -600,7 +684,7 @@ class idaapi_fixer_t(object):
         # their docstring
         method_start = indent + "def "
         while True:
-            line = next(self)
+            line = self.next()
             # print "Fixing methods.. Line is '%s'" % line
             if line.startswith(indent) or line.strip() == "":
                 if line.startswith(method_start):
@@ -615,7 +699,7 @@ class idaapi_fixer_t(object):
     def fix_assignment(self, out, match):
         # out.append("LOL: %s" % match.group(1))
         line = self.copy(out)
-        line = next(self)
+        line = self.next()
         if not line.startswith(DOCSTR_MARKER):
             # apparently no epydoc-compliant docstring follows. Let's
             # look for a possible match in the xml doc.
@@ -633,12 +717,12 @@ class idaapi_fixer_t(object):
 
     def fix_file(self, args):
         input_path, xml_dir_path, out_path = args.input, args.xml_doc_directory, args.output
-        with open(input_path, "rt") as f:
-            self.lines = split_oneliner_comments(f.readlines())
+        with open(input_path) as f:
+            self.lines = split_oneliner_comments_and_remove_property_docstrings(f.readlines())
         self.xml_tree = doxygen_utils.load_xml_for_module(xml_dir_path, args.module)
         out = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if line.startswith("def "):
                 self.push_front(line)
                 self.fix_fun(out)
@@ -652,16 +736,18 @@ class idaapi_fixer_t(object):
                     self.fix_assignment(out, m)
                 else:
                     out.append(line)
-        with open(out_path, "wt") as o:
+        with open(out_path, "w") as o:
             o.write("\n".join(out))
 
 # --------------------------------------------------------------------------
 patches = load_patches(args)
-collecter = collect_pydoc_t(args.wrapper)
+collecter = collect_pydoc_t(args.interface)
 collected = collecter.collect()
-fixer = idaapi_fixer_t(collected, patches)
+parser = wrapper_utils.cpp_wrapper_file_parser_t(args)
+cpp_wrapper_functions = parser.parse(args.cpp_wrapper)
+fixer = idaapi_fixer_t(collected, patches, cpp_wrapper_functions)
 fixer.fix_file(args)
-with open(args.epydoc_injections, "wb") as fout:
+with open(args.epydoc_injections, "w") as fout:
     for key in sorted(fixer.epydoc_injections.keys()):
         fout.write("\n\nida_%s.%s\n" % (args.module, key))
         fout.write("\n".join(fixer.epydoc_injections[key]))

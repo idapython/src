@@ -1,4 +1,8 @@
 
+#<pycode(py_range)>
+import ida_idaapi
+#</pycode(py_range)>
+
 #<pycode_BC695(py_range)>
 import sys
 sys.modules["ida_area"] = sys.modules["ida_range"]

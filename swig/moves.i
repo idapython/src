@@ -20,6 +20,8 @@
 
 %template(segm_move_info_vec_t) qvector<segm_move_info_t>;
 
+%apply SWIGTYPE *DISOWN { place_t *in_p };
+
 %inline %{
 //<inline(py_moves)>
 //</inline(py_moves)>

@@ -23,7 +23,7 @@ def find_imported_funcs(dllname):
 
     imports = []
     nimps = ida_nalt.get_import_module_qty()
-    for i in xrange(0, nimps):
+    for i in range(0, nimps):
         name = ida_nalt.get_import_module_name(i)
         if re.match(dllname, name, re.IGNORECASE) is None:
             continue
@@ -37,14 +37,14 @@ def find_import_ref(dllname):
     imports = find_imported_funcs(dllname)
     R = dict()
     for i, (ea, name,_) in enumerate(imports):
-        #print "%x -> %s" % (ea, name)
+        #print("%x -> %s" % (ea, name))
         for xref in idautils.XrefsTo(ea):
             # check if referrer is a thunk
             ea = xref.frm
             f = ida_funcs.get_func(ea)
             if f and (f.flags & ida_funcs.FUNC_THUNK) != 0:
                 imports.append([f.start_ea, ida_funcs.get_func_name(f.start_ea), 0])
-                #print "\t%x %s: from a thunk, parent added %x" % (ea, name, f.start_ea)
+                #print("\t%x %s: from a thunk, parent added %x" % (ea, name, f.start_ea))
                 continue
 
             # save results

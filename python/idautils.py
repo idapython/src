@@ -32,7 +32,7 @@ import ida_xref
 import idc
 import types
 import os
-
+import sys
 
 def refs(ea, funcfirst, funcnext):
     """
@@ -57,7 +57,7 @@ def CodeRefsTo(ea, flow):
     Example::
 
         for ref in CodeRefsTo(get_screen_ea(), 1):
-            print ref
+            print(ref)
     """
     if flow == 1:
         return refs(ea, ida_xref.get_first_cref_to, ida_xref.get_next_cref_to)
@@ -78,7 +78,7 @@ def CodeRefsFrom(ea, flow):
     Example::
 
         for ref in CodeRefsFrom(get_screen_ea(), 1):
-            print ref
+            print(ref)
     """
     if flow == 1:
         return refs(ea, ida_xref.get_first_cref_from, ida_xref.get_next_cref_from)
@@ -97,7 +97,7 @@ def DataRefsTo(ea):
     Example::
 
         for ref in DataRefsTo(get_screen_ea()):
-            print ref
+            print(ref)
     """
     return refs(ea, ida_xref.get_first_dref_to, ida_xref.get_next_dref_to)
 
@@ -113,7 +113,7 @@ def DataRefsFrom(ea):
     Example::
 
         for ref in DataRefsFrom(get_screen_ea()):
-            print ref
+            print(ref)
     """
     return refs(ea, ida_xref.get_first_dref_from, ida_xref.get_next_dref_from)
 
@@ -159,12 +159,12 @@ def XrefsFrom(ea, flags=0):
     Return all references from address 'ea'
 
     @param ea: Reference address
-    @param flags: any of ida_xref.XREF_* flags
+    @param flags: one of ida_xref.XREF_ALL (default), ida_xref.XREF_FAR, ida_xref.XREF_DATA
 
     Example::
            for xref in XrefsFrom(here(), 0):
-               print xref.type, XrefTypeName(xref.type), \
-                         'from', hex(xref.frm), 'to', hex(xref.to)
+               print(xref.type, XrefTypeName(xref.type), \
+                         'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
     if xref.first_from(ea, flags):
@@ -178,12 +178,12 @@ def XrefsTo(ea, flags=0):
     Return all references to address 'ea'
 
     @param ea: Reference address
-    @param flags: any of ida_xref.XREF_* flags
+    @param flags: one of ida_xref.XREF_ALL (default), ida_xref.XREF_FAR, ida_xref.XREF_DATA
 
     Example::
            for xref in XrefsTo(here(), 0):
-               print xref.type, XrefTypeName(xref.type), \
-                         'from', hex(xref.frm), 'to', hex(xref.to)
+               print(xref.type, XrefTypeName(xref.type), \
+                         'from', hex(xref.frm), 'to', hex(xref.to))
     """
     xref = ida_xref.xrefblk_t()
     if xref.first_to(ea, flags):
@@ -194,7 +194,7 @@ def XrefsTo(ea, flags=0):
 
 def Threads():
     """Returns all thread IDs for the current debugee"""
-    for i in xrange(0, idc.get_thread_qty()):
+    for i in range(0, idc.get_thread_qty()):
         yield idc.getn_thread(i)
 
 
@@ -283,7 +283,7 @@ def Names():
 
     @return: List of tuples (ea, name)
     """
-    for i in xrange(ida_name.get_nlist_size()):
+    for i in range(ida_name.get_nlist_size()):
         ea   = ida_name.get_nlist_ea(i)
         name = ida_name.get_nlist_name(i)
         yield (ea, name)
@@ -295,7 +295,7 @@ def Segments():
 
     @return: List of segment start addresses.
     """
-    for n in xrange(ida_segment.get_segm_qty()):
+    for n in range(ida_segment.get_segm_qty()):
         seg = ida_segment.getnseg(n)
         if seg:
             yield seg.start_ea
@@ -308,7 +308,7 @@ def Entries():
     @return: List of tuples (index, ordinal, ea, name)
     """
     n = ida_entry.get_entry_qty()
-    for i in xrange(0, n):
+    for i in range(0, n):
         ordinal = ida_entry.get_entry_ordinal(i)
         ea      = ida_entry.get_entry(ordinal)
         name    = ida_entry.get_entry_name(ordinal)
@@ -482,7 +482,7 @@ class Strings(object):
         s = Strings()
 
         for i in s:
-            print "%x: len=%d type=%d -> '%s'" % (i.ea, i.length, i.strtype, str(i))
+            print("%x: len=%d type=%d -> '%s'" % (i.ea, i.length, i.strtype, str(i)))
 
     """
     class StringItem(object):
@@ -502,10 +502,13 @@ class Strings(object):
 
         def _toseq(self, as_unicode):
             strbytes = ida_bytes.get_strlit_contents(self.ea, self.length, self.strtype)
-            return unicode(strbytes, "UTF-8", 'replace') if as_unicode else strbytes
+            if sys.version_info.major >= 3:
+                return strbytes.decode("UTF-8", "replace") if as_unicode else strbytes
+            else:
+                return unicode(strbytes, "UTF-8", 'replace') if as_unicode else strbytes
 
         def __str__(self):
-            return self._toseq(False)
+            return self._toseq(False if sys.version_info.major < 3 else True)
 
         def __unicode__(self):
             return self._toseq(True)
@@ -559,7 +562,7 @@ class Strings(object):
 
 
     def __iter__(self):
-        return (self._get_item(index) for index in xrange(0, self.size))
+        return (self._get_item(index) for index in range(0, self.size))
 
 
     def __getitem__(self, index):
@@ -593,7 +596,7 @@ def _Assemble(ea, line):
     """
     Please refer to Assemble() - INTERNAL USE ONLY
     """
-    if type(line) == bytes:
+    if type(line) in ([bytes] + list(ida_idaapi.string_types)):
         lines = [line]
     else:
         lines = line
@@ -686,11 +689,9 @@ class _procregs(object):
 class _cpu(object):
     "Simple wrapper around get_reg_value/set_reg_value"
     def __getattr__(self, name):
-        #print "cpu.get(%s)" % name
         return idc.get_reg_value(name)
 
     def __setattr__(self, name, value):
-        #print "cpu.set(%s)" % name
         return idc.set_reg_value(value, name)
 
 
@@ -784,7 +785,7 @@ class peutils_t(object):
 cpu = _cpu()
 """This is a special class instance used to access the registers as if they were attributes of this object.
 For example to access the EAX register:
-    print "%x" % cpu.Eax
+    print("%x" % cpu.Eax)
 """
 
 procregs = _procregs()
@@ -792,5 +793,5 @@ procregs = _procregs()
 For example:
     x = idautils.DecodeInstruction(here())
     if x[0] == procregs.Esp:
-        print "This operand is the register ESP
+        print("This operand is the register ESP)
 """

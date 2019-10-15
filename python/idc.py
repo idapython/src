@@ -270,16 +270,20 @@ FF_JUMP  = ida_bytes.FF_JUMP & 0xFFFFFFFF  # Has jump table
 #
 #      Loader flags
 #
-NEF_SEGS   = ida_loader.NEF_SEGS   # Create segments
-NEF_RSCS   = ida_loader.NEF_RSCS   # Load resources
-NEF_NAME   = ida_loader.NEF_NAME   # Rename entries
-NEF_MAN    = ida_loader.NEF_MAN    # Manual load
-NEF_FILL   = ida_loader.NEF_FILL   # Fill segment gaps
-NEF_IMPS   = ida_loader.NEF_IMPS   # Create imports section
-NEF_FIRST  = ida_loader.NEF_FIRST  # This is the first file loaded
-NEF_CODE   = ida_loader.NEF_CODE   # for load_binary_file:
-NEF_RELOAD = ida_loader.NEF_RELOAD # reload the file at the same place:
-NEF_FLAT   = ida_loader.NEF_FLAT   # Autocreated FLAT group (PE)
+if ida_idaapi.uses_swig_builtins:
+    _scope = ida_loader.loader_t
+else:
+    _scope = ida_loader
+NEF_SEGS   = _scope.NEF_SEGS   # Create segments
+NEF_RSCS   = _scope.NEF_RSCS   # Load resources
+NEF_NAME   = _scope.NEF_NAME   # Rename entries
+NEF_MAN    = _scope.NEF_MAN    # Manual load
+NEF_FILL   = _scope.NEF_FILL   # Fill segment gaps
+NEF_IMPS   = _scope.NEF_IMPS   # Create imports section
+NEF_FIRST  = _scope.NEF_FIRST  # This is the first file loaded
+NEF_CODE   = _scope.NEF_CODE   # for load_binary_file:
+NEF_RELOAD = _scope.NEF_RELOAD # reload the file at the same place:
+NEF_FLAT   = _scope.NEF_FLAT   # Autocreated FLAT group (PE)
 
 #         List of built-in functions
 #         --------------------------
@@ -359,13 +363,13 @@ def rotate_left(value, count, nbits, offset):
     tmp = value & mask
 
     if count > 0:
-        for x in xrange(count):
+        for x in range(count):
             if (tmp >> (offset+nbits-1)) & 1:
                 tmp = (tmp << 1) | (1 << offset)
             else:
                 tmp = (tmp << 1)
     else:
-        for x in xrange(-count):
+        for x in range(-count):
             if (tmp >> offset) & 1:
                 tmp = (tmp >> 1) | (1 << (offset+nbits-1))
             else:
@@ -808,7 +812,7 @@ def define_local_var(start, end, location, name):
                     frame,
                     name,
                     offset,
-                    ida_bytes.byteflag(),
+                    ida_bytes.byte_flag(),
                     None, 1) == 0:
                 return 1
             else:
@@ -818,18 +822,7 @@ def define_local_var(start, end, location, name):
         return ida_frame.add_regvar(func, start, end, location, name, None)
 
 
-def del_items(ea, flags=0, size=1):
-    """
-    Convert the current item to an explored item
-
-    @param ea: linear address
-    @param flags: combination of DELIT_* constants
-    @param size: size of the range to undefine
-
-    @return: None
-    """
-    return ida_bytes.del_items(ea, flags, size)
-
+del_items = ida_bytes.del_items
 
 DELIT_SIMPLE   = ida_bytes.DELIT_SIMPLE   # simply undefine the specified item
 DELIT_EXPAND   = ida_bytes.DELIT_EXPAND   # propogate undefined items, for example
@@ -985,7 +978,12 @@ def op_stroff(ea, n, strid, delta):
     """
     path = ida_pro.tid_array(1)
     path[0] = strid
-    return ida_bytes.op_stroff(ea, n, path.cast(), 1, delta)
+    if isinstance(ea, ida_ua.insn_t):
+        insn = ea
+    else:
+        insn = ida_ua.insn_t()
+        ida_ua.decode_insn(insn, ea)
+    return ida_bytes.op_stroff(insn, n, path.cast(), 1, delta)
 
 
 op_stkvar = ida_bytes.op_stkvar
@@ -1765,12 +1763,12 @@ def get_str_type(ea):
 #          flag is combination of the following bits
 
 #      returns BADADDR - not found
-def find_suspop   (ea, flag): return ida_search.find_suspop(ea, flag)
-def find_code     (ea, flag): return ida_search.find_code(ea, flag)
-def find_data     (ea, flag): return ida_search.find_data(ea, flag)
-def find_unknown  (ea, flag): return ida_search.find_unknown(ea, flag)
-def find_defined  (ea, flag): return ida_search.find_defined(ea, flag)
-def find_imm      (ea, flag, value): return ida_search.find_imm(ea, flag, value)
+find_suspop  = ida_search.find_suspop
+find_code    = ida_search.find_code
+find_data    = ida_search.find_data
+find_unknown = ida_search.find_unknown
+find_defined = ida_search.find_defined
+find_imm     = ida_search.find_imm
 
 SEARCH_UP       = ida_search.SEARCH_UP       # search backward
 SEARCH_DOWN     = ida_search.SEARCH_DOWN     # search forward
@@ -2366,16 +2364,7 @@ ADDSEG_SPARSE  = ida_segment.ADDSEG_SPARSE  # Use sparse storage method for the 
 def AddSeg(startea, endea, base, use32, align, comb):
     return add_segm_ex(startea, endea, base, use32, align, comb, ADDSEG_NOSREG)
 
-def del_segm(ea, flags):
-    """
-    Delete a segment
-
-    @param ea: any address in the segment
-    @param flags: combination of SEGMOD_* flags
-
-    @return: boolean success
-    """
-    return ida_segment.del_segm(ea, flags)
+del_segm = ida_segment.del_segm
 
 SEGMOD_KILL   = ida_segment.SEGMOD_KILL   # disable addresses if segment gets
                                      # shrinked or deleted
@@ -2444,22 +2433,26 @@ def set_segm_alignment(ea, alignment):
     return set_segm_attr(ea, SEGATTR_ALIGN, alignment)
 
 
-saAbs        = ida_segment.saAbs        # Absolute segment.
-saRelByte    = ida_segment.saRelByte    # Relocatable, byte aligned.
-saRelWord    = ida_segment.saRelWord    # Relocatable, word (2-byte, 16-bit) aligned.
-saRelPara    = ida_segment.saRelPara    # Relocatable, paragraph (16-byte) aligned.
-saRelPage    = ida_segment.saRelPage    # Relocatable, aligned on 256-byte boundary
-                                        # (a "page" in the original Intel specification).
-saRelDble    = ida_segment.saRelDble    # Relocatable, aligned on a double word
-                                        # (4-byte) boundary. This value is used by
-                                        # the PharLap OMF for the same alignment.
-saRel4K      = ida_segment.saRel4K      # This value is used by the PharLap OMF for
-                                        # page (4K) alignment. It is not supported
-                                        # by LINK.
-saGroup      = ida_segment.saGroup      # Segment group
-saRel32Bytes = ida_segment.saRel32Bytes # 32 bytes
-saRel64Bytes = ida_segment.saRel64Bytes # 64 bytes
-saRelQword   = ida_segment.saRelQword   # 8 bytes
+if ida_idaapi.uses_swig_builtins:
+    _scope = ida_segment.segment_t
+else:
+    _scope = ida_segment
+saAbs        = _scope.saAbs        # Absolute segment.
+saRelByte    = _scope.saRelByte    # Relocatable, byte aligned.
+saRelWord    = _scope.saRelWord    # Relocatable, word (2-byte, 16-bit) aligned.
+saRelPara    = _scope.saRelPara    # Relocatable, paragraph (16-byte) aligned.
+saRelPage    = _scope.saRelPage    # Relocatable, aligned on 256-byte boundary
+                                   # (a "page" in the original Intel specification).
+saRelDble    = _scope.saRelDble    # Relocatable, aligned on a double word
+                                   # (4-byte) boundary. This value is used by
+                                   # the PharLap OMF for the same alignment.
+saRel4K      = _scope.saRel4K      # This value is used by the PharLap OMF for
+                                   # page (4K) alignment. It is not supported
+                                   # by LINK.
+saGroup      = _scope.saGroup      # Segment group
+saRel32Bytes = _scope.saRel32Bytes # 32 bytes
+saRel64Bytes = _scope.saRel64Bytes # 64 bytes
+saRelQword   = _scope.saRelQword   # 8 bytes
 
 
 def set_segm_combination(segea, comb):
@@ -2474,15 +2467,15 @@ def set_segm_combination(segea, comb):
     return set_segm_attr(segea, SEGATTR_COMB, comb)
 
 
-scPriv   = ida_segment.scPriv   # Private. Do not combine with any other program
-                                # segment.
-scPub    = ida_segment.scPub    # Public. Combine by appending at an offset that
-                                # meets the alignment requirement.
-scPub2   = ida_segment.scPub2   # As defined by Microsoft, same as C=2 (public).
-scStack  = ida_segment.scStack  # Stack. Combine as for C=2. This combine type
-                                # forces byte alignment.
-scCommon = ida_segment.scCommon # Common. Combine by overlay using maximum size.
-scPub3   = ida_segment.scPub3   # As defined by Microsoft, same as C=2 (public).
+scPriv   = _scope.scPriv   # Private. Do not combine with any other program
+                           # segment.
+scPub    = _scope.scPub    # Public. Combine by appending at an offset that
+                           # meets the alignment requirement.
+scPub2   = _scope.scPub2   # As defined by Microsoft, same as C=2 (public).
+scStack  = _scope.scStack  # Stack. Combine as for C=2. This combine type
+                           # forces byte alignment.
+scCommon = _scope.scCommon # Common. Combine by overlay using maximum size.
+scPub3   = _scope.scPub3   # As defined by Microsoft, same as C=2 (public).
 
 
 def set_segm_addressing(ea, bitness):
@@ -2557,22 +2550,22 @@ def set_segm_type(segea, segtype):
     return seg.update()
 
 
-SEG_NORM   = ida_segment.SEG_NORM
-SEG_XTRN   = ida_segment.SEG_XTRN   # * segment with 'extern' definitions
-                                    #   no instructions are allowed
-SEG_CODE   = ida_segment.SEG_CODE   # pure code segment
-SEG_DATA   = ida_segment.SEG_DATA   # pure data segment
-SEG_IMP    = ida_segment.SEG_IMP    # implementation segment
-SEG_GRP    = ida_segment.SEG_GRP    # * group of segments
-                                    #   no instructions are allowed
-SEG_NULL   = ida_segment.SEG_NULL   # zero-length segment
-SEG_UNDF   = ida_segment.SEG_UNDF   # undefined segment type
-SEG_BSS    = ida_segment.SEG_BSS    # uninitialized segment
-SEG_ABSSYM = ida_segment.SEG_ABSSYM # * segment with definitions of absolute symbols
-                                    #   no instructions are allowed
-SEG_COMM   = ida_segment.SEG_COMM   # * segment with communal definitions
-                                    #   no instructions are allowed
-SEG_IMEM   = ida_segment.SEG_IMEM   # internal processor memory & sfr (8051)
+SEG_NORM   = _scope.SEG_NORM
+SEG_XTRN   = _scope.SEG_XTRN   # * segment with 'extern' definitions
+                               #   no instructions are allowed
+SEG_CODE   = _scope.SEG_CODE   # pure code segment
+SEG_DATA   = _scope.SEG_DATA   # pure data segment
+SEG_IMP    = _scope.SEG_IMP    # implementation segment
+SEG_GRP    = _scope.SEG_GRP    # * group of segments
+                               #   no instructions are allowed
+SEG_NULL   = _scope.SEG_NULL   # zero-length segment
+SEG_UNDF   = _scope.SEG_UNDF   # undefined segment type
+SEG_BSS    = _scope.SEG_BSS    # uninitialized segment
+SEG_ABSSYM = _scope.SEG_ABSSYM # * segment with definitions of absolute symbols
+                               #   no instructions are allowed
+SEG_COMM   = _scope.SEG_COMM   # * segment with communal definitions
+                               #   no instructions are allowed
+SEG_IMEM   = _scope.SEG_IMEM   # internal processor memory & sfr (8051)
 
 
 def get_segm_attr(segea, attr):
@@ -2880,25 +2873,7 @@ def writestr(handle, s):
 #                           F U N C T I O N S
 # ----------------------------------------------------------------------------
 
-def add_func(start, end = ida_idaapi.BADADDR):
-    """
-    Create a function
-
-    @param start: function bounds
-    @param end: function bounds
-
-    If the function end address is BADADDR, then
-    IDA will try to determine the function bounds
-    automatically. IDA will define all necessary
-    instructions to determine the function bounds.
-
-    @return: !=0 - ok
-
-    @note: an instruction should be present at the start address
-    """
-    return ida_funcs.add_func(start, end)
-
-
+add_func = ida_funcs.add_func
 del_func = ida_funcs.del_func
 set_func_end = ida_funcs.set_func_end
 
@@ -3026,33 +3001,38 @@ def get_func_flags(ea):
         return func.flags
 
 
-FUNC_NORET         = ida_funcs.FUNC_NORET         # function doesn't return
-FUNC_FAR           = ida_funcs.FUNC_FAR           # far function
-FUNC_LIB           = ida_funcs.FUNC_LIB           # library function
-FUNC_STATIC        = ida_funcs.FUNC_STATICDEF     # static function
-FUNC_FRAME         = ida_funcs.FUNC_FRAME         # function uses frame pointer (BP)
-FUNC_USERFAR       = ida_funcs.FUNC_USERFAR       # user has specified far-ness
-                                                  # of the function
-FUNC_HIDDEN        = ida_funcs.FUNC_HIDDEN        # a hidden function
-FUNC_THUNK         = ida_funcs.FUNC_THUNK         # thunk (jump) function
-FUNC_BOTTOMBP      = ida_funcs.FUNC_BOTTOMBP      # BP points to the bottom of the stack frame
-FUNC_NORET_PENDING = ida_funcs.FUNC_NORET_PENDING # Function 'non-return' analysis
-                                                  # must be performed. This flag is
-                                                  # verified upon func_does_return()
-FUNC_SP_READY      = ida_funcs.FUNC_SP_READY      # SP-analysis has been performed
-                                                  # If this flag is on, the stack
-                                                  # change points should not be not
-                                                  # modified anymore. Currently this
-                                                  # analysis is performed only for PC
-FUNC_PURGED_OK     = ida_funcs.FUNC_PURGED_OK     # 'argsize' field has been validated.
-                                                  # If this bit is clear and 'argsize'
-                                                  # is 0, then we do not known the real
-                                                  # number of bytes removed from
-                                                  # the stack. This bit is handled
-                                                  # by the processor module.
-FUNC_TAIL          = ida_funcs.FUNC_TAIL          # This is a function tail.
-                                                  # Other bits must be clear
-                                                  # (except FUNC_HIDDEN)
+if ida_idaapi.uses_swig_builtins:
+    _scope = ida_funcs.func_t
+else:
+    _scope = ida_funcs
+
+FUNC_NORET         = _scope.FUNC_NORET         # function doesn't return
+FUNC_FAR           = _scope.FUNC_FAR           # far function
+FUNC_LIB           = _scope.FUNC_LIB           # library function
+FUNC_STATIC        = _scope.FUNC_STATICDEF     # static function
+FUNC_FRAME         = _scope.FUNC_FRAME         # function uses frame pointer (BP)
+FUNC_USERFAR       = _scope.FUNC_USERFAR       # user has specified far-ness
+                                               # of the function
+FUNC_HIDDEN        = _scope.FUNC_HIDDEN        # a hidden function
+FUNC_THUNK         = _scope.FUNC_THUNK         # thunk (jump) function
+FUNC_BOTTOMBP      = _scope.FUNC_BOTTOMBP      # BP points to the bottom of the stack frame
+FUNC_NORET_PENDING = _scope.FUNC_NORET_PENDING # Function 'non-return' analysis
+                                               # must be performed. This flag is
+                                               # verified upon func_does_return()
+FUNC_SP_READY      = _scope.FUNC_SP_READY      # SP-analysis has been performed
+                                               # If this flag is on, the stack
+                                               # change points should not be not
+                                               # modified anymore. Currently this
+                                               # analysis is performed only for PC
+FUNC_PURGED_OK     = _scope.FUNC_PURGED_OK     # 'argsize' field has been validated.
+                                               # If this bit is clear and 'argsize'
+                                               # is 0, then we do not known the real
+                                               # number of bytes removed from
+                                               # the stack. This bit is handled
+                                               # by the processor module.
+FUNC_TAIL          = _scope.FUNC_TAIL          # This is a function tail.
+                                               # Other bits must be clear
+                                               # (except FUNC_HIDDEN)
 
 
 def set_func_flags(ea, flags):
@@ -3979,10 +3959,10 @@ def add_struc_member(sid, name, offset, flag, typeid, nbytes, target=-1, tdelta=
 
     """
     if is_off0(flag):
-        return eval_idc('add_struc_member(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, ida_kernwin.str2user(name), offset, flag, typeid, nbytes,
+        return eval_idc('add_struc_member(%d, "%s", %d, %d, %d, %d, %d, %d, %d);' % (sid, ida_kernwin.str2user(name or ""), offset, flag, typeid, nbytes,
                                                                                target, tdelta, reftype))
     else:
-        return eval_idc('add_struc_member(%d, "%s", %d, %d, %d, %d);' % (sid, ida_kernwin.str2user(name), offset, flag, typeid, nbytes))
+        return eval_idc('add_struc_member(%d, "%s", %d, %d, %d, %d);' % (sid, ida_kernwin.str2user(name or ""), offset, flag, typeid, nbytes))
 
 
 STRUC_ERROR_MEMBER_NAME    = -1 # already has member with this name (bad name)
@@ -4136,16 +4116,7 @@ def set_fchunk_attr(ea, attr, value):
     return 0
 
 
-def get_fchunk_referer(ea, idx):
-    """
-    Get a function chunk referer
-
-    @param ea: any address in the chunk
-    @param idx: referer index (0..get_fchunk_attr(FUNCATTR_REFQTY))
-
-    @return: referer address or BADADDR
-    """
-    return ida_funcs.get_fchunk_referer(ea, idx)
+get_fchunk_referer = ida_funcs.get_fchunk_referer
 
 
 def get_next_fchunk(ea):
@@ -4664,6 +4635,8 @@ def __GetArrayById(array_id):
             return __dummy_netnode.instance
         else:
             return node
+    except TypeError:
+        return __dummy_netnode.instance
     except NotImplementedError:
         return __dummy_netnode.instance
 
@@ -5101,8 +5074,8 @@ def apply_type(ea, py_type, flags = TINFO_DEFINITE):
 
     if py_type is None:
         py_type = ""
-    if isinstance(py_type, basestring) and len(py_type) == 0:
-        pt = ("", "")
+    if isinstance(py_type, ida_idaapi.string_types) and len(py_type) == 0:
+        pt = (b"", b"")
     else:
         if len(py_type) == 3:
           pt = py_type[1:]      # skip name component
@@ -5199,7 +5172,7 @@ def print_decls(ordinals, flags):
             return 0
 
     sink = def_sink()
-    py_ordinals = map(lambda l : int(l), ordinals.split(","))
+    py_ordinals = list(map(lambda l : int(l), ordinals.split(",")))
     ida_typeinf.print_decls(sink, None, py_ordinals, flags)
 
     return sink.text
@@ -5687,13 +5660,7 @@ def set_reg_value(value, name):
     return ida_dbg.set_reg_val(name, value)
 
 
-def get_bpt_qty():
-    """
-    Get number of breakpoints.
-
-    @return: number of breakpoints
-    """
-    return ida_dbg.get_bpt_qty()
+get_bpt_qty = ida_dbg.get_bpt_qty
 
 
 def get_bpt_ea(n):
@@ -5846,34 +5813,10 @@ def set_bpt_cond(ea, cnd, is_lowcnd=0):
     return ida_dbg.update_bpt(bpt)
 
 
-def add_bpt(ea, size=0, bpttype=BPT_DEFAULT):
-    """
-    Add a new breakpoint
-
-    @param ea: any address in the process memory space:
-    @param size: size of the breakpoint (irrelevant for software breakpoints):
-    @param bpttype: type of the breakpoint (one of BPT_... constants)
-
-    @return: success
-
-    @note: Only one breakpoint can exist at a given address.
-    """
-    return ida_dbg.add_bpt(ea, size, bpttype)
-
-
-def del_bpt(ea):
-    """
-    Delete breakpoint
-
-    @param ea: any address in the process memory space:
-
-    @return: success
-    """
-    return ida_dbg.del_bpt(ea)
-
-
+add_bpt    = ida_dbg.add_bpt
+del_bpt    = ida_dbg.del_bpt
 enable_bpt = ida_dbg.enable_bpt
-check_bpt = ida_dbg.check_bpt
+check_bpt  = ida_dbg.check_bpt
 
 BPTCK_NONE = -1  # breakpoint does not exist
 BPTCK_NO   =  0  # breakpoint is disabled

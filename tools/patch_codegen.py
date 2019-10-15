@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 import re
 import sys
+import six
 import xml.etree.ElementTree as ET
 
 try:
@@ -31,7 +32,7 @@ patched_cmt = "// patched by patch_codegen.py"
 # Load specific patches
 patches = {}
 if os.path.isfile(args.patches):
-    with open(args.patches, "r") as fin:
+    with open(args.patches) as fin:
         patches = eval(fin.read())
 
 class batch_patches_t:
@@ -51,7 +52,7 @@ class batch_patches_t:
 
 batch_patches_data = {}
 if os.path.isfile(args.batch_patches):
-    with open(args.batch_patches, "r") as fin:
+    with open(args.batch_patches) as fin:
         batch_patches_data = eval(fin.read())
 batch_patches = batch_patches_t(batch_patches_data)
 
@@ -127,7 +128,7 @@ all_lines = [
     "#  define SWIG_NORETURN __attribute__((noreturn))\n",
     "#endif\n",
 ]
-with open(args.input, "rb") as f:
+with open(args.input) as f:
     STAT_UNKNOWN = {}
     STAT_IN_FUNCTION = {}
     stat = STAT_UNKNOWN
@@ -187,6 +188,8 @@ with open(args.input, "rb") as f:
         else:
             if line.find("PyArg_UnpackTuple(args") > -1:
                 current_function_uses_args = True
+            elif line.find(" = args;"):
+                current_function_uses_args = True
             elif line.find("varargs") > -1:
                 current_function_uses_varargs = True
             for patch_kind, patch_data in func_patches:
@@ -208,14 +211,14 @@ with open(args.input, "rb") as f:
                             "      PyErr_Print();\n"
                             "  }\n",
                             line)
-                    elif line.rstrip().endswith("c_result;"):
-                        vtype = line.strip().split()[0]
-                        init_line = "  %s c_result = %s(0);" % (vtype, vtype)
+                    elif line.rstrip().find("c_result = SwigValueInit") > -1:
+                        # vtype = line.strip().split()[0]
+                        # init_line = "  %s c_result = %s(0);" % (vtype, vtype)
                         subst = append_subst(
                             subst,
                             "  PYW_GIL_GET; %s\n" % patched_cmt +
                             "  try {",
-                            init_line)
+                            line)
 
                 elif patch_kind == "repl_text":
                     idx = line.find(patch_data[0])
@@ -234,6 +237,10 @@ with open(args.input, "rb") as f:
                             "  init_director_hooks(self, %s::mappings, %s::mappings_size);" % (
                                 hooks_class_name, hooks_class_name),
                         ]
+                        for forbidden, replacement in (patch_data or []):
+                            subst.append("ensure_no_method_when_no_695_compat(self, \"%s\", \"%s\");" % (
+                                forbidden, replacement))
+
                 elif patch_kind == "thread_unsafe":
                     if entered_function:
                         subst = prepend_subst(subst, "  if ( !__chkthr() ) return NULL; %s" % patched_cmt, line)
@@ -282,15 +289,15 @@ with open(args.input, "rb") as f:
             current_function_proto = None
 
         if subst is not None:
-            if isinstance(subst, basestring):
+            if isinstance(subst, six.string_types):
                 subst = [subst]
             all_lines.extend(map(lambda l: "%s\n" % l, subst))
         else:
             all_lines.append(line)
 
 import tempfile
-temp = tempfile.NamedTemporaryFile(delete=False)
-temp.writelines(all_lines)
+temp = tempfile.NamedTemporaryFile(mode="w", delete=False)
+temp.write("".join(all_lines))
 temp.close()
 
 import shutil

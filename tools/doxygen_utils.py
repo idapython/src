@@ -8,7 +8,7 @@ def load_xml_for_module(xml_dir_path, module_name, or_dummy=True):
     for sfx in ["_8hpp", "_8h"]:
         xml_path = os.path.join(xml_dir_path, "%s%s.xml" % (module_name, sfx))
         if os.path.isfile(xml_path):
-            with open(xml_path, "rb") as fin:
+            with open(xml_path) as fin:
                 xml_tree = ET.fromstring(fin.read())
     return xml_tree
 

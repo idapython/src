@@ -12,7 +12,7 @@ args = parser.parse_args()
 
 if os.path.isfile(args.patches):
     with open(args.file) as fin:
-        lines = map(str.rstrip, fin.readlines())
+        lines = fin.readlines()
 
     patches = {}
     with open(args.patches) as fin:
@@ -24,8 +24,8 @@ if os.path.isfile(args.patches):
         all_lines.append(l)
 
     import tempfile
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    temp.write("\n".join(all_lines))
+    temp = tempfile.NamedTemporaryFile(mode="w", delete=False)
+    temp.writelines(all_lines)
     temp.close()
 
     import shutil

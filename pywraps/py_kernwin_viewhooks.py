@@ -29,8 +29,12 @@ class CustomIDAMemo(View_Hooks):
         return cb
 
     def _get_cb_arity(self, cb):
-        from inspect import getargspec
-        return len(getargspec(cb).args)
+        import sys
+        import inspect
+        if sys.version_info.major >= 3:
+            return len(inspect.getfullargspec(cb).args)
+        else:
+            return len(inspect.getargspec(cb).args)
 
     def view_activated(self, view):
         return self._get_cb(view, "OnViewActivated")()
@@ -102,7 +106,7 @@ class CustomIDAMemo(View_Hooks):
         ida_idaapi.pygc_refresh(self)
 
     def GetCurrentRendererType(self):
-        return ida_idaapi.pygc_get_current_renderer_type(self)
+        return get_view_renderer_type(self.GetWidget())
 
     def SetCurrentRendererType(self, rtype):
         """
@@ -110,7 +114,7 @@ class CustomIDAMemo(View_Hooks):
 
         @param rtype: The renderer type. Should be one of the idaapi.TCCRT_* values.
         """
-        ida_idaapi.pygc_set_current_renderer_type(self, rtype)
+        return set_view_renderer_type(self.GetWidget(), rtype)
 
     def SetNodeInfo(self, node_index, node_info, flags):
         """
@@ -126,7 +130,8 @@ class CustomIDAMemo(View_Hooks):
         @param node_info: An idaapi.node_info_t instance.
         @param flags: An OR'ed value of NIF_* values.
         """
-        ida_idaapi.pygc_set_node_info(self, node_index, node_info, flags)
+        import ida_graph
+        return ida_graph.viewer_set_node_info(self.GetWidget(), node_index, node_info, flags)
 
     def SetNodesInfos(self, values):
         """
@@ -140,16 +145,29 @@ class CustomIDAMemo(View_Hooks):
 
         @param values: A dictionary of 'int -> node_info_t' objects.
         """
-        ida_idaapi.pygc_set_nodes_infos(self, values)
+        import ida_graph
+        for node_index, node_info in values.items():
+            ida_graph.viewer_set_node_info(self.GetWidget(), node_index, node_info, ida_graph.NIF_ALL)
 
-    def GetNodeInfo(self, node):
+    def GetNodeInfo(self, *args):
         """
         Get the properties for the given node.
 
+        @param ni: A node_info_t instance
         @param node: The index of the node.
-        @return: A tuple (bg_color, frame_color, ea, text), or None.
+        @return: success
         """
-        return ida_idaapi.pygc_get_node_info(self, node)
+        import ida_graph
+        if len(args) < 2:
+            # bw-compat
+            ni, node = ida_graph.node_info_t(), args[0]
+            if ida_graph.viewer_get_node_info(self.GetWidget(), ni, node):
+                return (ni.bg_color, ni.frame_color, ni.ea, ni.text)
+            else:
+                return None
+        else:
+            ni, node = args[0], args[1]
+            return ida_graph.viewer_get_node_info(self.GetWidget(), ni, node)
 
     def DelNodesInfos(self, *nodes):
         """
@@ -157,7 +175,9 @@ class CustomIDAMemo(View_Hooks):
 
         @param nodes: A list of node IDs
         """
-        return ida_idaapi.pygc_del_nodes_infos(self, nodes)
+        import ida_graph
+        for n in nodes:
+            ida_graph.viewer_del_node_info(self.GetWidget(), n)
 
     def CreateGroups(self, groups_infos):
         """
@@ -205,6 +225,14 @@ class CustomIDAMemo(View_Hooks):
         @return: The TWidget underlying this view, or None.
         """
         return ida_idaapi.pycim_get_widget(self)
+
+    def GetWidgetAsGraphViewer(self):
+        """
+        Return the graph_viewer_t underlying this view.
+
+        @return: The graph_viewer_t underlying this view, or None.
+        """
+        return ida_idaapi.pycim_get_widget_as_graph_viewer(self)
 
 # ----------------------------------------------------------------------
 # bw-compat/deprecated. You shouldn't rely on this in new code

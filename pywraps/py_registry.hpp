@@ -15,7 +15,7 @@ static PyObject *_py_reg_subkey_children(const char *name, bool subkeys)
     result = PyList_New(children.size());
     if ( result != NULL )
       for ( size_t i = 0, n = children.size(); i < n; ++i )
-        PyList_SET_ITEM(result, i, PyString_FromString(children[i].c_str()));
+        PyList_SET_ITEM(result, i, IDAPyStr_FromUTF8(children[i].c_str()));
   }
   Py_END_ALLOW_THREADS;
   if ( result == NULL )
@@ -36,7 +36,7 @@ PyObject *py_reg_read_string(const char *name, const char *subkey = NULL, const 
   if ( !reg_read_string(&utf8, name, subkey) && def != NULL )
     utf8 = def;
   Py_END_ALLOW_THREADS;
-  return PyString_FromString(utf8.c_str());
+  return IDAPyStr_FromUTF8(utf8.c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -60,29 +60,31 @@ PyObject *py_reg_read_binary(const char *name, const char *subkey = NULL)
   ok = reg_read_binary(name, &bytes, subkey);
   Py_END_ALLOW_THREADS;
   if ( ok )
-    return PyString_FromStringAndSize((const char *) bytes.begin(), bytes.size());
+    return IDAPyBytes_FromMemAndSize((const char *) bytes.begin(), bytes.size());
   else
     Py_RETURN_NONE;
 }
 
 //-------------------------------------------------------------------------
-void py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
+PyObject *py_reg_write_binary(const char *name, PyObject *py_bytes, const char *subkey = NULL)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_Check(py_bytes) )
+  if ( IDAPyBytes_Check(py_bytes) )
   {
     char *py_bytes_raw = NULL;
     Py_ssize_t py_size = 0;
-    PyString_AsStringAndSize(py_bytes, &py_bytes_raw, &py_size);
+    IDAPyBytes_AsMemAndSize(py_bytes, &py_bytes_raw, &py_size);
     bytevec_t bytes;
     bytes.append(py_bytes_raw, py_size);
     Py_BEGIN_ALLOW_THREADS;
     reg_write_binary(name, bytes.begin(), bytes.size(), subkey);
     Py_END_ALLOW_THREADS;
+    Py_RETURN_NONE;
   }
   else
   {
     PyErr_SetString(PyExc_ValueError, "Bytes string expected!");
+    return NULL;
   }
 }
 

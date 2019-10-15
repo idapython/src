@@ -18,6 +18,7 @@ ALL RIGHTS RESERVED.
 """
 from __future__ import print_function
 import re
+import sys
 
 import ida_idaapi
 import ida_lines
@@ -55,7 +56,7 @@ def FindInstructions(instr, asm_where=None):
     for line in lines:
         if re_opcode.match(line):
             # convert from hex string to a character list then join the list to form one string
-            buf = ''.join([chr(int(x, 16)) for x in line.split()])
+            buf = bytes(bytearray([int(x, 16) for x in line.split()]))
         else:
             # assemble the instruction
             ret, buf = idautils.Assemble(asm_where, line)
@@ -65,13 +66,13 @@ def FindInstructions(instr, asm_where=None):
         bufs.append(buf)
 
     # join the buffer into one string
-    buf = ''.join(bufs)
+    buf = b''.join(bufs)
 
     # take total assembled instructions length
     tlen = len(buf)
 
     # convert from binary string to space separated hex string
-    bin_str = ' '.join(["%02X" % ord(x) for x in buf])
+    bin_str = ' '.join(["%02X" % (ord(x) if sys.version_info.major < 3 else x) for x in buf])
 
     # find all binary strings
     print("Searching for: [%s]" % bin_str)

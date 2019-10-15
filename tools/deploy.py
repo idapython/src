@@ -123,7 +123,8 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
     output = convert_path(output)
 
     # read template file
-    template_str = "".join(file(template, "r").readlines())
+    with open(template) as fin:
+        template_str = fin.read()
 
     # read input file(s)
     all_files = glob.glob(os.path.join(pywraps, "py_%s.*" % module)) + \
@@ -144,7 +145,8 @@ def deploy(module, template, output, pywraps, iface_deps, lifecycle_aware, verbo
             ('pycode_BC695', make_re('pycode_BC695', tagname, '#')),
             )
 
-        input_str = "".join(file(path, "r").readlines())
+        with open(path) as fin:
+            input_str = fin.read()
         template_str = apply_tags(template_str, input_str, tags, verbose, path)
 
     # synthetic tags

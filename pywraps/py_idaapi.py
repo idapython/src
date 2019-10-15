@@ -20,7 +20,17 @@ import traceback
 import os
 import sys
 import bisect
-import __builtin__
+try:
+    import __builtin__ as builtins
+    # This basically mimics six's features (it's not ok to ask the IDAPython runtime to rely on six)
+    integer_types = (int, long)
+    string_types = (str, unicode)
+    long_type = long
+except:
+    import builtins
+    integer_types = (int,)
+    string_types = (str,)
+    long_type = int
 import imp
 import re
 
@@ -51,7 +61,12 @@ def require(modulename, package=None):
     if importer_module is None: # No importer module; called from command line
         importer_module = sys.modules['__main__']
     if modulename in sys.modules.keys():
-        reload(sys.modules[modulename])
+        m = sys.modules[modulename]
+        if sys.version_info.major >= 3:
+            import importlib
+            importlib.reload(m)
+        else:
+            reload(m)
         m = sys.modules[modulename]
     else:
         import importlib
@@ -156,7 +171,7 @@ class py_clinked_object_t(pyidc_opaque_object_t):
         """
         Overwrite me.
         Creates a new clink
-        @return: PyCObject representing the C link
+        @return: PyCapsule representing the C link
         """
         pass
 
@@ -300,11 +315,17 @@ def as_cstr(val):
     return val if n == -1 else val[:n]
 
 # -----------------------------------------------------------------------
-def as_unicode(s):
+def as_UTF16(s):
     """Convenience function to convert a string into appropriate unicode format"""
     # use UTF16 big/little endian, depending on the environment?
     import _ida_ida
-    return unicode(s).encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
+    if sys.version_info.major >= 3:
+        if type(s) == bytes:
+            s = s.decode("UTF-8")
+    else:
+        s = unicode(s)
+    return s.encode("UTF-16" + ("BE" if _ida_ida.cvar.inf.is_be() else "LE"))
+as_unicode = as_UTF16
 
 # -----------------------------------------------------------------------
 def as_uint32(v):
@@ -397,15 +418,22 @@ def IDAPython_ExecSystem(cmd):
         return "%s\n%s" % (str(e), traceback.format_exc())
 
 # ------------------------------------------------------------
-def IDAPython_FormatExc(etype, value, tb, limit=None):
+def IDAPython_FormatExc(etype, value=None, tb=None, limit=None):
     """
     This function is used to format an exception given the
     values returned by a PyErr_Fetch()
     """
+    import traceback
     try:
         return ''.join(traceback.format_exception(etype, value, tb, limit))
     except:
-        return str(value)
+        parts = [str(value)]
+        if tb:
+            try:
+                parts.append("".join(traceback.format_tb(tb)))
+            finally:
+                pass
+        return "\n".join(parts)
 
 
 # ------------------------------------------------------------
@@ -429,7 +457,9 @@ def IDAPython_ExecScript(script, g, print_error=True):
     g['__file__'] = script
 
     try:
-        execfile(script, g)
+        with open(script) as fin:
+            code = compile(fin.read(), script, 'exec')
+            exec(code, g)
         PY_COMPILE_ERR = None
     except Exception as e:
         PY_COMPILE_ERR = "%s\n%s" % (str(e), traceback.format_exc())
@@ -527,7 +557,7 @@ class __IDAPython_Completion_Util(object):
                 if not line.startswith("?"):
                     to_add = "("
             # Is it iterable?
-            elif isinstance(attr, basestring) or getattr(attr, '__iter__', False):
+            elif isinstance(attr, string_types) or getattr(attr, '__iter__', False):
                 to_add = "["
         except:
             # self.debug("maybe_extend_syntactically() got an exception:\n%s", traceback.format_exc())
@@ -537,13 +567,13 @@ class __IDAPython_Completion_Util(object):
         return name
 
     def get_candidates(self, qname, line, match_syntax_char):
-        # self.debug("get_candidates(qname=%s, line=%s, has_syntax=%s)", qname, line, has_syntax)
+        # self.debug("get_candidates(qname=%s, line=%s, match_syntax_char=%s)", qname, line, match_syntax_char)
         results = []
         try:
             ns = sys.modules['__main__']
             parts = qname.split('.')
             # self.debug("get_candidates() got parts: %s", parts)
-            for i in xrange(0, len(parts) - 1):
+            for i in range(0, len(parts) - 1):
                 ns = getattr(ns, parts[i])
         except Exception as e:
             # self.debug("get_candidates() got exception:\n%s", traceback.format_exc())
@@ -556,12 +586,12 @@ class __IDAPython_Completion_Util(object):
 
             # no completion found? looking from the global scope? then try the builtins
             if not results and len(parts) == 1:
-                results = self.dir_namespace(__builtin__, last_token)
-                # self.debug("get_candidates() completions for %s in %s: %s", last_token, __builtin__, results)
+                results = self.dir_namespace(builtins, last_token)
+                # self.debug("get_candidates() completions for %s in %s: %s", last_token, builtins, results)
 
             results = map(lambda r: self.maybe_extend_syntactically(ns, r, line, match_syntax_char), results)
             ns_parts = parts[:-1]
-            results = map(lambda r: ".".join(ns_parts + [r]), results)
+            results = list(map(lambda r: ".".join(ns_parts + [r]), results))
             # self.debug("get_candidates() => '%s'", str(results))
             return results
 
@@ -570,7 +600,7 @@ class __IDAPython_Completion_Util(object):
     def __call__(self, line, x):
         try:
             # self.debug("__call__(line=%s, x=%s)", line, x)
-            uline = line.decode("UTF-8")
+            uline = line.decode("UTF-8") if sys.version_info.major < 3 else line
             result = None
 
             # Kludge: if the we are past the last char, and that char is syntax:
@@ -586,7 +616,9 @@ class __IDAPython_Completion_Util(object):
 
             # Find what looks like an identifier (possibly qualified)
             for match in re.finditer(self.QNAME_PAT, uline):
-                qname, start, end = match.group(1).encode("UTF-8"), match.start(1), match.end(1)
+                qname, start, end = match.group(1), match.start(1), match.end(1)
+                if sys.version_info.major < 3:
+                    qname = qname.encode("UTF-8")
                 if x >= start and x <= end:
                     result = self.get_candidates(qname, line, match_syntax_char), start, end + (1 if match_syntax_char else 0)
 
@@ -671,9 +703,9 @@ class IDAPython_displayhook:
     def format_item(self, num_printer, storage, item):
         if item is None or isinstance(item, bool):
             storage.append(repr(item))
-        elif isinstance(item, basestring):
-            storage.append(_ida_idaapi.format_basestring(item))
-        elif isinstance(item, (int, long)):
+        elif isinstance(item, string_types):
+            storage.append(format_basestring(item))
+        elif isinstance(item, integer_types):
             storage.append(num_printer(item))
         elif isinstance(item, list):
             self.format_seq(num_printer, storage, item, '[', ']')
@@ -683,7 +715,7 @@ class IDAPython_displayhook:
             self.format_seq(num_printer, storage, item, 'set([', '])')
         elif isinstance(item, (dict,)):
             storage.append('{')
-            for idx, pair in enumerate(item.iteritems()):
+            for idx, pair in enumerate(item.items()):
                 if idx > 0:
                     storage.append(', ')
                 self.format_item(num_printer, storage, pair[0])
@@ -741,6 +773,11 @@ class __BC695:
         _replace_module_function(new)
 
 _BC695 = __BC695()
+
+def _make_badattr_property(bad_attr, new_attr):
+    def _raise(*args):
+        raise AttributeError("Property %s has been replaced with %s" % (bad_attr, new_attr))
+    return property(_raise, _raise)
 #</pycode(py_idaapi)>
 
 #<pycode_BC695(py_idaapi)>

@@ -26,7 +26,7 @@ static int idaapi py_import_enum_cb(
   if ( name == NULL )
     py_name = borref_t(Py_None);
   else
-    py_name = newref_t(PyString_FromString(name));
+    py_name = newref_t(IDAPyStr_FromUTF8(name));
 
   newref_t py_ord(Py_BuildValue(PY_BV_UVAL, bvuval_t(ord)));
   newref_t py_ea(Py_BuildValue(PY_BV_EA, bvea_t(ea)));
@@ -61,7 +61,7 @@ static PyObject *py_get_import_module_name(int mod_index)
   if ( !get_import_module_name(&qbuf, mod_index) )
     Py_RETURN_NONE;
 
-  return PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
+  return IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
 }
 
 //-------------------------------------------------------------------------

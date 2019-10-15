@@ -13,6 +13,16 @@
 #define PY_BV_SEL PY_BV_EA
 #define PY_BV_SVAL "L" // Convert a C long long to a Python long integer object
 
+#ifdef PY3
+#  define PY_BV_TYPE "y"
+#  define PY_BV_FIELDS "y"
+#  define PY_BV_BYTES "y"
+#else
+#  define PY_BV_TYPE "s"
+#  define PY_BV_FIELDS "s"
+#  define PY_BV_BYTES "s"
+#endif
+
 typedef unsigned PY_LONG_LONG bvea_t;
 typedef Py_ssize_t bvsz_t;
 typedef bvea_t bvuval_t;
@@ -66,6 +76,7 @@ static const char S_PY_OP_T_CLSNAME[]        = "op_t";
 static const char S_PROPS[]                  = "props";
 static const char S_NAME[]                   = "name";
 static const char S_TITLE[]                  = "title";
+static const char S_COLS[]                   = "cols";
 static const char S_ASM_KEYWORD[]            = "asm_keyword";
 static const char S_MENU_NAME[]              = "menu_name";
 static const char S_HOTKEY[]                 = "hotkey";
@@ -120,6 +131,9 @@ static const char S_CLINK_NAME[]             = "__clink__";
 static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 static const char S_MAIN[]                   = "__main__";
 
+#define VALID_CAPSULE_NAME "$valid$"
+#define INVALID_CAPSULE_NAME "$INvalid$"
+
 #ifdef __PYWRAPS__
 static const char S_PY_IDA_IDAAPI_MODNAME[] = "__main__";
 #else
@@ -165,8 +179,19 @@ idaman uint32 ida_export_data debug;
 #define IDA_DEBUG_PLUGIN 0x00000020
 THREAD_SAFE AS_PRINTF(1, 2) inline int msg(const char *format, ...);
 #endif // __KERNWIN_HPP
-#define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
-                      && PyGILState_GetThisThreadState() != _PyThreadState_Current)
+
+#ifdef PY3
+#  ifdef Py_LIMITED_API
+#    define GIL_CHKCONDFAIL (false)
+#  else
+#    define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) && !PyGILState_Check())
+#  endif
+#else
+#  define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
+                        && PyGILState_GetThisThreadState() != _PyThreadState_Current)
+#endif
+
+#include "idapy.hpp"
 
 #define PYW_GIL_CHECK_LOCKED_SCOPE()                                    \
   do                                                                    \
@@ -353,7 +378,7 @@ idaman bool ida_export PyW_GetStringAttr(
         const char *attr_name,
         qstring *str);
 
-// Converts a Python number to an uint64 and indicates whether the number was a long number
+// Deprecated. Please use specific functions instead.
 idaman bool ida_export PyW_GetNumber(PyObject *py_var, uint64 *num, bool *is_64 = NULL);
 
 // Checks if an Python object can be treated like a sequence
@@ -384,6 +409,7 @@ idaman error_t ida_export PyW_CreateIdcException(idc_value_t *res, const char *m
 //
 #define PYWCVTF_AS_TUPLE                 0x1
 #define PYWCVTF_INT64_AS_UNSIGNED_PYLONG 0x2 // don't wrap int64 into 'PyIdc_cvt_int64__' objects, but make them 'long' instead
+#define PYWCVTF_STR_AS_BYTES             0x4 // VT_STR objects will be converted into 'bytes', not strings coming from UTF-8 data
 
 // Converts from IDC to Python
 idaman bool ida_export pyw_convert_idc_args(
@@ -436,9 +462,6 @@ typedef uint64 ea64_t;
 typedef qvector<ea64_t> ea64vec_t;
 #endif // LUMINA_HPP
 idaman Py_ssize_t ida_export PyW_PyListToEa64Vec(ea64vec_t *out, PyObject *py_list);
-
-//-------------------------------------------------------------------------
-idaman bool ida_export PyWStringOrNone_Check(PyObject *tp);
 
 //-------------------------------------------------------------------------
 #include <idd.hpp>
@@ -583,30 +606,6 @@ struct pycim_callbacks_ids_t : public qvector<pycim_callback_id_t>
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-#define PY_CIM_HLPPRM_set_node_info (py_customidamemo_t *_this, PyObject *py_node_idx, PyObject *py_node_info, PyObject *py_flags)
-#define PY_CIM_PARAMS_set_node_info (PyObject *py_node_idx, PyObject *py_node_info, PyObject *py_flags)
-#define PY_CIM_TRANSM_set_node_info (this, py_node_idx, py_node_info, py_flags)
-
-#define PY_CIM_HLPPRM_set_nodes_infos (py_customidamemo_t *_this, PyObject *dict)
-#define PY_CIM_PARAMS_set_nodes_infos (PyObject *dict)
-#define PY_CIM_TRANSM_set_nodes_infos (this, dict)
-
-#define PY_CIM_HLPPRM_get_node_info (py_customidamemo_t *_this, PyObject *py_node_idx)
-#define PY_CIM_PARAMS_get_node_info (PyObject *py_node_idx)
-#define PY_CIM_TRANSM_get_node_info (this, py_node_idx)
-
-#define PY_CIM_HLPPRM_del_nodes_infos (py_customidamemo_t *_this, PyObject *py_nodes)
-#define PY_CIM_PARAMS_del_nodes_infos (PyObject *py_nodes)
-#define PY_CIM_TRANSM_del_nodes_infos (this, py_nodes)
-
-#define PY_CIM_HLPPRM_get_current_renderer_type (py_customidamemo_t *_this)
-#define PY_CIM_PARAMS_get_current_renderer_type ()
-#define PY_CIM_TRANSM_get_current_renderer_type (this)
-
-#define PY_CIM_HLPPRM_set_current_renderer_type (py_customidamemo_t *_this, PyObject *py_rto)
-#define PY_CIM_PARAMS_set_current_renderer_type (PyObject *py_rto)
-#define PY_CIM_TRANSM_set_current_renderer_type (this, py_rto)
-
 #define PY_CIM_HLPPRM_create_groups (py_customidamemo_t *_this, PyObject *groups_infos)
 #define PY_CIM_PARAMS_create_groups (PyObject *groups_infos)
 #define PY_CIM_TRANSM_create_groups (this, groups_infos)
@@ -639,12 +638,6 @@ struct pycim_callbacks_ids_t : public qvector<pycim_callback_id_t>
   decl RType ida_export py_customidamemo_t_##MName MParams
 
 #define DECL_CIM_HELPERS(decl)                                          \
-  DECL_CIM_HELPER(decl, void,      set_node_info, PY_CIM_HLPPRM_set_node_info); \
-  DECL_CIM_HELPER(decl, void,      set_nodes_infos, PY_CIM_HLPPRM_set_nodes_infos); \
-  DECL_CIM_HELPER(decl, PyObject*, get_node_info, PY_CIM_HLPPRM_get_node_info); \
-  DECL_CIM_HELPER(decl, void,      del_nodes_infos, PY_CIM_HLPPRM_del_nodes_infos); \
-  DECL_CIM_HELPER(decl, PyObject*, get_current_renderer_type, PY_CIM_HLPPRM_get_current_renderer_type); \
-  DECL_CIM_HELPER(decl, void,      set_current_renderer_type, PY_CIM_HLPPRM_set_current_renderer_type); \
   DECL_CIM_HELPER(decl, PyObject*, create_groups, PY_CIM_HLPPRM_create_groups); \
   DECL_CIM_HELPER(decl, PyObject*, delete_groups, PY_CIM_HLPPRM_delete_groups); \
   DECL_CIM_HELPER(decl, PyObject*, set_groups_visibility, PY_CIM_HLPPRM_set_groups_visibility);\
@@ -662,11 +655,6 @@ DECL_CIM_HELPERS(idaman);
 
 class py_customidamemo_t
 {
-  void convert_node_info(
-          node_info_t *out,
-          uint32 *out_flags,
-          ref_t py_nodeinfo);
-
   // can use up to 16 bits; not more! (GRCODE_HAVE_* uses the rest)
   enum
   {
@@ -720,12 +708,6 @@ public:
   }
   inline bool has_callback(int flag) { return (cb_flags & flag) != 0; }
 
-  PY_CIM_TRAMPOLINE(void,      set_node_info,             PY_CIM_PARAMS_set_node_info,             PY_CIM_TRANSM_set_node_info);
-  PY_CIM_TRAMPOLINE(void,      set_nodes_infos,           PY_CIM_PARAMS_set_nodes_infos,           PY_CIM_TRANSM_set_nodes_infos);
-  PY_CIM_TRAMPOLINE(PyObject*, get_node_info,             PY_CIM_PARAMS_get_node_info,             PY_CIM_TRANSM_get_node_info);
-  PY_CIM_TRAMPOLINE(void,      del_nodes_infos,           PY_CIM_PARAMS_del_nodes_infos,           PY_CIM_TRANSM_del_nodes_infos);
-  PY_CIM_TRAMPOLINE(PyObject*, get_current_renderer_type, PY_CIM_PARAMS_get_current_renderer_type, PY_CIM_TRANSM_get_current_renderer_type);
-  PY_CIM_TRAMPOLINE(void,      set_current_renderer_type, PY_CIM_PARAMS_set_current_renderer_type, PY_CIM_TRANSM_set_current_renderer_type);
   PY_CIM_TRAMPOLINE(PyObject*, create_groups,             PY_CIM_PARAMS_create_groups,             PY_CIM_TRANSM_create_groups);
   PY_CIM_TRAMPOLINE(PyObject*, delete_groups,             PY_CIM_PARAMS_delete_groups,             PY_CIM_TRANSM_delete_groups);
   PY_CIM_TRAMPOLINE(PyObject*, set_groups_visibility,     PY_CIM_PARAMS_set_groups_visibility,     PY_CIM_TRANSM_set_groups_visibility);
@@ -735,16 +717,14 @@ public:
 #undef DECL_CIM_HELPERS
 #undef DECL_CIM_HELPER
 
-
 //-------------------------------------------------------------------------
-template <typename T>
-T *view_extract_this(PyObject *self)
+inline void *view_extract_this(PyObject *self)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
   ref_t py_this(PyW_TryGetAttrString(self, S_M_THIS));
-  if ( py_this == NULL || !PyCObject_Check(py_this.o) )
+  if ( py_this == NULL || !PyCapsule_IsValid(py_this.o, VALID_CAPSULE_NAME) )
     return NULL;
-  return (T*) PyCObject_AsVoidPtr(py_this.o);
+  return PyCapsule_GetPointer(py_this.o, VALID_CAPSULE_NAME);
 }
 
 //-------------------------------------------------------------------------
@@ -765,10 +745,12 @@ DECL_REG_UNREG_REFCOUNTED(udt_type_data_t);
 // Context structure used by register/unregister timer
 struct py_timer_ctx_t
 {
-  py_timer_ctx_t() : timer_id(NULL), pycallback(NULL) {}
+  py_timer_ctx_t() : timer_id(NULL) {}
   qtimer_t timer_id;
-  PyObject *pycallback;
+  ref_t pyfunc;
 };
+
+//-------------------------------------------------------------------------
 idaman py_timer_ctx_t *ida_export python_timer_new(PyObject *py_callback);
 idaman void ida_export python_timer_del(py_timer_ctx_t *t);
 
@@ -798,6 +780,9 @@ struct new_execution_t
   new_execution_t() { setup_new_execution(this, true); }
   ~new_execution_t() { setup_new_execution(this, false); }
 };
+
+//-------------------------------------------------------------------------
+idaman bool ida_export is_api695_compat_enabled();
 
 //-------------------------------------------------------------------------
 idaman bool ida_export idapython_hook_to_notification_point(
@@ -858,10 +843,10 @@ protected:
     // identifier
     {
       ref_t py_id = newref_t(PyObject_GetAttrString(self, "id"));
-      if ( py_id == NULL || !PyString_Check(py_id.o) )
+      if ( py_id == NULL || !IDAPyStr_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
-      if ( py_id != NULL && PyString_Check(py_id.o) )
-        identifier = PyString_AsString(py_id.o);
+      if ( py_id != NULL && IDAPyStr_Check(py_id.o) )
+        IDAPyStr_AsUTF8(&identifier, py_id.o);
     }
 
     // method set
@@ -900,9 +885,33 @@ protected:
               _has_nondef = 2;
             else
 #endif
+#ifdef PY3
+              _has_nondef = PyObject_RichCompareBool(py_this_meth.o, py_def_meth.o, Py_EQ) == 0 ? 1 : 0;
+#else
               _has_nondef = PyObject_Compare(py_this_meth.o, py_def_meth.o) != 0 ? 1 : 0;
+#endif
           }
           has_nondef[cur.code] = _has_nondef;
+        }
+      }
+    }
+  }
+
+  void ensure_no_method_when_no_695_compat(
+          PyObject *self,
+          const char *forbidden_method_name,
+          const char *replacement_method_name)
+  {
+    if ( !is_api695_compat_enabled() )
+    {
+      if ( PyObject_HasAttrString(self, "__class__") )
+      {
+        newref_t py_this_class(PyObject_GetAttrString(self, "__class__"));
+        if ( py_this_class != NULL
+          && PyObject_HasAttrString(py_this_class.o, forbidden_method_name) )
+        {
+          msg("WARNING: The method \"%s::%s\" won't be called (it has been replaced with \"%s::%s\")\n",
+              class_name, forbidden_method_name, class_name, replacement_method_name);
         }
       }
     }
@@ -944,6 +953,14 @@ protected:
 };
 
 //-------------------------------------------------------------------------
+idaman THREAD_SAFE void ida_export idapython_show_wait_box(
+        bool internal,
+        const char *message);
+idaman void ida_export idapython_hide_wait_box();
+#define show_wait_box USE_IDAPYTHON_SHOW_WAIT_BOX
+#define hide_wait_box USE_IDAPYTHON_HIDE_WAIT_BOX
+
+//-------------------------------------------------------------------------
 idaman bool ida_export idapython_convert_cli_completions(
         qstrvec_t *out_completions,
         int *out_match_start,
@@ -951,11 +968,11 @@ idaman bool ida_export idapython_convert_cli_completions(
         ref_t py_res);
 
 //-------------------------------------------------------------------------
-idaman void ida_export dump_hooks_state(
-        qstrvec_t *out,
-        const hooks_base_t &h,
-        const hooks_base_t::event_code_to_method_name_t *mappings,
-        size_t mappings_size);
+idaman int ida_export pylong_to_byte_array(
+        bytevec_t *out_allocated_buffer,
+        PyObject *in,
+        bool little_endian=true,
+        bool is_signed=true);
 
 //-------------------------------------------------------------------------
 struct module_callbacks_t

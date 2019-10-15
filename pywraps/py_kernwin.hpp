@@ -11,7 +11,13 @@
 struct py_idchotkey_ctx_t
 {
   qstring hotkey;
-  PyObject *pyfunc;
+  ref_t pyfunc;
+
+  py_idchotkey_ctx_t(
+          const char *_hotkey,
+          PyObject *_pyfunc)
+    : hotkey(_hotkey),
+      pyfunc(borref_t(_pyfunc)) {}
 };
 
 //------------------------------------------------------------------------
@@ -54,7 +60,7 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
     {
       PYW_GIL_GET;
       py_timer_ctx_t *ctx = (py_timer_ctx_t *)ud;
-      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pycallback, NULL));
+      newref_t py_result(PyObject_CallFunctionObjArgs(ctx->pyfunc.o, NULL));
       int ret = -1;
       if ( PyErr_Occurred() )
       {
@@ -79,12 +85,15 @@ static PyObject *py_register_timer(int interval, PyObject *py_callback)
           tmr_t::callback,
           ctx);
 
-  if ( ctx->timer_id == NULL )
+  if ( ctx->timer_id != NULL )
+  {
+    return PyCapsule_New(ctx, VALID_CAPSULE_NAME, NULL);
+  }
+  else
   {
     python_timer_del(ctx);
     Py_RETURN_NONE;
   }
-  return PyCObject_FromVoidPtr(ctx, NULL);
 }
 
 //------------------------------------------------------------------------
@@ -101,20 +110,21 @@ def unregister_timer(timer_obj):
     pass
 #</pydoc>
 */
-static PyObject *py_unregister_timer(PyObject *py_timerctx)
+static bool py_unregister_timer(PyObject *py_timerctx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
 
-  if ( py_timerctx == NULL || !PyCObject_Check(py_timerctx) )
-    Py_RETURN_FALSE;
+  if ( py_timerctx == NULL || !PyCapsule_IsValid(py_timerctx, VALID_CAPSULE_NAME) )
+    return false;
 
-  py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCObject_AsVoidPtr(py_timerctx);
+  py_timer_ctx_t *ctx = (py_timer_ctx_t *) PyCapsule_GetPointer(py_timerctx, VALID_CAPSULE_NAME);
   if ( ctx == NULL || !unregister_timer(ctx->timer_id) )
-    Py_RETURN_FALSE;
+    return false;
 
   python_timer_del(ctx);
-  PyCObject_SetVoidPtr(py_timerctx, NULL);
-  Py_RETURN_TRUE;
+  // invalidate capsule; make sure we don't try and delete twice
+  PyCapsule_SetName(py_timerctx, INVALID_CAPSULE_NAME);
+  return true;
 }
 
 //------------------------------------------------------------------------
@@ -139,7 +149,7 @@ static PyObject *py_choose_idasgn()
   }
   else
   {
-    PyObject *py_str = PyString_FromString(name);
+    PyObject *py_str = IDAPyStr_FromUTF8(name);
     qfree(name);
     return py_str;
   }
@@ -181,7 +191,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
   Py_ssize_t len;
   char *s;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( PyString_AsStringAndSize(data, &s, &len) == -1 )
+  if ( IDAPyBytes_AsMemAndSize(data, &s, &len) == -1 )
     return 0;
   else
     return load_custom_icon(s, len, format);
@@ -300,7 +310,7 @@ PyObject *py_ask_text(size_t max_size, const char *defval, const char *prompt)
   PyObject *py_ret;
   if ( ask_text(&qbuf, max_size, defval, "%s", prompt) )
   {
-    py_ret = PyString_FromStringAndSize(qbuf.begin(), qbuf.length());
+    py_ret = IDAPyStr_FromUTF8AndSize(qbuf.begin(), qbuf.length());
   }
   else
   {
@@ -332,7 +342,7 @@ PyObject *py_ask_str(qstring *defval, int hist, const char *prompt)
   PyObject *py_ret;
   if ( ask_str(defval, hist, "%s", prompt) )
   {
-    py_ret = PyString_FromStringAndSize(defval->begin(), defval->length());
+    py_ret = IDAPyStr_FromUTF8AndSize(defval->begin(), defval->length());
   }
   else
   {
@@ -396,20 +406,17 @@ def del_hotkey(ctx):
 bool py_del_hotkey(PyObject *pyctx)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(pyctx) )
+  if ( !PyCapsule_IsValid(pyctx, VALID_CAPSULE_NAME) )
     return false;
 
-  py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCObject_AsVoidPtr(pyctx);
+  py_idchotkey_ctx_t *ctx = (py_idchotkey_ctx_t *) PyCapsule_GetPointer(pyctx, VALID_CAPSULE_NAME);
   if ( ctx == NULL || !del_idc_hotkey(ctx->hotkey.c_str()) )
     return false;
 
-  Py_DECREF(ctx->pyfunc);
   delete ctx;
-  // Here we must ensure that the python object is invalidated.
-  // This is to avoid the possibility of this function being called again
-  // with the same ctx, which would contain a pointer to a deleted object.
-  PyCObject_SetVoidPtr(pyctx, NULL);
 
+  // invalidate capsule; make sure we don't try and delete twice
+  PyCapsule_SetName(pyctx, INVALID_CAPSULE_NAME);
   return true;
 }
 
@@ -468,21 +475,13 @@ PyObject *py_add_hotkey(const char *hotkey, PyObject *pyfunc)
         break;
 
       // Create new context
-      // Define context
-      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t();
-
-      // Remember the hotkey
-      ctx->hotkey = hotkey;
-
-      // Take reference to the callable
-      ctx->pyfunc = pyfunc;
-      Py_INCREF(pyfunc);
+      py_idchotkey_ctx_t *ctx = new py_idchotkey_ctx_t(hotkey, pyfunc);
 
       // Bind IDC variable w/ the PyCallable
       gvar->set_pvoid(pyfunc);
 
       // Return the context
-      return PyCObject_FromVoidPtr(ctx, NULL);
+      return PyCapsule_New(ctx, VALID_CAPSULE_NAME, NULL);
     } while (false);
   }
   // Cleanup
@@ -510,8 +509,13 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Create arguments tuple for python function
   PyObject *cb_args = Py_BuildValue("(sO)", err_msg, args);
@@ -521,12 +525,14 @@ static void idaapi py_ss_restore_callback(const char *err_msg, void *userdata)
 
   // Free cb_args and userdata
   Py_DECREF(cb_args);
-  Py_DECREF(userdata);
+  Py_DECREF(o);
 
   // We cannot raise an exception in the callback, just print it.
   if ( result == NULL )
     PyErr_Print();
 }
+
+//-------------------------------------------------------------------------
 static PyObject *py_restore_database_snapshot(
         const snapshot_t *ss,
         PyObject *pyfunc_or_none,
@@ -618,9 +624,9 @@ static int py_execute_sync(PyObject *py_callable, int reqf)
       {
         PYW_GIL_GET;
         newref_t py_result(PyObject_CallFunctionObjArgs(py_callable.o, NULL));
-        int ret = py_result == NULL || !PyInt_Check(py_result.o)
+        int ret = py_result == NULL || !IDAPyInt_Check(py_result.o)
                 ? -1
-                : PyInt_AsLong(py_result.o);
+                : IDAPyInt_AsLong(py_result.o);
         // if the requesting thread decided not to wait for the request to
         // complete, we have to self-destroy, nobody else will do it
         if ( (code & MFF_NOWAIT) != 0 )
@@ -827,12 +833,11 @@ public:
           if ( json_dumps != NULL )
           {
             newref_t str(PyObject_CallFunction(json_dumps.o, "O", dict));
-            Py_ssize_t len;
-            char *s;
-            if ( PyString_AsStringAndSize(str.o, &s, &len) != -1 )
+            qstring buf;
+            if ( IDAPyStr_AsUTF8(&buf, str.o) )
             {
               jvalue_t tmp;
-              if ( parse_json_string(&tmp, s) == eOk )
+              if ( parse_json_string(&tmp, buf.c_str()) == eOk )
               {
                 out->swap(tmp.obj());
                 return true;
@@ -992,13 +997,8 @@ private:
   static ssize_t handle_get_ea_hint_output(PyObject *o, qstring *buf, ea_t)
   {
     ssize_t rc = 0;
-    char *_buf;
-    Py_ssize_t _len;
-    if ( o != NULL && PyString_Check(o) && PyString_AsStringAndSize(o, &_buf, &_len) != -1 )
-    {
-      buf->append(_buf, _len);
+    if ( o != NULL && IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o) )
       rc = 1;
-    }
     Py_XDECREF(o);
     return rc;
   }
@@ -1009,21 +1009,18 @@ private:
     if ( o != NULL && PyTuple_Check(o) && PyTuple_Size(o) == 2 )
     {
       borref_t el0(PyTuple_GetItem(o, 0));
-      char *_buf;
-      Py_ssize_t _len;
       if ( el0 != NULL
-        && PyString_Check(el0.o)
-        && PyString_AsStringAndSize(el0.o, &_buf, &_len) != -1
-        && _len > 0 )
+        && IDAPyStr_Check(el0.o)
+        && IDAPyStr_AsUTF8(hint, el0.o)
+        && !hint->empty() )
       {
         borref_t el1(PyTuple_GetItem(o, 1));
-        if ( el1 != NULL && PyInt_Check(el1.o) )
+        if ( el1 != NULL && IDAPyInt_Check(el1.o) )
         {
-          long lns = PyInt_AsLong(el1.o);
+          long lns = IDAPyInt_AsLong(el1.o);
           if ( lns > 0 )
           {
             *important_lines = lns;
-            hint->append(_buf, _len);
             rc = 1;
           }
         }
@@ -1245,8 +1242,8 @@ PyObject *py_set_nav_colorizer(PyObject *new_py_colorizer)
   set_nav_colorizer(&was_fun, &was_ud, lambda_t::call_py_colorizer, NULL);
   if ( !first_install )
     Py_RETURN_NONE;
-  PyObject *was_fun_ptr = PyCObject_FromVoidPtr((void *) was_fun, NULL);
-  PyObject *was_ud_ptr = PyCObject_FromVoidPtr(was_ud, NULL);
+  PyObject *was_fun_ptr = PyCapsule_New((void *) was_fun, VALID_CAPSULE_NAME, NULL);
+  PyObject *was_ud_ptr = PyCapsule_New(was_ud, VALID_CAPSULE_NAME, NULL);
   PyObject *dict = PyDict_New();
   PyDict_SetItemString(dict, "fun", was_fun_ptr);
   PyDict_SetItemString(dict, "ud", was_ud_ptr);
@@ -1273,10 +1270,14 @@ uint32 py_call_nav_colorizer(
     return 0;
   borref_t py_fun(PyDict_GetItemString(dict, "fun"));
   borref_t py_ud(PyDict_GetItemString(dict, "ud"));
-  if ( py_fun == NULL || !PyCObject_Check(py_fun.o) || !PyCObject_Check(py_ud.o) )
+  if ( py_fun == NULL
+    || !PyCapsule_IsValid(py_fun.o, VALID_CAPSULE_NAME)
+    || !PyCapsule_IsValid(py_ud.o, VALID_CAPSULE_NAME) )
+  {
     return 0;
-  nav_colorizer_t *fun = (nav_colorizer_t *) PyCObject_AsVoidPtr(py_fun.o);
-  void *ud = PyCObject_AsVoidPtr(py_ud.o);
+  }
+  nav_colorizer_t *fun = (nav_colorizer_t *) PyCapsule_GetPointer(py_fun.o, VALID_CAPSULE_NAME);
+  void *ud = PyCapsule_GetPointer(py_ud.o, VALID_CAPSULE_NAME);
   if ( fun == NULL )
     return 0;
   return fun(ea, nbytes, ud);
@@ -1342,7 +1343,19 @@ static PyObject *py_add_spaces(const char *s, size_t len)
   // we use the actual 'size' because we know that
   // 'add_spaces()' will add a terminating zero anyway
   add_spaces(qbuf.begin(), qbuf.size(), len);
-  return PyString_FromString(qbuf.c_str());
+  return IDAPyStr_FromUTF8(qbuf.c_str());
+}
+
+//-------------------------------------------------------------------------
+THREAD_SAFE void py_show_wait_box(const char *message)
+{
+  idapython_show_wait_box(/*internal=*/ false, message);
+}
+
+//-------------------------------------------------------------------------
+void py_hide_wait_box()
+{
+  idapython_hide_wait_box();
 }
 
 //</inline(py_kernwin)>
@@ -1365,8 +1378,13 @@ bool idaapi py_menu_item_callback(void *userdata)
 
   // userdata is a tuple of ( func, args )
   // func and args are borrowed references from userdata
-  PyObject *func = PyTuple_GET_ITEM(userdata, 0);
-  PyObject *args = PyTuple_GET_ITEM(userdata, 1);
+
+  PyObject *o = (PyObject *) userdata;
+  if ( !PyTuple_Check(o) )
+    return false;
+
+  PyObject *func = PyTuple_GetItem(o, 0);
+  PyObject *args = PyTuple_GetItem(o, 1);
 
   // Call the python function
   newref_t result(PyEval_CallObject(func, args));

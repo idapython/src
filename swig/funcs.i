@@ -49,6 +49,20 @@
   }
 }
 
+%rename (__next__) next;
+
+%define %make_python2_iterator(TYPE)
+%extend TYPE
+{
+  %pythoncode {
+    next = __next__
+  }
+}
+%enddef
+%make_python2_iterator(func_tail_iterator_t);
+%make_python2_iterator(func_item_iterator_t);
+%make_python2_iterator(func_parent_iterator_t);
+
 //<typemaps(funcs)>
 //</typemaps(funcs)>
 

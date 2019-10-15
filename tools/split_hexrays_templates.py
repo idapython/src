@@ -24,7 +24,7 @@ for line in lines:
         if line.startswith("};"):
             in_template = False
 
-with open(args.out_templates, "wt") as fout:
+with open(args.out_templates, "w") as fout:
     fout.write("".join(templates))
-with open(args.out_body, "wt") as fout:
+with open(args.out_body, "w") as fout:
     fout.write("".join(body))

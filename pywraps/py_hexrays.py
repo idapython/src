@@ -1,6 +1,7 @@
 # -----------------------------------------------------------------------
 #<pycode(py_hexrays)>
 import ida_funcs
+import ida_idaapi
 
 hexrays_failure_t.__str__ = lambda self: str("%x: %s" % (self.errea, self.desc()))
 
@@ -11,7 +12,8 @@ is_small_struni = is_small_udt
 
 # ---------------------------------------------------------------------
 class DecompilationFailure(Exception):
-    """ Raised on a decompilation error.
+    """
+    Raised on a decompilation error.
 
     The associated hexrays_failure_t object is stored in the
     'info' member of this exception. """
@@ -23,7 +25,7 @@ class DecompilationFailure(Exception):
 
 # ---------------------------------------------------------------------
 def decompile(ea, hf=None, flags=0):
-    if isinstance(ea, (int, long)):
+    if isinstance(ea, ida_idaapi.integer_types):
         func = ida_funcs.get_func(ea)
         if not func: return
     elif type(ea) == ida_funcs.func_t:
@@ -135,8 +137,10 @@ def cexpr_operands(self):
 cexpr_t.operands = property(cexpr_operands)
 
 def cinsn_details(self):
-    """ return the details pointer for the cinsn_t object depending on the value of its op member. \
-        this is one of the cblock_t, cif_t, etc. objects. """
+    """
+    return the details pointer for the cinsn_t object depending on the value of its op member. \
+    this is one of the cblock_t, cif_t, etc. objects.
+    """
 
     if self.op not in self.op_to_typename:
         raise RuntimeError('unknown item->op type')
@@ -218,6 +222,7 @@ def cblock_insert(self, index, item):
 cblock_t.insert = cblock_insert
 
 cfuncptr_t.__str__ = lambda self: str(self.__deref__())
+cfuncptr_t.__eq__ = lambda self, other: self.__ptrval__() == other.__ptrval__()
 
 import ida_typeinf
 def cfunc_type(self):
@@ -417,13 +422,12 @@ def _map_as_dict(maptype, name, keytype, valuetype):
         return default
     maptype.setdefault = _map_setdefault
 
-#_map_as_dict(user_labels_t, 'user_labels', (int, long), qstring)
 _map_as_dict(user_cmts_t, 'user_cmts', treeloc_t, citem_cmt_t)
 _map_as_dict(user_numforms_t, 'user_numforms', operand_locator_t, number_format_t)
 _map_as_dict(user_iflags_t, 'user_iflags', citem_locator_t, int)
 import ida_pro
-_map_as_dict(user_unions_t, 'user_unions', (int, long), ida_pro.intvec_t)
-_map_as_dict(eamap_t, 'eamap', long, cinsnptrvec_t)
+_map_as_dict(user_unions_t, 'user_unions', ida_idaapi.integer_types, ida_pro.intvec_t)
+_map_as_dict(eamap_t, 'eamap', ida_idaapi.long_type, cinsnptrvec_t)
 import ida_range
 _map_as_dict(boundaries_t, 'boundaries', cinsn_t, ida_range.rangeset_t)
 

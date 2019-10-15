@@ -14,10 +14,18 @@ class simplecustviewer_t(object):
             my_form = self.v().GetWidget()
             if form == my_form:
                 cb = self.v().OnPopup
-                from inspect import getargspec
-                if len(getargspec(cb).args) == 3:
-                    cb(my_form, popup_handle)
+                import sys
+                import inspect
+                handled = False
+                if sys.version_info.major >= 3:
+                    if len(inspect.getfullargspec(cb).args) == 3:
+                        cb(my_form, popup_handle)
+                        handled = True
                 else:
+                    if len(inspect.getargspec(cb).args) == 3:
+                        cb(my_form, popup_handle)
+                        handled = True
+                if not handled:
                     cb() # bw-compat
 
     def __init__(self):
@@ -183,7 +191,7 @@ class simplecustviewer_t(object):
 #        @param shift: Shift flag
 #        @return: Boolean. True if you handled the event
 #        """
-#        print "OnClick, shift=%d" % shift
+#        print("OnClick, shift=%d" % shift)
 #        return True
 #
 #    def OnDblClick(self, shift):
@@ -192,7 +200,7 @@ class simplecustviewer_t(object):
 #        @param shift: Shift flag
 #        @return: Boolean. True if you handled the event
 #        """
-#        print "OnDblClick, shift=%d" % shift
+#        print("OnDblClick, shift=%d" % shift)
 #        return True
 #
 #    def OnCursorPosChanged(self):
@@ -200,14 +208,14 @@ class simplecustviewer_t(object):
 #        Cursor position changed.
 #        @return: Nothing
 #        """
-#        print "OnCurposChanged"
+#        print("OnCurposChanged")
 #
 #    def OnClose(self):
 #        """
 #        The view is closing. Use this event to cleanup.
 #        @return: Nothing
 #        """
-#        print "OnClose"
+#        print("OnClose")
 #
 #    def OnKeydown(self, vkey, shift):
 #        """
@@ -216,7 +224,7 @@ class simplecustviewer_t(object):
 #        @param shift: Shift flag
 #        @return: Boolean. True if you handled the event
 #        """
-#        print "OnKeydown, vk=%d shift=%d" % (vkey, shift)
+#        print("OnKeydown, vk=%d shift=%d" % (vkey, shift))
 #        return False
 #
 #    def OnHint(self, lineno):
@@ -235,7 +243,7 @@ class simplecustviewer_t(object):
 #        @param menu_id: ID previously registered with add_popup_menu()
 #        @return: Boolean
 #        """
-#        print "OnPopupMenu, menu_id=" % menu_id
+#        print("OnPopupMenu, menu_id=" % menu_id)
 #        return True
 #</pydoc>
 #</pycode(py_kernwin_custview)>

@@ -18,10 +18,9 @@ private:
     GRCODE_HAVE_DBL_CLICKED      = 0x00080000,
     GRCODE_HAVE_GOTFOCUS         = 0x00100000,
     GRCODE_HAVE_LOSTFOCUS        = 0x00200000,
-    GRCODE_HAVE_CHANGED_CURRENT  = 0x00400000,
-    GRCODE_HAVE_CREATING_GROUP   = 0x00800000,
-    GRCODE_HAVE_DELETING_GROUP   = 0x01000000,
-    GRCODE_HAVE_GROUP_VISIBILITY = 0x02000000,
+    GRCODE_HAVE_CREATING_GROUP   = 0x00400000,
+    GRCODE_HAVE_DELETING_GROUP   = 0x00800000,
+    GRCODE_HAVE_GROUP_VISIBILITY = 0x01000000,
   };
   struct nodetext_cache_t
   {
@@ -173,26 +172,6 @@ private:
     PyW_ShowCbErr(S_ON_DEACTIVATE);
   }
 
-  // a new graph node became the current node
-  int on_changed_current(graph_viewer_t * /*view*/, int curnode)
-  {
-    // in:  graph_viewer_t *view
-    //      int curnode
-    // out: 0-ok, 1-forbid to change the current node
-    if ( curnode < 0 )
-      return 0;
-
-    PYW_GIL_CHECK_LOCKED_SCOPE();
-    newref_t result(
-            PyObject_CallMethod(
-                    self.o,
-                    (char *)S_ON_SELECT,
-                    "i",
-                    curnode));
-    PyW_ShowCbErr(S_ON_SELECT);
-    return !(result != NULL && PyObject_IsTrue(result.o));
-  }
-
   // a group is being created
   int on_creating_group(mutable_graph_t * /*my_g*/, intvec_t *my_nodes)
   {
@@ -209,7 +188,9 @@ private:
                     "O",
                     py_nodes.o));
     PyW_ShowCbErr(S_ON_CREATING_GROUP);
-    return (py_result == NULL || !PyInt_Check(py_result.o)) ? 1 : PyInt_AsLong(py_result.o);
+    return (py_result == NULL || !IDAPyInt_Check(py_result.o))
+         ? 1
+         : IDAPyInt_AsLong(py_result.o);
   }
 
   // a group is being deleted
@@ -310,7 +291,7 @@ public:
     if ( nid < 0 )
       return;
 
-    py_graph_t *_this = view_extract_this<py_graph_t>(self);
+    py_graph_t *_this = (py_graph_t *) view_extract_this(self);
     if ( _this == NULL || !pycim_lookup_info.find_by_py_view(NULL, _this) )
       return;
 
@@ -320,7 +301,7 @@ public:
   static py_graph_t *Close(PyObject *self)
   {
     TWidget *view;
-    py_graph_t *_this = view_extract_this<py_graph_t>(self);
+    py_graph_t *_this = (py_graph_t *) view_extract_this(self);
     if ( _this == NULL || !pycim_lookup_info.find_by_py_view(&view, _this) )
       return NULL;
     newref_t ret(PyObject_CallMethod(self, "unhook", NULL));
@@ -332,7 +313,7 @@ public:
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
 
-    py_graph_t *py_graph = view_extract_this<py_graph_t>(self);
+    py_graph_t *py_graph = (py_graph_t *) view_extract_this(self);
 
     // New instance?
     if ( py_graph == NULL )
@@ -383,7 +364,6 @@ void py_graph_t::collect_class_callbacks_ids(pycim_callbacks_ids_t *out)
   out->add(S_ON_EDGE_HINT, GRCODE_HAVE_EDGE_HINT);
   out->add(S_ON_CLICK, GRCODE_HAVE_CLICKED);
   out->add(S_ON_DBL_CLICK, GRCODE_HAVE_DBL_CLICKED);
-  out->add(S_ON_SELECT, GRCODE_HAVE_CHANGED_CURRENT);
   out->add(S_ON_ACTIVATE, GRCODE_HAVE_GOTFOCUS);
   out->add(S_ON_DEACTIVATE, GRCODE_HAVE_LOSTFOCUS);
   out->add(S_ON_CREATING_GROUP, GRCODE_HAVE_CREATING_GROUP);
@@ -436,9 +416,9 @@ void py_graph_t::on_user_refresh(mutable_graph_t *g)
           for ( j=0; j < qnumber(edge_ids); j++ )
           {
             newref_t id(PySequence_GetItem(item.o, j));
-            if ( id == NULL || !PyInt_Check(id.o) )
+            if ( id == NULL || !IDAPyInt_Check(id.o) )
               break;
-            int v = int(PyInt_AS_LONG(id.o));
+            int v = int(IDAPyInt_AsLong(id.o));
             if ( v > max_nodes )
               break;
             edge_ids[j] = v;
@@ -477,28 +457,27 @@ bool py_graph_t::on_user_text(mutable_graph_t * /*g*/, int node, const char **st
     return false;
 
   bgcolor_t cl = bg_color == NULL ? DEFCOLOR : *bg_color;
-  const char *s;
+  qstring buf;
 
   // User returned a string?
-  if ( PyString_Check(result.o) )
+  if ( IDAPyStr_Check(result.o) )
   {
-    s = PyString_AsString(result.o);
-    if ( s == NULL )
-      s = "";
-    c = node_cache.add(node, s, cl);
+    IDAPyStr_AsUTF8(&buf, result.o);
+    c = node_cache.add(node, buf.c_str(), cl);
   }
   // User returned a sequence of text and bgcolor
-  else if ( PySequence_Check(result.o) && PySequence_Size(result.o) == 2 )
+  else if ( PySequence_Check(result.o)
+         && PySequence_Size(result.o) == 2 )
   {
     newref_t py_str(PySequence_GetItem(result.o, 0));
     newref_t py_color(PySequence_GetItem(result.o, 1));
 
-    if ( py_str == NULL || !PyString_Check(py_str.o) || (s = PyString_AsString(py_str.o)) == NULL )
-      s = "";
+    if ( py_str != NULL && IDAPyStr_Check(py_str.o) )
+      IDAPyStr_AsUTF8(&buf, py_str.o);
     if ( py_color != NULL && PyNumber_Check(py_color.o) )
       cl = bgcolor_t(PyLong_AsUnsignedLong(py_color.o));
 
-    c = node_cache.add(node, s, cl);
+    c = node_cache.add(node, buf.c_str(), cl);
   }
 
   *str = c->text.c_str();
@@ -531,9 +510,13 @@ int py_graph_t::_on_hint_epilog(char **hint, ref_t result)
 {
   // 'hint' must be allocated by qalloc() or qstrdup()
   // out: 0-use default hint, 1-use proposed hint
-  bool ok = result != NULL && PyString_Check(result.o);
+  bool ok = result != NULL && IDAPyStr_Check(result.o);
   if ( ok )
-    *hint = qstrdup(PyString_AsString(result.o));
+  {
+    qstring buf;
+    IDAPyStr_AsUTF8(&buf, result.o);
+    *hint = buf.extract();
+  }
   return ok;
 }
 
@@ -570,8 +553,8 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
       }
       else
       {
-        // Ignore the click
-        ret = 1;
+        // let the click go through
+        ret = 0;
       }
       break;
       //
@@ -628,17 +611,6 @@ ssize_t py_graph_t::gr_callback(int code, va_list va)
         else
           ret = 0;
       }
-      break;
-      //
-    case grcode_changed_current:
-      if ( has_callback(GRCODE_HAVE_CHANGED_CURRENT) )
-      {
-        graph_viewer_t *view = va_arg(va, graph_viewer_t *);
-        int cur_node = va_arg(va, int);
-        ret = on_changed_current(view, cur_node);
-      }
-      else
-        ret = 0; // allow selection change
       break;
       //
     case grcode_creating_group:      // a group is being created

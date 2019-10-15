@@ -24,7 +24,7 @@ class plgform_t
                   PyObject_CallMethod(
                           _this->py_obj.o,
                           (char *)S_ON_CLOSE, "O",
-                          PyCObject_FromVoidPtr(widget, NULL)));
+                          PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
           PyW_ShowCbErr(S_ON_CLOSE);
         }
         _this->unhook();
@@ -92,7 +92,7 @@ public:
             PyObject_CallMethod(
                     py_obj.o,
                     (char *)S_ON_CREATE, "O",
-                    PyCObject_FromVoidPtr(widget, NULL)));
+                    PyCapsule_New(widget, VALID_CAPSULE_NAME, NULL)));
     PyW_ShowCbErr(S_ON_CREATE);
 
     if ( !create_only )
@@ -111,19 +111,23 @@ public:
   static PyObject *create()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyCObject_FromVoidPtr(new plgform_t(), destroy);
+    return PyCapsule_New(new plgform_t(), VALID_CAPSULE_NAME, destroy);
   }
 
-  static void destroy(void *obj)
+  static void destroy(PyObject *py_obj)
   {
-    delete (plgform_t *)obj;
+    if ( PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
+    {
+      plgform_t *obj = (plgform_t *) PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
+      delete (plgform_t *) obj;
+    }
   }
 };
 //</code(py_kernwin_plgform)>
 
 //<inline(py_kernwin_plgform)>
 //---------------------------------------------------------------------------
-#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCObject_AsVoidPtr(py_link);
+#define DECL_PLGFORM PYW_GIL_CHECK_LOCKED_SCOPE(); plgform_t *plgform = (plgform_t *) PyCapsule_GetPointer(py_link, VALID_CAPSULE_NAME);
 static PyObject *plgform_new()
 {
   return plgform_t::create();
@@ -136,7 +140,7 @@ static bool plgform_show(
         int options = WOPN_DP_TAB|WOPN_RESTORE)
 {
   DECL_PLGFORM;
-  return plgform->show(py_obj, caption, options);
+  return plgform != NULL && plgform->show(py_obj, caption, options);
 }
 
 static void plgform_close(
@@ -144,14 +148,15 @@ static void plgform_close(
         int options)
 {
   DECL_PLGFORM;
-  plgform->close(options);
+  if ( plgform != NULL )
+    plgform->close(options);
 }
 
 static TWidget *plgform_get_widget(
         PyObject *py_link)
 {
   DECL_PLGFORM;
-  return plgform->get_widget();
+  return plgform != NULL ? plgform->get_widget() : NULL;
 }
 
 #undef DECL_PLGFORM

@@ -24,7 +24,7 @@ PyObject *py_split_metadata(const metadata_t &md)
   while ( p.next() )
   {
     newref_t py_key(PyInt_FromLong(p.key));
-    newref_t py_value(PyString_FromStringAndSize((const char *) p.data, p.size));
+    newref_t py_value(IDAPyBytes_FromMemAndSize((const char *) p.data, p.size));
     // PyDict_SetItem doesn't "steal" references; hence the 'newref_t's above.
     PyDict_SetItem(py_dict, py_key.o, py_value.o);
   }

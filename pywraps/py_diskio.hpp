@@ -9,7 +9,7 @@ int idaapi py_enumerate_files_cb(const char *file, void *ud)
   // and from the same thread as the one that executes
   // 'py_enumerate_files'.
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  newref_t py_file(PyString_FromString(file));
+  newref_t py_file(IDAPyStr_FromUTF8(file));
   newref_t py_ret(
           PyObject_CallFunctionObjArgs(
                   (PyObject *)ud,
@@ -54,17 +54,21 @@ PyObject *py_enumerate_files(PyObject *path, PyObject *fname, PyObject *callback
 
   do
   {
-    if ( !PyString_Check(path) || !PyString_Check(fname) || !PyCallable_Check(callback) )
+    if ( !IDAPyStr_Check(path) || !IDAPyStr_Check(fname) || !PyCallable_Check(callback) )
       break;
 
-    const char *_path = PyString_AsString(path);
-    const char *_fname = PyString_AsString(fname);
-    if ( _path == NULL || _fname == NULL )
+    qstring _path;
+    qstring _fname;
+    if ( !IDAPyStr_AsUTF8(&_path, path) || !IDAPyStr_AsUTF8(&_fname, fname) )
       break;
 
     char answer[MAXSTR];
     answer[0] = '\0';
-    int r = enumerate_files(answer, sizeof(answer), _path, _fname, py_enumerate_files_cb, callback);
+    int r = enumerate_files(
+            answer, sizeof(answer),
+            _path.c_str(),
+            _fname.c_str(),
+            py_enumerate_files_cb, callback);
     return Py_BuildValue("(is)", r, answer);
   } while ( false );
   Py_RETURN_NONE;

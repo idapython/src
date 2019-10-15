@@ -74,7 +74,8 @@ def register_data_types_and_formats(formats):
 
 # -----------------------------------------------------------------------
 def unregister_data_types_and_formats(formats):
-    """As opposed to register_data_types_and_formats(), this function
+    """
+    As opposed to register_data_types_and_formats(), this function
     unregisters multiple data types and formats at once.
     """
     def __unreg_format(df, dtid):

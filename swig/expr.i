@@ -91,8 +91,13 @@
 
 %extend idc_value_t
 {
+  wrapped_array_t<ushort,6> __get_e() {
+    return wrapped_array_t<ushort,6>($self->e);
+  }
+
   %pythoncode {
     str = property(lambda self: self.c_str(), lambda self, v: self.set_string(v))
+    e = property(__get_e)
   }
 }
 

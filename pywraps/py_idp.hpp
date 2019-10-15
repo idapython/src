@@ -35,7 +35,7 @@ static PyObject *AssembleLine(
   int inslen = ph.assemble((uchar *)buf, ea, cs, ip, use32, line);
   PYW_GIL_CHECK_LOCKED_SCOPE();
   if ( inslen > 0 )
-    return PyString_FromStringAndSize(buf, inslen);
+    return IDAPyBytes_FromMemAndSize(buf, inslen);
   else
     Py_RETURN_NONE;
 }
@@ -327,7 +327,7 @@ static PyObject *ph_get_regnames()
   PYW_GIL_CHECK_LOCKED_SCOPE();
   PyObject *py_result = PyList_New(ph.regs_num);
   for ( Py_ssize_t i=0; i < ph.regs_num; i++ )
-    PyList_SetItem(py_result, i, PyString_FromString(ph.reg_names[i]));
+    PyList_SetItem(py_result, i, IDAPyStr_FromUTF8(ph.reg_names[i]));
   return py_result;
 }
 
@@ -627,9 +627,9 @@ private:
   static ssize_t cm_t_to_ssize_t(cm_t cm) { return ssize_t(cm); }
   static bool _handle_qstring_output(PyObject *o, qstring *buf)
   {
-    bool is_str = o != NULL && PyString_Check(o);
+    bool is_str = o != NULL && IDAPyStr_Check(o);
     if ( is_str && buf != NULL )
-      *buf = PyString_AS_STRING(o);
+      IDAPyStr_AsUTF8(buf, o);
     Py_XDECREF(o);
     return is_str;
   }
@@ -647,11 +647,11 @@ private:
           const char * /*line*/)
   {
     ssize_t rc = 0;
-    if ( o != NULL && PyString_Check(o) )
+    if ( o != NULL && IDAPyBytes_Check(o) )
     {
       char *s;
       Py_ssize_t len = 0;
-      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
+      if ( IDAPyBytes_AsMemAndSize(o, &s, &len) != -1 )
       {
         if ( len > MAXSTR )
           len = MAXSTR;
@@ -700,10 +700,10 @@ private:
     {
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_idx(PySequence_GetItem(o, 1));
-      if ( PyInt_Check(py_rc.o) && PyInt_Check(py_idx.o) )
+      if ( IDAPyInt_Check(py_rc.o) && IDAPyInt_Check(py_idx.o) )
       {
-        rc = PyInt_AsLong(py_rc.o);
-        *idx = PyInt_AsLong(py_idx.o);
+        rc = IDAPyInt_AsLong(py_rc.o);
+        *idx = IDAPyInt_AsLong(py_idx.o);
       }
     }
     return rc;
@@ -722,20 +722,16 @@ private:
       newref_t py_rc(PySequence_GetItem(o, 0));
       newref_t py_out(PySequence_GetItem(o, 1));
       newref_t py_out_res(PySequence_GetItem(o, 2));
-      char *s;
-      Py_ssize_t len = 0;
-      if ( PyInt_Check(py_rc.o)
-        && PyInt_Check(py_out_res.o)
-        && PyString_Check(py_out.o)
-        && PyString_AsStringAndSize(py_out.o, &s, &len) != -1 )
+      qstring qs;
+      if ( IDAPyInt_Check(py_rc.o)
+        && IDAPyInt_Check(py_out_res.o)
+        && IDAPyStr_Check(py_out.o)
+        && IDAPyStr_AsUTF8(&qs, py_out.o) )
       {
-        rc = PyInt_AsLong(py_rc.o);
-        *out_res = PyInt_AsLong(py_out_res.o);
+        rc = IDAPyInt_AsLong(py_rc.o);
+        *out_res = IDAPyInt_AsLong(py_out_res.o);
         if ( out != NULL )
-        {
-          out->qclear();
-          out->append(s, len);
-        }
+          out->swap(qs);
       }
     }
     return rc;
@@ -757,19 +753,7 @@ private:
           qstring *buf,
           const insn_t * /*pinsn*/)
   {
-    ssize_t rc = 0;
-    if ( PyString_Check(o) )
-    {
-      char *s;
-      Py_ssize_t len = 0;
-      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
-      {
-        buf->qclear();
-        buf->append(s, len);
-        rc = 1;
-      }
-    }
-    return rc;
+    return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
   }
   static ssize_t handle_get_operand_string_output(
           PyObject *o,
@@ -777,33 +761,21 @@ private:
           const insn_t * /*pinsn*/,
           int /*opnum*/)
   {
-    ssize_t rc = 0;
-    if ( PyString_Check(o) )
-    {
-      char *s;
-      Py_ssize_t len = 0;
-      if ( PyString_AsStringAndSize(o, &s, &len) != -1 )
-      {
-        buf->qclear();
-        buf->append(s, len);
-        rc = 1;
-      }
-    }
-    return rc;
+    return IDAPyStr_Check(o) && IDAPyStr_AsUTF8(buf, o);
   }
 };
 
 //-------------------------------------------------------------------------
-static PyObject *_wrap_addr_in_pycobject(void *addr);
+static PyObject *_wrap_addr_in_pycapsule(void *addr);
 PyObject *get_idp_notifier_addr(PyObject *)
 {
-  return _wrap_addr_in_pycobject((void *) IDP_Callback);
+  return _wrap_addr_in_pycapsule((void *) IDP_Callback);
 }
 
 //-------------------------------------------------------------------------
 PyObject *get_idp_notifier_ud_addr(IDP_Hooks *hooks)
 {
-  return _wrap_addr_in_pycobject(hooks);
+  return _wrap_addr_in_pycapsule(hooks);
 }
 //</inline(py_idp)>
 
@@ -813,9 +785,9 @@ PyObject *get_idp_notifier_ud_addr(IDP_Hooks *hooks)
 // hookgenIDP:methodsinfo_def
 
 //-------------------------------------------------------------------------
-static PyObject *_wrap_addr_in_pycobject(void *addr)
+static PyObject *_wrap_addr_in_pycapsule(void *addr)
 {
-  return PyCObject_FromVoidPtr(addr, NULL);
+  return PyCapsule_New(addr, VALID_CAPSULE_NAME, NULL);
 }
 
 //-------------------------------------------------------------------------

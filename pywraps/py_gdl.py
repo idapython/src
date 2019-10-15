@@ -1,6 +1,8 @@
 #<pycode(py_gdl)>
-import _ida_idaapi
 import types
+
+import _ida_idaapi
+import ida_idaapi
 # -----------------------------------------------------------------------
 class BasicBlock(object):
     """Basic block class. It is returned by the Flowchart class"""
@@ -25,7 +27,7 @@ class BasicBlock(object):
         Iterates the predecessors list
         """
         q = self._fc._q
-        for i in xrange(0, self._fc._q.npred(self.id)):
+        for i in range(0, self._fc._q.npred(self.id)):
             yield self._fc[q.pred(self.id, i)]
 
 
@@ -34,13 +36,16 @@ class BasicBlock(object):
         Iterates the successors list
         """
         q = self._fc._q
-        for i in xrange(0, q.nsucc(self.id)):
+        for i in range(0, q.nsucc(self.id)):
             yield self._fc[q.succ(self.id, i)]
 
     try:
         if _BC695:
             startEA = property(lambda self: self.start_ea, lambda self, ea: setattr(self, "start_ea", ea))
             endEA = property(lambda self: self.end_ea, lambda self, ea: setattr(self, "end_ea", ea))
+        else:
+            startEA = ida_idaapi._make_badattr_property("startEA", "start_ea")
+            endEA = ida_idaapi._make_badattr_property("endEA", "end_ea")
     except:
         pass # BC695 not defined at compile-time
 
@@ -80,7 +85,7 @@ class FlowChart(object):
 
 
     def __iter__(self):
-        return (self._getitem(index) for index in xrange(0, self.size))
+        return (self._getitem(index) for index in range(0, self.size))
 
 
     def __getitem__(self, index):

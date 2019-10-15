@@ -1,5 +1,6 @@
 #<pycode(py_lines)>
 import _ida_idaapi
+import _ida_lines
 
 # ---------------- Color escape sequence defitions -------------------------
 COLOR_ADDR_SIZE = 16 if _ida_idaapi.BADADDR == 0xFFFFFFFFFFFFFFFF else 8

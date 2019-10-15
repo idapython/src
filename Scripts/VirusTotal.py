@@ -266,7 +266,7 @@ Options:
         # Compile the form once
         if not self.Compiled():
             _, args = self.Compile()
-            #print args[0]
+            #print(args[0])
 
         # Populate the form
         self.txtApiKey.value  = cfg.apikey

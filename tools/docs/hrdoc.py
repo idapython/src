@@ -123,7 +123,7 @@ def main():
         import ida_pro
         try:
             ida_pro._BC695
-            print("'ida_pro._BC695' exists. Please recompile with BC695=0 (see makefile). Bailing out.")
+            print("'ida_pro._BC695' exists. Please recompile with BC695 undefined (see makefile). Bailing out.")
             return -1
         except:
             pass # ok

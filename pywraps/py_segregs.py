@@ -1,12 +1,15 @@
 
 #<pycode_BC695(py_segregs)>
 import sys
+import ida_idaapi
 sys.modules["ida_srarea"] = sys.modules["ida_segregs"]
 SetDefaultRegisterValue=set_default_sreg_value
 copy_srareas=copy_sreg_ranges
 def ___looks_like_ea_not_segreg(thing):
     # yay heuristics. Not sure how best to do this...
-    return (type(thing) == long) or (thing > 0x200)
+    if thing > 0x200:
+        return True
+    return sys.version_info.major < 3 and (type(thing) == long)
 def del_sreg_range(*args):
     if ___looks_like_ea_not_segreg(args[1]): # 6.95: rg, ea
         ea, rg = args[1], args[0]
@@ -26,7 +29,6 @@ def get_sreg_range_num(*args):
 get_srarea_num=get_sreg_range_num
 get_srareas_qty2=get_sreg_ranges_qty
 getn_srarea2=getn_sreg_range
-import ida_idaapi
 is_segreg_locked=ida_idaapi._BC695.false_p
 class lock_segreg:
     def __init__():

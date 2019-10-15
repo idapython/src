@@ -9,6 +9,12 @@
 #define DEPRECATED
 %}
 
+%{
+#include "../../../idapy.hpp"
+%}
+
+#define SWIG_PYTHON_LEGACY_BOOL 1
+
 // Auto-inserted header
 // generate directors for all classes that have virtual methods
 %feature("director");
@@ -50,6 +56,11 @@
 %ignore qvector::at(size_t);
 %ignore qvector::front;
 %ignore qvector::back;
+
+%ignore qlist::iterator::operator--;
+%ignore qlist::const_iterator::operator--;
+%ignore qlist::reverse_iterator::operator--;
+%ignore qlist::const_reverse_iterator::operator--;
 
 %define %uncomparable_elements_qvector(ELEMENT_TYPE, VECTOR_TYPE)
 %ignore qvector<ELEMENT_TYPE>::operator==;
@@ -171,12 +182,12 @@ import sys
 _BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
 
 if _BC695:
-    # This is a helper for replacing an existing function, with a wrapper
-    # providing backwards-compatibility for API 6.95 -- typically because
-    # the number/types of arguments changed, while the function name itself
-    # remained the same in 7.0.
-    # (Note that this shouldn't be used for functions that don't exist
-    # in the vanilla 7.0 API, such as 'choose_named_type2'.)
+    ## This is a helper for replacing an existing function, with a wrapper
+    ## providing backwards-compatibility for API 6.95 -- typically because
+    ## the number/types of arguments changed, while the function name itself
+    ## remained the same in 7.0.
+    ## (Note that this shouldn't be used for functions that don't exist
+    ## in the vanilla 7.0 API, such as 'choose_named_type2'.)
     def bc695redef(func):
         ida_idaapi._BC695.replace_fun(func)
         return func
@@ -236,8 +247,8 @@ if _BC695:
     catch ( const std::bad_alloc &ba ) { __raise_ba(ba); SWIG_fail; }
     catch ( const std::out_of_range &e ) { __raise_oor(e); SWIG_fail; }
     catch ( const interr_exc_t &e ) { __raise_ie(e); SWIG_fail; }%ida_hexrays_wrapper_exception_catch()
-    catch ( const std::exception &e ) { __raise_e(e); SWIG_fail; }
     catch ( const Swig::DirectorException &e ) { __raise_de(e); SWIG_fail; }
+    catch ( const std::exception &e ) { __raise_e(e); SWIG_fail; }
     catch ( ... ) { __raise_u(); SWIG_fail; }
 }
 %enddef
@@ -267,14 +278,14 @@ inline size_t strnlen(const char *s, size_t maxlen)
 static PyObject *type##_create()
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  return PyCObject_FromVoidPtr(new type(), NULL);
+  return PyCapsule_New(new type(), VALID_CAPSULE_NAME, NULL);
 }
 static bool type##_destroy(PyObject *py_obj)
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !PyCObject_Check(py_obj) )
+  if ( !PyCapsule_IsValid(py_obj, VALID_CAPSULE_NAME) )
     return false;
-  delete (type *)PyCObject_AsVoidPtr(py_obj);
+  delete (type *)PyCapsule_GetPointer(py_obj, VALID_CAPSULE_NAME);
   return true;
 }
 static type *type##_get_clink(PyObject *self)
@@ -298,12 +309,47 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
 %typemap(directorout) PyObject * "/*%dout%*/$result = result;Py_XINCREF($result);"
 
 //---------------------------------------------------------------------
-%define %treat_serialized_tinfo_raw_pointer_as_str(TYPE)
+#ifdef PY3
+%define %treat_serialized_tinfo_raw_pointer_as_bytes_1(_TYPE)
+%typemap(in) _TYPE *
+{ // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(in) _TYPE *
+  if ( $input == Py_None )
+    $1 = ($1_ltype) NULL;
+  else if ( PyBytes_Check($input) )
+    $1 = ($1_ltype) PyBytes_AsString($input);
+  else
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "Expected bytes " "in method '" "$symname" "', argument " "$argnum"" of type 'bytes'");
+}
+%typemap(directorin) _TYPE *
+{ // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(directorin) _TYPE *
+  $input = PyBytes_FromString($1 != NULL ? (const char *) $1 : "");
+}
+%typemap(out) _TYPE *
+{ // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(out) _TYPE *
+  $result = PyBytes_FromString($1 != NULL ? (const char *) $1 : "");
+}
+// 'typecheck' typemaps are used for polymorphism. We want to favor
+// tinfo_t wrappers at the expense of 'type_t *' ones, so we want the
+// precedence for this to be very low.
+%typemap(typecheck, precedence=SWIG_TYPECHECK_STRING_ARRAY) _TYPE *
+{ // %treat_serialized_tinfo_raw_pointer_as_bytes_1 %typemap(typecheck) _TYPE *
+  $1 = ($input == Py_None || PyBytes_Check($input)) ? 1 : 0;
+}
+%enddef
+%define %treat_serialized_tinfo_raw_pointer_as_bytes(TYPE)
+%treat_serialized_tinfo_raw_pointer_as_bytes_1(TYPE);
+%treat_serialized_tinfo_raw_pointer_as_bytes_1(const TYPE);
+%enddef
+#else
+%define %treat_serialized_tinfo_raw_pointer_as_bytes(TYPE)
 %apply char * { TYPE * }
 %apply const char * { const TYPE * }
 %enddef
-%treat_serialized_tinfo_raw_pointer_as_str(type_t);
-%treat_serialized_tinfo_raw_pointer_as_str(p_list);
+#endif
+%treat_serialized_tinfo_raw_pointer_as_bytes(type_t);
+%treat_serialized_tinfo_raw_pointer_as_bytes(p_list);
 
 //-------------------------------------------------------------------------
 // For some reason, SWIG converts char arrays by computing the size
@@ -396,7 +442,16 @@ SWIGINTERN PyObject *_maybe_cstring_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-  return PyString_FromString(cstr);
+  return IDAPyStr_FromUTF8(cstr);
+}
+
+SWIGINTERN PyObject *_sized_cstring_result(
+        PyObject *resultobj,
+        const char *cstr,
+        size_t cstrsz)
+{
+  Py_XDECREF(resultobj);
+  return IDAPyStr_FromUTF8AndSize(cstr, cstrsz);
 }
 
 SWIGINTERN PyObject *_maybe_sized_cstring_result(
@@ -408,7 +463,38 @@ SWIGINTERN PyObject *_maybe_sized_cstring_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
-  return PyString_FromStringAndSize(cstr, cstrsz);
+  return IDAPyStr_FromUTF8AndSize(cstr, cstrsz);
+}
+
+SWIGINTERN PyObject *_maybe_cstring_result_on_charptr_using_allocated_buf(
+        PyObject *resultobj,
+        const char *result,
+        char *buf)
+{
+  Py_XDECREF(resultobj);
+  PyObject *out = NULL;
+  if ( result != NULL )
+  {
+    out = IDAPyStr_FromUTF8(buf);
+  }
+  else
+  {
+    Py_INCREF(Py_None);
+    out = Py_None;
+  }
+  qfree(buf);
+  return out;
+}
+
+SWIGINTERN PyObject *_maybe_cstring_result_on_charptr_using_qbuf(
+        PyObject *resultobj,
+        const char *result,
+        const qstring &buf)
+{
+  Py_XDECREF(resultobj);
+  if ( result == NULL )
+    Py_RETURN_NONE;
+  return IDAPyStr_FromUTF8AndSize(buf.begin(), buf.length());
 }
 
 SWIGINTERN PyObject *_maybe_binary_result(
@@ -419,9 +505,60 @@ SWIGINTERN PyObject *_maybe_binary_result(
   Py_XDECREF(resultobj);
   if ( result <= 0 )
     Py_RETURN_NONE;
+#ifdef PY3
+  return PyBytes_FromStringAndSize((const char *) buf, result);
+#else
   return PyString_FromStringAndSize((const char *) buf, result);
+#endif
+}
+
+SWIGINTERN PyObject *_sized_binary_result(
+        PyObject *resultobj,
+        const char *cstr,
+        size_t cstrsz)
+{
+  Py_XDECREF(resultobj);
+  return IDAPyBytes_FromMemAndSize(cstr, cstrsz);
+}
+
+SWIGINTERN PyObject *_maybe_sized_binary_result(
+        PyObject *resultobj,
+        const char *cstr,
+        size_t cstrsz,
+        int result)
+{
+  Py_XDECREF(resultobj);
+  if ( result <= 0 )
+    Py_RETURN_NONE;
+  return IDAPyBytes_FromMemAndSize(cstr, cstrsz);
+}
+
+%}
+
+#if defined(IDA_MODULE_NALT)
+%{
+#include <bytes.hpp>
+SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
+        PyObject *resultobj,
+        bool result,
+        const uchar *bytes,
+        size_t nbytes)
+{
+  Py_XDECREF(resultobj);
+  if ( !result )
+    Py_RETURN_NONE;
+  qstring buf;
+  buf.resize(2*nbytes);
+  get_hex_string(buf.begin(), buf.length(), bytes, nbytes);
+#ifdef PY3
+  return PyBytes_FromStringAndSize(buf.c_str(), buf.length());
+#else
+  return PyString_FromStringAndSize(buf.c_str(), buf.length());
+#endif
 }
 %}
+#endif
+
 
 
 //---------------------------------------------------------------------
@@ -465,17 +602,7 @@ SWIGINTERN PyObject *_maybe_binary_result(
 %define %cstring_output_buf_and_size_returning_charptr(BUFIDX, ...)
 %typemap(argout) (__VA_ARGS__) {
     // cstring_output_buf_and_size_returning_charptr's argout
-    Py_XDECREF(resultobj);
-    if (result != NULL)
-    {
-        resultobj = PyString_FromString($BUFIDX);
-    }
-    else
-    {
-        Py_INCREF(Py_None);
-        resultobj = Py_None;
-    }
-    qfree($BUFIDX);
+    resultobj = _maybe_cstring_result_on_charptr_using_allocated_buf(resultobj, (const char *) result, $BUFIDX);
 }
 %enddef
 
@@ -485,16 +612,7 @@ SWIGINTERN PyObject *_maybe_binary_result(
 %typemap(argout) (__VA_ARGS__)
 {
   // %cstring_output_qstring_returning_charptr typemap(argout) __VA_ARGS__
-  Py_XDECREF(resultobj);
-  if (result != NULL)
-  {
-    resultobj = PyString_FromStringAndSize($BUFIDX->begin(), $BUFIDX->length());
-  }
-  else
-  {
-    Py_INCREF(Py_None);
-    resultobj = Py_None;
-  }
+  resultobj = _maybe_cstring_result_on_charptr_using_qbuf(resultobj, (const char *) result, *$BUFIDX);
 }
 %enddef
 
@@ -524,18 +642,7 @@ SWIGINTERN PyObject *_maybe_binary_result(
 }
 %typemap(argout) uchar PARAM_NAME[ANY]
 { // byte_array_as_hex_or_none typemap(argout) uchar PARAM_NAME[ANY]
-  Py_XDECREF(resultobj);
-  if (result)
-  {
-    char buf[2*$1_dim0 + 1];
-    get_hex_string(buf, sizeof(buf), $1, $1_dim0);
-    resultobj = PyString_FromString(buf);
-  }
-  else
-  {
-    Py_INCREF(Py_None);
-    resultobj = Py_None;
-  }
+  resultobj = _maybe_byte_array_as_hex_or_none_result(resultobj, result, $1, $1_dim0);
 }
 %enddef
 %byte_array_as_hex_or_none(hash);
@@ -596,27 +703,66 @@ SWIGINTERN PyObject *_maybe_binary_result(
 //---------------------------------------------------------------------
 //                       IN/OUT qstring/bytevec_t
 //---------------------------------------------------------------------
-%define %bytes_container(REFTYPE, CONTAINER_TYPE, START_ACCESSOR, SIZE_ACCESSOR, INSTANCE_CAST)
+%define %bytes_container(
+        REFTYPE,
+        CONTAINER_TYPE,
+        START_ACCESSOR,
+        SIZE_ACCESSOR,
+        INSTANCE_CAST,
+        CHECKER,
+        IN_CONVERTER,
+        OUT_CONVERTER,
+        ARGOUT_CONVERTER,
+        ARGOUT_MAYBE_CONVERTER,
+        ELTYPE_TO_REPORT1,
+        ELTYPE_TO_REPORT2)
 %typemap(typecheck) REFTYPE
 { // bytes_container REFTYPE typemap(typecheck)
-  $1 = PyString_Check($input) ? 1 : 0;
+  $1 = CHECKER($input) ? 1 : 0;
 }
-%typemap(in) REFTYPE
-{ // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
-  if ( PyString_Check($input) )
+%fragment("cvt_" #CONTAINER_TYPE, "header")
+{
+  CONTAINER_TYPE *cvt_##CONTAINER_TYPE(PyObject *obj, bool can_be_none=false)
   {
-    // init properly, so ctor can't crash
-    char *buf = NULL;
-    Py_ssize_t length = 0;
-    /*int success =*/ PyString_AsStringAndSize($input, &buf, &length);
-    $1 = new CONTAINER_TYPE(INSTANCE_CAST buf, length); // build regardless of success
+    CONTAINER_TYPE *out = NULL;
+    if ( can_be_none && obj == Py_None )
+    {
+      out = new CONTAINER_TYPE;
+    }
+    else if ( CHECKER(obj) )
+    {
+      // init properly, so ctor can't crash
+      out = new CONTAINER_TYPE;
+      IN_CONVERTER(out, obj);
+    }
+    return out;
   }
-  else
-  {
+}
+
+%typemap(in, fragment="cvt_" #CONTAINER_TYPE) REFTYPE
+{ // bytes_container REFTYPE, CONTAINER_TYPE typemap(in)
+  $1 = cvt_ ## CONTAINER_TYPE($input);
+  if ( $1 == NULL )
     SWIG_exception_fail(
             SWIG_ValueError,
-            "Expected string " "in method '" "$symname" "', argument " "$argnum"" of type 'str'");
-  }
+            "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
+}
+
+%typemap(in) const REFTYPE _type_or_none
+{ // bytes_container REFTYPE _type_or_none, CONTAINER_TYPE typemap(in)
+  $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
+  if ( $1 == NULL )
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
+}
+%typemap(in) const REFTYPE _fields
+{ // bytes_container REFTYPE _fields, CONTAINER_TYPE typemap(in)
+  $1 = cvt_ ## CONTAINER_TYPE($input, /*can_be_none=*/ true);
+  if ( $1 == NULL )
+    SWIG_exception_fail(
+            SWIG_ValueError,
+            "Expected " ELTYPE_TO_REPORT1 " " "in method '" "$symname" "', argument " "$argnum"" of type '" ELTYPE_TO_REPORT2 "'");
 }
 %typemap(freearg) REFTYPE
 { // bytes_container REFTYPE typemap(freearg)
@@ -624,15 +770,15 @@ SWIGINTERN PyObject *_maybe_binary_result(
 }
 %typemap(out) REFTYPE // e.g., %typemap(out) qstring*
 { // bytes_container typemap(out) REFTYPE
-  $result = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  $result = OUT_CONVERTER((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %typemap(out) CONTAINER_TYPE // e.g., %typemap(out) qstring
 { // bytes_container typemap(out) CONTAINER_TYPE
-  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+  $result = OUT_CONVERTER((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 %typemap(varout) CONTAINER_TYPE // e.g., %typemap(varout) qstring
 { // bytes_container typemap(varout) CONTAINER_TYPE
-  $result = PyString_FromStringAndSize((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+  $result = OUT_CONVERTER((const char *) $1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 // the following is used to turn a '... *result' output parameter,
 // into an actual return value.
@@ -649,12 +795,12 @@ SWIGINTERN PyObject *_maybe_binary_result(
 %typemap(argout) CONTAINER_TYPE *result
 {
   // bytes_container typemap(argout) CONTAINER_TYPE *result
-  resultobj = _maybe_sized_cstring_result(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
+  resultobj = ARGOUT_MAYBE_CONVERTER(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
 }
 %typemap(argout) CONTAINER_TYPE &result
 {
   // bytes_container typemap(argout) CONTAINER_TYPE &result
-  resultobj = _maybe_sized_cstring_result(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
+  resultobj = ARGOUT_MAYBE_CONVERTER(resultobj, $1->START_ACCESSOR(), $1->SIZE_ACCESSOR(), int(result));
 }
 %typemap(freearg) CONTAINER_TYPE* result
 {
@@ -679,20 +825,18 @@ SWIGINTERN PyObject *_maybe_binary_result(
 %typemap(argout) (CONTAINER_TYPE *vout)
 {
   // bytes_container typemap(argout) (CONTAINER_TYPE *vout)
-  Py_XDECREF(resultobj);
-  resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  resultobj = ARGOUT_CONVERTER(resultobj, (const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %typemap(argout) (CONTAINER_TYPE &vout)
 {
   // bytes_container typemap(argout) (CONTAINER_TYPE &vout)
-  Py_XDECREF(resultobj);
-  resultobj = PyString_FromStringAndSize((const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+  resultobj = ARGOUT_CONVERTER(resultobj, (const char *) $1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
 }
 %typemap(directorin) CONTAINER_TYPE *
 { // bytes_container typemap(directorin) CONTAINER_TYPE *
   if ( $1 != NULL )
   {
-    $input = PyString_FromStringAndSize($1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
+    $input = OUT_CONVERTER($1->START_ACCESSOR(), $1->SIZE_ACCESSOR());
   }
   else
   {
@@ -702,25 +846,172 @@ SWIGINTERN PyObject *_maybe_binary_result(
 }
 %typemap(directorin) REFTYPE
 { // bytes_container typemap(directorin) REFTYPE
-  $input = PyString_FromStringAndSize($1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
+  $input = OUT_CONVERTER($1.START_ACCESSOR(), $1.SIZE_ACCESSOR());
 }
 %enddef
 
-%bytes_container(qstring *, qstring, c_str, length,);
-%bytes_container(qstring &, qstring, c_str, length,);
-%bytes_container(bytevec_t *, bytevec_t, begin, size,);
-%bytes_container(bytevec_t &, bytevec_t, begin, size,);
-%bytes_container(qtype *, qtype, begin, length, (const uchar *));
-%bytes_container(qtype &, qtype, begin, length, (const uchar *));
+%define %bytes_container_ptr_and_ref(
+        CONTAINER_TYPE,
+        START_ACCESSOR,
+        SIZE_ACCESSOR,
+        INSTANCE_CAST,
+        CHECKER,
+        IN_CONVERTER,
+        OUT_CONVERTER,
+        ARGOUT_CONVERTER,
+        ARGOUT_MAYBE_CONVERTER,
+        ELTYPE_TO_REPORT1,
+        ELTYPE_TO_REPORT2)
+%bytes_container(
+        CONTAINER_TYPE *,
+        CONTAINER_TYPE,
+        START_ACCESSOR,
+        SIZE_ACCESSOR,
+        INSTANCE_CAST,
+        CHECKER,
+        IN_CONVERTER,
+        OUT_CONVERTER,
+        ARGOUT_CONVERTER,
+        ARGOUT_MAYBE_CONVERTER,
+        ELTYPE_TO_REPORT1,
+        ELTYPE_TO_REPORT2);
+%bytes_container(
+        CONTAINER_TYPE &,
+        CONTAINER_TYPE,
+        START_ACCESSOR,
+        SIZE_ACCESSOR,
+        INSTANCE_CAST,
+        CHECKER,
+        IN_CONVERTER,
+        OUT_CONVERTER,
+        ARGOUT_CONVERTER,
+        ARGOUT_MAYBE_CONVERTER,
+        ELTYPE_TO_REPORT1,
+        ELTYPE_TO_REPORT2);
+%enddef
+
+
+#ifdef PY3
+%bytes_container_ptr_and_ref(
+        qstring,
+        c_str,
+        length,
+        ,
+        IDAPyStr_Check,
+        IDAPyStr_AsUTF8,
+        IDAPyStr_FromUTF8AndSize,
+        _sized_cstring_result,
+        _maybe_sized_cstring_result,
+        "string",
+        "str");
+%bytes_container_ptr_and_ref(
+        bytevec_t,
+        begin,
+        size,
+        ,
+        IDAPyBytes_Check,
+        IDAPyBytes_AsBytes,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "bytes",
+        "bytes");
+%bytes_container_ptr_and_ref(
+        qtype,
+        begin,
+        length,
+        (const uchar *),
+        IDAPyBytes_Check,
+        IDAPyBytes_as_qtype,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "bytes",
+        "bytes");
+#else
+%bytes_container_ptr_and_ref(
+        qstring,
+        c_str,
+        length,
+        ,
+        IDAPyStr_Check,
+        IDAPyStr_AsUTF8,
+        IDAPyStr_FromUTF8AndSize,
+        _sized_cstring_result,
+        _maybe_sized_cstring_result,
+        "string",
+        "str");
+%bytes_container_ptr_and_ref(
+        bytevec_t,
+        begin,
+        size,
+        ,
+        IDAPyBytes_Check,
+        IDAPyBytes_AsBytes,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "string",
+        "str");
+%bytes_container_ptr_and_ref(
+        qtype,
+        begin,
+        length,
+        (const uchar *),
+        IDAPyBytes_Check,
+        IDAPyBytes_as_qtype,
+        IDAPyBytes_FromMemAndSize,
+        _sized_binary_result,
+        _maybe_sized_binary_result,
+        "string",
+        "str");
+#endif
+
+//-------------------------------------------------------------------------
+//                                insn_t
+//-------------------------------------------------------------------------
+%fragment("cvt_const_insn_t_ref", "header")
+{
+  bool convert_const_insn_t_ref(insn_t *out, PyObject *in)
+  {
+    uint64 ea;
+    bool ok = PyW_GetNumber(in, &ea);
+    if ( ok )
+    {
+      insn_t tmp;
+      ok = decode_insn(&tmp, ea_t(ea));
+      if ( ok )
+        *out = tmp;
+    }
+    else
+    {
+      insn_t *p_insn = nullptr;
+      ok = SWIG_ConvertPtr(in, (void **) &p_insn, SWIGTYPE_p_insn_t, 0) >= 0 && p_insn != nullptr;
+      if ( ok )
+        *out = *p_insn;
+    }
+    return ok;
+  }
+}
+
+//-------------------------------------------------------------------------
+%typemap(in, fragment="cvt_const_insn_t_ref") (const insn_t &) (insn_t lins)
+{
+  // %typemap(in) (const insn_t &)
+  if ( !convert_const_insn_t_ref(&lins, $input) )
+    SWIG_exception_fail(SWIG_ValueError, "Expected either an address, or a non-null ida_ua.insn_t instance");
+  $1 = &lins;
+}
 
 //---------------------------------------------------------------------
 //                      varargs (mostly kernwin.hpp)
 //---------------------------------------------------------------------
 // This is used for functions like warning(), info() and so on
-%typemap(in) (const char *format, ...)
+%typemap(in) (const char *format, ...) (qstring buf)
 {
     $1 = "%s";                                /* Fix format string to %s */
-    $2 = (void *) PyString_AsString($input);  /* Get string argument */
+    IDAPyStr_AsUTF8(&buf, $input);            /* Get string argument */
+    $2 = (void *) buf.begin();
     /* Note: we cannot rely on 'nonnul_argument_prototype' for */
     /* these, since we fiddle with the arguments number */
     if ( $2 == NULL )
@@ -775,6 +1066,35 @@ typedef          long long longlong;
 %apply bool *OUTPUT { bool *checkable };
 %apply bool *OUTPUT { bool *checked };
 %apply bool *OUTPUT { bool *visibility };
+
+//-------------------------------------------------------------------------
+// 'errbuf' output handling can go many ways. Let's provide common helpers.
+%define %make_argout_errbuf_raise_exception_when_non_empty()
+%typemap(argout) (qstring *errbuf)
+{
+  // %typemap(argout) qstring *errbuf (from: %make_argout_errbuf_raise_exception_when_non_empty)
+  if ( !$1->empty() )
+  {
+    if ( $result != NULL )
+      Py_XDECREF($result);
+    SWIG_exception_fail(SWIG_RuntimeError, $1->c_str());
+  }
+}
+%enddef
+
+%define %make_argout_errbuf_raise_when_null_result()
+%typemap(argout) (qstring *errbuf)
+{
+  // %typemap(argout) qstring *errbuf (from: %make_argout_errbuf_raise_when_null_result)
+  if ( result == NULL )
+  {
+    if ( $result != NULL )
+      Py_XDECREF($result);
+    SWIG_exception_fail(SWIG_RuntimeError, $1->c_str());
+  }
+}
+%enddef
+
 
 //-------------------------------------------------------------------------
 // The following is to be used to expose an array of items
@@ -853,20 +1173,34 @@ struct dynamic_wrapped_array_t {
 }
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x20012
+#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) tinfo_t {}
 %typemap(ret) tinfo_t
 {
-  // ret tinfo_t
+  // %typemap(ret) tinfo_t
   tinfo_t *ni = new tinfo_t($1);
   til_register_python_tinfo_t_instance(ni);
   $result = SWIG_NewPointerObj(ni, $&1_descriptor, SWIG_POINTER_OWN | 0);
 }
 
-%typemap(check) tinfo_t*
+%typemap(check) tinfo_t *
 {
+  // %typemap(check) tinfo_t *
   if ( $1 == NULL )
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "$symname" "', argument " "$argnum"" of type '" "$1_type""'");
+}
+
+%typemap(out) tinfo_t *
+{
+  // %typemap(out) tinfo_t *
+  tinfo_t *ni = new tinfo_t(*$1);
+  til_register_python_tinfo_t_instance(ni);
+  $result = SWIG_NewPointerObj(ni, $1_descriptor, SWIG_POINTER_OWN | 0);
+}
+
+%typemap(newfree) tinfo_t * {
+  // %typemap(newfree) tinfo_t *
+  delete $1;
 }
 #else
 #error Ensure tinfo_t wrapping is compatible with this version of SWIG
@@ -885,6 +1219,42 @@ struct dynamic_wrapped_array_t {
 %apply (char *STRING, int LENGTH) { (const void *buf, size_t len) };
 %apply (char *STRING, int LENGTH) { (const void *value, size_t length) };
 %apply (char *STRING, int LENGTH) { (const void *dataptr,size_t len) };
+#ifdef PY3
+%define %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, STORAGE_TYPE, CONVERTER, LENGTH_GETTER)
+%typemap(in) (const PTRTYPE *BUFNAME, size_t SIZENAME) (STORAGE_TYPE tmp)
+{
+  // typemap(in) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+  if ( !CONVERTER(&tmp, $input) ) {
+    %argument_fail(SWIG_ERROR, "$type", $symname, $argnum);
+  }
+  $1 = %reinterpret_cast(tmp.begin(), $1_ltype);
+  $2 = %numeric_cast(tmp.LENGTH_GETTER(), $2_ltype);
+}
+%typemap(freearg) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+{
+  // typemap(freearg) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+}
+%enddef
+
+%define %const_void_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME)
+  %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+  { // %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) (const PTRTYPE *BUFNAME, size_t SIZENAME)
+    $1 = PyBytes_Check($input) ? 1 : 0;
+  }
+  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, bytevec_t, IDAPyBytes_AsBytes, size)
+%enddef
+
+%define %const_char_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME)
+  %const_pointer_and_size(PTRTYPE, BUFNAME, SIZENAME, qstring, IDAPyStr_AsUTF8, length)
+%enddef
+
+%const_void_pointer_and_size(void, buf, size);
+%const_void_pointer_and_size(void, buf, bufsize);
+%const_void_pointer_and_size(void, buf, len);
+%const_void_pointer_and_size(void, value, length);
+%const_void_pointer_and_size(void, dataptr, len);
+%const_char_pointer_and_size(char, value, length);
+#endif
 
 // Create wrapper classes for basic type arrays
 %array_class(uchar, uchar_array);
@@ -904,31 +1274,41 @@ SWIGINTERN PyObject *qstrvec2pylist(const qstrvec_t &vec)
   size_t n = vec.size();
   PyObject *py_list = PyList_New(n);
   for ( size_t i=0; i < n; ++i )
-    PyList_SetItem(
-            py_list,
-            i,
-            PyString_FromStringAndSize(vec[i].c_str(), vec[i].length()));
+    PyList_SetItem(py_list, i, IDAPyStr_FromUTF8AndSize(vec[i].c_str(), vec[i].length()));
   return py_list;
 }
 %}
 
-//---------------------------------------------------------------------
-%typemap(out) uint64
+//-------------------------------------------------------------------------
+// When it comes to uint64, we have been typically very tolerant and
+// accept negative values as if were logical to perform C-like numbers
+// 'wrapping' in Python. It's not, but bw-compat imposes that we do.
+%fragment("cvt_uint64", "header")
 {
-  // %typemap(out) uint64
-  $result = PyLong_FromUnsignedLongLong((unsigned long long) $1);
+  int cvt_uint64(uint64 *out, PyObject *obj)
+  {
+    unsigned long long ull = PyLong_AsUnsignedLongLong(obj);
+    if ( PyErr_Occurred() )
+    {
+      PyErr_Clear();
+      long long ll = PyLong_AsLongLong(obj);
+      if ( PyErr_Occurred() )
+      {
+        PyErr_Clear();
+        return SWIG_OverflowError;
+      }
+      ull = (unsigned long long) ll;
+    }
+    *out = uint64(ull);
+    return SWIG_OK;
+  }
 }
-
-%typemap(in) uint64
+%typemap(in, fragment="cvt_uint64") uint64 (int ecode)
 {
   // %typemap(in) uint64
-  uint64 $1_temp;
-  if ( !PyW_GetNumber($input, &$1_temp) )
-  {
-    PyErr_SetString(PyExc_TypeError, "Expected an uint64 type");
-    return NULL;
-  }
-  $1 = $1_temp;
+  ecode = cvt_uint64(&$1, $input);
+  if ( !SWIG_IsOK(ecode) )
+    SWIG_exception_fail(SWIG_ArgError(ecode), "in method '$symname', argument $argnum of type $1_type");
 }
 
 //-------------------------------------------------------------------------
@@ -1166,9 +1546,10 @@ SWIGINTERN void __raise_de(const Swig::DirectorException &e)
         newref_t as_str(PyObject_Str(v));
         if ( as_str != NULL )
         {
-          qstring buf(e.getMessage());
-          buf.append(" : ");
-          buf.append(PyString_AsString(as_str.o));
+          qstring buf;
+          IDAPyStr_AsUTF8(&buf, as_str.o);
+          buf.insert(" : ");
+          buf.insert(e.getMessage());
           PyErr_SetString(PyExc_RuntimeError, buf.c_str());
           handled = true;
         }
@@ -1201,6 +1582,8 @@ SWIGINTERN bool __chkreqidb()
 }
 
 %}
+
+%include <constraints.i>
 
 // If the module is 'pro', don't import pro.h, or the %include
 // at the beginning of pro.i won't have any effect. Same for all

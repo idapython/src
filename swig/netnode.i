@@ -130,7 +130,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
+      return IDAPyBytes_FromMemAndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *getclob(nodeidx_t start, char tag)
@@ -138,7 +138,7 @@
       qstring clob;
       if ( self->getblob(&clob, start, uchar(tag)) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)clob.begin(), clob.length());
+      return IDAPyStr_FromUTF8AndSize((const char *)clob.begin(), clob.length());
     }
 
     PyObject *getblob_ea(ea_t ea, char tag)
@@ -146,7 +146,7 @@
       bytevec_t blob;
       if ( self->getblob(&blob, ea, tag) <= 0 )
         Py_RETURN_NONE;
-      return PyString_FromStringAndSize((const char *)blob.begin(), blob.size());
+      return IDAPyBytes_FromMemAndSize((const char *)blob.begin(), blob.size());
     }
 
     PyObject *hashstr_buf(const char *idx, char tag=htag)
@@ -156,15 +156,25 @@
       if ( sz < 0 )
         Py_RETURN_NONE;
       else
-        return PyString_FromStringAndSize(buf, sz);
+        return IDAPyStr_FromUTF8AndSize(buf, sz);
     }
 
     bool hashset_buf(const char *idx, PyObject *py_str, char tag=htag)
     {
-      char *buf;
-      Py_ssize_t sz;
-      if ( PyString_AsStringAndSize(py_str, &buf, &sz) == -1 )
-        return false;
-      return self->hashset(idx, buf, sz, uchar(tag));
+      qstring buf;
+      return IDAPyStr_AsUTF8(&buf, py_str)
+          && self->hashset(idx, buf.c_str(), buf.length(), uchar(tag));
     }
+
+#ifdef PY3
+    bool supset(nodeidx_t alt, const char *value, size_t length=0, uchar tag=stag)
+    {
+      return self->supset(alt, (void *) value, length, tag);
+    }
+
+    bool supset_ea(ea_t ea, const char *value, size_t length=0, uchar tag=stag)
+    {
+      return self->supset_ea(ea, (void *) value, length, tag);
+    }
+#endif
 }

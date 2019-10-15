@@ -77,6 +77,56 @@ class action_handler_t(object):
         pass
 
 # ----------------------------------------------------------------------
+# This provides an alternative to register_action()+attach_action_to_popup_menu()
+class quick_widget_commands_t:
+
+    class _cmd_t:
+        def __init__(self, caption, flags, menu_index, icon, emb, shortcut):
+            self.caption = caption
+            self.flags = flags
+            self.menu_index = menu_index
+            self.icon = icon
+            self.emb = emb
+            self.shortcut = shortcut
+
+    class _ah_t(action_handler_t):
+        def __init__(self, parent, cmd_id):
+            action_handler_t.__init__(self)
+            self.parent = parent
+            self.cmd_id = cmd_id
+
+        def activate(self, ctx):
+            self.parent.callback(ctx, self.cmd_id)
+
+        def update(self, ctx):
+            return AST_ENABLE_ALWAYS
+
+
+    def __init__(self, callback):
+        self.callback = callback
+        self.cmds = []
+
+    def add(self, caption, flags, menu_index, icon, emb, shortcut):
+        for idx, cmd in enumerate(self.cmds):
+            if cmd.caption == caption:
+                return idx
+        self.cmds.append(
+            quick_widget_commands_t._cmd_t(
+                caption, flags, menu_index, icon, emb, shortcut))
+        return len(self.cmds) - 1
+
+    def populate_popup(self, widget, popup):
+        for idx, cmd in enumerate(self.cmds):
+            if (cmd.flags & CHOOSER_POPUP_MENU) != 0:
+                desc = action_desc_t(None,
+                                     cmd.caption,
+                                     quick_widget_commands_t._ah_t(self, idx),
+                                     cmd.shortcut,
+                                     None,
+                                     cmd.icon)
+                attach_dynamic_action_to_popup(widget, popup, desc)
+
+# ----------------------------------------------------------------------
 # bw-compat/deprecated. You shouldn't rely on this in new code
 from ida_pro import str2user
 
@@ -169,56 +219,8 @@ setBreak=set_cancelled
 wasBreak=user_cancelled
 refresh_lists=refresh_choosers
 
-#--------------------------------------------------------------------------
-class BC695_control_cmd:
-    def __init__(self, cmd_id, caption, flags, menu_index, icon, emb, shortcut, is_chooser):
-        self.cmd_id = cmd_id
-        self.caption = caption
-        self.flags = flags
-        self.menu_index = menu_index
-        self.icon = icon
-        self.emb = emb
-        self.shortcut = shortcut
-        self.is_chooser = is_chooser
 
-    @staticmethod
-    def add_to_control(control, caption, flags, menu_index, icon, emb, shortcut, is_chooser):
-        if getattr(control, "commands", None) is None:
-            setattr(control, "commands", [])
-        found = filter(lambda x: x.caption == caption, control.commands)
-        if len(found) == 1:
-            cmd_id = found[0].cmd_id
-        else:
-            cmd_id = len(control.commands)
-            cmd = BC695_control_cmd(cmd_id, caption, flags, menu_index, icon, emb, shortcut, is_chooser)
-            control.commands.append(cmd)
-        return cmd_id
-
-    @staticmethod
-    def populate_popup(control, widget, popup):
-        cmds = getattr(control, "commands", [])
-        for cmd in cmds:
-            if (cmd.flags & CHOOSER_POPUP_MENU) != 0:
-                desc = action_desc_t(None, cmd.caption, BC695_control_cmd_ah_t(control, cmd), cmd.shortcut, None, cmd.icon)
-                attach_dynamic_action_to_popup(widget, popup, desc)
-
-class BC695_control_cmd_ah_t(action_handler_t):
-    def __init__(self, control, cmd):
-        action_handler_t.__init__(self)
-        self.control = control
-        self.cmd = cmd
-
-    def activate(self, ctx):
-        if self.cmd.is_chooser:
-            idx = ctx.chooser_selection[0]
-            self.control.OnCommand(idx, self.cmd.cmd_id)
-        else:
-            self.control.OnCommand(self.cmd.cmd_id)
-
-    def update(self, ctx):
-        return AST_ENABLE_ALWAYS
-
-
+# -------------------------------------------------------
 class Choose2(object):
     """v.6.95 compatible chooser wrapper class."""
 
@@ -370,10 +372,7 @@ class Choose2(object):
             self.link.OnSelectionChange(n)
 
         def OnPopup(self, widget, popup_handle):
-            BC695_control_cmd.populate_popup(
-                self.link,
-                widget,
-                popup_handle)
+            self.link._quick_commands.populate_popup(widget, popup_handle)
 
 
     def __init__(self, title, cols, flags=0, popup_names=None,
@@ -415,6 +414,10 @@ class Choose2(object):
         self.height = height
         # construct the v.7.0 chooser object
         self.chobj = Choose2.ChooseWrapper(self)
+        def _qccb(ctx, cmd_id):
+            for idx in ctx.chooser_selection:
+                self.OnCommand(idx, cmd_id)
+        self._quick_commands = quick_widget_commands_t(_qccb)
 
 
     # redirect methods to the v.7.0 chooser
@@ -426,6 +429,7 @@ class Choose2(object):
                         "GetWidget"]:
             raise AttributeError(attr)
         return getattr(self.chobj, attr)
+
 
     def Embedded(self):
         """
@@ -460,9 +464,13 @@ class Choose2(object):
         if self.embedded and ((emb is None) or (emb != 2002)):
             raise RuntimeError("Please add a command through "
                                "EmbeddedChooserControl.AddCommand()")
-        return BC695_control_cmd.add_to_control(
-                   self, caption, flags, menu_index, icon, emb, None,
-                   is_chooser=True)
+        return self._quick_commands.add(
+            caption=caption,
+            flags=flags,
+            menu_index=menu_index,
+            icon=icon,
+            emb=emb,
+            shortcut=shortcut)
 
     # callbacks
     # def OnGetSize(self):

@@ -33,7 +33,7 @@ struct undo_records_t;
 %ignore parse_config_value;
 
 %define_Hooks_class(IDP);
-%ignore _wrap_addr_in_pycobject;
+%ignore _wrap_addr_in_pycapsule;
 
 %ignore s_preline;
 %ignore ca_operation_t;

@@ -3,7 +3,7 @@
 
 //<code(py_idaapi)>
 //-------------------------------------------------------------------------
-#define GET_THIS() py_customidamemo_t *_this = view_extract_this<py_customidamemo_t>(self)
+#define GET_THIS() py_customidamemo_t *_this = (py_customidamemo_t *) view_extract_this(self)
 #define CHK_THIS()                                                      \
   GET_THIS();                                                           \
   if ( _this == NULL )                                                  \
@@ -23,54 +23,6 @@ void pygc_refresh(PyObject *self)
 {
   CHK_THIS();
   _this->refresh();
-}
-
-//-------------------------------------------------------------------------
-void pygc_set_node_info(PyObject *self, PyObject *py_node_idx, PyObject *py_node_info, PyObject *py_flags)
-{
-  CHK_THIS();
-  _this->set_node_info(py_node_idx, py_node_info, py_flags);
-}
-
-//-------------------------------------------------------------------------
-void pygc_set_nodes_infos(PyObject *self, PyObject *values)
-{
-  CHK_THIS();
-  _this->set_nodes_infos(values);
-}
-
-//-------------------------------------------------------------------------
-PyObject *pygc_get_node_info(PyObject *self, PyObject *py_node_idx)
-{
-  GET_THIS();
-  if ( _this != NULL )
-    return _this->get_node_info(py_node_idx);
-  else
-    Py_RETURN_NONE;
-}
-
-//-------------------------------------------------------------------------
-void pygc_del_nodes_infos(PyObject *self, PyObject *py_nodes)
-{
-  CHK_THIS();
-  _this->del_nodes_infos(py_nodes);
-}
-
-//-------------------------------------------------------------------------
-PyObject *pygc_get_current_renderer_type(PyObject *self)
-{
-  GET_THIS();
-  if ( _this != NULL )
-    return _this->get_current_renderer_type();
-  else
-    Py_RETURN_NONE;
-}
-
-//-------------------------------------------------------------------------
-void pygc_set_current_renderer_type(PyObject *self, PyObject *py_rt)
-{
-  CHK_THIS();
-  _this->set_current_renderer_type(py_rt);
 }
 
 //-------------------------------------------------------------------------
@@ -244,10 +196,13 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
   // we don't want to turn non-ASCII bytes into a \xNN equivalent: IDA
   // accepts UTF-8 everywhere internally (and this will end up in a
   // 'msg' call eventually.)
+  qstring utf8;
+#ifdef PY3
+  if ( !IDAPyStr_AsUTF8(&utf8, _in) )
+    return NULL;
+#else
   PyObject *_pystr;
   ref_t _tmp;
-  char *in_bytes;
-  Py_ssize_t in_len;
   if ( PyUnicode_Check(_in) )
   {
     _tmp = newref_t(PyUnicode_AsUTF8String(_in));
@@ -260,8 +215,11 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
     _pystr = _in;
   }
 
-  if ( PyString_AsStringAndSize(_pystr, &in_bytes, &in_len) < 0 )
-    return _in;
+  if ( !IDAPyStr_AsUTF8(&utf8, _pystr) )
+    return NULL;
+#endif
+  char *in_bytes = utf8.begin();
+  Py_ssize_t in_len = utf8.length();
 
   char quote = '\'';
   if ( memchr(in_bytes, '\'', in_len) != NULL
@@ -299,7 +257,7 @@ idaman PyObject *ida_export format_basestring(PyObject *_in)
       buf.append(c);
   }
   buf.append(quote);
-  return PyString_FromStringAndSize(buf.c_str(), buf.length());
+  return IDAPyStr_FromUTF8AndSize(buf.c_str(), buf.length());
 }
 
 /*
@@ -316,12 +274,6 @@ def RunPythonStatement(stmt):
 */
 
 void pygc_refresh(PyObject *self);
-void pygc_set_node_info(PyObject *self, PyObject *py_node_idx, PyObject *py_node_info, PyObject *py_flags);
-void pygc_set_nodes_infos(PyObject *self, PyObject *values);
-PyObject *pygc_get_node_info(PyObject *self, PyObject *py_node_idx);
-void pygc_del_nodes_infos(PyObject *self, PyObject *py_nodes);
-PyObject *pygc_get_current_renderer_type(PyObject *self);
-void pygc_set_current_renderer_type(PyObject *self, PyObject *py_rt);
 PyObject *pygc_create_groups(PyObject *self, PyObject *groups_infos);
 PyObject *pygc_delete_groups(PyObject *self, PyObject *groups, PyObject *new_current);
 PyObject *pygc_set_groups_visibility(PyObject *self, PyObject *groups, PyObject *expand, PyObject *new_current);

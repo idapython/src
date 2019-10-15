@@ -83,11 +83,11 @@
 %ignore extract_module_from_archive;
 %rename (extract_module_from_archive) py_extract_module_from_archive;
 
-%extend qvector< snapshot_t *> {
-    snapshot_t *at(size_t n) { return self->at(n); }
-};
-%ignore qvector< snapshot_t *>::at(size_t) const;
-%ignore qvector< snapshot_t *>::at(size_t);
+/* %extend qvector< snapshot_t *> { */
+/*     snapshot_t *at(size_t n) { return self->at(n); } */
+/* }; */
+/* %ignore qvector< snapshot_t *>::at(size_t) const; */
+/* %ignore qvector< snapshot_t *>::at(size_t); */
 %ignore qvector< snapshot_t *>::grow;
 %template(qvector_snapshotvec_t) qvector<snapshot_t *>;
 

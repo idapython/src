@@ -1,11 +1,6 @@
 #<pycode(py_graph)>
 import ida_idaapi
 import ida_kernwin
-try:
-    if _BC695:
-        from ida_kernwin import BC695_control_cmd
-except:
-    pass # BC695 not defined at compile-time
 
 class GraphViewer(ida_kernwin.CustomIDAMemo):
     class UI_Hooks_Trampoline(ida_kernwin.UI_Hooks):
@@ -15,10 +10,10 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
             import weakref
             self.v = weakref.ref(v)
 
-        def populating_widget_popup(self, form, popup_handle):
-            my_form = self.v().GetWidget()
-            if form == my_form:
-                self.v().OnPopup(my_form, popup_handle)
+        def populating_widget_popup(self, w, popup_handle):
+            my_w = self.v().GetWidget()
+            if w == my_w:
+                self.v().OnPopup(my_w, popup_handle)
 
     """This class wraps the user graphing facility provided by the graph.hpp file"""
     def __init__(self, title, close_open = False):
@@ -33,6 +28,9 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
         self._nodes = []
         self._edges = []
         self._close_open = close_open
+        def _qccb(ctx, cmd_id):
+            return self.OnCommand(cmd_id)
+        self._quick_commands = ida_kernwin.quick_widget_commands_t(_qccb)
         ida_kernwin.CustomIDAMemo.__init__(self)
         self.ui_hooks_trampoline = self.UI_Hooks_Trampoline(self)
 
@@ -53,12 +51,8 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
         self._nodes = []
         self._edges = []
 
-    def OnPopup(self, form, popup_handle):
-        pass
-
     def __iter__(self):
-        return (self._nodes[index] for index in xrange(0, len(self._nodes)))
-
+        return (self._nodes[index] for index in range(0, len(self._nodes)))
 
     def __getitem__(self, idx):
         """Returns a reference to the object associated with this node id"""
@@ -108,19 +102,17 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 
         return True
 
-    def AddCommand(self, title, hotkey):
-        return BC695_control_cmd.add_to_control(
-            self,
-            title,
-            ida_kernwin.CHOOSER_POPUP_MENU, # KLUDGE
-            -1, # menu index
-            -1, # icon
-            None, # emb
-            hotkey,
-            is_chooser=False)
+    def AddCommand(self, title, shortcut):
+        return self._quick_commands.add(
+            caption=title,
+            flags=ida_kernwin.CHOOSER_POPUP_MENU,
+            menu_index=-1,
+            icon=-1,
+            emb=None,
+            shortcut=shortcut)
 
     def OnPopup(self, widget, popup_handle):
-        BC695_control_cmd.populate_popup(self, widget, popup_handle)
+        self._quick_commands.populate_popup(widget, popup_handle)
 
     def OnCommand(self, cmd_id):
         return 0
@@ -144,21 +136,13 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 #        Triggered when the graph window gets the focus
 #        @return: None
 #        """
-#        print "Activated...."
+#        print("Activated....")
 #
 #    def OnDeactivate(self):
 #        """Triggered when the graph window loses the focus
 #        @return: None
 #        """
-#        print "Deactivated...."
-#
-#    def OnSelect(self, node_id):
-#        """
-#        Triggered when a node is being selected
-#        @return: Return True to allow the node to be selected or False to disallow node selection change
-#        """
-#        # allow selection change
-#        return True
+#        print("Deactivated....")
 #
 #    def OnHint(self, node_id):
 #        """
@@ -180,14 +164,14 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 #        """Triggered when the graph viewer window is being closed
 #        @return: None
 #        """
-#        print "Closing......."
+#        print("Closing.......")
 #
 #    def OnClick(self, node_id):
 #        """
 #        Triggered when a node is clicked
 #        @return: False to ignore the click and True otherwise
 #        """
-#        print "clicked on", self[node_id]
+#        print("clicked on", self[node_id])
 #        return True
 #
 #    def OnDblClick(self, node_id):
@@ -195,7 +179,7 @@ class GraphViewer(ida_kernwin.CustomIDAMemo):
 #        Triggerd when a node is double-clicked.
 #        @return: False to ignore the click and True otherwise
 #        """
-#        print "dblclicked on", self[node_id]
+#        print("dblclicked on", self[node_id])
 #        return True
 #</pydoc>
 #</pycode(py_graph)>

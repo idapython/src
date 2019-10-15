@@ -88,7 +88,7 @@
     auxpref = property(__get_auxpref__, __set_auxpref__)
 
     def __iter__(self):
-        return (self.ops[idx] for idx in xrange(0, UA_MAXOP))
+        return (self.ops[idx] for idx in range(0, UA_MAXOP))
 
     def __getitem__(self, idx):
         """
@@ -142,6 +142,11 @@
 
 %apply ea_t { adiff_t off };
 %apply ea_t { adiff_t off };
+
+#ifdef PY3
+%apply uchar { char segpref };
+%apply uchar { char insnpref };
+#endif
 
 %include "ua.hpp"
 

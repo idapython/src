@@ -126,10 +126,10 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
       if ( status.ok )
       {
         status.ok = false;
-        if ( PyString_Check(in) )
+        if ( IDAPyBytes_Check(in) )
         {
           char *buf;
-          status.ok = PyString_AsStringAndSize(in, &buf, &got) >= 0 && got <= nbytes;
+          status.ok = IDAPyBytes_AsMemAndSize(in, &buf, &got) >= 0 && got <= nbytes;
           if ( status.ok )
             bytes.append((const uchar *) buf, got);
           else
@@ -137,7 +137,7 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
                     "List of bytes is too long; was expecting at most %d bytes",
                     int(nbytes));
         }
-        else if ( PyInt_Check(in) )
+        else if ( IDAPyInt_Check(in) )
         {
           uint64 u64 = 0;
           status.ok = PyW_GetNumber(in, &u64);
@@ -147,9 +147,15 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
             bytes.resize(got, 0);
             memcpy(bytes.begin(), &u64, got);
           }
+          else
+          {
+            if ( PyLong_CheckExact(in) )
+              goto TRY_RAW_LONG;
+          }
         }
         else if ( PyLong_CheckExact(in) )
         {
+TRY_RAW_LONG:
           // (possibly very long) int or long value. Apparently it's rather
           // safe to use _PyLong_AsByteArray (it's even present in 3.x)
           // https://stackoverflow.com/questions/18290507/python-extension-construct-and-inspect-large-integers-efficiently
@@ -174,12 +180,11 @@ static bool _to_reg_val(regval_t **out, regval_t *buf, const char *name, PyObjec
           //      case, but bytes holds the least-significant n bytes of the true value.
           // */
           bytes.resize(nbytes, 0);
-          status.ok = _PyLong_AsByteArray(
-                  (PyLongObject *) in,
-                  bytes.begin(),
-                  bytes.size(),
-                  /*little_endian=*/ 1,
-                  /*is_signed=*/ 1) >= 0;
+          status.ok = pylong_to_byte_array(
+                  &bytes,
+                  in,
+                  /*little_endian=*/ true,
+                  /*is_signed=*/ true) >= 0;
           if ( status.ok )
             got = nbytes;
           else
@@ -239,7 +244,7 @@ static PyObject *_from_reg_val(
   switch ( ri.dtype )
   {
     default:
-      if ( rv.ival <= uint64(PyInt_GetMax()) )
+      if ( rv.ival <= uint64(LONG_MAX) )
         res = PyInt_FromLong(long(rv.ival));
       else
         res = PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) rv.ival);
@@ -260,7 +265,7 @@ static PyObject *_from_reg_val(
     case dt_byte64:
       {
         const bytevec_t &b = rv.bytes();
-        res = PyString_FromStringAndSize((const char *) b.begin(), b.size());
+        res = IDAPyBytes_FromMemAndSize((const char *) b.begin(), b.size());
       }
       break;
   }
@@ -442,11 +447,11 @@ static ea_t py_internal_get_sreg_base(thid_t tid, int sreg_value)
 static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t(-1))
 {
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( !dbg_can_query() || !PyString_Check(py_buf) )
+  if ( !dbg_can_query() || !IDAPyBytes_Check(py_buf) )
     return -1;
   char *buf = NULL;
   Py_ssize_t sz;
-  if ( PyString_AsStringAndSize(py_buf, &buf, &sz) < 0 )
+  if ( IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz) < 0 )
     return -1;
   if ( size == size_t(-1) )
     size = size_t(sz);
@@ -482,7 +487,7 @@ static PyObject *py_set_reg_val(const char *regname, PyObject *o)
   if ( !ok )
   {
     PyErr_SetString(PyExc_Exception, "Failed to set register value");
-    Py_RETURN_FALSE;
+    return NULL;
   }
   Py_RETURN_TRUE;
 }
@@ -508,7 +513,7 @@ static PyObject *py_set_reg_val(thid_t tid, int regidx, PyObject *o)
   if ( !_to_reg_val(&ptr, &buf, ri.name, o) )
     return NULL;
   SWIG_PYTHON_THREAD_BEGIN_ALLOW;
-  bool ok = set_reg_val(tid, regidx, ptr);
+  bool ok = set_reg_val(tid, regidx, ptr) > 0;
   SWIG_PYTHON_THREAD_END_ALLOW;
   return PyInt_FromLong(ok);
 }
@@ -526,7 +531,7 @@ static PyObject *py_request_set_reg_val(const char *regname, PyObject *o)
   if ( !ok )
   {
     PyErr_SetString(PyExc_Exception, "Failed to request set register value");
-    Py_RETURN_FALSE;
+    return NULL;
   }
   Py_RETURN_TRUE;
 }

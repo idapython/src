@@ -6,7 +6,8 @@
 /*
 #<pydoc>
 class loader_input_t(pyidc_opaque_object_t):
-    """A helper class to work with linput_t related functions.
+    """
+    A helper class to work with linput_t related functions.
     This class is also used by file loaders scripts.
     """
     def __init__(self):
@@ -17,7 +18,8 @@ class loader_input_t(pyidc_opaque_object_t):
         pass
 
     def open(self, filename, remote = False):
-        """Opens a file (or a remote file)
+        """
+        Opens a file (or a remote file)
         @return: Boolean
         """
         pass
@@ -32,7 +34,8 @@ class loader_input_t(pyidc_opaque_object_t):
         pass
 
     def open_memory(self, start, size):
-        """Create a linput for process memory (By internally calling idaapi.create_memory_linput())
+        """
+        Create a linput for process memory (By internally calling idaapi.create_memory_linput())
         This linput will use dbg->read_memory() to read data
         @param start: starting address of the input
         @param size: size of the memory range to represent as linput
@@ -41,7 +44,8 @@ class loader_input_t(pyidc_opaque_object_t):
         pass
 
     def seek(self, pos, whence = SEEK_SET):
-        """Set input source position
+        """
+        Set input source position
         @return: the new position (not 0 as fseek!)
         """
         pass
@@ -51,7 +55,8 @@ class loader_input_t(pyidc_opaque_object_t):
         pass
 
     def getz(self, sz, fpos = -1):
-        """Returns a zero terminated string at the given position
+        """
+        Returns a zero terminated string at the given position
         @param sz: maximum size of the string
         @param fpos: if != -1 then seek will be performed before reading
         @return: The string or None on failure.
@@ -84,8 +89,8 @@ class loader_input_t(pyidc_opaque_object_t):
         """
         pass
 
-    def get_char(self):
-        """Reads a single character from the file. Returns None if EOF or the read character"""
+    def get_byte(self):
+        """Reads a single byte from the file. Returns None if EOF or the read byte"""
         pass
 
     def opened(self):
@@ -108,10 +113,10 @@ private:
   };
 
   //--------------------------------------------------------------------------
-  void _from_cobject(PyObject *pycobject)
+  void _from_capsule(PyObject *pycapsule)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    this->set_linput((linput_t *)PyCObject_AsVoidPtr(pycobject));
+    this->set_linput((linput_t *)PyCapsule_GetPointer(pycapsule, VALID_CAPSULE_NAME));
   }
 
   //--------------------------------------------------------------------------
@@ -132,11 +137,11 @@ public:
   // class from and to IDC. The value of this variable must be set to two
   int __idc_cvt_id__;
   //--------------------------------------------------------------------------
-  loader_input_t(PyObject *pycobject = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
+  loader_input_t(PyObject *pycapsule = NULL): li(NULL), own(OWN_NONE), __idc_cvt_id__(PY_ICID_OPAQUE)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( pycobject != NULL && PyCObject_Check(pycobject) )
-      _from_cobject(pycobject);
+    if ( pycapsule != NULL && PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
+      _from_capsule(pycapsule);
   }
 
   //--------------------------------------------------------------------------
@@ -198,13 +203,13 @@ public:
 
   //--------------------------------------------------------------------------
   // This method can be used to pass a linput_t* from C code
-  static loader_input_t *from_cobject(PyObject *pycobject)
+  static loader_input_t *from_capsule(PyObject *pycapsule)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    if ( !PyCObject_Check(pycobject) )
+    if ( !PyCapsule_IsValid(pycapsule, VALID_CAPSULE_NAME) )
       return NULL;
     loader_input_t *l = new loader_input_t();
-    l->_from_cobject(pycobject);
+    l->_from_capsule(pycapsule);
     return l;
   }
 
@@ -284,7 +289,7 @@ public:
       Py_BEGIN_ALLOW_THREADS;
       qlgetz(li, fpos, buf, sz);
       Py_END_ALLOW_THREADS;
-      PyObject *ret = PyString_FromString(buf);
+      PyObject *ret = IDAPyStr_FromUTF8(buf);
       free(buf);
       return ret;
     } while ( false );
@@ -295,44 +300,30 @@ public:
   PyObject *gets(size_t len)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    do
-    {
-      char *buf = (char *) malloc(len + 5);
-      if ( buf == NULL )
-        break;
-      bool ok;
-      Py_BEGIN_ALLOW_THREADS;
-      ok = qlgets(buf, len, li) != NULL;
-      Py_END_ALLOW_THREADS;
-      if ( !ok )
-        buf[0] = '\0';
-      PyObject *ret = PyString_FromString(buf);
-      free(buf);
-      return ret;
-    } while ( false );
-    Py_RETURN_NONE;
+    bytevec_t buf;
+    buf.resize(len);
+    bool ok;
+    Py_BEGIN_ALLOW_THREADS;
+    ok = qlgets((char *) buf.begin(), buf.size(), li) != NULL;
+    Py_END_ALLOW_THREADS;
+    if ( !ok )
+      Py_RETURN_NONE;
+    return IDAPyStr_FromUTF8((const char *) buf.begin());
   }
 
   //--------------------------------------------------------------------------
   PyObject *read(size_t size)
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    do
-    {
-      char *buf = (char *) malloc(size + 5);
-      if ( buf == NULL )
-        break;
-      ssize_t r;
-      Py_BEGIN_ALLOW_THREADS;
-      r = qlread(li, buf, size);
-      Py_END_ALLOW_THREADS;
-      if ( r == -1 )
-        r = 0;
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
-      free(buf);
-      return ret;
-    } while ( false );
-    Py_RETURN_NONE;
+    bytevec_t buf;
+    buf.resize(size);
+    ssize_t nread;
+    Py_BEGIN_ALLOW_THREADS;
+    nread = qlread(li, (char *) buf.begin(), buf.size());
+    Py_END_ALLOW_THREADS;
+    if ( nread <= 0 )
+      Py_RETURN_NONE;
+    return IDAPyBytes_FromMemAndSize((const char *) buf.begin(), nread);
   }
 
   //--------------------------------------------------------------------------
@@ -356,7 +347,7 @@ public:
       Py_END_ALLOW_THREADS;
       if ( r == -1 )
         r = 0;
-      PyObject *ret = PyString_FromStringAndSize(buf, r);
+      PyObject *ret = IDAPyStr_FromUTF8AndSize(buf, r);
       free(buf);
       return ret;
     } while ( false );
@@ -387,11 +378,15 @@ public:
   PyObject *filename()
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
-    return PyString_FromString(fn.c_str());
+    return IDAPyStr_FromUTF8(fn.c_str());
   }
 
   //--------------------------------------------------------------------------
+#ifdef PY3
+  PyObject *get_byte()
+#else
   PyObject *get_char()
+#endif
   {
     PYW_GIL_CHECK_LOCKED_SCOPE();
     int ch;
@@ -400,7 +395,11 @@ public:
     Py_END_ALLOW_THREADS;
     if ( ch == EOF )
       Py_RETURN_NONE;
+#ifdef PY3
+    return Py_BuildValue("i", ch);
+#else
     return Py_BuildValue("c", ch);
+#endif
   }
 };
 //</inline(py_idaapi_loader_input)>

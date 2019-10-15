@@ -7,11 +7,7 @@ from __future__ import print_function
 # convoluted. Especially since it doesn't do that much. Perhaps a good
 # refactoring is in order?
 
-import sys
-major, minor, micro, _, _ = sys.version_info
-if major < 2 or minor < 7:
-    raise Exception("Expected Python version 2.7.x, but got %s.%s.%s (from %s)" % (major, minor, micro, sys.executable))
-
+import six
 
 from argparse import ArgumentParser
 p = ArgumentParser()
@@ -35,7 +31,7 @@ def warn(msg):
     print("#### WARNING: %s" % msg)
 
 if args.recipe:
-    execfile(args.recipe)
+    exec(open(args.recipe).read())
 else:
     recipe = {}
 
@@ -194,7 +190,7 @@ def gen_methods(out):
             retbody = "return %s;" % rdata["default"]
         arg_strs = []
         for p in (recipe_data["call_params"] if "call_params" in recipe_data else params[1:]):
-            if isinstance(p, basestring):
+            if isinstance(p, six.string_types):
                 assert(p[0] == "@")
                 synth_info = recipe["synthetic_params"][p]
                 ptype = synth_info["type"]
@@ -273,7 +269,7 @@ def gen_notifications(out):
         argstr = [] # arguments to pass to the call, minus those explicitly suppressed
         argstr_all = [] # all arguments
         for p in (recipe_data["call_params"] if "call_params" in recipe_data else params[1:]):
-            if isinstance(p, basestring):
+            if isinstance(p, six.string_types):
                 assert(p[0] == "@")
                 synth_info = recipe["synthetic_params"][p]
                 ptype = synth_info["type"]
@@ -425,8 +421,8 @@ def gen_safecall(out, class_name):
 """ % (class_name, class_name))
 
 
-with open(args.input, "rt") as fin:
-    with open(args.output, "wt") as fout:
+with open(args.input) as fin:
+    with open(args.output, "w") as fout:
         for line in fin:
             fout.write(line)
             import re

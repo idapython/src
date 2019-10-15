@@ -117,6 +117,12 @@
   }
 }
 
+%extend printop_t {
+  %pythoncode {
+    is_ti_valid = property(is_ti_initialized, set_ti_initialized)
+  }
+}
+
 %ignore switch_info_t::version;
 
 %apply uchar { op_dtype_t regdtype };

@@ -58,9 +58,9 @@ o_idpspec5 = 13 # Processor specific type
 dt_byte = 0 #  8 bit
 dt_word = 1 #  16 bit
 dt_dword = 2 #  32 bit
-dt_float = 3 #  4 byte
-dt_double = 4 #  8 byte
-dt_tbyte = 5 #  variable size (ph.tbyte_size)
+dt_float = 3 #  4 byte floating point
+dt_double = 4 #  8 byte floating point
+dt_tbyte = 5 #  variable size (ph.tbyte_size) floating point
 dt_packreal = 6 #  packed real format for mc68040
 dt_qword = 7 #  64 bit
 dt_byte16 = 8 #  128 bit
@@ -73,6 +73,7 @@ dt_unicode = 14 #  pointer to unicode string
 dt_ldbl = 15 #  long double (which may be different from tbyte)
 dt_byte32 = 16 # 256 bit
 dt_byte64 = 17 # 512 bit
+dt_half = 18 # 2 byte floating point
 
 #
 # op_t.flags
@@ -276,7 +277,7 @@ class insn_t(object):
         self.n = noperands
 
         # create operands
-        for i in xrange(0, noperands):
+        for i in range(0, noperands):
             op = op_t()
             op.n = i
             self.ops.append(op)

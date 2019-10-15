@@ -40,8 +40,6 @@ What follows, are example build commands
 parser.add_argument("--swig-home", type=str, help="Path to the SWIG installation", default=None)
 parser.add_argument("--with-hexrays", help="Build Hex-Rays decompiler bindings (requires the 'hexrays.hpp' header to be present in the SDK's include/ directory)", default=False, action="store_true")
 parser.add_argument("--debug", help="Build debug version of the plugin", default=False, action="store_true")
-if "linux" in sys.platform:
-    parser.add_argument("--python-home", help="Python home, where the 'include' directory can be found", default=None)
 parser.add_argument("-j", "--parallel", action="store_true", help="Build in parallel", default=False)
 parser.add_argument("-v", "--verbose", help="Verbose mode", default=False, action="store_true")
 parser.add_argument("-I", "--idc", required=True, help="IDA's idc.idc file (necessary for generating 6.95 compat API layer)", type=str)
@@ -76,15 +74,10 @@ def main():
         env["__NT__"] = "1" # to enable PDB flags
     else:
         env["NDEBUG"] = "1"
-    try:
-        if args.python_home:
-            env["LINUX_PYTHON_HOME"] = args.python_home
-    except:
-        pass
     if args.verbose:
         argv.append("-d")
     env["IDC_BC695_IDC_SOURCE"] = args.idc
-    for ea64 in [False, True]:
+    for ea64 in [True, False]:
         if ea64:
             env["__EA64__"] = "1"
         else:

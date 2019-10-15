@@ -37,6 +37,15 @@
 %ignore round_up_power2;
 %ignore round_down_power2;
 %ignore unpack_memory;
+%ignore cliopt_t;
+%ignore cliopts_t;
+
+%extend qrefcnt_t {
+  size_t __ptrval__() const
+  {
+    return size_t($self->operator T *());
+  }
+}
 
 //<typemaps(pro)>
 //</typemaps(pro)>

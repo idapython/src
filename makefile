@@ -18,7 +18,24 @@ include ../../allmake.mak
 #----------------------------------------------------------------------
 # default goals
 .PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections public_tree test_idc docs
-all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections # public_tree test_idc docs
+all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections bins # public_tree test_idc docs
+
+ifeq ($(OUT_OF_TREE_BUILD),)
+  BINS += $(IDAPYSWITCH)
+else
+  # when out-of-tree (i.e., from github), we only build idapyswitch64,
+  # and rely on it even for the __EA32__ build
+  ifdef __EA64__
+    BINS += $(IDAPYSWITCH)
+  else
+    IDAPYSWITCH_64_HACK := 64
+  endif
+endif
+
+IDAPYSWITCH:=$(R)idapyswitch$(IDAPYSWITCH_64_HACK)$(B)
+
+BINS += $(IDAPYSWITCH)
+bins: $(BINS)
 
 #----------------------------------------------------------------------
 # configurable variables for this makefile
@@ -49,9 +66,9 @@ ifneq ($(OUT_OF_TREE_BUILD),)
   LIBDIR = $(IDA)lib/$(TARGET_PROCESSOR_NAME)_$(SYSNAME)_$(COMPILER_NAME)_$(ADRSIZE)$(STATSUF)
 endif
 
-# HACK for mkdep to add dependencies for $(F)python$(O)
+# HACK for mkdep to add dependencies for $(F)idapython$(O)
 ifdef __MKDEP__
-  OBJS += $(F)python$(O)
+  OBJS += $(F)idapython$(O)
 endif
 
 # allmake.mak defines 'CP' as 'qcp.sh' which is an internal tool providing
@@ -64,12 +81,36 @@ endif
 
 #----------------------------------------------------------------------
 # the 'configs' target is in $(IDA)module.mak
-CONFIGS += python.cfg
+CONFIGS += idapython.cfg
 
 #----------------------------------------------------------------------
 # the 'modules' target is in $(IDA)module.mak
-MODULE = $(call module_dll,python)
+MODULE = $(call module_dll,idapython)
 MODULES += $(MODULE)
+
+#----------------------------------------------------------------------
+ifdef __MAC__
+  # it is important that we guarantee some available space in the header,
+  # we might want to patch the libpython load commands later.
+  LDFLAGS += -Wl,-headerpad,0x400
+else
+  ifdef __LINUX__
+    # We want the 'DT_NEEDED' of idapython.so to be sufficiently large
+    # to hold any libpython3.Y<modifiers>.so<suffix>. Therefore, at
+    # build-time, let's use our tool (which will in turn use patchelf)
+    # to expand the DT_NEEDED 'slot' size.
+    ifeq ($(PYTHON_VERSION_MAJOR),3)
+      IDAPYSWITCH_MODULE_DEP := $(IDAPYSWITCH)
+      ifndef __CODE_CHECKER__
+        # this is for idapython[64].so
+        POSTACTION=$(IDAPYSWITCH) --split-debug-and-expand-libpython3-dtneeded-room $(MODULE)
+        # and this for _ida_*.so
+        POSTACTION_IDA_X_SO=$(IDAPYSWITCH) --split-debug-and-expand-libpython3-dtneeded-room
+      endif
+    endif
+  endif
+endif
+
 
 #----------------------------------------------------------------------
 # we explicitly added our module targets
@@ -78,15 +119,17 @@ DONT_ERASE_LIB = 1
 
 # NOTE: all MODULES must be defined before including plugin.mak.
 include ../plugin.mak
-include ../pyplg.mak
 # NOTE: target-specific rules and dependencies that use variable
 #       expansion to name the target (such as "$(MODULE): [...]") must
 #       come after including plugin.mak
 
+# setup PYTHON_{C,LD}FLAGS (from allmake.mak)
+$(eval $(call setup_python_flags))
+
 #----------------------------------------------------------------------
-PYTHON_OBJS += $(F)python$(O)
+PYTHON_OBJS += $(F)idapython$(O)
 $(MODULE): MODULE_OBJS += $(PYTHON_OBJS)
-$(MODULE): $(PYTHON_OBJS)
+$(MODULE): $(PYTHON_OBJS) $(IDAPYSWITCH_MODULE_DEP)
 ifdef __NT__
   $(MODULE): LDFLAGS += /DEF:$(IDAPYTHON_IMPLIB_DEF) /IMPLIB:$(IDAPYTHON_IMPLIB_PATH)
 endif
@@ -97,6 +140,8 @@ INSTALL_NAME = @executable_path/plugins/$(notdir $(MODULE))
 ifdef __LINUX__
   LDFLAGS += -Wl,-soname,$(notdir $(MODULE))
 endif
+
+PATCH_CONST=$(Q)$(PYTHON) tools/patch_constants.py -i $(1) -o $(2)
 
 #----------------------------------------------------------------------
 # TODO move this below, but it might be necessary before the defines-*
@@ -132,7 +177,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 endif
 
 # output directory for python scripts
-DEPLOY_PYDIR=$(R)python
+DEPLOY_PYDIR=$(R)python/$(PYTHON_VERSION_MAJOR)
 DEPLOY_INIT_PY=$(DEPLOY_PYDIR)/init.py
 DEPLOY_IDC_PY=$(DEPLOY_PYDIR)/idc.py
 DEPLOY_IDAUTILS_PY=$(DEPLOY_PYDIR)/idautils.py
@@ -144,19 +189,30 @@ ifdef TESTABLE_BUILD
 endif
 ifeq ($(OUT_OF_TREE_BUILD),)
   TEST_IDC=test_idc
-  IDC_BC695_IDC_SOURCE?=$(DEPLOY_PYDIR)/../idc/idc.idc
+  IDC_BC695_IDC_SOURCE?=$(DEPLOY_PYDIR)/../../idc/idc.idc
 endif
 
 #
-SDK_SOURCES=$(wildcard $(IDA_INCLUDE)/*.h) $(wildcard $(IDA_INCLUDE)/*.hpp)
 ifeq ($(OUT_OF_TREE_BUILD),)
+  include ../../etc/sdk/sdk_files.mak
+  SDK_SOURCES=$(sort $(foreach v,$(SDK_FILES),$(if $(findstring include/,$(v)),$(addprefix $(IDA_INCLUDE)/,$(notdir $(v))))))
+  SDK_SOURCES+=$(IDA_INCLUDE)/hexrays.hpp
+  SDK_SOURCES+=$(IDA_INCLUDE)/lumina.hpp
   ST_SDK_TARGETS = $(SDK_SOURCES:$(IDA_INCLUDE)/%=$(ST_SDK)/%)
 else
+  SDK_SOURCES=$(wildcard $(IDA_INCLUDE)/*.h) $(wildcard $(IDA_INCLUDE)/*.hpp)
   ST_SDK_TARGETS = $(SDK_SOURCES)
 endif
 
-PYTHON_DYNLOAD=$(BIN_PATH)../python/lib/python2.7/lib-dynload
-DEPLOY_LIBDIR=$(PYTHON_DYNLOAD)/ida_$(ADRSIZE)
+# Python 2-3
+ifeq ($(PYTHON_VERSION_MAJOR),3)
+  _SWIGPY3FLAG := -py3 -py3-stable-abi -DPY3=1
+  CC_DEFS += PY3=1
+  CC_DEFS += Py_LIMITED_API=0x03040000 # we should make sure we use the same version as SWiG
+endif
+DYNLOAD_SUBDIR := python$(PYTHON_VERSION_MAJOR).$(PYTHON_VERSION_MINOR)
+
+DEPLOY_LIBDIR=$(DEPLOY_PYDIR)/ida_$(ADRSIZE)
 
 ifdef __NT__
   MODULE_SFX = .pyd
@@ -233,14 +289,14 @@ deployed_modules: $(DEPLOYED_MODULES)
 
 ifdef __NT__
   IDAPYTHON_IMPLIB_DEF=idapython_implib.def
-  IDAPYTHON_IMPLIB_PATH=$(F)python.lib
+  IDAPYTHON_IMPLIB_PATH=$(F)idapython.lib
   LINKIDAPYTHON = $(IDAPYTHON_IMPLIB_PATH)
 else
   LINKIDAPYTHON = $(MODULE)
 endif
 
 ifdef __NT__                   # os and compiler specific flags
-  _SWIGFLAGS = -D__NT__ -DWIN32 -D_USRDLL -I$(PYTHON_DIR)/include
+  _SWIGFLAGS = -D__NT__ -DWIN32 -D_USRDLL -I"$(PYTHON_ROOT)/include"
   CFLAGS += /bigobj $(_SWIGFLAGS) -I$(ST_SDK) /U_DEBUG
   # override runtime libs in CFLAGS
   RUNTIME_LIBSW = /MD
@@ -261,8 +317,6 @@ endif
 #  types will not interfere or clash with the types in your module.
 DEF_TYPE_TABLE = SWIG_TYPE_TABLE=idaapi
 SWIGFLAGS=$(_SWIGFLAGS) -Itools/typemaps-supplement $(SWIG_INCLUDES) $(addprefix -D,$(DEF_TYPE_TABLE)) $(BC695_SWIGFLAGS)
-
-LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MAIN)
 
 pyfiles: $(DEPLOY_IDAUTILS_PY)  \
          $(DEPLOY_IDC_PY)       \
@@ -318,7 +372,6 @@ endif
 # Create directories in the first phase of makefile parsing.
 DIRLIST += $(DEPLOY_LIBDIR)
 DIRLIST += $(DEPLOY_PYDIR)
-DIRLIST += $(DEPLOY_PYDIR)/lib
 DIRLIST += $(ST_PARSED_HEADERS)
 DIRLIST += $(ST_PYW)
 DIRLIST += $(ST_SDK)
@@ -431,17 +484,20 @@ $(ST_PYW)/py_hexrays_hooks.hpp: pywraps/py_hexrays_hooks.hpp \
 
 #----------------------------------------------------------------------
 CFLAGS += $(PYTHON_CFLAGS)
+CC_DEFS += PYTHON_ABIFLAGS=$(PYTHON_ABIFLAGS)
 CC_DEFS += $(BC695_CC_DEF)
 CC_DEFS += $(DEF_TYPE_TABLE)
 CC_DEFS += $(WITH_HEXRAYS_DEF)
 CC_DEFS += USE_STANDARD_FILE_FUNCTIONS
 CC_DEFS += VER_MAJOR="7"
-CC_DEFS += VER_MINOR="3"
+CC_DEFS += VER_MINOR="4"
 CC_DEFS += VER_PATCH="0"
 CC_DEFS += __EXPR_SRC
 CC_INCP += $(F)
 CC_INCP += $(IDA_INCLUDE)
 CC_INCP += $(ST_SWIG)
+CC_INCP += ../../ldr/mach-o/h
+CC_INCP += $(IRRXML)
 CC_INCP += .
 
 ifdef __UNIX__
@@ -527,15 +583,16 @@ define make-module-rules
     # files.
 
     # ../../bin/x86_linux_gcc/python/ida_$(1).py (note: dep. on .cpp. See note above.)
-    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1)) | tools/inject_pydoc.py
+    $(DEPLOY_PYDIR)/ida_$(1).py: $(ST_WRAP)/$(1).cpp $(PARSED_HEADERS_MARKER) $(call find-pydoc-patches-deps,$(1)) $(call find-patch-codegen-deps,$(1)) | tools/inject_pydoc.py tools/wrapper_utils.py
 	$(QINJECT_PYDOC)$(PYTHON) tools/inject_pydoc.py \
-                -x $(ST_PARSED_HEADERS) \
-                -m $(1) \
-                -i $(ST_WRAP)/ida_$(1).py \
-                -w $(ST_SWIG)/$(1).i \
-                -o $$@ \
-                -e $(ST_WRAP)/ida_$(1).epydoc_injection \
-                -v > $(ST_WRAP)/ida_$(1).pydoc_injection 2>&1
+                --xml-doc-directory $(ST_PARSED_HEADERS) \
+                --module $(1) \
+                --input $(ST_WRAP)/ida_$(1).py \
+                --interface $(ST_SWIG)/$(1).i \
+                --cpp-wrapper $(ST_WRAP)/$(1).cpp \
+                --output $$@ \
+                --epydoc-injections $(ST_WRAP)/ida_$(1).epydoc_injection \
+                --verbose > $(ST_WRAP)/ida_$(1).pydoc_injection 2>&1
 
     # obj/x86_linux_gcc/swig/X.i
     $(ST_SWIG)/$(1).i: $(addprefix $(F),$(call find-pywraps-deps,$(1))) $(ADDITIONAL_PYWRAP_DEP_$(1)) swig/$(1).i $(ST_SWIG_HEADER) $(SWIG_IFACE_$(1):%=$(ST_SWIG)/%.i) $(ST_SWIG_HEADER) tools/deploy.py $(PARSED_HEADERS_MARKER)
@@ -549,14 +606,18 @@ define make-module-rules
                 --interface-dependencies=$(subst $(space),$(comma),$(SWIG_IFACE_$(1))) \
 		--xml-doc-directory $(ST_PARSED_HEADERS)
 
-    # obj/x86_linux_gcc/wrappers/X.cpp
-    $(ST_WRAP)/$(1).cpp: $(ST_SWIG)/$(1).i tools/patch_codegen.py tools/patch_python_codegen.py $(PATCH_DIRECTORS_SCRIPT) $(PARSED_HEADERS_MARKER) tools/chkapi.py
-	$(QSWIG)$(SWIG) -modern $(addprefix -D,$(WITH_HEXRAYS_DEF)) -python -threads -c++ -shadow \
-          -D__GNUC__ $(SWIGFLAGS) $(addprefix -D,$(DEF64)) -I$(ST_SWIG) \
+    # creating obj/x86_linux_gcc/wrappers/X.cpp and friends
+    # 1. SWIG generates x.cpp.in1, x.h and x.py from swig/x.i
+    # 2. patch_const.py generates x.cpp.in2 from x.cpp.in1
+    # 3. patch_codegen.py generates x.cpp from x.cpp.in2
+    # 4. patch_h_codegen.py patches x.h in place
+    # 5. patch_python_codegen.py patches ida_x.py in place using helpers in tools/patch_codegen
+    # 6. on windows, patch_directors_cc.py patches x.h in place again
+    $(ST_WRAP)/$(1).cpp: $(ST_SWIG)/$(1).i tools/patch_codegen.py tools/patch_python_codegen.py $(PATCH_DIRECTORS_SCRIPT) $(PARSED_HEADERS_MARKER) tools/chkapi.py tools/wrapper_utils.py
+	$(QSWIG)$(SWIG) $(addprefix -D,$(WITH_HEXRAYS_DEF)) -python $(_SWIGPY3FLAG) -threads -c++ -shadow \
+          -D__GNUC__ -DSWIG_PYTHON_LEGACY_BOOL=1 $(SWIGFLAGS) $(addprefix -D,$(DEF64)) -I$(ST_SWIG) \
           -outdir $(ST_WRAP) -o $$@.in1 -oh $(ST_WRAP)/$(1).h -I$(ST_SDK) -DIDAPYTHON_MODULE_$(1)=1 $$<
-	$(Q)$(PYTHON) tools/patch_constants.py \
-	        --input $(ST_WRAP)/$(1).cpp.in1 \
-	        --output $(ST_WRAP)/$(1).cpp.in2
+	$(call PATCH_CONST,$(ST_WRAP)/$(1).cpp.in1,$(ST_WRAP)/$(1).cpp.in2)
 	$(QPATCH_CODEGEN)$(PYTHON) tools/patch_codegen.py \
                 --apply-valist-patches \
                 --input $(ST_WRAP)/$(1).cpp.in2 \
@@ -618,22 +679,29 @@ endif
 #       is at the end of the link command.
 #       See Python's dynload_win.c:GetPythonImport() for more details.
 $(_IDA_X_SO): STDLIBS += $(LINKIDAPYTHON)
-$(_IDA_X_SO): LDFLAGS += $(PYTHON_LDFLAGS_RPATH_MODULE) $(OUTMAP)$(F)$(@F).map
-$(F)_ida_%$(MODULE_SFX): $(F)%$(O) $(MODULE) $(IDAPYTHON_IMPLIB_DEF)
+$(_IDA_X_SO): LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MODULE) $(OUTMAP)$(F)$(@F).map
+$(F)_ida_%$(MODULE_SFX): $(F)%$(O) $(MODULE) $(IDAPYTHON_IMPLIB_DEF) $(IDAPYSWITCH_MODULE_DEP)
 	$(call link_dll, $<, $(LINKIDA))
 ifdef __NT__
 	$(Q)$(RM) $(@:$(MODULE_SFX)=.exp) $(@:$(MODULE_SFX)=.lib)
 endif
 
-# ../../bin/x86_linux_gcc/python/lib/lib-dynload/ida_32/_ida_X.so
+# ../../bin/x64_linux_gcc/python/2/ida_32/_ida_X.so
 $(DEPLOY_LIBDIR)/_ida_%$(MODULE_SFX): $(F)_ida_%$(MODULE_SFX)
 	$(Q)$(CP) $< $@
+ifdef __LINUX__
+  ifndef __CODE_CHECKER__
+    ifeq ($(PYTHON_VERSION_MAJOR),3)
+	$(Q)$(POSTACTION_IDA_X_SO) $@
+    endif
+  endif
+endif
 
 #----------------------------------------------------------------------
 ifdef TESTABLE_BUILD
-API_CONTENTS = api_contents.txt
+API_CONTENTS = api_contents$(PYTHON_VERSION_MAJOR).txt
 else
-API_CONTENTS = release_api_contents.txt
+API_CONTENTS = release_api_contents$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_API_CONTENTS = $(F)$(API_CONTENTS)
 .PRECIOUS: $(ST_API_CONTENTS)
@@ -653,20 +721,22 @@ endif
 #----------------------------------------------------------------------
 # Check that doc injection is stable
 ifdef TESTABLE_BUILD
-PYDOC_INJECTIONS = pydoc_injections.txt
+PYDOC_INJECTIONS = pydoc_injections$(PYTHON_VERSION_MAJOR).txt
 else
-PYDOC_INJECTIONS = release_pydoc_injections.txt
+PYDOC_INJECTIONS = release_pydoc_injections$(PYTHON_VERSION_MAJOR).txt
 endif
 ST_PYDOC_INJECTIONS = $(F)$(PYDOC_INJECTIONS)
 .PRECIOUS: $(ST_PYDOC_INJECTIONS)
 
+PYDOC_INJECTIONS_IDA_CMD=$(IDA_CMD) $(BATCH_SWITCH) -OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO -S"$< $@ $(ST_WRAP)" -t -L$(F)dumpdoc.log >/dev/null
 pydoc_injections: $(ST_PYDOC_INJECTIONS)
 $(ST_PYDOC_INJECTIONS): tools/dumpdoc.py $(IDAPYTHON_MODULES) $(PYTHON_BINARY_MODULES)
 ifdef __CODE_CHECKER__
 	$(Q)touch $@
 else
   ifeq ($(OUT_OF_TREE_BUILD),)
-	$(QPYDOC_INJECTIONS)$(IDA_CMD) $(BATCH_SWITCH) -OIDAPython:AUTOIMPORT_COMPAT_IDA695=NO -S"$< $@ $(ST_WRAP)" -t -L$(F)dumpdoc.log >/dev/null
+	$(QPYDOC_INJECTIONS)$(PYDOC_INJECTIONS_IDA_CMD) || \
+	 (echo "Command \"$(PYDOC_INJECTIONS_IDA_CMD)\" failed. Check \"$(F)dumpdoc.log\" for details." && false)
 	$(Q)(diff -w $(PYDOC_INJECTIONS) $(ST_PYDOC_INJECTIONS)) > /dev/null || \
           (echo "PYDOC INJECTION CHANGED! update $(PYDOC_INJECTIONS) or fix .. what needs fixing" && \
            echo "(New API: $(ST_PYDOC_INJECTIONS)) ***" && \
@@ -726,6 +796,16 @@ ifeq ($(OUT_OF_TREE_BUILD),)
 	(cd $(F) && zip -r ../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
 endif
 
+IDAPYSWITCH_OBJS += $(F)idapyswitch$(O)
+
+ifdef __NT__
+  ifndef NDEBUG
+    RUNTIME_LIBSW = /MDd
+    $(F)idapyswitch$(O): CFLAGS := $(filter-out /U_DEBUG,$(CFLAGS))
+  endif
+endif
+$(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
+
 #----------------------------------------------------------------------
 # the 'echo_modules' target must be called explicitly
 # Note: used by ida/build/pkgbin.py
@@ -736,13 +816,91 @@ echo_modules:
 clean::
 	rm -rf obj/
 
+$(MODULE): LDFLAGS += $(PYTHON_LDFLAGS) $(PYTHON_LDFLAGS_RPATH_MAIN)
+
 # MAKEDEP dependency list ------------------
-$(F)python$(O)  : $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp             \
-                  $(I)diskio.hpp $(I)expr.hpp $(I)fpro.h $(I)funcs.hpp      \
-                  $(I)gdl.hpp $(I)graph.hpp $(I)ida.hpp                     \
+$(F)idapyswitch$(O): $(I)auto.hpp $(I)bitrange.hpp $(I)bytes.hpp            \
+                  $(I)config.hpp $(I)diskio.hpp $(I)entry.hpp $(I)err.h     \
+                  $(I)fixup.hpp $(I)fpro.h $(I)funcs.hpp                    \
+                  $(I)ida.hpp $(I)idp.hpp $(I)kernwin.hpp $(I)lines.hpp     \
+                  $(I)llong.hpp $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp    \
+                  $(I)netnode.hpp $(I)network.hpp $(I)offset.hpp $(I)pro.h  \
+                  $(I)prodir.h $(I)range.hpp $(I)segment.hpp                \
+                  $(I)segregs.hpp $(I)ua.hpp $(I)xref.hpp                   \
+		  ../../ldr/ar/aixar.hpp                                    \
+                  ../../ldr/ar/ar.hpp ../../ldr/ar/arcmn.cpp                \
+                  ../../ldr/elf/../idaldr.h ../../ldr/elf/elf.h             \
+                  ../../ldr/elf/elfbase.h ../../ldr/elf/elfr_arm.h          \
+                  ../../ldr/elf/elfr_ia64.h ../../ldr/elf/elfr_mips.h       \
+                  ../../ldr/elf/elfr_ppc.h ../../ldr/elf/reader.cpp         \
+                  ../../ldr/mach-o/../ar/ar.hpp                             \
+                  ../../ldr/mach-o/../idaldr.h ../../ldr/mach-o/base.cpp    \
+                  ../../ldr/mach-o/common.cpp ../../ldr/mach-o/common.h     \
+                  ../../ldr/mach-o/h/architecture/byte_order.h              \
+                  ../../ldr/mach-o/h/arm/_types.h                           \
+                  ../../ldr/mach-o/h/i386/_types.h                          \
+                  ../../ldr/mach-o/h/i386/eflags.h                          \
+                  ../../ldr/mach-o/h/libkern/OSByteOrder.h                  \
+                  ../../ldr/mach-o/h/libkern/i386/OSByteOrder.h             \
+                  ../../ldr/mach-o/h/libkern/i386/_OSByteOrder.h            \
+                  ../../ldr/mach-o/h/libkern/machine/OSByteOrder.h          \
+                  ../../ldr/mach-o/h/mach-o/arm/reloc.h                     \
+                  ../../ldr/mach-o/h/mach-o/arm64/reloc.h                   \
+                  ../../ldr/mach-o/h/mach-o/fat.h                           \
+                  ../../ldr/mach-o/h/mach-o/hppa/reloc.h                    \
+                  ../../ldr/mach-o/h/mach-o/i860/reloc.h                    \
+                  ../../ldr/mach-o/h/mach-o/loader.h                        \
+                  ../../ldr/mach-o/h/mach-o/m88k/reloc.h                    \
+                  ../../ldr/mach-o/h/mach-o/nlist.h                         \
+                  ../../ldr/mach-o/h/mach-o/ppc/reloc.h                     \
+                  ../../ldr/mach-o/h/mach-o/reloc.h                         \
+                  ../../ldr/mach-o/h/mach-o/sparc/reloc.h                   \
+                  ../../ldr/mach-o/h/mach-o/stab.h                          \
+                  ../../ldr/mach-o/h/mach-o/x86_64/reloc.h                  \
+                  ../../ldr/mach-o/h/mach/arm/_structs.h                    \
+                  ../../ldr/mach-o/h/mach/arm/boolean.h                     \
+                  ../../ldr/mach-o/h/mach/arm/thread_state.h                \
+                  ../../ldr/mach-o/h/mach/arm/thread_status.h               \
+                  ../../ldr/mach-o/h/mach/arm/vm_types.h                    \
+                  ../../ldr/mach-o/h/mach/boolean.h                         \
+                  ../../ldr/mach-o/h/mach/i386/_structs.h                   \
+                  ../../ldr/mach-o/h/mach/i386/boolean.h                    \
+                  ../../ldr/mach-o/h/mach/i386/fp_reg.h                     \
+                  ../../ldr/mach-o/h/mach/i386/kern_return.h                \
+                  ../../ldr/mach-o/h/mach/i386/thread_state.h               \
+                  ../../ldr/mach-o/h/mach/i386/thread_status.h              \
+                  ../../ldr/mach-o/h/mach/i386/vm_param.h                   \
+                  ../../ldr/mach-o/h/mach/i386/vm_types.h                   \
+                  ../../ldr/mach-o/h/mach/kern_return.h                     \
+                  ../../ldr/mach-o/h/mach/kmod.h                            \
+                  ../../ldr/mach-o/h/mach/machine.h                         \
+                  ../../ldr/mach-o/h/mach/machine/boolean.h                 \
+                  ../../ldr/mach-o/h/mach/machine/kern_return.h             \
+                  ../../ldr/mach-o/h/mach/machine/thread_status.h           \
+                  ../../ldr/mach-o/h/mach/machine/vm_types.h                \
+                  ../../ldr/mach-o/h/mach/message.h                         \
+                  ../../ldr/mach-o/h/mach/port.h                            \
+                  ../../ldr/mach-o/h/mach/ppc/_structs.h                    \
+                  ../../ldr/mach-o/h/mach/ppc/boolean.h                     \
+                  ../../ldr/mach-o/h/mach/ppc/kern_return.h                 \
+                  ../../ldr/mach-o/h/mach/ppc/thread_status.h               \
+                  ../../ldr/mach-o/h/mach/ppc/vm_param.h                    \
+                  ../../ldr/mach-o/h/mach/ppc/vm_types.h                    \
+                  ../../ldr/mach-o/h/mach/vm_prot.h                         \
+                  ../../ldr/mach-o/h/mach/vm_types.h                        \
+                  ../../ldr/mach-o/h/ppc/_types.h                           \
+                  ../../ldr/mach-o/h/sys/_posix_availability.h              \
+                  ../../ldr/mach-o/h/sys/_symbol_aliasing.h                 \
+                  ../../ldr/mach-o/h/sys/cdefs.h                            \
+                  ../../ldr/mach-o/macho_node.h idapyswitch.cpp             \
+                  idapyswitch_linux.cpp idapyswitch_mac.cpp                 \
+                  idapyswitch_win.cpp
+$(F)idapython$(O): $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp            \
+                  $(I)diskio.hpp $(I)err.h $(I)expr.hpp $(I)fpro.h          \
+                  $(I)funcs.hpp $(I)gdl.hpp $(I)graph.hpp $(I)ida.hpp       \
                   $(I)ida_highlighter.hpp $(I)idd.hpp $(I)idp.hpp           \
                   $(I)ieee.h $(I)kernwin.hpp $(I)lines.hpp $(I)llong.hpp    \
                   $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp $(I)netnode.hpp  \
                   $(I)pro.h $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp   \
-                  $(I)ua.hpp $(I)xref.hpp python.cpp pywraps.cpp            \
-                  pywraps.hpp
+                  $(I)ua.hpp $(I)xref.hpp extapi.cpp extapi.hpp idapy.hpp   \
+                  idapython.cpp pywraps.cpp pywraps.hpp

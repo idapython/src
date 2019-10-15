@@ -140,14 +140,18 @@ show_repeatables = inf_show_repeatables
 
 __make_idainfo_accessors(None, "is_graph_view", "set_graph_view")
 
-SW_RPTCMT = SCF_RPTCMT
-SW_ALLCMT = SCF_ALLCMT
-SW_NOCMT = SCF_NOCMT
-SW_LINNUM = SCF_LINNUM
-SW_TESTMODE = SCF_TESTMODE
-SW_SHHID_ITEM = SCF_SHHID_ITEM
-SW_SHHID_FUNC = SCF_SHHID_FUNC
-SW_SHHID_SEGM = SCF_SHHID_SEGM
+if ida_idaapi.uses_swig_builtins:
+    _scope = _ida_ida.idainfo
+else:
+    _scope = _ida_ida
+SW_RPTCMT = _scope.SCF_RPTCMT
+SW_ALLCMT = _scope.SCF_ALLCMT
+SW_NOCMT = _scope.SCF_NOCMT
+SW_LINNUM = _scope.SCF_LINNUM
+SW_TESTMODE = _scope.SCF_TESTMODE
+SW_SHHID_ITEM = _scope.SCF_SHHID_ITEM
+SW_SHHID_FUNC = _scope.SCF_SHHID_FUNC
+SW_SHHID_SEGM = _scope.SCF_SHHID_SEGM
 #</pycode(py_ida)>
 
 
