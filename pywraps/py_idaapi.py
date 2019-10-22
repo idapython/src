@@ -453,7 +453,7 @@ def IDAPython_ExecScript(script, g, print_error=True):
     sys.argv = [ script ]
 
     # Adjust the __file__ path in the globals we pass to the script
-    old__file__ = g['__file__'] if '__file__' in g else ''
+    old__file__ = getattr(g, '__file__', None)
     g['__file__'] = script
 
     try:
