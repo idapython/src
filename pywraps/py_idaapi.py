@@ -453,8 +453,11 @@ def IDAPython_ExecScript(script, g, print_error=True):
     sys.argv = [ script ]
 
     # Adjust the __file__ path in the globals we pass to the script
-    old__file__ = g['__file__'] if '__file__' in g else ''
-    g['__file__'] = script
+    FILE_ATTR = "__file__"
+    has__file__ = FILE_ATTR in g
+    if has__file__:
+        old__file__ = g[FILE_ATTR]
+    g[FILE_ATTR] = script
 
     try:
         with open(script) as fin:
@@ -467,7 +470,10 @@ def IDAPython_ExecScript(script, g, print_error=True):
             print(PY_COMPILE_ERR)
     finally:
         # Restore state
-        g['__file__'] = old__file__
+        if has__file__:
+            g[FILE_ATTR] = old__file__
+        else:
+            del g[FILE_ATTR]
         sys.argv = argv
 
     return PY_COMPILE_ERR
