@@ -10,6 +10,7 @@
 #define PYTHON_INSTALL_PATH_SUBKEY L"InstallPath"
 #define PYTHON_DISPLAY_NAME_SUBKEY L"DisplayName"
 #define PYTHON_SYSVER_SUBKEY L"SysVersion"
+#define PYTHON_SYSARCH_SUBKEY L"SysArchitecture"
 #define PYTHON_INSTALL_PATH_DEFAULT_VALUE L""
 
 //-------------------------------------------------------------------------
@@ -160,6 +161,65 @@ static bool probe_python_install_dir_from_dll_path(
   return true;
 }
 
+static bool has_appx_path(qstrvec_t paths)
+{
+  static qstring appx_path;
+  if ( appx_path.empty() )
+  {
+    HKEY hkey;
+    if ( RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Appx", 0, KEY_READ, &hkey) == ERROR_SUCCESS )
+    {
+      if ( !read_string(&appx_path, hkey, L"PackageRoot") )
+        appx_path = "<none>";
+      RegCloseKey(hkey);
+    }
+  }
+  for ( auto path : paths )
+    if ( path.find(appx_path) != qstring::npos )
+      return true;
+
+  return false;
+}
+//-------------------------------------------------------------------------
+// ignore known bad Pythons:
+// 3.8.0 release (https://bugs.python.org/issue37633)
+// Anaconda 2019.10 (https://github.com/ContinuumIO/anaconda-issues/issues/11374)
+// AppStore Python on Windows 10 (dll can't be loaded from outside of Appx package)
+static bool bad_entry(const pylib_entry_t &e)
+{
+  if ( e.version.major == 3
+    && e.version.minor == 8
+    && e.version.revision == 0 )
+  {
+    out("Ignoring unusable Python 3.8.0\n");
+    return true;
+  }
+  if ( e.display_name == "Anaconda 2019.10" )
+  {
+    out("Ignoring unusable Anaconda 2019.10\n");
+    return true;
+  }
+  if ( has_appx_path(e.paths) )
+  {
+    out("Ignoring unusable AppStore Python\n");
+    return true;
+  }
+  return false;
+}
+
+//-------------------------------------------------------------------------
+static void remove_bad_entries(pylib_entries_t *result)
+{
+  auto p  = result->entries.begin();
+  while ( p != result->entries.end() )
+  {
+    if ( bad_entry(*p) )
+      p = result->entries.erase(p);
+    else
+      ++p;
+  }
+}
+
 //-------------------------------------------------------------------------
 // given a key to a path like HKLM\SOFTWARE\Python\PythonCore,
 // - enumerate subkeys and their check InstallPath subkey, using the default value as the directory to the installation
@@ -195,6 +255,9 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
       pylib_version_t version;
       bool ok = read_string(&sysver, ihkey, PYTHON_SYSVER_SUBKEY);
       ok = ok && parse_python_version_str(&version, sysver.c_str()) && version.major >= 3;
+      qstring arch;
+      if ( read_string(&arch, ihkey, PYTHON_SYSARCH_SUBKEY) && arch != "64bit" )
+        ok = false;
       if ( ok )
       {
         if ( read_string(&displayname, ihkey, PYTHON_DISPLAY_NAME_SUBKEY) )
@@ -220,6 +283,7 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
               out("Found: \"%s\" (version: %s)\n", install_path.c_str(), version.str(&verbuf));
               pylib_entry_t &e = result->get_or_create_entry_for_version(version);
               e.paths.insert(e.paths.end(), paths.begin(), paths.end());
+              e.display_name = displayname;
             }
             else
             {
@@ -242,7 +306,7 @@ static void enum_python_key(pylib_entries_t *result, const HKEY hkey, qstring *_
       }
       else
       {
-        out_verb("Not a Python 3.x or no version info, skipping\n");
+        out_verb("Not a 64-bit Python 3.x or no version info, skipping\n");
       }
 
       RegCloseKey(ihkey);
@@ -298,6 +362,8 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
       RegCloseKey(hkey_python);
     }
   }
+
+  remove_bad_entries(result);
 
   //
   // See if we already have one registered for IDA

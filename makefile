@@ -1,3 +1,10 @@
+
+ifeq ($(PYTHON_VERSION_MAJOR),3)
+  OBJDIR=obj/$(SYSDIR)/3
+else
+  OBJDIR=obj/$(SYSDIR)/2
+endif
+
 include ../../allmake.mak
 
 #----------------------------------------------------------------------
@@ -793,7 +800,7 @@ ifeq ($(OUT_OF_TREE_BUILD),)
                 --exclude=docs/hr-html/ \
                 --exclude=**/*~ \
                 . $(PUBTREE_DIR)
-	(cd $(F) && zip -r ../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
+	(cd $(F) && zip -r ../../../$(PUBTREE_DIR)/out_of_tree/parsed_notifications.zip parsed_notifications)
 endif
 
 IDAPYSWITCH_OBJS += $(F)idapyswitch$(O)

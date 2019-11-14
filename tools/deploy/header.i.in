@@ -207,26 +207,100 @@ if _BC695:
   //    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_unsigned_int, 0 |  0 );
   // instead of that:
   //    resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(*result));
-  inline const T& __getitem__(size_t i) const {
+  inline const T &__getitem__(size_t i) const
+  {
     if ( i >= $self->size() )
       throw std::out_of_range("out of bounds access");
     return $self->at(i);
   }
 
-  inline void __setitem__(size_t i, const T& v) {
+  inline void __setitem__(size_t i, const T &v)
+  {
     if ( i >= $self->size() )
       throw std::out_of_range("out of bounds access");
     $self->at(i) = v;
-  }
-
-  inline const T &at(size_t i) {
-    return __getitem__(i);
   }
 
   %pythoncode {
     front = ida_idaapi._qvector_front
     back = ida_idaapi._qvector_back
     __iter__ = ida_idaapi._bounded_getitem_iterator
+  }
+}
+
+//---------------------------------------------------------------------
+%extend qlist {
+  inline size_t __len__() const { return $self->size(); }
+
+  inline const T &__getitem__(size_t i) const
+  {
+    if ( i >= $self->size() )
+      throw std::out_of_range("out of bounds access");
+    qlist<T>::const_iterator it = $self->begin();
+    for ( size_t _i = 0; _i < i; ++_i )
+      ++it;
+    return *it;
+  }
+
+  inline void __setitem__(size_t i, const T &v)
+  {
+    if ( i >= $self->size() )
+      throw std::out_of_range("out of bounds access");
+    qlist<T>::iterator it = $self->begin();
+    for ( size_t _i = 0; _i < i; ++_i )
+      ++it;
+    *it = v;
+  }
+
+  inline void insert(size_t i, const T &v)
+  {
+    if ( i > $self->size() )
+      throw std::out_of_range("out of bounds access");
+    qlist<T>::iterator it = $self->begin();
+    for ( size_t _i = 0; _i < i; ++_i )
+      ++it;
+    $self->insert(it, v);
+  }
+
+  inline bool remove(const T &v)
+  {
+    qlist<T>::iterator it = $self->begin();
+    for ( ; it != $self->end(); ++it )
+    {
+      if ( *it == v )
+      {
+        $self->erase(it);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  %pythoncode {
+    front = ida_idaapi._qvector_front
+    back = ida_idaapi._qvector_back
+    __iter__ = ida_idaapi._bounded_getitem_iterator
+
+    def find(self, item):
+        it = self.begin()
+        for i in range(self.size()):
+            if it.cur == item:
+                return it
+            next(it)
+
+    def index(self, item):
+        it = self.begin()
+        for i in range(self.size()):
+            if it.cur == item:
+                return i
+            next(it)
+
+    def at(self, index):
+        it = self.begin()
+        for i in range(self.size()):
+            if i == index:
+                return it.cur
+            next(it)
   }
 }
 
@@ -538,6 +612,19 @@ SWIGINTERN PyObject *_maybe_sized_binary_result(
 #if defined(IDA_MODULE_NALT)
 %{
 #include <bytes.hpp>
+#ifdef PY3
+SWIGINTERN PyObject *_maybe_byte_array_or_none_result(
+        PyObject *resultobj,
+        bool result,
+        const uchar *bytes,
+        size_t nbytes)
+{
+  Py_XDECREF(resultobj);
+  if ( !result )
+    Py_RETURN_NONE;
+  return IDAPyBytes_FromMemAndSize((const char *) bytes, nbytes);
+}
+#else
 SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
         PyObject *resultobj,
         bool result,
@@ -549,13 +636,10 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
     Py_RETURN_NONE;
   qstring buf;
   buf.resize(2*nbytes);
-  get_hex_string(buf.begin(), buf.length(), bytes, nbytes);
-#ifdef PY3
-  return PyBytes_FromStringAndSize(buf.c_str(), buf.length());
-#else
-  return PyString_FromStringAndSize(buf.c_str(), buf.length());
-#endif
+  get_hex_string(buf.begin(), buf.size(), bytes, nbytes);
+  return IDAPyBytes_FromMemAndSize(buf.c_str(), buf.length());
 }
+#endif
 %}
 #endif
 
@@ -635,6 +719,19 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 //-------------------------------------------------------------------------
 //          md5/sha256 hash retrieval (as hex representation)
 //-------------------------------------------------------------------------
+#ifdef PY3
+%define %byte_array_or_none(PARAM_NAME)
+%typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
+{ // byte_array_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
+  $1 = temp;
+}
+%typemap(argout) uchar PARAM_NAME[ANY]
+{ // byte_array_or_none typemap(argout) uchar PARAM_NAME[ANY]
+  resultobj = _maybe_byte_array_or_none_result(resultobj, result, $1, $1_dim0);
+}
+%enddef
+%byte_array_or_none(hash);
+#else
 %define %byte_array_as_hex_or_none(PARAM_NAME)
 %typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
 { // byte_array_as_hex_or_none typemap(in, numinputs=0) uchar PARAM_NAME[ANY] (uchar temp[$1_dim0])
@@ -646,6 +743,7 @@ SWIGINTERN PyObject *_maybe_byte_array_as_hex_or_none_result(
 }
 %enddef
 %byte_array_as_hex_or_none(hash);
+#endif
 
 // Check that the argument is a callable Python object
 //---------------------------------------------------------------------

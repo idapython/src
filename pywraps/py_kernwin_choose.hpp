@@ -328,14 +328,34 @@ void py_chooser_mixin_t::mixin_get_row(
     return;
   if ( list.result != NULL )
   {
-    // Go over the List returned by Python and convert to C strings
-    for ( int i = chobj->columns - 1; i >= 0; --i )
+    if ( PySequence_Check(list.result.o) )
     {
-      borref_t item(PyList_GetItem(list.result.o, Py_ssize_t(i)));
-      if ( item != NULL )
-        IDAPyStr_AsUTF8(&cols->at(i), item.o);
+      // Go over the List returned by Python and convert to C strings
+      for ( int i = chobj->columns - 1; i >= 0; --i )
+      {
+        newref_t item(PySequence_GetItem(list.result.o, Py_ssize_t(i)));
+        if ( item != NULL )
+        {
+          if ( !IDAPyStr_Check(item.o) )
+          {
+            PyErr_Format(
+                    PyExc_TypeError,
+                    "Expected 'str' data for row %" FMT_Z ", column %d", n, i);
+            break;
+          }
+          IDAPyStr_AsUTF8(&cols->at(i), item.o);
+        }
+      }
+    }
+    else
+    {
+      PyErr_Format(
+              PyExc_TypeError,
+              "Expected 'list' for row %" FMT_Z, n);
     }
   }
+  if ( PyErr_Occurred() != NULL )
+    return;
 
   *icon_ = chobj->icon;
   if ( has_feature(CFEAT_GETICON) )

@@ -18255,35 +18255,6 @@ class casm_t(ida_pro.eavec_t)↗
  |  __weakref__
  |      list of weak references to the object (if defined)
 
-Help on function cblock_at in module ida_hexrays:
-
-cblock_at(self, index)
-    # cblock.at(int) -> returns the item at the given index index
-
-Help on function cblock_find in module ida_hexrays:
-
-cblock_find(self, item)
-    # cblock.find(cinsn_t) -> returns the iterator positioned at the given item
-
-Help on function cblock_index in module ida_hexrays:
-
-cblock_index(self, item)
-    # cblock.index(cinsn_t) -> returns the index of the given item
-
-Help on function cblock_insert in module ida_hexrays:
-
-cblock_insert(self, index, item)
-    # cblock.insert(index, cinsn_t)
-
-Help on function cblock_iter in module ida_hexrays:
-
-cblock_iter(self)
-
-Help on function cblock_remove in module ida_hexrays:
-
-cblock_remove(self, item)
-    # cblock.remove(cinsn_t)
-
 Help on class cblock_t in module ida_hexrays:
 
 class cblock_t(qlist_cinsn_t)
@@ -18308,13 +18279,8 @@ class cblock_t(qlist_cinsn_t)
  |  __init__(self, *args)
  |      __init__(self) -> cblock_t
  |  
- |  __iter__ = cblock_iter(self)
- |  
  |  __le__(self, *args) -> 'bool'
  |      __le__(self, r) -> bool
- |  
- |  __len__ = size(self, *args) -> 'size_t'
- |      size(self) -> size_t
  |  
  |  __lt__(self, *args) -> 'bool'
  |      __lt__(self, r) -> bool
@@ -18330,23 +18296,8 @@ class cblock_t(qlist_cinsn_t)
  |  _deregister(self, *args) -> 'void'
  |      _deregister(self)
  |  
- |  at = cblock_at(self, index)
- |      # cblock.at(int) -> returns the item at the given index index
- |  
  |  compare(self, *args) -> 'int'
  |      compare(self, r) -> int
- |  
- |  find = cblock_find(self, item)
- |      # cblock.find(cinsn_t) -> returns the iterator positioned at the given item
- |  
- |  index = cblock_index(self, item)
- |      # cblock.index(cinsn_t) -> returns the index of the given item
- |  
- |  insert = cblock_insert(self, index, item)
- |      # cblock.insert(index, cinsn_t)
- |  
- |  remove = cblock_remove(self, item)
- |      # cblock.remove(cinsn_t)
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -18362,9 +18313,22 @@ class cblock_t(qlist_cinsn_t)
  |  ----------------------------------------------------------------------
  |  Methods inherited from qlist_cinsn_t:
  |  
- |  back(self, *args) -> 'cinsn_t const &'
- |      back(self) -> cinsn_t
- |      back(self) -> cinsn_t
+ |  __getitem__(self, *args) -> 'cinsn_t const &'
+ |      __getitem__(self, i) -> cinsn_t
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
+ |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |  
+ |  at(self, index)
+ |  
+ |  back = _qvector_back(self)
+ |      # -----------------------------------------------------------------------
  |  
  |  begin(self, *args) -> 'qlist_cinsn_t_iterator'
  |      begin(self) -> qlist_cinsn_t_iterator
@@ -18383,9 +18347,18 @@ class cblock_t(qlist_cinsn_t)
  |      erase(self, p1, p2)
  |      erase(self, p)
  |  
- |  front(self, *args) -> 'cinsn_t const &'
- |      front(self) -> cinsn_t
- |      front(self) -> cinsn_t
+ |  find(self, item)
+ |  
+ |  front = _qvector_front(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  index(self, item)
+ |  
+ |  insert(self, *args) -> 'qlist_cinsn_t_iterator'
+ |      insert(self, p, x) -> qlist< cinsn_t >::iterator
+ |      insert(self, p) -> qlist< cinsn_t >::iterator
+ |      insert(self, i, v)
+ |      insert(self, p, x) -> qlist_cinsn_t_iterator
  |  
  |  pop_back(self, *args) -> 'void'
  |      pop_back(self)
@@ -18403,6 +18376,9 @@ class cblock_t(qlist_cinsn_t)
  |  rbegin(self, *args) -> 'qlist< cinsn_t >::const_reverse_iterator'
  |      rbegin(self) -> qlist< cinsn_t >::reverse_iterator
  |      rbegin(self) -> qlist< cinsn_t >::const_reverse_iterator
+ |  
+ |  remove(self, *args) -> 'bool'
+ |      remove(self, v) -> bool
  |  
  |  rend(self, *args) -> 'qlist< cinsn_t >::const_reverse_iterator'
  |      rend(self) -> qlist< cinsn_t >::reverse_iterator
@@ -29227,21 +29203,34 @@ class qlist_cinsn_t(builtins.object)
  |  __eq__(self, *args) -> 'bool'
  |      __eq__(self, x) -> bool
  |  
+ |  __getitem__(self, *args) -> 'cinsn_t const &'
+ |      __getitem__(self, i) -> cinsn_t
+ |  
  |  __init__(self, *args)
  |      __init__(self) -> qlist_cinsn_t
  |      __init__(self, x) -> qlist_cinsn_t
+ |  
+ |  __iter__ = _bounded_getitem_iterator(self)
+ |      Helper function, to be set as __iter__ method for qvector-, or array-based classes.
+ |  
+ |  __len__(self, *args) -> 'size_t'
+ |      __len__(self) -> size_t
  |  
  |  __ne__(self, *args) -> 'bool'
  |      __ne__(self, x) -> bool
  |  
  |  __repr__ = _swig_repr(self)
  |  
+ |  __setitem__(self, *args) -> 'void'
+ |      __setitem__(self, i, v)
+ |  
  |  __swig_destroy__ = delete_qlist_cinsn_t(...)
  |      delete_qlist_cinsn_t(self)
  |  
- |  back(self, *args) -> 'cinsn_t const &'
- |      back(self) -> cinsn_t
- |      back(self) -> cinsn_t
+ |  at(self, index)
+ |  
+ |  back = _qvector_back(self)
+ |      # -----------------------------------------------------------------------
  |  
  |  begin(self, *args) -> 'qlist_cinsn_t_iterator'
  |      begin(self) -> qlist_cinsn_t_iterator
@@ -29260,13 +29249,17 @@ class qlist_cinsn_t(builtins.object)
  |      erase(self, p1, p2)
  |      erase(self, p)
  |  
- |  front(self, *args) -> 'cinsn_t const &'
- |      front(self) -> cinsn_t
- |      front(self) -> cinsn_t
+ |  find(self, item)
+ |  
+ |  front = _qvector_front(self)
+ |      # -----------------------------------------------------------------------
+ |  
+ |  index(self, item)
  |  
  |  insert(self, *args) -> 'qlist_cinsn_t_iterator'
  |      insert(self, p, x) -> qlist< cinsn_t >::iterator
  |      insert(self, p) -> qlist< cinsn_t >::iterator
+ |      insert(self, i, v)
  |      insert(self, p, x) -> qlist_cinsn_t_iterator
  |  
  |  pop_back(self, *args) -> 'void'
@@ -29285,6 +29278,9 @@ class qlist_cinsn_t(builtins.object)
  |  rbegin(self, *args) -> 'qlist< cinsn_t >::const_reverse_iterator'
  |      rbegin(self) -> qlist< cinsn_t >::reverse_iterator
  |      rbegin(self) -> qlist< cinsn_t >::const_reverse_iterator
+ |  
+ |  remove(self, *args) -> 'bool'
+ |      remove(self, v) -> bool
  |  
  |  rend(self, *args) -> 'qlist< cinsn_t >::const_reverse_iterator'
  |      rend(self) -> qlist< cinsn_t >::reverse_iterator
@@ -45052,8 +45048,8 @@ class UI_Hooks(builtins.object)
  |      
  |      @return: Ignored
  |  
- |  preprocess_action(self, *args) -> 'void'
- |      preprocess_action(self, name)
+ |  preprocess_action(self, *args) -> 'int'
+ |      preprocess_action(self, name) -> int
  |      
  |      
  |      IDA ui is about to handle a user action
@@ -45219,6 +45215,10 @@ class View_Hooks(builtins.object)
  |  thisown
  |      The membership flag
 
+Help on function __call_form_callable in module ida_kernwin:
+
+__call_form_callable(call, *args)
+
 Help on class __qtimer_t in module ida_kernwin:
 
 class __qtimer_t(builtins.object)
@@ -45260,14 +45260,6 @@ Help on function _ask_seg in module ida_kernwin:
 
 _ask_seg(*args) -> 'sel_t *'
     _ask_seg(sel, format) -> bool
-
-Help on function _call_ask_form in module ida_kernwin:
-
-_call_ask_form(*args)
-
-Help on function _call_open_form in module ida_kernwin:
-
-_call_open_form(*args)
 
 Help on class action_ctx_base_t in module ida_kernwin:
 
@@ -45609,6 +45601,10 @@ ask_for_feedback(*args) -> 'void'
     
     @param format: the reason why the input file is bad (C++: const char
                    *)
+
+Help on function ask_form in module ida_kernwin:
+
+ask_form(*args)
 
 Help on function ask_ident in module ida_kernwin:
 
@@ -47604,6 +47600,10 @@ open_exports_window(*args) -> 'TWidget *'
     
     @param ea: index of entry to select by default (C++: ea_t)
     @return: pointer to resulting window
+
+Help on function open_form in module ida_kernwin:
+
+open_form(*args)
 
 Help on function open_frame_window in module ida_kernwin:
 
@@ -54115,7 +54115,7 @@ retrieve_input_file_crc32(*args) -> 'uint32'
 Help on function retrieve_input_file_md5 in module ida_nalt:
 
 retrieve_input_file_md5(*args) -> 'uchar [ANY]'
-    retrieve_input_file_md5() -> str
+    retrieve_input_file_md5() -> bytes
     
     
     Get input file md5.
@@ -54123,7 +54123,7 @@ retrieve_input_file_md5(*args) -> 'uchar [ANY]'
 Help on function retrieve_input_file_sha256 in module ida_nalt:
 
 retrieve_input_file_sha256(*args) -> 'uchar [ANY]'
-    retrieve_input_file_sha256() -> str
+    retrieve_input_file_sha256() -> bytes
     
     
     Get input file sha256.
@@ -77858,7 +77858,7 @@ resume_thread(*args) -> 'int'
 Help on function retrieve_input_file_md5 in module ida_nalt:
 
 retrieve_input_file_md5(*args) -> 'uchar [ANY]'
-    retrieve_input_file_md5() -> str
+    retrieve_input_file_md5() -> bytes
     
     
     Get input file md5.

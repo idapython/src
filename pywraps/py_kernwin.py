@@ -180,12 +180,12 @@ __wrap_uihooks_callback("populating_widget_popup", lambda cb, *args: cb(*args))
 __wrap_uihooks_callback("finish_populating_widget_popup", lambda cb, *args: cb(*args))
 __wrap_uihooks_callback("current_widget_changed", lambda cb, *args: cb(*args))
 
-AskUsingForm=_call_ask_form
+AskUsingForm=ask_form
 HIST_ADDR=0
 HIST_NUM=0
 KERNEL_VERSION_MAGIC1=0
 KERNEL_VERSION_MAGIC2=0
-OpenForm=_call_open_form
+OpenForm=open_form
 _askaddr=_ida_kernwin._ask_addr
 _asklong=_ida_kernwin._ask_long
 _askseg=_ida_kernwin._ask_seg

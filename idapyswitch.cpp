@@ -170,7 +170,12 @@ DECLARE_TYPE_AS_MOVABLE(pylib_version_t);
 struct pylib_entry_t
 {
   pylib_version_t version;
+#ifdef __MAC__
   pylib_version_t compatibility_version; // only for OSX
+#endif
+#ifdef __NT__
+  qstring display_name;
+#endif
   qstrvec_t paths;
   bool preferred;
 
@@ -576,7 +581,15 @@ static const char usage_epilog[] =
   "\n"
   "  3) The 'manual' way\n"
   "  -------------------\n"
+#ifdef __NT__
+  "     > $ idapyswitch --force-path C:\\Python37\\python3.dll\n"
+#else
+#  ifdef __LINUX__
   "     > $ idapyswitch --force-path /path/to/libpython3.7dm.so.1.2\n"
+#  else
+  "     > $ idapyswitch --force-path /path/to/Python.framework/Versions/3.7/Python\n"
+#  endif
+#endif
   "   will pick the path that the user provided.\n"
   "\n"
   "Once a version is picked, this tool will do the following:\n"

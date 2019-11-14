@@ -47,6 +47,12 @@ recipe = {
     "load_dbg_dbginfo" : {"ignore" : True},
     "broadcast" : {"ignore" : True},
 
+    "preprocess_action" : {
+        "return" : {
+            "type" : "int",
+            "retexpr" : "return 0",
+        }
+    },
     "populating_widget_popup" : {
         "params" : {
             "ctx" : {

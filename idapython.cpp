@@ -1966,7 +1966,7 @@ bool IDAPython_Init(void)
     {
       *lastslash = 0;
 #ifdef PY3
-      qvector<wchar_t> buf;
+      static qvector<wchar_t> buf;
       Py_SetPythonHome(utf8_wchar_t(&buf, pyhomepath));
 #else
       Py_SetPythonHome(pyhomepath);

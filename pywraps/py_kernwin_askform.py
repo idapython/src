@@ -224,6 +224,8 @@ class Form(object):
         def __init__(self, size=None, value=None):
             if size is None:
                 raise SyntaxError("The string size must be passed")
+            if isinstance(size, str):
+                value, size = size, None
             self.size = size
             self.arg = Form.create_string_buffer(value, size)
 
@@ -1216,7 +1218,7 @@ class Form(object):
         if not self.modal:
             raise SyntaxError("Form is not modal. Open() should be instead")
 
-        return _call_ask_form(*self.__args)
+        return ask_form(*self.__args)
 
 
     def Open(self):
@@ -1227,7 +1229,7 @@ class Form(object):
         if self.modal:
             raise SyntaxError("Form is modal. Execute() should be instead")
 
-        _call_open_form(*self.__args)
+        open_form(*self.__args)
 
 
     def EnableField(self, ctrl, enable):
@@ -1380,15 +1382,23 @@ except:
     def __open_form_callable(*args):
         warning("open_form() needs ctypes library in order to work")
 
-
-def _call_ask_form(*args):
+def __call_form_callable(call, *args):
+    assert(len(args))
     old = _ida_idaapi.set_script_timeout(0)
-    r = __ask_form_callable(*args)
-    _ida_idaapi.set_script_timeout(old)
+    try:
+        if sys.version_info.major >= 3 and isinstance(args[0], str):
+            largs = list(args)
+            largs[0] = largs[0].encode("UTF-8")
+            args = tuple(largs)
+        r = call(*args)
+    finally:
+        _ida_idaapi.set_script_timeout(old)
     return r
 
-def _call_open_form(*args):
-    old = _ida_idaapi.set_script_timeout(0)
-    r = __open_form_callable(*args)
-    _ida_idaapi.set_script_timeout(old)
+def ask_form(*args):
+    return __call_form_callable(__ask_form_callable, *args)
+
+def open_form(*args):
+    return __call_form_callable(__open_form_callable, *args)
+
 #</pycode(py_kernwin_askform)>

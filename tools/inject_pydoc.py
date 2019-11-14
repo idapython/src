@@ -587,6 +587,7 @@ class idaapi_fixer_t(object):
                         ("resultobj = _maybe_cstring_result_on_charptr_using_allocated_buf(", "str"),
                         ("resultobj = _maybe_cstring_result_on_charptr_using_qbuf(", "str"),
                         ("resultobj = _maybe_byte_array_as_hex_or_none_result(", "str"),
+                        ("resultobj = _maybe_byte_array_or_none_result(", "bytes"),
                         ("resultobj = _sized_cstring_result(", "str"),
                 ]:
                     if l.find(pattern) > -1:

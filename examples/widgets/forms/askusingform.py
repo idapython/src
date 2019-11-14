@@ -3,37 +3,45 @@ from __future__ import print_function
 # This is an example illustrating how to use the Form class
 # (c) Hex-Rays
 #
-from ida_kernwin import Form, Choose, ask_str
+import ida_kernwin
 
 # --------------------------------------------------------------------------
-class TestEmbeddedChooserClass(Choose):
-    """
-    A simple chooser to be used as an embedded chooser
-    """
-    def __init__(self, title, nb = 5, flags = 0):
-        Choose.__init__(self,
-                        title,
-                        [ ["Address", 10], ["Name", 30] ],
-                        flags=flags,
-                        embedded=True, width=30, height=6)
-        self.items = [ [str(x), "func_%04d" % x]
-                       for x in range(nb + 1) ]
-        self.icon = 5
+class busy_form_t(ida_kernwin.Form):
 
-    def OnGetLine(self, n):
-        print("getline %d" % n)
-        return self.items[n]
+    class test_chooser_t(ida_kernwin.Choose):
+        """
+        A simple chooser to be used as an embedded chooser
+        """
+        def __init__(self, title, nb=5, flags=ida_kernwin.Choose.CH_MULTI):
+            ida_kernwin.Choose.__init__(
+                self,
+                title,
+                [
+                    ["Address", 10],
+                    ["Name", 30]
+                ],
+                flags=flags,
+                embedded=True,
+                width=30,
+                height=6)
+            self.items = [ [str(x), "func_%04d" % x] for x in range(nb + 1) ]
+            self.icon = 5
 
-    def OnGetSize(self):
-        n = len(self.items)
-        print("getsize -> %d" % n)
-        return n
+        def OnGetLine(self, n):
+            print("getline %d" % n)
+            return self.items[n]
 
-# --------------------------------------------------------------------------
-class MyForm(Form):
+        def OnGetSize(self):
+            n = len(self.items)
+            print("getsize -> %d" % n)
+            return n
+
     def __init__(self):
         self.invert = False
-        Form.__init__(self, r"""STARTITEM {id:rNormal}
+        F = ida_kernwin.Form
+        F.__init__(
+            self,
+            r"""STARTITEM {id:rNormal}
 BUTTON YES* Yeah
 BUTTON NO Nope
 BUTTON CANCEL Nevermind
@@ -66,36 +74,33 @@ Button test: <##Button1:{iButton1}> <##Button2:{iButton2}>
 <Embedded chooser:{cEChooser}>
 The end!
 """, {
-            'cStr1': Form.StringLabel("Hello"),
-            'cHtml1': Form.StringLabel("<span style='color: red'>Is this red?<span>", tp=Form.FT_HTML_LABEL),
-            'cAddr1': Form.NumericLabel(0x401000, Form.FT_ADDR),
-            'cVal1' : Form.NumericLabel(99, Form.FT_HEX),
-            'iStr1': Form.StringInput(),
-            'iColor1': Form.ColorInput(),
-            'iFileOpen': Form.FileInput(open=True),
-            'iFileSave': Form.FileInput(save=True),
-            'iDir': Form.DirInput(),
-            'iType': Form.StringInput(tp=Form.FT_TYPE),
-            'iSegment': Form.NumericInput(tp=Form.FT_SEG),
-            'iRawHex': Form.NumericInput(tp=Form.FT_RAWHEX),
-            'iAddr': Form.NumericInput(tp=Form.FT_ADDR),
-            'iChar': Form.NumericInput(tp=Form.FT_CHAR),
-            'iButton1': Form.ButtonInput(self.OnButton1),
-            'iButton2': Form.ButtonInput(self.OnButton2),
-            'cGroup1': Form.ChkGroupControl(("rNormal", "rError", "rWarnings")),
-            'cGroup2': Form.RadGroupControl(("rRed", "rGreen", "rBlue")),
-            'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
-            'cEChooser' : Form.EmbeddedChooserControl(TestEmbeddedChooserClass("E1", flags=Choose.CH_MULTI))
+            'cStr1': F.StringLabel("Hello"),
+            'cHtml1': F.StringLabel("<span style='color: red'>Is this red?<span>", tp=F.FT_HTML_LABEL),
+            'cAddr1': F.NumericLabel(0x401000, F.FT_ADDR),
+            'cVal1' : F.NumericLabel(99, F.FT_HEX),
+            'iStr1': F.StringInput(),
+            'iColor1': F.ColorInput(),
+            'iFileOpen': F.FileInput(open=True),
+            'iFileSave': F.FileInput(save=True),
+            'iDir': F.DirInput(),
+            'iType': F.StringInput(tp=F.FT_TYPE),
+            'iSegment': F.NumericInput(tp=F.FT_SEG),
+            'iRawHex': F.NumericInput(tp=F.FT_RAWHEX),
+            'iAddr': F.NumericInput(tp=F.FT_ADDR),
+            'iChar': F.NumericInput(tp=F.FT_CHAR),
+            'iButton1': F.ButtonInput(self.OnButton1),
+            'iButton2': F.ButtonInput(self.OnButton2),
+            'cGroup1': F.ChkGroupControl(("rNormal", "rError", "rWarnings")),
+            'cGroup2': F.RadGroupControl(("rRed", "rGreen", "rBlue")),
+            'FormChangeCb': F.FormChangeCb(self.OnFormChange),
+            'cEChooser' : F.EmbeddedChooserControl(busy_form_t.test_chooser_t("E1"))
         })
-
 
     def OnButton1(self, code=0):
         print("Button1 pressed")
 
-
     def OnButton2(self, code=0):
         print("Button2 pressed")
-
 
     def OnFormChange(self, fid):
         if fid == self.iButton1.id:
@@ -123,113 +128,70 @@ The end!
             print(">>fid:%d" % fid)
         return 1
 
+    @staticmethod
+    def compile_and_fiddle_with_fields():
+        f = busy_form_t()
+        f, args = f.Compile()
+        print(args[0])
+        print(args[1:])
+        f.rNormal.checked = True
+        f.rWarnings.checked = True
+        print(hex(f.cGroup1.value))
 
+        f.rGreen.selected = True
+        print(f.cGroup2.value)
+        print("Title: '%s'" % f.title)
 
-# --------------------------------------------------------------------------
-def stdalone_main():
-    f = MyForm()
-    f, args = f.Compile()
-    print(args[0])
-    print(args[1:])
-    f.rNormal.checked = True
-    f.rWarnings.checked = True
-    print(hex(f.cGroup1.value))
+        f.Free()
 
-    f.rGreen.selected = True
-    print(f.cGroup2.value)
-    print("Title: '%s'" % f.title)
+    @staticmethod
+    def test():
+        f = busy_form_t()
 
-    f.Free()
+        # Compile (in order to populate the controls)
+        f.Compile()
 
-# --------------------------------------------------------------------------
-def ida_main():
-    # Create form
-    global f
-    f = MyForm()
+        f.iColor1.value = 0x5bffff
+        f.iDir.value = os.getcwd()
+        f.iChar.value = ord("a")
+        f.rNormal.checked = True
+        f.rWarnings.checked = True
+        f.rGreen.selected = True
+        f.iStr1.value = "Hello"
+        f.iFileSave.value = "*.*"
+        f.iFileOpen.value = "*.*"
 
-    # Compile (in order to populate the controls)
-    f.Compile()
+        # Execute the form
+        ok = f.Execute()
+        print("r=%d" % ok)
+        if ok == 1:
+            print("f.str1=%s" % f.iStr1.value)
+            print("f.color1=%x" % f.iColor1.value)
+            print("f.openfile=%s" % f.iFileOpen.value)
+            print("f.savefile=%s" % f.iFileSave.value)
+            print("f.dir=%s" % f.iDir.value)
+            print("f.type=%s" % f.iType.value)
+            print("f.seg=%s" % f.iSegment.value)
+            print("f.rawhex=%x" % f.iRawHex.value)
+            print("f.char=%x" % f.iChar.value)
+            print("f.addr=%x" % f.iAddr.value)
+            print("f.cGroup1=%x" % f.cGroup1.value)
+            print("f.cGroup2=%x" % f.cGroup2.value)
+            sel = f.cEChooser.selection
+            if sel is None:
+                print("No selection")
+            else:
+                print("Selection: %s" % sel)
 
-    f.iColor1.value = 0x5bffff
-    f.iDir.value = os.getcwd()
-    f.iChar.value = ord("a")
-    f.rNormal.checked = True
-    f.rWarnings.checked = True
-    f.rGreen.selected = True
-    f.iStr1.value = "Hello"
-    f.iFileSave.value = "*.*"
-    f.iFileOpen.value = "*.*"
-    # Execute the form
-    ok = f.Execute()
-    print("r=%d" % ok)
-    if ok == 1:
-        print("f.str1=%s" % f.iStr1.value)
-        print("f.color1=%x" % f.iColor1.value)
-        print("f.openfile=%s" % f.iFileOpen.value)
-        print("f.savefile=%s" % f.iFileSave.value)
-        print("f.dir=%s" % f.iDir.value)
-        print("f.type=%s" % f.iType.value)
-        print("f.seg=%s" % f.iSegment.value)
-        print("f.rawhex=%x" % f.iRawHex.value)
-        print("f.char=%x" % f.iChar.value)
-        print("f.addr=%x" % f.iAddr.value)
-        print("f.cGroup1=%x" % f.cGroup1.value)
-        print("f.cGroup2=%x" % f.cGroup2.value)
-        sel = f.cEChooser.selection
-        if sel is None:
-            print("No selection")
-        else:
-            print("Selection: %s" % sel)
-
-    # Dispose the form
-    f.Free()
+        # Dispose the form
+        f.Free()
 
 # --------------------------------------------------------------------------
-def ida_main_legacy():
-    # Here we simply show how to use the old style form format using Python
-
-    # Sample form from kernwin.hpp
-    s = """Sample dialog box
-
-
-This is sample dialog box for %A
-using address %$
-
-<~E~nter value:N::18::>
-"""
-
-    # Use either StringArgument or NumericArgument to pass values to the function
-    num = Form.NumericArgument('N', value=123)
-    ok = idaapi.ask_form(s,
-           Form.StringArgument("PyAskform").arg,
-           Form.NumericArgument('$', 0x401000).arg,
-           num.arg)
-    if ok == 1:
-        print("You entered: %x" % num.value)
-
-# --------------------------------------------------------------------------
-def test_multilinetext_legacy():
-    # Here we text the multi line text control in legacy mode
-
-    # Sample form from kernwin.hpp
-    s = """Sample dialog box
-
-This is sample dialog box
-<Enter multi line text:t40:80:50::>
-"""
-    # Use either StringArgument or NumericArgument to pass values to the function
-    ti = textctrl_info_t("Some initial value")
-    ok = idaapi.ask_form(s, pointer(c_void_p.from_address(ti.clink_ptr)))
-    if ok == 1:
-        print("You entered: %s" % ti.text)
-
-    del ti
-
-# --------------------------------------------------------------------------
-class MyForm2(Form):
-    """Simple Form to test multilinetext and combo box controls"""
+class multiline_text_t(ida_kernwin.Form):
+    """Simple Form to test multilinetext"""
     def __init__(self):
-        Form.__init__(self, r"""STARTITEM 0
+        F = ida_kernwin.Form
+        F.__init__(self, r"""STARTITEM 0
 BUTTON YES* Yeah
 BUTTON NO Nope
 BUTTON CANCEL NONE
@@ -238,10 +200,9 @@ Form Test
 {FormChangeCb}
 <Multilinetext:{txtMultiLineText}>
 """, {
-            'txtMultiLineText': Form.MultiLineTextControl(text="Hello"),
-            'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
+            'txtMultiLineText': F.MultiLineTextControl(text="Hello"),
+            'FormChangeCb': F.FormChangeCb(self.OnFormChange),
         })
-
 
     def OnFormChange(self, fid):
         if fid == self.txtMultiLineText.id:
@@ -253,30 +214,29 @@ Form Test
             print(">>fid:%d" % fid)
         return 1
 
-# --------------------------------------------------------------------------
-def test_multilinetext(execute=True):
-    """Test the multilinetext and combobox controls"""
-    f = MyForm2()
-    f, args = f.Compile()
-    if execute:
-        ok = f.Execute()
-    else:
-        print(args[0])
-        print(args[1:])
-        ok = 0
+    @staticmethod
+    def test(execute=True):
+        f = multiline_text_t()
+        f, args = f.Compile()
+        if execute:
+            ok = f.Execute()
+        else:
+            print(args[0])
+            print(args[1:])
+            ok = 0
+        if ok == 1:
+            assert f.txtMultiLineText.text == f.txtMultiLineText.value
+            print(f.txtMultiLineText.text)
+        f.Free()
 
-    if ok == 1:
-        assert f.txtMultiLineText.text == f.txtMultiLineText.value
-        print(f.txtMultiLineText.text)
-
-    f.Free()
 
 # --------------------------------------------------------------------------
-class MyForm3(Form):
+class multiline_text_and_dropdowns_t(ida_kernwin.Form):
     """Simple Form to test multilinetext and combo box controls"""
     def __init__(self):
         self.__n = 0
-        Form.__init__(self,
+        F = ida_kernwin.Form
+        F.__init__(self,
 r"""BUTTON YES* Yeah
 BUTTON NO Nope
 BUTTON CANCEL NONE
@@ -286,18 +246,18 @@ Dropdown list test
 <Dropdown list (readonly):{cbReadonly}> <Add element:{iButtonAddelement}> <Set index:{iButtonSetIndex}>
 <Dropdown list (editable):{cbEditable}> <Set string:{iButtonSetString}>
 """, {
-            'FormChangeCb': Form.FormChangeCb(self.OnFormChange),
-            'cbReadonly': Form.DropdownListControl(
+            'FormChangeCb': F.FormChangeCb(self.OnFormChange),
+            'cbReadonly': F.DropdownListControl(
                         items=["red", "green", "blue"],
                         readonly=True,
                         selval=1),
-            'cbEditable': Form.DropdownListControl(
+            'cbEditable': F.DropdownListControl(
                         items=["1MB", "2MB", "3MB", "4MB"],
                         readonly=False,
                         selval="4MB"),
-            'iButtonAddelement': Form.ButtonInput(self.OnButtonNop),
-            'iButtonSetIndex': Form.ButtonInput(self.OnButtonNop),
-            'iButtonSetString': Form.ButtonInput(self.OnButtonNop),
+            'iButtonAddelement': F.ButtonInput(self.OnButtonNop),
+            'iButtonSetIndex': F.ButtonInput(self.OnButtonNop),
+            'iButtonSetString': F.ButtonInput(self.OnButtonNop),
         })
 
 
@@ -307,11 +267,11 @@ Dropdown list test
 
     def OnFormChange(self, fid):
         if fid == self.iButtonSetString.id:
-            s = ask_str("none", 0, "Enter value")
+            s = ida_kernwin.ask_str("none", 0, "Enter value")
             if s:
                 self.SetControlValue(self.cbEditable, s)
         elif fid == self.iButtonSetIndex.id:
-            s = ask_str("1", 0, "Enter index value:")
+            s = ida_kernwin.ask_str("1", 0, "Enter index value:")
             if s:
                 try:
                     i = int(s)
@@ -328,39 +288,34 @@ Dropdown list test
             s = self.GetControlValue(self.cbEditable)
             print("user entered: %s" % s)
             sel_idx = self.GetControlValue(self.cbReadonly)
-
         return 1
 
-# --------------------------------------------------------------------------
-def test_dropdown(execute=True):
-    """Test the combobox controls, in a modal dialog"""
-    f = MyForm3()
-    f, args = f.Compile()
-    if execute:
-        ok = f.Execute()
-    else:
-        print(args[0])
-        print(args[1:])
-        ok = 0
+    @staticmethod
+    def test(execute=True):
+        f = multiline_text_and_dropdowns_t()
+        f, args = f.Compile()
+        if execute:
+            ok = f.Execute()
+        else:
+            print(args[0])
+            print(args[1:])
+            ok = 0
+        if ok == 1:
+            print("Editable: %s" % f.cbEditable.value)
+            print("Readonly: %s" % f.cbReadonly.value)
+        f.Free()
 
-    if ok == 1:
-        print("Editable: %s" % f.cbEditable.value)
-        print("Readonly: %s" % f.cbReadonly.value)
+    NON_MODAL_INSTANCE = None
 
-    f.Free()
-
-# --------------------------------------------------------------------------
-tdn_form = None
-def test_dropdown_nomodal():
-    """Test the combobox controls, in a non-modal form"""
-    global tdn_form
-    if tdn_form is None:
-        tdn_form = MyForm3()
-        tdn_form.modal = False
-        tdn_form.openform_flags = idaapi.PluginForm.FORM_TAB
-        tdn_form, _ = tdn_form.Compile()
-    tdn_form.Open()
-
+    @staticmethod
+    def test_non_modal():
+        if multiline_text_and_dropdowns_t.NON_MODAL_INSTANCE is None:
+            f = multiline_text_and_dropdowns_t()
+            f.modal = False
+            f.openform_flags = ida_kernwin.PluginForm.FORM_TAB
+            f, _ = f.Compile()
+            multiline_text_and_dropdowns_t.NON_MODAL_INSTANCE = f
+        multiline_text_and_dropdowns_t.NON_MODAL_INSTANCE.Open()
 
 # --------------------------------------------------------------------------
-ida_main()
+busy_form_t.test()
