@@ -67,7 +67,7 @@ def main():
         "OUT_OF_TREE_BUILD" : "1"
     }
     if args.swig_home:
-        env["SWIG_HOME"] = args.swig_home
+        env["SWIG_HOME"] = args.swig_home.replace('\\', '/')
     if args.with_hexrays:
         env["HAS_HEXRAYS"] = "1"
     if args.debug:
@@ -76,7 +76,7 @@ def main():
         env["NDEBUG"] = "1"
     if args.verbose:
         argv.append("-d")
-    env["IDC_BC695_IDC_SOURCE"] = args.idc
+    env["IDC_BC695_IDC_SOURCE"] = args.idc.replace('\\', '/')
     for ea64 in [True, False]:
         if ea64:
             env["__EA64__"] = "1"
