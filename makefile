@@ -371,7 +371,7 @@ $(PARSED_HEADERS_MARKER): $(ST_SDK_TARGETS) $(ST_PARSED_HEADERS_CONFIG) $(ST_SDK
 ifeq ($(OUT_OF_TREE_BUILD),)
 	$(Q)( cat $(ST_PARSED_HEADERS_CONFIG); echo "OUTPUT_DIRECTORY=$(ST_PARSED_HEADERS_NOXML)" ) | $(DOXYGEN_BIN) - >/dev/null
 else
-	(cd $(F) && unzip ../../out_of_tree/parsed_notifications.zip)
+	(cd $(F) && unzip ../../../out_of_tree/parsed_notifications.zip)
 endif
 	$(Q)touch $@
 
