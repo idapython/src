@@ -42,12 +42,12 @@ extern plugin_t PLUGIN;
 %ignore ask_text;
 %ignore vwarning;
 // Note: don't do that for ask_form(), since that calls back into Python.
-%thread ask_addr;
-%thread ask_seg;
-%thread ask_long;
-%thread ask_yn;
-%thread ask_buttons;
-%thread ask_file;
+%modal_dialog_triggering_function(ask_addr);
+%modal_dialog_triggering_function(ask_seg);
+%modal_dialog_triggering_function(ask_long);
+%modal_dialog_triggering_function(ask_yn);
+%modal_dialog_triggering_function(ask_buttons);
+%modal_dialog_triggering_function(ask_file);
 
 %ignore simpleline_t::simpleline_t(const qstring &);
 

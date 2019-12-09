@@ -254,6 +254,9 @@ void ida_export idapython_hide_wait_box()
 #define LEXEC(...)
 #endif
 
+#define AVERAGE_STEPS_COUNT 10
+#define MAX_STEPS_COUNT ((AVERAGE_STEPS_COUNT * 2) + 1)
+
 //-------------------------------------------------------------------------
 void execution_t::reset_steps()
 {
@@ -268,7 +271,7 @@ void execution_t::reset_steps()
   // If we never hit the 'trace' callback while in the 'while True' loop
   // but always when performing the call to the processor module's 'out/outop'
   // then the loop will never stop. That was happening on windows (optimized.)
-  steps_before_action = 1 + rand() % 20;
+  steps_before_action = 1 + rand() % (AVERAGE_STEPS_COUNT*2);
 }
 
 //-------------------------------------------------------------------------
@@ -300,6 +303,7 @@ void execution_t::stop_tracking()
 void execution_t::sync_to_present_time()
 {
   time_t now = time(NULL);
+  LEXEC("execution_t (%p)::sync_to_present_time() now=%d\n", this, int(now));
   for ( size_t i = 0, n = entries.size(); i < n; ++i )
     entries[i].etime = now;
   maybe_hide_wait_box();
@@ -342,16 +346,38 @@ void execution_t::reset_current_start_time()
 //------------------------------------------------------------------------
 int execution_t::on_trace(PyObject *obj, PyFrameObject *frame, int what, PyObject *arg)
 {
-  LEXEC("on_trace() (steps=%d, nentries=%d)\n",
+#ifdef TESTABLE_BUILD
+  // ensure there was no decrement overflow
+  QASSERT(0, execution.steps_before_action <= MAX_STEPS_COUNT);
+#endif
+  LEXEC("on_trace() (steps_before_action=%u, entries.size()=%d, timeout=%d)\n",
         int(execution.steps_before_action),
-        int(execution.entries.size()));
-  // we don't want to query for time at every trace event
-  if ( execution.steps_before_action-- > 0 )
+        int(execution.entries.size()),
+        execution.timeout);
+  if ( execution.timeout < 0 )
+  {
+    LEXEC("on_trace()::no timeout currently set (%d).\n", execution.timeout);
     return 0;
+  }
+
+  // we don't want to query for time at every trace event
+  if ( execution.steps_before_action > 0 )
+  {
+    --execution.steps_before_action;
+    return 0;
+  }
 
   if ( get_active_modal_widget() != NULL )
   {
     LEXEC("on_trace()::a modal widget is active. Not showing our 'interrupt dialog'.\n");
+
+    // in addition, we want to sync the "start time" to now, so that
+    // the timeout will be relative to that (otherwise, calling
+    // ask_file() might end up showing the waitdialog for a fraction
+    // of a second after `_ida_kernwin.ask_file()` returns, but before
+    // the `ida_kernwin.ask_file()` one does.)
+    execution.sync_to_present_time();
+
     return 0;
   }
 
@@ -377,8 +403,7 @@ int execution_t::on_trace(PyObject *obj, PyFrameObject *frame, int what, PyObjec
       {
         if ( PyErr_Occurred() == NULL )
         {
-          LEXEC("on_trace()::INTERRUPTING (setting 'User interrupted' exception) at line %d\n",
-                PyFrame_GetLineNumber(frame));
+          LEXEC("on_trace()::INTERRUPTING (setting 'User interrupted' exception)\n");
           PyErr_SetString(PyExc_KeyboardInterrupt, "User interrupted");
         }
         return -1;

@@ -1384,15 +1384,12 @@ except:
 
 def __call_form_callable(call, *args):
     assert(len(args))
-    old = _ida_idaapi.set_script_timeout(0)
-    try:
+    with disabled_script_timeout_t():
         if sys.version_info.major >= 3 and isinstance(args[0], str):
             largs = list(args)
             largs[0] = largs[0].encode("UTF-8")
             args = tuple(largs)
         r = call(*args)
-    finally:
-        _ida_idaapi.set_script_timeout(old)
     return r
 
 def ask_form(*args):

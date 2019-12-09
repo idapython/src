@@ -842,7 +842,9 @@ protected:
   {
     // identifier
     {
-      ref_t py_id = newref_t(PyObject_GetAttrString(self, "id"));
+      ref_t py_id;
+      if ( PyObject_HasAttrString(self, "id") )
+        py_id = newref_t(PyObject_GetAttrString(self, "id"));
       if ( py_id == NULL || !IDAPyStr_Check(py_id.o) )
         py_id = newref_t(PyObject_Repr(self));
       if ( py_id != NULL && IDAPyStr_Check(py_id.o) )

@@ -205,9 +205,8 @@ class Choose(object):
             self.flags |= Choose.CH_MODAL
 
             # Disable the timeout
-            old = _ida_idaapi.set_script_timeout(0)
-            n = _ida_kernwin.choose_choose(self)
-            _ida_idaapi.set_script_timeout(old)
+            with disabled_script_timeout_t():
+                n = _ida_kernwin.choose_choose(self)
 
             # Delete the modal chooser instance
             self.Close()

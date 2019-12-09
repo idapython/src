@@ -359,6 +359,12 @@ static int get_pyidc_cvt_type(PyObject *py_var)
 }
 
 //-------------------------------------------------------------------------
+static inline bool is_pyidc_cvt_type_int64(PyObject *py_var)
+{
+  return get_pyidc_cvt_type(py_var) == PY_ICID_INT64;
+}
+
+//-------------------------------------------------------------------------
 // Utility function to convert a python object to an IDC object
 // and sets a python exception on failure.
 bool ida_export pyvar_to_idcvar_or_error(const ref_t &py_obj, idc_value_t *idc_obj)
@@ -736,15 +742,9 @@ int ida_export pyvar_to_idcvar(
 }
 
 //-------------------------------------------------------------------------
-inline PyObject *cvt_to_pylong(int32 v)
-{
-  return PyLong_FromLong(v);
-}
-
-inline PyObject *cvt_to_pylong(int64 v)
-{
-  return PyLong_FromLongLong(v);
-}
+// helpers to use with idc_value_t::num (which can be 32-, or 64-bit.)
+inline PyObject *cvt_to_pylong(int32 v) { return PyLong_FromLong(v); }
+inline PyObject *cvt_to_pylong(int64 v) { return PyLong_FromLongLong(v); }
 
 //-------------------------------------------------------------------------
 // Converts an IDC variable to a Python variable
@@ -786,8 +786,7 @@ int ida_export idcvar_to_pyvar(
           if ( *py_var != NULL )
           {
             // Recycling an int64 object?
-            int t = get_pyidc_cvt_type(py_var->o);
-            if ( t != PY_ICID_INT64 )
+            if ( !is_pyidc_cvt_type_int64(py_var->o) )
               return CIP_IMMUTABLE; // Cannot recycle immutable object
             // Update the attribute
             PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, PyLong_FromLongLong(idc_var.i64));
@@ -818,7 +817,14 @@ int ida_export idcvar_to_pyvar(
     case VT_LONG:
       // Cannot recycle immutable objects
       if ( *py_var != NULL )
-        return CIP_IMMUTABLE;
+      {
+        // Recycling an int64 object?
+        if ( !is_pyidc_cvt_type_int64(py_var->o) )
+          return CIP_IMMUTABLE;
+        // Update the attribute
+        PyObject_SetAttrString(py_var->o, S_PY_IDCCVT_VALUE_ATTR, cvt_to_pylong(idc_var.num));
+        return CIP_OK;
+      }
       *py_var = newref_t(cvt_to_pylong(idc_var.num));
       break;
     case VT_FLOAT:
