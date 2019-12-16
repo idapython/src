@@ -31074,7 +31074,7 @@ class ui_stroff_applicator_t(builtins.object)
  |      delete_ui_stroff_applicator_t(self)
  |  
  |  apply(self, *args) -> 'bool'
- |      apply(self, opnum, path) -> bool
+ |      apply(self, opnum, path, top_tif, spath) -> bool
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:

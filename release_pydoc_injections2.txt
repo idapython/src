@@ -31124,7 +31124,7 @@ class ui_stroff_applicator_t(__builtin__.object)
  |  __repr__ = _swig_repr(self)
  |  
  |  apply(self, *args)
- |      apply(self, opnum, path) -> bool
+ |      apply(self, opnum, path, top_tif, spath) -> bool
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
