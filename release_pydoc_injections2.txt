@@ -31124,7 +31124,7 @@ class ui_stroff_applicator_t(__builtin__.object)
  |  __repr__ = _swig_repr(self)
  |  
  |  apply(self, *args)
- |      apply(self, opnum, path) -> bool
+ |      apply(self, opnum, path, top_tif, spath) -> bool
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -46113,6 +46113,24 @@ detach_action_from_toolbar(*args)
     @param toolbar_name: the name of the toolbar (C++: const char *)
     @param name: the action name (C++: const char *)
     @return: success
+
+Help on class disabled_script_timeout_t in module ida_kernwin:
+
+class disabled_script_timeout_t(__builtin__.object)
+ |  Methods defined here:
+ |  
+ |  __enter__(self)
+ |  
+ |  __exit__(self, type, value, tb)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
 
 Help on class disasm_line_t in module ida_kernwin:
 
@@ -73313,15 +73331,6 @@ LoadFile(filepath, pos, ea, size)
 Help on function MakeVar in module idc:
 
 MakeVar(ea)
-    Mark the location as "variable"
-    
-    @param ea: address to mark
-    
-    @return: None
-    
-    @note: All that IDA does is to mark the location as "variable".
-    Nothing else, no additional analysis is performed.
-    This function may disappear in the future.
 
 Help on function SaveFile in module idc:
 

@@ -444,8 +444,7 @@ def save_database(idbname, flags=0):
     if len(idbname) == 0:
         idbname = get_idb_path()
     mask = ida_loader.DBFL_KILL | ida_loader.DBFL_COMP | ida_loader.DBFL_BAK
-    res = ida_loader.save_database_ex(idbname, flags & mask)
-    return res
+    return ida_loader.save_database(idbname, flags & mask)
 
 DBFL_BAK = ida_loader.DBFL_BAK # for compatiblity with older versions, eventually delete this
 
@@ -509,14 +508,14 @@ def delete_all_segments():
         ida_name.del_global_name(ea)
         func = ida_funcs.get_func(ea)
         if func:
-            ida_funcs.del_func_cmt(func, False)
-            ida_funcs.del_func_cmt(func, True)
+            ida_funcs.set_func_cmt(func, "", False)
+            ida_funcs.set_func_cmt(func, "", True)
             ida_funcs.del_func(ea)
         ida_bytes.del_hidden_range(ea)
         seg = ida_segment.getseg(ea)
         if seg:
-            ida_segment.del_segment_cmt(seg, False)
-            ida_segment.del_segment_cmt(seg, True)
+            ida_segment.set_segment_cmt(seg, "", False)
+            ida_segment.set_segment_cmt(seg, "", True)
             ida_segment.del_segm(ea, ida_segment.SEGMOD_KEEP | ida_segment.SEGMOD_SILENT)
 
         ea = ida_bytes.next_head(ea, ida_ida.cvar.inf.max_ea)
@@ -1007,18 +1006,7 @@ def op_offset_high16(ea, n, target):
 
 
 def MakeVar(ea):
-    """
-    Mark the location as "variable"
-
-    @param ea: address to mark
-
-    @return: None
-
-    @note: All that IDA does is to mark the location as "variable".
-    Nothing else, no additional analysis is performed.
-    This function may disappear in the future.
-    """
-    ida_bytes.doVar(ea, 1)
+    pass
 
 # Every anterior/posterior line has its number.
 # Anterior  lines have numbers from E_PREV

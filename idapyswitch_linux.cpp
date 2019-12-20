@@ -151,10 +151,10 @@ static bool find_libpython_dt_needed_info(
 //-------------------------------------------------------------------------
 static bool patch_dt_needed(
         const char *path,
-        const qstring &replacement,
+        const qstring &_replacement,
         qstring *errbuf)
 {
-  out_verb("Setting relevant DT_NEEDED of \"%s\" to \"%s\"\n", path, replacement.c_str());
+  out_verb("Setting relevant DT_NEEDED of \"%s\" to \"%s\"\n", path, _replacement.c_str());
   out_ident_inc_t iinc;
   linput_t *linput = open_linput(path, /*remote=*/ false);
   if ( linput == nullptr )
@@ -214,13 +214,24 @@ static bool patch_dt_needed(
     room = qltell(reader.get_linput()) - dt_needed_off - 1;
   }
 
-  const size_t nbytes = replacement.length();
+  bytevec_t replacement;
+  replacement.append(_replacement.c_str(), _replacement.length() + 1);
+  size_t nbytes = replacement.size();
   out_verb("We have room for %" FMT_Z " bytes, and need to write %" FMT_Z "\n",
            room, nbytes);
 
   // and patch
   if ( room >= nbytes )
   {
+    if ( room > nbytes )
+    {
+      out_verb("Expanding replacement with %" FMT_Z " '\\0' bytes, to "
+               "override possible previous soname that could derail "
+               "later computation of available room.\n", room - nbytes);
+      replacement.resize(room, 0);
+      nbytes = replacement.size();
+    }
+
     FILE *fp = openM(path);
     if ( fp != nullptr )
     {
@@ -230,7 +241,7 @@ static bool patch_dt_needed(
         if ( !args.dry_run )
         {
           // we want to write the zero as well!
-          if ( qfwrite(fp, replacement.c_str(), nbytes+1) == nbytes+1 )
+          if ( qfwrite(fp, replacement.begin(), nbytes) == nbytes )
           {
             out_verb("File \"%s\" successfully patched\n", path);
           }
@@ -243,7 +254,7 @@ static bool patch_dt_needed(
         else
         {
           out("Would write %" FMT_Z " bytes (\"%s\") to file\n",
-              nbytes, replacement.c_str());
+              nbytes, replacement.begin());
         }
       }
       else
@@ -263,7 +274,7 @@ static bool patch_dt_needed(
     errbuf->sprnt("Replacement \"%s\" has a length of %" FMT_Z
                   " bytes, but there is only room for %" FMT_Z ""
                   " bytes in the file. Cannot proceed.\n",
-                  replacement.c_str(), nbytes, room);
+                  replacement.begin(), nbytes, room);
     return false;
   }
   return true;
@@ -460,9 +471,7 @@ static bool split_debug_expand_libpython3_dtneeded_room(
     out_verb("\"%s\" command successful. Restoring the "
              "original DT_NEEDED of \"%s\"\n",
              cmdline.c_str(), dt_needed);
-    qstring padded_dt_needed(dt_needed);
-    padded_dt_needed.resize(SLOT_SIZE, '\0');
-    if ( !patch_dt_needed(path, padded_dt_needed, errbuf) )
+    if ( !patch_dt_needed(path, dt_needed, errbuf) )
       return false;
   }
   else

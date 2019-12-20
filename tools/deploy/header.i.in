@@ -1681,6 +1681,21 @@ SWIGINTERN bool __chkreqidb()
 
 %}
 
+%define %modal_dialog_triggering_function(NAME)
+%thread NAME;
+%pythonprepend NAME
+%{
+    import ida_kernwin
+    # kludge: we can't use %feature("shadow") for top-level
+    # functions (see https://github.com/swig/swig/issues/980)
+    # Thus we'll %pythonprepend some code, and return from it,
+    # making the original code unreachable. Not pretty, but I
+    # don't have anything better at the moment.
+    with ida_kernwin.disabled_script_timeout_t():
+        return _ida_kernwin.NAME(*args)
+%}
+%enddef
+
 %include <constraints.i>
 
 // If the module is 'pro', don't import pro.h, or the %include

@@ -126,6 +126,15 @@ class quick_widget_commands_t:
                                      cmd.icon)
                 attach_dynamic_action_to_popup(widget, popup, desc)
 
+class disabled_script_timeout_t(object):
+    def __enter__(self):
+        import _ida_idaapi
+        self.was_timeout = _ida_idaapi.set_script_timeout(0)
+
+    def __exit__(self, type, value, tb):
+        import _ida_idaapi
+        _ida_idaapi.set_script_timeout(self.was_timeout)
+
 # ----------------------------------------------------------------------
 # bw-compat/deprecated. You shouldn't rely on this in new code
 from ida_pro import str2user

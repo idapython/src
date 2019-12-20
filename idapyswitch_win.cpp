@@ -167,14 +167,19 @@ static bool has_appx_path(qstrvec_t paths)
   if ( appx_path.empty() )
   {
     HKEY hkey;
+    bool ok = false;
     if ( RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Appx", 0, KEY_READ, &hkey) == ERROR_SUCCESS )
     {
-      if ( !read_string(&appx_path, hkey, L"PackageRoot") )
-        appx_path = "<none>";
+      ok = read_string(&appx_path, hkey, L"PackageRoot");
       RegCloseKey(hkey);
     }
+    if ( !ok )
+    {
+      // no Appx support, set to dummy value which doesn't occur in paths
+      appx_path = "<none>";
+    }
   }
-  for ( auto path : paths )
+  for ( const qstring &path : paths )
     if ( path.find(appx_path) != qstring::npos )
       return true;
 
