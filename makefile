@@ -24,7 +24,7 @@ include ../../allmake.mak
 
 #----------------------------------------------------------------------
 # default goals
-.PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections public_tree test_idc docs
+.PHONY: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections public_tree test_idc docs bins
 all: configs modules pyfiles deployed_modules idapython_modules api_contents pydoc_injections bins # public_tree test_idc docs
 
 ifeq ($(OUT_OF_TREE_BUILD),)
@@ -305,8 +305,6 @@ endif
 ifdef __NT__                   # os and compiler specific flags
   _SWIGFLAGS = -D__NT__ -DWIN32 -D_USRDLL -I"$(PYTHON_ROOT)/include"
   CFLAGS += /bigobj $(_SWIGFLAGS) -I$(ST_SDK) /U_DEBUG
-  # override runtime libs in CFLAGS
-  RUNTIME_LIBSW = /MD
 else # unix/mac
   ifdef __LINUX__
     PYTHON_LDFLAGS_RPATH_MAIN=-Wl,-rpath='$$ORIGIN/..'
@@ -806,10 +804,14 @@ endif
 IDAPYSWITCH_OBJS += $(F)idapyswitch$(O)
 
 ifdef __NT__
+ifneq ($(OUT_OF_TREE_BUILD),)
+   # SDK provides only MT libraries
+   $(F)idapyswitch$(O): RUNTIME_LIBSW=/MT 
+else
   ifndef NDEBUG
-    RUNTIME_LIBSW = /MDd
     $(F)idapyswitch$(O): CFLAGS := $(filter-out /U_DEBUG,$(CFLAGS))
   endif
+endif
 endif
 $(R)idapyswitch$(B): $(call dumb_target, pro, $(IDAPYSWITCH_OBJS))
 
