@@ -58,6 +58,42 @@
 %ignore internal_get_sreg_base;
 %rename (internal_get_sreg_base) py_internal_get_sreg_base;
 
+//-------------------------------------------------------------------------
+//                       get_process_options()
+%define %get_process_options_out_qstring(ARG_NAME)
+%typemap(in, numinputs=0) qstring *ARG_NAME (qstring temp)
+{
+  // %get_process_options_out_qstring %typemap(in, numinputs=0) qstring *ARG_NAME
+  $1 = &temp;
+}
+%typemap(argout) qstring *ARG_NAME
+{
+  // %get_process_options_out_qstring %typemap(argout) qstring *ARG_NAME
+  $result = SWIG_Python_AppendOutput($result, IDAPyStr_FromUTF8($1->c_str()));
+}
+%typemap(freearg) qstring* ARG_NAME
+{
+  // %get_process_options_out_qstring %typemap(freearg) qstring* ARG_NAME
+  // Nothing. We certainly don't want 'temp' to be deleted.
+}
+%enddef
+%get_process_options_out_qstring(path);
+%get_process_options_out_qstring(args);
+%get_process_options_out_qstring(sdir);
+%get_process_options_out_qstring(host);
+%get_process_options_out_qstring(pass);
+%apply int *OUTPUT { int *port };
+
+// specialize for 'get_process_options()'s first output
+// argument (i.e., 'path'), so we get rid of the 'None'
+%typemap(argout) qstring *path
+{
+  // %typemap(argout) qstring *path (specialization)
+  Py_XDECREF($result);
+  $result = IDAPyStr_FromUTF8($1->c_str());
+}
+
+//-------------------------------------------------------------------------
 // KLUDGE: since dbg.hpp has first declarations, then definitions
 // of inline functions, and SWiG only sees the 2nd part, which
 // doesn't have the default argument values, we want to provide

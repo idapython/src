@@ -5675,8 +5675,8 @@ get_call_tev_callee(*args) -> 'ea_t'
 
 Help on function get_current_source_file in module ida_dbg:
 
-get_current_source_file(*args) -> 'bool'
-    get_current_source_file(path) -> bool
+get_current_source_file(*args) -> 'qstring *'
+    get_current_source_file() -> str
 
 Help on function get_current_source_line in module ida_dbg:
 
@@ -5857,17 +5857,11 @@ get_next_module(*args) -> 'bool'
 
 Help on function get_process_options in module ida_dbg:
 
-get_process_options(*args) -> 'void'
-    get_process_options(path, args, sdir, host, _pass, port)
+get_process_options(*args) -> 'qstring *, qstring *, qstring *, qstring *, qstring *, int *'
+    get_process_options()
     
     
     Get process options. Any of the arguments may be NULL
-    
-    @param path (C++: qstring  *)
-    @param args (C++: qstring  *)
-    @param sdir (C++: qstring  *)
-    @param host (C++: qstring  *)
-    @param port (C++: int *)
 
 Help on function get_process_state in module ida_dbg:
 
@@ -25396,6 +25390,9 @@ class mbl_array_t(builtins.object)
  |  
  |  argidx_ok(self, *args) -> 'bool'
  |      argidx_ok(self) -> bool
+ |  
+ |  argidx_sorted(self, *args) -> 'bool'
+ |      argidx_sorted(self) -> bool
  |  
  |  bad_call_sp_detected(self, *args) -> 'bool'
  |      bad_call_sp_detected(self) -> bool

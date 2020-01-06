@@ -25433,6 +25433,9 @@ class mbl_array_t(builtins.object)
  |  argidx_ok(self, *args) -> 'bool'
  |      argidx_ok(self) -> bool
  |  
+ |  argidx_sorted(self, *args) -> 'bool'
+ |      argidx_sorted(self) -> bool
+ |  
  |  bad_call_sp_detected(self, *args) -> 'bool'
  |      bad_call_sp_detected(self) -> bool
  |  

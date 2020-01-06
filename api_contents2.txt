@@ -5960,6 +5960,7 @@
                'mbl_array_t_argidx_get',
                'mbl_array_t_argidx_ok',
                'mbl_array_t_argidx_set',
+               'mbl_array_t_argidx_sorted',
                'mbl_array_t_bad_call_sp_detected',
                'mbl_array_t_blocks_get',
                'mbl_array_t_blocks_set',
