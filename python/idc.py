@@ -5106,7 +5106,7 @@ def SetType(ea, newtype):
 
     @return: 1-ok, 0-failed.
     """
-    if newtype is not '':
+    if newtype != '':
         pt = parse_decl(newtype, PT_SIL)
         if pt is None:
           # parsing failed

@@ -16,6 +16,7 @@
 //lint -esym(1788, iinc) is referenced only by its constructor or destructor
 
 #include <pro.h>
+#include <err.h>
 #include <fpro.h>
 #include <prodir.h>
 #include <diskio.hpp>

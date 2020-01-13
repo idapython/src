@@ -130,6 +130,7 @@ static const char S_M_TITLE[]                = "_title";
 static const char S_CLINK_NAME[]             = "__clink__";
 static const char S_ON_VIEW_MOUSE_MOVED[]    = "OnViewMouseMoved";
 static const char S_MAIN[]                   = "__main__";
+static const char S_FILE[]                   = "__file__";
 
 #define VALID_CAPSULE_NAME "$valid$"
 #define INVALID_CAPSULE_NAME "$INvalid$"

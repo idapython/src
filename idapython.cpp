@@ -840,7 +840,7 @@ static bool return_python_result(
 // We use the Python function to execute the script because it knows how to deal with
 // module reloading.
 static bool IDAPython_ExecFile(
-        const char *FileName,
+        const char *path,
         PyObject *globals,
         qstring *errbuf,
         const char *idaapi_script = S_IDAAPI_EXECSCRIPT,
@@ -856,12 +856,22 @@ static bool IDAPython_ExecFile(
   }
 
   char script[MAXSTR];
-  qstrncpy(script, FileName, sizeof(script));
+  qstrncpy(script, path, sizeof(script));
   strrpl(script, '\\', '/');
+  newref_t py_script(IDAPyStr_FromUTF8(script));
 
   if ( globals == NULL )
     globals = get_module_globals();
-  newref_t py_script(IDAPyStr_FromUTF8(script));
+  if ( globals != get_module_globals() )
+  {
+    // Executions that take place in the scope of their own module,
+    // should have the '__file__' attribute properly set (so that
+    // it doesn't just get temporarily set and then removed by
+    // `ida_idaapi.IDAPython_ExecScript`.
+    newref_t py_file_key(IDAPyStr_FromUTF8(S_FILE));
+    if ( !PyDict_Contains(globals, py_file_key.o) )
+      PyDict_SetItem(globals, py_file_key.o, py_script.o);
+  }
   borref_t py_false(Py_False);
   newref_t py_ret(PyObject_CallFunctionObjArgs(
                           py_execscript.o,

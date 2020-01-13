@@ -97,6 +97,94 @@ static bool extract_version_from_path(
   return true;
 }
 
+
+#pragma comment(lib, "version.lib")
+//-------------------------------------------------------------------------
+DWORD GetFileVersionNumber(const char *filename, DWORD *pdwMSVer, DWORD *pdwLSVer)
+{
+  DWORD             dwResult = NOERROR;
+  unsigned          uiSize;
+  DWORD             dwVerInfoSize;
+  DWORD             dwHandle;
+  PBYTE             prgbVersionInfo = NULL;
+  VS_FIXEDFILEINFO  *lpVSFixedFileInfo = NULL;
+
+  DWORD dwMSVer = 0xffffffff;
+  DWORD dwLSVer = 0xffffffff;
+
+  qwstring wfilename;
+  if ( !utf8_utf16(&wfilename, filename) )
+  {
+    dwResult = ERROR_INVALID_PARAMETER;
+    goto Finish;
+  }
+
+  dwVerInfoSize = GetFileVersionInfoSizeW(wfilename.c_str(), &dwHandle);
+  if ( dwVerInfoSize != 0 )
+  {
+    prgbVersionInfo = (PBYTE)qalloc(dwVerInfoSize);
+    if ( prgbVersionInfo == NULL )
+    {
+      dwResult = ERROR_NOT_ENOUGH_MEMORY;
+      goto Finish;
+    }
+
+    // Read version stamping info
+    if ( GetFileVersionInfoW(wfilename.c_str(), dwHandle, dwVerInfoSize, prgbVersionInfo) )
+    {
+      // get the value for VS_FIXEDFILEINFO
+      if ( VerQueryValueW(prgbVersionInfo, L"\\", (LPVOID*)&lpVSFixedFileInfo, &uiSize) && (uiSize != 0) )
+      {
+        dwMSVer = lpVSFixedFileInfo->dwFileVersionMS;
+        dwLSVer = lpVSFixedFileInfo->dwFileVersionLS;
+      }
+    }
+    else
+    {
+      dwResult = GetLastError();
+      goto Finish;
+    }
+  }
+  else
+  {
+    dwResult = GetLastError();
+  }
+
+  out_verb("%s is version %d.%d.%d.%d\n", filename, HIWORD(dwMSVer), LOWORD(dwMSVer), HIWORD(dwLSVer), LOWORD(dwLSVer));
+
+Finish:
+  if ( prgbVersionInfo != NULL )
+    qfree(prgbVersionInfo);
+  if ( pdwMSVer != NULL )
+    *pdwMSVer = dwMSVer;
+  if ( pdwLSVer != NULL )
+    *pdwLSVer = dwLSVer;
+
+  return dwResult;
+}
+//-------------------------------------------------------------------------
+static bool extract_version_from_dll(
+        pylib_version_t *out,
+        const char *fname)
+{
+  DWORD dwMSVer, dwLSVer;
+  DWORD res = GetFileVersionNumber(fname, &dwMSVer, &dwLSVer);
+  if ( res == NOERROR )
+  {
+    out->raw.sprnt("%d.%d.%d.%d", HIWORD(dwMSVer), LOWORD(dwMSVer), HIWORD(dwLSVer), LOWORD(dwLSVer));
+    // Python DLL versions look like 3.7.4150.1013 -> 3.7.4
+    out->major = HIWORD(dwMSVer);
+    out->minor = LOWORD(dwMSVer);
+    out->revision = HIWORD(dwLSVer) / 1000;
+    return true;
+  }
+  else
+  {
+    out_verb("error getting  version of \"%s\": %s\n", fname, winerr(res));
+    return false;
+  }
+}
+
 //-------------------------------------------------------------------------
 static bool is_python3Y_dll_file_name(const char *fname)
 {
@@ -138,6 +226,9 @@ static bool probe_python_install_dir_from_dll_path(
     {
       char dll_path[QMAXPATH];
       qmakepath(dll_path, sizeof(dll_path), dir, fb.ff_name, nullptr);
+      pylib_version_t tmp;
+      if ( extract_version_from_dll(&tmp, path) )
+        *out_version = tmp;
       out_verb("Found: \"%s\" (version: %s)\n", dll_path, out_version->str(&verbuf));
       out_paths->push_back(dll_path);
 
@@ -392,10 +483,24 @@ void pyver_tool_t::do_find_python_libs(pylib_entries_t *result) const
           out("IDA previously used: \"%s\" (guessed version: %s). "
               "Making this the preferred version.\n",
               existing.c_str(), version.str(&verbuf));
-          pylib_entry_t e(version);
-          e.paths.swap(paths);
-          e.preferred = true;
-          result->entries.push_back(e);
+          // do we have it in the list?
+          bool found = false;
+          for ( pylib_entry_t &e : result->entries )
+          {
+            if ( e.paths.has(existing) )
+            {
+              found = true;
+              e.preferred = true;
+            }
+          }
+          if ( !found )
+          {
+            // add a new one
+            pylib_entry_t e(version);
+            e.paths.swap(paths);
+            e.preferred = true;
+            result->entries.push_back(e);
+          }
         }
         else
         {
