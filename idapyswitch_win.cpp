@@ -194,6 +194,23 @@ static bool is_python3Y_dll_file_name(const char *fname)
       && strieq(&fname[8], ".dll");
 }
 
+#include <exehdr.h>
+
+#include "../../ldr/pe/pe.h"
+#include "../../ldr/pe/common.cpp"
+
+//-------------------------------------------------------------------------
+static bool check_dll_x86_64(const char *path)
+{
+  linput_t *linput = open_linput(path, /*remote=*/ false);
+  if ( linput == nullptr )
+    return false;
+  linput_janitor_t lj(linput);
+  pe_loader_t pl;
+  return pl.read_header(linput, /*silent=*/ true)
+      && pl.pe.machine == PECPU_AMD64;
+}
+
 //-------------------------------------------------------------------------
 static bool probe_python_install_dir_from_dll_path(
         qstrvec_t *out_paths,
@@ -209,8 +226,8 @@ static bool probe_python_install_dir_from_dll_path(
   }
   extract_version_from_path(out_version, dir); // not fatal if this fails
 
-  bool found_python3_dll = false;
-  bool found_python3Y_dll = false;
+  qstring found_python3_dll;
+  qstring found_python3Y_dll;
   static const char dll_pattern[] = "python3*.dll";
 
   char pattern_path[QMAXPATH];
@@ -232,21 +249,28 @@ static bool probe_python_install_dir_from_dll_path(
       out_verb("Found: \"%s\" (version: %s)\n", dll_path, out_version->str(&verbuf));
       out_paths->push_back(dll_path);
 
-      if ( !found_python3_dll && strieq(fb.ff_name, PYTHON3_DLL) )
-        found_python3_dll = true;
-      if ( !found_python3Y_dll && is_python3Y_dll_file_name(fb.ff_name) )
-        found_python3Y_dll = true;
+      if ( found_python3_dll.empty() && strieq(fb.ff_name, PYTHON3_DLL) )
+        found_python3_dll = dll_path;
+      if ( found_python3Y_dll.empty() && is_python3Y_dll_file_name(fb.ff_name) )
+        found_python3Y_dll = dll_path;
     }
   }
 
-  if ( !found_python3_dll )
+  if ( found_python3_dll.empty() )
   {
     errbuf->sprnt("No \"" PYTHON3_DLL "\" file found in directory \"%s\"", dir);
     return false;
   }
-  if ( !found_python3Y_dll )
+  if ( found_python3Y_dll.empty() )
   {
     errbuf->sprnt("No \"python3[0-9].dll\" file found in directory \"%s\"", dir);
+    return false;
+  }
+
+  if ( !check_dll_x86_64(found_python3_dll.c_str())
+    || !check_dll_x86_64(found_python3Y_dll.c_str()) )
+  {
+    errbuf->sprnt("DLLs in directory \"%s\" do not have the x86_64 architecture", dir);
     return false;
   }
   return true;
@@ -287,17 +311,17 @@ static bool bad_entry(const pylib_entry_t &e)
     && e.version.minor == 8
     && e.version.revision == 0 )
   {
-    out("Ignoring unusable Python 3.8.0\n");
+    out("Ignoring unusable Python 3.8.0 \"%s\"\n", !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
   }
   if ( e.display_name == "Anaconda 2019.10" )
   {
-    out("Ignoring unusable Anaconda 2019.10\n");
+    out("Ignoring unusable Anaconda 2019.10 \"%s\"\n", !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
   }
   if ( has_appx_path(e.paths) )
   {
-    out("Ignoring unusable AppStore Python\n");
+    out("Ignoring unusable AppStore Python \"%s\"\n", !e.paths.empty() ? e.paths[0].c_str() : "?");
     return true;
   }
   return false;
@@ -530,11 +554,6 @@ bool pyver_tool_t::do_path_to_pylib_entry(
 {
   return probe_python_install_dir_from_dll_path(&entry->paths, &entry->version, path, errbuf);
 }
-
-#include <exehdr.h>
-
-#include "../../ldr/pe/pe.h"
-#include "../../ldr/pe/common.cpp"
 
 //-------------------------------------------------------------------------
 bool pyver_tool_t::do_apply_version(
