@@ -223,6 +223,11 @@ endif
 
 ifdef __NT__                   # os and compiler specific flags
   _SWIGFLAGS = -D__NT__ -DWIN32 -D_USRDLL -I$(PYTHON_DIR)/include
+
+ifeq ($(PYTHON_VERSION_MAJOR),3)
+  _SWIGFLAGS += -DPY3=1
+endif
+
   CFLAGS += /bigobj $(_SWIGFLAGS) -I$(ST_SDK) /U_DEBUG
   # override runtime libs in CFLAGS
   RUNTIME_LIBSW = /MD

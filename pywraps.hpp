@@ -145,6 +145,10 @@ static const char S_PY_IDA_IDAAPI_MODNAME[] = S_IDA_IDAAPI_MODNAME;
 #define NW_REMOVE           0x0010 // Uninstall flag
 #define NW_EVENTSCNT        4 // Count of notify_when codes
 
+#define VALID_CAPSULE_NAME "$valid$"
+#define INVALID_CAPSULE_NAME "$INvalid$"
+
+
 //------------------------------------------------------------------------
 // Constants used by the pyvar_to_idcvar and idcvar_to_pyvar functions
 #define CIP_FAILED      -1 // Conversion error
@@ -178,8 +182,19 @@ idaman uint32 ida_export_data debug;
 #define IDA_DEBUG_PLUGIN 0x00000020
 THREAD_SAFE AS_PRINTF(1, 2) inline int msg(const char *format, ...);
 #endif // __KERNWIN_HPP
-#define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
-                      && PyGILState_GetThisThreadState() != _PyThreadState_Current)
+
+#ifdef PY3
+#  ifdef Py_LIMITED_API
+#    define GIL_CHKCONDFAIL (false)
+#  else
+#    define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) && !PyGILState_Check())
+#  endif
+#else
+#  define GIL_CHKCONDFAIL (((debug & IDA_DEBUG_PLUGIN) != 0) \
+                        && PyGILState_GetThisThreadState() != _PyThreadState_Current)
+#endif
+
+#include "idapy.hpp"
 
 #define PYW_GIL_CHECK_LOCKED_SCOPE()                                    \
   do                                                                    \

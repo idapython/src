@@ -82,7 +82,13 @@ ref_t ida_export PyW_SizeVecToPyList(const sizevec_t &vec)
   PYW_GIL_CHECK_LOCKED_SCOPE();
   newref_t py_list(PyList_New(n));
   for ( size_t i = 0; i < n; ++i )
+  {
+#ifdef PY3
+    PyList_SetItem(py_list.o, i, PyLong_FromSize_t(vec[i]));
+#else
     PyList_SetItem(py_list.o, i, PyInt_FromSize_t(vec[i]));
+#endif
+  }
   return ref_t(py_list);
 }
 
@@ -173,12 +179,28 @@ Py_ssize_t ida_export PyW_PyListToEaVec(eavec_t *out, PyObject *py_list)
       eavec_t &eavec = *(eavec_t *) ud;
       ea_t ea = BADADDR;
       {
+#ifdef PY3
+        if ( PyLong_Check(py_item.o) )
+        {
+          unsigned long long ull = PyLong_AsUnsignedLongLong(py_item.o);
+          if ( ull == -1ULL && PyErr_Occurred() != NULL )
+            return CIP_FAILED;
+          ea = ea_t(ull);
+        }
+        else
+        {
+          return CIP_FAILED;
+        }
+#else
         if ( PyInt_Check(py_item.o) )
           ea = PyInt_AsUnsignedLongMask(py_item.o);
         else if ( PyLong_Check(py_item.o) )
           ea = ea_t(PyLong_AsUnsignedLongLong(py_item.o));
         else
           return CIP_FAILED;
+        if ( PyErr_Occurred() != NULL )
+          return CIP_FAILED;
+#endif
       }
       eavec.push_back(ea);
       return CIP_OK;
@@ -196,9 +218,9 @@ Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list)
     static int idaapi cvt(const ref_t &py_item, Py_ssize_t /*i*/, void *ud)
     {
       qstrvec_t &strvec = *(qstrvec_t *)ud;
-      if ( !PyString_Check(py_item.o) )
+      if ( !IDAPyStr_Check(py_item.o) )
         return CIP_FAILED;
-      strvec.push_back(PyString_AsString(py_item.o));
+      IDAPyStr_AsUTF8(&strvec.push_back(), py_item.o);
       return CIP_OK;
     }
   };
@@ -206,10 +228,6 @@ Py_ssize_t ida_export PyW_PyListToStrVec(qstrvec_t *out, PyObject *py_list)
 }
 
 //-------------------------------------------------------------------------
-bool ida_export PyWStringOrNone_Check(PyObject *tp)
-{
-  return tp == Py_None || PyString_Check(tp);
-}
 
 //-------------------------------------------------------------------------
 PyObject *ida_export meminfo_vec_t_to_py(meminfo_vec_t &ranges)
@@ -281,9 +299,9 @@ static int get_pyidc_cvt_type(PyObject *py_var)
 
   // Check if this our special by reference object
   ref_t attr(PyW_TryGetAttrString(py_var, S_PY_IDCCVT_ID_ATTR));
-  if ( attr == NULL || (!PyInt_Check(attr.o) && !PyLong_Check(attr.o)) )
+  if ( attr == NULL || !IDAPyIntOrLong_Check(attr.o) )
     return -1;
-  return (int)PyInt_AsLong(attr.o);
+  return int(IDAPyIntOrLong_AsLong(attr.o));
 }
 
 //-------------------------------------------------------------------------
@@ -386,10 +404,28 @@ int ida_export pyvar_to_idcvar(
   {
     return CIP_OK;
   }
-  // String
+#ifdef PY3
+  else if ( PyBytes_Check(py_var.o) )
+  {
+    idc_var->_set_string(PyBytes_AsString(py_var.o), PyBytes_Size(py_var.o));
+  }
+#else
   else if ( PyString_Check(py_var.o) )
   {
     idc_var->_set_string(PyString_AsString(py_var.o), PyString_Size(py_var.o));
+  }
+#endif
+  // Unicode
+  else if ( PyUnicode_Check(py_var.o) )
+  {
+#ifdef PY3
+    qstring utf8;
+    IDAPyStr_AsUTF8(&utf8, py_var.o);
+    idc_var->_set_string(utf8.c_str(), utf8.length());
+#else
+    newref_t utf8(PyUnicode_AsEncodedString(py_var.o, ENC_UTF8, "strict"));
+    return pyvar_to_idcvar1(utf8, idc_var, gvar_sn, visited);
+#endif
   }
   // Boolean
   else if ( PyBool_Check(py_var.o) )
@@ -404,9 +440,9 @@ int ida_export pyvar_to_idcvar(
     idc_var->vtype = VT_FLOAT;
   }
   // void*
-  else if ( PyCObject_Check(py_var.o) )
+  else if ( PyCapsule_IsValid(py_var.o, VALID_CAPSULE_NAME) )
   {
-    idc_var->set_pvoid(PyCObject_AsVoidPtr(py_var.o));
+    idc_var->set_pvoid(PyCapsule_GetPointer(py_var.o, VALID_CAPSULE_NAME));
   }
   // Python list?
   else if ( PyList_CheckExact(py_var.o) || PyW_IsSequenceType(py_var.o) )
@@ -435,8 +471,13 @@ int ida_export pyvar_to_idcvar(
       ok = pyvar_to_idcvar(py_item, &v, gvar_sn) >= CIP_OK;
       if ( ok )
       {
-        // Form the attribute name
+#ifdef PY3
+        newref_t py_int(PyLong_FromSsize_t(i));
+#else
         newref_t py_int(PyInt_FromSsize_t(i));
+#endif
+
+        // Form the attribute name
         ok = PyW_ObjectToString(py_int.o, &attr_name);
         if ( !ok )
           break;
@@ -564,7 +605,13 @@ int ida_export pyvar_to_idcvar(
         for ( Py_ssize_t i=0; i < size; i++ )
         {
           borref_t item(PyList_GetItem(py_dir.o, i));
-          const char *field_name = PyString_AsString(item.o);
+#ifdef PY3
+            qstring field_name_buf;
+            IDAPyStr_AsUTF8(&field_name_buf, item.o);
+            const char *field_name = field_name_buf.begin();
+#else
+            const char *field_name = PyString_AsString(item.o);
+#endif
           if ( field_name == NULL )
             continue;
 
