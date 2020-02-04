@@ -1,0 +1,6 @@
+### Processing frame.i
+fix_assignment: found info for STKVAR_VALID_SIZE
+fix_assignment: found info for REGVAR_ERROR_OK
+fix_assignment: found info for REGVAR_ERROR_ARG
+fix_assignment: found info for REGVAR_ERROR_RANGE
+fix_assignment: found info for REGVAR_ERROR_NAME

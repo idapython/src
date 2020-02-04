@@ -1,0 +1,12 @@
+### Processing idd.i
+fix_assignment: found info for IDD_INTERFACE_VERSION
+fix_assignment: found info for NO_THREAD
+fix_assignment: found info for EXC_BREAK
+fix_assignment: found info for EXC_HANDLE
+fix_assignment: found info for EXC_MSG
+fix_assignment: found info for EXC_SILENT
+fix_assignment: found info for RVT_INT
+fix_assignment: found info for RVT_FLOAT
+fix_assignment: found info for RVT_UNAVAILABLE
+fix_assignment: found info for NO_PROCESS
+fix_assignment: found info for NO_THREAD

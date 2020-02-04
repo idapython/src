@@ -1,0 +1,931 @@
+
+
+ida_typeinf.ADDTIL_COMP
+"""
+ok, but til is not compatible with the current compiler
+"""
+
+ida_typeinf.ADDTIL_DEFAULT
+"""
+default behavior
+"""
+
+ida_typeinf.ADDTIL_FAILED
+"""
+something bad, the warning is displayed
+"""
+
+ida_typeinf.ADDTIL_INCOMP
+"""
+load incompatible tils
+"""
+
+ida_typeinf.ADDTIL_OK
+"""
+ok, til is loaded
+"""
+
+ida_typeinf.ADDTIL_SILENT
+"""
+do not ask any questions
+"""
+
+ida_typeinf.CC_ALLOW_ARGPERM
+"""
+disregard argument order?
+"""
+
+ida_typeinf.CC_ALLOW_REGHOLES
+"""
+allow holes in register argument list?
+"""
+
+ida_typeinf.CC_CDECL_OK
+"""
+can use __cdecl calling convention?
+"""
+
+ida_typeinf.CC_HAS_ELLIPSIS
+"""
+function has a variable list of arguments?
+"""
+
+ida_typeinf.FAH_BYTE
+"""
+function argument attribute header byte
+"""
+
+ida_typeinf.FAI_ARRAY
+"""
+was initially an array see "__org_typedef" or "__org_arrdim" type
+attributes to determine the original type
+"""
+
+ida_typeinf.FAI_HIDDEN
+"""
+hidden argument
+"""
+
+ida_typeinf.FAI_RETPTR
+"""
+pointer to return value. implies hidden
+"""
+
+ida_typeinf.FAI_STRUCT
+"""
+was initially a structure
+"""
+
+ida_typeinf.FTI_ALL
+"""
+all defined bits
+"""
+
+ida_typeinf.FTI_ARGLOCS
+"""
+(stkargs and retloc too)
+
+info about argument locations has been calculated
+"""
+
+ida_typeinf.FTI_CALLTYPE
+"""
+mask for FTI_*CALL
+"""
+
+ida_typeinf.FTI_DEFCALL
+"""
+default call
+"""
+
+ida_typeinf.FTI_FARCALL
+"""
+far call
+"""
+
+ida_typeinf.FTI_HIGH
+"""
+high level prototype (with possibly hidden args)
+"""
+
+ida_typeinf.FTI_INTCALL
+"""
+interrupt call
+"""
+
+ida_typeinf.FTI_NEARCALL
+"""
+near call
+"""
+
+ida_typeinf.FTI_NORET
+"""
+noreturn
+"""
+
+ida_typeinf.FTI_PURE
+"""
+__pure
+"""
+
+ida_typeinf.FTI_SPOILED
+"""
+information about spoiled registers is present
+"""
+
+ida_typeinf.FTI_STATIC
+"""
+static
+"""
+
+ida_typeinf.FTI_VIRTUAL
+"""
+virtual
+"""
+
+ida_typeinf.GUESS_FUNC_FAILED
+"""
+couldn't guess the function type
+"""
+
+ida_typeinf.GUESS_FUNC_OK
+"""
+ok, some non-trivial information is gathered
+"""
+
+ida_typeinf.GUESS_FUNC_TRIVIAL
+"""
+the function type doesn't have interesting info
+"""
+
+ida_typeinf.HTI_CPP
+"""
+C++ mode (not implemented)
+"""
+
+ida_typeinf.HTI_DCL
+"""
+don't complain about redeclarations
+"""
+
+ida_typeinf.HTI_EXT
+"""
+debug: print external representation of types
+"""
+
+ida_typeinf.HTI_FIL
+"""
+otherwise "input" contains a C declaration
+
+"input" is file name,
+"""
+
+ida_typeinf.HTI_HIGH
+"""
+(with hidden args, etc)
+
+assume high level prototypes
+"""
+
+ida_typeinf.HTI_INT
+"""
+debug: print internal representation of types
+"""
+
+ida_typeinf.HTI_LEX
+"""
+debug: print tokens
+"""
+
+ida_typeinf.HTI_LOWER
+"""
+lower the function prototypes
+"""
+
+ida_typeinf.HTI_MAC
+"""
+define macros from the base tils
+"""
+
+ida_typeinf.HTI_NDC
+"""
+don't decorate names
+"""
+
+ida_typeinf.HTI_NER
+"""
+ignore all errors but display them
+"""
+
+ida_typeinf.HTI_NWR
+"""
+no warning messages
+"""
+
+ida_typeinf.HTI_PAK
+"""
+explicit structure pack value (#pragma pack)
+"""
+
+ida_typeinf.HTI_PAK1
+"""
+#pragma pack(1)
+"""
+
+ida_typeinf.HTI_PAK16
+"""
+#pragma pack(16)
+"""
+
+ida_typeinf.HTI_PAK2
+"""
+#pragma pack(2)
+"""
+
+ida_typeinf.HTI_PAK4
+"""
+#pragma pack(4)
+"""
+
+ida_typeinf.HTI_PAK8
+"""
+#pragma pack(8)
+"""
+
+ida_typeinf.HTI_PAKDEF
+"""
+default pack value
+"""
+
+ida_typeinf.HTI_PAK_SHIFT
+"""
+shift for 'HTI_PAK' . This field should be used if you want to
+remember an explicit pack value for each structure/union type. See
+'HTI_PAK' ... definitions
+"""
+
+ida_typeinf.HTI_RAWARGS
+"""
+leave argument names unchanged (do not remove underscores)
+"""
+
+ida_typeinf.HTI_TST
+"""
+test mode: discard the result
+"""
+
+ida_typeinf.HTI_UNP
+"""
+debug: check the result by unpacking it
+"""
+
+ida_typeinf.IMPTYPE_LOCAL
+"""
+the type is local, the struct/enum won't be marked as til type. there
+is no need to specify this bit if til==idati, the kernel will set it
+automatically
+"""
+
+ida_typeinf.IMPTYPE_OVERRIDE
+"""
+override existing type
+"""
+
+ida_typeinf.IMPTYPE_VERBOSE
+"""
+more verbose output (dialog boxes may appear)
+"""
+
+ida_typeinf.MAX_FUNC_ARGS
+"""
+max number of function arguments
+"""
+
+ida_typeinf.NTF_64BIT
+"""
+value is 64bit
+"""
+
+ida_typeinf.NTF_CHKSYNC
+"""
+(set_numbered_type, set_named_type)
+
+check that synchronization to IDB passed OK
+"""
+
+ida_typeinf.NTF_FIXNAME
+"""
+(set_named_type, set_numbered_type only)
+
+force-validate the name of the type when setting
+"""
+
+ida_typeinf.NTF_IDBENC
+"""
+the name is given in the IDB encoding; non-ASCII bytes will be decoded
+accordingly (set_named_type, set_numbered_type only)
+"""
+
+ida_typeinf.NTF_NOBASE
+"""
+don't inspect base tils (for get_named_type)
+"""
+
+ida_typeinf.NTF_NOCUR
+"""
+don't inspect current til file (for get_named_type)
+"""
+
+ida_typeinf.NTF_REPLACE
+"""
+replace original type (for set_named_type)
+"""
+
+ida_typeinf.NTF_SYMM
+"""
+only one of 'NTF_TYPE' and 'NTF_SYMU' , 'NTF_SYMM' can be used
+
+symbol, name is mangled ('_func')
+"""
+
+ida_typeinf.NTF_SYMU
+"""
+symbol, name is unmangled ('func')
+"""
+
+ida_typeinf.NTF_TYPE
+"""
+type name
+"""
+
+ida_typeinf.NTF_UMANGLED
+"""
+name is unmangled (don't use this flag)
+"""
+
+ida_typeinf.PCN_CHR
+"""
+character
+"""
+
+ida_typeinf.PCN_DEC
+"""
+decimal
+"""
+
+ida_typeinf.PCN_HEX
+"""
+hexadecimal
+"""
+
+ida_typeinf.PCN_LZHEX
+"""
+print leading zeroes for hexdecimal number
+"""
+
+ida_typeinf.PCN_NEGSIGN
+"""
+print negated value (-N) for negative numbers
+"""
+
+ida_typeinf.PCN_OCT
+"""
+octal
+"""
+
+ida_typeinf.PCN_RADIX
+"""
+number base to use
+"""
+
+ida_typeinf.PCN_UNSIGNED
+"""
+add 'u' suffix
+"""
+
+ida_typeinf.PDF_DEF_BASE
+"""
+Include base types: __int8, __int16, etc..
+"""
+
+ida_typeinf.PDF_DEF_FWD
+"""
+Allow forward declarations.
+"""
+
+ida_typeinf.PDF_HEADER_CMT
+"""
+Prepend output with a descriptive comment.
+"""
+
+ida_typeinf.PDF_INCL_DEPS
+"""
+Include all type dependencies.
+"""
+
+ida_typeinf.PIO_IGNORE_PTRS
+"""
+do not follow pointers
+"""
+
+ida_typeinf.PIO_NOATTR_FAIL
+"""
+missing attributes are not ok
+"""
+
+ida_typeinf.PRALOC_STKOFF
+"""
+print stack offsets
+"""
+
+ida_typeinf.PRALOC_VERIFY
+"""
+interr if illegal argloc
+"""
+
+ida_typeinf.PRTYPE_1LINE
+"""
+print to one line
+"""
+
+ida_typeinf.PRTYPE_CPP
+"""
+use c++ name (only for 'print_type()' )
+"""
+
+ida_typeinf.PRTYPE_DEF
+"""
+ 'tinfo_t' : print definition, if available
+"""
+
+ida_typeinf.PRTYPE_MULTI
+"""
+print to many lines
+"""
+
+ida_typeinf.PRTYPE_NOARGS
+"""
+ 'tinfo_t' : do not print function argument names
+"""
+
+ida_typeinf.PRTYPE_NOARRS
+"""
+ 'tinfo_t' : print arguments with 'FAI_ARRAY' as pointers
+"""
+
+ida_typeinf.PRTYPE_NORES
+"""
+ 'tinfo_t' : never resolve types (meaningful with PRTYPE_DEF)
+"""
+
+ida_typeinf.PRTYPE_PRAGMA
+"""
+print pragmas for alignment
+"""
+
+ida_typeinf.PRTYPE_RESTORE
+"""
+ 'tinfo_t' : print restored types for 'FAI_ARRAY' and 'FAI_STRUCT'
+"""
+
+ida_typeinf.PRTYPE_SEMI
+"""
+append ; to the end
+"""
+
+ida_typeinf.PRTYPE_TYPE
+"""
+print type declaration (not variable declaration)
+"""
+
+ida_typeinf.PT_HIGH
+"""
+(with hidden args, etc)
+
+assume high level prototypes
+"""
+
+ida_typeinf.PT_LOWER
+"""
+lower the function prototypes
+"""
+
+ida_typeinf.PT_NDC
+"""
+don't decorate names
+"""
+
+ida_typeinf.PT_PACKMASK
+"""
+mask for pack alignment values
+"""
+
+ida_typeinf.PT_RAWARGS
+"""
+leave argument names unchanged (do not remove underscores)
+"""
+
+ida_typeinf.PT_REPLACE
+"""
+replace the old type (used in idc)
+"""
+
+ida_typeinf.PT_SIL
+"""
+silent, no messages
+"""
+
+ida_typeinf.PT_TYP
+"""
+return declared type information
+"""
+
+ida_typeinf.PT_VAR
+"""
+return declared object information
+"""
+
+ida_typeinf.RESERVED_BYTE
+"""
+multifunctional purpose
+"""
+
+ida_typeinf.SETCOMP_BY_USER
+"""
+invoked by user, can not be replaced by module/loader
+"""
+
+ida_typeinf.SETCOMP_ONLY_ABI
+"""
+ignore cc field complete, use only abiname
+"""
+
+ida_typeinf.SETCOMP_ONLY_ID
+"""
+cc has only 'id' field the rest will be set to defaults corresponding
+to the program bitness
+"""
+
+ida_typeinf.SETCOMP_OVERRIDE
+"""
+may override old compiler info
+"""
+
+ida_typeinf.STRMEM_ANON
+"""
+can be combined with 'STRMEM_NAME' : look inside anonymous members
+too.
+"""
+
+ida_typeinf.STRMEM_AUTO
+"""
+get member by offset if struct, or get member by index if union - nb:
+union: index is stored in the udm->offset field!nb: struct: offset is
+in bytes (not in bits)!
+"""
+
+ida_typeinf.STRMEM_CASTABLE_TO
+"""
+can be combined with 'STRMEM_TYPE' : member type must be castable to
+the specified type
+"""
+
+ida_typeinf.STRMEM_INDEX
+"""
+get member by number- in: udm->offset - is a member number
+"""
+
+ida_typeinf.STRMEM_MAXS
+"""
+get biggest member by size.
+"""
+
+ida_typeinf.STRMEM_MINS
+"""
+get smallest member by size.
+"""
+
+ida_typeinf.STRMEM_NAME
+"""
+get member by name- in: udm->name - the desired member name.
+"""
+
+ida_typeinf.STRMEM_OFFSET
+"""
+get member by offset- in: udm->offset - is a member offset in bits
+"""
+
+ida_typeinf.STRMEM_SIZE
+"""
+get member by size.- in: udm->size - the desired member size.
+"""
+
+ida_typeinf.STRMEM_SKIP_EMPTY
+"""
+can be combined with 'STRMEM_OFFSET' , 'STRMEM_AUTO' skip empty
+members (i.e. having zero size) only last empty member can be returned
+"""
+
+ida_typeinf.STRMEM_TYPE
+"""
+get member by type. - in: udm->type - the desired member type. member
+types are compared with tinfo_t::equals_to()
+"""
+
+ida_typeinf.STRMEM_VFTABLE
+"""
+can be combined with 'STRMEM_OFFSET' , 'STRMEM_AUTO' get vftable
+instead of the base class
+"""
+
+ida_typeinf.SUDT_ALIGN
+"""
+to match the offsets and size info
+
+recalculate field alignments, struct packing, etc
+"""
+
+ida_typeinf.SUDT_CONST
+"""
+only for serialize_udt: make type const
+"""
+
+ida_typeinf.SUDT_FAST
+"""
+serialize without verifying offsets and alignments
+"""
+
+ida_typeinf.SUDT_GAPS
+"""
+allow to fill gaps with additional members (_BYTE[])
+"""
+
+ida_typeinf.SUDT_SORT
+"""
+fields are not sorted by offset, sort them first
+"""
+
+ida_typeinf.SUDT_TRUNC
+"""
+serialize: truncate useless strings from fields, fldcmts
+"""
+
+ida_typeinf.SUDT_UNEX
+"""
+references to nonexistent member types are acceptable in this case it
+is better to set the corresponding 'udt_member_t::fda' field to the
+type alignment. if this field is not set, ida will try to guess the
+alignment.
+"""
+
+ida_typeinf.SUDT_VOLATILE
+"""
+only for serialize_udt: make type volatile
+"""
+
+ida_typeinf.TAENUM_64BIT
+"""
+enum: store 64-bit values
+"""
+
+ida_typeinf.TAFLD_BASECLASS
+"""
+field: do not include but inherit from the current field
+"""
+
+ida_typeinf.TAFLD_UNALIGNED
+"""
+field: unaligned field
+"""
+
+ida_typeinf.TAFLD_VFTABLE
+"""
+field: ptr to virtual function table
+"""
+
+ida_typeinf.TAFLD_VIRTBASE
+"""
+field: virtual base (not supported yet)
+"""
+
+ida_typeinf.TAH_ALL
+"""
+all defined bits
+"""
+
+ida_typeinf.TAH_BYTE
+"""
+type attribute header byte
+"""
+
+ida_typeinf.TAH_HASATTRS
+"""
+has extended attributes
+"""
+
+ida_typeinf.TAPTR_PTR32
+"""
+ptr: __ptr32
+"""
+
+ida_typeinf.TAPTR_PTR64
+"""
+ptr: __ptr64
+"""
+
+ida_typeinf.TAPTR_RESTRICT
+"""
+ptr: __restrict
+"""
+
+ida_typeinf.TAPTR_SHIFTED
+"""
+ptr: __shifted(parent_struct, delta)
+"""
+
+ida_typeinf.TAUDT_CPPOBJ
+"""
+struct: a c++ object, not simple pod type
+"""
+
+ida_typeinf.TAUDT_MSSTRUCT
+"""
+struct: gcc msstruct attribute
+"""
+
+ida_typeinf.TAUDT_UNALIGNED
+"""
+struct: unaligned struct
+"""
+
+ida_typeinf.TAUDT_VFTABLE
+"""
+struct: is virtual function table
+"""
+
+ida_typeinf.TA_ORG_ARRDIM
+"""
+the original array dimension (append_dd)
+"""
+
+ida_typeinf.TA_ORG_TYPEDEF
+"""
+the original typedef name (simple string)
+"""
+
+ida_typeinf.TCMP_ANYBASE
+"""
+accept any base class when casting
+"""
+
+ida_typeinf.TCMP_AUTOCAST
+"""
+can t1 be cast into t2 automatically?
+"""
+
+ida_typeinf.TCMP_CALL
+"""
+can t1 be called with t2 type?
+"""
+
+ida_typeinf.TCMP_DECL
+"""
+compare declarations without resolving them
+"""
+
+ida_typeinf.TCMP_DELPTR
+"""
+remove pointer from types before comparing
+"""
+
+ida_typeinf.TCMP_EQUAL
+"""
+are types equal?
+"""
+
+ida_typeinf.TCMP_IGNMODS
+"""
+ignore const/volatile modifiers
+"""
+
+ida_typeinf.TCMP_MANCAST
+"""
+can t1 be cast into t2 manually?
+"""
+
+ida_typeinf.TCMP_SKIPTHIS
+"""
+skip the first function argument in comparison
+"""
+
+ida_typeinf.TIL_ADD_ALREADY
+"""
+the base til was already added
+"""
+
+ida_typeinf.TIL_ADD_FAILED
+"""
+see errbuf
+"""
+
+ida_typeinf.TIL_ADD_OK
+"""
+some tils were added
+"""
+
+ida_typeinf.TIL_ALI
+"""
+type aliases are present (this bit is used only on the disk)
+"""
+
+ida_typeinf.TIL_ESI
+"""
+extended sizeof info (short, long, longlong)
+"""
+
+ida_typeinf.TIL_MAC
+"""
+til has macro table
+"""
+
+ida_typeinf.TIL_MOD
+"""
+til has been modified, should be saved
+"""
+
+ida_typeinf.TIL_ORD
+"""
+type ordinal numbers are present
+"""
+
+ida_typeinf.TIL_SLD
+"""
+sizeof(long double)
+"""
+
+ida_typeinf.TIL_STM
+"""
+til has extra streams
+"""
+
+ida_typeinf.TIL_UNI
+"""
+universal til for any compiler
+"""
+
+ida_typeinf.TIL_ZIP
+"""
+pack buckets using zip
+"""
+
+ida_typeinf.TINFO_DEFINITE
+"""
+this is a definite type
+"""
+
+ida_typeinf.TINFO_DELAYFUNC
+"""
+if type is a function and no function exists at ea, schedule its
+creation and argument renaming to auto-analysis otherwise try to
+create it immediately
+"""
+
+ida_typeinf.TINFO_GUESSED
+"""
+this is a guessed type
+"""
+
+ida_typeinf.TINFO_STRICT
+"""
+never convert given type to another one before applying
+"""
+
+ida_typeinf.TVIS_CMT
+"""
+new comment is present
+"""
+
+ida_typeinf.TVIS_NAME
+"""
+new name is present
+"""
+
+ida_typeinf.TVIS_TYPE
+"""
+new type info is present
+"""
+
+ida_typeinf.TVST_DEF
+"""
+visit type definition (meaningful for typerefs)
+"""
+
+ida_typeinf.TVST_PRUNE
+"""
+don't visit children of current type
+"""
+
+ida_typeinf.VALSTR_OPEN
+"""
+printed opening curly brace '{'
+"""

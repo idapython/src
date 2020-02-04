@@ -1,0 +1,10 @@
+### Processing graph.i
+fix_assignment: found info for NIF_BG_COLOR
+fix_assignment: found info for NIF_FRAME_COLOR
+fix_assignment: found info for NIF_EA
+fix_assignment: found info for NIF_TEXT
+fix_assignment: found info for NIF_FLAGS
+fix_assignment: found info for GLICTL_CENTER
+fix_assignment: found info for MTG_GROUP_NODE
+fix_assignment: found info for MTG_DOT_NODE
+fix_assignment: found info for MTG_NON_DISPLAYABLE_NODE

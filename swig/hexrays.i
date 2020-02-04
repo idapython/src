@@ -430,7 +430,7 @@ public:
   CINSN_MEMBER_REF(goto);
   CINSN_MEMBER_REF(asm);
 
-  static bool insn_is_epilog(const cinsn_t *insn) const { return insn == INS_EPILOG; }
+  static bool insn_is_epilog(const cinsn_t *insn) { return insn == INS_EPILOG; }
 
   %pythoncode {
     def is_epilog(self):
@@ -716,7 +716,7 @@ void qswap(cinsn_t &a, cinsn_t &b);
 %rename (get_widget_vdui) py_get_widget_vdui;
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x20012
+#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) cfuncptr_t {}
 %typemap(ret) cfuncptr_t
 {

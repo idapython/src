@@ -1,0 +1,31 @@
+
+
+ida_enum.DEFMASK
+"""
+default bitmask
+"""
+
+ida_enum.ENUM_MEMBER_ERROR_ENUM
+"""
+bad enum id
+"""
+
+ida_enum.ENUM_MEMBER_ERROR_ILLV
+"""
+bad bmask and value combination (~bmask & value != 0)
+"""
+
+ida_enum.ENUM_MEMBER_ERROR_MASK
+"""
+bad bmask
+"""
+
+ida_enum.ENUM_MEMBER_ERROR_NAME
+"""
+already have member with this name (bad name)
+"""
+
+ida_enum.ENUM_MEMBER_ERROR_VALUE
+"""
+already have 256 members with this value
+"""

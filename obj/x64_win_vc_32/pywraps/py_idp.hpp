@@ -622,7 +622,7 @@ class IDP_Hooks
     {
       char *s;
       Py_ssize_t len = 0;
-      if ( IDAPyBytes_AsStringAndSize(o, &s, &len) != -1 )
+      if ( IDAPyBytes_AsMemAndSize(o, &s, &len) != -1 )
       {
         if ( len > MAXSTR )
           len = MAXSTR;
@@ -698,7 +698,7 @@ class IDP_Hooks
       if ( IDAPyInt_Check(py_rc.o)
         && IDAPyInt_Check(py_out_res.o)
         && IDAPyStr_Check(py_out.o)
-        && IDAPyBytes_AsStringAndSize(py_out.o, &s, &len) != -1 )
+        && IDAPyBytes_AsMemAndSize(py_out.o, &s, &len) != -1 )
       {
         rc = IDAPyInt_AsLong(py_rc.o);
         *out_res = IDAPyInt_AsLong(py_out_res.o);

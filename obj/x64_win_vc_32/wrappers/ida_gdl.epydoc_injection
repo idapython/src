@@ -1,0 +1,90 @@
+
+
+ida_gdl.CHART_FOLLOW_DIRECTION
+"""
+analyze references to added blocks only in the direction of the
+reference who discovered the current block
+"""
+
+ida_gdl.CHART_GEN_DOT
+"""
+generate .dot file (file extension is forced to .dot)
+"""
+
+ida_gdl.CHART_GEN_GDL
+"""
+generate .gdl file (file extension is forced to .gdl)
+"""
+
+ida_gdl.CHART_IGNORE_LIB_FROM
+"""
+ignore references from library functions
+"""
+
+ida_gdl.CHART_IGNORE_LIB_TO
+"""
+ignore references to library functions
+"""
+
+ida_gdl.CHART_NOLIBFUNCS
+"""
+don't include library functions in the graph
+"""
+
+ida_gdl.CHART_PRINT_DOTS
+"""
+print dots if xrefs exist outside of the range recursion depth
+"""
+
+ida_gdl.CHART_PRINT_NAMES
+"""
+print labels for each block?
+"""
+
+ida_gdl.CHART_RECURSIVE
+"""
+analyze added blocks
+"""
+
+ida_gdl.CHART_REFERENCED
+"""
+references from the addresses in the list
+"""
+
+ida_gdl.CHART_REFERENCING
+"""
+references to the addresses in the list
+"""
+
+ida_gdl.CHART_WINGRAPH
+"""
+call grapher to display the graph
+"""
+
+ida_gdl.FC_APPND
+"""
+multirange flowchart (set by append_to_flowchart)
+"""
+
+ida_gdl.FC_CHKBREAK
+"""
+build_qflow_chart() may be aborted by user
+"""
+
+ida_gdl.FC_NOEXT
+"""
+do not compute external blocks. Use this to prevent jumps leaving the
+function from appearing in the flow chart. Unless specified, the
+targets of those outgoing jumps will be present in the flow chart
+under the form of one-instruction blocks
+"""
+
+ida_gdl.FC_PREDS
+"""
+compute predecessor lists
+"""
+
+ida_gdl.FC_PRINT
+"""
+print names (used only by display_flow_chart())
+"""

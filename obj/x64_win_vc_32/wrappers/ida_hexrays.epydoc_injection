@@ -1,0 +1,303 @@
+
+
+ida_hexrays.ANCHOR_BLKCMT
+"""
+block comment (for ctree items)
+"""
+
+ida_hexrays.ANCHOR_CITEM
+"""
+c-tree item
+"""
+
+ida_hexrays.ANCHOR_ITP
+"""
+item type preciser
+"""
+
+ida_hexrays.ANCHOR_LVAR
+"""
+declaration of local variable
+"""
+
+ida_hexrays.CFL_FINAL
+"""
+call type is final, should not be changed
+"""
+
+ida_hexrays.CFL_HELPER
+"""
+created from a decompiler helper function
+"""
+
+ida_hexrays.CFS_BOUNDS
+"""
+'eamap' and 'boundaries' are ready
+"""
+
+ida_hexrays.CFS_LVARS_HIDDEN
+"""
+local variable definitions are collapsed
+"""
+
+ida_hexrays.CFS_TEXT
+"""
+'sv' is ready (and hdrlines)
+"""
+
+ida_hexrays.CIT_COLLAPSED
+"""
+display element in collapsed form
+"""
+
+ida_hexrays.CV_FAST
+"""
+do not maintain parent information
+"""
+
+ida_hexrays.CV_INSNS
+"""
+visit only statements, prune all expressions do not use before the
+final ctree maturity because expressions may contain statements at
+intermediate stages (see cot_insn). Otherwise you risk missing
+statements embedded into expressions.
+"""
+
+ida_hexrays.CV_PARENTS
+"""
+maintain parent information
+"""
+
+ida_hexrays.CV_POST
+"""
+call the leave...() functions
+"""
+
+ida_hexrays.CV_PRUNE
+"""
+this bit is set by visit...() to prune the walk
+"""
+
+ida_hexrays.CV_RESTART
+"""
+restart enumeration at the top expr (apply_to_exprs)
+"""
+
+ida_hexrays.DECOMP_NO_CACHE
+"""
+do not use decompilation cache
+"""
+
+ida_hexrays.DECOMP_NO_FRAME
+"""
+do not use function frame info (only snippet mode)
+"""
+
+ida_hexrays.DECOMP_NO_WAIT
+"""
+do not display waitbox
+"""
+
+ida_hexrays.DECOMP_WARNINGS
+"""
+display warnings in the output window
+"""
+
+ida_hexrays.EXFL_ALL
+"""
+all currently defined bits
+"""
+
+ida_hexrays.EXFL_ALONE
+"""
+standalone helper
+"""
+
+ida_hexrays.EXFL_CPADONE
+"""
+pointer arithmetic correction done
+"""
+
+ida_hexrays.EXFL_CSTR
+"""
+string literal
+"""
+
+ida_hexrays.EXFL_FPOP
+"""
+floating point operation
+"""
+
+ida_hexrays.EXFL_JUMPOUT
+"""
+jump out-of-function
+"""
+
+ida_hexrays.EXFL_LVALUE
+"""
+expression is lvalue even if it doesn't look like it
+"""
+
+ida_hexrays.EXFL_PARTIAL
+"""
+type of the expression is considered partial
+"""
+
+ida_hexrays.EXFL_UNDEF
+"""
+expression uses undefined value
+"""
+
+ida_hexrays.EXFL_VFTABLE
+"""
+is ptr to vftable (used for cot_memptr, cot_memref)
+"""
+
+ida_hexrays.GLN_ALL
+"""
+get both
+"""
+
+ida_hexrays.GLN_CURRENT
+"""
+get label of the current item
+"""
+
+ida_hexrays.GLN_GOTO_TARGET
+"""
+get goto target
+"""
+
+ida_hexrays.LVINF_FORCE
+"""
+force allocation of a new variable. forces the decompiler to create a
+new variable at ll.defea
+"""
+
+ida_hexrays.LVINF_KEEP
+"""
+preserve saved user settings regardless of vars for example, if a var
+loses all its user-defined attributes or even gets destroyed, keep its
+'lvar_saved_info_t' . this is used for ephemeral variables that get
+destroyed by macro recognition.
+"""
+
+ida_hexrays.LVINF_NOPTR
+"""
+variable type should not be a pointer
+"""
+
+ida_hexrays.NF_BINVDONE
+"""
+temporary internal bit: inverting bits is done
+"""
+
+ida_hexrays.NF_BITNOT
+"""
+The user asked to invert bits of the constant.
+"""
+
+ida_hexrays.NF_FIXED
+"""
+number format has been defined by the user
+"""
+
+ida_hexrays.NF_NEGATE
+"""
+The user asked to negate the constant.
+"""
+
+ida_hexrays.NF_NEGDONE
+"""
+temporary internal bit: negation has been performed
+"""
+
+ida_hexrays.NF_STROFF
+"""
+internal bit: used as stroff, valid iff 'is_stroff()'
+"""
+
+ida_hexrays.SHINS_LDXEA
+"""
+display address of ldx expressions (not used)
+"""
+
+ida_hexrays.SHINS_NUMADDR
+"""
+display definition addresses for numbers
+"""
+
+ida_hexrays.SHINS_SHORT
+"""
+do not display use-def chains and other attrs
+"""
+
+ida_hexrays.SHINS_VALNUM
+"""
+display value numbers
+"""
+
+ida_hexrays.ULV_PRECISE_DEFEA
+"""
+Use precise defea's for lvar locations.
+"""
+
+ida_hexrays.VDRUN_APPEND
+"""
+Create a new file or append to existing file.
+"""
+
+ida_hexrays.VDRUN_CMDLINE
+"""
+called from ida's command line
+"""
+
+ida_hexrays.VDRUN_LUMINA
+"""
+use lumina server
+"""
+
+ida_hexrays.VDRUN_MAYSTOP
+"""
+the user can cancel decompilation
+"""
+
+ida_hexrays.VDRUN_NEWFILE
+"""
+Create a new file or overwrite existing file.
+"""
+
+ida_hexrays.VDRUN_ONLYNEW
+"""
+Fail if output file already exists.
+"""
+
+ida_hexrays.VDRUN_SENDIDB
+"""
+Send problematic databases to hex-rays.com.
+"""
+
+ida_hexrays.VDRUN_SILENT
+"""
+Silent decompilation.
+"""
+
+ida_hexrays.VDRUN_STATS
+"""
+print statistics into vd_stats.txt
+"""
+
+ida_hexrays.VDUI_LOCKED
+"""
+is locked?
+"""
+
+ida_hexrays.VDUI_VALID
+"""
+is valid?
+"""
+
+ida_hexrays.VDUI_VISIBLE
+"""
+is visible?
+"""

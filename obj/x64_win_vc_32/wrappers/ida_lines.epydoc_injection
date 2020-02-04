@@ -1,0 +1,318 @@
+
+
+ida_lines.COLOR_ADDR_SIZE
+"""
+Size of a tagged address (see 'COLOR_ADDR' )
+"""
+
+ida_lines.COLOR_BG_MAX
+"""
+Max color number.
+"""
+
+ida_lines.COLOR_CODE
+"""
+Single instruction.
+"""
+
+ida_lines.COLOR_CURITEM
+"""
+Current item.
+"""
+
+ida_lines.COLOR_CURLINE
+"""
+Current line.
+"""
+
+ida_lines.COLOR_DATA
+"""
+Data bytes.
+"""
+
+ida_lines.COLOR_DEFAULT
+"""
+Default.
+"""
+
+ida_lines.COLOR_ESC
+"""
+Escape character (Quote next character). This is needed to output '\1'
+and '\2' characters.
+"""
+
+ida_lines.COLOR_EXTERN
+"""
+External name definition segment.
+"""
+
+ida_lines.COLOR_HIDLINE
+"""
+Hidden line.
+"""
+
+ida_lines.COLOR_INV
+"""
+Escape character (Inverse foreground and background colors). This
+escape character has no corresponding 'COLOR_OFF' . Its action
+continues until the next 'COLOR_INV' or end of line.
+"""
+
+ida_lines.COLOR_LIBFUNC
+"""
+Library function.
+"""
+
+ida_lines.COLOR_LUMFUNC
+"""
+Lumina function.
+"""
+
+ida_lines.COLOR_OFF
+"""
+Followed by a color code ( 'color_t' ).
+
+Escape character (OFF).
+"""
+
+ida_lines.COLOR_ON
+"""
+Followed by a color code ( 'color_t' ).
+
+Escape character (ON).
+"""
+
+ida_lines.COLOR_REGFUNC
+"""
+Regular function.
+"""
+
+ida_lines.COLOR_SELECTED
+"""
+Selected.
+"""
+
+ida_lines.COLOR_UNKNOWN
+"""
+Unexplored byte.
+"""
+
+ida_lines.SCOLOR_ADDR
+"""
+Hidden address mark.
+"""
+
+ida_lines.SCOLOR_ALTOP
+"""
+Alternative operand.
+"""
+
+ida_lines.SCOLOR_ASMDIR
+"""
+Assembler directive.
+"""
+
+ida_lines.SCOLOR_AUTOCMT
+"""
+Automatic comment.
+"""
+
+ida_lines.SCOLOR_BINPREF
+"""
+Binary line prefix bytes.
+"""
+
+ida_lines.SCOLOR_CHAR
+"""
+Char constant in instruction.
+"""
+
+ida_lines.SCOLOR_CNAME
+"""
+Regular code name.
+"""
+
+ida_lines.SCOLOR_CODNAME
+"""
+Dummy code name.
+"""
+
+ida_lines.SCOLOR_COLLAPSED
+"""
+Collapsed line.
+"""
+
+ida_lines.SCOLOR_CREF
+"""
+Code reference.
+"""
+
+ida_lines.SCOLOR_CREFTAIL
+"""
+Code reference to tail byte.
+"""
+
+ida_lines.SCOLOR_DATNAME
+"""
+Dummy Data Name.
+"""
+
+ida_lines.SCOLOR_DCHAR
+"""
+Char constant in data directive.
+"""
+
+ida_lines.SCOLOR_DEFAULT
+"""
+Default.
+"""
+
+ida_lines.SCOLOR_DEMNAME
+"""
+Demangled Name.
+"""
+
+ida_lines.SCOLOR_DNAME
+"""
+Regular Data Name.
+"""
+
+ida_lines.SCOLOR_DNUM
+"""
+Numeric constant in data directive.
+"""
+
+ida_lines.SCOLOR_DREF
+"""
+Data reference.
+"""
+
+ida_lines.SCOLOR_DREFTAIL
+"""
+Data reference to tail byte.
+"""
+
+ida_lines.SCOLOR_DSTR
+"""
+String constant in data directive.
+"""
+
+ida_lines.SCOLOR_ERROR
+"""
+Error or problem.
+"""
+
+ida_lines.SCOLOR_ESC
+"""
+Escape character (Quote next character)
+"""
+
+ida_lines.SCOLOR_EXTRA
+"""
+Extra line.
+"""
+
+ida_lines.SCOLOR_HIDNAME
+"""
+Hidden name.
+"""
+
+ida_lines.SCOLOR_IMPNAME
+"""
+Imported name.
+"""
+
+ida_lines.SCOLOR_INSN
+"""
+Instruction.
+"""
+
+ida_lines.SCOLOR_INV
+"""
+Escape character (Inverse colors)
+"""
+
+ida_lines.SCOLOR_KEYWORD
+"""
+Keywords.
+"""
+
+ida_lines.SCOLOR_LIBNAME
+"""
+Library function name.
+"""
+
+ida_lines.SCOLOR_LOCNAME
+"""
+Local variable name.
+"""
+
+ida_lines.SCOLOR_MACRO
+"""
+Macro.
+"""
+
+ida_lines.SCOLOR_NUMBER
+"""
+Numeric constant in instruction.
+"""
+
+ida_lines.SCOLOR_OFF
+"""
+Escape character (OFF)
+"""
+
+ida_lines.SCOLOR_ON
+"""
+Escape character (ON)
+"""
+
+ida_lines.SCOLOR_PREFIX
+"""
+Line prefix.
+"""
+
+ida_lines.SCOLOR_REG
+"""
+Register name.
+"""
+
+ida_lines.SCOLOR_REGCMT
+"""
+Regular comment.
+"""
+
+ida_lines.SCOLOR_RPTCMT
+"""
+Repeatable comment (defined not here)
+"""
+
+ida_lines.SCOLOR_SEGNAME
+"""
+Segment name.
+"""
+
+ida_lines.SCOLOR_STRING
+"""
+String constant in instruction.
+"""
+
+ida_lines.SCOLOR_SYMBOL
+"""
+Punctuation.
+"""
+
+ida_lines.SCOLOR_UNAME
+"""
+Regular unknown name.
+"""
+
+ida_lines.SCOLOR_UNKNAME
+"""
+Dummy unknown name.
+"""
+
+ida_lines.SCOLOR_VOIDOP
+"""
+Void operand.
+"""

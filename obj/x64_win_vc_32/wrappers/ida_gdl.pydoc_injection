@@ -1,0 +1,18 @@
+### Processing gdl.i
+fix_assignment: found info for CHART_PRINT_NAMES
+fix_assignment: found info for CHART_GEN_DOT
+fix_assignment: found info for CHART_GEN_GDL
+fix_assignment: found info for CHART_WINGRAPH
+fix_assignment: found info for CHART_NOLIBFUNCS
+fix_assignment: found info for CHART_REFERENCING
+fix_assignment: found info for CHART_REFERENCED
+fix_assignment: found info for CHART_RECURSIVE
+fix_assignment: found info for CHART_FOLLOW_DIRECTION
+fix_assignment: found info for CHART_IGNORE_LIB_TO
+fix_assignment: found info for CHART_IGNORE_LIB_FROM
+fix_assignment: found info for CHART_PRINT_DOTS
+fix_assignment: found info for FC_PRINT
+fix_assignment: found info for FC_NOEXT
+fix_assignment: found info for FC_PREDS
+fix_assignment: found info for FC_APPND
+fix_assignment: found info for FC_CHKBREAK

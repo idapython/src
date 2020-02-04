@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 import re
 import sys
+import six
 import xml.etree.ElementTree as ET
 
 try:
@@ -74,7 +75,7 @@ swig_clink_var_get_regex = re.compile(r"SWIGINTERN PyObject \*(Swig_var_[a-zA-Z0
 swig_clink_var_set_regex = re.compile(r"SWIGINTERN int (Swig_var_[a-zA-Z0-9_]*_set).*")
 
 all_lines = []
-with open(args.file, "rb") as f:
+with open(args.file, "r") as f:
     STAT_UNKNOWN = {}
     STAT_IN_FUNCTION = {}
     stat = STAT_UNKNOWN
@@ -149,14 +150,14 @@ with open(args.file, "rb") as f:
                     raise Exception("Unknown patch kind: %s" % patch_kind)
             entered_function = False
         if subst is not None:
-            if isinstance(subst, basestring):
+            if isinstance(subst, six.string_types):
                 subst = [subst]
             all_lines.extend(map(lambda l: "%s\n" % l, subst))
         else:
             all_lines.append(line)
 
 tmp_file = "%s.tmp" % args.file
-with open(tmp_file, "wb") as f:
+with open(tmp_file, "w") as f:
     f.writelines(all_lines)
 os.unlink(args.file)
 os.rename(tmp_file, args.file)

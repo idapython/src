@@ -1,0 +1,55 @@
+
+
+ida_idd.EXC_BREAK
+"""
+break on the exception
+"""
+
+ida_idd.EXC_HANDLE
+"""
+should be handled by the debugger?
+"""
+
+ida_idd.EXC_MSG
+"""
+instead of a warning, log the exception to the output window
+"""
+
+ida_idd.EXC_SILENT
+"""
+do not warn or log to the output window
+"""
+
+ida_idd.IDD_INTERFACE_VERSION
+"""
+The IDD interface version number.
+"""
+
+ida_idd.NO_PROCESS
+"""
+No process.
+"""
+
+ida_idd.NO_THREAD
+"""
+No thread. in 'PROCESS_STARTED' this value can be used to specify that
+the main thread has not been created. It will be initialized later by
+a 'THREAD_STARTED' event.
+"""
+
+ida_idd.RVT_FLOAT
+"""
+floating point
+"""
+
+ida_idd.RVT_INT
+"""
+integer
+"""
+
+ida_idd.RVT_UNAVAILABLE
+"""
+other values mean custom data type
+
+unavailable
+"""

@@ -71,7 +71,7 @@ class Hexrays_Hooks
       {
         char *buf;
         Py_ssize_t bufsize;
-        if ( IDAPyBytes_AsStringAndSize(py_hint.o, &buf, &bufsize) > -1 )
+        if ( IDAPyBytes_AsMemAndSize(py_hint.o, &buf, &bufsize) > -1 )
         {
           rc = IDAPyInt_AsLong(py_rc.o);
           qstring tmp(buf, bufsize);

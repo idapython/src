@@ -1,0 +1,13 @@
+
+
+ida_entry.AEF_IDBENC
+"""
+non-ASCII bytes will be decoded accordingly
+
+the name is given in the IDB encoding;
+"""
+
+ida_entry.AEF_UTF8
+"""
+the name is given in UTF-8 (default)
+"""

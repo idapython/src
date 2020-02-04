@@ -1,0 +1,45 @@
+
+
+ida_xref.XREF_ALL
+"""
+return all references
+"""
+
+ida_xref.XREF_BASE
+"""
+Reference to the base part of an offset.
+"""
+
+ida_xref.XREF_DATA
+"""
+return data references only
+"""
+
+ida_xref.XREF_FAR
+"""
+don't return ordinary flow xrefs
+"""
+
+ida_xref.XREF_MASK
+"""
+Mask to get xref type.
+"""
+
+ida_xref.XREF_PASTEND
+"""
+Reference is past item. This bit may be passed to 'add_dref()'
+functions but it won't be saved in the database. It will prevent the
+destruction of eventual alignment directives.
+"""
+
+ida_xref.XREF_TAIL
+"""
+Reference to tail byte in extrn symbols.
+"""
+
+ida_xref.XREF_USER
+"""
+User specified xref. This xref will not be deleted by IDA. This bit
+should be combined with the existing xref types ( 'cref_t' & 'dref_t'
+) Can not be used for fl_F xrefs
+"""

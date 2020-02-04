@@ -1,0 +1,9 @@
+### Processing tryblks.i
+fix_assignment: found info for TBERR_OK
+fix_assignment: found info for TBERR_START
+fix_assignment: found info for TBERR_END
+fix_assignment: found info for TBERR_ORDER
+fix_assignment: found info for TBERR_EMPTY
+fix_assignment: found info for TBERR_KIND
+fix_assignment: found info for TBERR_NO_CATCHES
+fix_assignment: found info for TBERR_INTERSECT

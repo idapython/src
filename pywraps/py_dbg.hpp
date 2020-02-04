@@ -181,7 +181,7 @@ static ssize_t py_write_dbg_memory(ea_t ea, PyObject *py_buf, size_t size=size_t
     return -1;
   char *buf = NULL;
   Py_ssize_t sz;
-  if ( IDAPyBytes_AsStringAndSize(py_buf, &buf, &sz) < 0 )
+  if ( IDAPyBytes_AsMemAndSize(py_buf, &buf, &sz) < 0 )
     return -1;
   if ( size == size_t(-1) )
     size = size_t(sz);

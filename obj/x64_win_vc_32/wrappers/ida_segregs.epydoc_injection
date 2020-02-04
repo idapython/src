@@ -1,0 +1,21 @@
+
+
+ida_segregs.SR_auto
+"""
+the value is determined by IDA
+"""
+
+ida_segregs.SR_autostart
+"""
+used as 'SR_auto' for segment starting address
+"""
+
+ida_segregs.SR_inherit
+"""
+the value is inherited from the previous range
+"""
+
+ida_segregs.SR_user
+"""
+the value is specified by the user
+"""

@@ -5,6 +5,10 @@
 #include <pro.h>
 %}
 
+%{
+#include "../../../idapy.hpp"
+%}
+
 // Auto-inserted header
 // generate directors for all classes that have virtual methods
 %feature("director");
@@ -224,12 +228,12 @@ import sys
 _BC695 = sys.modules["__main__"].IDAPYTHON_COMPAT_695_API
 
 if _BC695:
-    # This is a helper for replacing an existing function, with a wrapper
-    # providing backwards-compatibility for API 6.95 -- typically because
-    # the number/types of arguments changed, while the function name itself
-    # remained the same in 7.0.
-    # (Note that this shouldn't be used for functions that don't exist
-    # in the vanilla 7.0 API, such as 'choose_named_type2'.)
+    ## This is a helper for replacing an existing function, with a wrapper
+    ## providing backwards-compatibility for API 6.95 -- typically because
+    ## the number/types of arguments changed, while the function name itself
+    ## remained the same in 7.0.
+    ## (Note that this shouldn't be used for functions that don't exist
+    ## in the vanilla 7.0 API, such as 'choose_named_type2'.)
     def bc695redef(func):
         ida_idaapi._BC695.replace_fun(func)
         return func
@@ -675,7 +679,7 @@ static PyObject *type##_get_clink_ptr(PyObject *self)
     // init properly, so ctor can't crash
     char *buf = NULL;
     Py_ssize_t length = 0;
-    /*int success =*/ IDAPyBytes_AsStringAndSize($input, &buf, &length);
+    /*int success =*/ IDAPyBytes_AsMemAndSize($input, &buf, &length);
     $1 = new CONTAINER_TYPE(INSTANCE_CAST buf, length); // build regardless of success
   }
   else
@@ -890,7 +894,7 @@ struct dynamic_wrapped_array_t {
 }
 
 //-------------------------------------------------------------------------
-#if SWIG_VERSION == 0x20012
+#if SWIG_VERSION == 0x40000 || SWIG_VERSION == 0x40001
 %typemap(out) tinfo_t {}
 %typemap(ret) tinfo_t
 {

@@ -181,7 +181,7 @@ static int py_load_custom_icon_data(PyObject *data, const char *format)
   Py_ssize_t len;
   char *s;
   PYW_GIL_CHECK_LOCKED_SCOPE();
-  if ( IDAPyBytes_AsStringAndSize(data, &s, &len) == -1 )
+  if ( IDAPyBytes_AsMemAndSize(data, &s, &len) == -1 )
     return 0;
   else
     return load_custom_icon(s, len, format);
@@ -954,7 +954,7 @@ public:
     ssize_t rc = 0;
     char *_buf;
     Py_ssize_t _len;
-    if ( o != NULL && IDAPyStr_Check(o) && IDAPyBytes_AsStringAndSize(o, &_buf, &_len) != -1 )
+    if ( o != NULL && IDAPyStr_Check(o) && IDAPyBytes_AsMemAndSize(o, &_buf, &_len) != -1 )
     {
       buf->append(_buf, _len);
       rc = 1;
@@ -973,7 +973,7 @@ public:
       Py_ssize_t _len;
       if ( el0 != NULL
         && IDAPyStr_Check(el0.o)
-        && IDAPyBytes_AsStringAndSize(el0.o, &_buf, &_len) != -1
+        && IDAPyBytes_AsMemAndSize(el0.o, &_buf, &_len) != -1
         && _len > 0 )
       {
         borref_t el1(PyTuple_GetItem(o, 1));

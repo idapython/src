@@ -1,0 +1,30 @@
+
+
+ida_fixup.FIXUPF_CREATED
+"""
+fixup was not present in the input file
+"""
+
+ida_fixup.FIXUPF_EXTDEF
+"""
+target is a location (otherwise - segment). Use this bit if the target
+is a symbol rather than an offset from the beginning of a segment.
+"""
+
+ida_fixup.FIXUPF_LOADER_MASK
+"""
+additional flags. The bits from this mask are not stored in the
+database and can be used by the loader at its discretion.
+"""
+
+ida_fixup.FIXUPF_REL
+"""
+fixup is relative to the linear address `base'. Otherwise fixup is
+relative to the start of the segment with `sel' selector.
+"""
+
+ida_fixup.FIXUPF_UNUSED
+"""
+fixup is ignored by IDAdisallows the kernel to convert operandsthis
+fixup is not used during output
+"""

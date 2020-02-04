@@ -1,0 +1,924 @@
+
+
+ida_idp.AS2_BRACE
+"""
+Use braces for all expressions.
+"""
+
+ida_idp.AS2_BYTE1CHAR
+"""
+Meaningful only for wide byte processors.
+
+One symbol per processor byte
+"""
+
+ida_idp.AS2_COLONSUF
+"""
+addresses may have ":xx" suffix this suffix must be ignored when
+extracting the address under the cursor
+"""
+
+ida_idp.AS2_IDEALDSCR
+"""
+Description of struc/union is in the 'reverse' form (keyword before
+name) the same as in borland tasm ideal
+"""
+
+ida_idp.AS2_STRINV
+"""
+(For processors with bytes bigger than 8 bits)
+
+Invert meaning of {wide_high_byte_first} for text strings
+"""
+
+ida_idp.AS2_TERSESTR
+"""
+NAME<fld,fld,...> is supported.
+
+'terse' structure initialization form
+"""
+
+ida_idp.AS2_YWORD
+"""
+a_yword field is present and valid
+"""
+
+ida_idp.ASB_BINF0
+"""
+010101b
+"""
+
+ida_idp.ASB_BINF1
+"""
+^B010101
+"""
+
+ida_idp.ASB_BINF2
+"""
+%010101
+"""
+
+ida_idp.ASB_BINF3
+"""
+0b1010101
+"""
+
+ida_idp.ASB_BINF4
+"""
+b'1010101
+"""
+
+ida_idp.ASB_BINF5
+"""
+b'1010101'
+"""
+
+ida_idp.ASD_DECF0
+"""
+34
+"""
+
+ida_idp.ASD_DECF1
+"""
+#34
+"""
+
+ida_idp.ASD_DECF3
+"""
+.34
+"""
+
+ida_idp.ASH_HEXF0
+"""
+34h
+"""
+
+ida_idp.ASH_HEXF1
+"""
+h'34
+"""
+
+ida_idp.ASH_HEXF2
+"""
+34
+"""
+
+ida_idp.ASH_HEXF3
+"""
+0x34
+"""
+
+ida_idp.ASH_HEXF4
+"""
+$34
+"""
+
+ida_idp.ASH_HEXF5
+"""
+<^R > (radix)
+"""
+
+ida_idp.ASO_OCTF0
+"""
+123o
+"""
+
+ida_idp.ASO_OCTF1
+"""
+0123
+"""
+
+ida_idp.ASO_OCTF2
+"""
+123
+"""
+
+ida_idp.ASO_OCTF3
+"""
+@123
+"""
+
+ida_idp.ASO_OCTF4
+"""
+o'123
+"""
+
+ida_idp.ASO_OCTF5
+"""
+123q
+"""
+
+ida_idp.ASO_OCTF6
+"""
+~123
+"""
+
+ida_idp.ASO_OCTF7
+"""
+q'123
+"""
+
+ida_idp.AS_1TEXT
+"""
+1 text per line, no bytes
+"""
+
+ida_idp.AS_2CHRE
+"""
+double char constants are: "xy
+"""
+
+ida_idp.AS_ALIGN2
+"""
+(.align 5 means to align at 32byte boundary)
+
+.align directive expects an exponent rather than a power of 2
+"""
+
+ida_idp.AS_ASCIIC
+"""
+(\n,\x01 and similar)
+
+ascii directive accepts C-like escape sequences
+"""
+
+ida_idp.AS_ASCIIZ
+"""
+ascii directive inserts implicit zero byte at the end
+"""
+
+ida_idp.AS_BINFM
+"""
+mask - binary number format
+"""
+
+ida_idp.AS_COLON
+"""
+create colons after data names ?
+"""
+
+ida_idp.AS_DECFM
+"""
+mask - decimal number format
+"""
+
+ida_idp.AS_HEXFM
+"""
+mask - hex number format
+"""
+
+ida_idp.AS_LALIGN
+"""
+Labels at "align" keyword are supported.
+"""
+
+ida_idp.AS_N2CHR
+"""
+can't have 2 byte char consts
+"""
+
+ida_idp.AS_NCHRE
+"""
+char constants are: 'x
+"""
+
+ida_idp.AS_NCMAS
+"""
+no commas in ascii directives
+"""
+
+ida_idp.AS_NHIAS
+"""
+no characters with high bit
+"""
+
+ida_idp.AS_NOCODECLN
+"""
+don't create colons after code names
+"""
+
+ida_idp.AS_NOSPACE
+"""
+No spaces in expressions.
+"""
+
+ida_idp.AS_NOXRF
+"""
+Disable xrefs during the output file generation.
+"""
+
+ida_idp.AS_OCTFM
+"""
+mask - octal number format
+"""
+
+ida_idp.AS_OFFST
+"""
+offsets are 'offset xxx' ?
+"""
+
+ida_idp.AS_ONEDUP
+"""
+One array definition per line.
+"""
+
+ida_idp.AS_RELSUP
+"""
+Checkarg: 'and','or','xor' operations with addresses are possible.
+"""
+
+ida_idp.AS_UDATA
+"""
+can use '?' in data directives
+"""
+
+ida_idp.AS_UNEQU
+"""
+replace undefined data items with EQU (for ANTA's A80)
+"""
+
+ida_idp.AS_XTRNTYPE
+"""
+Assembler understands type of extern symbols as ":type" suffix.
+"""
+
+ida_idp.CF_CALL
+"""
+CALL instruction (should make a procedure here)
+"""
+
+ida_idp.CF_CHG1
+"""
+The instruction modifies the first operand.
+"""
+
+ida_idp.CF_CHG2
+"""
+The instruction modifies the second operand.
+"""
+
+ida_idp.CF_CHG3
+"""
+The instruction modifies the third operand.
+"""
+
+ida_idp.CF_CHG4
+"""
+The instruction modifies 4 operand.
+"""
+
+ida_idp.CF_CHG5
+"""
+The instruction modifies 5 operand.
+"""
+
+ida_idp.CF_CHG6
+"""
+The instruction modifies 6 operand.
+"""
+
+ida_idp.CF_HLL
+"""
+language function.
+
+Instruction may be present in a high level
+"""
+
+ida_idp.CF_JUMP
+"""
+jump or call (thus needs additional analysis)
+
+The instruction passes execution using indirect
+"""
+
+ida_idp.CF_SHFT
+"""
+Bit-shift instruction (shl,shr...)
+"""
+
+ida_idp.CF_STOP
+"""
+next instruction
+
+Instruction doesn't pass execution to the
+"""
+
+ida_idp.CF_USE1
+"""
+The instruction uses value of the first operand.
+"""
+
+ida_idp.CF_USE2
+"""
+The instruction uses value of the second operand.
+"""
+
+ida_idp.CF_USE3
+"""
+The instruction uses value of the third operand.
+"""
+
+ida_idp.CF_USE4
+"""
+The instruction uses value of the 4 operand.
+"""
+
+ida_idp.CF_USE5
+"""
+The instruction uses value of the 5 operand.
+"""
+
+ida_idp.CF_USE6
+"""
+The instruction uses value of the 6 operand.
+"""
+
+ida_idp.CUSTOM_INSN_ITYPE
+"""
+Custom instruction codes defined by processor extension plugins must
+be greater than or equal to this
+"""
+
+ida_idp.IDP_INTERFACE_VERSION
+"""
+The interface version number.see also 'IDA_SDK_VERSION' from 'pro.h'
+"""
+
+ida_idp.OP_FP_BASED
+"""
+operand is FP based
+"""
+
+ida_idp.OP_SP_ADD
+"""
+operand value is added to the pointer
+"""
+
+ida_idp.OP_SP_BASED
+"""
+operand is SP based
+"""
+
+ida_idp.OP_SP_SUB
+"""
+operand value is subtracted from the pointer
+"""
+
+ida_idp.PLFM_386
+"""
+Intel 80x86.
+"""
+
+ida_idp.PLFM_6502
+"""
+6502
+"""
+
+ida_idp.PLFM_65C816
+"""
+65802/65816
+"""
+
+ida_idp.PLFM_6800
+"""
+Motorola 68xx.
+"""
+
+ida_idp.PLFM_68K
+"""
+Motorola 680x0.
+"""
+
+ida_idp.PLFM_80196
+"""
+Intel 80196.
+"""
+
+ida_idp.PLFM_8051
+"""
+8051
+"""
+
+ida_idp.PLFM_AD2106X
+"""
+Analog Devices ADSP 2106X.
+"""
+
+ida_idp.PLFM_AD218X
+"""
+Analog Devices ADSP 218X.
+"""
+
+ida_idp.PLFM_ALPHA
+"""
+DEC Alpha.
+"""
+
+ida_idp.PLFM_ARC
+"""
+Argonaut RISC Core.
+"""
+
+ida_idp.PLFM_ARM
+"""
+Advanced RISC Machines.
+"""
+
+ida_idp.PLFM_AVR
+"""
+Atmel 8-bit RISC processor(s)
+"""
+
+ida_idp.PLFM_C166
+"""
+Siemens C166 family.
+"""
+
+ida_idp.PLFM_C39
+"""
+Rockwell C39.
+"""
+
+ida_idp.PLFM_CR16
+"""
+NSC CR16.
+"""
+
+ida_idp.PLFM_DALVIK
+"""
+Android Dalvik Virtual Machine.
+"""
+
+ida_idp.PLFM_DSP56K
+"""
+Motorola DSP5600x.
+"""
+
+ida_idp.PLFM_DSP96K
+"""
+Motorola DSP96000.
+"""
+
+ida_idp.PLFM_EBC
+"""
+EFI Bytecode.
+"""
+
+ida_idp.PLFM_F2MC
+"""
+Fujistu F2MC-16.
+"""
+
+ida_idp.PLFM_FR
+"""
+Fujitsu FR Family.
+"""
+
+ida_idp.PLFM_H8
+"""
+Hitachi H8/300, H8/2000.
+"""
+
+ida_idp.PLFM_H8500
+"""
+Hitachi H8/500.
+"""
+
+ida_idp.PLFM_HPPA
+"""
+Hewlett-Packard PA-RISC.
+"""
+
+ida_idp.PLFM_I860
+"""
+Intel 860.
+"""
+
+ida_idp.PLFM_I960
+"""
+Intel 960.
+"""
+
+ida_idp.PLFM_IA64
+"""
+Intel Itanium IA64.
+"""
+
+ida_idp.PLFM_JAVA
+"""
+Java.
+"""
+
+ida_idp.PLFM_KR1878
+"""
+Angstrem KR1878.
+"""
+
+ida_idp.PLFM_M16C
+"""
+Renesas M16C.
+"""
+
+ida_idp.PLFM_M32R
+"""
+Mitsubishi 32bit RISC.
+"""
+
+ida_idp.PLFM_M740
+"""
+Mitsubishi 8bit.
+"""
+
+ida_idp.PLFM_M7700
+"""
+Mitsubishi 16bit.
+"""
+
+ida_idp.PLFM_M7900
+"""
+Mitsubishi 7900.
+"""
+
+ida_idp.PLFM_MC6812
+"""
+Motorola 68HC12.
+"""
+
+ida_idp.PLFM_MC6816
+"""
+Motorola 68HC16.
+"""
+
+ida_idp.PLFM_MIPS
+"""
+MIPS.
+"""
+
+ida_idp.PLFM_MN102L00
+"""
+Panasonic MN10200.
+"""
+
+ida_idp.PLFM_MSP430
+"""
+Texas Instruments MSP430.
+"""
+
+ida_idp.PLFM_NEC_78K0
+"""
+NEC 78K0.
+"""
+
+ida_idp.PLFM_NEC_78K0S
+"""
+NEC 78K0S.
+"""
+
+ida_idp.PLFM_NEC_V850X
+"""
+NEC V850 and V850ES/E1/E2.
+"""
+
+ida_idp.PLFM_NET
+"""
+Microsoft Visual Studio.Net.
+"""
+
+ida_idp.PLFM_OAKDSP
+"""
+Atmel OAK DSP.
+"""
+
+ida_idp.PLFM_PDP
+"""
+PDP11.
+"""
+
+ida_idp.PLFM_PIC
+"""
+Microchip's PIC.
+"""
+
+ida_idp.PLFM_PIC16
+"""
+Microchip's 16-bit PIC.
+"""
+
+ida_idp.PLFM_PPC
+"""
+PowerPC.
+"""
+
+ida_idp.PLFM_SCR_ADPT
+"""
+Processor module adapter for processor modules written in scripting
+languages.
+"""
+
+ida_idp.PLFM_SH
+"""
+Renesas (formerly Hitachi) SuperH.
+"""
+
+ida_idp.PLFM_SPARC
+"""
+SPARC.
+"""
+
+ida_idp.PLFM_SPC700
+"""
+Sony SPC700.
+"""
+
+ida_idp.PLFM_SPU
+"""
+Cell Broadband Engine Synergistic Processor Unit.
+"""
+
+ida_idp.PLFM_ST20
+"""
+SGS-Thomson ST20.
+"""
+
+ida_idp.PLFM_ST7
+"""
+SGS-Thomson ST7.
+"""
+
+ida_idp.PLFM_ST9
+"""
+ST9+.
+"""
+
+ida_idp.PLFM_TLCS900
+"""
+Toshiba TLCS-900.
+"""
+
+ida_idp.PLFM_TMS
+"""
+Texas Instruments TMS320C5x.
+"""
+
+ida_idp.PLFM_TMS320C1X
+"""
+Texas Instruments TMS320C1x.
+"""
+
+ida_idp.PLFM_TMS320C28
+"""
+Texas Instruments TMS320C28x.
+"""
+
+ida_idp.PLFM_TMS320C3
+"""
+Texas Instruments TMS320C3.
+"""
+
+ida_idp.PLFM_TMS320C54
+"""
+Texas Instruments TMS320C54xx.
+"""
+
+ida_idp.PLFM_TMS320C55
+"""
+Texas Instruments TMS320C55xx.
+"""
+
+ida_idp.PLFM_TMSC6
+"""
+Texas Instruments TMS320C6x.
+"""
+
+ida_idp.PLFM_TRICORE
+"""
+Tasking Tricore.
+"""
+
+ida_idp.PLFM_TRIMEDIA
+"""
+Trimedia.
+"""
+
+ida_idp.PLFM_UNSP
+"""
+SunPlus unSP.
+"""
+
+ida_idp.PLFM_Z8
+"""
+Z8.
+"""
+
+ida_idp.PLFM_Z80
+"""
+8085, Z80
+"""
+
+ida_idp.PRN_BIN
+"""
+binary
+"""
+
+ida_idp.PRN_DEC
+"""
+decimal
+"""
+
+ida_idp.PRN_HEX
+"""
+hex
+"""
+
+ida_idp.PRN_OCT
+"""
+octal
+"""
+
+ida_idp.PR_ADJSEGS
+"""
+IDA may adjust segments' starting/ending addresses.
+"""
+
+ida_idp.PR_ALIGN
+"""
+All data items should be aligned properly.
+"""
+
+ida_idp.PR_ALIGN_INSN
+"""
+allow ida to create alignment instructions arbitrarily. Since these
+instructions might lead to other wrong instructions and spoil the
+listing, IDA does not create them by default anymore
+"""
+
+ida_idp.PR_ASSEMBLE
+"""
+Module has a built-in assembler and will react to ev_assemble.
+"""
+
+ida_idp.PR_BINMEM
+"""
+the processor module provides correct segmentation for binary files
+(i.e. it creates additional segments) The kernel will not ask the user
+to specify the RAM/ROM sizes
+"""
+
+ida_idp.PR_CHK_XREF
+"""
+don't allow near xrefs between segments with different bases
+"""
+
+ida_idp.PR_CNDINSNS
+"""
+has conditional instructions
+"""
+
+ida_idp.PR_DEFNUM
+"""
+mask - default number representation
+"""
+
+ida_idp.PR_DEFSEG32
+"""
+segments are 32-bit by default
+"""
+
+ida_idp.PR_DEFSEG64
+"""
+segments are 64-bit by default
+"""
+
+ida_idp.PR_DELAYED
+"""
+has delayed jumps and calls if this flag is set, {is_basic_block_end},
+{has_delay_slot} should be implemented
+"""
+
+ida_idp.PR_NOCHANGE
+"""
+(display only)
+
+The user can't change segments and code/data attributes
+"""
+
+ida_idp.PR_NO_SEGMOVE
+"""
+(i.e. the user can't move segments)
+
+the processor module doesn't support 'move_segm()'
+"""
+
+ida_idp.PR_PURGING
+"""
+there are calling conventions which may purge bytes from the stack
+"""
+
+ida_idp.PR_RNAMESOK
+"""
+allow user register names for location names
+"""
+
+ida_idp.PR_SCALE_STKVARS
+"""
+use {get_stkvar_scale} callback
+"""
+
+ida_idp.PR_SEGS
+"""
+has segment registers?
+"""
+
+ida_idp.PR_SEGTRANS
+"""
+the processor module supports the segment translation feature (meaning
+it calculates the code addresses using the 'map_code_ea()' function)
+"""
+
+ida_idp.PR_SGROTHER
+"""
+the segment registers don't contain the segment selectors.
+"""
+
+ida_idp.PR_STACK_UP
+"""
+the stack grows up
+"""
+
+ida_idp.PR_TYPEINFO
+"""
+ALL OF THEM SHOULD BE IMPLEMENTED!
+
+the processor module supports type information callbacks
+"""
+
+ida_idp.PR_USE32
+"""
+supports 32-bit addressing?
+"""
+
+ida_idp.PR_USE64
+"""
+supports 64-bit addressing?
+"""
+
+ida_idp.PR_USE_ARG_TYPES
+"""
+use {use_arg_types} callback
+"""
+
+ida_idp.PR_USE_TBYTE
+"""
+ 'BTMT_SPECFLT' means _TBYTE type
+"""
+
+ida_idp.PR_WORD_INS
+"""
+instruction codes are grouped 2bytes in binary line prefix
+"""
+
+ida_idp.REG_SPOIL
+"""
+processor_t::use_regarg_type uses this bit in the return value to
+indicate that the register value has been spoiled
+"""

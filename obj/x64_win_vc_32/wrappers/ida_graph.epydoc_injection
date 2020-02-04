@@ -1,0 +1,48 @@
+
+
+ida_graph.GLICTL_CENTER
+"""
+the gli should be set/get as center
+"""
+
+ida_graph.MTG_DOT_NODE
+"""
+is dot node?
+"""
+
+ida_graph.MTG_GROUP_NODE
+"""
+is group node?
+"""
+
+ida_graph.MTG_NON_DISPLAYABLE_NODE
+"""
+for disassembly graphs - non-displayable nodes have a visible area
+that is too large to generate disassembly lines for without IDA
+slowing down significantly (see MAX_VISIBLE_NODE_AREA)
+"""
+
+ida_graph.NIF_BG_COLOR
+"""
+ 'node_info_t::bg_color'
+"""
+
+ida_graph.NIF_EA
+"""
+ 'node_info_t::ea'
+"""
+
+ida_graph.NIF_FLAGS
+"""
+ 'node_info_t::flags'
+"""
+
+ida_graph.NIF_FRAME_COLOR
+"""
+ 'node_info_t::frame_color'
+"""
+
+ida_graph.NIF_TEXT
+"""
+ 'node_info_t::text'
+"""

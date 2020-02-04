@@ -149,7 +149,7 @@ class collect_pydoc_t(object):
     def collect_fun(self, fun_name):
         collected = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -173,7 +173,7 @@ class collect_pydoc_t(object):
     def collect_method(self, cls, method_name):
         collected = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith(self.PYDOC_END):
                     self.state = self.S_UNKNOWN
@@ -195,7 +195,7 @@ class collect_pydoc_t(object):
         collected = []
         cls = {"methods":{},"doc":None}
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_IN_PYDOC:
                 if line.startswith("    def "):
                     self.collect_method(cls, get_fun_name(line))
@@ -221,7 +221,7 @@ class collect_pydoc_t(object):
         context = None
         doc = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if self.state is self.S_UNKNOWN:
                 if line.startswith(self.PYDOC_START):
                     self.state = self.S_IN_PYDOC
@@ -410,7 +410,7 @@ class idaapi_fixer_t(object):
         return line
 
     def copy(self, out):
-        line = next(self)
+        line = self.next()
         out.append(line)
         return line
 
@@ -485,7 +485,7 @@ class idaapi_fixer_t(object):
             # Opening docstring line; determine indentation level
             indent = get_indent_string(line)
             while True:
-                line = next(self)
+                line = self.next()
                 if line.find(DOCSTR_MARKER) > -1:
                     # Closing docstring line
                     swig_generated_param_names = self.extract_swig_generated_param_names(fun_name, out[doc_start_line_idx:])
@@ -538,7 +538,7 @@ class idaapi_fixer_t(object):
         # If class has doc, maybe inject additional <pydoc>
         if line.find(DOCSTR_MARKER) > -1:
             while True:
-                line = next(self)
+                line = self.next()
                 if line.find(DOCSTR_MARKER) > -1:
                     doc = found["doc"]
                     if doc is not None:
@@ -554,7 +554,7 @@ class idaapi_fixer_t(object):
         # their docstring
         method_start = indent + "def "
         while True:
-            line = next(self)
+            line = self.next()
             # print "Fixing methods.. Line is '%s'" % line
             if line.startswith(indent) or line.strip() == "":
                 if line.startswith(method_start):
@@ -569,7 +569,7 @@ class idaapi_fixer_t(object):
     def fix_assignment(self, out, match):
         # out.append("LOL: %s" % match.group(1))
         line = self.copy(out)
-        line = next(self)
+        line = self.next()
         if not line.startswith(DOCSTR_MARKER):
             # apparently no epydoc-compliant docstring follows. Let's
             # look for a possible match in the xml doc.
@@ -592,7 +592,7 @@ class idaapi_fixer_t(object):
         self.xml_tree = doxygen_utils.load_xml_for_module(xml_dir_path, args.module)
         out = []
         while len(self.lines) > 0:
-            line = next(self)
+            line = self.next()
             if line.startswith("def "):
                 self.push_front(line)
                 self.fix_fun(out)
@@ -615,7 +615,7 @@ collecter = collect_pydoc_t(args.wrapper)
 collected = collecter.collect()
 fixer = idaapi_fixer_t(collected, patches)
 fixer.fix_file(args)
-with open(args.epydoc_injections, "wb") as fout:
+with open(args.epydoc_injections, "w") as fout:
     for key in sorted(fixer.epydoc_injections.keys()):
         fout.write("\n\nida_%s.%s\n" % (args.module, key))
         fout.write("\n".join(fixer.epydoc_injections[key]))

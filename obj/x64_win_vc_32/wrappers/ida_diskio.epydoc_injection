@@ -1,0 +1,6 @@
+
+
+ida_diskio.IDA_SUBDIR_IDP
+"""
+append the processor name as a subdirectory
+"""

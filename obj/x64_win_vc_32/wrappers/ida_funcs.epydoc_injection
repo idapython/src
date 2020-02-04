@@ -1,0 +1,202 @@
+
+
+ida_funcs.FIND_FUNC_DEFINE
+"""
+create instruction if undefined byte is encountered
+"""
+
+ida_funcs.FIND_FUNC_EXIST
+"""
+its bounds are returned in 'nfn'.
+
+function exists already.
+"""
+
+ida_funcs.FIND_FUNC_IGNOREFN
+"""
+ignore existing function boundaries. by default the function returns
+function boundaries if ea belongs to a function.
+"""
+
+ida_funcs.FIND_FUNC_KEEPBD
+"""
+just create instructions inside the boundaries.
+
+do not modify incoming function boundaries,
+"""
+
+ida_funcs.FIND_FUNC_NORMAL
+"""
+stop processing if undefined byte is encountered
+"""
+
+ida_funcs.FIND_FUNC_OK
+"""
+ok, 'nfn' is ready for 'add_func()'
+"""
+
+ida_funcs.FIND_FUNC_UNDEF
+"""
+nfn->end_ea will have the address of the unexplored byte.
+
+function has instructions that pass execution flow to unexplored
+bytes.
+"""
+
+ida_funcs.FUNC_BOTTOMBP
+"""
+BP points to the bottom of the stack frame.
+"""
+
+ida_funcs.FUNC_FAR
+"""
+Far function.
+"""
+
+ida_funcs.FUNC_FRAME
+"""
+Function uses frame pointer (BP)
+"""
+
+ida_funcs.FUNC_FUZZY_SP
+"""
+for example: and esp, 0FFFFFFF0h
+
+Function changes SP in untraceable way,
+"""
+
+ida_funcs.FUNC_HIDDEN
+"""
+A hidden function chunk.
+"""
+
+ida_funcs.FUNC_LIB
+"""
+Library function.
+"""
+
+ida_funcs.FUNC_LUMINA
+"""
+Function info is provided by Lumina.
+"""
+
+ida_funcs.FUNC_NORET
+"""
+Function doesn't return.
+"""
+
+ida_funcs.FUNC_NORET_PENDING
+"""
+This flag is verified upon 'func_does_return()'
+
+Function 'non-return' analysis must be performed.
+"""
+
+ida_funcs.FUNC_PROLOG_OK
+"""
+by last SP-analysis
+
+Prolog analysis has be performed
+"""
+
+ida_funcs.FUNC_PURGED_OK
+"""
+'argsize' field has been validated. If this bit is clear and 'argsize'
+is 0, then we do not known the real number of bytes removed from the
+stack. This bit is handled by the processor module.
+"""
+
+ida_funcs.FUNC_SP_READY
+"""
+SP-analysis has been performed. If this flag is on, the stack change
+points should not be not modified anymore. Currently this analysis is
+performed only for PC
+"""
+
+ida_funcs.FUNC_STATICDEF
+"""
+Static function.
+"""
+
+ida_funcs.FUNC_TAIL
+"""
+This is a function tail. Other bits must be clear (except
+'FUNC_HIDDEN' ).
+"""
+
+ida_funcs.FUNC_THUNK
+"""
+Thunk (jump) function.
+"""
+
+ida_funcs.FUNC_USERFAR
+"""
+of the function
+
+User has specified far-ness
+"""
+
+ida_funcs.IDASGN_APPLIED
+"""
+signature is already applied
+"""
+
+ida_funcs.IDASGN_BADARG
+"""
+bad number of signature
+"""
+
+ida_funcs.IDASGN_CURRENT
+"""
+signature is currently being applied
+"""
+
+ida_funcs.IDASGN_OK
+"""
+ok
+"""
+
+ida_funcs.IDASGN_PLANNED
+"""
+signature is planned to be applied
+"""
+
+ida_funcs.LIBFUNC_DELAY
+"""
+no decision because of lack of information
+"""
+
+ida_funcs.LIBFUNC_FOUND
+"""
+ok, library function is found
+"""
+
+ida_funcs.LIBFUNC_NONE
+"""
+no, this is not a library function
+"""
+
+ida_funcs.MOVE_FUNC_BADSTART
+"""
+bad new start address
+"""
+
+ida_funcs.MOVE_FUNC_NOCODE
+"""
+no instruction at 'newstart'
+"""
+
+ida_funcs.MOVE_FUNC_NOFUNC
+"""
+no function at 'ea'
+"""
+
+ida_funcs.MOVE_FUNC_OK
+"""
+ok
+"""
+
+ida_funcs.MOVE_FUNC_REFUSED
+"""
+a plugin refused the action
+"""

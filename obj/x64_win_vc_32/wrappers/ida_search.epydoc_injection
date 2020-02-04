@@ -1,0 +1,49 @@
+
+
+ida_search.SEARCH_BRK
+"""
+return 'BADADDR' if Ctrl-Break wass pressed during search
+"""
+
+ida_search.SEARCH_CASE
+"""
+case-sensitive search (case-insensitive otherwise)
+"""
+
+ida_search.SEARCH_DOWN
+"""
+search towards higher addresses
+"""
+
+ida_search.SEARCH_IDENT
+"""
+search for an identifier (text search). it means that the characters
+before and after the match can not be is_visible_char().
+"""
+
+ida_search.SEARCH_NEXT
+"""
+for other find_.. functions it is implicitly set
+
+useful only for 'search()' and find_binary().
+"""
+
+ida_search.SEARCH_NOBRK
+"""
+don't test for ctrl-break to interrupt the search
+"""
+
+ida_search.SEARCH_NOSHOW
+"""
+don't display the search progress/refresh screen
+"""
+
+ida_search.SEARCH_REGEX
+"""
+regular expressions in search string (only supported for txt search)
+"""
+
+ida_search.SEARCH_UP
+"""
+search towards lower addresses
+"""

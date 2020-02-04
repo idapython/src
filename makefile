@@ -226,6 +226,7 @@ ifdef __NT__                   # os and compiler specific flags
 
 ifeq ($(PYTHON_VERSION_MAJOR),3)
   _SWIGFLAGS += -DPY3=1
+  CC_DEFS += Py_LIMITED_API=0x03040000 # we should make sure we use the same version as SWiG
 endif
 
   CFLAGS += /bigobj $(_SWIGFLAGS) -I$(ST_SDK) /U_DEBUG
@@ -655,5 +656,5 @@ $(F)python$(O)  : $(I)bitrange.hpp $(I)bytes.hpp $(I)config.hpp             \
                   $(I)ieee.h $(I)kernwin.hpp $(I)lines.hpp $(I)llong.hpp    \
                   $(I)loader.hpp $(I)nalt.hpp $(I)name.hpp $(I)netnode.hpp  \
                   $(I)pro.h $(I)range.hpp $(I)segment.hpp $(I)typeinf.hpp   \
-                  $(I)ua.hpp $(I)xref.hpp python.cpp pywraps.cpp            \
+                  $(I)ua.hpp $(I)xref.hpp idapy.hpp python.cpp pywraps.cpp            \
                   pywraps.hpp

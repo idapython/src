@@ -1,0 +1,93 @@
+
+
+ida_expr.CPL_DEL_MACROS
+"""
+delete macros at the end of compilation
+"""
+
+ida_expr.CPL_ONLY_SAFE
+"""
+allow calls of only thread-safe functions
+"""
+
+ida_expr.CPL_USE_LABELS
+"""
+allow program labels in the script
+"""
+
+ida_expr.IDC_LANG_EXT
+"""
+IDC script extension.
+"""
+
+ida_expr.VARSLICE_SINGLE
+"""
+return single index (i2 is ignored)
+"""
+
+ida_expr.VREF_COPY
+"""
+copy the result to the input var (v)
+"""
+
+ida_expr.VREF_LOOP
+"""
+dereference until we get a non 'VT_REF'
+"""
+
+ida_expr.VREF_ONCE
+"""
+dereference only once, do not loop
+"""
+
+ida_expr.VT_FLOAT
+"""
+Floating point (see 'idc_value_t::e' )
+"""
+
+ida_expr.VT_FUNC
+"""
+Function (see 'idc_value_t::funcidx' )
+"""
+
+ida_expr.VT_INT64
+"""
+i64
+"""
+
+ida_expr.VT_LONG
+"""
+Integer (see 'idc_value_t::num' )
+"""
+
+ida_expr.VT_OBJ
+"""
+Object (see idc_value_t::obj)
+"""
+
+ida_expr.VT_PVOID
+"""
+void *
+"""
+
+ida_expr.VT_REF
+"""
+Reference.
+"""
+
+ida_expr.VT_STR
+"""
+String (see qstr() and similar functions)
+"""
+
+ida_expr.VT_WILD
+"""
+Function with arbitrary number of arguments. The actual number of
+arguments will be passed in 'idc_value_t::num' . This value should not
+be used for 'idc_value_t' .
+"""
+
+ida_expr.eExecThrow
+"""
+See return value of 'idc_func_t' .
+"""

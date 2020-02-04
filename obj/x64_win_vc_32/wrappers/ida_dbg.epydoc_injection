@@ -1,0 +1,357 @@
+
+
+ida_dbg.BKPT_ACTIVE
+"""
+active?
+"""
+
+ida_dbg.BKPT_BADBPT
+"""
+failed to write the bpt to the process memory (at least one location)
+"""
+
+ida_dbg.BKPT_CNDREADY
+"""
+condition has been compiled
+"""
+
+ida_dbg.BKPT_FAKEPEND
+"""
+bpt of the same type is active at the same address(es)
+
+fake pending bpt: it is inactive but another
+"""
+
+ida_dbg.BKPT_LISTBPT
+"""
+include in bpt list (user-defined bpt)
+"""
+
+ida_dbg.BKPT_PAGE
+"""
+only after writing the bpt to the process.
+
+written to the process as a page bpt. is available
+"""
+
+ida_dbg.BKPT_PARTIAL
+"""
+partially active? (some locations were not written yet)
+"""
+
+ida_dbg.BKPT_TRACE
+"""
+trace bpt; should not be deleted when the process gets suspended
+"""
+
+ida_dbg.BPTCK_ACT
+"""
+breakpoint is active (written to the process)
+"""
+
+ida_dbg.BPTCK_NO
+"""
+breakpoint is disabled
+"""
+
+ida_dbg.BPTCK_NONE
+"""
+breakpoint does not exist
+"""
+
+ida_dbg.BPTCK_YES
+"""
+breakpoint is enabled
+"""
+
+ida_dbg.BPTEV_ADDED
+"""
+Breakpoint has been added.
+"""
+
+ida_dbg.BPTEV_CHANGED
+"""
+Breakpoint has been modified.
+"""
+
+ida_dbg.BPTEV_REMOVED
+"""
+Breakpoint has been removed.
+"""
+
+ida_dbg.BPT_BRK
+"""
+suspend execution upon hit
+"""
+
+ida_dbg.BPT_ELANG_SHIFT
+"""
+index of the extlang (scripting language) of the condition
+"""
+
+ida_dbg.BPT_ENABLED
+"""
+enabled?
+"""
+
+ida_dbg.BPT_LOWCND
+"""
+condition is calculated at low level (on the server side)
+"""
+
+ida_dbg.BPT_TRACE
+"""
+add trace information upon hit
+"""
+
+ida_dbg.BPT_TRACEON
+"""
+enable tracing when the breakpoint is reached
+"""
+
+ida_dbg.BPT_TRACE_BBLK
+"""
+basic block tracing
+"""
+
+ida_dbg.BPT_TRACE_FUNC
+"""
+function tracing
+"""
+
+ida_dbg.BPT_TRACE_INSN
+"""
+instruction tracing
+"""
+
+ida_dbg.BPT_TRACE_TYPES
+"""
+trace insns, functions, and basic blocks. if any of 'BPT_TRACE_TYPES'
+bits are set but 'BPT_TRACEON' is clear, then turn off tracing for the
+specified trace types
+"""
+
+ida_dbg.BPT_UPDMEM
+"""
+refresh the memory layout and contents before evaluating bpt condition
+"""
+
+ida_dbg.BT_LOG_INSTS
+"""
+log all instructions in the current basic block
+"""
+
+ida_dbg.DBGINV_ALL
+"""
+invalidate everything
+"""
+
+ida_dbg.DBGINV_MEMCFG
+"""
+invalidate cached process segmentation
+"""
+
+ida_dbg.DBGINV_MEMORY
+"""
+invalidate cached memory contents
+"""
+
+ida_dbg.DBGINV_NONE
+"""
+invalidate nothing
+"""
+
+ida_dbg.DBGINV_REDRAW
+"""
+refresh the screen
+"""
+
+ida_dbg.DBGINV_REGS
+"""
+invalidate cached register values
+"""
+
+ida_dbg.DOPT_BPT_MSGS
+"""
+log breakpoints
+"""
+
+ida_dbg.DOPT_END_BPT
+"""
+evaluate event condition on process end
+"""
+
+ida_dbg.DOPT_ENTRY_BPT
+"""
+break on program entry point
+"""
+
+ida_dbg.DOPT_EXCDLG
+"""
+exception dialogs:
+"""
+
+ida_dbg.DOPT_INFO_BPT
+"""
+break on debugging information
+"""
+
+ida_dbg.DOPT_INFO_MSGS
+"""
+log debugging info events
+"""
+
+ida_dbg.DOPT_LIB_BPT
+"""
+break on library load/unload
+"""
+
+ida_dbg.DOPT_LIB_MSGS
+"""
+log library loads/unloads
+"""
+
+ida_dbg.DOPT_LOAD_DINFO
+"""
+automatically load debug files (pdb)
+"""
+
+ida_dbg.DOPT_REAL_MEMORY
+"""
+do not hide breakpoint instructions
+"""
+
+ida_dbg.DOPT_REDO_STACK
+"""
+reconstruct the stack
+"""
+
+ida_dbg.DOPT_SEGM_MSGS
+"""
+log debugger segments modifications
+"""
+
+ida_dbg.DOPT_START_BPT
+"""
+break on process start
+"""
+
+ida_dbg.DOPT_TEMP_HWBPT
+"""
+when possible use hardware bpts for temp bpts
+"""
+
+ida_dbg.DOPT_THREAD_BPT
+"""
+break on thread start/exit
+"""
+
+ida_dbg.DOPT_THREAD_MSGS
+"""
+log thread starts/exits
+"""
+
+ida_dbg.DSTATE_NOTASK
+"""
+no process is currently debugged
+"""
+
+ida_dbg.DSTATE_RUN
+"""
+process is running
+"""
+
+ida_dbg.DSTATE_SUSP
+"""
+process is suspended and will not continue
+"""
+
+ida_dbg.EXCDLG_ALWAYS
+"""
+always display
+"""
+
+ida_dbg.EXCDLG_NEVER
+"""
+never display exception dialogs
+"""
+
+ida_dbg.EXCDLG_UNKNOWN
+"""
+display for unknown exceptions
+"""
+
+ida_dbg.FT_LOG_RET
+"""
+function tracing will log returning instructions
+"""
+
+ida_dbg.IT_LOG_SAME_IP
+"""
+instruction tracing will log instructions whose IP doesn't change
+"""
+
+ida_dbg.ST_ALREADY_LOGGED
+"""
+step tracing will be disabled when IP is already logged
+"""
+
+ida_dbg.ST_DIFFERENTIAL
+"""
+tracing: log only new instructions
+"""
+
+ida_dbg.ST_OPTIONS_MASK
+"""
+mask of available options, to ensure compatibility with newer IDA
+versions
+"""
+
+ida_dbg.ST_OVER_DEBUG_SEG
+"""
+step tracing will be disabled when IP is in a debugger segment
+"""
+
+ida_dbg.ST_OVER_LIB_FUNC
+"""
+step tracing will be disabled when IP is in a library function
+"""
+
+ida_dbg.ST_SKIP_LOOPS
+"""
+step tracing will try to skip loops already recorded
+"""
+
+ida_dbg.WFNE_ANY
+"""
+return the first event (even if it doesn't suspend the process)
+"""
+
+ida_dbg.WFNE_CONT
+"""
+continue from the suspended state
+"""
+
+ida_dbg.WFNE_NOWAIT
+"""
+(to be used with 'WFNE_CONT' )
+
+do not wait for any event, immediately return 'DEC_TIMEOUT'
+"""
+
+ida_dbg.WFNE_SILENT
+"""
+1: be slient, 0:display modal boxes if necessary
+"""
+
+ida_dbg.WFNE_SUSP
+"""
+wait until the process gets suspended
+"""
+
+ida_dbg.WFNE_USEC
+"""
+(minimum non-zero timeout is 40000us)
+
+timeout is specified in microseconds
+"""
